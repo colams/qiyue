@@ -2,15 +2,15 @@ package com.foxconn.sw.data.dto.entity.oa;
 
 public class TaskStatusChangeParams {
 
-    private String taskId;
+    private Integer taskId;
     private String taskStatus;
     private String remark;
 
-    public String getTaskId() {
+    public Integer getTaskId() {
         return taskId;
     }
 
-    public void setTaskId(String taskId) {
+    public void setTaskId(Integer taskId) {
         this.taskId = taskId;
     }
 

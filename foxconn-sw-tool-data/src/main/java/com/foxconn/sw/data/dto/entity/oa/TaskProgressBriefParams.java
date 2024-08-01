@@ -1,7 +1,10 @@
 package com.foxconn.sw.data.dto.entity.oa;
 
+import jakarta.validation.constraints.NotNull;
+
 public class TaskProgressBriefParams {
 
+    @NotNull
     private Integer taskId;
 
     private String resourceIds;
@@ -9,6 +12,8 @@ public class TaskProgressBriefParams {
     private String content;
 
     private String remark;
+
+    private Integer progress;
 
     public Integer getTaskId() {
         return taskId;
@@ -40,5 +45,13 @@ public class TaskProgressBriefParams {
 
     public void setRemark(String remark) {
         this.remark = remark;
+    }
+
+    public Integer getProgress() {
+        return progress;
+    }
+
+    public void setProgress(Integer progress) {
+        this.progress = progress;
     }
 }

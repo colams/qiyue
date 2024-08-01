@@ -35,9 +35,13 @@ public class TaskController {
     @Autowired
     AssignTaskProcessor assignTaskProcessor;
     @Autowired
-    AddProgressProcessor addProgressProcessor;
+    UpdateProgressProcessor updateProgressProcessor;
     @Autowired
     StatusUpdateProcessor statusUpdateProcessor;
+    @Autowired
+    EvaluateProcessor evaluateProcessor;
+    @Autowired
+    RejectTaskProcessor rejectTaskProcessor;
 
     @Operation(summary = "任务列表", tags = TagsConstants.OA)
     @ApiResponse(responseCode = "0", description = "成功码")
@@ -79,31 +83,31 @@ public class TaskController {
     @PostMapping("/assign")
     public Response assignTask(@RequestBody Request<TaskAssignParams> request) {
         boolean result = assignTaskProcessor.assignTask(request.getData(), request.getHead());
-        return ResponseUtils.success(request, request.getTraceId());
+        return ResponseUtils.success(result, request.getTraceId());
     }
 
     @Operation(summary = "任务更新-追加任务进度和说明信息", tags = TagsConstants.OA)
     @ApiResponse(responseCode = "0", description = "成功码")
-    @PostMapping("/update/process")
-    public Response addProgress(@RequestBody Request<TaskProgressBriefParams> request) {
-        boolean result = addProgressProcessor.addProgress(request.getData(), request.getHead());
-        return ResponseUtils.success(request, request.getTraceId());
+    @PostMapping("/updateProgress")
+    public Response updateProgress(@RequestBody Request<TaskProgressBriefParams> request) {
+        boolean result = updateProgressProcessor.updateProgress(request.getData(), request.getHead());
+        return ResponseUtils.success(result, request.getTraceId());
     }
 
-    @Operation(summary = "状态更新，包括驳回验收通过等相关操作", tags = TagsConstants.OA)
+    @Operation(summary = "task任务打分评价", tags = TagsConstants.OA)
     @ApiResponse(responseCode = "0", description = "成功码")
-    @PostMapping("/status")
-    public Response statusUpdate(@RequestBody Request<TaskStatusChangeParams> request) {
-        boolean result = statusUpdateProcessor.statusUpdate(request.getData(), request.getHead());
-        return ResponseUtils.success(request, request.getTraceId());
+    @PostMapping("/evaluate")
+    public Response evaluate(@RequestBody Request<TaskEvaluateParams> request) {
+        boolean result = evaluateProcessor.evaluate(request.getData(), request.getHead());
+        return ResponseUtils.success(result, request.getTraceId());
     }
 
-    @Operation(summary = "状态更新，包括驳回验收通过等相关操作", tags = TagsConstants.OA)
+    @Operation(summary = "完成任务", tags = TagsConstants.OA)
     @ApiResponse(responseCode = "0", description = "成功码")
-    @PostMapping("/status")
-    public Response statusUpdate(@RequestBody Request<TaskStatusChangeParams> request) {
-        boolean result = statusUpdateProcessor.statusUpdate(request.getData(), request.getHead());
-        return ResponseUtils.success(request, request.getTraceId());
+    @PostMapping("/achieve")
+    public Response achieve(@RequestBody Request<TaskRejectParams> request) {
+        boolean result = rejectTaskProcessor.reject(request.getData(), request.getHead());
+        return ResponseUtils.success(result, request.getTraceId());
     }
 
 

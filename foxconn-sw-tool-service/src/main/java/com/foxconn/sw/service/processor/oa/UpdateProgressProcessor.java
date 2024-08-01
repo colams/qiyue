@@ -5,10 +5,10 @@ import com.foxconn.sw.data.dto.entity.oa.TaskProgressBriefParams;
 import org.springframework.stereotype.Component;
 
 @Component
-public class AddProgressProcessor {
+public class UpdateProgressProcessor {
 
 
-    public boolean addProgress(TaskProgressBriefParams data, Header head) {
+    public boolean updateProgress(TaskProgressBriefParams data, Header head) {
         return false;
     }
 }
