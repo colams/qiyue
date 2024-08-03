@@ -6,7 +6,9 @@ public class TaskEntityVo {
 
     private TaskDetailVo taskDetailVo;
 
-    private List<TaskProgressVo> taskLogList;
+    private List<TaskProgressVo> taskProgressVos;
+
+    private List<TaskLogVo> taskLogVos;
 
     public TaskDetailVo getTaskDetailVo() {
         return taskDetailVo;
@@ -16,11 +18,19 @@ public class TaskEntityVo {
         this.taskDetailVo = taskDetailVo;
     }
 
-    public List<TaskProgressVo> getTaskLogList() {
-        return taskLogList;
+    public List<TaskProgressVo> getTaskProgressVos() {
+        return taskProgressVos;
     }
 
-    public void setTaskLogList(List<TaskProgressVo> taskLogList) {
-        this.taskLogList = taskLogList;
+    public void setTaskProgressVos(List<TaskProgressVo> taskProgressVos) {
+        this.taskProgressVos = taskProgressVos;
+    }
+
+    public List<TaskLogVo> getTaskLogVos() {
+        return taskLogVos;
+    }
+
+    public void setTaskLogVos(List<TaskLogVo> taskLogVos) {
+        this.taskLogVos = taskLogVos;
     }
 }

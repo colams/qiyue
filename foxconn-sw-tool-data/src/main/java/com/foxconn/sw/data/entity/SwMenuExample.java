@@ -165,66 +165,6 @@ public class SwMenuExample {
             return (Criteria) this;
         }
 
-        public Criteria andModuleNoIsNull() {
-            addCriterion("module_no is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andModuleNoIsNotNull() {
-            addCriterion("module_no is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andModuleNoEqualTo(Integer value) {
-            addCriterion("module_no =", value, "moduleNo");
-            return (Criteria) this;
-        }
-
-        public Criteria andModuleNoNotEqualTo(Integer value) {
-            addCriterion("module_no <>", value, "moduleNo");
-            return (Criteria) this;
-        }
-
-        public Criteria andModuleNoGreaterThan(Integer value) {
-            addCriterion("module_no >", value, "moduleNo");
-            return (Criteria) this;
-        }
-
-        public Criteria andModuleNoGreaterThanOrEqualTo(Integer value) {
-            addCriterion("module_no >=", value, "moduleNo");
-            return (Criteria) this;
-        }
-
-        public Criteria andModuleNoLessThan(Integer value) {
-            addCriterion("module_no <", value, "moduleNo");
-            return (Criteria) this;
-        }
-
-        public Criteria andModuleNoLessThanOrEqualTo(Integer value) {
-            addCriterion("module_no <=", value, "moduleNo");
-            return (Criteria) this;
-        }
-
-        public Criteria andModuleNoIn(List<Integer> values) {
-            addCriterion("module_no in", values, "moduleNo");
-            return (Criteria) this;
-        }
-
-        public Criteria andModuleNoNotIn(List<Integer> values) {
-            addCriterion("module_no not in", values, "moduleNo");
-            return (Criteria) this;
-        }
-
-        public Criteria andModuleNoBetween(Integer value1, Integer value2) {
-            addCriterion("module_no between", value1, value2, "moduleNo");
-            return (Criteria) this;
-        }
-
-        public Criteria andModuleNoNotBetween(Integer value1, Integer value2) {
-            addCriterion("module_no not between", value1, value2, "moduleNo");
-            return (Criteria) this;
-        }
-
         public Criteria andMenuNameIsNull() {
             addCriterion("menu_name is null");
             return (Criteria) this;
@@ -432,6 +372,126 @@ public class SwMenuExample {
 
         public Criteria andRouteNotBetween(String value1, String value2) {
             addCriterion("route not between", value1, value2, "route");
+            return (Criteria) this;
+        }
+
+        public Criteria andModuleNoIsNull() {
+            addCriterion("module_no is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andModuleNoIsNotNull() {
+            addCriterion("module_no is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andModuleNoEqualTo(Integer value) {
+            addCriterion("module_no =", value, "moduleNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andModuleNoNotEqualTo(Integer value) {
+            addCriterion("module_no <>", value, "moduleNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andModuleNoGreaterThan(Integer value) {
+            addCriterion("module_no >", value, "moduleNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andModuleNoGreaterThanOrEqualTo(Integer value) {
+            addCriterion("module_no >=", value, "moduleNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andModuleNoLessThan(Integer value) {
+            addCriterion("module_no <", value, "moduleNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andModuleNoLessThanOrEqualTo(Integer value) {
+            addCriterion("module_no <=", value, "moduleNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andModuleNoIn(List<Integer> values) {
+            addCriterion("module_no in", values, "moduleNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andModuleNoNotIn(List<Integer> values) {
+            addCriterion("module_no not in", values, "moduleNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andModuleNoBetween(Integer value1, Integer value2) {
+            addCriterion("module_no between", value1, value2, "moduleNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andModuleNoNotBetween(Integer value1, Integer value2) {
+            addCriterion("module_no not between", value1, value2, "moduleNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsModuleIndexIsNull() {
+            addCriterion("is_module_index is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsModuleIndexIsNotNull() {
+            addCriterion("is_module_index is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsModuleIndexEqualTo(Integer value) {
+            addCriterion("is_module_index =", value, "isModuleIndex");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsModuleIndexNotEqualTo(Integer value) {
+            addCriterion("is_module_index <>", value, "isModuleIndex");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsModuleIndexGreaterThan(Integer value) {
+            addCriterion("is_module_index >", value, "isModuleIndex");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsModuleIndexGreaterThanOrEqualTo(Integer value) {
+            addCriterion("is_module_index >=", value, "isModuleIndex");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsModuleIndexLessThan(Integer value) {
+            addCriterion("is_module_index <", value, "isModuleIndex");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsModuleIndexLessThanOrEqualTo(Integer value) {
+            addCriterion("is_module_index <=", value, "isModuleIndex");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsModuleIndexIn(List<Integer> values) {
+            addCriterion("is_module_index in", values, "isModuleIndex");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsModuleIndexNotIn(List<Integer> values) {
+            addCriterion("is_module_index not in", values, "isModuleIndex");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsModuleIndexBetween(Integer value1, Integer value2) {
+            addCriterion("is_module_index between", value1, value2, "isModuleIndex");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsModuleIndexNotBetween(Integer value1, Integer value2) {
+            addCriterion("is_module_index not between", value1, value2, "isModuleIndex");
             return (Criteria) this;
         }
 

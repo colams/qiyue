@@ -1,4 +1,4 @@
-package com.foxconn.sw.business.auth;
+package com.foxconn.sw.business.account;
 
 import com.foxconn.sw.data.entity.SwUserLogin;
 import com.foxconn.sw.data.entity.SwUserLoginExample;

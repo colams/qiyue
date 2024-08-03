@@ -17,6 +17,22 @@ public class Swagger {
         return new OpenAPI().info(info);
     }
 
+//    @Bean
+//    public List<GroupedOpenApi> groupedOpenApis() {
+//        List<GroupedOpenApi> groupedOpenApis = new ArrayList<>();
+//
+//        groupedOpenApis.add(createGroupedOpenApi(TagsConstants.OA));
+//        groupedOpenApis.add(createGroupedOpenApi(TagsConstants.MENU));
+//        groupedOpenApis.add(createGroupedOpenApi(TagsConstants.ROUTE));
+//        groupedOpenApis.add(createGroupedOpenApi(TagsConstants.ACCOUNT));
+//        groupedOpenApis.add(createGroupedOpenApi(TagsConstants.TOOL));
+//        groupedOpenApis.add(createGroupedOpenApi(TagsConstants.UNIVERSAL));
+//        groupedOpenApis.add(createGroupedOpenApi(TagsConstants.ANNOUNCEMENT));
+//        groupedOpenApis.add(createGroupedOpenApi(TagsConstants.SYSTEM));
+//
+//        return groupedOpenApis;
+//    }
+
     @Bean
     public GroupedOpenApi oaApi() {
         return createGroupedOpenApi(TagsConstants.OA);
@@ -50,6 +66,11 @@ public class Swagger {
     @Bean
     public GroupedOpenApi announcementApi() {
         return createGroupedOpenApi(TagsConstants.ANNOUNCEMENT);
+    }
+
+    @Bean
+    public GroupedOpenApi systemApi() {
+        return createGroupedOpenApi(TagsConstants.SYSTEM);
     }
 
     private GroupedOpenApi createGroupedOpenApi(String group) {

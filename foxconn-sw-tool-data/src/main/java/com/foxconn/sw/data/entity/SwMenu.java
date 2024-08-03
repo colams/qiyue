@@ -5,13 +5,15 @@ import java.time.LocalDateTime;
 public class SwMenu {
     private Integer id;
 
-    private Integer moduleNo;
-
     private String menuName;
 
     private String menuUrl;
 
     private String route;
+
+    private Integer moduleNo;
+
+    private Integer isModuleIndex;
 
     private Integer isMenu;
 
@@ -36,19 +38,6 @@ public class SwMenu {
 
     public void setId(Integer id) {
         this.id = id;
-    }
-
-    public Integer getModuleNo() {
-        return moduleNo;
-    }
-
-    public SwMenu withModuleNo(Integer moduleNo) {
-        this.setModuleNo(moduleNo);
-        return this;
-    }
-
-    public void setModuleNo(Integer moduleNo) {
-        this.moduleNo = moduleNo;
     }
 
     public String getMenuName() {
@@ -88,6 +77,32 @@ public class SwMenu {
 
     public void setRoute(String route) {
         this.route = route == null ? null : route.trim();
+    }
+
+    public Integer getModuleNo() {
+        return moduleNo;
+    }
+
+    public SwMenu withModuleNo(Integer moduleNo) {
+        this.setModuleNo(moduleNo);
+        return this;
+    }
+
+    public void setModuleNo(Integer moduleNo) {
+        this.moduleNo = moduleNo;
+    }
+
+    public Integer getIsModuleIndex() {
+        return isModuleIndex;
+    }
+
+    public SwMenu withIsModuleIndex(Integer isModuleIndex) {
+        this.setIsModuleIndex(isModuleIndex);
+        return this;
+    }
+
+    public void setIsModuleIndex(Integer isModuleIndex) {
+        this.isModuleIndex = isModuleIndex;
     }
 
     public Integer getIsMenu() {

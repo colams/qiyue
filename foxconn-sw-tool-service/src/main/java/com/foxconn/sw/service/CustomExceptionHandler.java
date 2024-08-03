@@ -3,7 +3,7 @@ package com.foxconn.sw.service;
 import com.foxconn.sw.common.utils.JsonUtils;
 import com.foxconn.sw.common.utils.UUIDUtils;
 import com.foxconn.sw.data.dto.Response;
-import com.foxconn.sw.data.constants.enums.RetCode;
+import com.foxconn.sw.data.constants.enums.retcode.RetCode;
 import com.foxconn.sw.data.exception.BizException;
 import com.foxconn.sw.service.utils.ResponseUtils;
 import org.slf4j.Logger;

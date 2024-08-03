@@ -35,9 +35,9 @@ public interface SwAppendResourceMapper {
 
     @Insert({
         "insert into sw_append_resource (source_type, file_path, ",
-        "datetime_lastchange)",
+        "operator, datetime_lastchange)",
         "values (#{sourceType,jdbcType=INTEGER}, #{filePath,jdbcType=VARCHAR}, ",
-        "#{datetimeLastchange,jdbcType=TIMESTAMP})"
+        "#{operator,jdbcType=VARCHAR}, #{datetimeLastchange,jdbcType=TIMESTAMP})"
     })
     @SelectKey(statement="SELECT LAST_INSERT_ID()", keyProperty="id", before=false, resultType=Integer.class)
     int insert(SwAppendResource record);
@@ -51,6 +51,7 @@ public interface SwAppendResourceMapper {
         @Result(column="id", property="id", jdbcType=JdbcType.INTEGER, id=true),
         @Result(column="source_type", property="sourceType", jdbcType=JdbcType.INTEGER),
         @Result(column="file_path", property="filePath", jdbcType=JdbcType.VARCHAR),
+        @Result(column="operator", property="operator", jdbcType=JdbcType.VARCHAR),
         @Result(column="datetime_lastchange", property="datetimeLastchange", jdbcType=JdbcType.TIMESTAMP)
     })
     List<SwAppendResource> selectByExampleWithRowbounds(SwAppendResourceExample example, RowBounds rowBounds);
@@ -60,13 +61,14 @@ public interface SwAppendResourceMapper {
         @Result(column="id", property="id", jdbcType=JdbcType.INTEGER, id=true),
         @Result(column="source_type", property="sourceType", jdbcType=JdbcType.INTEGER),
         @Result(column="file_path", property="filePath", jdbcType=JdbcType.VARCHAR),
+        @Result(column="operator", property="operator", jdbcType=JdbcType.VARCHAR),
         @Result(column="datetime_lastchange", property="datetimeLastchange", jdbcType=JdbcType.TIMESTAMP)
     })
     List<SwAppendResource> selectByExample(SwAppendResourceExample example);
 
     @Select({
         "select",
-        "id, source_type, file_path, datetime_lastchange",
+        "id, source_type, file_path, operator, datetime_lastchange",
         "from sw_append_resource",
         "where id = #{id,jdbcType=INTEGER}"
     })
@@ -74,6 +76,7 @@ public interface SwAppendResourceMapper {
         @Result(column="id", property="id", jdbcType=JdbcType.INTEGER, id=true),
         @Result(column="source_type", property="sourceType", jdbcType=JdbcType.INTEGER),
         @Result(column="file_path", property="filePath", jdbcType=JdbcType.VARCHAR),
+        @Result(column="operator", property="operator", jdbcType=JdbcType.VARCHAR),
         @Result(column="datetime_lastchange", property="datetimeLastchange", jdbcType=JdbcType.TIMESTAMP)
     })
     SwAppendResource selectByPrimaryKey(Integer id);
@@ -91,6 +94,7 @@ public interface SwAppendResourceMapper {
         "update sw_append_resource",
         "set source_type = #{sourceType,jdbcType=INTEGER},",
           "file_path = #{filePath,jdbcType=VARCHAR},",
+          "operator = #{operator,jdbcType=VARCHAR},",
           "datetime_lastchange = #{datetimeLastchange,jdbcType=TIMESTAMP}",
         "where id = #{id,jdbcType=INTEGER}"
     })

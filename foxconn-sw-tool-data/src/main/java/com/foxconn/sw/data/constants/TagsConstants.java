@@ -13,7 +13,8 @@ public interface TagsConstants {
     String OA = "oa";
     String UNIVERSAL = "universal";
     String ANNOUNCEMENT = "announcement";
+    String SYSTEM = "system";
 
-    List<String> tagList = Lists.newArrayList(TOOL, ACCOUNT, ROUTE, MENU, OA, UNIVERSAL, ANNOUNCEMENT);
+    List<String> tagList = Lists.newArrayList(TOOL, ACCOUNT, ROUTE, MENU, OA, UNIVERSAL, ANNOUNCEMENT, SYSTEM);
 
 }

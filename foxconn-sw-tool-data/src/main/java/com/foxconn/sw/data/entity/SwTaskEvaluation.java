@@ -7,6 +7,8 @@ public class SwTaskEvaluation {
 
     private Integer taskId;
 
+    private String operator;
+
     private Integer completion;
 
     private Integer efficiency;
@@ -41,6 +43,19 @@ public class SwTaskEvaluation {
 
     public void setTaskId(Integer taskId) {
         this.taskId = taskId;
+    }
+
+    public String getOperator() {
+        return operator;
+    }
+
+    public SwTaskEvaluation withOperator(String operator) {
+        this.setOperator(operator);
+        return this;
+    }
+
+    public void setOperator(String operator) {
+        this.operator = operator == null ? null : operator.trim();
     }
 
     public Integer getCompletion() {

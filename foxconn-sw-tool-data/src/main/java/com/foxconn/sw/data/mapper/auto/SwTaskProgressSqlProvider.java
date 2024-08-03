@@ -40,12 +40,12 @@ public class SwTaskProgressSqlProvider {
             sql.VALUES("resource_ids", "#{resourceIds,jdbcType=VARCHAR}");
         }
         
-        if (record.getContent() != null) {
-            sql.VALUES("content", "#{content,jdbcType=VARCHAR}");
+        if (record.getProgress() != null) {
+            sql.VALUES("progress", "#{progress,jdbcType=INTEGER}");
         }
         
-        if (record.getRemark() != null) {
-            sql.VALUES("remark", "#{remark,jdbcType=VARCHAR}");
+        if (record.getContent() != null) {
+            sql.VALUES("content", "#{content,jdbcType=VARCHAR}");
         }
         
         if (record.getDatetimeLastchange() != null) {
@@ -65,8 +65,8 @@ public class SwTaskProgressSqlProvider {
         sql.SELECT("task_id");
         sql.SELECT("operate_eid");
         sql.SELECT("resource_ids");
+        sql.SELECT("progress");
         sql.SELECT("content");
-        sql.SELECT("remark");
         sql.SELECT("datetime_lastchange");
         sql.FROM("sw_task_progress");
         applyWhere(sql, example, false);
@@ -101,12 +101,12 @@ public class SwTaskProgressSqlProvider {
             sql.SET("resource_ids = #{record.resourceIds,jdbcType=VARCHAR}");
         }
         
-        if (record.getContent() != null) {
-            sql.SET("content = #{record.content,jdbcType=VARCHAR}");
+        if (record.getProgress() != null) {
+            sql.SET("progress = #{record.progress,jdbcType=INTEGER}");
         }
         
-        if (record.getRemark() != null) {
-            sql.SET("remark = #{record.remark,jdbcType=VARCHAR}");
+        if (record.getContent() != null) {
+            sql.SET("content = #{record.content,jdbcType=VARCHAR}");
         }
         
         if (record.getDatetimeLastchange() != null) {
@@ -125,8 +125,8 @@ public class SwTaskProgressSqlProvider {
         sql.SET("task_id = #{record.taskId,jdbcType=INTEGER}");
         sql.SET("operate_eid = #{record.operateEid,jdbcType=VARCHAR}");
         sql.SET("resource_ids = #{record.resourceIds,jdbcType=VARCHAR}");
+        sql.SET("progress = #{record.progress,jdbcType=INTEGER}");
         sql.SET("content = #{record.content,jdbcType=VARCHAR}");
-        sql.SET("remark = #{record.remark,jdbcType=VARCHAR}");
         sql.SET("datetime_lastchange = #{record.datetimeLastchange,jdbcType=TIMESTAMP}");
         
         SwTaskProgressExample example = (SwTaskProgressExample) parameter.get("example");
@@ -150,12 +150,12 @@ public class SwTaskProgressSqlProvider {
             sql.SET("resource_ids = #{resourceIds,jdbcType=VARCHAR}");
         }
         
-        if (record.getContent() != null) {
-            sql.SET("content = #{content,jdbcType=VARCHAR}");
+        if (record.getProgress() != null) {
+            sql.SET("progress = #{progress,jdbcType=INTEGER}");
         }
         
-        if (record.getRemark() != null) {
-            sql.SET("remark = #{remark,jdbcType=VARCHAR}");
+        if (record.getContent() != null) {
+            sql.SET("content = #{content,jdbcType=VARCHAR}");
         }
         
         if (record.getDatetimeLastchange() != null) {

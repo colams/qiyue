@@ -11,9 +11,9 @@ public class SwTaskProgress {
 
     private String resourceIds;
 
-    private String content;
+    private Integer progress;
 
-    private String remark;
+    private String content;
 
     private LocalDateTime datetimeLastchange;
 
@@ -69,6 +69,19 @@ public class SwTaskProgress {
         this.resourceIds = resourceIds == null ? null : resourceIds.trim();
     }
 
+    public Integer getProgress() {
+        return progress;
+    }
+
+    public SwTaskProgress withProgress(Integer progress) {
+        this.setProgress(progress);
+        return this;
+    }
+
+    public void setProgress(Integer progress) {
+        this.progress = progress;
+    }
+
     public String getContent() {
         return content;
     }
@@ -80,19 +93,6 @@ public class SwTaskProgress {
 
     public void setContent(String content) {
         this.content = content == null ? null : content.trim();
-    }
-
-    public String getRemark() {
-        return remark;
-    }
-
-    public SwTaskProgress withRemark(String remark) {
-        this.setRemark(remark);
-        return this;
-    }
-
-    public void setRemark(String remark) {
-        this.remark = remark == null ? null : remark.trim();
     }
 
     public LocalDateTime getDatetimeLastchange() {

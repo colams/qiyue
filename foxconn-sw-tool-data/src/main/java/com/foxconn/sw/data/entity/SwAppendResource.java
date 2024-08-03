@@ -9,6 +9,8 @@ public class SwAppendResource {
 
     private String filePath;
 
+    private String operator;
+
     private LocalDateTime datetimeLastchange;
 
     public Integer getId() {
@@ -48,6 +50,19 @@ public class SwAppendResource {
 
     public void setFilePath(String filePath) {
         this.filePath = filePath == null ? null : filePath.trim();
+    }
+
+    public String getOperator() {
+        return operator;
+    }
+
+    public SwAppendResource withOperator(String operator) {
+        this.setOperator(operator);
+        return this;
+    }
+
+    public void setOperator(String operator) {
+        this.operator = operator == null ? null : operator.trim();
     }
 
     public LocalDateTime getDatetimeLastchange() {

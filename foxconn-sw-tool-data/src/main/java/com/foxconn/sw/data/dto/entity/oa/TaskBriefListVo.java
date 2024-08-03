@@ -1,8 +1,11 @@
 package com.foxconn.sw.data.dto.entity.oa;
 
-import java.time.LocalDateTime;
+import com.foxconn.sw.data.dto.entity.common.OperateEntity;
 
-public class TaskBriefVo {
+import java.time.LocalDateTime;
+import java.util.List;
+
+public class TaskBriefListVo {
 
     /**
      * 表主键ID
@@ -33,6 +36,11 @@ public class TaskBriefVo {
      * 优先等级
      */
     private String level;
+
+    /**
+     * 处理进度
+     */
+    private int progressPercent;
 
     /**
      * 状态
@@ -68,6 +76,11 @@ public class TaskBriefVo {
      * 任务创建时间 YYYY-MM-DD HH:mm:ss
      */
     private LocalDateTime createTime;
+
+    /**
+     * 支持的操作列表
+     */
+    private List<OperateEntity> operateList;
 
     public Integer getId() {
         return id;
@@ -115,6 +128,14 @@ public class TaskBriefVo {
 
     public void setLevel(String level) {
         this.level = level;
+    }
+
+    public int getProgressPercent() {
+        return progressPercent;
+    }
+
+    public void setProgressPercent(int progressPercent) {
+        this.progressPercent = progressPercent;
     }
 
     public Integer getStatus() {
@@ -171,5 +192,13 @@ public class TaskBriefVo {
 
     public void setCreateTime(LocalDateTime createTime) {
         this.createTime = createTime;
+    }
+
+    public List<OperateEntity> getOperateList() {
+        return operateList;
+    }
+
+    public void setOperateList(List<OperateEntity> operateList) {
+        this.operateList = operateList;
     }
 }

@@ -34,12 +34,14 @@ public interface SwTaskEvaluationMapper {
     int deleteByPrimaryKey(Integer id);
 
     @Insert({
-        "insert into sw_task_evaluation (task_id, completion, ",
-        "efficiency, quality, ",
-        "content, create_time)",
-        "values (#{taskId,jdbcType=INTEGER}, #{completion,jdbcType=INTEGER}, ",
-        "#{efficiency,jdbcType=INTEGER}, #{quality,jdbcType=INTEGER}, ",
-        "#{content,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP})"
+        "insert into sw_task_evaluation (task_id, operator, ",
+        "completion, efficiency, ",
+        "quality, content, ",
+        "create_time)",
+        "values (#{taskId,jdbcType=INTEGER}, #{operator,jdbcType=VARCHAR}, ",
+        "#{completion,jdbcType=INTEGER}, #{efficiency,jdbcType=INTEGER}, ",
+        "#{quality,jdbcType=INTEGER}, #{content,jdbcType=VARCHAR}, ",
+        "#{createTime,jdbcType=TIMESTAMP})"
     })
     @SelectKey(statement="SELECT LAST_INSERT_ID()", keyProperty="id", before=false, resultType=Integer.class)
     int insert(SwTaskEvaluation record);
@@ -52,6 +54,7 @@ public interface SwTaskEvaluationMapper {
     @Results({
         @Result(column="id", property="id", jdbcType=JdbcType.INTEGER, id=true),
         @Result(column="task_id", property="taskId", jdbcType=JdbcType.INTEGER),
+        @Result(column="operator", property="operator", jdbcType=JdbcType.VARCHAR),
         @Result(column="completion", property="completion", jdbcType=JdbcType.INTEGER),
         @Result(column="efficiency", property="efficiency", jdbcType=JdbcType.INTEGER),
         @Result(column="quality", property="quality", jdbcType=JdbcType.INTEGER),
@@ -64,6 +67,7 @@ public interface SwTaskEvaluationMapper {
     @Results({
         @Result(column="id", property="id", jdbcType=JdbcType.INTEGER, id=true),
         @Result(column="task_id", property="taskId", jdbcType=JdbcType.INTEGER),
+        @Result(column="operator", property="operator", jdbcType=JdbcType.VARCHAR),
         @Result(column="completion", property="completion", jdbcType=JdbcType.INTEGER),
         @Result(column="efficiency", property="efficiency", jdbcType=JdbcType.INTEGER),
         @Result(column="quality", property="quality", jdbcType=JdbcType.INTEGER),
@@ -74,13 +78,14 @@ public interface SwTaskEvaluationMapper {
 
     @Select({
         "select",
-        "id, task_id, completion, efficiency, quality, content, create_time",
+        "id, task_id, operator, completion, efficiency, quality, content, create_time",
         "from sw_task_evaluation",
         "where id = #{id,jdbcType=INTEGER}"
     })
     @Results({
         @Result(column="id", property="id", jdbcType=JdbcType.INTEGER, id=true),
         @Result(column="task_id", property="taskId", jdbcType=JdbcType.INTEGER),
+        @Result(column="operator", property="operator", jdbcType=JdbcType.VARCHAR),
         @Result(column="completion", property="completion", jdbcType=JdbcType.INTEGER),
         @Result(column="efficiency", property="efficiency", jdbcType=JdbcType.INTEGER),
         @Result(column="quality", property="quality", jdbcType=JdbcType.INTEGER),
@@ -101,6 +106,7 @@ public interface SwTaskEvaluationMapper {
     @Update({
         "update sw_task_evaluation",
         "set task_id = #{taskId,jdbcType=INTEGER},",
+          "operator = #{operator,jdbcType=VARCHAR},",
           "completion = #{completion,jdbcType=INTEGER},",
           "efficiency = #{efficiency,jdbcType=INTEGER},",
           "quality = #{quality,jdbcType=INTEGER},",

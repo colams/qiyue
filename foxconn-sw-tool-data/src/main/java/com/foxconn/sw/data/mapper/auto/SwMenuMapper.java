@@ -34,16 +34,18 @@ public interface SwMenuMapper {
     int deleteByPrimaryKey(Integer id);
 
     @Insert({
-        "insert into sw_menu (module_no, menu_name, ",
-        "menu_url, route, ",
-        "is_menu, parent_id, ",
-        "order_by, status, ",
-        "create_time, datetime_lastchange)",
-        "values (#{moduleNo,jdbcType=INTEGER}, #{menuName,jdbcType=VARCHAR}, ",
-        "#{menuUrl,jdbcType=VARCHAR}, #{route,jdbcType=VARCHAR}, ",
-        "#{isMenu,jdbcType=INTEGER}, #{parentId,jdbcType=INTEGER}, ",
-        "#{orderBy,jdbcType=INTEGER}, #{status,jdbcType=INTEGER}, ",
-        "#{createTime,jdbcType=TIMESTAMP}, #{datetimeLastchange,jdbcType=TIMESTAMP})"
+        "insert into sw_menu (menu_name, menu_url, ",
+        "route, module_no, ",
+        "is_module_index, is_menu, ",
+        "parent_id, order_by, ",
+        "status, create_time, ",
+        "datetime_lastchange)",
+        "values (#{menuName,jdbcType=VARCHAR}, #{menuUrl,jdbcType=VARCHAR}, ",
+        "#{route,jdbcType=VARCHAR}, #{moduleNo,jdbcType=INTEGER}, ",
+        "#{isModuleIndex,jdbcType=INTEGER}, #{isMenu,jdbcType=INTEGER}, ",
+        "#{parentId,jdbcType=INTEGER}, #{orderBy,jdbcType=INTEGER}, ",
+        "#{status,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, ",
+        "#{datetimeLastchange,jdbcType=TIMESTAMP})"
     })
     @SelectKey(statement="SELECT LAST_INSERT_ID()", keyProperty="id", before=false, resultType=Integer.class)
     int insert(SwMenu record);
@@ -55,10 +57,11 @@ public interface SwMenuMapper {
     @SelectProvider(type=SwMenuSqlProvider.class, method="selectByExample")
     @Results({
         @Result(column="id", property="id", jdbcType=JdbcType.INTEGER, id=true),
-        @Result(column="module_no", property="moduleNo", jdbcType=JdbcType.INTEGER),
         @Result(column="menu_name", property="menuName", jdbcType=JdbcType.VARCHAR),
         @Result(column="menu_url", property="menuUrl", jdbcType=JdbcType.VARCHAR),
         @Result(column="route", property="route", jdbcType=JdbcType.VARCHAR),
+        @Result(column="module_no", property="moduleNo", jdbcType=JdbcType.INTEGER),
+        @Result(column="is_module_index", property="isModuleIndex", jdbcType=JdbcType.INTEGER),
         @Result(column="is_menu", property="isMenu", jdbcType=JdbcType.INTEGER),
         @Result(column="parent_id", property="parentId", jdbcType=JdbcType.INTEGER),
         @Result(column="order_by", property="orderBy", jdbcType=JdbcType.INTEGER),
@@ -71,10 +74,11 @@ public interface SwMenuMapper {
     @SelectProvider(type=SwMenuSqlProvider.class, method="selectByExample")
     @Results({
         @Result(column="id", property="id", jdbcType=JdbcType.INTEGER, id=true),
-        @Result(column="module_no", property="moduleNo", jdbcType=JdbcType.INTEGER),
         @Result(column="menu_name", property="menuName", jdbcType=JdbcType.VARCHAR),
         @Result(column="menu_url", property="menuUrl", jdbcType=JdbcType.VARCHAR),
         @Result(column="route", property="route", jdbcType=JdbcType.VARCHAR),
+        @Result(column="module_no", property="moduleNo", jdbcType=JdbcType.INTEGER),
+        @Result(column="is_module_index", property="isModuleIndex", jdbcType=JdbcType.INTEGER),
         @Result(column="is_menu", property="isMenu", jdbcType=JdbcType.INTEGER),
         @Result(column="parent_id", property="parentId", jdbcType=JdbcType.INTEGER),
         @Result(column="order_by", property="orderBy", jdbcType=JdbcType.INTEGER),
@@ -86,17 +90,18 @@ public interface SwMenuMapper {
 
     @Select({
         "select",
-        "id, module_no, menu_name, menu_url, route, is_menu, parent_id, order_by, status, ",
-        "create_time, datetime_lastchange",
+        "id, menu_name, menu_url, route, module_no, is_module_index, is_menu, parent_id, ",
+        "order_by, status, create_time, datetime_lastchange",
         "from sw_menu",
         "where id = #{id,jdbcType=INTEGER}"
     })
     @Results({
         @Result(column="id", property="id", jdbcType=JdbcType.INTEGER, id=true),
-        @Result(column="module_no", property="moduleNo", jdbcType=JdbcType.INTEGER),
         @Result(column="menu_name", property="menuName", jdbcType=JdbcType.VARCHAR),
         @Result(column="menu_url", property="menuUrl", jdbcType=JdbcType.VARCHAR),
         @Result(column="route", property="route", jdbcType=JdbcType.VARCHAR),
+        @Result(column="module_no", property="moduleNo", jdbcType=JdbcType.INTEGER),
+        @Result(column="is_module_index", property="isModuleIndex", jdbcType=JdbcType.INTEGER),
         @Result(column="is_menu", property="isMenu", jdbcType=JdbcType.INTEGER),
         @Result(column="parent_id", property="parentId", jdbcType=JdbcType.INTEGER),
         @Result(column="order_by", property="orderBy", jdbcType=JdbcType.INTEGER),
@@ -117,10 +122,11 @@ public interface SwMenuMapper {
 
     @Update({
         "update sw_menu",
-        "set module_no = #{moduleNo,jdbcType=INTEGER},",
-          "menu_name = #{menuName,jdbcType=VARCHAR},",
+        "set menu_name = #{menuName,jdbcType=VARCHAR},",
           "menu_url = #{menuUrl,jdbcType=VARCHAR},",
           "route = #{route,jdbcType=VARCHAR},",
+          "module_no = #{moduleNo,jdbcType=INTEGER},",
+          "is_module_index = #{isModuleIndex,jdbcType=INTEGER},",
           "is_menu = #{isMenu,jdbcType=INTEGER},",
           "parent_id = #{parentId,jdbcType=INTEGER},",
           "order_by = #{orderBy,jdbcType=INTEGER},",

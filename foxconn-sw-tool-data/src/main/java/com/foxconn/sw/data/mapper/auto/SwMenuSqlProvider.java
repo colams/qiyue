@@ -28,10 +28,6 @@ public class SwMenuSqlProvider {
         SQL sql = new SQL();
         sql.INSERT_INTO("sw_menu");
         
-        if (record.getModuleNo() != null) {
-            sql.VALUES("module_no", "#{moduleNo,jdbcType=INTEGER}");
-        }
-        
         if (record.getMenuName() != null) {
             sql.VALUES("menu_name", "#{menuName,jdbcType=VARCHAR}");
         }
@@ -42,6 +38,14 @@ public class SwMenuSqlProvider {
         
         if (record.getRoute() != null) {
             sql.VALUES("route", "#{route,jdbcType=VARCHAR}");
+        }
+        
+        if (record.getModuleNo() != null) {
+            sql.VALUES("module_no", "#{moduleNo,jdbcType=INTEGER}");
+        }
+        
+        if (record.getIsModuleIndex() != null) {
+            sql.VALUES("is_module_index", "#{isModuleIndex,jdbcType=INTEGER}");
         }
         
         if (record.getIsMenu() != null) {
@@ -78,10 +82,11 @@ public class SwMenuSqlProvider {
         } else {
             sql.SELECT("id");
         }
-        sql.SELECT("module_no");
         sql.SELECT("menu_name");
         sql.SELECT("menu_url");
         sql.SELECT("route");
+        sql.SELECT("module_no");
+        sql.SELECT("is_module_index");
         sql.SELECT("is_menu");
         sql.SELECT("parent_id");
         sql.SELECT("order_by");
@@ -109,10 +114,6 @@ public class SwMenuSqlProvider {
             sql.SET("id = #{record.id,jdbcType=INTEGER}");
         }
         
-        if (record.getModuleNo() != null) {
-            sql.SET("module_no = #{record.moduleNo,jdbcType=INTEGER}");
-        }
-        
         if (record.getMenuName() != null) {
             sql.SET("menu_name = #{record.menuName,jdbcType=VARCHAR}");
         }
@@ -123,6 +124,14 @@ public class SwMenuSqlProvider {
         
         if (record.getRoute() != null) {
             sql.SET("route = #{record.route,jdbcType=VARCHAR}");
+        }
+        
+        if (record.getModuleNo() != null) {
+            sql.SET("module_no = #{record.moduleNo,jdbcType=INTEGER}");
+        }
+        
+        if (record.getIsModuleIndex() != null) {
+            sql.SET("is_module_index = #{record.isModuleIndex,jdbcType=INTEGER}");
         }
         
         if (record.getIsMenu() != null) {
@@ -158,10 +167,11 @@ public class SwMenuSqlProvider {
         sql.UPDATE("sw_menu");
         
         sql.SET("id = #{record.id,jdbcType=INTEGER}");
-        sql.SET("module_no = #{record.moduleNo,jdbcType=INTEGER}");
         sql.SET("menu_name = #{record.menuName,jdbcType=VARCHAR}");
         sql.SET("menu_url = #{record.menuUrl,jdbcType=VARCHAR}");
         sql.SET("route = #{record.route,jdbcType=VARCHAR}");
+        sql.SET("module_no = #{record.moduleNo,jdbcType=INTEGER}");
+        sql.SET("is_module_index = #{record.isModuleIndex,jdbcType=INTEGER}");
         sql.SET("is_menu = #{record.isMenu,jdbcType=INTEGER}");
         sql.SET("parent_id = #{record.parentId,jdbcType=INTEGER}");
         sql.SET("order_by = #{record.orderBy,jdbcType=INTEGER}");
@@ -178,10 +188,6 @@ public class SwMenuSqlProvider {
         SQL sql = new SQL();
         sql.UPDATE("sw_menu");
         
-        if (record.getModuleNo() != null) {
-            sql.SET("module_no = #{moduleNo,jdbcType=INTEGER}");
-        }
-        
         if (record.getMenuName() != null) {
             sql.SET("menu_name = #{menuName,jdbcType=VARCHAR}");
         }
@@ -192,6 +198,14 @@ public class SwMenuSqlProvider {
         
         if (record.getRoute() != null) {
             sql.SET("route = #{route,jdbcType=VARCHAR}");
+        }
+        
+        if (record.getModuleNo() != null) {
+            sql.SET("module_no = #{moduleNo,jdbcType=INTEGER}");
+        }
+        
+        if (record.getIsModuleIndex() != null) {
+            sql.SET("is_module_index = #{isModuleIndex,jdbcType=INTEGER}");
         }
         
         if (record.getIsMenu() != null) {

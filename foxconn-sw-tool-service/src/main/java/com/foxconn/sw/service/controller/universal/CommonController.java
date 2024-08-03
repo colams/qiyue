@@ -1,15 +1,18 @@
 package com.foxconn.sw.service.controller.universal;
 
+import com.foxconn.sw.business.SwAppendResourceBusiness;
 import com.foxconn.sw.common.utils.ExecToolUtils;
 import com.foxconn.sw.common.utils.UUIDUtils;
 import com.foxconn.sw.common.utils.UploadUtils;
 import com.foxconn.sw.data.constants.TagsConstants;
 import com.foxconn.sw.data.constants.enums.FileAttrTypeEnums;
-import com.foxconn.sw.data.constants.enums.RetCode;
+import com.foxconn.sw.data.constants.enums.retcode.RetCode;
 import com.foxconn.sw.data.dto.Request;
 import com.foxconn.sw.data.dto.Response;
 import com.foxconn.sw.data.dto.entity.common.IDParams;
+import com.foxconn.sw.data.dto.entity.common.UploadResult;
 import com.foxconn.sw.data.interfaces.IResult;
+import com.foxconn.sw.service.processor.user.CommonUserUtils;
 import com.foxconn.sw.service.utils.FilePathUtils;
 import com.foxconn.sw.service.utils.ResponseUtils;
 import io.swagger.v3.oas.annotations.Operation;
@@ -43,6 +46,10 @@ public class CommonController {
     Environment environment;
     @Autowired
     FilePathUtils filePathUtils;
+    @Autowired
+    SwAppendResourceBusiness resourceBusiness;
+    @Autowired
+    CommonUserUtils userUtils;
 
     @Operation(summary = "下载文件", tags = TagsConstants.UNIVERSAL)
     @GetMapping("/down/{fileName}")
@@ -76,6 +83,32 @@ public class CommonController {
         String path = UploadUtils.upload(fileBaseUrl, file, uploadType);
 
         IResult code = StringUtils.isBlank(path) ? RetCode.UPLOAD_FILE_ERROR : RetCode.SUCCESS;
+
+        return ResponseUtils.response(path, code, UUIDUtils.getUuid());
+    }
+
+    @Operation(summary = "上传文件new", tags = TagsConstants.UNIVERSAL)
+    @ApiResponse(responseCode = "0", description = "成功码")
+    @PostMapping("/upload1")
+    public Response upload1(@RequestParam("file") MultipartFile file,
+                            @RequestParam("uploadType") String uploadType) throws FileNotFoundException {
+        if (file.isEmpty()) {
+            return ResponseUtils.failure(RetCode.EMPTY_FILE_ERROR, UUIDUtils.getUuid());
+        }
+
+        String fileBaseUrl = filePathUtils.getFilePath(uploadType);
+        String path = UploadUtils.upload(fileBaseUrl, file, uploadType);
+        int resourceID = 0;
+
+
+        if (StringUtils.isNoneBlank(path)) {
+            resourceID = resourceBusiness.saveResource(path, 0);
+        }
+
+        UploadResult result = new UploadResult();
+        result.setFilePath(path);
+        result.setFileId(resourceID);
+        IResult code = resourceID > 0 ? RetCode.UPLOAD_FILE_ERROR : RetCode.SUCCESS;
 
         return ResponseUtils.response(path, code, UUIDUtils.getUuid());
     }

@@ -1,16 +1,16 @@
 package com.foxconn.sw.service.processor.acount;
 
-import com.foxconn.sw.business.auth.UserBusiness;
-import com.foxconn.sw.business.auth.UserLoginBusiness;
+import com.foxconn.sw.business.account.UserBusiness;
+import com.foxconn.sw.business.account.UserLoginBusiness;
 import com.foxconn.sw.business.converter.SwSysUserConverter;
 import com.foxconn.sw.common.utils.UUIDUtils;
 import com.foxconn.sw.common.utils.cipher.CipherUtils;
-import com.foxconn.sw.data.dto.entity.acount.UserDTO;
+import com.foxconn.sw.data.constants.enums.retcode.AccountExceptionCode;
 import com.foxconn.sw.data.dto.entity.acount.LoginParams;
 import com.foxconn.sw.data.dto.entity.acount.LoginResponseType;
+import com.foxconn.sw.data.dto.entity.acount.UserDTO;
 import com.foxconn.sw.data.entity.SwUser;
 import com.foxconn.sw.data.entity.SwUserLogin;
-import com.foxconn.sw.data.constants.enums.exception.LoginExceptionRetCode;
 import com.foxconn.sw.data.exception.BizException;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,7 +38,7 @@ public class LoginProcessor {
         SwUser user = userBusiness.queryUser(data.getUserName());
         boolean validity = assertPassword(data, user);
         if (!validity) {
-            throw new BizException(LoginExceptionRetCode.LOGIN_ACCOUNT_EXCEPTION);
+            throw new BizException(AccountExceptionCode.LOGIN_ACCOUNT_EXCEPTION);
         }
 
         UserDTO userDTO = SwSysUserConverter.toUserDto(user);
@@ -55,7 +55,7 @@ public class LoginProcessor {
             if (loginState) {
                 return LoginResponseType.init(token, expireTime, userDTO);
             }
-            throw new BizException(LoginExceptionRetCode.LOGIN_STATE_KEEP_EXCEPTION);
+            throw new BizException(AccountExceptionCode.LOGIN_STATE_KEEP_EXCEPTION);
         }
     }
 
@@ -71,6 +71,6 @@ public class LoginProcessor {
         return Objects.nonNull(user)
                 && (StringUtils.isBlank(user.getPassword())
                 || user.getPassword().equalsIgnoreCase(data.getPassword())
-                || user.getPassword().equalsIgnoreCase(CipherUtils.encodeMD5(data.getPassword())));
+                || user.getPassword().equalsIgnoreCase(CipherUtils.encodeMD5(data.getPassword() + user.getSolt())));
     }
 }

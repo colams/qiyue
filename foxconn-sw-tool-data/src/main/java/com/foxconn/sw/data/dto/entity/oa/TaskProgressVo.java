@@ -1,23 +1,23 @@
 package com.foxconn.sw.data.dto.entity.oa;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 public class TaskProgressVo {
 
     private Integer id;
 
-    private Integer taskid;
+    private Integer taskId;
 
     private String operateEid;
 
-    private String resourceIds;
+    private List<Integer> resourceIds;
+
+    private List<String> resourcesUrl;
 
     private String content;
 
-    private String remark;
-
     private LocalDateTime createTime;
-
 
     public Integer getId() {
         return id;
@@ -27,12 +27,12 @@ public class TaskProgressVo {
         this.id = id;
     }
 
-    public Integer getTaskid() {
-        return taskid;
+    public Integer getTaskId() {
+        return taskId;
     }
 
-    public void setTaskid(Integer taskid) {
-        this.taskid = taskid;
+    public void setTaskId(Integer taskId) {
+        this.taskId = taskId;
     }
 
     public String getOperateEid() {
@@ -43,12 +43,20 @@ public class TaskProgressVo {
         this.operateEid = operateEid;
     }
 
-    public String getResourceIds() {
+    public List<Integer> getResourceIds() {
         return resourceIds;
     }
 
-    public void setResourceIds(String resourceIds) {
+    public void setResourceIds(List<Integer> resourceIds) {
         this.resourceIds = resourceIds;
+    }
+
+    public List<String> getResourcesUrl() {
+        return resourcesUrl;
+    }
+
+    public void setResourcesUrl(List<String> resourcesUrl) {
+        this.resourcesUrl = resourcesUrl;
     }
 
     public String getContent() {
@@ -57,14 +65,6 @@ public class TaskProgressVo {
 
     public void setContent(String content) {
         this.content = content;
-    }
-
-    public String getRemark() {
-        return remark;
-    }
-
-    public void setRemark(String remark) {
-        this.remark = remark;
     }
 
     public LocalDateTime getCreateTime() {

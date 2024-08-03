@@ -232,3 +232,15 @@ CREATE TABLE `sw_user_role` (
                                 PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='用户角色关联表';
 
+
+select sm.menu_name,sm.menu_url,sp.id from sw_menu sm inner  join  sw_property sp on sm.module_no=sp.id
+where sp.category= 1 and sp.id=1 and sm.status=1 and sm.parent_id=0
+
+truncate table  sw_task;
+
+select *
+from sw_task;
+
+
+select *
+from sw_task_log;

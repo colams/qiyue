@@ -1,6 +1,6 @@
 package com.foxconn.sw.service.controller.account;
 
-import com.foxconn.sw.business.auth.UserBusiness;
+import com.foxconn.sw.business.account.UserBusiness;
 import com.foxconn.sw.data.constants.TagsConstants;
 import com.foxconn.sw.data.dto.Request;
 import com.foxconn.sw.data.dto.Response;

@@ -2,17 +2,17 @@ package com.foxconn.sw.data.dto.entity.oa;
 
 public class TaskAssignParams {
 
-    private String taskId;
+    private Integer taskId;
 
     private String assignEid;
 
-    private String remark;
+    private String content;
 
-    public String getTaskId() {
+    public Integer getTaskId() {
         return taskId;
     }
 
-    public void setTaskId(String taskId) {
+    public void setTaskId(Integer taskId) {
         this.taskId = taskId;
     }
 
@@ -24,11 +24,11 @@ public class TaskAssignParams {
         this.assignEid = assignEid;
     }
 
-    public String getRemark() {
-        return remark;
+    public String getContent() {
+        return content;
     }
 
-    public void setRemark(String remark) {
-        this.remark = remark;
+    public void setContent(String content) {
+        this.content = content;
     }
 }

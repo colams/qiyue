@@ -1,4 +1,4 @@
-package com.foxconn.sw.business.auth;
+package com.foxconn.sw.business.account;
 
 import com.foxconn.sw.business.converter.SwSysUserConverter;
 import com.foxconn.sw.data.dto.entity.acount.UserDTO;

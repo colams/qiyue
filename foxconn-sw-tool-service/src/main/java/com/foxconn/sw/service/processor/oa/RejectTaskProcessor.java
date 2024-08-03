@@ -9,6 +9,12 @@ import org.springframework.stereotype.Component;
 public class RejectTaskProcessor {
 
 
+    /**
+     * todo 驳回任务
+     * @param data
+     * @param head
+     * @return
+     */
     public boolean reject(TaskRejectParams data, Header head) {
 
         return false;

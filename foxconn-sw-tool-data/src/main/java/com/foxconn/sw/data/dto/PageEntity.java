@@ -1,5 +1,7 @@
 package com.foxconn.sw.data.dto;
 
+import io.swagger.v3.oas.annotations.media.Schema;
+
 import java.util.List;
 
 public class PageEntity<T> {
@@ -9,8 +11,10 @@ public class PageEntity<T> {
         this.list = list;
     }
 
+    @Schema(description = "总页数")
     private int totalCount;
 
+    @Schema(description = "结果对象List")
     private List<T> list;
 
     public int getTotalCount() {

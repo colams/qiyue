@@ -36,6 +36,10 @@ public class SwAppendResourceSqlProvider {
             sql.VALUES("file_path", "#{filePath,jdbcType=VARCHAR}");
         }
         
+        if (record.getOperator() != null) {
+            sql.VALUES("operator", "#{operator,jdbcType=VARCHAR}");
+        }
+        
         if (record.getDatetimeLastchange() != null) {
             sql.VALUES("datetime_lastchange", "#{datetimeLastchange,jdbcType=TIMESTAMP}");
         }
@@ -52,6 +56,7 @@ public class SwAppendResourceSqlProvider {
         }
         sql.SELECT("source_type");
         sql.SELECT("file_path");
+        sql.SELECT("operator");
         sql.SELECT("datetime_lastchange");
         sql.FROM("sw_append_resource");
         applyWhere(sql, example, false);
@@ -82,6 +87,10 @@ public class SwAppendResourceSqlProvider {
             sql.SET("file_path = #{record.filePath,jdbcType=VARCHAR}");
         }
         
+        if (record.getOperator() != null) {
+            sql.SET("operator = #{record.operator,jdbcType=VARCHAR}");
+        }
+        
         if (record.getDatetimeLastchange() != null) {
             sql.SET("datetime_lastchange = #{record.datetimeLastchange,jdbcType=TIMESTAMP}");
         }
@@ -97,6 +106,7 @@ public class SwAppendResourceSqlProvider {
         sql.SET("id = #{record.id,jdbcType=INTEGER}");
         sql.SET("source_type = #{record.sourceType,jdbcType=INTEGER}");
         sql.SET("file_path = #{record.filePath,jdbcType=VARCHAR}");
+        sql.SET("operator = #{record.operator,jdbcType=VARCHAR}");
         sql.SET("datetime_lastchange = #{record.datetimeLastchange,jdbcType=TIMESTAMP}");
         
         SwAppendResourceExample example = (SwAppendResourceExample) parameter.get("example");
@@ -114,6 +124,10 @@ public class SwAppendResourceSqlProvider {
         
         if (record.getFilePath() != null) {
             sql.SET("file_path = #{filePath,jdbcType=VARCHAR}");
+        }
+        
+        if (record.getOperator() != null) {
+            sql.SET("operator = #{operator,jdbcType=VARCHAR}");
         }
         
         if (record.getDatetimeLastchange() != null) {

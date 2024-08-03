@@ -2,16 +2,16 @@ package com.foxconn.sw.data.dto.entity.oa;
 
 import jakarta.validation.constraints.NotNull;
 
+import java.util.List;
+
 public class TaskProgressBriefParams {
 
     @NotNull
     private Integer taskId;
 
-    private String resourceIds;
+    private List<Integer> resourceIds;
 
     private String content;
-
-    private String remark;
 
     private Integer progress;
 
@@ -23,11 +23,11 @@ public class TaskProgressBriefParams {
         this.taskId = taskId;
     }
 
-    public String getResourceIds() {
+    public List<Integer> getResourceIds() {
         return resourceIds;
     }
 
-    public void setResourceIds(String resourceIds) {
+    public void setResourceIds(List<Integer> resourceIds) {
         this.resourceIds = resourceIds;
     }
 
@@ -37,14 +37,6 @@ public class TaskProgressBriefParams {
 
     public void setContent(String content) {
         this.content = content;
-    }
-
-    public String getRemark() {
-        return remark;
-    }
-
-    public void setRemark(String remark) {
-        this.remark = remark;
     }
 
     public Integer getProgress() {

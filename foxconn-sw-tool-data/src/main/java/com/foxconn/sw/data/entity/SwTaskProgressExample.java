@@ -365,6 +365,66 @@ public class SwTaskProgressExample {
             return (Criteria) this;
         }
 
+        public Criteria andProgressIsNull() {
+            addCriterion("progress is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andProgressIsNotNull() {
+            addCriterion("progress is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andProgressEqualTo(Integer value) {
+            addCriterion("progress =", value, "progress");
+            return (Criteria) this;
+        }
+
+        public Criteria andProgressNotEqualTo(Integer value) {
+            addCriterion("progress <>", value, "progress");
+            return (Criteria) this;
+        }
+
+        public Criteria andProgressGreaterThan(Integer value) {
+            addCriterion("progress >", value, "progress");
+            return (Criteria) this;
+        }
+
+        public Criteria andProgressGreaterThanOrEqualTo(Integer value) {
+            addCriterion("progress >=", value, "progress");
+            return (Criteria) this;
+        }
+
+        public Criteria andProgressLessThan(Integer value) {
+            addCriterion("progress <", value, "progress");
+            return (Criteria) this;
+        }
+
+        public Criteria andProgressLessThanOrEqualTo(Integer value) {
+            addCriterion("progress <=", value, "progress");
+            return (Criteria) this;
+        }
+
+        public Criteria andProgressIn(List<Integer> values) {
+            addCriterion("progress in", values, "progress");
+            return (Criteria) this;
+        }
+
+        public Criteria andProgressNotIn(List<Integer> values) {
+            addCriterion("progress not in", values, "progress");
+            return (Criteria) this;
+        }
+
+        public Criteria andProgressBetween(Integer value1, Integer value2) {
+            addCriterion("progress between", value1, value2, "progress");
+            return (Criteria) this;
+        }
+
+        public Criteria andProgressNotBetween(Integer value1, Integer value2) {
+            addCriterion("progress not between", value1, value2, "progress");
+            return (Criteria) this;
+        }
+
         public Criteria andContentIsNull() {
             addCriterion("content is null");
             return (Criteria) this;
@@ -432,76 +492,6 @@ public class SwTaskProgressExample {
 
         public Criteria andContentNotBetween(String value1, String value2) {
             addCriterion("content not between", value1, value2, "content");
-            return (Criteria) this;
-        }
-
-        public Criteria andRemarkIsNull() {
-            addCriterion("remark is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andRemarkIsNotNull() {
-            addCriterion("remark is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andRemarkEqualTo(String value) {
-            addCriterion("remark =", value, "remark");
-            return (Criteria) this;
-        }
-
-        public Criteria andRemarkNotEqualTo(String value) {
-            addCriterion("remark <>", value, "remark");
-            return (Criteria) this;
-        }
-
-        public Criteria andRemarkGreaterThan(String value) {
-            addCriterion("remark >", value, "remark");
-            return (Criteria) this;
-        }
-
-        public Criteria andRemarkGreaterThanOrEqualTo(String value) {
-            addCriterion("remark >=", value, "remark");
-            return (Criteria) this;
-        }
-
-        public Criteria andRemarkLessThan(String value) {
-            addCriterion("remark <", value, "remark");
-            return (Criteria) this;
-        }
-
-        public Criteria andRemarkLessThanOrEqualTo(String value) {
-            addCriterion("remark <=", value, "remark");
-            return (Criteria) this;
-        }
-
-        public Criteria andRemarkLike(String value) {
-            addCriterion("remark like", value, "remark");
-            return (Criteria) this;
-        }
-
-        public Criteria andRemarkNotLike(String value) {
-            addCriterion("remark not like", value, "remark");
-            return (Criteria) this;
-        }
-
-        public Criteria andRemarkIn(List<String> values) {
-            addCriterion("remark in", values, "remark");
-            return (Criteria) this;
-        }
-
-        public Criteria andRemarkNotIn(List<String> values) {
-            addCriterion("remark not in", values, "remark");
-            return (Criteria) this;
-        }
-
-        public Criteria andRemarkBetween(String value1, String value2) {
-            addCriterion("remark between", value1, value2, "remark");
-            return (Criteria) this;
-        }
-
-        public Criteria andRemarkNotBetween(String value1, String value2) {
-            addCriterion("remark not between", value1, value2, "remark");
             return (Criteria) this;
         }
 
@@ -577,11 +567,6 @@ public class SwTaskProgressExample {
 
         public Criteria andContentLikeInsensitive(String value) {
             addCriterion("upper(content) like", value.toUpperCase(), "content");
-            return (Criteria) this;
-        }
-
-        public Criteria andRemarkLikeInsensitive(String value) {
-            addCriterion("upper(remark) like", value.toUpperCase(), "remark");
             return (Criteria) this;
         }
     }

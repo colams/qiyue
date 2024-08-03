@@ -1,16 +1,16 @@
-package com.foxconn.sw.data.constants.enums;
+package com.foxconn.sw.data.constants.enums.retcode;
 
 import com.foxconn.sw.data.interfaces.IResult;
 
+/**
+ * 常用错误消息
+ */
 public enum RetCode implements IResult {
     SUCCESS(0, "接口调用成功"),
     FAILURE(1, "接口调用失败"),
     VALIDATE_FAILED(2, "参数校验失败"),
     FORBIDDEN(3, "没有权限访问资源"),
     SYSTEM_EXCEPTION(4, "接口发生异常"),
-
-
-
     EMPTY_FILE_ERROR(4, "empty file error"),
     UPLOAD_FILE_ERROR(5, "upload file error"),
 
@@ -23,8 +23,7 @@ public enum RetCode implements IResult {
 
     private int code;
     private String msg;
-
-
+    
     @Override
     public int getCode() {
         return code;

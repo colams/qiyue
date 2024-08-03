@@ -32,6 +32,10 @@ public class SwTaskEvaluationSqlProvider {
             sql.VALUES("task_id", "#{taskId,jdbcType=INTEGER}");
         }
         
+        if (record.getOperator() != null) {
+            sql.VALUES("operator", "#{operator,jdbcType=VARCHAR}");
+        }
+        
         if (record.getCompletion() != null) {
             sql.VALUES("completion", "#{completion,jdbcType=INTEGER}");
         }
@@ -63,6 +67,7 @@ public class SwTaskEvaluationSqlProvider {
             sql.SELECT("id");
         }
         sql.SELECT("task_id");
+        sql.SELECT("operator");
         sql.SELECT("completion");
         sql.SELECT("efficiency");
         sql.SELECT("quality");
@@ -91,6 +96,10 @@ public class SwTaskEvaluationSqlProvider {
         
         if (record.getTaskId() != null) {
             sql.SET("task_id = #{record.taskId,jdbcType=INTEGER}");
+        }
+        
+        if (record.getOperator() != null) {
+            sql.SET("operator = #{record.operator,jdbcType=VARCHAR}");
         }
         
         if (record.getCompletion() != null) {
@@ -123,6 +132,7 @@ public class SwTaskEvaluationSqlProvider {
         
         sql.SET("id = #{record.id,jdbcType=INTEGER}");
         sql.SET("task_id = #{record.taskId,jdbcType=INTEGER}");
+        sql.SET("operator = #{record.operator,jdbcType=VARCHAR}");
         sql.SET("completion = #{record.completion,jdbcType=INTEGER}");
         sql.SET("efficiency = #{record.efficiency,jdbcType=INTEGER}");
         sql.SET("quality = #{record.quality,jdbcType=INTEGER}");
@@ -140,6 +150,10 @@ public class SwTaskEvaluationSqlProvider {
         
         if (record.getTaskId() != null) {
             sql.SET("task_id = #{taskId,jdbcType=INTEGER}");
+        }
+        
+        if (record.getOperator() != null) {
+            sql.SET("operator = #{operator,jdbcType=VARCHAR}");
         }
         
         if (record.getCompletion() != null) {

@@ -2,7 +2,7 @@ package com.foxconn.sw.service.utils;
 
 import com.foxconn.sw.common.utils.DateTimeUtils;
 import com.foxconn.sw.data.dto.Response;
-import com.foxconn.sw.data.constants.enums.RetCode;
+import com.foxconn.sw.data.constants.enums.retcode.RetCode;
 import com.foxconn.sw.data.interfaces.IResult;
 
 public class ResponseUtils {
