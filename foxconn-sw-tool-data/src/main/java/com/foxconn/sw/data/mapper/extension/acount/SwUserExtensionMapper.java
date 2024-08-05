@@ -32,8 +32,11 @@ public interface SwUserExtensionMapper extends SwUserMapper {
             "from sw_user su\n" +
             "    left join sw_employee se on su.employee_no=se.employee_no " +
             "where 1=1 " +
-            "<if test='keyWord!=null and keyWord!=\"\"' >",
-            " and (name like CONCAT('%', #{keyWord,jdbcType=VARCHAR}, '%') or nick_name like CONCAT('%', #{keyWord,jdbcType=VARCHAR}, '%')  ) ",
+            "<if test='employeeNo!=null and employeeNo!=\"\"' >",
+            " and employee_no=#{employeeNo,jdbcType=VARCHAR} ",
+            "</if> ",
+            "<if test='name!=null and name!=\"\"' >",
+            " and (name like CONCAT('%', #{name,jdbcType=VARCHAR}, '%') or nick_name like CONCAT('%', #{name,jdbcType=VARCHAR}, '%')  ) ",
             "</if> ",
             "</script>"
     })

@@ -1,17 +1,32 @@
 package com.foxconn.sw.data.dto.entity.acount;
 
+import io.swagger.v3.oas.annotations.media.Schema;
+
 public class UserParams {
 
-    private String keyWord;
+    @Schema(description = "账号")
+    private String employeeNo;
 
+    @Schema(description = "姓名关键词")
+    private String name;
+
+    @Schema(description = "查询层级：某一个层级所有员工信息")
     private Integer level;
 
-    public String getKeyWord() {
-        return keyWord;
+    public String getEmployeeNo() {
+        return employeeNo;
     }
 
-    public void setKeyWord(String keyWord) {
-        this.keyWord = keyWord;
+    public void setEmployeeNo(String employeeNo) {
+        this.employeeNo = employeeNo;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public Integer getLevel() {

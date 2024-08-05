@@ -19,7 +19,7 @@ import java.time.LocalDateTime;
 import java.util.Objects;
 
 @Component
-public class ResetPwsProcessor {
+public class ResetPwdProcessor {
 
     @Autowired
     UserBusiness userBusiness;
