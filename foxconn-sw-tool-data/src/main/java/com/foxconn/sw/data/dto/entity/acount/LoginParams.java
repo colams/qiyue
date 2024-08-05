@@ -7,7 +7,7 @@ public class LoginParams {
 
     @NotBlank(message = "用户名必填！")
     @Size(min = 6, message = "用户名长度最少六个字符！")
-    private String userName;
+    private String employeeNo;
 
     @NotBlank(message = "密码必填！")
     @Size(min = 6, message = "密码长度最少六个字符！")
@@ -15,12 +15,12 @@ public class LoginParams {
 
     private String authCode;
 
-    public String getUserName() {
-        return userName;
+    public String getEmployeeNo() {
+        return employeeNo;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setEmployeeNo(String employeeNo) {
+        this.employeeNo = employeeNo;
     }
 
     public String getPassword() {

@@ -15,6 +15,7 @@ import com.foxconn.sw.service.processor.system.SavePropertyProcessor;
 import com.foxconn.sw.service.utils.ResponseUtils;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import jakarta.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,7 +40,7 @@ public class PropertyController {
     @Operation(summary = "基础数据信息", tags = TagsConstants.SYSTEM)
     @ApiResponse(responseCode = "0", description = "成功码")
     @PostMapping("/list")
-    public Response<PageEntity<PropertyVo>> getProperties(@RequestBody Request<PageParams<PropertyParams>> request) {
+    public Response<PageEntity<PropertyVo>> getProperties(@Valid @RequestBody Request<PageParams<PropertyParams>> request) {
         PageEntity<PropertyVo> propertyVos = getPropertiesProcessor.getSwProperties(request.getData());
         return ResponseUtils.success(propertyVos, request.getTraceId());
     }
@@ -47,7 +48,7 @@ public class PropertyController {
     @Operation(summary = "保存基础数据信息", tags = TagsConstants.SYSTEM)
     @ApiResponse(responseCode = "0", description = "成功码")
     @PostMapping("/save")
-    public Response<Boolean> saveProperty(@RequestBody Request<PropertyVo> request) {
+    public Response<Boolean> saveProperty(@Valid @RequestBody Request<PropertyVo> request) {
         boolean result = savePropertyProcessor.saveProperty(request.getData());
         return ResponseUtils.success(result, request.getTraceId());
     }
@@ -55,10 +56,8 @@ public class PropertyController {
     @Operation(summary = "基础属性分类", tags = TagsConstants.SYSTEM)
     @ApiResponse(responseCode = "0", description = "成功码")
     @PostMapping("/category")
-    public Response<Boolean> propertyCategory(@RequestBody Request request) {
+    public Response<Boolean> propertyCategory(@Valid @RequestBody Request request) {
         List<BasicPropertyVo> result = categoryProcessor.propertyCategory();
         return ResponseUtils.success(result, request.getTraceId());
     }
-
-
 }

@@ -2,63 +2,53 @@ package com.foxconn.sw.data.dto.entity.acount;
 
 public class UserInfo {
 
-    private Integer id;
+    private String nickName;
 
-    private String userName;
+    private String employeeNo;
 
-    private String name;
+    private String employeeName;
 
-    private String phone;
+    private String jobTitle;
 
-    private String email;
+    private String depart;
 
-    private Integer deptId;
-
-    public Integer getId() {
-        return id;
+    public String getNickName() {
+        return nickName;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setNickName(String nickName) {
+        this.nickName = nickName;
     }
 
-    public String getUserName() {
-        return userName;
+    public String getEmployeeNo() {
+        return employeeNo;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setEmployeeNo(String employeeNo) {
+        this.employeeNo = employeeNo;
     }
 
-    public String getName() {
-        return name;
+    public String getEmployeeName() {
+        return employeeName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setEmployeeName(String employeeName) {
+        this.employeeName = employeeName;
     }
 
-    public String getPhone() {
-        return phone;
+    public String getJobTitle() {
+        return jobTitle;
     }
 
-    public void setPhone(String phone) {
-        this.phone = phone;
+    public void setJobTitle(String jobTitle) {
+        this.jobTitle = jobTitle;
     }
 
-    public String getEmail() {
-        return email;
+    public String getDepart() {
+        return depart;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public Integer getDeptId() {
-        return deptId;
-    }
-
-    public void setDeptId(Integer deptId) {
-        this.deptId = deptId;
+    public void setDepart(String depart) {
+        this.depart = depart;
     }
 }

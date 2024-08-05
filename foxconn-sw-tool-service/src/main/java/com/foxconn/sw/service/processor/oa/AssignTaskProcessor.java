@@ -4,6 +4,7 @@ import com.foxconn.sw.business.oa.SwTaskBusiness;
 import com.foxconn.sw.business.oa.SwTaskLogBusiness;
 import com.foxconn.sw.business.oa.SwTaskProgressBusiness;
 import com.foxconn.sw.data.dto.Header;
+import com.foxconn.sw.data.dto.entity.acount.UserInfo;
 import com.foxconn.sw.data.dto.entity.oa.TaskAssignParams;
 import com.foxconn.sw.data.entity.SwTaskProgress;
 import com.foxconn.sw.data.entity.SwUser;
@@ -32,7 +33,7 @@ public class AssignTaskProcessor {
      * @return
      */
     public boolean assignTask(TaskAssignParams data, Header head) {
-        SwUser user = commonUserUtils.queryUserInfo(head.getToken());
+        UserInfo user = commonUserUtils.queryUserInfo(head.getToken());
         boolean result = taskBusiness.assignTask(data.getTaskId(), data.getAssignEid());
         if (result) {
             addProcessInfo(data, user);
@@ -41,15 +42,15 @@ public class AssignTaskProcessor {
         return result;
     }
 
-    private boolean addTaskLog(TaskAssignParams data, SwUser user) {
-        return taskLogBusiness.addTaskLog(data.getTaskId(), user.getUserName(), data.getContent());
+    private boolean addTaskLog(TaskAssignParams data, UserInfo user) {
+        return taskLogBusiness.addTaskLog(data.getTaskId(), user.getEmployeeNo(), data.getContent());
     }
 
-    private boolean addProcessInfo(TaskAssignParams data, SwUser user) {
+    private boolean addProcessInfo(TaskAssignParams data, UserInfo user) {
         SwTaskProgress progress = new SwTaskProgress();
         progress.setTaskId(data.getTaskId());
-        progress.setOperateEid(user.getUserName());
-        progress.setContent(String.format("%s 任务分派给了 %s; %s", user.getUserName(), data.getAssignEid(), data.getContent()));
+        progress.setOperateEid(user.getEmployeeNo());
+        progress.setContent(String.format("%s 任务分派给了 %s; %s", user.getEmployeeName(), data.getAssignEid(), data.getContent()));
         return taskProgressBusiness.addProcessInfo(progress);
     }
 }

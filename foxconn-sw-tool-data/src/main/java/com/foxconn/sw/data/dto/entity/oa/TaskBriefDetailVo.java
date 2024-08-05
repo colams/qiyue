@@ -1,5 +1,7 @@
 package com.foxconn.sw.data.dto.entity.oa;
 
+import io.swagger.v3.oas.annotations.media.Schema;
+
 import java.util.List;
 
 public class TaskBriefDetailVo {
@@ -7,41 +9,56 @@ public class TaskBriefDetailVo {
     /**
      * 专案-所属项目
      */
+    @Schema(description = "专案-所属项目")
     private String project;
     /**
      * 任务分类
      */
+    @Schema(description = "任务分类")
     private String category;
 
     /**
      * 优先等级
      */
+    @Schema(description = "优先等级")
     private String level;
 
     /**
      * 任务期限 YYYY-MM-DD
      */
+    @Schema(description = "任务期限 YYYY-MM-DD")
     private String deadLine;
 
     /**
      * 任务标题-任务名称
      */
+    @Schema(description = "任务标题-任务名称")
     private String title;
 
     /**
      * 任务描述
      */
+    @Schema(description = "任务描述")
     private String description;
 
     /**
      * 附件信息
      */
+    @Schema(description = "上传附件ID集合")
     private List<Integer> resourceIds;
 
     /**
      * 经办人
      */
+    @Schema(description = "中间人")
     private String managerEid;
+
+
+    /**
+     * 状态
+     */
+    @Schema(description = "0-暂存/草稿，1-待确认需求")
+    private Integer status;
 
     public String getProject() {
         return project;
@@ -105,5 +122,13 @@ public class TaskBriefDetailVo {
 
     public void setManagerEid(String managerEid) {
         this.managerEid = managerEid;
+    }
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
     }
 }

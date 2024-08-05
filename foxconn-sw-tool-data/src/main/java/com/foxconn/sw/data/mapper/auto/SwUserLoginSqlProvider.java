@@ -28,8 +28,8 @@ public class SwUserLoginSqlProvider {
         SQL sql = new SQL();
         sql.INSERT_INTO("sw_user_login");
         
-        if (record.getUserName() != null) {
-            sql.VALUES("user_name", "#{userName,jdbcType=VARCHAR}");
+        if (record.getEmployeeNo() != null) {
+            sql.VALUES("employee_no", "#{employeeNo,jdbcType=VARCHAR}");
         }
         
         if (record.getToken() != null) {
@@ -58,7 +58,7 @@ public class SwUserLoginSqlProvider {
         } else {
             sql.SELECT("id");
         }
-        sql.SELECT("user_name");
+        sql.SELECT("employee_no");
         sql.SELECT("token");
         sql.SELECT("expire_time");
         sql.SELECT("create_time");
@@ -84,8 +84,8 @@ public class SwUserLoginSqlProvider {
             sql.SET("id = #{record.id,jdbcType=INTEGER}");
         }
         
-        if (record.getUserName() != null) {
-            sql.SET("user_name = #{record.userName,jdbcType=VARCHAR}");
+        if (record.getEmployeeNo() != null) {
+            sql.SET("employee_no = #{record.employeeNo,jdbcType=VARCHAR}");
         }
         
         if (record.getToken() != null) {
@@ -113,7 +113,7 @@ public class SwUserLoginSqlProvider {
         sql.UPDATE("sw_user_login");
         
         sql.SET("id = #{record.id,jdbcType=INTEGER}");
-        sql.SET("user_name = #{record.userName,jdbcType=VARCHAR}");
+        sql.SET("employee_no = #{record.employeeNo,jdbcType=VARCHAR}");
         sql.SET("token = #{record.token,jdbcType=VARCHAR}");
         sql.SET("expire_time = #{record.expireTime,jdbcType=TIMESTAMP}");
         sql.SET("create_time = #{record.createTime,jdbcType=TIMESTAMP}");
@@ -128,8 +128,8 @@ public class SwUserLoginSqlProvider {
         SQL sql = new SQL();
         sql.UPDATE("sw_user_login");
         
-        if (record.getUserName() != null) {
-            sql.SET("user_name = #{userName,jdbcType=VARCHAR}");
+        if (record.getEmployeeNo() != null) {
+            sql.SET("employee_no = #{employeeNo,jdbcType=VARCHAR}");
         }
         
         if (record.getToken() != null) {

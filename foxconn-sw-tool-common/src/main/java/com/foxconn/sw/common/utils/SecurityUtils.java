@@ -1,12 +1,23 @@
-package com.foxconn.sw.common.utils.cipher;
+package com.foxconn.sw.common.utils;
+
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.util.DigestUtils;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 
-public class URLCoderUtils {
+public class SecurityUtils {
 
-    public static String encode(String input, String chartSet) {
+    public static String encodeMD5(String input) {
+        if (StringUtils.isBlank(input)) {
+            return "";
+        }
+        return DigestUtils.md5DigestAsHex(input.getBytes(StandardCharsets.UTF_8));
+    }
+
+    public static String encodeURL(String input, String chartSet) {
         String output = null;
         try {
             output = URLEncoder.encode(input, chartSet);
@@ -17,7 +28,7 @@ public class URLCoderUtils {
         return output;
     }
 
-    public static String decode(String input, String chartSet) {
+    public static String decodeURL(String input, String chartSet) {
         String output = null;
         try {
             output = URLDecoder.decode(input, chartSet);

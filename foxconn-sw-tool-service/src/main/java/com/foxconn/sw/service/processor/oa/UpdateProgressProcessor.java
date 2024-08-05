@@ -28,7 +28,7 @@ public class UpdateProgressProcessor {
 
     public boolean updateProgress(TaskProgressBriefParams data, Header head) {
 
-        String employeeID = commonUserUtils.getEmployeeId(head.getToken());
+        String employeeID = commonUserUtils.getEmployeeNo(head.getToken());
 
         if (Objects.nonNull(data.getProgress())) {
             updateTaskProcess(data.getTaskId(), data.getProgress(), employeeID);

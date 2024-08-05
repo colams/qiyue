@@ -8,6 +8,7 @@ import com.foxconn.sw.service.processor.system.ListModuleProcessor;
 import com.foxconn.sw.service.utils.ResponseUtils;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import jakarta.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +30,7 @@ public class ModuleController {
     @Operation(summary = "基础数据信息", tags = TagsConstants.SYSTEM)
     @ApiResponse(responseCode = "0", description = "成功码")
     @PostMapping("/list")
-    public Response<List<ModuleVo>> getProperties(@RequestBody Request request) {
+    public Response<List<ModuleVo>> getProperties(@Valid @RequestBody Request request) {
         List<ModuleVo> propertyVos = listModuleProcessor.list();
         return ResponseUtils.success(propertyVos, request.getTraceId());
     }

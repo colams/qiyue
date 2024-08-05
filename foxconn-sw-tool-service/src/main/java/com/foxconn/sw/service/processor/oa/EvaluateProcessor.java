@@ -26,10 +26,10 @@ public class EvaluateProcessor {
      * @return
      */
     public boolean evaluate(TaskEvaluateParams data, Header head) {
-        String employeeID = commonUserUtils.getEmployeeId(head.getToken());
-        boolean result = saveEvaluate(data, employeeID);
+        String employeeNo = commonUserUtils.getEmployeeNo(head.getToken());
+        boolean result = saveEvaluate(data, employeeNo);
         if (result) {
-            saveEvaluateLog(data, employeeID);
+            saveEvaluateLog(data, employeeNo);
         }
         return result;
     }

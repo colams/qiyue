@@ -2,6 +2,7 @@ package com.foxconn.sw.service.processor.oa;
 
 import com.foxconn.sw.business.account.UserBusiness;
 import com.foxconn.sw.data.dto.Header;
+import com.foxconn.sw.data.dto.entity.acount.UserInfo;
 import com.foxconn.sw.data.dto.entity.oa.MyWorks;
 import com.foxconn.sw.data.entity.SwUser;
 import com.foxconn.sw.service.processor.user.CommonUserUtils;
@@ -16,7 +17,7 @@ public class SummaryWorkProcessor {
     UserBusiness userBusiness;
 
     public MyWorks summary(Header head) {
-        SwUser swUser = userUtils.queryUserInfo(head.getToken());
+        UserInfo swUser = userUtils.queryUserInfo(head.getToken());
 
 
         MyWorks myWorks = new MyWorks();

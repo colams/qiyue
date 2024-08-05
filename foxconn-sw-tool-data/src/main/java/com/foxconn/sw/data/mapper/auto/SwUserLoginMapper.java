@@ -34,10 +34,10 @@ public interface SwUserLoginMapper {
     int deleteByPrimaryKey(Integer id);
 
     @Insert({
-        "insert into sw_user_login (user_name, token, ",
+        "insert into sw_user_login (employee_no, token, ",
         "expire_time, create_time, ",
         "datetime_lastchange)",
-        "values (#{userName,jdbcType=VARCHAR}, #{token,jdbcType=VARCHAR}, ",
+        "values (#{employeeNo,jdbcType=VARCHAR}, #{token,jdbcType=VARCHAR}, ",
         "#{expireTime,jdbcType=TIMESTAMP}, #{createTime,jdbcType=TIMESTAMP}, ",
         "#{datetimeLastchange,jdbcType=TIMESTAMP})"
     })
@@ -51,7 +51,7 @@ public interface SwUserLoginMapper {
     @SelectProvider(type=SwUserLoginSqlProvider.class, method="selectByExample")
     @Results({
         @Result(column="id", property="id", jdbcType=JdbcType.INTEGER, id=true),
-        @Result(column="user_name", property="userName", jdbcType=JdbcType.VARCHAR),
+        @Result(column="employee_no", property="employeeNo", jdbcType=JdbcType.VARCHAR),
         @Result(column="token", property="token", jdbcType=JdbcType.VARCHAR),
         @Result(column="expire_time", property="expireTime", jdbcType=JdbcType.TIMESTAMP),
         @Result(column="create_time", property="createTime", jdbcType=JdbcType.TIMESTAMP),
@@ -62,7 +62,7 @@ public interface SwUserLoginMapper {
     @SelectProvider(type=SwUserLoginSqlProvider.class, method="selectByExample")
     @Results({
         @Result(column="id", property="id", jdbcType=JdbcType.INTEGER, id=true),
-        @Result(column="user_name", property="userName", jdbcType=JdbcType.VARCHAR),
+        @Result(column="employee_no", property="employeeNo", jdbcType=JdbcType.VARCHAR),
         @Result(column="token", property="token", jdbcType=JdbcType.VARCHAR),
         @Result(column="expire_time", property="expireTime", jdbcType=JdbcType.TIMESTAMP),
         @Result(column="create_time", property="createTime", jdbcType=JdbcType.TIMESTAMP),
@@ -72,13 +72,13 @@ public interface SwUserLoginMapper {
 
     @Select({
         "select",
-        "id, user_name, token, expire_time, create_time, datetime_lastchange",
+        "id, employee_no, token, expire_time, create_time, datetime_lastchange",
         "from sw_user_login",
         "where id = #{id,jdbcType=INTEGER}"
     })
     @Results({
         @Result(column="id", property="id", jdbcType=JdbcType.INTEGER, id=true),
-        @Result(column="user_name", property="userName", jdbcType=JdbcType.VARCHAR),
+        @Result(column="employee_no", property="employeeNo", jdbcType=JdbcType.VARCHAR),
         @Result(column="token", property="token", jdbcType=JdbcType.VARCHAR),
         @Result(column="expire_time", property="expireTime", jdbcType=JdbcType.TIMESTAMP),
         @Result(column="create_time", property="createTime", jdbcType=JdbcType.TIMESTAMP),
@@ -97,7 +97,7 @@ public interface SwUserLoginMapper {
 
     @Update({
         "update sw_user_login",
-        "set user_name = #{userName,jdbcType=VARCHAR},",
+        "set employee_no = #{employeeNo,jdbcType=VARCHAR},",
           "token = #{token,jdbcType=VARCHAR},",
           "expire_time = #{expireTime,jdbcType=TIMESTAMP},",
           "create_time = #{createTime,jdbcType=TIMESTAMP},",

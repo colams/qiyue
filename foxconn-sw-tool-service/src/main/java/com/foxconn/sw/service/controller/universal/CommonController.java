@@ -9,7 +9,7 @@ import com.foxconn.sw.data.constants.enums.FileAttrTypeEnums;
 import com.foxconn.sw.data.constants.enums.retcode.RetCode;
 import com.foxconn.sw.data.dto.Request;
 import com.foxconn.sw.data.dto.Response;
-import com.foxconn.sw.data.dto.entity.common.IDParams;
+import com.foxconn.sw.data.dto.entity.common.IntegerParams;
 import com.foxconn.sw.data.dto.entity.common.UploadResult;
 import com.foxconn.sw.data.interfaces.IResult;
 import com.foxconn.sw.service.processor.user.CommonUserUtils;
@@ -17,6 +17,7 @@ import com.foxconn.sw.service.utils.FilePathUtils;
 import com.foxconn.sw.service.utils.ResponseUtils;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import jakarta.validation.Valid;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -131,7 +132,7 @@ public class CommonController {
     @Operation(summary = "常用入口信息", tags = TagsConstants.UNIVERSAL)
     @ApiResponse(responseCode = "0", description = "成功码")
     @PostMapping("/entrance")
-    public Response entrance(Request<IDParams> request) {
+    public Response entrance(@Valid @RequestBody Request<IntegerParams> request) {
         Response response = ResponseUtils.success(request.getTraceId());
         return response;
     }

@@ -12,7 +12,7 @@ import com.foxconn.sw.data.dto.PageParams;
 import com.foxconn.sw.data.dto.Request;
 import com.foxconn.sw.data.dto.Response;
 import com.foxconn.sw.data.dto.entity.CategoryDTO;
-import com.foxconn.sw.data.dto.entity.common.IDParams;
+import com.foxconn.sw.data.dto.entity.common.IntegerParams;
 import com.foxconn.sw.data.dto.entity.tool.RunToolParams;
 import com.foxconn.sw.data.dto.entity.tool.SwToolDTO;
 import com.foxconn.sw.data.dto.entity.tool.ToolSearchParams;
@@ -21,6 +21,7 @@ import com.foxconn.sw.service.utils.FilePathUtils;
 import com.foxconn.sw.service.utils.ResponseUtils;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import jakarta.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,10 +57,10 @@ public class ToolController {
     @Operation(summary = "工具信息", tags = TagsConstants.TOOL)
     @ApiResponse(responseCode = "0", description = "成功码")
     @PostMapping("/detail")
-    public Response detail(@RequestBody Request<IDParams> request) {
+    public Response detail(@Valid @RequestBody Request<IntegerParams> request) {
 
         System.out.println("tool detail");
-        SwToolDTO toolDTO = toolsBusiness.detail(request.getData().getId());
+        SwToolDTO toolDTO = toolsBusiness.detail(request.getData().getParams());
         Response response = ResponseUtils.success(toolDTO, request.getTraceId());
         return response;
     }
@@ -67,7 +68,7 @@ public class ToolController {
     @Operation(summary = "查询上传工具", tags = TagsConstants.TOOL)
     @ApiResponse(responseCode = "0", description = "成功码")
     @PostMapping("/search")
-    public Response search(@RequestBody Request<PageParams<ToolSearchParams>> request) {
+    public Response search(@Valid @RequestBody Request<PageParams<ToolSearchParams>> request) {
         PageParams<ToolSearchParams> pageParams = request.getData();
         System.out.println(JsonUtils.serialize(pageParams));
         List<SwToolDTO> toolDTOs = toolsBusiness.searchByParams(pageParams);
@@ -81,7 +82,7 @@ public class ToolController {
     @Operation(summary = "保存工具上传记录", tags = TagsConstants.TOOL)
     @ApiResponse(responseCode = "0", description = "成功码")
     @PostMapping(value = "/saveTool")
-    public Response saveTool(@RequestBody Request<SwToolDTO> request) {
+    public Response saveTool(@Valid @RequestBody Request<SwToolDTO> request) {
         System.out.println("tool save");
         Response response;
         SwToolDTO swToolDTO = request.getData();
@@ -98,7 +99,7 @@ public class ToolController {
     @Operation(summary = "工具上传记录历史", tags = TagsConstants.TOOL)
     @ApiResponse(responseCode = "0", description = "成功码")
     @PostMapping("/history")
-    public Response listToolHistory(@RequestBody Request<PageParams<Integer>> request) {
+    public Response listToolHistory(@Valid @RequestBody Request<PageParams<Integer>> request) {
         PageParams<Integer> pageParams = request.getData();
         List<SwToolDTO> results = toolsHistoryBusiness.searchByToolId(request.getData());
         int totalCount = toolsHistoryBusiness.countByToolID(pageParams);
@@ -109,7 +110,7 @@ public class ToolController {
     @Operation(summary = "运行文件", tags = TagsConstants.TOOL)
     @ApiResponse(responseCode = "0", description = "成功码")
     @PostMapping("/run")
-    public Response runTool(@RequestBody Request<RunToolParams> request) throws FileNotFoundException {
+    public Response runTool(@Valid @RequestBody Request<RunToolParams> request) throws FileNotFoundException {
         RunToolParams toolParams = request.getData();
         StopWatch stopWatch = new StopWatch();
         stopWatch.start();
@@ -124,9 +125,9 @@ public class ToolController {
     @Operation(summary = "工具分类", tags = TagsConstants.TOOL)
     @ApiResponse(responseCode = "0", description = "成功码")
     @PostMapping("/category")
-    public Response categoryList() {
+    public Response categoryList(@Valid @RequestBody Request<IntegerParams> request) {
         LOGGER.info("logger list category");
-        List<CategoryDTO> results = listToolCategoryBusiness.listAll();
+        List<CategoryDTO> results = listToolCategoryBusiness.listByType(1);
         Response response = ResponseUtils.success(results, UUIDUtils.getUuid());
         return response;
     }

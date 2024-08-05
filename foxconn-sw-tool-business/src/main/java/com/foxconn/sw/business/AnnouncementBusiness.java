@@ -2,7 +2,7 @@ package com.foxconn.sw.business;
 
 import com.foxconn.sw.business.mapper.AnnouncementMapper;
 import com.foxconn.sw.data.dto.entity.common.AnnouncementParams;
-import com.foxconn.sw.data.dto.entity.common.IDParams;
+import com.foxconn.sw.data.dto.entity.common.IntegerParams;
 import com.foxconn.sw.data.dto.entity.common.SwAnnouncementDto;
 import com.foxconn.sw.data.entity.SwAnnouncement;
 import com.foxconn.sw.data.entity.SwAnnouncementExample;
@@ -29,9 +29,9 @@ public class AnnouncementBusiness {
     }
 
 
-    public SwAnnouncementDto detailAnnouncement(IDParams params) {
+    public SwAnnouncementDto detailAnnouncement(IntegerParams params) {
         SwAnnouncement swAnnouncement =
-                announcementExtensionMapper.selectByPrimaryKey(params.getId());
+                announcementExtensionMapper.selectByPrimaryKey(params.getParams());
         return AnnouncementMapper.INSTANCE.toAnnouncement(swAnnouncement);
     }
 

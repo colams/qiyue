@@ -1,9 +1,11 @@
 package com.foxconn.sw.business.account;
 
-import com.foxconn.sw.business.converter.SwSysUserConverter;
-import com.foxconn.sw.data.dto.entity.acount.UserDTO;
+import com.foxconn.sw.data.constants.enums.retcode.AccountExceptionCode;
+import com.foxconn.sw.data.dto.entity.acount.UserInfo;
+import com.foxconn.sw.data.dto.entity.acount.UserParams;
 import com.foxconn.sw.data.entity.SwUser;
 import com.foxconn.sw.data.entity.SwUserExample;
+import com.foxconn.sw.data.exception.BizException;
 import com.foxconn.sw.data.mapper.extension.acount.SwUserExtensionMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,31 +19,35 @@ public class UserBusiness {
     @Autowired
     SwUserExtensionMapper sysUserExtensionMapper;
 
-    public SwUser save(UserDTO userDTO) {
-        SwUser sysUser = SwSysUserConverter.toSysUser(userDTO);
-        sysUserExtensionMapper.insertSelective(sysUser);
-        return sysUser;
+    public SwUser save(SwUser swUser) {
+        boolean result = sysUserExtensionMapper.insertSelective(swUser) > 0;
+        if (!result) {
+            throw new BizException(AccountExceptionCode.CREATE_ACCOUNT_EXCEPTION);
+        }
+        return swUser;
     }
 
-    public SwUser queryUser(String userName) {
+    public SwUser queryUser(String employeeNo) {
         SwUserExample example = new SwUserExample();
         SwUserExample.Criteria criteria = example.createCriteria();
-        criteria.andUserNameEqualTo(userName);
+        criteria.andEmployeeNoEqualTo(employeeNo);
         List<SwUser> users = sysUserExtensionMapper.selectByExample(example);
         return CollectionUtils.isEmpty(users) ? null : users.get(0);
     }
 
-    public List<UserDTO> list() {
-        List<SwUser> sysUsers = sysUserExtensionMapper.selectByExample(null);
-        return SwSysUserConverter.toUserDto(sysUsers);
+    public List<UserInfo> list(UserParams data) {
+        return sysUserExtensionMapper.queryUserInfos(data);
     }
 
+    public UserInfo queryUserInfo(String employeeID) {
+        return sysUserExtensionMapper.queryUserInfo(employeeID);
+    }
 
-    public UserDTO detail(Integer data) {
-        SwUserExample example = new SwUserExample();
-        SwUserExample.Criteria criteria = example.createCriteria();
-        criteria.andIdEqualTo(data);
-        List<SwUser> sysUsers = sysUserExtensionMapper.selectByExample(example);
-        return CollectionUtils.isEmpty(sysUsers) ? null : SwSysUserConverter.toUserDto(sysUsers.get(0));
+    public boolean update(SwUser user) {
+        SwUser swUser = new SwUser();
+        swUser.setId(user.getId());
+        swUser.setSolt(user.getSolt());
+        swUser.setPassword(user.getPassword());
+        return sysUserExtensionMapper.updateByPrimaryKeySelective(user) > 0;
     }
 }

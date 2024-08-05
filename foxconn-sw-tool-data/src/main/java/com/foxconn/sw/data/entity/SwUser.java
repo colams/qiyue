@@ -5,19 +5,13 @@ import java.time.LocalDateTime;
 public class SwUser {
     private Integer id;
 
-    private String userName;
+    private String nickName;
 
-    private String name;
+    private String employeeNo;
 
     private String password;
 
     private String solt;
-
-    private String phone;
-
-    private String email;
-
-    private Integer deptId;
 
     private LocalDateTime createTime;
 
@@ -36,30 +30,30 @@ public class SwUser {
         this.id = id;
     }
 
-    public String getUserName() {
-        return userName;
+    public String getNickName() {
+        return nickName;
     }
 
-    public SwUser withUserName(String userName) {
-        this.setUserName(userName);
+    public SwUser withNickName(String nickName) {
+        this.setNickName(nickName);
         return this;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName == null ? null : userName.trim();
+    public void setNickName(String nickName) {
+        this.nickName = nickName == null ? null : nickName.trim();
     }
 
-    public String getName() {
-        return name;
+    public String getEmployeeNo() {
+        return employeeNo;
     }
 
-    public SwUser withName(String name) {
-        this.setName(name);
+    public SwUser withEmployeeNo(String employeeNo) {
+        this.setEmployeeNo(employeeNo);
         return this;
     }
 
-    public void setName(String name) {
-        this.name = name == null ? null : name.trim();
+    public void setEmployeeNo(String employeeNo) {
+        this.employeeNo = employeeNo == null ? null : employeeNo.trim();
     }
 
     public String getPassword() {
@@ -86,45 +80,6 @@ public class SwUser {
 
     public void setSolt(String solt) {
         this.solt = solt == null ? null : solt.trim();
-    }
-
-    public String getPhone() {
-        return phone;
-    }
-
-    public SwUser withPhone(String phone) {
-        this.setPhone(phone);
-        return this;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone == null ? null : phone.trim();
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public SwUser withEmail(String email) {
-        this.setEmail(email);
-        return this;
-    }
-
-    public void setEmail(String email) {
-        this.email = email == null ? null : email.trim();
-    }
-
-    public Integer getDeptId() {
-        return deptId;
-    }
-
-    public SwUser withDeptId(Integer deptId) {
-        this.setDeptId(deptId);
-        return this;
-    }
-
-    public void setDeptId(Integer deptId) {
-        this.deptId = deptId;
     }
 
     public LocalDateTime getCreateTime() {

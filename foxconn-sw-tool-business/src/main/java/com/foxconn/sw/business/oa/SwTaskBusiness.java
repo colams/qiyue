@@ -1,5 +1,6 @@
 package com.foxconn.sw.business.oa;
 
+import com.foxconn.sw.data.constants.enums.oa.TaskStatusEnums;
 import com.foxconn.sw.data.dto.PageParams;
 import com.foxconn.sw.data.dto.entity.oa.TaskBriefListVo;
 import com.foxconn.sw.data.dto.entity.oa.TaskParams;
@@ -37,6 +38,7 @@ public class SwTaskBusiness {
         SwTask task = new SwTask();
         task.setId(taskId);
         task.setProgressPercent(progress);
+        task.setStatus(TaskStatusEnums.PROCESSING.getCode());
         return taskExtensionMapper.updateByPrimaryKeySelective(task) > 0;
     }
 
@@ -44,6 +46,13 @@ public class SwTaskBusiness {
         SwTask task = new SwTask();
         task.setId(taskId);
         task.setHandleEid(assignEid);
+        return taskExtensionMapper.updateByPrimaryKeySelective(task) > 0;
+    }
+
+    public boolean closeTask(Integer id) {
+        SwTask task = new SwTask();
+        task.setId(id);
+        task.setStatus(TaskStatusEnums.CLOSED.getCode());
         return taskExtensionMapper.updateByPrimaryKeySelective(task) > 0;
     }
 }

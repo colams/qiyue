@@ -165,73 +165,73 @@ public class SwUserLoginExample {
             return (Criteria) this;
         }
 
-        public Criteria andUserNameIsNull() {
-            addCriterion("user_name is null");
+        public Criteria andEmployeeNoIsNull() {
+            addCriterion("employee_no is null");
             return (Criteria) this;
         }
 
-        public Criteria andUserNameIsNotNull() {
-            addCriterion("user_name is not null");
+        public Criteria andEmployeeNoIsNotNull() {
+            addCriterion("employee_no is not null");
             return (Criteria) this;
         }
 
-        public Criteria andUserNameEqualTo(String value) {
-            addCriterion("user_name =", value, "userName");
+        public Criteria andEmployeeNoEqualTo(String value) {
+            addCriterion("employee_no =", value, "employeeNo");
             return (Criteria) this;
         }
 
-        public Criteria andUserNameNotEqualTo(String value) {
-            addCriterion("user_name <>", value, "userName");
+        public Criteria andEmployeeNoNotEqualTo(String value) {
+            addCriterion("employee_no <>", value, "employeeNo");
             return (Criteria) this;
         }
 
-        public Criteria andUserNameGreaterThan(String value) {
-            addCriterion("user_name >", value, "userName");
+        public Criteria andEmployeeNoGreaterThan(String value) {
+            addCriterion("employee_no >", value, "employeeNo");
             return (Criteria) this;
         }
 
-        public Criteria andUserNameGreaterThanOrEqualTo(String value) {
-            addCriterion("user_name >=", value, "userName");
+        public Criteria andEmployeeNoGreaterThanOrEqualTo(String value) {
+            addCriterion("employee_no >=", value, "employeeNo");
             return (Criteria) this;
         }
 
-        public Criteria andUserNameLessThan(String value) {
-            addCriterion("user_name <", value, "userName");
+        public Criteria andEmployeeNoLessThan(String value) {
+            addCriterion("employee_no <", value, "employeeNo");
             return (Criteria) this;
         }
 
-        public Criteria andUserNameLessThanOrEqualTo(String value) {
-            addCriterion("user_name <=", value, "userName");
+        public Criteria andEmployeeNoLessThanOrEqualTo(String value) {
+            addCriterion("employee_no <=", value, "employeeNo");
             return (Criteria) this;
         }
 
-        public Criteria andUserNameLike(String value) {
-            addCriterion("user_name like", value, "userName");
+        public Criteria andEmployeeNoLike(String value) {
+            addCriterion("employee_no like", value, "employeeNo");
             return (Criteria) this;
         }
 
-        public Criteria andUserNameNotLike(String value) {
-            addCriterion("user_name not like", value, "userName");
+        public Criteria andEmployeeNoNotLike(String value) {
+            addCriterion("employee_no not like", value, "employeeNo");
             return (Criteria) this;
         }
 
-        public Criteria andUserNameIn(List<String> values) {
-            addCriterion("user_name in", values, "userName");
+        public Criteria andEmployeeNoIn(List<String> values) {
+            addCriterion("employee_no in", values, "employeeNo");
             return (Criteria) this;
         }
 
-        public Criteria andUserNameNotIn(List<String> values) {
-            addCriterion("user_name not in", values, "userName");
+        public Criteria andEmployeeNoNotIn(List<String> values) {
+            addCriterion("employee_no not in", values, "employeeNo");
             return (Criteria) this;
         }
 
-        public Criteria andUserNameBetween(String value1, String value2) {
-            addCriterion("user_name between", value1, value2, "userName");
+        public Criteria andEmployeeNoBetween(String value1, String value2) {
+            addCriterion("employee_no between", value1, value2, "employeeNo");
             return (Criteria) this;
         }
 
-        public Criteria andUserNameNotBetween(String value1, String value2) {
-            addCriterion("user_name not between", value1, value2, "userName");
+        public Criteria andEmployeeNoNotBetween(String value1, String value2) {
+            addCriterion("employee_no not between", value1, value2, "employeeNo");
             return (Criteria) this;
         }
 
@@ -485,8 +485,8 @@ public class SwUserLoginExample {
             return (Criteria) this;
         }
 
-        public Criteria andUserNameLikeInsensitive(String value) {
-            addCriterion("upper(user_name) like", value.toUpperCase(), "userName");
+        public Criteria andEmployeeNoLikeInsensitive(String value) {
+            addCriterion("upper(employee_no) like", value.toUpperCase(), "employeeNo");
             return (Criteria) this;
         }
 

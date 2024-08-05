@@ -8,7 +8,7 @@ import com.foxconn.sw.business.oa.SwTaskLogBusiness;
 import com.foxconn.sw.business.oa.SwTaskProgressBusiness;
 import com.foxconn.sw.data.constants.enums.retcode.OAExceptionCode;
 import com.foxconn.sw.data.dto.Header;
-import com.foxconn.sw.data.dto.entity.common.IDParams;
+import com.foxconn.sw.data.dto.entity.common.IntegerParams;
 import com.foxconn.sw.data.dto.entity.oa.TaskDetailVo;
 import com.foxconn.sw.data.dto.entity.oa.TaskEntityVo;
 import com.foxconn.sw.data.dto.entity.oa.TaskLogVo;
@@ -41,10 +41,10 @@ public class TaskDetailProcessor {
     @Autowired
     CommonUserUtils commonUserUtils;
 
-    public TaskEntityVo detail(IDParams data, Header head) {
-        String employeeID = commonUserUtils.getEmployeeId(head.getToken());
+    public TaskEntityVo detail(IntegerParams data, Header head) {
+        String employeeID = commonUserUtils.getEmployeeNo(head.getToken());
 
-        TaskDetailVo detailVo = getDetailVo(data.getId());
+        TaskDetailVo detailVo = getDetailVo(data.getParams());
 
         if (Objects.isNull(detailVo)) {
             throw new BizException(OAExceptionCode.TASK_ERROR_EXCEPTION);
@@ -57,8 +57,8 @@ public class TaskDetailProcessor {
             throw new BizException(OAExceptionCode.NO_PERMISSION_EXCEPTION);
         }
 
-        List<TaskProgressVo> taskProgressVos = getTaskProgressVos(data.getId());
-        List<TaskLogVo> taskLogVos = getTaskLogVos(data.getId());
+        List<TaskProgressVo> taskProgressVos = getTaskProgressVos(data.getParams());
+        List<TaskLogVo> taskLogVos = getTaskLogVos(data.getParams());
 
 
         TaskEntityVo taskEntityVo = new TaskEntityVo();

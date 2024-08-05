@@ -1,4 +1,4 @@
-package com.foxconn.sw.business.mapper.utils;
+package com.foxconn.sw.common.utils;
 
 import com.google.common.collect.Lists;
 import org.apache.commons.lang3.StringUtils;

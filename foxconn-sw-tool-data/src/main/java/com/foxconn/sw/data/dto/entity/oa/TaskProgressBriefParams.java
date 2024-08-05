@@ -6,7 +6,7 @@ import java.util.List;
 
 public class TaskProgressBriefParams {
 
-    @NotNull
+    @NotNull(message = "taskId 不能为空")
     private Integer taskId;
 
     private List<Integer> resourceIds;

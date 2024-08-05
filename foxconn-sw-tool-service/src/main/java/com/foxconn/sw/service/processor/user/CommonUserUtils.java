@@ -2,7 +2,7 @@ package com.foxconn.sw.service.processor.user;
 
 import com.foxconn.sw.business.account.UserBusiness;
 import com.foxconn.sw.business.account.UserLoginBusiness;
-import com.foxconn.sw.data.entity.SwUser;
+import com.foxconn.sw.data.dto.entity.acount.UserInfo;
 import com.foxconn.sw.data.entity.SwUserLogin;
 import com.foxconn.sw.data.exception.BizException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,21 +24,20 @@ public class CommonUserUtils {
      * @param token
      * @return
      */
-    public SwUser queryUserInfo(String token) {
+    public UserInfo queryUserInfo(String token) {
         SwUserLogin swUserLogin = userLoginBusiness.queryLoginUser(token);
         if (Objects.isNull(swUserLogin)) {
             throw new BizException("登录状态异常，请登录后再操作");
         }
-        SwUser swUser = userBusiness.queryUser(swUserLogin.getUserName());
-        if (Objects.isNull(swUser)) {
+        UserInfo userInfo = userBusiness.queryUserInfo(swUserLogin.getEmployeeNo());
+        if (Objects.isNull(userInfo)) {
             throw new BizException("用户信息错误，请联系管理员处理");
         }
-        return swUser;
+        return userInfo;
     }
 
-    public String getEmployeeId(String token) {
-        SwUser user = queryUserInfo(token);
-        return user.getUserName();
+    public String getEmployeeNo(String token) {
+        return queryUserInfo(token).getEmployeeNo();
     }
 
 }

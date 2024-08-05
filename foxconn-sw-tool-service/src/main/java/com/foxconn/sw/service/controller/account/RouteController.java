@@ -10,6 +10,7 @@ import com.foxconn.sw.service.processor.acount.ListRouteProcessor;
 import com.foxconn.sw.service.utils.ResponseUtils;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,12 +25,12 @@ public class RouteController {
     @Autowired
     MenuBusiness menuBusiness;
     @Autowired
-    ListRouteProcessor listRouteProcessor ;
+    ListRouteProcessor listRouteProcessor;
 
     @Operation(summary = "保存路由信息", tags = TagsConstants.ROUTE)
     @ApiResponse(responseCode = "0", description = "成功码")
     @PostMapping("/save")
-    public Response save(@RequestBody Request<MenuDTO> request) {
+    public Response save(@Valid @RequestBody Request<MenuDTO> request) {
         System.out.println("menu save");
         int result = menuBusiness.save(request.getData());
         Response response = ResponseUtils.success(result, request.getTraceId());
@@ -39,7 +40,7 @@ public class RouteController {
     @Operation(summary = "获取路由信息", tags = TagsConstants.ROUTE)
     @ApiResponse(responseCode = "0", description = "成功码")
     @PostMapping("/list")
-    public Response list(@RequestBody Request<RouteParams> request) {
+    public Response list(@Valid @RequestBody Request<RouteParams> request) {
         List<MenuDTO> sysMenus = listRouteProcessor.list(request.getData());
         Response response = ResponseUtils.success(sysMenus, request.getTraceId());
         return response;

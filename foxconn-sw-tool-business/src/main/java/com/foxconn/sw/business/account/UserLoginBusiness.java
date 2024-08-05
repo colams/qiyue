@@ -20,14 +20,14 @@ public class UserLoginBusiness {
     /**
      * 保存用户登录态
      *
-     * @param userName
+     * @param employeeId
      * @param token
      * @param expireTime
      * @return
      */
-    public boolean saveUserLogin(String userName, String token, LocalDateTime expireTime) {
+    public boolean saveUserLogin(String employeeId, String token, LocalDateTime expireTime) {
         SwUserLogin userLogin = new SwUserLogin();
-        userLogin.setUserName(userName);
+        userLogin.setEmployeeNo(employeeId);
         userLogin.setToken(token);
         userLogin.setExpireTime(expireTime);
         int count = userLoginExtensionMapper.insertSelective(userLogin);
@@ -38,12 +38,12 @@ public class UserLoginBusiness {
     /**
      * 根据用户名 查询有效的登录态
      *
-     * @param userName
+     * @param employeeID
      * @param now
      * @return
      */
-    public SwUserLogin queryLoginStateByName(String userName, LocalDateTime now) {
-        SwUserLogin login = userLoginExtensionMapper.queryLoginStateByName(userName, now);
+    public SwUserLogin queryLoginStateByName(String employeeID, LocalDateTime now) {
+        SwUserLogin login = userLoginExtensionMapper.queryLoginStateByName(employeeID, now);
         if (Objects.nonNull(login)) {
             if (login.getExpireTime().compareTo(now.plusHours(2)) <= 0) {
                 login.setExpireTime(now.plusHours(12));

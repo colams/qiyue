@@ -10,12 +10,10 @@ import com.foxconn.sw.service.processor.oa.SummaryWorkProcessor;
 import com.foxconn.sw.service.utils.ResponseUtils;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
-import io.swagger.v3.oas.annotations.tags.Tag;
-import io.swagger.v3.oas.annotations.tags.Tags;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
 import java.util.Map;
 
 @CrossOrigin
@@ -31,7 +29,7 @@ public class WorkController {
     @Operation(summary = "我的工作汇总信息", tags = TagsConstants.OA)
     @ApiResponse(responseCode = "0", description = "成功码")
     @PostMapping("/summary")
-    public Response summaryWork(@RequestBody Request request) {
+    public Response summaryWork(@Valid @RequestBody Request request) {
         MyWorks myWorks = summaryWorkProcessor.summary(request.getHead());
         return ResponseUtils.success(myWorks, request.getTraceId());
     }
@@ -39,7 +37,7 @@ public class WorkController {
     @Operation(summary = "工作list月度分布 按年份查询", tags = TagsConstants.OA)
     @ApiResponse(responseCode = "0", description = "成功码")
     @PostMapping("/monthly")
-    public Response monthlyWork(@RequestBody Request<MonthlyWorkParams> request) {
+    public Response monthlyWork(@Valid @RequestBody Request<MonthlyWorkParams> request) {
         Map<String, Integer> mapUtils = monthlyWorkProcessor.monthlyWork(request.getData());
         return ResponseUtils.success(mapUtils, request.getTraceId());
     }

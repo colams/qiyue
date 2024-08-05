@@ -1,7 +1,7 @@
 package com.foxconn.sw.business.mapper;
 
 
-import com.foxconn.sw.business.mapper.utils.ConvertUtils;
+import com.foxconn.sw.common.utils.ConvertUtils;
 import com.foxconn.sw.data.dto.entity.oa.TaskBriefDetailVo;
 import com.foxconn.sw.data.dto.entity.oa.TaskDetailVo;
 import com.foxconn.sw.data.entity.SwTask;

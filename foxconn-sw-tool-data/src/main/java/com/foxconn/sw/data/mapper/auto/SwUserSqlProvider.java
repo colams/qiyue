@@ -28,12 +28,12 @@ public class SwUserSqlProvider {
         SQL sql = new SQL();
         sql.INSERT_INTO("sw_user");
         
-        if (record.getUserName() != null) {
-            sql.VALUES("user_name", "#{userName,jdbcType=VARCHAR}");
+        if (record.getNickName() != null) {
+            sql.VALUES("nick_name", "#{nickName,jdbcType=VARCHAR}");
         }
         
-        if (record.getName() != null) {
-            sql.VALUES("name", "#{name,jdbcType=VARCHAR}");
+        if (record.getEmployeeNo() != null) {
+            sql.VALUES("employee_no", "#{employeeNo,jdbcType=VARCHAR}");
         }
         
         if (record.getPassword() != null) {
@@ -42,18 +42,6 @@ public class SwUserSqlProvider {
         
         if (record.getSolt() != null) {
             sql.VALUES("solt", "#{solt,jdbcType=VARCHAR}");
-        }
-        
-        if (record.getPhone() != null) {
-            sql.VALUES("phone", "#{phone,jdbcType=VARCHAR}");
-        }
-        
-        if (record.getEmail() != null) {
-            sql.VALUES("email", "#{email,jdbcType=VARCHAR}");
-        }
-        
-        if (record.getDeptId() != null) {
-            sql.VALUES("dept_id", "#{deptId,jdbcType=INTEGER}");
         }
         
         if (record.getCreateTime() != null) {
@@ -74,13 +62,10 @@ public class SwUserSqlProvider {
         } else {
             sql.SELECT("id");
         }
-        sql.SELECT("user_name");
-        sql.SELECT("name");
+        sql.SELECT("nick_name");
+        sql.SELECT("employee_no");
         sql.SELECT("password");
         sql.SELECT("solt");
-        sql.SELECT("phone");
-        sql.SELECT("email");
-        sql.SELECT("dept_id");
         sql.SELECT("create_time");
         sql.SELECT("datetime_lastchange");
         sql.FROM("sw_user");
@@ -104,12 +89,12 @@ public class SwUserSqlProvider {
             sql.SET("id = #{record.id,jdbcType=INTEGER}");
         }
         
-        if (record.getUserName() != null) {
-            sql.SET("user_name = #{record.userName,jdbcType=VARCHAR}");
+        if (record.getNickName() != null) {
+            sql.SET("nick_name = #{record.nickName,jdbcType=VARCHAR}");
         }
         
-        if (record.getName() != null) {
-            sql.SET("name = #{record.name,jdbcType=VARCHAR}");
+        if (record.getEmployeeNo() != null) {
+            sql.SET("employee_no = #{record.employeeNo,jdbcType=VARCHAR}");
         }
         
         if (record.getPassword() != null) {
@@ -118,18 +103,6 @@ public class SwUserSqlProvider {
         
         if (record.getSolt() != null) {
             sql.SET("solt = #{record.solt,jdbcType=VARCHAR}");
-        }
-        
-        if (record.getPhone() != null) {
-            sql.SET("phone = #{record.phone,jdbcType=VARCHAR}");
-        }
-        
-        if (record.getEmail() != null) {
-            sql.SET("email = #{record.email,jdbcType=VARCHAR}");
-        }
-        
-        if (record.getDeptId() != null) {
-            sql.SET("dept_id = #{record.deptId,jdbcType=INTEGER}");
         }
         
         if (record.getCreateTime() != null) {
@@ -149,13 +122,10 @@ public class SwUserSqlProvider {
         sql.UPDATE("sw_user");
         
         sql.SET("id = #{record.id,jdbcType=INTEGER}");
-        sql.SET("user_name = #{record.userName,jdbcType=VARCHAR}");
-        sql.SET("name = #{record.name,jdbcType=VARCHAR}");
+        sql.SET("nick_name = #{record.nickName,jdbcType=VARCHAR}");
+        sql.SET("employee_no = #{record.employeeNo,jdbcType=VARCHAR}");
         sql.SET("password = #{record.password,jdbcType=VARCHAR}");
         sql.SET("solt = #{record.solt,jdbcType=VARCHAR}");
-        sql.SET("phone = #{record.phone,jdbcType=VARCHAR}");
-        sql.SET("email = #{record.email,jdbcType=VARCHAR}");
-        sql.SET("dept_id = #{record.deptId,jdbcType=INTEGER}");
         sql.SET("create_time = #{record.createTime,jdbcType=TIMESTAMP}");
         sql.SET("datetime_lastchange = #{record.datetimeLastchange,jdbcType=TIMESTAMP}");
         
@@ -168,12 +138,12 @@ public class SwUserSqlProvider {
         SQL sql = new SQL();
         sql.UPDATE("sw_user");
         
-        if (record.getUserName() != null) {
-            sql.SET("user_name = #{userName,jdbcType=VARCHAR}");
+        if (record.getNickName() != null) {
+            sql.SET("nick_name = #{nickName,jdbcType=VARCHAR}");
         }
         
-        if (record.getName() != null) {
-            sql.SET("name = #{name,jdbcType=VARCHAR}");
+        if (record.getEmployeeNo() != null) {
+            sql.SET("employee_no = #{employeeNo,jdbcType=VARCHAR}");
         }
         
         if (record.getPassword() != null) {
@@ -182,18 +152,6 @@ public class SwUserSqlProvider {
         
         if (record.getSolt() != null) {
             sql.SET("solt = #{solt,jdbcType=VARCHAR}");
-        }
-        
-        if (record.getPhone() != null) {
-            sql.SET("phone = #{phone,jdbcType=VARCHAR}");
-        }
-        
-        if (record.getEmail() != null) {
-            sql.SET("email = #{email,jdbcType=VARCHAR}");
-        }
-        
-        if (record.getDeptId() != null) {
-            sql.SET("dept_id = #{deptId,jdbcType=INTEGER}");
         }
         
         if (record.getCreateTime() != null) {

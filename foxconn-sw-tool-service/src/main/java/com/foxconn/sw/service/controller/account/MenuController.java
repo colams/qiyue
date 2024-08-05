@@ -44,6 +44,4 @@ public class MenuController {
         Response response = ResponseUtils.success(sysMenus, request.getTraceId());
         return response;
     }
-
-
 }

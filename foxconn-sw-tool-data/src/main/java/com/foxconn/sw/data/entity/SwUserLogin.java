@@ -5,7 +5,7 @@ import java.time.LocalDateTime;
 public class SwUserLogin {
     private Integer id;
 
-    private String userName;
+    private String employeeNo;
 
     private String token;
 
@@ -28,17 +28,17 @@ public class SwUserLogin {
         this.id = id;
     }
 
-    public String getUserName() {
-        return userName;
+    public String getEmployeeNo() {
+        return employeeNo;
     }
 
-    public SwUserLogin withUserName(String userName) {
-        this.setUserName(userName);
+    public SwUserLogin withEmployeeNo(String employeeNo) {
+        this.setEmployeeNo(employeeNo);
         return this;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName == null ? null : userName.trim();
+    public void setEmployeeNo(String employeeNo) {
+        this.employeeNo = employeeNo == null ? null : employeeNo.trim();
     }
 
     public String getToken() {

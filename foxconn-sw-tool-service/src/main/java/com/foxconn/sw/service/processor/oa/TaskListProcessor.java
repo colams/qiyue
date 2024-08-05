@@ -23,7 +23,7 @@ public class TaskListProcessor {
     SwTaskBusiness taskBusiness;
 
     public PageEntity<TaskBriefListVo> list(PageParams<TaskParams> taskParams, Header head) {
-        String employeeId = userUtils.getEmployeeId(head.getToken());
+        String employeeId = userUtils.getEmployeeNo(head.getToken());
         List<TaskBriefListVo> briefVos = taskBusiness.listBriefVos(taskParams, employeeId);
         processOperate(briefVos);
 

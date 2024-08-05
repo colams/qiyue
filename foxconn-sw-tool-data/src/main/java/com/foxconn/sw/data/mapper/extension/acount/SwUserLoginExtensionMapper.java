@@ -12,12 +12,12 @@ import java.time.LocalDateTime;
 public interface SwUserLoginExtensionMapper extends SwUserLoginMapper {
 
     @Select("select * from sw_user_login " +
-            "where user_name=#{userName,jdbcType=VARCHAR} " +
+            "where employee_no=#{employeeNo,jdbcType=VARCHAR} " +
             "and expire_time>#{expireTime,jdbcType=TIMESTAMP} " +
             "order by expire_time desc " +
             "limit 1 "
     )
-    SwUserLogin queryLoginStateByName(@Param("userName") String userName, @Param("expireTime") LocalDateTime expireTime);
+    SwUserLogin queryLoginStateByName(@Param("employeeNo") String employeeNo, @Param("expireTime") LocalDateTime expireTime);
 
 
 }

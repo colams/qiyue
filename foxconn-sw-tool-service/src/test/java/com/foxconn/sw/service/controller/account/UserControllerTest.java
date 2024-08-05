@@ -53,7 +53,7 @@ public class UserControllerTest extends BaseTest {
 
     private LoginParams initUser() {
         LoginParams params = new LoginParams();
-        params.setUserName("colams");
+        params.setEmployeeNo("colams");
         params.setPassword("123456");
         params.setAuthCode("");
         return params;

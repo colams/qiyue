@@ -2,15 +2,15 @@ package com.foxconn.sw.data.dto.entity.acount;
 
 import java.time.LocalDateTime;
 
-public class LoginResponseType {
+public class LoginStateVo {
 
     private String token;
     private LocalDateTime localDateTime;
     private UserInfo user;
 
 
-    public static LoginResponseType init(String token, LocalDateTime localDateTime, UserDTO user) {
-        LoginResponseType login = new LoginResponseType();
+    public static LoginStateVo init(String token, LocalDateTime localDateTime, UserInfo user) {
+        LoginStateVo login = new LoginStateVo();
         login.token = token;
         login.localDateTime = localDateTime;
         login.user = user;
