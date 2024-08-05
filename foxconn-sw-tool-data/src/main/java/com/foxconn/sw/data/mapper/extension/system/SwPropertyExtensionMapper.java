@@ -1,7 +1,7 @@
 package com.foxconn.sw.data.mapper.extension.system;
 
 import com.foxconn.sw.data.dto.entity.system.ModuleVo;
-import com.foxconn.sw.data.dto.entity.system.PropertyParams;
+import com.foxconn.sw.data.dto.entity.system.PropertiesParams;
 import com.foxconn.sw.data.dto.entity.system.PropertyVo;
 import com.foxconn.sw.data.mapper.auto.SwPropertyMapper;
 import org.apache.ibatis.annotations.Param;
@@ -17,15 +17,19 @@ import java.util.List;
 public interface SwPropertyExtensionMapper extends SwPropertyMapper {
 
 
-    @Select({
+    @Select({"<script>",
             "select * ",
             "from sw_property ",
             "where 1=1 ",
             "<if test='params.propertyName!=null and params.propertyName!=\"\"' >",
-            " and property_name like CONCAT('%', #{params.propertyName,jdbcType=VARCHAR}, '%') ",
+            "and property_name like CONCAT('%', #{params.propertyName,jdbcType=VARCHAR}, '%') ",
+            "</if> ",
+            "<if test='params.category!=null and params.category>0' >",
+            "and category=#{params.category,jdbcType=INTEGER} ",
             "</if> ",
             "ORDER BY id ",
-            "LIMIT #{start,jdbcType=INTEGER} , #{end,jdbcType=INTEGER} "
+            "LIMIT #{start,jdbcType=INTEGER} , #{end,jdbcType=INTEGER} ",
+            "</script>",
     })
     @Results({
             @Result(column = "id", property = "id", jdbcType = JdbcType.INTEGER, id = true),
@@ -35,7 +39,7 @@ public interface SwPropertyExtensionMapper extends SwPropertyMapper {
             @Result(column = "order_by", property = "orderBy", jdbcType = JdbcType.INTEGER),
             @Result(column = "create_time", property = "createTime", jdbcType = JdbcType.TIMESTAMP)
     })
-    List<PropertyVo> getPropertyList(@Param("start") int start, @Param("end") int end, @Param("params") PropertyParams params);
+    List<PropertyVo> getPropertyList(@Param("start") int start, @Param("end") int end, @Param("params") PropertiesParams params);
 
     @Select("SELECT " +
             "    sm.property_name,\n" +
@@ -55,14 +59,18 @@ public interface SwPropertyExtensionMapper extends SwPropertyMapper {
     })
     List<ModuleVo> getModules(@Param("category") Integer category);
 
-    @Select({
+    @Select({"<script>",
             "select count(1) ",
             "from sw_property ",
             "where 1=1 ",
-            "ORDER BY st.id ",
             "<if test='propertyName!=null and propertyName!=\"\"' >",
-            " and property_name like CONCAT('%', #{propertyName,jdbcType=VARCHAR}, '%') ",
-            "</if> "
+            "and property_name like CONCAT('%', #{propertyName,jdbcType=VARCHAR}, '%') ",
+            "</if> ",
+            "<if test='category!=null and category>0'   >",
+            "and category=#{category,jdbcType=INTEGER} ",
+            "</if> ",
+            "ORDER BY id ",
+            "</script>",
     })
-    Integer getTotalCountByParams(PropertyParams params);
+    Integer getTotalCountByParams(PropertiesParams params);
 }

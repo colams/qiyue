@@ -12,6 +12,8 @@ public enum OAExceptionCode implements IResult {
 
     TASK_ERROR_EXCEPTION(1100001, "查询失败，请联系管理员！"),
     NO_PERMISSION_EXCEPTION(1100002, "没有权限访问资源！"),
+
+
     ;
 
     OAExceptionCode(int code, String msg) {

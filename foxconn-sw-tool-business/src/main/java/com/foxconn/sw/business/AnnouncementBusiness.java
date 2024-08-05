@@ -1,9 +1,9 @@
 package com.foxconn.sw.business;
 
 import com.foxconn.sw.business.mapper.AnnouncementMapper;
-import com.foxconn.sw.data.dto.entity.common.AnnouncementParams;
-import com.foxconn.sw.data.dto.entity.common.IntegerParams;
-import com.foxconn.sw.data.dto.entity.common.SwAnnouncementDto;
+import com.foxconn.sw.data.dto.entity.universal.AnnouncementParams;
+import com.foxconn.sw.data.dto.entity.universal.IntegerParams;
+import com.foxconn.sw.data.dto.entity.universal.SwAnnouncementDto;
 import com.foxconn.sw.data.entity.SwAnnouncement;
 import com.foxconn.sw.data.entity.SwAnnouncementExample;
 import com.foxconn.sw.data.mapper.extension.SwAnnouncementExtensionMapper;

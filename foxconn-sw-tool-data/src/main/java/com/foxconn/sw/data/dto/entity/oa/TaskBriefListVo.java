@@ -1,6 +1,6 @@
 package com.foxconn.sw.data.dto.entity.oa;
 
-import com.foxconn.sw.data.dto.entity.common.OperateEntity;
+import com.foxconn.sw.data.dto.entity.universal.OperateEntity;
 
 import java.time.LocalDateTime;
 import java.util.List;

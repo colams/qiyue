@@ -34,12 +34,12 @@ public interface SwUserMapper {
     int deleteByPrimaryKey(Integer id);
 
     @Insert({
-        "insert into sw_user (nick_name, employee_no, ",
-        "password, solt, ",
-        "create_time, datetime_lastchange)",
-        "values (#{nickName,jdbcType=VARCHAR}, #{employeeNo,jdbcType=VARCHAR}, ",
-        "#{password,jdbcType=VARCHAR}, #{solt,jdbcType=VARCHAR}, ",
-        "#{createTime,jdbcType=TIMESTAMP}, #{datetimeLastchange,jdbcType=TIMESTAMP})"
+        "insert into sw_user (employee_no, password, ",
+        "solt, create_time, ",
+        "datetime_lastchange)",
+        "values (#{employeeNo,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, ",
+        "#{solt,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, ",
+        "#{datetimeLastchange,jdbcType=TIMESTAMP})"
     })
     @SelectKey(statement="SELECT LAST_INSERT_ID()", keyProperty="id", before=false, resultType=Integer.class)
     int insert(SwUser record);
@@ -51,7 +51,6 @@ public interface SwUserMapper {
     @SelectProvider(type=SwUserSqlProvider.class, method="selectByExample")
     @Results({
         @Result(column="id", property="id", jdbcType=JdbcType.INTEGER, id=true),
-        @Result(column="nick_name", property="nickName", jdbcType=JdbcType.VARCHAR),
         @Result(column="employee_no", property="employeeNo", jdbcType=JdbcType.VARCHAR),
         @Result(column="password", property="password", jdbcType=JdbcType.VARCHAR),
         @Result(column="solt", property="solt", jdbcType=JdbcType.VARCHAR),
@@ -63,7 +62,6 @@ public interface SwUserMapper {
     @SelectProvider(type=SwUserSqlProvider.class, method="selectByExample")
     @Results({
         @Result(column="id", property="id", jdbcType=JdbcType.INTEGER, id=true),
-        @Result(column="nick_name", property="nickName", jdbcType=JdbcType.VARCHAR),
         @Result(column="employee_no", property="employeeNo", jdbcType=JdbcType.VARCHAR),
         @Result(column="password", property="password", jdbcType=JdbcType.VARCHAR),
         @Result(column="solt", property="solt", jdbcType=JdbcType.VARCHAR),
@@ -74,13 +72,12 @@ public interface SwUserMapper {
 
     @Select({
         "select",
-        "id, nick_name, employee_no, password, solt, create_time, datetime_lastchange",
+        "id, employee_no, password, solt, create_time, datetime_lastchange",
         "from sw_user",
         "where id = #{id,jdbcType=INTEGER}"
     })
     @Results({
         @Result(column="id", property="id", jdbcType=JdbcType.INTEGER, id=true),
-        @Result(column="nick_name", property="nickName", jdbcType=JdbcType.VARCHAR),
         @Result(column="employee_no", property="employeeNo", jdbcType=JdbcType.VARCHAR),
         @Result(column="password", property="password", jdbcType=JdbcType.VARCHAR),
         @Result(column="solt", property="solt", jdbcType=JdbcType.VARCHAR),
@@ -100,8 +97,7 @@ public interface SwUserMapper {
 
     @Update({
         "update sw_user",
-        "set nick_name = #{nickName,jdbcType=VARCHAR},",
-          "employee_no = #{employeeNo,jdbcType=VARCHAR},",
+        "set employee_no = #{employeeNo,jdbcType=VARCHAR},",
           "password = #{password,jdbcType=VARCHAR},",
           "solt = #{solt,jdbcType=VARCHAR},",
           "create_time = #{createTime,jdbcType=TIMESTAMP},",

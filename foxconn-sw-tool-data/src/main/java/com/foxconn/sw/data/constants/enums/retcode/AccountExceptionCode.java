@@ -14,7 +14,12 @@ public enum AccountExceptionCode implements IResult {
     LOGIN_STATE_KEEP_EXCEPTION(1000002, "登录异常！"),
     CREATE_ACCOUNT_EXCEPTION(1000003, "账号创建失败"),
     CREATE_ACCOUNT_LOGIN_EXCEPTION(1000004, "账号创建成功，请登录"),
-    RESET_PASSWORD_EXCEPRTION(1000005, "重置密码失败"),
+    RESET_PASSWORD_EXCEPTION(1000005, "重置密码失败"),
+
+
+    LOGIN_STATE_EXCEPTION(1000006, "登录状态异常，请登录后再操作!"),
+    USER_INFO_EXCEPTION(1000007, "用户信息错误，请联系管理员处理"),
+
     ;
 
 

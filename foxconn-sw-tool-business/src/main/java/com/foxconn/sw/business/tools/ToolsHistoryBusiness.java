@@ -3,7 +3,7 @@ package com.foxconn.sw.business.tools;
 import com.foxconn.sw.business.converter.SwToolsConverter;
 import com.foxconn.sw.business.converter.SwToolsHistoryConverter;
 import com.foxconn.sw.data.dto.PageParams;
-import com.foxconn.sw.data.dto.entity.common.IntegerParams;
+import com.foxconn.sw.data.dto.entity.universal.IntegerParams;
 import com.foxconn.sw.data.dto.entity.tool.SwToolDTO;
 import com.foxconn.sw.data.entity.SwTools;
 import com.foxconn.sw.data.entity.SwToolsHistory;

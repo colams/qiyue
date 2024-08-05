@@ -1,4 +1,4 @@
-package com.foxconn.sw.data.dto.entity.common;
+package com.foxconn.sw.data.dto.entity.universal;
 
 import jakarta.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.Length;

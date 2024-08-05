@@ -5,7 +5,7 @@ import com.foxconn.sw.data.constants.enums.OperateTypeEnum;
 import com.foxconn.sw.data.dto.Header;
 import com.foxconn.sw.data.dto.PageEntity;
 import com.foxconn.sw.data.dto.PageParams;
-import com.foxconn.sw.data.dto.entity.common.OperateEntity;
+import com.foxconn.sw.data.dto.entity.universal.OperateEntity;
 import com.foxconn.sw.data.dto.entity.oa.TaskBriefListVo;
 import com.foxconn.sw.data.dto.entity.oa.TaskParams;
 import com.foxconn.sw.service.processor.user.CommonUserUtils;

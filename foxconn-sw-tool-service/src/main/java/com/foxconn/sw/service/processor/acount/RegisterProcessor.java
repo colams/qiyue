@@ -60,9 +60,7 @@ public class RegisterProcessor {
 
     private SwUser initUser(UserBriefParams data) {
         String timeStamp = DateTimeUtils.getTimeStamp();
-
         SwUser user = new SwUser();
-        user.setNickName(data.getNickName());
         user.setEmployeeNo(data.getEmployeeNo());
         user.setPassword(SecurityUtils.encodeMD5(data.getPassword() + timeStamp));
         user.setSolt(timeStamp);

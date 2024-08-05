@@ -1,30 +1,40 @@
 package com.foxconn.sw.data.dto;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotNull;
 
 public class PageParams<T> {
 
     @Schema(description = "请求页码")
-    private int currentPage = 0;
+    @NotNull(message = "参数不能为空")
+    @Min(value = 1, message = "页号必须大于0")
+    private Integer currentPage = 0;
 
     @Schema(description = "请求页容量，每页数量")
-    private int pageSize = 10;
+    @NotNull(message = "参数不能为空")
+    @Min(value = 1, message = "页容量必须大于0")
+    private Integer pageSize = 10;
 
+    @Schema(description = "查询参数信息")
+    @Valid
+    @NotNull(message = "params对象不能为null！")
     private T params;
 
-    public int getCurrentPage() {
+    public Integer getCurrentPage() {
         return currentPage;
     }
 
-    public void setCurrentPage(int currentPage) {
+    public void setCurrentPage(Integer currentPage) {
         this.currentPage = currentPage;
     }
 
-    public int getPageSize() {
+    public Integer getPageSize() {
         return pageSize;
     }
 
-    public void setPageSize(int pageSize) {
+    public void setPageSize(Integer pageSize) {
         this.pageSize = pageSize;
     }
 

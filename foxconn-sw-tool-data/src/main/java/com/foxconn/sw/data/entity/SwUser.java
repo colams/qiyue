@@ -5,8 +5,6 @@ import java.time.LocalDateTime;
 public class SwUser {
     private Integer id;
 
-    private String nickName;
-
     private String employeeNo;
 
     private String password;
@@ -28,19 +26,6 @@ public class SwUser {
 
     public void setId(Integer id) {
         this.id = id;
-    }
-
-    public String getNickName() {
-        return nickName;
-    }
-
-    public SwUser withNickName(String nickName) {
-        this.setNickName(nickName);
-        return this;
-    }
-
-    public void setNickName(String nickName) {
-        this.nickName = nickName == null ? null : nickName.trim();
     }
 
     public String getEmployeeNo() {

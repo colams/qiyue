@@ -36,7 +36,7 @@ public class ResetPwdProcessor {
         if (isSuc) {
             return getLoginStateVo(data.getEmployeeNo());
         }
-        throw new BizException(AccountExceptionCode.RESET_PASSWORD_EXCEPRTION);
+        throw new BizException(AccountExceptionCode.RESET_PASSWORD_EXCEPTION);
     }
 
     private LoginStateVo getLoginStateVo(String employeeNo) {

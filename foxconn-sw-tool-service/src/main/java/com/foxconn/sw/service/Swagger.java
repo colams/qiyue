@@ -60,7 +60,7 @@ public class Swagger {
 
     @Bean
     public GroupedOpenApi universalApi() {
-        return createGroupedOpenApi(TagsConstants.UNIVERSAL);
+        return createGroupedOpenApi(TagsConstants.UNIVERSAL, "/api/" + TagsConstants.UNIVERSAL + "/**", "/api/property/**");
     }
 
     @Bean
@@ -79,6 +79,13 @@ public class Swagger {
         return GroupedOpenApi.builder()
                 .group(group)
                 .pathsToMatch(pathPattern)
+                .build();
+    }
+
+    private GroupedOpenApi createGroupedOpenApi(String group, String... paths) {
+        return GroupedOpenApi.builder()
+                .group(group)
+                .pathsToMatch(paths)
                 .build();
     }
 }

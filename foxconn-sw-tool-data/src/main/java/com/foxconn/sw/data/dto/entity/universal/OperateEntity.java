@@ -1,4 +1,4 @@
-package com.foxconn.sw.data.dto.entity.common;
+package com.foxconn.sw.data.dto.entity.universal;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 

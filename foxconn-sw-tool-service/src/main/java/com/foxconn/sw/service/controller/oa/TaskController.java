@@ -5,7 +5,7 @@ import com.foxconn.sw.data.dto.PageEntity;
 import com.foxconn.sw.data.dto.PageParams;
 import com.foxconn.sw.data.dto.Request;
 import com.foxconn.sw.data.dto.Response;
-import com.foxconn.sw.data.dto.entity.common.IntegerParams;
+import com.foxconn.sw.data.dto.entity.universal.IntegerParams;
 import com.foxconn.sw.data.dto.entity.oa.*;
 import com.foxconn.sw.service.processor.oa.*;
 import com.foxconn.sw.service.utils.ResponseUtils;
@@ -64,7 +64,6 @@ public class TaskController {
         PageEntity<TaskBriefListVo> taskList = taskListProcessor.list(request.getData(), request.getHead());
         return ResponseUtils.success(taskList, request.getTraceId());
     }
-
 
     @Operation(summary = "任务详情", tags = TagsConstants.OA)
     @ApiResponse(responseCode = "0", description = "成功码")

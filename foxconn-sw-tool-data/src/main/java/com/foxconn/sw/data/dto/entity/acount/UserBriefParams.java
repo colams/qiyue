@@ -5,7 +5,7 @@ import org.hibernate.validator.constraints.Length;
 
 public class UserBriefParams {
 
-    private String nickName;
+    private String name;
 
     @NotNull(message = "账号不能为空")
     @Length(min = 4, max = 15, message = "账号长度不符合")
@@ -15,12 +15,12 @@ public class UserBriefParams {
     @Length(min = 4, max = 15, message = "密码长度不符合")
     private String password;
 
-    public String getNickName() {
-        return nickName;
+    public String getName() {
+        return name;
     }
 
-    public void setNickName(String nickName) {
-        this.nickName = nickName;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getEmployeeNo() {

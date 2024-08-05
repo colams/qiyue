@@ -3,7 +3,7 @@ package com.foxconn.sw.service.processor.oa;
 import com.foxconn.sw.business.oa.SwTaskBusiness;
 import com.foxconn.sw.business.oa.SwTaskLogBusiness;
 import com.foxconn.sw.data.dto.Header;
-import com.foxconn.sw.data.dto.entity.common.IntegerParams;
+import com.foxconn.sw.data.dto.entity.universal.IntegerParams;
 import com.foxconn.sw.service.processor.user.CommonUserUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

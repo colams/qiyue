@@ -1,5 +1,6 @@
 package com.foxconn.sw.data.dto.entity.oa;
 
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import org.springframework.stereotype.Component;
 
@@ -15,6 +16,8 @@ public class TaskRejectParams {
     /**
      * 驳回内容
      */
+    @NotBlank(message = "内容不能为空字符串")
+    @NotNull(message = "内容不能为空")
     private String content;
 
     public Integer getTaskId() {

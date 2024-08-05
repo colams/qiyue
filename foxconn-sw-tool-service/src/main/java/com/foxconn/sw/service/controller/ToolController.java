@@ -4,7 +4,6 @@ import com.foxconn.sw.business.tools.ToolCategoryBusiness;
 import com.foxconn.sw.business.tools.ToolsBusiness;
 import com.foxconn.sw.business.tools.ToolsHistoryBusiness;
 import com.foxconn.sw.common.utils.ConfigReader;
-import com.foxconn.sw.common.utils.JsonUtils;
 import com.foxconn.sw.common.utils.UUIDUtils;
 import com.foxconn.sw.data.constants.TagsConstants;
 import com.foxconn.sw.data.constants.enums.retcode.RetCode;
@@ -13,12 +12,13 @@ import com.foxconn.sw.data.dto.PageParams;
 import com.foxconn.sw.data.dto.Request;
 import com.foxconn.sw.data.dto.Response;
 import com.foxconn.sw.data.dto.entity.CategoryDTO;
-import com.foxconn.sw.data.dto.entity.common.IntegerParams;
+import com.foxconn.sw.data.dto.entity.universal.IntegerParams;
 import com.foxconn.sw.data.dto.entity.tool.RunToolParams;
 import com.foxconn.sw.data.dto.entity.tool.SwToolDTO;
 import com.foxconn.sw.data.dto.entity.tool.ToolSearchParams;
 import com.foxconn.sw.service.processor.tool.RunToolProcessor;
 import com.foxconn.sw.service.processor.tool.SaveToolProcessor;
+import com.foxconn.sw.service.processor.tool.SearchToolProcessor;
 import com.foxconn.sw.service.utils.FilePathUtils;
 import com.foxconn.sw.service.utils.ResponseUtils;
 import io.swagger.v3.oas.annotations.Operation;
@@ -57,6 +57,8 @@ public class ToolController {
     SaveToolProcessor toolProcessor;
     @Autowired
     RunToolProcessor runToolProcessor;
+    @Autowired
+    SearchToolProcessor searchToolProcessor;
 
     @Operation(summary = "保存工具上传记录", tags = TagsConstants.TOOL)
     @ApiResponse(responseCode = "0", description = "成功码")
@@ -70,25 +72,16 @@ public class ToolController {
     @ApiResponse(responseCode = "0", description = "成功码")
     @PostMapping("/detail")
     public Response detail(@Valid @RequestBody Request<IntegerParams> request) {
-
-        System.out.println("tool detail");
         SwToolDTO toolDTO = toolsBusiness.detail(request.getData().getParams());
-        Response response = ResponseUtils.success(toolDTO, request.getTraceId());
-        return response;
+        return ResponseUtils.success(toolDTO, request.getTraceId());
     }
 
     @Operation(summary = "查询上传工具", tags = TagsConstants.TOOL)
     @ApiResponse(responseCode = "0", description = "成功码")
     @PostMapping("/search")
-    public Response search(@Valid @RequestBody Request<PageParams<ToolSearchParams>> request) {
-        PageParams<ToolSearchParams> pageParams = request.getData();
-        System.out.println(JsonUtils.serialize(pageParams));
-        List<SwToolDTO> toolDTOs = toolsBusiness.searchByParams(pageParams);
-        int totalCount = toolsBusiness.getTotalCountByParams(pageParams);
-        PageEntity<SwToolDTO> pageEntity = new PageEntity<>(totalCount, toolDTOs);
-
-        Response response = ResponseUtils.success(pageEntity, request.getTraceId());
-        return response;
+    public Response<PageEntity<SwToolDTO>> search(@Valid @RequestBody Request<PageParams<ToolSearchParams>> request) {
+        PageEntity<SwToolDTO> pageEntity = searchToolProcessor.search(request.getData());
+        return ResponseUtils.success(pageEntity, request.getTraceId());
     }
 
     @Operation(summary = "工具上传记录历史", tags = TagsConstants.TOOL)
@@ -116,8 +109,7 @@ public class ToolController {
     @PostMapping("/category")
     public Response categoryList(@Valid @RequestBody Request<IntegerParams> request) {
         List<CategoryDTO> results = listToolCategoryBusiness.listByType(1);
-        Response response = ResponseUtils.success(results, UUIDUtils.getUuid());
-        return response;
+        return ResponseUtils.success(results, UUIDUtils.getUuid());
     }
 
 }

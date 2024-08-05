@@ -1,5 +1,6 @@
 package com.foxconn.sw.data.dto.entity.oa;
 
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
 import java.util.List;
@@ -11,6 +12,8 @@ public class TaskProgressBriefParams {
 
     private List<Integer> resourceIds;
 
+    @NotBlank(message = "内容不能为空字符串")
+    @NotNull(message = "内容不能为空")
     private String content;
 
     private Integer progress;

@@ -21,7 +21,7 @@ public class ResponseUtils {
         return initResponse(traceId, RetCode.FAILURE);
     }
 
-    public static Response failure(int errorCode, String message, String traceId) {
+    public static Response failure(Integer errorCode, String message, String traceId) {
         return initResponse(traceId, message, errorCode);
     }
 

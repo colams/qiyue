@@ -4,6 +4,7 @@ import com.foxconn.sw.business.oa.SwTaskBusiness;
 import com.foxconn.sw.business.oa.SwTaskLogBusiness;
 import com.foxconn.sw.business.oa.SwTaskProgressBusiness;
 import com.foxconn.sw.common.utils.ConvertUtils;
+import com.foxconn.sw.data.constants.enums.retcode.RetCode;
 import com.foxconn.sw.data.dto.Header;
 import com.foxconn.sw.data.dto.entity.oa.TaskProgressBriefParams;
 import com.foxconn.sw.data.entity.SwTaskProgress;
@@ -37,7 +38,7 @@ public class AchieveTaskProcessor {
      */
     public boolean achieve(List<TaskProgressBriefParams> briefParamsList, Header head) {
         if (CollectionUtils.isEmpty(briefParamsList)) {
-            throw new BizException("请求信息不存在！");
+            throw new BizException(RetCode.VALIDATE_FAILED);
         }
         String employeeId = commonUserUtils.getEmployeeNo(head.getToken());
 

@@ -8,7 +8,7 @@ import com.foxconn.sw.business.oa.SwTaskLogBusiness;
 import com.foxconn.sw.business.oa.SwTaskProgressBusiness;
 import com.foxconn.sw.data.constants.enums.retcode.OAExceptionCode;
 import com.foxconn.sw.data.dto.Header;
-import com.foxconn.sw.data.dto.entity.common.IntegerParams;
+import com.foxconn.sw.data.dto.entity.universal.IntegerParams;
 import com.foxconn.sw.data.dto.entity.oa.TaskDetailVo;
 import com.foxconn.sw.data.dto.entity.oa.TaskEntityVo;
 import com.foxconn.sw.data.dto.entity.oa.TaskLogVo;

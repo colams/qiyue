@@ -2,6 +2,7 @@ package com.foxconn.sw.service.processor.user;
 
 import com.foxconn.sw.business.account.UserBusiness;
 import com.foxconn.sw.business.account.UserLoginBusiness;
+import com.foxconn.sw.data.constants.enums.retcode.AccountExceptionCode;
 import com.foxconn.sw.data.dto.entity.acount.UserInfo;
 import com.foxconn.sw.data.entity.SwUserLogin;
 import com.foxconn.sw.data.exception.BizException;
@@ -27,11 +28,11 @@ public class CommonUserUtils {
     public UserInfo queryUserInfo(String token) {
         SwUserLogin swUserLogin = userLoginBusiness.queryLoginUser(token);
         if (Objects.isNull(swUserLogin)) {
-            throw new BizException("登录状态异常，请登录后再操作");
+            throw new BizException(AccountExceptionCode.LOGIN_STATE_EXCEPTION);
         }
         UserInfo userInfo = userBusiness.queryUserInfo(swUserLogin.getEmployeeNo());
         if (Objects.isNull(userInfo)) {
-            throw new BizException("用户信息错误，请联系管理员处理");
+            throw new BizException(AccountExceptionCode.USER_INFO_EXCEPTION);
         }
         return userInfo;
     }

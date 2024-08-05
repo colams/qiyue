@@ -6,7 +6,7 @@ import com.foxconn.sw.data.dto.Request;
 import com.foxconn.sw.data.dto.Response;
 import com.foxconn.sw.data.dto.entity.acount.UserInfo;
 import com.foxconn.sw.data.dto.entity.acount.UserParams;
-import com.foxconn.sw.data.dto.entity.common.StringParams;
+import com.foxconn.sw.data.dto.entity.universal.StringParams;
 import com.foxconn.sw.service.processor.acount.QueryUsersProcessor;
 import com.foxconn.sw.service.utils.ResponseUtils;
 import io.swagger.v3.oas.annotations.Operation;

@@ -7,11 +7,12 @@ import com.foxconn.sw.data.dto.PageParams;
 import com.foxconn.sw.data.dto.Request;
 import com.foxconn.sw.data.dto.Response;
 import com.foxconn.sw.data.dto.entity.system.BasicPropertyVo;
-import com.foxconn.sw.data.dto.entity.system.PropertyParams;
+import com.foxconn.sw.data.dto.entity.system.PropertiesParams;
 import com.foxconn.sw.data.dto.entity.system.PropertyVo;
 import com.foxconn.sw.service.processor.system.GetPropertiesProcessor;
 import com.foxconn.sw.service.processor.system.PropertyCategoryProcessor;
 import com.foxconn.sw.service.processor.system.SavePropertyProcessor;
+import com.foxconn.sw.service.processor.universal.PropertyProcessor;
 import com.foxconn.sw.service.utils.ResponseUtils;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -36,11 +37,13 @@ public class PropertyController {
     SavePropertyProcessor savePropertyProcessor;
     @Autowired
     PropertyCategoryProcessor categoryProcessor;
+    @Autowired
+    PropertyProcessor propertyProcessor;
 
-    @Operation(summary = "基础数据信息", tags = TagsConstants.SYSTEM)
+    @Operation(summary = "获取基础属性数据信息", tags = TagsConstants.SYSTEM)
     @ApiResponse(responseCode = "0", description = "成功码")
     @PostMapping("/list")
-    public Response<PageEntity<PropertyVo>> getProperties(@Valid @RequestBody Request<PageParams<PropertyParams>> request) {
+    public Response<PageEntity<PropertyVo>> getProperties(@Valid @RequestBody Request<PageParams<PropertiesParams>> request) {
         PageEntity<PropertyVo> propertyVos = getPropertiesProcessor.getSwProperties(request.getData());
         return ResponseUtils.success(propertyVos, request.getTraceId());
     }
@@ -55,9 +58,9 @@ public class PropertyController {
 
     @Operation(summary = "基础属性分类", tags = TagsConstants.SYSTEM)
     @ApiResponse(responseCode = "0", description = "成功码")
-    @PostMapping("/category")
-    public Response<Boolean> propertyCategory(@Valid @RequestBody Request request) {
-        List<BasicPropertyVo> result = categoryProcessor.propertyCategory();
+    @PostMapping("/properties")
+    public Response<List<BasicPropertyVo>> properties(@Valid @RequestBody Request request) {
+        List<BasicPropertyVo> result = propertyProcessor.properties(request.getHead());
         return ResponseUtils.success(result, request.getTraceId());
     }
 }

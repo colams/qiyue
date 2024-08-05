@@ -28,10 +28,6 @@ public class SwUserSqlProvider {
         SQL sql = new SQL();
         sql.INSERT_INTO("sw_user");
         
-        if (record.getNickName() != null) {
-            sql.VALUES("nick_name", "#{nickName,jdbcType=VARCHAR}");
-        }
-        
         if (record.getEmployeeNo() != null) {
             sql.VALUES("employee_no", "#{employeeNo,jdbcType=VARCHAR}");
         }
@@ -62,7 +58,6 @@ public class SwUserSqlProvider {
         } else {
             sql.SELECT("id");
         }
-        sql.SELECT("nick_name");
         sql.SELECT("employee_no");
         sql.SELECT("password");
         sql.SELECT("solt");
@@ -87,10 +82,6 @@ public class SwUserSqlProvider {
         
         if (record.getId() != null) {
             sql.SET("id = #{record.id,jdbcType=INTEGER}");
-        }
-        
-        if (record.getNickName() != null) {
-            sql.SET("nick_name = #{record.nickName,jdbcType=VARCHAR}");
         }
         
         if (record.getEmployeeNo() != null) {
@@ -122,7 +113,6 @@ public class SwUserSqlProvider {
         sql.UPDATE("sw_user");
         
         sql.SET("id = #{record.id,jdbcType=INTEGER}");
-        sql.SET("nick_name = #{record.nickName,jdbcType=VARCHAR}");
         sql.SET("employee_no = #{record.employeeNo,jdbcType=VARCHAR}");
         sql.SET("password = #{record.password,jdbcType=VARCHAR}");
         sql.SET("solt = #{record.solt,jdbcType=VARCHAR}");
@@ -137,10 +127,6 @@ public class SwUserSqlProvider {
     public String updateByPrimaryKeySelective(SwUser record) {
         SQL sql = new SQL();
         sql.UPDATE("sw_user");
-        
-        if (record.getNickName() != null) {
-            sql.SET("nick_name = #{nickName,jdbcType=VARCHAR}");
-        }
         
         if (record.getEmployeeNo() != null) {
             sql.SET("employee_no = #{employeeNo,jdbcType=VARCHAR}");
