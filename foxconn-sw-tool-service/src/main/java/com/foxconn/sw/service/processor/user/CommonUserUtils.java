@@ -40,4 +40,9 @@ public class CommonUserUtils {
         return queryUserInfo(token).getEmployeeNo();
     }
 
+    public String getEmployeeName(String token) {
+        UserInfo userInfo = queryUserInfo(token);
+        return String.format("%s(%s)", userInfo.getEmployeeName(), userInfo.getEmployeeNo());
+    }
+
 }

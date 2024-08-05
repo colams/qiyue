@@ -35,11 +35,11 @@ public interface SwToolRunResultMapper {
 
     @Insert({
         "insert into sw_tool_run_result (operator, tool_name, ",
-        "run_result, remark, ",
-        "create_time)",
+        "run_result, interval, ",
+        "remark, create_time)",
         "values (#{operator,jdbcType=VARCHAR}, #{toolName,jdbcType=VARCHAR}, ",
-        "#{runResult,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, ",
-        "#{createTime,jdbcType=TIMESTAMP})"
+        "#{runResult,jdbcType=VARCHAR}, #{interval,jdbcType=BIGINT}, ",
+        "#{remark,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP})"
     })
     @SelectKey(statement="SELECT LAST_INSERT_ID()", keyProperty="id", before=false, resultType=Integer.class)
     int insert(SwToolRunResult record);
@@ -54,6 +54,7 @@ public interface SwToolRunResultMapper {
         @Result(column="operator", property="operator", jdbcType=JdbcType.VARCHAR),
         @Result(column="tool_name", property="toolName", jdbcType=JdbcType.VARCHAR),
         @Result(column="run_result", property="runResult", jdbcType=JdbcType.VARCHAR),
+        @Result(column="interval", property="interval", jdbcType=JdbcType.BIGINT),
         @Result(column="remark", property="remark", jdbcType=JdbcType.VARCHAR),
         @Result(column="create_time", property="createTime", jdbcType=JdbcType.TIMESTAMP)
     })
@@ -65,6 +66,7 @@ public interface SwToolRunResultMapper {
         @Result(column="operator", property="operator", jdbcType=JdbcType.VARCHAR),
         @Result(column="tool_name", property="toolName", jdbcType=JdbcType.VARCHAR),
         @Result(column="run_result", property="runResult", jdbcType=JdbcType.VARCHAR),
+        @Result(column="interval", property="interval", jdbcType=JdbcType.BIGINT),
         @Result(column="remark", property="remark", jdbcType=JdbcType.VARCHAR),
         @Result(column="create_time", property="createTime", jdbcType=JdbcType.TIMESTAMP)
     })
@@ -72,7 +74,7 @@ public interface SwToolRunResultMapper {
 
     @Select({
         "select",
-        "id, operator, tool_name, run_result, remark, create_time",
+        "id, operator, tool_name, run_result, interval, remark, create_time",
         "from sw_tool_run_result",
         "where id = #{id,jdbcType=INTEGER}"
     })
@@ -81,6 +83,7 @@ public interface SwToolRunResultMapper {
         @Result(column="operator", property="operator", jdbcType=JdbcType.VARCHAR),
         @Result(column="tool_name", property="toolName", jdbcType=JdbcType.VARCHAR),
         @Result(column="run_result", property="runResult", jdbcType=JdbcType.VARCHAR),
+        @Result(column="interval", property="interval", jdbcType=JdbcType.BIGINT),
         @Result(column="remark", property="remark", jdbcType=JdbcType.VARCHAR),
         @Result(column="create_time", property="createTime", jdbcType=JdbcType.TIMESTAMP)
     })
@@ -100,6 +103,7 @@ public interface SwToolRunResultMapper {
         "set operator = #{operator,jdbcType=VARCHAR},",
           "tool_name = #{toolName,jdbcType=VARCHAR},",
           "run_result = #{runResult,jdbcType=VARCHAR},",
+          "interval = #{interval,jdbcType=BIGINT},",
           "remark = #{remark,jdbcType=VARCHAR},",
           "create_time = #{createTime,jdbcType=TIMESTAMP}",
         "where id = #{id,jdbcType=INTEGER}"

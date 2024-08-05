@@ -40,6 +40,10 @@ public class SwToolRunResultSqlProvider {
             sql.VALUES("run_result", "#{runResult,jdbcType=VARCHAR}");
         }
         
+        if (record.getInterval() != null) {
+            sql.VALUES("interval", "#{interval,jdbcType=BIGINT}");
+        }
+        
         if (record.getRemark() != null) {
             sql.VALUES("remark", "#{remark,jdbcType=VARCHAR}");
         }
@@ -61,6 +65,7 @@ public class SwToolRunResultSqlProvider {
         sql.SELECT("operator");
         sql.SELECT("tool_name");
         sql.SELECT("run_result");
+        sql.SELECT("interval");
         sql.SELECT("remark");
         sql.SELECT("create_time");
         sql.FROM("sw_tool_run_result");
@@ -96,6 +101,10 @@ public class SwToolRunResultSqlProvider {
             sql.SET("run_result = #{record.runResult,jdbcType=VARCHAR}");
         }
         
+        if (record.getInterval() != null) {
+            sql.SET("interval = #{record.interval,jdbcType=BIGINT}");
+        }
+        
         if (record.getRemark() != null) {
             sql.SET("remark = #{record.remark,jdbcType=VARCHAR}");
         }
@@ -116,6 +125,7 @@ public class SwToolRunResultSqlProvider {
         sql.SET("operator = #{record.operator,jdbcType=VARCHAR}");
         sql.SET("tool_name = #{record.toolName,jdbcType=VARCHAR}");
         sql.SET("run_result = #{record.runResult,jdbcType=VARCHAR}");
+        sql.SET("interval = #{record.interval,jdbcType=BIGINT}");
         sql.SET("remark = #{record.remark,jdbcType=VARCHAR}");
         sql.SET("create_time = #{record.createTime,jdbcType=TIMESTAMP}");
         
@@ -138,6 +148,10 @@ public class SwToolRunResultSqlProvider {
         
         if (record.getRunResult() != null) {
             sql.SET("run_result = #{runResult,jdbcType=VARCHAR}");
+        }
+        
+        if (record.getInterval() != null) {
+            sql.SET("interval = #{interval,jdbcType=BIGINT}");
         }
         
         if (record.getRemark() != null) {

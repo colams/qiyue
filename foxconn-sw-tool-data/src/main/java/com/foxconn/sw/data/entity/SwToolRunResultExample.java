@@ -375,6 +375,66 @@ public class SwToolRunResultExample {
             return (Criteria) this;
         }
 
+        public Criteria andIntervalIsNull() {
+            addCriterion("interval is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andIntervalIsNotNull() {
+            addCriterion("interval is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andIntervalEqualTo(Long value) {
+            addCriterion("interval =", value, "interval");
+            return (Criteria) this;
+        }
+
+        public Criteria andIntervalNotEqualTo(Long value) {
+            addCriterion("interval <>", value, "interval");
+            return (Criteria) this;
+        }
+
+        public Criteria andIntervalGreaterThan(Long value) {
+            addCriterion("interval >", value, "interval");
+            return (Criteria) this;
+        }
+
+        public Criteria andIntervalGreaterThanOrEqualTo(Long value) {
+            addCriterion("interval >=", value, "interval");
+            return (Criteria) this;
+        }
+
+        public Criteria andIntervalLessThan(Long value) {
+            addCriterion("interval <", value, "interval");
+            return (Criteria) this;
+        }
+
+        public Criteria andIntervalLessThanOrEqualTo(Long value) {
+            addCriterion("interval <=", value, "interval");
+            return (Criteria) this;
+        }
+
+        public Criteria andIntervalIn(List<Long> values) {
+            addCriterion("interval in", values, "interval");
+            return (Criteria) this;
+        }
+
+        public Criteria andIntervalNotIn(List<Long> values) {
+            addCriterion("interval not in", values, "interval");
+            return (Criteria) this;
+        }
+
+        public Criteria andIntervalBetween(Long value1, Long value2) {
+            addCriterion("interval between", value1, value2, "interval");
+            return (Criteria) this;
+        }
+
+        public Criteria andIntervalNotBetween(Long value1, Long value2) {
+            addCriterion("interval not between", value1, value2, "interval");
+            return (Criteria) this;
+        }
+
         public Criteria andRemarkIsNull() {
             addCriterion("remark is null");
             return (Criteria) this;

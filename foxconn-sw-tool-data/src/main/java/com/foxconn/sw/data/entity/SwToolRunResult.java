@@ -11,6 +11,8 @@ public class SwToolRunResult {
 
     private String runResult;
 
+    private Long interval;
+
     private String remark;
 
     private LocalDateTime createTime;
@@ -65,6 +67,19 @@ public class SwToolRunResult {
 
     public void setRunResult(String runResult) {
         this.runResult = runResult == null ? null : runResult.trim();
+    }
+
+    public Long getInterval() {
+        return interval;
+    }
+
+    public SwToolRunResult withInterval(Long interval) {
+        this.setInterval(interval);
+        return this;
+    }
+
+    public void setInterval(Long interval) {
+        this.interval = interval;
     }
 
     public String getRemark() {

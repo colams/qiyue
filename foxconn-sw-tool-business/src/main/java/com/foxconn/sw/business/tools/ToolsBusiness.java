@@ -57,12 +57,13 @@ public class ToolsBusiness {
         return swTools;
     }
 
-    public boolean saveRunResult(String toolName, String filepath, String operator, String remark) {
+    public boolean saveRunResult(String toolName, String filepath, String operator, String remark, long interval) {
         SwToolRunResult log = new SwToolRunResult();
         log.setOperator(operator);
         log.setToolName(toolName);
         log.setRunResult(filepath);
         log.setRemark(remark);
+        log.setInterval(interval);
         int count = runResultExtensionMapper.insertSelective(log);
         return count > 0;
     }
