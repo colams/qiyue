@@ -15,6 +15,8 @@ public class SwTools {
 
     private String filePath;
 
+    private Integer resourceId;
+
     private Double toolSize;
 
     private String introduction;
@@ -105,6 +107,19 @@ public class SwTools {
 
     public void setFilePath(String filePath) {
         this.filePath = filePath == null ? null : filePath.trim();
+    }
+
+    public Integer getResourceId() {
+        return resourceId;
+    }
+
+    public SwTools withResourceId(Integer resourceId) {
+        this.setResourceId(resourceId);
+        return this;
+    }
+
+    public void setResourceId(Integer resourceId) {
+        this.resourceId = resourceId;
     }
 
     public Double getToolSize() {

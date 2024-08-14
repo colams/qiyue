@@ -7,10 +7,11 @@ import com.foxconn.sw.data.dto.Header;
 import com.foxconn.sw.data.dto.entity.acount.UserInfo;
 import com.foxconn.sw.data.dto.entity.oa.TaskAssignParams;
 import com.foxconn.sw.data.entity.SwTaskProgress;
-import com.foxconn.sw.data.entity.SwUser;
 import com.foxconn.sw.service.processor.user.CommonUserUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import java.util.Optional;
 
 @Component
 public class AssignTaskProcessor {
@@ -50,7 +51,10 @@ public class AssignTaskProcessor {
         SwTaskProgress progress = new SwTaskProgress();
         progress.setTaskId(data.getTaskId());
         progress.setOperateEid(user.getEmployeeNo());
-        progress.setContent(String.format("%s 任务分派给了 %s; %s", user.getEmployeeName(), data.getAssignEid(), data.getContent()));
+        progress.setContent(String.format("%s 任务分派给了 %s; %s",
+                user.getEmployeeName(),
+                data.getAssignEid(),
+                Optional.ofNullable(data.getContent()).orElse("")));
         return taskProgressBusiness.addProcessInfo(progress);
     }
 }

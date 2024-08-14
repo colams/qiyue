@@ -13,6 +13,7 @@ public enum RetCode implements IResult {
     SYSTEM_EXCEPTION(4, "接口发生异常"),
     EMPTY_FILE_ERROR(5, "empty file error"),
     UPLOAD_FILE_ERROR(6, "upload file error"),
+    ENUM_CONVERT_ERROR(7, "enum convert error"),
 
     ;
 

@@ -18,6 +18,8 @@ public class ModuleVo {
      */
     private String moduleUrl;
 
+    private String moduleIcon;
+
     public Integer getModuleNo() {
         return moduleNo;
     }
@@ -40,5 +42,13 @@ public class ModuleVo {
 
     public void setModuleUrl(String moduleUrl) {
         this.moduleUrl = moduleUrl;
+    }
+
+    public String getModuleIcon() {
+        return moduleIcon;
+    }
+
+    public void setModuleIcon(String moduleIcon) {
+        this.moduleIcon = moduleIcon;
     }
 }

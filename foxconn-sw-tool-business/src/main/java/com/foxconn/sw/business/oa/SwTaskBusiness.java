@@ -1,5 +1,6 @@
 package com.foxconn.sw.business.oa;
 
+import com.foxconn.sw.common.utils.DateTimeUtils;
 import com.foxconn.sw.data.constants.enums.oa.TaskStatusEnums;
 import com.foxconn.sw.data.dto.PageParams;
 import com.foxconn.sw.data.dto.entity.oa.TaskBriefListVo;
@@ -21,13 +22,20 @@ public class SwTaskBusiness {
         return taskExtensionMapper.insertSelective(task) > 0;
     }
 
+
+    public boolean updateTask(SwTask task) {
+        return taskExtensionMapper.updateByPrimaryKeySelective(task) > 0;
+    }
+
     public List<TaskBriefListVo> listBriefVos(PageParams<TaskParams> data, String employeeId) {
+        String now = DateTimeUtils.formatNow();
         int start = (data.getCurrentPage() - 1) * data.getPageSize();
-        return taskExtensionMapper.listBriefVos(start, data.getPageSize(), data.getParams(), employeeId);
+        return taskExtensionMapper.listBriefVos(start, data.getPageSize(), data.getParams(), employeeId, now);
     }
 
     public int getTotalCountByParams(TaskParams params, String employeeId) {
-        return taskExtensionMapper.getTotalCountByParams(params, employeeId);
+        String now = DateTimeUtils.formatNow();
+        return taskExtensionMapper.getTotalCountByParams(params, employeeId, now);
     }
 
     public SwTask getTaskById(Integer taskId) {
@@ -46,6 +54,7 @@ public class SwTaskBusiness {
         SwTask task = new SwTask();
         task.setId(taskId);
         task.setHandleEid(assignEid);
+        task.setStatus(TaskStatusEnums.CONFIRMING.getCode());
         return taskExtensionMapper.updateByPrimaryKeySelective(task) > 0;
     }
 

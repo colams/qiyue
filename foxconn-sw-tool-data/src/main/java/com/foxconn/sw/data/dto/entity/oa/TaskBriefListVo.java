@@ -11,6 +11,10 @@ public class TaskBriefListVo {
      * 表主键ID
      */
     private Integer id;
+    /**
+     * 专案-所属项目
+     */
+    private String topCategory;
 
     /**
      * 任务分类
@@ -21,6 +25,11 @@ public class TaskBriefListVo {
      * 任务标题-任务名称
      */
     private String title;
+
+    /**
+     * 专案-所属项目
+     */
+    private String topProject;
 
     /**
      * 专案-所属项目
@@ -37,6 +46,12 @@ public class TaskBriefListVo {
      */
     private String level;
 
+
+    /**
+     * 优先等级
+     */
+    private InfoColorVo levelInfo;
+
     /**
      * 处理进度
      */
@@ -48,9 +63,19 @@ public class TaskBriefListVo {
     private Integer status;
 
     /**
+     * 状态描述信息
+     */
+    private InfoColorVo statusInfoVo;
+
+    /**
      * 任务提出人
      */
     private String proposerEid;
+
+    /**
+     *
+     */
+    private String managerEid;
 
     /**
      * 任务处理人
@@ -90,6 +115,14 @@ public class TaskBriefListVo {
         this.id = id;
     }
 
+    public String getTopCategory() {
+        return topCategory;
+    }
+
+    public void setTopCategory(String topCategory) {
+        this.topCategory = topCategory;
+    }
+
     public String getCategory() {
         return category;
     }
@@ -104,6 +137,22 @@ public class TaskBriefListVo {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public InfoColorVo getLevelInfo() {
+        return levelInfo;
+    }
+
+    public void setLevelInfo(InfoColorVo levelInfo) {
+        this.levelInfo = levelInfo;
+    }
+
+    public String getTopProject() {
+        return topProject;
+    }
+
+    public void setTopProject(String topProject) {
+        this.topProject = topProject;
     }
 
     public String getProject() {
@@ -146,12 +195,28 @@ public class TaskBriefListVo {
         this.status = status;
     }
 
+    public InfoColorVo getStatusInfoVo() {
+        return statusInfoVo;
+    }
+
+    public void setStatusInfoVo(InfoColorVo statusInfoVo) {
+        this.statusInfoVo = statusInfoVo;
+    }
+
     public String getProposerEid() {
         return proposerEid;
     }
 
     public void setProposerEid(String proposerEid) {
         this.proposerEid = proposerEid;
+    }
+
+    public String getManagerEid() {
+        return managerEid;
+    }
+
+    public void setManagerEid(String managerEid) {
+        this.managerEid = managerEid;
     }
 
     public String getHandleEid() {

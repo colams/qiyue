@@ -15,6 +15,9 @@ public class MenuParams {
     @PositiveOrZero(message = "父菜单ID不能为负数")
     private Integer parentId;
 
+    @PositiveOrZero(message = "父菜单ID不能为负数")
+    private Integer isModuleIndex;
+
     private String menuName;
 
     public Integer getMenuId() {
@@ -39,6 +42,14 @@ public class MenuParams {
 
     public void setParentId(Integer parentId) {
         this.parentId = parentId;
+    }
+
+    public Integer getIsModuleIndex() {
+        return isModuleIndex;
+    }
+
+    public void setIsModuleIndex(Integer isModuleIndex) {
+        this.isModuleIndex = isModuleIndex;
     }
 
     public String getMenuName() {

@@ -1,15 +1,15 @@
-package com.foxconn.sw.service.processor.system;
+package com.foxconn.sw.service.processor.acount;
 
 import com.foxconn.sw.business.system.PropertyBusiness;
 import com.foxconn.sw.data.constants.enums.BasicPropertyEnums;
 import com.foxconn.sw.data.dto.entity.system.ModuleVo;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
-@Service
-public class ListModuleProcessor {
+@Component
+public class ModuleIndexProcessor {
 
     @Autowired
     PropertyBusiness propertyBusiness;
@@ -18,5 +18,4 @@ public class ListModuleProcessor {
         List<ModuleVo> moduleVos = propertyBusiness.getModules(BasicPropertyEnums.MODULE.getCode());
         return moduleVos;
     }
-
 }

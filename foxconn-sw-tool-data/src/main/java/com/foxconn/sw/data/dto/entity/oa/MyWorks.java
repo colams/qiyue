@@ -1,27 +1,24 @@
 package com.foxconn.sw.data.dto.entity.oa;
 
+import io.swagger.v3.oas.annotations.media.Schema;
+
 public class MyWorks {
 
-    private int total;
-    private int argentCount;
+    @Schema(description = "紧急事项")
+    private int urgencyCount;
+    @Schema(description = "项目待办")
     private int scheduleCount;
-    private int approvalCount;
-    private int unReadMailCount;
+    @Schema(description = "今日会议")
+    private int meetingCount;
+    @Schema(description = "日志更新")
+    private int logCount;
 
-    public int getTotal() {
-        return total;
+    public int getUrgencyCount() {
+        return urgencyCount;
     }
 
-    public void setTotal(int total) {
-        this.total = total;
-    }
-
-    public int getArgentCount() {
-        return argentCount;
-    }
-
-    public void setArgentCount(int argentCount) {
-        this.argentCount = argentCount;
+    public void setUrgencyCount(int urgencyCount) {
+        this.urgencyCount = urgencyCount;
     }
 
     public int getScheduleCount() {
@@ -32,19 +29,19 @@ public class MyWorks {
         this.scheduleCount = scheduleCount;
     }
 
-    public int getApprovalCount() {
-        return approvalCount;
+    public int getMeetingCount() {
+        return meetingCount;
     }
 
-    public void setApprovalCount(int approvalCount) {
-        this.approvalCount = approvalCount;
+    public void setMeetingCount(int meetingCount) {
+        this.meetingCount = meetingCount;
     }
 
-    public int getUnReadMailCount() {
-        return unReadMailCount;
+    public int getLogCount() {
+        return logCount;
     }
 
-    public void setUnReadMailCount(int unReadMailCount) {
-        this.unReadMailCount = unReadMailCount;
+    public void setLogCount(int logCount) {
+        this.logCount = logCount;
     }
 }

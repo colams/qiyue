@@ -18,8 +18,8 @@ public interface SwToolsHistoryExtensionMapper extends SwToolsHistoryMapper {
             "       sth.tool_id toolId,\n" +
             "       tool_name,\n" +
             "       tool_icon,\n" +
-            "       stc.category,\n" +
-            "       stc.category_name,\n" +
+            "       property_id,\n" +
+            "       sp.property_name as category_name,\n" +
             "       version_no,\n" +
             "       file_path,\n" +
             "       tool_size,\n" +
@@ -30,7 +30,7 @@ public interface SwToolsHistoryExtensionMapper extends SwToolsHistoryMapper {
             "       sth.create_time,\n" +
             "       sth.datetime_lastchange\n" +
             "from sw_tools_history sth\n" +
-            "         inner join sw_tool_category stc on sth.category = stc.category\n" +
+            "         inner join sw_property sp on sth.property_id = sp.id\n" +
             "where sth.tool_id = #{toolID,jdbcType=INTEGER} " +
             "ORDER BY sth.id desc " +
             "LIMIT #{start,jdbcType=INTEGER} , #{end,jdbcType=INTEGER} "
@@ -40,7 +40,7 @@ public interface SwToolsHistoryExtensionMapper extends SwToolsHistoryMapper {
             @Result(column = "historyId", property = "historyId", jdbcType = JdbcType.INTEGER),
             @Result(column = "tool_name", property = "toolName", jdbcType = JdbcType.VARCHAR),
             @Result(column = "tool_icon", property = "toolIcon", jdbcType = JdbcType.VARCHAR),
-            @Result(column = "category", property = "category", jdbcType = JdbcType.INTEGER),
+            @Result(column = "property_id", property = "propertyId", jdbcType = JdbcType.INTEGER),
             @Result(column = "category_name", property = "categoryName", jdbcType = JdbcType.VARCHAR),
             @Result(column = "version_no", property = "versionNo", jdbcType = JdbcType.VARCHAR),
             @Result(column = "file_path", property = "filePath", jdbcType = JdbcType.VARCHAR),
@@ -56,7 +56,7 @@ public interface SwToolsHistoryExtensionMapper extends SwToolsHistoryMapper {
 
     @Select({"select count(*) " +
             "from sw_tools_history sth\n" +
-            "         inner join sw_tool_category stc on sth.category = stc.category\n" +
+            "         inner join sw_property sp on sth.property_id = sp.id\n" +
             "where sth.tool_id = #{tool_id,jdbcType=INTEGER}"})
     Integer countByToolID(Integer tool_id);
 

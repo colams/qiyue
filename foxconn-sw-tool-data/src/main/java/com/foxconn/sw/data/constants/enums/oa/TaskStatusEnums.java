@@ -1,5 +1,9 @@
 package com.foxconn.sw.data.constants.enums.oa;
 
+import com.foxconn.sw.data.exception.BizException;
+
+import static com.foxconn.sw.data.constants.enums.retcode.RetCode.ENUM_CONVERT_ERROR;
+
 public enum TaskStatusEnums {
 
     DRAFT(0, "草稿"), // 发布人可见
@@ -12,20 +16,29 @@ public enum TaskStatusEnums {
 
     ;
 
-    TaskStatusEnums(int code, String msg) {
+    TaskStatusEnums(Integer code, String msg) {
         this.code = code;
         this.msg = msg;
     }
 
-    private int code;
+    private Integer code;
     private String msg;
 
-    public int getCode() {
+    public Integer getCode() {
         return code;
     }
 
     public String getMsg() {
         return msg;
+    }
+
+    public static TaskStatusEnums getStatusByCode(Integer code) {
+        for (TaskStatusEnums status : TaskStatusEnums.values()) {
+            if (status.getCode() == code) {
+                return status;
+            }
+        }
+        throw new BizException(ENUM_CONVERT_ERROR);
     }
 
 

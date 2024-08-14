@@ -17,9 +17,13 @@ public class PropertyBusiness {
     @Autowired
     SwPropertyExtensionMapper propertyExtensionMapper;
 
-    public List<PropertyVo> getSwProperties(PageParams<PropertiesParams> data) {
+    public List<PropertyVo> getSwPropertiesPage(PageParams<PropertiesParams> data) {
         int start = (data.getCurrentPage() - 1) * data.getPageSize();
-        return propertyExtensionMapper.getPropertyList(start, data.getPageSize(), data.getParams());
+        return propertyExtensionMapper.getPropertyListPage(start, data.getPageSize(), data.getParams());
+    }
+
+    public List<PropertyVo> getSwProperties(PropertiesParams data) {
+        return propertyExtensionMapper.getPropertyList(data);
     }
 
     public List<ModuleVo> getModules(Integer module) {

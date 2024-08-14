@@ -23,7 +23,6 @@ public class TaskListProcessorTest extends BaseTest {
     private PageParams<TaskParams> initParam() {
         TaskParams taskParams = new TaskParams();
         taskParams.setKeyWord("任务管理");
-        taskParams.setStatus(0);
         PageParams pageParams = new PageParams();
         pageParams.setParams(taskParams);
         pageParams.setCurrentPage(1);

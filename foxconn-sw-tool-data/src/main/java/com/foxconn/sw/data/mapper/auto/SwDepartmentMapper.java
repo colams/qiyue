@@ -1,7 +1,7 @@
 package com.foxconn.sw.data.mapper.auto;
 
-import com.foxconn.sw.data.entity.SwOrg;
-import com.foxconn.sw.data.entity.SwOrgExample;
+import com.foxconn.sw.data.entity.SwDepartment;
+import com.foxconn.sw.data.entity.SwDepartmentExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.DeleteProvider;
@@ -20,66 +20,66 @@ import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.type.JdbcType;
 
 @Mapper
-public interface SwOrgMapper {
-    @SelectProvider(type=SwOrgSqlProvider.class, method="countByExample")
-    long countByExample(SwOrgExample example);
+public interface SwDepartmentMapper {
+    @SelectProvider(type=SwDepartmentSqlProvider.class, method="countByExample")
+    long countByExample(SwDepartmentExample example);
 
-    @DeleteProvider(type=SwOrgSqlProvider.class, method="deleteByExample")
-    int deleteByExample(SwOrgExample example);
+    @DeleteProvider(type=SwDepartmentSqlProvider.class, method="deleteByExample")
+    int deleteByExample(SwDepartmentExample example);
 
     @Delete({
-        "delete from sw_org",
+        "delete from sw_department",
         "where id = #{id,jdbcType=INTEGER}"
     })
     int deleteByPrimaryKey(Integer id);
 
     @Insert({
-        "insert into sw_org (name, description, ",
+        "insert into sw_department (name, description, ",
         "parent_id, status, ",
         "start_date, end_date, ",
         "datetime_lastchange)",
         "values (#{name,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, ",
         "#{parentId,jdbcType=INTEGER}, #{status,jdbcType=INTEGER}, ",
-        "#{startDate,jdbcType=TIMESTAMP}, #{endDate,jdbcType=TIMESTAMP}, ",
+        "#{startDate,jdbcType=VARCHAR}, #{endDate,jdbcType=VARCHAR}, ",
         "#{datetimeLastchange,jdbcType=TIMESTAMP})"
     })
     @SelectKey(statement="SELECT LAST_INSERT_ID()", keyProperty="id", before=false, resultType=Integer.class)
-    int insert(SwOrg record);
+    int insert(SwDepartment record);
 
-    @InsertProvider(type=SwOrgSqlProvider.class, method="insertSelective")
+    @InsertProvider(type=SwDepartmentSqlProvider.class, method="insertSelective")
     @SelectKey(statement="SELECT LAST_INSERT_ID()", keyProperty="id", before=false, resultType=Integer.class)
-    int insertSelective(SwOrg record);
+    int insertSelective(SwDepartment record);
 
-    @SelectProvider(type=SwOrgSqlProvider.class, method="selectByExample")
+    @SelectProvider(type=SwDepartmentSqlProvider.class, method="selectByExample")
     @Results({
         @Result(column="id", property="id", jdbcType=JdbcType.INTEGER, id=true),
         @Result(column="name", property="name", jdbcType=JdbcType.VARCHAR),
         @Result(column="description", property="description", jdbcType=JdbcType.VARCHAR),
         @Result(column="parent_id", property="parentId", jdbcType=JdbcType.INTEGER),
         @Result(column="status", property="status", jdbcType=JdbcType.INTEGER),
-        @Result(column="start_date", property="startDate", jdbcType=JdbcType.TIMESTAMP),
-        @Result(column="end_date", property="endDate", jdbcType=JdbcType.TIMESTAMP),
+        @Result(column="start_date", property="startDate", jdbcType=JdbcType.VARCHAR),
+        @Result(column="end_date", property="endDate", jdbcType=JdbcType.VARCHAR),
         @Result(column="datetime_lastchange", property="datetimeLastchange", jdbcType=JdbcType.TIMESTAMP)
     })
-    List<SwOrg> selectByExampleWithRowbounds(SwOrgExample example, RowBounds rowBounds);
+    List<SwDepartment> selectByExampleWithRowbounds(SwDepartmentExample example, RowBounds rowBounds);
 
-    @SelectProvider(type=SwOrgSqlProvider.class, method="selectByExample")
+    @SelectProvider(type=SwDepartmentSqlProvider.class, method="selectByExample")
     @Results({
         @Result(column="id", property="id", jdbcType=JdbcType.INTEGER, id=true),
         @Result(column="name", property="name", jdbcType=JdbcType.VARCHAR),
         @Result(column="description", property="description", jdbcType=JdbcType.VARCHAR),
         @Result(column="parent_id", property="parentId", jdbcType=JdbcType.INTEGER),
         @Result(column="status", property="status", jdbcType=JdbcType.INTEGER),
-        @Result(column="start_date", property="startDate", jdbcType=JdbcType.TIMESTAMP),
-        @Result(column="end_date", property="endDate", jdbcType=JdbcType.TIMESTAMP),
+        @Result(column="start_date", property="startDate", jdbcType=JdbcType.VARCHAR),
+        @Result(column="end_date", property="endDate", jdbcType=JdbcType.VARCHAR),
         @Result(column="datetime_lastchange", property="datetimeLastchange", jdbcType=JdbcType.TIMESTAMP)
     })
-    List<SwOrg> selectByExample(SwOrgExample example);
+    List<SwDepartment> selectByExample(SwDepartmentExample example);
 
     @Select({
         "select",
         "id, name, description, parent_id, status, start_date, end_date, datetime_lastchange",
-        "from sw_org",
+        "from sw_department",
         "where id = #{id,jdbcType=INTEGER}"
     })
     @Results({
@@ -88,31 +88,31 @@ public interface SwOrgMapper {
         @Result(column="description", property="description", jdbcType=JdbcType.VARCHAR),
         @Result(column="parent_id", property="parentId", jdbcType=JdbcType.INTEGER),
         @Result(column="status", property="status", jdbcType=JdbcType.INTEGER),
-        @Result(column="start_date", property="startDate", jdbcType=JdbcType.TIMESTAMP),
-        @Result(column="end_date", property="endDate", jdbcType=JdbcType.TIMESTAMP),
+        @Result(column="start_date", property="startDate", jdbcType=JdbcType.VARCHAR),
+        @Result(column="end_date", property="endDate", jdbcType=JdbcType.VARCHAR),
         @Result(column="datetime_lastchange", property="datetimeLastchange", jdbcType=JdbcType.TIMESTAMP)
     })
-    SwOrg selectByPrimaryKey(Integer id);
+    SwDepartment selectByPrimaryKey(Integer id);
 
-    @UpdateProvider(type=SwOrgSqlProvider.class, method="updateByExampleSelective")
-    int updateByExampleSelective(@Param("record") SwOrg record, @Param("example") SwOrgExample example);
+    @UpdateProvider(type=SwDepartmentSqlProvider.class, method="updateByExampleSelective")
+    int updateByExampleSelective(@Param("record") SwDepartment record, @Param("example") SwDepartmentExample example);
 
-    @UpdateProvider(type=SwOrgSqlProvider.class, method="updateByExample")
-    int updateByExample(@Param("record") SwOrg record, @Param("example") SwOrgExample example);
+    @UpdateProvider(type=SwDepartmentSqlProvider.class, method="updateByExample")
+    int updateByExample(@Param("record") SwDepartment record, @Param("example") SwDepartmentExample example);
 
-    @UpdateProvider(type=SwOrgSqlProvider.class, method="updateByPrimaryKeySelective")
-    int updateByPrimaryKeySelective(SwOrg record);
+    @UpdateProvider(type=SwDepartmentSqlProvider.class, method="updateByPrimaryKeySelective")
+    int updateByPrimaryKeySelective(SwDepartment record);
 
     @Update({
-        "update sw_org",
+        "update sw_department",
         "set name = #{name,jdbcType=VARCHAR},",
           "description = #{description,jdbcType=VARCHAR},",
           "parent_id = #{parentId,jdbcType=INTEGER},",
           "status = #{status,jdbcType=INTEGER},",
-          "start_date = #{startDate,jdbcType=TIMESTAMP},",
-          "end_date = #{endDate,jdbcType=TIMESTAMP},",
+          "start_date = #{startDate,jdbcType=VARCHAR},",
+          "end_date = #{endDate,jdbcType=VARCHAR},",
           "datetime_lastchange = #{datetimeLastchange,jdbcType=TIMESTAMP}",
         "where id = #{id,jdbcType=INTEGER}"
     })
-    int updateByPrimaryKey(SwOrg record);
+    int updateByPrimaryKey(SwDepartment record);
 }

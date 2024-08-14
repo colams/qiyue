@@ -1,6 +1,6 @@
 package com.foxconn.sw.business.converter;
 
-import com.foxconn.sw.data.dto.entity.acount.MenuDTO;
+import com.foxconn.sw.data.dto.entity.acount.MenuBriefVo;
 import com.foxconn.sw.data.entity.SwMenu;
 import com.google.common.collect.Lists;
 import org.springframework.util.CollectionUtils;
@@ -10,34 +10,35 @@ import java.util.List;
 
 public class SwSysMenuConverter {
 
-    public static SwMenu toSysMenu(MenuDTO menuDto) {
+    public static SwMenu toSysMenu(MenuBriefVo menuBriefVo) {
         SwMenu swSysMenu = new SwMenu();
-        swSysMenu.setMenuName(menuDto.getMenuName());
-        swSysMenu.setParentId(menuDto.getParentId());
-        swSysMenu.setMenuUrl(menuDto.getMenuUrl());
-        swSysMenu.setRoute(menuDto.getRoute());
-        swSysMenu.setIsMenu(menuDto.getIsMenu());
-        swSysMenu.setModuleNo(menuDto.getModuleNo());
-        swSysMenu.setOrderBy(menuDto.getOrderBy());
+        swSysMenu.setMenuName(menuBriefVo.getMenuName());
+        swSysMenu.setParentId(menuBriefVo.getParentId());
+        swSysMenu.setMenuUrl(menuBriefVo.getMenuUrl());
+        swSysMenu.setRoute(menuBriefVo.getRoute());
+        swSysMenu.setIsMenu(menuBriefVo.getIsMenu());
+        swSysMenu.setModuleNo(menuBriefVo.getModuleNo());
+        swSysMenu.setOrderBy(menuBriefVo.getOrderBy());
         return swSysMenu;
     }
 
-    public static List<MenuDTO> toSysMenuDto(List<SwMenu> sysMenus) {
+    public static List<MenuBriefVo> toSysMenuDto(List<SwMenu> sysMenus) {
         if (CollectionUtils.isEmpty(sysMenus)) {
             return Lists.newArrayList();
         }
-        List<MenuDTO> menuDTOS = new ArrayList<>();
+        List<MenuBriefVo> menuBriefVos = new ArrayList<>();
         sysMenus.forEach(e -> {
-            MenuDTO menuDTO = new MenuDTO();
-            menuDTO.setId(e.getId());
-            menuDTO.setIsMenu(e.getIsMenu());
-            menuDTO.setMenuName(e.getMenuName());
-            menuDTO.setParentId(e.getParentId());
-            menuDTO.setMenuUrl(e.getMenuUrl());
-            menuDTO.setRoute(e.getRoute());
-            menuDTO.setOrderBy(e.getOrderBy());
-            menuDTOS.add(menuDTO);
+            MenuBriefVo menuBriefVo = new MenuBriefVo();
+            menuBriefVo.setId(e.getId());
+            menuBriefVo.setModuleNo(e.getModuleNo());
+            menuBriefVo.setIsMenu(e.getIsMenu());
+            menuBriefVo.setMenuName(e.getMenuName());
+            menuBriefVo.setParentId(e.getParentId());
+            menuBriefVo.setMenuUrl(e.getMenuUrl());
+            menuBriefVo.setRoute(e.getRoute());
+            menuBriefVo.setOrderBy(e.getOrderBy());
+            menuBriefVos.add(menuBriefVo);
         });
-        return menuDTOS;
+        return menuBriefVos;
     }
 }

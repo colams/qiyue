@@ -71,28 +71,11 @@ public class CommonController {
                 .body(resource);
     }
 
-    @Operation(summary = "上传文件", tags = TagsConstants.UNIVERSAL)
-    @ApiResponse(responseCode = "0", description = "成功码")
-    @PostMapping("/upload")
-    public Response upload(@RequestParam("file") MultipartFile file,
-                           @RequestParam("uploadType") String uploadType) throws FileNotFoundException {
-        if (file.isEmpty()) {
-            return ResponseUtils.failure(RetCode.EMPTY_FILE_ERROR, UUIDUtils.getUuid());
-        }
-
-        String fileBaseUrl = filePathUtils.getFilePath(uploadType);
-        String path = UploadUtils.upload(fileBaseUrl, file, uploadType);
-
-        IResult code = StringUtils.isBlank(path) ? RetCode.UPLOAD_FILE_ERROR : RetCode.SUCCESS;
-
-        return ResponseUtils.response(path, code, UUIDUtils.getUuid());
-    }
-
     @Operation(summary = "上传文件new", tags = TagsConstants.UNIVERSAL)
     @ApiResponse(responseCode = "0", description = "成功码")
-    @PostMapping("/upload1")
-    public Response upload1(@RequestParam("file") MultipartFile file,
-                            @RequestParam("uploadType") String uploadType) throws FileNotFoundException {
+    @PostMapping("/upload")
+    public Response<UploadResult> upload(@RequestParam("file") MultipartFile file,
+                                         @RequestParam("uploadType") String uploadType) throws FileNotFoundException {
         if (file.isEmpty()) {
             return ResponseUtils.failure(RetCode.EMPTY_FILE_ERROR, UUIDUtils.getUuid());
         }
@@ -109,9 +92,9 @@ public class CommonController {
         UploadResult result = new UploadResult();
         result.setFilePath(path);
         result.setFileId(resourceID);
-        IResult code = resourceID > 0 ? RetCode.UPLOAD_FILE_ERROR : RetCode.SUCCESS;
+        IResult code = resourceID <= 0 ? RetCode.UPLOAD_FILE_ERROR : RetCode.SUCCESS;
 
-        return ResponseUtils.response(path, code, UUIDUtils.getUuid());
+        return ResponseUtils.response(result, code, UUIDUtils.getUuid());
     }
 
     @Operation(summary = "test 接口", tags = TagsConstants.UNIVERSAL)

@@ -26,7 +26,7 @@ import java.util.List;
 
 @CrossOrigin
 @RestController
-@RequestMapping("api/system/property")
+@RequestMapping("api/property")
 public class PropertyController {
 
     private final Logger LOGGER = LoggerFactory.getLogger(PropertyController.class);
@@ -42,9 +42,17 @@ public class PropertyController {
 
     @Operation(summary = "获取基础属性数据信息", tags = TagsConstants.SYSTEM)
     @ApiResponse(responseCode = "0", description = "成功码")
-    @PostMapping("/list")
-    public Response<PageEntity<PropertyVo>> getProperties(@Valid @RequestBody Request<PageParams<PropertiesParams>> request) {
-        PageEntity<PropertyVo> propertyVos = getPropertiesProcessor.getSwProperties(request.getData());
+    @PostMapping("/getPropertiesPage")
+    public Response<PageEntity<PropertyVo>> getPropertiesPage(@Valid @RequestBody Request<PageParams<PropertiesParams>> request) {
+        PageEntity<PropertyVo> propertyVos = getPropertiesProcessor.getSwPropertiesPage(request.getData());
+        return ResponseUtils.success(propertyVos, request.getTraceId());
+    }
+
+    @Operation(summary = "获取基础属性数据信息", tags = TagsConstants.SYSTEM)
+    @ApiResponse(responseCode = "0", description = "成功码")
+    @PostMapping("/getProperties")
+    public Response<List<PropertyVo>> getProperties(@Valid @RequestBody Request<PropertiesParams> request) {
+        List<PropertyVo> propertyVos = getPropertiesProcessor.getSwProperties(request.getData());
         return ResponseUtils.success(propertyVos, request.getTraceId());
     }
 
@@ -58,8 +66,8 @@ public class PropertyController {
 
     @Operation(summary = "基础属性分类", tags = TagsConstants.SYSTEM)
     @ApiResponse(responseCode = "0", description = "成功码")
-    @PostMapping("/properties")
-    public Response<List<BasicPropertyVo>> properties(@Valid @RequestBody Request request) {
+    @PostMapping("/basicProperties")
+    public Response<List<BasicPropertyVo>> basicProperties(@Valid @RequestBody Request request) {
         List<BasicPropertyVo> result = propertyProcessor.properties(request.getHead());
         return ResponseUtils.success(result, request.getTraceId());
     }

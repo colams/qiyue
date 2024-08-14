@@ -1,6 +1,8 @@
 package com.foxconn.sw.business.account;
 
 import com.foxconn.sw.data.constants.enums.retcode.AccountExceptionCode;
+import com.foxconn.sw.data.dto.entity.acount.EmployeeParams;
+import com.foxconn.sw.data.dto.entity.acount.EmployeeVo;
 import com.foxconn.sw.data.dto.entity.acount.UserInfo;
 import com.foxconn.sw.data.dto.entity.acount.UserParams;
 import com.foxconn.sw.data.entity.SwUser;
@@ -41,6 +43,10 @@ public class UserBusiness {
 
     public UserInfo queryUserInfo(String employeeID) {
         return sysUserExtensionMapper.queryUserInfo(employeeID);
+    }
+
+    public List<EmployeeVo> queryEmployees(EmployeeParams employeeParams) {
+        return sysUserExtensionMapper.queryEmployees(employeeParams);
     }
 
     public boolean update(SwUser user) {

@@ -11,6 +11,8 @@ public class TaskProgressVo {
 
     private String operateEid;
 
+    private Integer progress;
+
     private List<Integer> resourceIds;
 
     private List<String> resourcesUrl;
@@ -41,6 +43,14 @@ public class TaskProgressVo {
 
     public void setOperateEid(String operateEid) {
         this.operateEid = operateEid;
+    }
+
+    public Integer getProgress() {
+        return progress;
+    }
+
+    public void setProgress(Integer progress) {
+        this.progress = progress;
     }
 
     public List<Integer> getResourceIds() {

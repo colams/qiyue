@@ -17,15 +17,11 @@ public class SummaryWorkProcessor {
     UserBusiness userBusiness;
 
     public MyWorks summary(Header head) {
-        UserInfo swUser = userUtils.queryUserInfo(head.getToken());
-
-
         MyWorks myWorks = new MyWorks();
-        myWorks.setTotal(0);
-        myWorks.setArgentCount(0);
-        myWorks.setScheduleCount(0);
-        myWorks.setApprovalCount(0);
-        myWorks.setUnReadMailCount(0);
+        myWorks.setUrgencyCount(10);
+        myWorks.setScheduleCount(10);
+        myWorks.setMeetingCount(10);
+        myWorks.setLogCount(10);
         return myWorks;
     }
 

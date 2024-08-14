@@ -1,5 +1,6 @@
 package com.foxconn.sw.service.aspects;
 
+import com.foxconn.sw.common.utils.DateTimeUtils;
 import com.foxconn.sw.common.utils.JsonUtils;
 import com.foxconn.sw.data.dto.Request;
 import jakarta.annotation.Resource;
@@ -30,6 +31,7 @@ public class ValidatorAspect {
         Set<ConstraintViolation<Request>> validatorErrors = this.localValidatorFactoryBean.validate(request, new Class[]{Default.class});
         // 处理校验结果
         // todo 权限校验
+        System.out.println("時間戳：" + DateTimeUtils.getTimeStamp());
         System.out.println("class=============================:\r\n" + request.getClass());
         System.out.println("signature=========================:\r\n" + joinPoint.getSignature());
         System.out.println("param=============================:\r\n" + JsonUtils.serialize(request));

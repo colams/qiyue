@@ -4,6 +4,8 @@ import com.foxconn.sw.business.account.UserBusiness;
 import com.foxconn.sw.data.constants.TagsConstants;
 import com.foxconn.sw.data.dto.Request;
 import com.foxconn.sw.data.dto.Response;
+import com.foxconn.sw.data.dto.entity.acount.EmployeeParams;
+import com.foxconn.sw.data.dto.entity.acount.EmployeeVo;
 import com.foxconn.sw.data.dto.entity.acount.UserInfo;
 import com.foxconn.sw.data.dto.entity.acount.UserParams;
 import com.foxconn.sw.data.dto.entity.universal.StringParams;
@@ -45,5 +47,13 @@ public class UserController {
     public Response<UserInfo> queryByEmployeeNo(@Valid @RequestBody Request<StringParams> request) {
         UserInfo userInfo = userBusiness.queryUserInfo(request.getData().getParams());
         return ResponseUtils.success(userInfo, request.getTraceId());
+    }
+
+    @Operation(summary = "查询员工信息", tags = TagsConstants.ACCOUNT)
+    @ApiResponse(responseCode = "0", description = "成功码")
+    @PostMapping("/queryEmployee")
+    public Response<List<EmployeeVo>> queryEmployee(@Valid @RequestBody Request<EmployeeParams> request){
+        List<EmployeeVo> employeeVos = userBusiness.queryEmployees(request.getData());
+        return ResponseUtils.success(employeeVos, request.getTraceId());
     }
 }

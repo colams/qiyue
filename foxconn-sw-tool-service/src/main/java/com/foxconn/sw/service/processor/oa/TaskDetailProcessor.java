@@ -8,15 +8,19 @@ import com.foxconn.sw.business.oa.SwTaskLogBusiness;
 import com.foxconn.sw.business.oa.SwTaskProgressBusiness;
 import com.foxconn.sw.data.constants.enums.retcode.OAExceptionCode;
 import com.foxconn.sw.data.dto.Header;
-import com.foxconn.sw.data.dto.entity.universal.IntegerParams;
 import com.foxconn.sw.data.dto.entity.oa.TaskDetailVo;
 import com.foxconn.sw.data.dto.entity.oa.TaskEntityVo;
 import com.foxconn.sw.data.dto.entity.oa.TaskLogVo;
 import com.foxconn.sw.data.dto.entity.oa.TaskProgressVo;
+import com.foxconn.sw.data.dto.entity.universal.IntegerParams;
 import com.foxconn.sw.data.entity.SwAppendResource;
 import com.foxconn.sw.data.entity.SwTask;
 import com.foxconn.sw.data.entity.SwTaskLog;
 import com.foxconn.sw.data.exception.BizException;
+import com.foxconn.sw.service.processor.oa.utils.TaskCategoryUtils;
+import com.foxconn.sw.service.processor.oa.utils.TaskLevelUtils;
+import com.foxconn.sw.service.processor.oa.utils.TaskProjectUtils;
+import com.foxconn.sw.service.processor.oa.utils.TaskStatusUtils;
 import com.foxconn.sw.service.processor.user.CommonUserUtils;
 import com.google.common.collect.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,15 +48,15 @@ public class TaskDetailProcessor {
     public TaskEntityVo detail(IntegerParams data, Header head) {
         String employeeID = commonUserUtils.getEmployeeNo(head.getToken());
 
-        TaskDetailVo detailVo = getDetailVo(data.getParams());
+        TaskDetailVo detailVo = getDetailVo(data.getParams(), employeeID);
 
         if (Objects.isNull(detailVo)) {
             throw new BizException(OAExceptionCode.TASK_ERROR_EXCEPTION);
         }
 
         boolean isPermission = employeeID.equalsIgnoreCase(detailVo.getHandleEid())
-                || employeeID.equalsIgnoreCase(detailVo.getHandleEid())
-                || employeeID.equalsIgnoreCase(detailVo.getHandleEid());
+                || employeeID.equalsIgnoreCase(detailVo.getManagerEid())
+                || employeeID.equalsIgnoreCase(detailVo.getProposerEid());
         if (!isPermission) {
             throw new BizException(OAExceptionCode.NO_PERMISSION_EXCEPTION);
         }
@@ -80,21 +84,23 @@ public class TaskDetailProcessor {
                     .flatMap(List::stream)
                     .collect(Collectors.toList());
 
-            var result = swAppendResourceBusiness.getAppendResources(resourceIdList);
-            if (!CollectionUtils.isEmpty(result)) {
-                var map = result
-                        .stream()
-                        .collect(Collectors.toMap(SwAppendResource::getId, SwAppendResource::getFilePath));
-                taskProgressVos.forEach(e -> {
-                    if (!CollectionUtils.isEmpty(e.getResourceIds())) {
-                        e.getResourceIds().forEach(id -> {
-                            if (Objects.isNull(e.getResourcesUrl())) {
-                                e.setResourcesUrl(Lists.newArrayList());
-                            }
-                            e.getResourcesUrl().add(map.get(id));
-                        });
-                    }
-                });
+            if (!CollectionUtils.isEmpty(resourceIdList)) {
+                var result = swAppendResourceBusiness.getAppendResources(resourceIdList);
+                if (!CollectionUtils.isEmpty(result)) {
+                    var map = result
+                            .stream()
+                            .collect(Collectors.toMap(SwAppendResource::getId, SwAppendResource::getFilePath));
+                    taskProgressVos.forEach(e -> {
+                        if (!CollectionUtils.isEmpty(e.getResourceIds())) {
+                            e.getResourceIds().forEach(id -> {
+                                if (Objects.isNull(e.getResourcesUrl())) {
+                                    e.setResourcesUrl(Lists.newArrayList());
+                                }
+                                e.getResourcesUrl().add(map.get(id));
+                            });
+                        }
+                    });
+                }
             }
         }
 
@@ -107,14 +113,18 @@ public class TaskDetailProcessor {
         return taskLogVos;
     }
 
-    private TaskDetailVo getDetailVo(Integer taskId) {
+    private TaskDetailVo getDetailVo(Integer taskId, String employeeID) {
         SwTask task = taskBusiness.getTaskById(taskId);
         TaskDetailVo taskDetailVo = TaskMapper.INSTANCE.toSwTaskDetailVo(task);
-
+        taskDetailVo.setLevelInfoVo(TaskLevelUtils.processLevel(taskDetailVo.getLevel()));
+        taskDetailVo.setStatusInfoVo(TaskStatusUtils.processStatus(employeeID, taskDetailVo.getStatus(), taskDetailVo.getManagerEid(), taskDetailVo.getHandleEid()));
+        taskDetailVo.setProject(TaskProjectUtils.processProject(taskDetailVo.getProject()));
+        taskDetailVo.setCategory(TaskCategoryUtils.processCategory(taskDetailVo.getTopCategory(), taskDetailVo.getCategory()));
         if (!CollectionUtils.isEmpty(taskDetailVo.getResourceIds())) {
             var result = swAppendResourceBusiness.getAppendResources(taskDetailVo.getResourceIds());
             if (!CollectionUtils.isEmpty(result)) {
                 taskDetailVo.setResourceUrls(result.stream().map(e -> e.getFilePath()).collect(Collectors.toList()));
+
             }
         }
         return taskDetailVo;

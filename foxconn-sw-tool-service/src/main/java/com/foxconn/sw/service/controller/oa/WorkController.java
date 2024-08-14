@@ -29,7 +29,7 @@ public class WorkController {
     @Operation(summary = "我的工作汇总信息", tags = TagsConstants.OA)
     @ApiResponse(responseCode = "0", description = "成功码")
     @PostMapping("/summary")
-    public Response summaryWork(@Valid @RequestBody Request request) {
+    public Response<MyWorks> summaryWork(@Valid @RequestBody Request request) {
         MyWorks myWorks = summaryWorkProcessor.summary(request.getHead());
         return ResponseUtils.success(myWorks, request.getTraceId());
     }
@@ -37,10 +37,8 @@ public class WorkController {
     @Operation(summary = "工作list月度分布 按年份查询", tags = TagsConstants.OA)
     @ApiResponse(responseCode = "0", description = "成功码")
     @PostMapping("/monthly")
-    public Response monthlyWork(@Valid @RequestBody Request<MonthlyWorkParams> request) {
+    public Response<Map<String, Integer>> monthlyWork(@Valid @RequestBody Request<MonthlyWorkParams> request) {
         Map<String, Integer> mapUtils = monthlyWorkProcessor.monthlyWork(request.getData());
         return ResponseUtils.success(mapUtils, request.getTraceId());
     }
-
-
 }

@@ -1,8 +1,12 @@
 package com.foxconn.sw.data.dto.entity.tool;
 
+import jakarta.validation.constraints.Pattern;
+
 public class RunToolParams {
 
+    @Pattern(regexp = "^\\S*$", message = "字符串不能全部为空格")
     private String toolPath;
+    @Pattern(regexp = "^\\S*$", message = "字符串不能全部为空格")
     private String toolParams;
 
     public String getToolPath() {

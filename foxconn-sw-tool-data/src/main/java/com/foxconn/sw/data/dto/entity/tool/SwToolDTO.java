@@ -20,6 +20,8 @@ public class SwToolDTO {
 
     private String filePath;
 
+    private Integer resourceId;
+
     private Double toolSize;
 
     private String introduction;
@@ -94,6 +96,14 @@ public class SwToolDTO {
 
     public void setFilePath(String filePath) {
         this.filePath = filePath;
+    }
+
+    public Integer getResourceId() {
+        return resourceId;
+    }
+
+    public void setResourceId(Integer resourceId) {
+        this.resourceId = resourceId;
     }
 
     public Double getToolSize() {

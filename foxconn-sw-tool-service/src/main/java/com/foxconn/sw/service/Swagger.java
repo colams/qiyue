@@ -8,30 +8,18 @@ import org.springdoc.core.models.GroupedOpenApi;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import java.util.Objects;
+
 @Configuration
 public class Swagger {
+
+    private static final String API_PREFIX = "/api/%s/**";
 
     @Bean
     public OpenAPI createRestApi() {
         Info info = new Info().title("三赢java系统文档").version("1.0.0").license(new License());
         return new OpenAPI().info(info);
     }
-
-//    @Bean
-//    public List<GroupedOpenApi> groupedOpenApis() {
-//        List<GroupedOpenApi> groupedOpenApis = new ArrayList<>();
-//
-//        groupedOpenApis.add(createGroupedOpenApi(TagsConstants.OA));
-//        groupedOpenApis.add(createGroupedOpenApi(TagsConstants.MENU));
-//        groupedOpenApis.add(createGroupedOpenApi(TagsConstants.ROUTE));
-//        groupedOpenApis.add(createGroupedOpenApi(TagsConstants.ACCOUNT));
-//        groupedOpenApis.add(createGroupedOpenApi(TagsConstants.TOOL));
-//        groupedOpenApis.add(createGroupedOpenApi(TagsConstants.UNIVERSAL));
-//        groupedOpenApis.add(createGroupedOpenApi(TagsConstants.ANNOUNCEMENT));
-//        groupedOpenApis.add(createGroupedOpenApi(TagsConstants.SYSTEM));
-//
-//        return groupedOpenApis;
-//    }
 
     @Bean
     public GroupedOpenApi oaApi() {
@@ -60,7 +48,11 @@ public class Swagger {
 
     @Bean
     public GroupedOpenApi universalApi() {
-        return createGroupedOpenApi(TagsConstants.UNIVERSAL, "/api/" + TagsConstants.UNIVERSAL + "/**", "/api/property/**");
+        String[] paths = new String[]{
+                "/api/" + TagsConstants.UNIVERSAL + "/**",
+                "/api/property/**"
+        };
+        return createGroupedOpenApi(TagsConstants.UNIVERSAL, paths);
     }
 
     @Bean
@@ -70,19 +62,28 @@ public class Swagger {
 
     @Bean
     public GroupedOpenApi systemApi() {
-        return createGroupedOpenApi(TagsConstants.SYSTEM);
+        String[] paths = new String[]{
+                String.format(API_PREFIX, TagsConstants.SYSTEM),
+                String.format(API_PREFIX, "depart"),
+                String.format(API_PREFIX, "property"),
+        };
+        return createGroupedOpenApi(TagsConstants.SYSTEM, paths);
     }
 
-    private GroupedOpenApi createGroupedOpenApi(String group) {
-        String pathPattern = "/api/" + group + "/**";
-
-        return GroupedOpenApi.builder()
-                .group(group)
-                .pathsToMatch(pathPattern)
-                .build();
-    }
+//    @Bean
+//    public GroupedOpenApi systemApi() {
+//        String[] paths = new String[]{
+//                String.format(API_PREFIX, TagsConstants.SYSTEM),
+//                String.format(API_PREFIX, "depart"),
+//        };
+//        return createGroupedOpenApi(TagsConstants.SYSTEM);
+//    }
 
     private GroupedOpenApi createGroupedOpenApi(String group, String... paths) {
+        if (Objects.isNull(paths) || paths.length <= 0) {
+            paths = new String[]{String.format(API_PREFIX, group)};
+        }
+
         return GroupedOpenApi.builder()
                 .group(group)
                 .pathsToMatch(paths)

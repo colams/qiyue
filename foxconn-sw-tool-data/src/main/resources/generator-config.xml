@@ -77,6 +77,9 @@
         <table tableName="sw_append_resource">
             <generatedKey column="id" identity="true" sqlStatement="mysql"/>
         </table>
+        <table tableName="sw_department">
+            <generatedKey column="id" identity="true" sqlStatement="mysql"/>
+        </table>
         <table tableName="sw_employee">
             <generatedKey column="id" identity="true" sqlStatement="mysql"/>
         </table>
@@ -84,9 +87,6 @@
             <generatedKey column="id" identity="true" sqlStatement="mysql"/>
         </table>
         <table tableName="sw_menu">
-            <generatedKey column="id" identity="true" sqlStatement="mysql"/>
-        </table>
-        <table tableName="sw_org">
             <generatedKey column="id" identity="true" sqlStatement="mysql"/>
         </table>
         <table tableName="sw_property">

@@ -9,15 +9,15 @@ public class SwEmployee {
 
     private String employeeNo;
 
+    private Integer departmentId;
+
+    private String jobTitle;
+
     private String email;
 
     private String phoneNumber;
 
     private String hireDate;
-
-    private String jobTitle;
-
-    private Integer departmentId;
 
     private Integer status;
 
@@ -66,6 +66,32 @@ public class SwEmployee {
         this.employeeNo = employeeNo == null ? null : employeeNo.trim();
     }
 
+    public Integer getDepartmentId() {
+        return departmentId;
+    }
+
+    public SwEmployee withDepartmentId(Integer departmentId) {
+        this.setDepartmentId(departmentId);
+        return this;
+    }
+
+    public void setDepartmentId(Integer departmentId) {
+        this.departmentId = departmentId;
+    }
+
+    public String getJobTitle() {
+        return jobTitle;
+    }
+
+    public SwEmployee withJobTitle(String jobTitle) {
+        this.setJobTitle(jobTitle);
+        return this;
+    }
+
+    public void setJobTitle(String jobTitle) {
+        this.jobTitle = jobTitle == null ? null : jobTitle.trim();
+    }
+
     public String getEmail() {
         return email;
     }
@@ -103,32 +129,6 @@ public class SwEmployee {
 
     public void setHireDate(String hireDate) {
         this.hireDate = hireDate == null ? null : hireDate.trim();
-    }
-
-    public String getJobTitle() {
-        return jobTitle;
-    }
-
-    public SwEmployee withJobTitle(String jobTitle) {
-        this.setJobTitle(jobTitle);
-        return this;
-    }
-
-    public void setJobTitle(String jobTitle) {
-        this.jobTitle = jobTitle == null ? null : jobTitle.trim();
-    }
-
-    public Integer getDepartmentId() {
-        return departmentId;
-    }
-
-    public SwEmployee withDepartmentId(Integer departmentId) {
-        this.setDepartmentId(departmentId);
-        return this;
-    }
-
-    public void setDepartmentId(Integer departmentId) {
-        this.departmentId = departmentId;
     }
 
     public Integer getStatus() {

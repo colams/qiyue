@@ -37,6 +37,7 @@ public class SwTaskProgressBusiness {
             }
             taskProgressVo.setContent(e.getContent());
             taskProgressVo.setCreateTime(e.getDatetimeLastchange());
+            taskProgressVo.setProgress(e.getProgress());
             taskProgressVos.add(taskProgressVo);
         });
         return taskProgressVos;

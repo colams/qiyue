@@ -165,6 +165,76 @@ public class SwTaskExample {
             return (Criteria) this;
         }
 
+        public Criteria andTopCategoryIsNull() {
+            addCriterion("top_category is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andTopCategoryIsNotNull() {
+            addCriterion("top_category is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andTopCategoryEqualTo(String value) {
+            addCriterion("top_category =", value, "topCategory");
+            return (Criteria) this;
+        }
+
+        public Criteria andTopCategoryNotEqualTo(String value) {
+            addCriterion("top_category <>", value, "topCategory");
+            return (Criteria) this;
+        }
+
+        public Criteria andTopCategoryGreaterThan(String value) {
+            addCriterion("top_category >", value, "topCategory");
+            return (Criteria) this;
+        }
+
+        public Criteria andTopCategoryGreaterThanOrEqualTo(String value) {
+            addCriterion("top_category >=", value, "topCategory");
+            return (Criteria) this;
+        }
+
+        public Criteria andTopCategoryLessThan(String value) {
+            addCriterion("top_category <", value, "topCategory");
+            return (Criteria) this;
+        }
+
+        public Criteria andTopCategoryLessThanOrEqualTo(String value) {
+            addCriterion("top_category <=", value, "topCategory");
+            return (Criteria) this;
+        }
+
+        public Criteria andTopCategoryLike(String value) {
+            addCriterion("top_category like", value, "topCategory");
+            return (Criteria) this;
+        }
+
+        public Criteria andTopCategoryNotLike(String value) {
+            addCriterion("top_category not like", value, "topCategory");
+            return (Criteria) this;
+        }
+
+        public Criteria andTopCategoryIn(List<String> values) {
+            addCriterion("top_category in", values, "topCategory");
+            return (Criteria) this;
+        }
+
+        public Criteria andTopCategoryNotIn(List<String> values) {
+            addCriterion("top_category not in", values, "topCategory");
+            return (Criteria) this;
+        }
+
+        public Criteria andTopCategoryBetween(String value1, String value2) {
+            addCriterion("top_category between", value1, value2, "topCategory");
+            return (Criteria) this;
+        }
+
+        public Criteria andTopCategoryNotBetween(String value1, String value2) {
+            addCriterion("top_category not between", value1, value2, "topCategory");
+            return (Criteria) this;
+        }
+
         public Criteria andCategoryIsNull() {
             addCriterion("category is null");
             return (Criteria) this;
@@ -302,6 +372,76 @@ public class SwTaskExample {
 
         public Criteria andTitleNotBetween(String value1, String value2) {
             addCriterion("title not between", value1, value2, "title");
+            return (Criteria) this;
+        }
+
+        public Criteria andTopProjectIsNull() {
+            addCriterion("top_project is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andTopProjectIsNotNull() {
+            addCriterion("top_project is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andTopProjectEqualTo(String value) {
+            addCriterion("top_project =", value, "topProject");
+            return (Criteria) this;
+        }
+
+        public Criteria andTopProjectNotEqualTo(String value) {
+            addCriterion("top_project <>", value, "topProject");
+            return (Criteria) this;
+        }
+
+        public Criteria andTopProjectGreaterThan(String value) {
+            addCriterion("top_project >", value, "topProject");
+            return (Criteria) this;
+        }
+
+        public Criteria andTopProjectGreaterThanOrEqualTo(String value) {
+            addCriterion("top_project >=", value, "topProject");
+            return (Criteria) this;
+        }
+
+        public Criteria andTopProjectLessThan(String value) {
+            addCriterion("top_project <", value, "topProject");
+            return (Criteria) this;
+        }
+
+        public Criteria andTopProjectLessThanOrEqualTo(String value) {
+            addCriterion("top_project <=", value, "topProject");
+            return (Criteria) this;
+        }
+
+        public Criteria andTopProjectLike(String value) {
+            addCriterion("top_project like", value, "topProject");
+            return (Criteria) this;
+        }
+
+        public Criteria andTopProjectNotLike(String value) {
+            addCriterion("top_project not like", value, "topProject");
+            return (Criteria) this;
+        }
+
+        public Criteria andTopProjectIn(List<String> values) {
+            addCriterion("top_project in", values, "topProject");
+            return (Criteria) this;
+        }
+
+        public Criteria andTopProjectNotIn(List<String> values) {
+            addCriterion("top_project not in", values, "topProject");
+            return (Criteria) this;
+        }
+
+        public Criteria andTopProjectBetween(String value1, String value2) {
+            addCriterion("top_project between", value1, value2, "topProject");
+            return (Criteria) this;
+        }
+
+        public Criteria andTopProjectNotBetween(String value1, String value2) {
+            addCriterion("top_project not between", value1, value2, "topProject");
             return (Criteria) this;
         }
 
@@ -632,6 +772,126 @@ public class SwTaskExample {
 
         public Criteria andStatusNotBetween(Integer value1, Integer value2) {
             addCriterion("status not between", value1, value2, "status");
+            return (Criteria) this;
+        }
+
+        public Criteria andHanldeStatusIsNull() {
+            addCriterion("hanlde_status is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andHanldeStatusIsNotNull() {
+            addCriterion("hanlde_status is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andHanldeStatusEqualTo(Integer value) {
+            addCriterion("hanlde_status =", value, "hanldeStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andHanldeStatusNotEqualTo(Integer value) {
+            addCriterion("hanlde_status <>", value, "hanldeStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andHanldeStatusGreaterThan(Integer value) {
+            addCriterion("hanlde_status >", value, "hanldeStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andHanldeStatusGreaterThanOrEqualTo(Integer value) {
+            addCriterion("hanlde_status >=", value, "hanldeStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andHanldeStatusLessThan(Integer value) {
+            addCriterion("hanlde_status <", value, "hanldeStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andHanldeStatusLessThanOrEqualTo(Integer value) {
+            addCriterion("hanlde_status <=", value, "hanldeStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andHanldeStatusIn(List<Integer> values) {
+            addCriterion("hanlde_status in", values, "hanldeStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andHanldeStatusNotIn(List<Integer> values) {
+            addCriterion("hanlde_status not in", values, "hanldeStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andHanldeStatusBetween(Integer value1, Integer value2) {
+            addCriterion("hanlde_status between", value1, value2, "hanldeStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andHanldeStatusNotBetween(Integer value1, Integer value2) {
+            addCriterion("hanlde_status not between", value1, value2, "hanldeStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andProposerStatusIsNull() {
+            addCriterion("proposer_status is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andProposerStatusIsNotNull() {
+            addCriterion("proposer_status is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andProposerStatusEqualTo(Integer value) {
+            addCriterion("proposer_status =", value, "proposerStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andProposerStatusNotEqualTo(Integer value) {
+            addCriterion("proposer_status <>", value, "proposerStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andProposerStatusGreaterThan(Integer value) {
+            addCriterion("proposer_status >", value, "proposerStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andProposerStatusGreaterThanOrEqualTo(Integer value) {
+            addCriterion("proposer_status >=", value, "proposerStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andProposerStatusLessThan(Integer value) {
+            addCriterion("proposer_status <", value, "proposerStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andProposerStatusLessThanOrEqualTo(Integer value) {
+            addCriterion("proposer_status <=", value, "proposerStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andProposerStatusIn(List<Integer> values) {
+            addCriterion("proposer_status in", values, "proposerStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andProposerStatusNotIn(List<Integer> values) {
+            addCriterion("proposer_status not in", values, "proposerStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andProposerStatusBetween(Integer value1, Integer value2) {
+            addCriterion("proposer_status between", value1, value2, "proposerStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andProposerStatusNotBetween(Integer value1, Integer value2) {
+            addCriterion("proposer_status not between", value1, value2, "proposerStatus");
             return (Criteria) this;
         }
 
@@ -1245,6 +1505,11 @@ public class SwTaskExample {
             return (Criteria) this;
         }
 
+        public Criteria andTopCategoryLikeInsensitive(String value) {
+            addCriterion("upper(top_category) like", value.toUpperCase(), "topCategory");
+            return (Criteria) this;
+        }
+
         public Criteria andCategoryLikeInsensitive(String value) {
             addCriterion("upper(category) like", value.toUpperCase(), "category");
             return (Criteria) this;
@@ -1252,6 +1517,11 @@ public class SwTaskExample {
 
         public Criteria andTitleLikeInsensitive(String value) {
             addCriterion("upper(title) like", value.toUpperCase(), "title");
+            return (Criteria) this;
+        }
+
+        public Criteria andTopProjectLikeInsensitive(String value) {
+            addCriterion("upper(top_project) like", value.toUpperCase(), "topProject");
             return (Criteria) this;
         }
 

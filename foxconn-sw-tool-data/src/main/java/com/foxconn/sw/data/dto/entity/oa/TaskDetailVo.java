@@ -13,12 +13,22 @@ public class TaskDetailVo {
     /**
      * 任务分类
      */
+    private String topCategory;
+
+    /**
+     * 任务分类
+     */
     private String category;
 
     /**
      * 任务标题-任务名称
      */
     private String title;
+
+    /**
+     * 任务分类
+     */
+    private String topProject;
 
     /**
      * 专案-所属项目
@@ -35,10 +45,21 @@ public class TaskDetailVo {
      */
     private String level;
 
+
+    /**
+     * 狀態描述信息
+     */
+    private InfoColorVo levelInfoVo;
+
     /**
      * 状态
      */
     private Integer status;
+
+    /**
+     * 狀態描述信息
+     */
+    private InfoColorVo statusInfoVo;
 
     /**
      * 任务提出人
@@ -79,12 +100,25 @@ public class TaskDetailVo {
      */
     private LocalDateTime createTime;
 
+    /**
+     *
+     */
+    private Integer progressPercent;
+
     public Integer getId() {
         return id;
     }
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public String getTopCategory() {
+        return topCategory;
+    }
+
+    public void setTopCategory(String topCategory) {
+        this.topCategory = topCategory;
     }
 
     public String getCategory() {
@@ -103,12 +137,12 @@ public class TaskDetailVo {
         this.title = title;
     }
 
-    public List<Integer> getResourceIds() {
-        return resourceIds;
+    public String getTopProject() {
+        return topProject;
     }
 
-    public void setResourceIds(List<Integer> resourceIds) {
-        this.resourceIds = resourceIds;
+    public void setTopProject(String topProject) {
+        this.topProject = topProject;
     }
 
     public String getProject() {
@@ -135,12 +169,28 @@ public class TaskDetailVo {
         this.level = level;
     }
 
+    public InfoColorVo getLevelInfoVo() {
+        return levelInfoVo;
+    }
+
+    public void setLevelInfoVo(InfoColorVo levelInfoVo) {
+        this.levelInfoVo = levelInfoVo;
+    }
+
     public Integer getStatus() {
         return status;
     }
 
     public void setStatus(Integer status) {
         this.status = status;
+    }
+
+    public InfoColorVo getStatusInfoVo() {
+        return statusInfoVo;
+    }
+
+    public void setStatusInfoVo(InfoColorVo statusInfoVo) {
+        this.statusInfoVo = statusInfoVo;
     }
 
     public String getProposerEid() {
@@ -151,11 +201,19 @@ public class TaskDetailVo {
         this.proposerEid = proposerEid;
     }
 
+    public List<Integer> getResourceIds() {
+        return resourceIds;
+    }
+
+    public void setResourceIds(List<Integer> resourceIds) {
+        this.resourceIds = resourceIds;
+    }
+
     public List<String> getResourceUrls() {
         return resourceUrls;
     }
 
-    public void setResourceUrls(List<String> resourcesUrls) {
+    public void setResourceUrls(List<String> resourceUrls) {
         this.resourceUrls = resourceUrls;
     }
 
@@ -205,5 +263,13 @@ public class TaskDetailVo {
 
     public void setCreateTime(LocalDateTime createTime) {
         this.createTime = createTime;
+    }
+
+    public Integer getProgressPercent() {
+        return progressPercent;
+    }
+
+    public void setProgressPercent(Integer progressPercent) {
+        this.progressPercent = progressPercent;
     }
 }

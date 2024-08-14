@@ -2,7 +2,7 @@ package com.foxconn.sw.data.dto.entity.acount;
 
 import java.util.List;
 
-public class MenuDTO {
+public class MenuBriefVo {
 
     private int id;
 
@@ -20,7 +20,7 @@ public class MenuDTO {
 
     private Integer orderBy;
 
-    private List<MenuDTO> children;
+    private List<MenuBriefVo> children;
 
     public int getId() {
         return id;
@@ -86,11 +86,11 @@ public class MenuDTO {
         this.orderBy = orderBy;
     }
 
-    public List<MenuDTO> getChildren() {
+    public List<MenuBriefVo> getChildren() {
         return children;
     }
 
-    public void setChildren(List<MenuDTO> children) {
+    public void setChildren(List<MenuBriefVo> children) {
         this.children = children;
     }
 }

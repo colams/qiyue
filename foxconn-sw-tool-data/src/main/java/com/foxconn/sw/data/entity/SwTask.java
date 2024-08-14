@@ -5,9 +5,13 @@ import java.time.LocalDateTime;
 public class SwTask {
     private Integer id;
 
+    private String topCategory;
+
     private String category;
 
     private String title;
+
+    private String topProject;
 
     private String project;
 
@@ -18,6 +22,10 @@ public class SwTask {
     private Integer progressPercent;
 
     private Integer status;
+
+    private Integer hanldeStatus;
+
+    private Integer proposerStatus;
 
     private String proposerEid;
 
@@ -50,6 +58,19 @@ public class SwTask {
         this.id = id;
     }
 
+    public String getTopCategory() {
+        return topCategory;
+    }
+
+    public SwTask withTopCategory(String topCategory) {
+        this.setTopCategory(topCategory);
+        return this;
+    }
+
+    public void setTopCategory(String topCategory) {
+        this.topCategory = topCategory == null ? null : topCategory.trim();
+    }
+
     public String getCategory() {
         return category;
     }
@@ -74,6 +95,19 @@ public class SwTask {
 
     public void setTitle(String title) {
         this.title = title == null ? null : title.trim();
+    }
+
+    public String getTopProject() {
+        return topProject;
+    }
+
+    public SwTask withTopProject(String topProject) {
+        this.setTopProject(topProject);
+        return this;
+    }
+
+    public void setTopProject(String topProject) {
+        this.topProject = topProject == null ? null : topProject.trim();
     }
 
     public String getProject() {
@@ -139,6 +173,32 @@ public class SwTask {
 
     public void setStatus(Integer status) {
         this.status = status;
+    }
+
+    public Integer getHanldeStatus() {
+        return hanldeStatus;
+    }
+
+    public SwTask withHanldeStatus(Integer hanldeStatus) {
+        this.setHanldeStatus(hanldeStatus);
+        return this;
+    }
+
+    public void setHanldeStatus(Integer hanldeStatus) {
+        this.hanldeStatus = hanldeStatus;
+    }
+
+    public Integer getProposerStatus() {
+        return proposerStatus;
+    }
+
+    public SwTask withProposerStatus(Integer proposerStatus) {
+        this.setProposerStatus(proposerStatus);
+        return this;
+    }
+
+    public void setProposerStatus(Integer proposerStatus) {
+        this.proposerStatus = proposerStatus;
     }
 
     public String getProposerEid() {

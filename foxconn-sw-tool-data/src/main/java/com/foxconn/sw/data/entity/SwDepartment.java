@@ -2,7 +2,7 @@ package com.foxconn.sw.data.entity;
 
 import java.time.LocalDateTime;
 
-public class SwOrg {
+public class SwDepartment {
     private Integer id;
 
     private String name;
@@ -13,9 +13,9 @@ public class SwOrg {
 
     private Integer status;
 
-    private LocalDateTime startDate;
+    private String startDate;
 
-    private LocalDateTime endDate;
+    private String endDate;
 
     private LocalDateTime datetimeLastchange;
 
@@ -23,7 +23,7 @@ public class SwOrg {
         return id;
     }
 
-    public SwOrg withId(Integer id) {
+    public SwDepartment withId(Integer id) {
         this.setId(id);
         return this;
     }
@@ -36,7 +36,7 @@ public class SwOrg {
         return name;
     }
 
-    public SwOrg withName(String name) {
+    public SwDepartment withName(String name) {
         this.setName(name);
         return this;
     }
@@ -49,7 +49,7 @@ public class SwOrg {
         return description;
     }
 
-    public SwOrg withDescription(String description) {
+    public SwDepartment withDescription(String description) {
         this.setDescription(description);
         return this;
     }
@@ -62,7 +62,7 @@ public class SwOrg {
         return parentId;
     }
 
-    public SwOrg withParentId(Integer parentId) {
+    public SwDepartment withParentId(Integer parentId) {
         this.setParentId(parentId);
         return this;
     }
@@ -75,7 +75,7 @@ public class SwOrg {
         return status;
     }
 
-    public SwOrg withStatus(Integer status) {
+    public SwDepartment withStatus(Integer status) {
         this.setStatus(status);
         return this;
     }
@@ -84,37 +84,37 @@ public class SwOrg {
         this.status = status;
     }
 
-    public LocalDateTime getStartDate() {
+    public String getStartDate() {
         return startDate;
     }
 
-    public SwOrg withStartDate(LocalDateTime startDate) {
+    public SwDepartment withStartDate(String startDate) {
         this.setStartDate(startDate);
         return this;
     }
 
-    public void setStartDate(LocalDateTime startDate) {
-        this.startDate = startDate;
+    public void setStartDate(String startDate) {
+        this.startDate = startDate == null ? null : startDate.trim();
     }
 
-    public LocalDateTime getEndDate() {
+    public String getEndDate() {
         return endDate;
     }
 
-    public SwOrg withEndDate(LocalDateTime endDate) {
+    public SwDepartment withEndDate(String endDate) {
         this.setEndDate(endDate);
         return this;
     }
 
-    public void setEndDate(LocalDateTime endDate) {
-        this.endDate = endDate;
+    public void setEndDate(String endDate) {
+        this.endDate = endDate == null ? null : endDate.trim();
     }
 
     public LocalDateTime getDatetimeLastchange() {
         return datetimeLastchange;
     }
 
-    public SwOrg withDatetimeLastchange(LocalDateTime datetimeLastchange) {
+    public SwDepartment withDatetimeLastchange(LocalDateTime datetimeLastchange) {
         this.setDatetimeLastchange(datetimeLastchange);
         return this;
     }

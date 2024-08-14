@@ -2,15 +2,15 @@ package com.foxconn.sw.data.dto.entity.oa;
 
 public class TaskOverviewVo {
 
-    private Integer category;
+    private String category;
     private String title;
-    private Integer count;
+    private String countDes;
 
-    public Integer getCategory() {
+    public String getCategory() {
         return category;
     }
 
-    public void setCategory(Integer category) {
+    public void setCategory(String category) {
         this.category = category;
     }
 
@@ -22,11 +22,11 @@ public class TaskOverviewVo {
         this.title = title;
     }
 
-    public Integer getCount() {
-        return count;
+    public String getCountDes() {
+        return countDes;
     }
 
-    public void setCount(Integer count) {
-        this.count = count;
+    public void setCountDes(String countDes) {
+        this.countDes = countDes;
     }
 }

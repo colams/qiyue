@@ -36,6 +36,14 @@ public class SwEmployeeSqlProvider {
             sql.VALUES("employee_no", "#{employeeNo,jdbcType=VARCHAR}");
         }
         
+        if (record.getDepartmentId() != null) {
+            sql.VALUES("department_id", "#{departmentId,jdbcType=INTEGER}");
+        }
+        
+        if (record.getJobTitle() != null) {
+            sql.VALUES("job_title", "#{jobTitle,jdbcType=VARCHAR}");
+        }
+        
         if (record.getEmail() != null) {
             sql.VALUES("email", "#{email,jdbcType=VARCHAR}");
         }
@@ -46,14 +54,6 @@ public class SwEmployeeSqlProvider {
         
         if (record.getHireDate() != null) {
             sql.VALUES("hire_date", "#{hireDate,jdbcType=VARCHAR}");
-        }
-        
-        if (record.getJobTitle() != null) {
-            sql.VALUES("job_title", "#{jobTitle,jdbcType=VARCHAR}");
-        }
-        
-        if (record.getDepartmentId() != null) {
-            sql.VALUES("department_id", "#{departmentId,jdbcType=INTEGER}");
         }
         
         if (record.getStatus() != null) {
@@ -84,11 +84,11 @@ public class SwEmployeeSqlProvider {
         }
         sql.SELECT("name");
         sql.SELECT("employee_no");
+        sql.SELECT("department_id");
+        sql.SELECT("job_title");
         sql.SELECT("email");
         sql.SELECT("phone_number");
         sql.SELECT("hire_date");
-        sql.SELECT("job_title");
-        sql.SELECT("department_id");
         sql.SELECT("status");
         sql.SELECT("position_start_date");
         sql.SELECT("position_end_date");
@@ -122,6 +122,14 @@ public class SwEmployeeSqlProvider {
             sql.SET("employee_no = #{record.employeeNo,jdbcType=VARCHAR}");
         }
         
+        if (record.getDepartmentId() != null) {
+            sql.SET("department_id = #{record.departmentId,jdbcType=INTEGER}");
+        }
+        
+        if (record.getJobTitle() != null) {
+            sql.SET("job_title = #{record.jobTitle,jdbcType=VARCHAR}");
+        }
+        
         if (record.getEmail() != null) {
             sql.SET("email = #{record.email,jdbcType=VARCHAR}");
         }
@@ -132,14 +140,6 @@ public class SwEmployeeSqlProvider {
         
         if (record.getHireDate() != null) {
             sql.SET("hire_date = #{record.hireDate,jdbcType=VARCHAR}");
-        }
-        
-        if (record.getJobTitle() != null) {
-            sql.SET("job_title = #{record.jobTitle,jdbcType=VARCHAR}");
-        }
-        
-        if (record.getDepartmentId() != null) {
-            sql.SET("department_id = #{record.departmentId,jdbcType=INTEGER}");
         }
         
         if (record.getStatus() != null) {
@@ -169,11 +169,11 @@ public class SwEmployeeSqlProvider {
         sql.SET("id = #{record.id,jdbcType=INTEGER}");
         sql.SET("name = #{record.name,jdbcType=VARCHAR}");
         sql.SET("employee_no = #{record.employeeNo,jdbcType=VARCHAR}");
+        sql.SET("department_id = #{record.departmentId,jdbcType=INTEGER}");
+        sql.SET("job_title = #{record.jobTitle,jdbcType=VARCHAR}");
         sql.SET("email = #{record.email,jdbcType=VARCHAR}");
         sql.SET("phone_number = #{record.phoneNumber,jdbcType=VARCHAR}");
         sql.SET("hire_date = #{record.hireDate,jdbcType=VARCHAR}");
-        sql.SET("job_title = #{record.jobTitle,jdbcType=VARCHAR}");
-        sql.SET("department_id = #{record.departmentId,jdbcType=INTEGER}");
         sql.SET("status = #{record.status,jdbcType=INTEGER}");
         sql.SET("position_start_date = #{record.positionStartDate,jdbcType=VARCHAR}");
         sql.SET("position_end_date = #{record.positionEndDate,jdbcType=VARCHAR}");
@@ -196,6 +196,14 @@ public class SwEmployeeSqlProvider {
             sql.SET("employee_no = #{employeeNo,jdbcType=VARCHAR}");
         }
         
+        if (record.getDepartmentId() != null) {
+            sql.SET("department_id = #{departmentId,jdbcType=INTEGER}");
+        }
+        
+        if (record.getJobTitle() != null) {
+            sql.SET("job_title = #{jobTitle,jdbcType=VARCHAR}");
+        }
+        
         if (record.getEmail() != null) {
             sql.SET("email = #{email,jdbcType=VARCHAR}");
         }
@@ -206,14 +214,6 @@ public class SwEmployeeSqlProvider {
         
         if (record.getHireDate() != null) {
             sql.SET("hire_date = #{hireDate,jdbcType=VARCHAR}");
-        }
-        
-        if (record.getJobTitle() != null) {
-            sql.SET("job_title = #{jobTitle,jdbcType=VARCHAR}");
-        }
-        
-        if (record.getDepartmentId() != null) {
-            sql.SET("department_id = #{departmentId,jdbcType=INTEGER}");
         }
         
         if (record.getStatus() != null) {

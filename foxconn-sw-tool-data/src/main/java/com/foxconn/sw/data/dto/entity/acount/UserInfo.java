@@ -2,23 +2,13 @@ package com.foxconn.sw.data.dto.entity.acount;
 
 public class UserInfo {
 
-    private String nickName;
-
     private String employeeNo;
 
     private String employeeName;
 
     private String jobTitle;
 
-    private String depart;
-
-    public String getNickName() {
-        return nickName;
-    }
-
-    public void setNickName(String nickName) {
-        this.nickName = nickName;
-    }
+    private String departName;
 
     public String getEmployeeNo() {
         return employeeNo;
@@ -44,11 +34,11 @@ public class UserInfo {
         this.jobTitle = jobTitle;
     }
 
-    public String getDepart() {
-        return depart;
+    public String getDepartName() {
+        return departName;
     }
 
-    public void setDepart(String depart) {
-        this.depart = depart;
+    public void setDepartName(String departName) {
+        this.departName = departName;
     }
 }

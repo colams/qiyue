@@ -48,6 +48,10 @@ public class SwToolsSqlProvider {
             sql.VALUES("file_path", "#{filePath,jdbcType=VARCHAR}");
         }
         
+        if (record.getResourceId() != null) {
+            sql.VALUES("resource_id", "#{resourceId,jdbcType=INTEGER}");
+        }
+        
         if (record.getToolSize() != null) {
             sql.VALUES("tool_size", "#{toolSize,jdbcType=DOUBLE}");
         }
@@ -91,6 +95,7 @@ public class SwToolsSqlProvider {
         sql.SELECT("property_id");
         sql.SELECT("version_no");
         sql.SELECT("file_path");
+        sql.SELECT("resource_id");
         sql.SELECT("tool_size");
         sql.SELECT("introduction");
         sql.SELECT("update_content");
@@ -139,6 +144,10 @@ public class SwToolsSqlProvider {
             sql.SET("file_path = #{record.filePath,jdbcType=VARCHAR}");
         }
         
+        if (record.getResourceId() != null) {
+            sql.SET("resource_id = #{record.resourceId,jdbcType=INTEGER}");
+        }
+        
         if (record.getToolSize() != null) {
             sql.SET("tool_size = #{record.toolSize,jdbcType=DOUBLE}");
         }
@@ -181,6 +190,7 @@ public class SwToolsSqlProvider {
         sql.SET("property_id = #{record.propertyId,jdbcType=INTEGER}");
         sql.SET("version_no = #{record.versionNo,jdbcType=VARCHAR}");
         sql.SET("file_path = #{record.filePath,jdbcType=VARCHAR}");
+        sql.SET("resource_id = #{record.resourceId,jdbcType=INTEGER}");
         sql.SET("tool_size = #{record.toolSize,jdbcType=DOUBLE}");
         sql.SET("introduction = #{record.introduction,jdbcType=VARCHAR}");
         sql.SET("update_content = #{record.updateContent,jdbcType=VARCHAR}");
@@ -216,6 +226,10 @@ public class SwToolsSqlProvider {
         
         if (record.getFilePath() != null) {
             sql.SET("file_path = #{filePath,jdbcType=VARCHAR}");
+        }
+        
+        if (record.getResourceId() != null) {
+            sql.SET("resource_id = #{resourceId,jdbcType=INTEGER}");
         }
         
         if (record.getToolSize() != null) {

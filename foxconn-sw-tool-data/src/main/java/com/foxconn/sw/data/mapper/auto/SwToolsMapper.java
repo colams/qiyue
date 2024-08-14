@@ -36,16 +36,18 @@ public interface SwToolsMapper {
     @Insert({
         "insert into sw_tools (tool_name, tool_icon, ",
         "property_id, version_no, ",
-        "file_path, tool_size, ",
-        "introduction, update_content, ",
-        "use_guide, operator, ",
-        "create_time, datetime_lastchange)",
+        "file_path, resource_id, ",
+        "tool_size, introduction, ",
+        "update_content, use_guide, ",
+        "operator, create_time, ",
+        "datetime_lastchange)",
         "values (#{toolName,jdbcType=VARCHAR}, #{toolIcon,jdbcType=VARCHAR}, ",
         "#{propertyId,jdbcType=INTEGER}, #{versionNo,jdbcType=VARCHAR}, ",
-        "#{filePath,jdbcType=VARCHAR}, #{toolSize,jdbcType=DOUBLE}, ",
-        "#{introduction,jdbcType=VARCHAR}, #{updateContent,jdbcType=VARCHAR}, ",
-        "#{useGuide,jdbcType=VARCHAR}, #{operator,jdbcType=VARCHAR}, ",
-        "#{createTime,jdbcType=TIMESTAMP}, #{datetimeLastchange,jdbcType=TIMESTAMP})"
+        "#{filePath,jdbcType=VARCHAR}, #{resourceId,jdbcType=INTEGER}, ",
+        "#{toolSize,jdbcType=DOUBLE}, #{introduction,jdbcType=VARCHAR}, ",
+        "#{updateContent,jdbcType=VARCHAR}, #{useGuide,jdbcType=VARCHAR}, ",
+        "#{operator,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, ",
+        "#{datetimeLastchange,jdbcType=TIMESTAMP})"
     })
     @SelectKey(statement="SELECT LAST_INSERT_ID()", keyProperty="id", before=false, resultType=Integer.class)
     int insert(SwTools record);
@@ -62,6 +64,7 @@ public interface SwToolsMapper {
         @Result(column="property_id", property="propertyId", jdbcType=JdbcType.INTEGER),
         @Result(column="version_no", property="versionNo", jdbcType=JdbcType.VARCHAR),
         @Result(column="file_path", property="filePath", jdbcType=JdbcType.VARCHAR),
+        @Result(column="resource_id", property="resourceId", jdbcType=JdbcType.INTEGER),
         @Result(column="tool_size", property="toolSize", jdbcType=JdbcType.DOUBLE),
         @Result(column="introduction", property="introduction", jdbcType=JdbcType.VARCHAR),
         @Result(column="update_content", property="updateContent", jdbcType=JdbcType.VARCHAR),
@@ -80,6 +83,7 @@ public interface SwToolsMapper {
         @Result(column="property_id", property="propertyId", jdbcType=JdbcType.INTEGER),
         @Result(column="version_no", property="versionNo", jdbcType=JdbcType.VARCHAR),
         @Result(column="file_path", property="filePath", jdbcType=JdbcType.VARCHAR),
+        @Result(column="resource_id", property="resourceId", jdbcType=JdbcType.INTEGER),
         @Result(column="tool_size", property="toolSize", jdbcType=JdbcType.DOUBLE),
         @Result(column="introduction", property="introduction", jdbcType=JdbcType.VARCHAR),
         @Result(column="update_content", property="updateContent", jdbcType=JdbcType.VARCHAR),
@@ -92,8 +96,8 @@ public interface SwToolsMapper {
 
     @Select({
         "select",
-        "id, tool_name, tool_icon, property_id, version_no, file_path, tool_size, introduction, ",
-        "update_content, use_guide, operator, create_time, datetime_lastchange",
+        "id, tool_name, tool_icon, property_id, version_no, file_path, resource_id, tool_size, ",
+        "introduction, update_content, use_guide, operator, create_time, datetime_lastchange",
         "from sw_tools",
         "where id = #{id,jdbcType=INTEGER}"
     })
@@ -104,6 +108,7 @@ public interface SwToolsMapper {
         @Result(column="property_id", property="propertyId", jdbcType=JdbcType.INTEGER),
         @Result(column="version_no", property="versionNo", jdbcType=JdbcType.VARCHAR),
         @Result(column="file_path", property="filePath", jdbcType=JdbcType.VARCHAR),
+        @Result(column="resource_id", property="resourceId", jdbcType=JdbcType.INTEGER),
         @Result(column="tool_size", property="toolSize", jdbcType=JdbcType.DOUBLE),
         @Result(column="introduction", property="introduction", jdbcType=JdbcType.VARCHAR),
         @Result(column="update_content", property="updateContent", jdbcType=JdbcType.VARCHAR),
@@ -130,6 +135,7 @@ public interface SwToolsMapper {
           "property_id = #{propertyId,jdbcType=INTEGER},",
           "version_no = #{versionNo,jdbcType=VARCHAR},",
           "file_path = #{filePath,jdbcType=VARCHAR},",
+          "resource_id = #{resourceId,jdbcType=INTEGER},",
           "tool_size = #{toolSize,jdbcType=DOUBLE},",
           "introduction = #{introduction,jdbcType=VARCHAR},",
           "update_content = #{updateContent,jdbcType=VARCHAR},",

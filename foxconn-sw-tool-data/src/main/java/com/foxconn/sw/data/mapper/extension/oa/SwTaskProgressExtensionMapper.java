@@ -16,7 +16,7 @@ public interface SwTaskProgressExtensionMapper extends SwTaskProgressMapper {
 
     @Select({
             "select",
-            "id, task_id, operate_eid, resource_ids, content, remark, datetime_lastchange",
+            "id, task_id, operate_eid,progress, resource_ids, content, datetime_lastchange",
             "from sw_task_progress",
             "where task_id = #{id,jdbcType=INTEGER}"
     })
@@ -24,9 +24,9 @@ public interface SwTaskProgressExtensionMapper extends SwTaskProgressMapper {
             @Result(column = "id", property = "id", jdbcType = JdbcType.INTEGER, id = true),
             @Result(column = "task_id", property = "taskId", jdbcType = JdbcType.INTEGER),
             @Result(column = "operate_eid", property = "operateEid", jdbcType = JdbcType.VARCHAR),
+            @Result(column = "progress", property = "progress", jdbcType = JdbcType.INTEGER),
             @Result(column = "resource_ids", property = "resourceIds", jdbcType = JdbcType.VARCHAR),
             @Result(column = "content", property = "content", jdbcType = JdbcType.VARCHAR),
-            @Result(column = "remark", property = "remark", jdbcType = JdbcType.VARCHAR),
             @Result(column = "datetime_lastchange", property = "datetimeLastchange", jdbcType = JdbcType.TIMESTAMP)
     })
     List<SwTaskProgress> selectTaskProgressVo(Integer id);

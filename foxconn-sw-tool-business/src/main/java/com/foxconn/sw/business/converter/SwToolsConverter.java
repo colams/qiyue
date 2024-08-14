@@ -58,6 +58,7 @@ public class SwToolsConverter {
         swTools.setPropertyId(swToolDTO.getPropertyId());
         swTools.setVersionNo(swToolDTO.getVersionNo());
         swTools.setFilePath(swToolDTO.getFilePath());
+        swTools.setResourceId(swToolDTO.getResourceId());
         swTools.setToolSize(swToolDTO.getToolSize());
         swTools.setIntroduction(swToolDTO.getIntroduction());
         swTools.setUpdateContent(swToolDTO.getUpdateContent());

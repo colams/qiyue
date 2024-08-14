@@ -8,6 +8,7 @@ public class OperateEntity {
     private Boolean enable;
     @Schema(description = "取值范围：查看(view),更新(update),分派(assign),验收(check),撤销(revoke)", name = "操作类型")
     private String operateType;
+    private String msg;
 
     public String getOperateName() {
         return operateName;
@@ -31,5 +32,13 @@ public class OperateEntity {
 
     public void setOperateType(String operateType) {
         this.operateType = operateType;
+    }
+
+    public String getMsg() {
+        return msg;
+    }
+
+    public void setMsg(String msg) {
+        this.msg = msg;
     }
 }

@@ -5,8 +5,8 @@ import com.foxconn.sw.data.dto.PageEntity;
 import com.foxconn.sw.data.dto.PageParams;
 import com.foxconn.sw.data.dto.Request;
 import com.foxconn.sw.data.dto.Response;
-import com.foxconn.sw.data.dto.entity.universal.IntegerParams;
 import com.foxconn.sw.data.dto.entity.oa.*;
+import com.foxconn.sw.data.dto.entity.universal.IntegerParams;
 import com.foxconn.sw.service.processor.oa.*;
 import com.foxconn.sw.service.utils.ResponseUtils;
 import io.swagger.v3.oas.annotations.Operation;
@@ -34,6 +34,8 @@ public class TaskController {
     @Autowired
     CreateTaskProcessor createTaskProcessor;
     @Autowired
+    updateTaskProcessor updateTaskProcessor;
+    @Autowired
     AssignTaskProcessor assignTaskProcessor;
     @Autowired
     UpdateProgressProcessor updateProgressProcessor;
@@ -54,6 +56,14 @@ public class TaskController {
     @PostMapping("/create")
     public Response createTask(@Valid @RequestBody Request<TaskBriefDetailVo> request) {
         createTaskProcessor.createTask(request.getData(), request.getHead());
+        return ResponseUtils.success(request.getTraceId());
+    }
+
+    @Operation(summary = "更新任务", tags = TagsConstants.OA)
+    @ApiResponse(responseCode = "0", description = "成功码")
+    @PostMapping("/update")
+    public Response updateTask(@Valid @RequestBody Request<TaskBriefDetailVo> request) {
+        updateTaskProcessor.updateTask(request.getData(), request.getHead());
         return ResponseUtils.success(request.getTraceId());
     }
 

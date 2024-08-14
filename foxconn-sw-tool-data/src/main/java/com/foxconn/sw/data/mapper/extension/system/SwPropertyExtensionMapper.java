@@ -39,12 +39,36 @@ public interface SwPropertyExtensionMapper extends SwPropertyMapper {
             @Result(column = "order_by", property = "orderBy", jdbcType = JdbcType.INTEGER),
             @Result(column = "create_time", property = "createTime", jdbcType = JdbcType.TIMESTAMP)
     })
-    List<PropertyVo> getPropertyList(@Param("start") int start, @Param("end") int end, @Param("params") PropertiesParams params);
+    List<PropertyVo> getPropertyListPage(@Param("start") int start, @Param("end") int end, @Param("params") PropertiesParams params);
+
+    @Select({"<script>",
+            "select * ",
+            "from sw_property ",
+            "where 1=1 ",
+            "<if test='propertyName!=null and propertyName!=\"\"' >",
+            "and property_name like CONCAT('%', #{propertyName,jdbcType=VARCHAR}, '%') ",
+            "</if> ",
+            "<if test='category!=null and category>0' >",
+            "and category=#{category,jdbcType=INTEGER} ",
+            "</if> ",
+            "ORDER BY id ",
+            "</script>",
+    })
+    @Results({
+            @Result(column = "id", property = "id", jdbcType = JdbcType.INTEGER, id = true),
+            @Result(column = "category", property = "category", jdbcType = JdbcType.INTEGER),
+            @Result(column = "property_name", property = "propertyName", jdbcType = JdbcType.VARCHAR),
+            @Result(column = "icon", property = "icon", jdbcType = JdbcType.VARCHAR),
+            @Result(column = "order_by", property = "orderBy", jdbcType = JdbcType.INTEGER),
+            @Result(column = "create_time", property = "createTime", jdbcType = JdbcType.TIMESTAMP)
+    })
+    List<PropertyVo> getPropertyList(PropertiesParams params);
 
     @Select("SELECT " +
-            "    sm.property_name,\n" +
-            "    sp.menu_url,\n" +
-            "    sp.id\n" +
+            "    sp.property_name,\n" +
+            "    sm.menu_url,\n" +
+            "    sp.id,\n" +
+            "    sp.icon\n" +
             "FROM sw_menu sm\n" +
             "        INNER JOIN sw_property sp ON\n" +
             "            sm.module_no = sp.id\n" +
@@ -56,6 +80,7 @@ public interface SwPropertyExtensionMapper extends SwPropertyMapper {
             @Result(column = "id", property = "moduleNo", jdbcType = JdbcType.INTEGER, id = true),
             @Result(column = "property_name", property = "moduleName", jdbcType = JdbcType.VARCHAR),
             @Result(column = "menu_url", property = "moduleUrl", jdbcType = JdbcType.VARCHAR),
+            @Result(column = "icon", property = "moduleIcon", jdbcType = JdbcType.VARCHAR),
     })
     List<ModuleVo> getModules(@Param("category") Integer category);
 

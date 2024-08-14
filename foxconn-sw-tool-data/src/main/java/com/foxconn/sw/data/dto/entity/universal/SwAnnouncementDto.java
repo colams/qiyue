@@ -1,13 +1,17 @@
 package com.foxconn.sw.data.dto.entity.universal;
 
+import jakarta.validation.constraints.Pattern;
+
 import java.time.LocalDateTime;
 
 public class SwAnnouncementDto {
 
     private Integer id;
 
+    @Pattern(regexp = "^\\S*$", message = "字符串不能全部为空格")
     private String title;
 
+    @Pattern(regexp = "^\\S*$", message = "字符串不能全部为空格")
     private String content;
 
     private String operator;

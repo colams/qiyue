@@ -1,32 +1,32 @@
 package com.foxconn.sw.data.mapper.auto;
 
-import com.foxconn.sw.data.entity.SwOrg;
-import com.foxconn.sw.data.entity.SwOrgExample.Criteria;
-import com.foxconn.sw.data.entity.SwOrgExample.Criterion;
-import com.foxconn.sw.data.entity.SwOrgExample;
+import com.foxconn.sw.data.entity.SwDepartment;
+import com.foxconn.sw.data.entity.SwDepartmentExample.Criteria;
+import com.foxconn.sw.data.entity.SwDepartmentExample.Criterion;
+import com.foxconn.sw.data.entity.SwDepartmentExample;
 import java.util.List;
 import java.util.Map;
 import org.apache.ibatis.jdbc.SQL;
 
-public class SwOrgSqlProvider {
+public class SwDepartmentSqlProvider {
 
-    public String countByExample(SwOrgExample example) {
+    public String countByExample(SwDepartmentExample example) {
         SQL sql = new SQL();
-        sql.SELECT("count(*)").FROM("sw_org");
+        sql.SELECT("count(*)").FROM("sw_department");
         applyWhere(sql, example, false);
         return sql.toString();
     }
 
-    public String deleteByExample(SwOrgExample example) {
+    public String deleteByExample(SwDepartmentExample example) {
         SQL sql = new SQL();
-        sql.DELETE_FROM("sw_org");
+        sql.DELETE_FROM("sw_department");
         applyWhere(sql, example, false);
         return sql.toString();
     }
 
-    public String insertSelective(SwOrg record) {
+    public String insertSelective(SwDepartment record) {
         SQL sql = new SQL();
-        sql.INSERT_INTO("sw_org");
+        sql.INSERT_INTO("sw_department");
         
         if (record.getName() != null) {
             sql.VALUES("name", "#{name,jdbcType=VARCHAR}");
@@ -45,11 +45,11 @@ public class SwOrgSqlProvider {
         }
         
         if (record.getStartDate() != null) {
-            sql.VALUES("start_date", "#{startDate,jdbcType=TIMESTAMP}");
+            sql.VALUES("start_date", "#{startDate,jdbcType=VARCHAR}");
         }
         
         if (record.getEndDate() != null) {
-            sql.VALUES("end_date", "#{endDate,jdbcType=TIMESTAMP}");
+            sql.VALUES("end_date", "#{endDate,jdbcType=VARCHAR}");
         }
         
         if (record.getDatetimeLastchange() != null) {
@@ -59,7 +59,7 @@ public class SwOrgSqlProvider {
         return sql.toString();
     }
 
-    public String selectByExample(SwOrgExample example) {
+    public String selectByExample(SwDepartmentExample example) {
         SQL sql = new SQL();
         if (example != null && example.isDistinct()) {
             sql.SELECT_DISTINCT("id");
@@ -73,7 +73,7 @@ public class SwOrgSqlProvider {
         sql.SELECT("start_date");
         sql.SELECT("end_date");
         sql.SELECT("datetime_lastchange");
-        sql.FROM("sw_org");
+        sql.FROM("sw_department");
         applyWhere(sql, example, false);
         
         if (example != null && example.getOrderByClause() != null) {
@@ -84,11 +84,11 @@ public class SwOrgSqlProvider {
     }
 
     public String updateByExampleSelective(Map<String, Object> parameter) {
-        SwOrg record = (SwOrg) parameter.get("record");
-        SwOrgExample example = (SwOrgExample) parameter.get("example");
+        SwDepartment record = (SwDepartment) parameter.get("record");
+        SwDepartmentExample example = (SwDepartmentExample) parameter.get("example");
         
         SQL sql = new SQL();
-        sql.UPDATE("sw_org");
+        sql.UPDATE("sw_department");
         
         if (record.getId() != null) {
             sql.SET("id = #{record.id,jdbcType=INTEGER}");
@@ -111,11 +111,11 @@ public class SwOrgSqlProvider {
         }
         
         if (record.getStartDate() != null) {
-            sql.SET("start_date = #{record.startDate,jdbcType=TIMESTAMP}");
+            sql.SET("start_date = #{record.startDate,jdbcType=VARCHAR}");
         }
         
         if (record.getEndDate() != null) {
-            sql.SET("end_date = #{record.endDate,jdbcType=TIMESTAMP}");
+            sql.SET("end_date = #{record.endDate,jdbcType=VARCHAR}");
         }
         
         if (record.getDatetimeLastchange() != null) {
@@ -128,25 +128,25 @@ public class SwOrgSqlProvider {
 
     public String updateByExample(Map<String, Object> parameter) {
         SQL sql = new SQL();
-        sql.UPDATE("sw_org");
+        sql.UPDATE("sw_department");
         
         sql.SET("id = #{record.id,jdbcType=INTEGER}");
         sql.SET("name = #{record.name,jdbcType=VARCHAR}");
         sql.SET("description = #{record.description,jdbcType=VARCHAR}");
         sql.SET("parent_id = #{record.parentId,jdbcType=INTEGER}");
         sql.SET("status = #{record.status,jdbcType=INTEGER}");
-        sql.SET("start_date = #{record.startDate,jdbcType=TIMESTAMP}");
-        sql.SET("end_date = #{record.endDate,jdbcType=TIMESTAMP}");
+        sql.SET("start_date = #{record.startDate,jdbcType=VARCHAR}");
+        sql.SET("end_date = #{record.endDate,jdbcType=VARCHAR}");
         sql.SET("datetime_lastchange = #{record.datetimeLastchange,jdbcType=TIMESTAMP}");
         
-        SwOrgExample example = (SwOrgExample) parameter.get("example");
+        SwDepartmentExample example = (SwDepartmentExample) parameter.get("example");
         applyWhere(sql, example, true);
         return sql.toString();
     }
 
-    public String updateByPrimaryKeySelective(SwOrg record) {
+    public String updateByPrimaryKeySelective(SwDepartment record) {
         SQL sql = new SQL();
-        sql.UPDATE("sw_org");
+        sql.UPDATE("sw_department");
         
         if (record.getName() != null) {
             sql.SET("name = #{name,jdbcType=VARCHAR}");
@@ -165,11 +165,11 @@ public class SwOrgSqlProvider {
         }
         
         if (record.getStartDate() != null) {
-            sql.SET("start_date = #{startDate,jdbcType=TIMESTAMP}");
+            sql.SET("start_date = #{startDate,jdbcType=VARCHAR}");
         }
         
         if (record.getEndDate() != null) {
-            sql.SET("end_date = #{endDate,jdbcType=TIMESTAMP}");
+            sql.SET("end_date = #{endDate,jdbcType=VARCHAR}");
         }
         
         if (record.getDatetimeLastchange() != null) {
@@ -181,7 +181,7 @@ public class SwOrgSqlProvider {
         return sql.toString();
     }
 
-    protected void applyWhere(SQL sql, SwOrgExample example, boolean includeExamplePhrase) {
+    protected void applyWhere(SQL sql, SwDepartmentExample example, boolean includeExamplePhrase) {
         if (example == null) {
             return;
         }

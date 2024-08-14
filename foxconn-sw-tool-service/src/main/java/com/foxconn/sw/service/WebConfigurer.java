@@ -5,11 +5,17 @@ import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 import com.foxconn.sw.common.utils.ConfigReader;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.web.servlet.FilterRegistrationBean;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.util.ResourceUtils;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.web.filter.CorsFilter;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
@@ -63,5 +69,34 @@ public class WebConfigurer implements WebMvcConfigurer {
 
         // Configure converters with customized ObjectMapper
         converters.add(6, new MappingJackson2HttpMessageConverter(builder.build()));
+    }
+
+    /**
+     * 配置跨域请求的映射规则
+     *
+     * @param registry 用于注册 CORS 配置的注册表
+     */
+    @Override
+    public void addCorsMappings(CorsRegistry registry) {
+        // 添加跨域映射规则
+        registry.addMapping("/**")  // 允许所有路径的跨域请求
+                .allowedOriginPatterns("*")  // 允许来自 http://example.com 的跨域请求
+                .allowedMethods("*")  // 允许的请求方法
+                .allowedHeaders("*")  // 允许所有请求头
+                .allowCredentials(true);  // 允许携带凭证（如 Cookies）
+    }
+
+    @Bean
+    public FilterRegistrationBean crosFilter(){
+        UrlBasedCorsConfigurationSource source=  new UrlBasedCorsConfigurationSource();
+        CorsConfiguration config = new CorsConfiguration();
+        config.setAllowCredentials(true);
+        config.addAllowedOriginPattern("*");
+        config.addAllowedHeader("*");
+        config.addAllowedMethod("*");
+        source.registerCorsConfiguration("/**",config);
+        FilterRegistrationBean bean = new FilterRegistrationBean(new CorsFilter(source));
+        bean.setOrder(0);
+        return bean;
     }
 }
