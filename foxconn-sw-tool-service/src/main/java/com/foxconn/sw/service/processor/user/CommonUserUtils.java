@@ -46,4 +46,8 @@ public class CommonUserUtils {
         return String.format("%s(%s)", userInfo.getEmployeeName(), userInfo.getEmployeeNo());
     }
 
+    public String getEmployeeName(UserInfo userInfo) {
+        return String.format("%s(%s)", userInfo.getEmployeeName(), userInfo.getEmployeeNo());
+    }
+
 }

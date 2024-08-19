@@ -235,6 +235,76 @@ public class SwDepartmentExample {
             return (Criteria) this;
         }
 
+        public Criteria andManagerNoIsNull() {
+            addCriterion("manager_no is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andManagerNoIsNotNull() {
+            addCriterion("manager_no is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andManagerNoEqualTo(String value) {
+            addCriterion("manager_no =", value, "managerNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andManagerNoNotEqualTo(String value) {
+            addCriterion("manager_no <>", value, "managerNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andManagerNoGreaterThan(String value) {
+            addCriterion("manager_no >", value, "managerNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andManagerNoGreaterThanOrEqualTo(String value) {
+            addCriterion("manager_no >=", value, "managerNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andManagerNoLessThan(String value) {
+            addCriterion("manager_no <", value, "managerNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andManagerNoLessThanOrEqualTo(String value) {
+            addCriterion("manager_no <=", value, "managerNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andManagerNoLike(String value) {
+            addCriterion("manager_no like", value, "managerNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andManagerNoNotLike(String value) {
+            addCriterion("manager_no not like", value, "managerNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andManagerNoIn(List<String> values) {
+            addCriterion("manager_no in", values, "managerNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andManagerNoNotIn(List<String> values) {
+            addCriterion("manager_no not in", values, "managerNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andManagerNoBetween(String value1, String value2) {
+            addCriterion("manager_no between", value1, value2, "managerNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andManagerNoNotBetween(String value1, String value2) {
+            addCriterion("manager_no not between", value1, value2, "managerNo");
+            return (Criteria) this;
+        }
+
         public Criteria andDescriptionIsNull() {
             addCriterion("description is null");
             return (Criteria) this;
@@ -627,6 +697,11 @@ public class SwDepartmentExample {
 
         public Criteria andNameLikeInsensitive(String value) {
             addCriterion("upper(name) like", value.toUpperCase(), "name");
+            return (Criteria) this;
+        }
+
+        public Criteria andManagerNoLikeInsensitive(String value) {
+            addCriterion("upper(manager_no) like", value.toUpperCase(), "managerNo");
             return (Criteria) this;
         }
 

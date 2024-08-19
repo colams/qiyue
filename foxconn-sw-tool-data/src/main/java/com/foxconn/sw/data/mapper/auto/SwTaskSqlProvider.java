@@ -64,8 +64,8 @@ public class SwTaskSqlProvider {
             sql.VALUES("status", "#{status,jdbcType=INTEGER}");
         }
         
-        if (record.getHanldeStatus() != null) {
-            sql.VALUES("hanlde_status", "#{hanldeStatus,jdbcType=INTEGER}");
+        if (record.getHandleStatus() != null) {
+            sql.VALUES("handle_status", "#{handleStatus,jdbcType=INTEGER}");
         }
         
         if (record.getProposerStatus() != null) {
@@ -127,7 +127,7 @@ public class SwTaskSqlProvider {
         sql.SELECT("level");
         sql.SELECT("progress_percent");
         sql.SELECT("status");
-        sql.SELECT("hanlde_status");
+        sql.SELECT("handle_status");
         sql.SELECT("proposer_status");
         sql.SELECT("proposer_eid");
         sql.SELECT("manager_eid");
@@ -195,8 +195,8 @@ public class SwTaskSqlProvider {
             sql.SET("status = #{record.status,jdbcType=INTEGER}");
         }
         
-        if (record.getHanldeStatus() != null) {
-            sql.SET("hanlde_status = #{record.hanldeStatus,jdbcType=INTEGER}");
+        if (record.getHandleStatus() != null) {
+            sql.SET("handle_status = #{record.handleStatus,jdbcType=INTEGER}");
         }
         
         if (record.getProposerStatus() != null) {
@@ -257,7 +257,7 @@ public class SwTaskSqlProvider {
         sql.SET("level = #{record.level,jdbcType=VARCHAR}");
         sql.SET("progress_percent = #{record.progressPercent,jdbcType=INTEGER}");
         sql.SET("status = #{record.status,jdbcType=INTEGER}");
-        sql.SET("hanlde_status = #{record.hanldeStatus,jdbcType=INTEGER}");
+        sql.SET("handle_status = #{record.handleStatus,jdbcType=INTEGER}");
         sql.SET("proposer_status = #{record.proposerStatus,jdbcType=INTEGER}");
         sql.SET("proposer_eid = #{record.proposerEid,jdbcType=VARCHAR}");
         sql.SET("manager_eid = #{record.managerEid,jdbcType=VARCHAR}");
@@ -314,8 +314,8 @@ public class SwTaskSqlProvider {
             sql.SET("status = #{status,jdbcType=INTEGER}");
         }
         
-        if (record.getHanldeStatus() != null) {
-            sql.SET("hanlde_status = #{hanldeStatus,jdbcType=INTEGER}");
+        if (record.getHandleStatus() != null) {
+            sql.SET("handle_status = #{handleStatus,jdbcType=INTEGER}");
         }
         
         if (record.getProposerStatus() != null) {

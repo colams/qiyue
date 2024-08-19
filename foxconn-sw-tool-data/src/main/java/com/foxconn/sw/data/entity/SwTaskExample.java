@@ -775,63 +775,63 @@ public class SwTaskExample {
             return (Criteria) this;
         }
 
-        public Criteria andHanldeStatusIsNull() {
-            addCriterion("hanlde_status is null");
+        public Criteria andHandleStatusIsNull() {
+            addCriterion("handle_status is null");
             return (Criteria) this;
         }
 
-        public Criteria andHanldeStatusIsNotNull() {
-            addCriterion("hanlde_status is not null");
+        public Criteria andHandleStatusIsNotNull() {
+            addCriterion("handle_status is not null");
             return (Criteria) this;
         }
 
-        public Criteria andHanldeStatusEqualTo(Integer value) {
-            addCriterion("hanlde_status =", value, "hanldeStatus");
+        public Criteria andHandleStatusEqualTo(Integer value) {
+            addCriterion("handle_status =", value, "handleStatus");
             return (Criteria) this;
         }
 
-        public Criteria andHanldeStatusNotEqualTo(Integer value) {
-            addCriterion("hanlde_status <>", value, "hanldeStatus");
+        public Criteria andHandleStatusNotEqualTo(Integer value) {
+            addCriterion("handle_status <>", value, "handleStatus");
             return (Criteria) this;
         }
 
-        public Criteria andHanldeStatusGreaterThan(Integer value) {
-            addCriterion("hanlde_status >", value, "hanldeStatus");
+        public Criteria andHandleStatusGreaterThan(Integer value) {
+            addCriterion("handle_status >", value, "handleStatus");
             return (Criteria) this;
         }
 
-        public Criteria andHanldeStatusGreaterThanOrEqualTo(Integer value) {
-            addCriterion("hanlde_status >=", value, "hanldeStatus");
+        public Criteria andHandleStatusGreaterThanOrEqualTo(Integer value) {
+            addCriterion("handle_status >=", value, "handleStatus");
             return (Criteria) this;
         }
 
-        public Criteria andHanldeStatusLessThan(Integer value) {
-            addCriterion("hanlde_status <", value, "hanldeStatus");
+        public Criteria andHandleStatusLessThan(Integer value) {
+            addCriterion("handle_status <", value, "handleStatus");
             return (Criteria) this;
         }
 
-        public Criteria andHanldeStatusLessThanOrEqualTo(Integer value) {
-            addCriterion("hanlde_status <=", value, "hanldeStatus");
+        public Criteria andHandleStatusLessThanOrEqualTo(Integer value) {
+            addCriterion("handle_status <=", value, "handleStatus");
             return (Criteria) this;
         }
 
-        public Criteria andHanldeStatusIn(List<Integer> values) {
-            addCriterion("hanlde_status in", values, "hanldeStatus");
+        public Criteria andHandleStatusIn(List<Integer> values) {
+            addCriterion("handle_status in", values, "handleStatus");
             return (Criteria) this;
         }
 
-        public Criteria andHanldeStatusNotIn(List<Integer> values) {
-            addCriterion("hanlde_status not in", values, "hanldeStatus");
+        public Criteria andHandleStatusNotIn(List<Integer> values) {
+            addCriterion("handle_status not in", values, "handleStatus");
             return (Criteria) this;
         }
 
-        public Criteria andHanldeStatusBetween(Integer value1, Integer value2) {
-            addCriterion("hanlde_status between", value1, value2, "hanldeStatus");
+        public Criteria andHandleStatusBetween(Integer value1, Integer value2) {
+            addCriterion("handle_status between", value1, value2, "handleStatus");
             return (Criteria) this;
         }
 
-        public Criteria andHanldeStatusNotBetween(Integer value1, Integer value2) {
-            addCriterion("hanlde_status not between", value1, value2, "hanldeStatus");
+        public Criteria andHandleStatusNotBetween(Integer value1, Integer value2) {
+            addCriterion("handle_status not between", value1, value2, "handleStatus");
             return (Criteria) this;
         }
 

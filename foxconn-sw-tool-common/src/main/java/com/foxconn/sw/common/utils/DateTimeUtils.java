@@ -30,6 +30,17 @@ public class DateTimeUtils {
      *
      * @return
      */
+    public static String formatNow2() {
+        LocalDateTime localDateTime = LocalDateTime.now();
+        return localDateTime.format(DateTimeFormatter.ofPattern(DateTimePattern.yyyyMMddHHmmsssss));
+    }
+
+
+    /**
+     * 设置时间戳
+     *
+     * @return
+     */
     public static String getFilePrefix() {
         LocalDateTime localDateTime = LocalDateTime.now();
         return localDateTime.format(DateTimeFormatter.ofPattern(DateTimePattern.yyyyMMddHHmmssSSS));
@@ -39,6 +50,8 @@ public class DateTimeUtils {
         String yyyyMMddHHmmss = "yyyyMMddHHmmss";
 
         String yyyyMMddHHmmss2 = "yyyy-MM-dd HH:mm:ss";
+
+        String yyyyMMddHHmmsssss = "yyyy-MM-dd HH:mm:ss.SSS";
 
         String yyyyMMddHHmmssSSS = "yyyyMMddHHmmssSSS";
 

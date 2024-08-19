@@ -25,6 +25,10 @@ public class FilePathUtils {
             path = configReader.readPropertyValue(ConfigReader.ConfigKey.TOOL_GUIDE);
         } else if (FileAttrTypeEnums.RESULT.getSymbol().equalsIgnoreCase(fileAttr)) {
             path = configReader.readPropertyValue(ConfigReader.ConfigKey.TOOL_RESULT);
+        } else {
+            return ResourceUtils.getURL(
+                            ResourceUtils.FILE_URL_PREFIX + configReader.getBaseUploadPath() + fileAttr.toLowerCase() + "/")
+                    .getPath();
         }
 
         return ResourceUtils.getURL(ResourceUtils.FILE_URL_PREFIX + path).getPath();

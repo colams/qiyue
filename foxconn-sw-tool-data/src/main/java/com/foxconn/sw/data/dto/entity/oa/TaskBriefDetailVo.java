@@ -13,7 +13,7 @@ public class TaskBriefDetailVo {
      */
     @Schema(description = "专案-所属项目")
     @NotNull(message = "专案不能爲空！")
-    @Pattern(regexp = "^\\S*$", message = "专案不能全部为空格")
+    @Pattern(regexp = "^(?!\\s*$)\\S+.*$", message = "专案不能全部为空格")
     private String topProject;
 
 
@@ -22,7 +22,7 @@ public class TaskBriefDetailVo {
      */
     @Schema(description = "专案-所属项目")
     @NotNull(message = "专案不能爲空！")
-    @Pattern(regexp = "^\\S*$", message = "专案不能全部为空格")
+    @Pattern(regexp = "^(?!\\s*$)\\S+.*$", message = "专案不能全部为空格")
     private String project;
 
     /**
@@ -30,7 +30,7 @@ public class TaskBriefDetailVo {
      */
     @Schema(description = "任务分类")
     @NotNull(message = "任务分类不能爲空！")
-    @Pattern(regexp = "^\\S*$", message = "任务分类不能全部为空格")
+    @Pattern(regexp = "^(?!\\s*$)\\S+.*$", message = "任务分类不能全部为空格")
     private String topCategory;
 
     /**
@@ -38,7 +38,7 @@ public class TaskBriefDetailVo {
      */
     @Schema(description = "任务分类")
     @NotNull(message = "任务分类不能爲空！")
-    @Pattern(regexp = "^\\S*$", message = "任务分类不能全部为空格")
+    @Pattern(regexp = "^(?!\\s*$)\\S+.*$", message = "任务分类不能全部为空格")
     private String category;
 
     /**
@@ -46,7 +46,7 @@ public class TaskBriefDetailVo {
      */
     @Schema(description = "优先等级")
     @NotNull(message = "优先等级不能爲空！")
-    @Pattern(regexp = "^\\S*$", message = "优先等级不能全部为空格")
+    @Pattern(regexp = "^(?!\\s*$)\\S+.*$", message = "优先等级不能全部为空格")
     private String level;
 
     /**
@@ -54,7 +54,7 @@ public class TaskBriefDetailVo {
      */
     @Schema(description = "任务期限 YYYY-MM-DD")
     @NotNull(message = "任务期限不能爲空！")
-    @Pattern(regexp = "^\\S*$", message = "任务期限不能全部为空格")
+    @Pattern(regexp = "^(?!\\s*$)\\S+.*$", message = "任务期限不能全部为空格")
     private String deadLine;
 
     /**
@@ -62,7 +62,7 @@ public class TaskBriefDetailVo {
      */
     @Schema(description = "任务标题-任务名称")
     @NotNull(message = "任務標題不能爲空！")
-    @Pattern(regexp = "^\\S*$", message = "任務標題不能全部为空格")
+    @Pattern(regexp = "^(?!\\s*$)\\S+.*$", message = "任務標題不能全部为空格")
     private String title;
 
     /**
@@ -70,7 +70,7 @@ public class TaskBriefDetailVo {
      */
     @Schema(description = "任务描述")
     @NotNull(message = "任務描述不能爲空！")
-    @Pattern(regexp = "^\\S*$", message = "任务描述不能全部为空格")
+    @Pattern(regexp = "^(?!\\s*$)\\S+.*$", message = "任务描述不能全部为空格")
     private String description;
 
     /**

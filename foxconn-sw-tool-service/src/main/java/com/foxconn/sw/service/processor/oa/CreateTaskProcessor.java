@@ -38,11 +38,10 @@ public class CreateTaskProcessor {
 
         boolean result = swTaskBusiness.createTask(task);
         if (result) {
+            addTaskLog(user, task);
             if (TaskStatusEnums.PENDING.getCode().equals(task.getStatus())) {
                 addProcessInfo(user, task);
             }
-
-            addTaskLog(user, task);
         }
         return result;
     }

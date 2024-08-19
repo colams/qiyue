@@ -30,7 +30,7 @@ public class EmployeeBusiness {
         SwEmployeeExample.Criteria criteria = example.createCriteria();
         criteria.andEmployeeNoEqualTo(employeeNo);
         List<SwEmployee> swEmployees = swEmployeeExtensionMapper.selectByExample(example);
-        if (CollectionUtils.isEmpty(swEmployees)){
+        if (CollectionUtils.isEmpty(swEmployees)) {
             return null;
         }
         return swEmployees.get(0);
@@ -38,5 +38,13 @@ public class EmployeeBusiness {
 
     public List<EmployeeVo> getEmployeesByLevel() {
         return swEmployeeExtensionMapper.getEmployeesByLevel();
+    }
+
+    public List<SwEmployee> selectEmployeeByENos(List<String> employeeNos) {
+        SwEmployeeExample example = new SwEmployeeExample();
+        SwEmployeeExample.Criteria criteria = example.createCriteria();
+        criteria.andEmployeeNoIn(employeeNos);
+        List<SwEmployee> swEmployees = swEmployeeExtensionMapper.selectByExample(example);
+        return swEmployees;
     }
 }

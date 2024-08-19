@@ -21,11 +21,12 @@ public class SwAppendResourceBusiness {
         return appendResourceExtensionMapper.selectByExample(example);
     }
 
-    public Integer saveResource(String filePath, int sourceType) {
+    public Integer saveResource(String filePath, String originName, String uploadType) {
         SwAppendResource resource = new SwAppendResource();
-        resource.setSourceType(sourceType);
+        resource.setUploadType(uploadType);
         resource.setFilePath(filePath);
         resource.setOperator("sys");
+        resource.setOriginName(originName);
         appendResourceExtensionMapper.insertSelective(resource);
         return resource.getId();
     }

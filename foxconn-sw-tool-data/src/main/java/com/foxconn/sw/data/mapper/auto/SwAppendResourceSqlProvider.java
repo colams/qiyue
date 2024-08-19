@@ -28,12 +28,16 @@ public class SwAppendResourceSqlProvider {
         SQL sql = new SQL();
         sql.INSERT_INTO("sw_append_resource");
         
-        if (record.getSourceType() != null) {
-            sql.VALUES("source_type", "#{sourceType,jdbcType=INTEGER}");
+        if (record.getOriginName() != null) {
+            sql.VALUES("origin_name", "#{originName,jdbcType=VARCHAR}");
         }
         
         if (record.getFilePath() != null) {
             sql.VALUES("file_path", "#{filePath,jdbcType=VARCHAR}");
+        }
+        
+        if (record.getUploadType() != null) {
+            sql.VALUES("upload_type", "#{uploadType,jdbcType=VARCHAR}");
         }
         
         if (record.getOperator() != null) {
@@ -54,8 +58,9 @@ public class SwAppendResourceSqlProvider {
         } else {
             sql.SELECT("id");
         }
-        sql.SELECT("source_type");
+        sql.SELECT("origin_name");
         sql.SELECT("file_path");
+        sql.SELECT("upload_type");
         sql.SELECT("operator");
         sql.SELECT("datetime_lastchange");
         sql.FROM("sw_append_resource");
@@ -79,12 +84,16 @@ public class SwAppendResourceSqlProvider {
             sql.SET("id = #{record.id,jdbcType=INTEGER}");
         }
         
-        if (record.getSourceType() != null) {
-            sql.SET("source_type = #{record.sourceType,jdbcType=INTEGER}");
+        if (record.getOriginName() != null) {
+            sql.SET("origin_name = #{record.originName,jdbcType=VARCHAR}");
         }
         
         if (record.getFilePath() != null) {
             sql.SET("file_path = #{record.filePath,jdbcType=VARCHAR}");
+        }
+        
+        if (record.getUploadType() != null) {
+            sql.SET("upload_type = #{record.uploadType,jdbcType=VARCHAR}");
         }
         
         if (record.getOperator() != null) {
@@ -104,8 +113,9 @@ public class SwAppendResourceSqlProvider {
         sql.UPDATE("sw_append_resource");
         
         sql.SET("id = #{record.id,jdbcType=INTEGER}");
-        sql.SET("source_type = #{record.sourceType,jdbcType=INTEGER}");
+        sql.SET("origin_name = #{record.originName,jdbcType=VARCHAR}");
         sql.SET("file_path = #{record.filePath,jdbcType=VARCHAR}");
+        sql.SET("upload_type = #{record.uploadType,jdbcType=VARCHAR}");
         sql.SET("operator = #{record.operator,jdbcType=VARCHAR}");
         sql.SET("datetime_lastchange = #{record.datetimeLastchange,jdbcType=TIMESTAMP}");
         
@@ -118,12 +128,16 @@ public class SwAppendResourceSqlProvider {
         SQL sql = new SQL();
         sql.UPDATE("sw_append_resource");
         
-        if (record.getSourceType() != null) {
-            sql.SET("source_type = #{sourceType,jdbcType=INTEGER}");
+        if (record.getOriginName() != null) {
+            sql.SET("origin_name = #{originName,jdbcType=VARCHAR}");
         }
         
         if (record.getFilePath() != null) {
             sql.SET("file_path = #{filePath,jdbcType=VARCHAR}");
+        }
+        
+        if (record.getUploadType() != null) {
+            sql.SET("upload_type = #{uploadType,jdbcType=VARCHAR}");
         }
         
         if (record.getOperator() != null) {

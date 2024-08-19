@@ -11,6 +11,7 @@ import com.foxconn.sw.data.dto.Request;
 import com.foxconn.sw.data.dto.Response;
 import com.foxconn.sw.data.dto.entity.universal.IntegerParams;
 import com.foxconn.sw.data.dto.entity.universal.UploadResult;
+import com.foxconn.sw.data.exception.BizException;
 import com.foxconn.sw.data.interfaces.IResult;
 import com.foxconn.sw.service.processor.user.CommonUserUtils;
 import com.foxconn.sw.service.utils.FilePathUtils;
@@ -35,7 +36,6 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
-@CrossOrigin
 @RestController
 @RequestMapping("/api/universal")
 public class CommonController {
@@ -71,6 +71,7 @@ public class CommonController {
                 .body(resource);
     }
 
+    @CrossOrigin
     @Operation(summary = "上传文件new", tags = TagsConstants.UNIVERSAL)
     @ApiResponse(responseCode = "0", description = "成功码")
     @PostMapping("/upload")
@@ -79,6 +80,9 @@ public class CommonController {
         if (file.isEmpty()) {
             return ResponseUtils.failure(RetCode.EMPTY_FILE_ERROR, UUIDUtils.getUuid());
         }
+        if (StringUtils.isBlank(uploadType)) {
+            throw new BizException(RetCode.UPLOAD_FILE_TYPE_ERROR);
+        }
 
         String fileBaseUrl = filePathUtils.getFilePath(uploadType);
         String path = UploadUtils.upload(fileBaseUrl, file, uploadType);
@@ -86,7 +90,7 @@ public class CommonController {
 
 
         if (StringUtils.isNoneBlank(path)) {
-            resourceID = resourceBusiness.saveResource(path, 0);
+            resourceID = resourceBusiness.saveResource(path, file.getOriginalFilename(), uploadType);
         }
 
         UploadResult result = new UploadResult();

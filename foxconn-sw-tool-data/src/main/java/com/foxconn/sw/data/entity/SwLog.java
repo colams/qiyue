@@ -7,6 +7,8 @@ public class SwLog {
 
     private String operator;
 
+    private String ip;
+
     private String operatetype;
 
     private String remark;
@@ -37,6 +39,19 @@ public class SwLog {
 
     public void setOperator(String operator) {
         this.operator = operator == null ? null : operator.trim();
+    }
+
+    public String getIp() {
+        return ip;
+    }
+
+    public SwLog withIp(String ip) {
+        this.setIp(ip);
+        return this;
+    }
+
+    public void setIp(String ip) {
+        this.ip = ip == null ? null : ip.trim();
     }
 
     public String getOperatetype() {

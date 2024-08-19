@@ -60,7 +60,7 @@ public class UpdateProgressProcessor {
     private boolean updateTaskProcess(Integer taskId, Integer progress, String employeeID) {
         boolean result = taskBusiness.updateProgress(taskId, progress);
         if (result) {
-            taskLogBusiness.addTaskLog(taskId, employeeID, String.format("%s 更新任务进度为：%s", employeeID, progress));
+            taskLogBusiness.addTaskLog(taskId, employeeID, String.format("%s 更新任务进度为：%s%%", employeeID, progress));
         }
         return result;
     }

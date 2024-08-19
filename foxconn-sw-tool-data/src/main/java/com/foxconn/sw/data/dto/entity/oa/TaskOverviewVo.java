@@ -2,9 +2,18 @@ package com.foxconn.sw.data.dto.entity.oa;
 
 public class TaskOverviewVo {
 
+    private int code;
     private String category;
     private String title;
     private String countDes;
+
+    public int getCode() {
+        return code;
+    }
+
+    public void setCode(int code) {
+        this.code = code;
+    }
 
     public String getCategory() {
         return category;

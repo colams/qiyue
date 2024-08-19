@@ -61,7 +61,7 @@ public class RejectTaskProcessor {
         String content = String.format("%s 駁回了任務", user.getEmployeeName());
         SwTaskProgress progress = new SwTaskProgress();
         progress.setTaskId(taskID);
-        progress.setOperateEid(user.getEmployeeName());
+        progress.setOperateEid(user.getEmployeeNo());
         progress.setContent(content);
         progressBusiness.addProcessInfo(progress);
     }

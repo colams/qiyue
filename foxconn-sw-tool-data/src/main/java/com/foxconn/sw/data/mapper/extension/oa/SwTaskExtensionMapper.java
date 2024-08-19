@@ -17,8 +17,13 @@ public interface SwTaskExtensionMapper extends SwTaskMapper {
 
 
     @Select({"<script>",
-            "select *",
-            "from sw_task",
+            "select ",
+            "st.id, top_category, category, title, top_project, project, description, level, ",
+            "progress_percent, st.status, handle_status, proposer_status, se1.name as proposer_eid, se2.name as manager_eid, ",
+            "se3.name as handle_eid, dead_line, resource_ids, start_date, end_date, st.create_time",
+            "from sw_task st left join sw_employee se1 on st.proposer_eid=se1.employee_no ",
+            " left join sw_employee se2 on st.manager_eid=se2.employee_no ",
+            " left join sw_employee se3 on st.handle_eid=se3.employee_no ",
             "where 1=1",
             "<if test='employeeId!=null and employeeId!=\"\"' >",
             " and (proposer_eid=#{employeeId,jdbcType=VARCHAR} or manager_eid=#{employeeId,jdbcType=VARCHAR} or handle_eid=#{employeeId,jdbcType=VARCHAR})",
@@ -27,21 +32,18 @@ public interface SwTaskExtensionMapper extends SwTaskMapper {
             " and title like CONCAT('%', #{params.keyWord,jdbcType=VARCHAR}, '%') ",
             "</if> ",
             "<if test='params.searchType==1'  >",
-            " and top_category='1' and status in (1,2,3,4) ",
+            " and st.status in (1,2) and handle_eid='' ",
             "</if> ",
             "<if test='params.searchType==2'  >",
-            " and status=3 ",
+            " and st.status=3 ",
             "</if> ",
             "<if test='params.searchType==3'  >",
-            " and  ((proposer_eid=#{employeeId,jdbcType=VARCHAR} and status in (1,2) ) or (manager_eid=#{employeeId,jdbcType=VARCHAR} and status=1 ) or (handle_eid=#{employeeId,jdbcType=VARCHAR} and status=2 ))",
+            " and st.status=4 ",
             "</if> ",
             "<if test='params.searchType==4'  >",
-            " and status=4 ",
+            " and st.status in (1,2,3,4) and dead_line &lt;#{nowDate,jdbcType=VARCHAR} ",
             "</if> ",
-            "<if test='params.searchType==5'  >",
-            " and status in (1,2,3,4) and dead_line &lt;#{nowDate,jdbcType=VARCHAR} ",
-            "</if> ",
-            "ORDER BY id ",
+            "ORDER BY id desc",
             "LIMIT #{start,jdbcType=INTEGER} , #{end,jdbcType=INTEGER} ",
             "</script>"
     })
@@ -64,11 +66,11 @@ public interface SwTaskExtensionMapper extends SwTaskMapper {
             @Result(column = "end_date", property = "endDate", jdbcType = JdbcType.VARCHAR),
             @Result(column = "create_time", property = "createTime", jdbcType = JdbcType.TIMESTAMP),
     })
-    List<TaskBriefListVo> listBriefVos(@Param("start") int start, @Param("end") int end, @Param("params") TaskParams params, @Param("employeeId") String employeeId, @Param("now") String nowDate);
+    List<TaskBriefListVo> listBriefVos(@Param("start") int start, @Param("end") int end, @Param("params") TaskParams params, @Param("employeeId") String employeeId, @Param("nowDate") String nowDate);
 
     @Select({"<script>",
             "select count(1)",
-            "from sw_task",
+            "from sw_task st",
             "where 1=1",
             "<if test='employeeId!=null and employeeId!=\"\"' >",
             " and (proposer_eid=#{employeeId,jdbcType=VARCHAR} or manager_eid=#{employeeId,jdbcType=VARCHAR} or handle_eid=#{employeeId,jdbcType=VARCHAR})",
@@ -77,22 +79,19 @@ public interface SwTaskExtensionMapper extends SwTaskMapper {
             " and title like CONCAT('%', #{params.keyWord,jdbcType=VARCHAR}, '%') ",
             "</if> ",
             "<if test='params.searchType==1'  >",
-            " and top_category='1' and status in (1,2,3,4) ",
+            " and st.status in (1,2) and handle_eid='' ",
             "</if> ",
             "<if test='params.searchType==2'  >",
-            " and status=3 ",
+            " and st.status=3 ",
             "</if> ",
             "<if test='params.searchType==3'  >",
-            " and  ((proposer_eid=#{employeeId,jdbcType=VARCHAR} and status in (1,2) ) or (manager_eid=#{employeeId,jdbcType=VARCHAR} and status=1 ) or (handle_eid=#{employeeId,jdbcType=VARCHAR} and status=2 ))",
+            " and st.status=4 ",
             "</if> ",
             "<if test='params.searchType==4'  >",
-            " and status=4 ",
-            "</if> ",
-            "<if test='params.searchType==5'  >",
-            " and status in (1,2,3,4) and dead_line &lt; #{nowDate,jdbcType=VARCHAR} ",
+            " and st.status in (1,2,3,4) and dead_line &lt;#{nowDate,jdbcType=VARCHAR} ",
             "</if> ",
             "ORDER BY id ",
             "</script>"
     })
-    int getTotalCountByParams(@Param("params") TaskParams params, @Param("employeeId") String employeeId, @Param("now") String nowDate);
+    int getTotalCountByParams(@Param("params") TaskParams params, @Param("employeeId") String employeeId, @Param("nowDate") String nowDate);
 }

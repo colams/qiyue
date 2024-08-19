@@ -32,6 +32,10 @@ public class SwDepartmentSqlProvider {
             sql.VALUES("name", "#{name,jdbcType=VARCHAR}");
         }
         
+        if (record.getManagerNo() != null) {
+            sql.VALUES("manager_no", "#{managerNo,jdbcType=VARCHAR}");
+        }
+        
         if (record.getDescription() != null) {
             sql.VALUES("description", "#{description,jdbcType=VARCHAR}");
         }
@@ -67,6 +71,7 @@ public class SwDepartmentSqlProvider {
             sql.SELECT("id");
         }
         sql.SELECT("name");
+        sql.SELECT("manager_no");
         sql.SELECT("description");
         sql.SELECT("parent_id");
         sql.SELECT("status");
@@ -96,6 +101,10 @@ public class SwDepartmentSqlProvider {
         
         if (record.getName() != null) {
             sql.SET("name = #{record.name,jdbcType=VARCHAR}");
+        }
+        
+        if (record.getManagerNo() != null) {
+            sql.SET("manager_no = #{record.managerNo,jdbcType=VARCHAR}");
         }
         
         if (record.getDescription() != null) {
@@ -132,6 +141,7 @@ public class SwDepartmentSqlProvider {
         
         sql.SET("id = #{record.id,jdbcType=INTEGER}");
         sql.SET("name = #{record.name,jdbcType=VARCHAR}");
+        sql.SET("manager_no = #{record.managerNo,jdbcType=VARCHAR}");
         sql.SET("description = #{record.description,jdbcType=VARCHAR}");
         sql.SET("parent_id = #{record.parentId,jdbcType=INTEGER}");
         sql.SET("status = #{record.status,jdbcType=INTEGER}");
@@ -150,6 +160,10 @@ public class SwDepartmentSqlProvider {
         
         if (record.getName() != null) {
             sql.SET("name = #{name,jdbcType=VARCHAR}");
+        }
+        
+        if (record.getManagerNo() != null) {
+            sql.SET("manager_no = #{managerNo,jdbcType=VARCHAR}");
         }
         
         if (record.getDescription() != null) {

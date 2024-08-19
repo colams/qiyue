@@ -32,6 +32,10 @@ public class SwLogSqlProvider {
             sql.VALUES("operator", "#{operator,jdbcType=VARCHAR}");
         }
         
+        if (record.getIp() != null) {
+            sql.VALUES("ip", "#{ip,jdbcType=VARCHAR}");
+        }
+        
         if (record.getOperatetype() != null) {
             sql.VALUES("operateType", "#{operatetype,jdbcType=VARCHAR}");
         }
@@ -55,6 +59,7 @@ public class SwLogSqlProvider {
             sql.SELECT("id");
         }
         sql.SELECT("operator");
+        sql.SELECT("ip");
         sql.SELECT("operateType");
         sql.SELECT("remark");
         sql.SELECT("create_time");
@@ -83,6 +88,10 @@ public class SwLogSqlProvider {
             sql.SET("operator = #{record.operator,jdbcType=VARCHAR}");
         }
         
+        if (record.getIp() != null) {
+            sql.SET("ip = #{record.ip,jdbcType=VARCHAR}");
+        }
+        
         if (record.getOperatetype() != null) {
             sql.SET("operateType = #{record.operatetype,jdbcType=VARCHAR}");
         }
@@ -105,6 +114,7 @@ public class SwLogSqlProvider {
         
         sql.SET("id = #{record.id,jdbcType=INTEGER}");
         sql.SET("operator = #{record.operator,jdbcType=VARCHAR}");
+        sql.SET("ip = #{record.ip,jdbcType=VARCHAR}");
         sql.SET("operateType = #{record.operatetype,jdbcType=VARCHAR}");
         sql.SET("remark = #{record.remark,jdbcType=VARCHAR}");
         sql.SET("create_time = #{record.createTime,jdbcType=TIMESTAMP}");
@@ -120,6 +130,10 @@ public class SwLogSqlProvider {
         
         if (record.getOperator() != null) {
             sql.SET("operator = #{operator,jdbcType=VARCHAR}");
+        }
+        
+        if (record.getIp() != null) {
+            sql.SET("ip = #{ip,jdbcType=VARCHAR}");
         }
         
         if (record.getOperatetype() != null) {

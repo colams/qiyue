@@ -15,7 +15,7 @@ import java.util.List;
 
 @Repository
 public interface SwUserExtensionMapper extends SwUserMapper {
-    @Select({"select su.employee_no,se.name,se.job_title,sd.name as departName \n" +
+    @Select({"select su.employee_no,se.name,sd.name as departName \n" +
             "from sw_user su\n" +
             "    left join sw_employee se on su.employee_no=se.employee_no\n" +
             "    left join sw_department sd on se.department_id=sd.id\n" +
@@ -25,7 +25,6 @@ public interface SwUserExtensionMapper extends SwUserMapper {
     @Results({
             @Result(column = "employee_no", property = "employeeNo", jdbcType = JdbcType.VARCHAR),
             @Result(column = "name", property = "employeeName", jdbcType = JdbcType.VARCHAR),
-            @Result(column = "job_title", property = "jobTitle", jdbcType = JdbcType.VARCHAR),
             @Result(column = "departName", property = "departName", jdbcType = JdbcType.VARCHAR),
     })
     UserInfo queryUserInfo(String employeeNo);

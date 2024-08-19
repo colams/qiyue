@@ -38,6 +38,13 @@ public class SwTaskBusiness {
         return taskExtensionMapper.getTotalCountByParams(params, employeeId, now);
     }
 
+    public int getTotalCountByParams(int searchType, String employeeId, String now) {
+        TaskParams params = new TaskParams();
+        params.setKeyWord("");
+        params.setSearchType(searchType);
+        return taskExtensionMapper.getTotalCountByParams(params, employeeId, now);
+    }
+
     public SwTask getTaskById(Integer taskId) {
         return taskExtensionMapper.selectByPrimaryKey(taskId);
     }
@@ -47,6 +54,14 @@ public class SwTaskBusiness {
         task.setId(taskId);
         task.setProgressPercent(progress);
         task.setStatus(TaskStatusEnums.PROCESSING.getCode());
+        return taskExtensionMapper.updateByPrimaryKeySelective(task) > 0;
+    }
+
+    public boolean achieveTask(Integer taskId, Integer progress) {
+        SwTask task = new SwTask();
+        task.setId(taskId);
+        task.setProgressPercent(progress);
+        task.setStatus(TaskStatusEnums.ACCEPTING.getCode());
         return taskExtensionMapper.updateByPrimaryKeySelective(task) > 0;
     }
 

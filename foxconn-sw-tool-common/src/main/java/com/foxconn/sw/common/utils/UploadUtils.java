@@ -53,7 +53,7 @@ public class UploadUtils {
         String timeStamp = DateTimeUtils.getFilePrefix();
         return String.format("%s_%s.%s", fileName, timeStamp, getFileExtension(originalName));
     }
-    
+
     private static String getFileExtension(String fileName) {
         int dotIndex = fileName.lastIndexOf('.');
         if (dotIndex == -1) {

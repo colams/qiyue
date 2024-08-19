@@ -56,7 +56,6 @@ public class RegisterProcessor {
         employee.setName(data.getName());
         employee.setEmployeeNo(data.getEmployeeNo());
         employee.setDepartmentId(data.getDepartmentId());
-        employee.setJobTitle(data.getTitle());
         return employee;
     }
 

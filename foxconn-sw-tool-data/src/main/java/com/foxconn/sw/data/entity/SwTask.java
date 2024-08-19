@@ -23,7 +23,7 @@ public class SwTask {
 
     private Integer status;
 
-    private Integer hanldeStatus;
+    private Integer handleStatus;
 
     private Integer proposerStatus;
 
@@ -175,17 +175,17 @@ public class SwTask {
         this.status = status;
     }
 
-    public Integer getHanldeStatus() {
-        return hanldeStatus;
+    public Integer getHandleStatus() {
+        return handleStatus;
     }
 
-    public SwTask withHanldeStatus(Integer hanldeStatus) {
-        this.setHanldeStatus(hanldeStatus);
+    public SwTask withHandleStatus(Integer handleStatus) {
+        this.setHandleStatus(handleStatus);
         return this;
     }
 
-    public void setHanldeStatus(Integer hanldeStatus) {
-        this.hanldeStatus = hanldeStatus;
+    public void setHandleStatus(Integer handleStatus) {
+        this.handleStatus = handleStatus;
     }
 
     public Integer getProposerStatus() {

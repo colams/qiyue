@@ -5,11 +5,11 @@
     <parent>
         <groupId>com.foxconn.sw</groupId>
         <artifactId>foxconn-sw-tool-services</artifactId>
-        <version>0.0.1-SNAPSHOT</version>
+        <version>0.0.1</version>
     </parent>
 
     <artifactId>foxconn-sw-tool-service</artifactId>
-    <packaging>jar</packaging>
+    <packaging>war</packaging>
 
     <dependencies>
         <dependency>
@@ -75,6 +75,7 @@
     </dependencies>
 
     <build>
+        <finalName>foxconn-sw</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>

@@ -5,9 +5,11 @@ import java.time.LocalDateTime;
 public class SwAppendResource {
     private Integer id;
 
-    private Integer sourceType;
+    private String originName;
 
     private String filePath;
+
+    private String uploadType;
 
     private String operator;
 
@@ -26,17 +28,17 @@ public class SwAppendResource {
         this.id = id;
     }
 
-    public Integer getSourceType() {
-        return sourceType;
+    public String getOriginName() {
+        return originName;
     }
 
-    public SwAppendResource withSourceType(Integer sourceType) {
-        this.setSourceType(sourceType);
+    public SwAppendResource withOriginName(String originName) {
+        this.setOriginName(originName);
         return this;
     }
 
-    public void setSourceType(Integer sourceType) {
-        this.sourceType = sourceType;
+    public void setOriginName(String originName) {
+        this.originName = originName == null ? null : originName.trim();
     }
 
     public String getFilePath() {
@@ -50,6 +52,19 @@ public class SwAppendResource {
 
     public void setFilePath(String filePath) {
         this.filePath = filePath == null ? null : filePath.trim();
+    }
+
+    public String getUploadType() {
+        return uploadType;
+    }
+
+    public SwAppendResource withUploadType(String uploadType) {
+        this.setUploadType(uploadType);
+        return this;
+    }
+
+    public void setUploadType(String uploadType) {
+        this.uploadType = uploadType == null ? null : uploadType.trim();
     }
 
     public String getOperator() {

@@ -19,10 +19,21 @@ public class ConfigReader {
         return environment.getProperty(propertyKey);
     }
 
+    /**
+     * 读取配置文件
+     *
+     * @return
+     */
+    public String getBaseUploadPath() {
+        return environment.getProperty(ConfigKey.BASE_UPLOAD_PATH);
+    }
+
     public interface ConfigKey {
         String TOOL_FILE = "tool.file.base.path";
         String TOOL_ICON = "tool.icon.base.path";
         String TOOL_GUIDE = "tool.guide.base.path";
         String TOOL_RESULT = "tool.result.base.path";
+        String OA_RESOURCE = "oa.base.path";
+        String BASE_UPLOAD_PATH = "upload.base.path";
     }
 }

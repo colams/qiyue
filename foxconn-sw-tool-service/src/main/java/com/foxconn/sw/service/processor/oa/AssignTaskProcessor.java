@@ -3,9 +3,11 @@ package com.foxconn.sw.service.processor.oa;
 import com.foxconn.sw.business.oa.SwTaskBusiness;
 import com.foxconn.sw.business.oa.SwTaskLogBusiness;
 import com.foxconn.sw.business.oa.SwTaskProgressBusiness;
+import com.foxconn.sw.business.system.EmployeeBusiness;
 import com.foxconn.sw.data.dto.Header;
 import com.foxconn.sw.data.dto.entity.acount.UserInfo;
 import com.foxconn.sw.data.dto.entity.oa.TaskAssignParams;
+import com.foxconn.sw.data.entity.SwEmployee;
 import com.foxconn.sw.data.entity.SwTaskProgress;
 import com.foxconn.sw.service.processor.user.CommonUserUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +26,8 @@ public class AssignTaskProcessor {
     private SwTaskProgressBusiness taskProgressBusiness;
     @Autowired
     private SwTaskLogBusiness taskLogBusiness;
-
+    @Autowired
+    private EmployeeBusiness employeeBusiness;
 
     /**
      * 分派 工作任务
@@ -35,26 +38,31 @@ public class AssignTaskProcessor {
      */
     public boolean assignTask(TaskAssignParams data, Header head) {
         UserInfo user = commonUserUtils.queryUserInfo(head.getToken());
+
+        SwEmployee employee = employeeBusiness.selectEmployeeByENo(data.getAssignEid());
+
         boolean result = taskBusiness.assignTask(data.getTaskId(), data.getAssignEid());
         if (result) {
-            addProcessInfo(data, user);
-            addTaskLog(data, user);
+            String content = String.format("%s 任务分派给了 %s; %s",
+                    user.getEmployeeName(),
+                    String.format("%s(%s)", employee.getName(), employee.getEmployeeNo()),
+                    Optional.ofNullable(data.getContent()).orElse(""));
+            String operator = String.format("%s(%s)", user.getEmployeeName(), user.getEmployeeNo());
+            addProcessInfo(data, user, content);
+            addTaskLog(data, operator, content);
         }
         return result;
     }
 
-    private boolean addTaskLog(TaskAssignParams data, UserInfo user) {
-        return taskLogBusiness.addTaskLog(data.getTaskId(), user.getEmployeeNo(), data.getContent());
+    private boolean addTaskLog(TaskAssignParams data, String operator, String content) {
+        return taskLogBusiness.addTaskLog(data.getTaskId(), operator, content);
     }
 
-    private boolean addProcessInfo(TaskAssignParams data, UserInfo user) {
+    private boolean addProcessInfo(TaskAssignParams data, UserInfo user, String content) {
         SwTaskProgress progress = new SwTaskProgress();
         progress.setTaskId(data.getTaskId());
         progress.setOperateEid(user.getEmployeeNo());
-        progress.setContent(String.format("%s 任务分派给了 %s; %s",
-                user.getEmployeeName(),
-                data.getAssignEid(),
-                Optional.ofNullable(data.getContent()).orElse("")));
+        progress.setContent(content);
         return taskProgressBusiness.addProcessInfo(progress);
     }
 }

@@ -7,6 +7,8 @@ public class SwDepartment {
 
     private String name;
 
+    private String managerNo;
+
     private String description;
 
     private Integer parentId;
@@ -43,6 +45,19 @@ public class SwDepartment {
 
     public void setName(String name) {
         this.name = name == null ? null : name.trim();
+    }
+
+    public String getManagerNo() {
+        return managerNo;
+    }
+
+    public SwDepartment withManagerNo(String managerNo) {
+        this.setManagerNo(managerNo);
+        return this;
+    }
+
+    public void setManagerNo(String managerNo) {
+        this.managerNo = managerNo == null ? null : managerNo.trim();
     }
 
     public String getDescription() {

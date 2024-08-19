@@ -6,6 +6,7 @@ import com.foxconn.sw.business.mapper.TaskMapper;
 import com.foxconn.sw.business.oa.SwTaskBusiness;
 import com.foxconn.sw.business.oa.SwTaskLogBusiness;
 import com.foxconn.sw.business.oa.SwTaskProgressBusiness;
+import com.foxconn.sw.business.system.EmployeeBusiness;
 import com.foxconn.sw.data.constants.enums.retcode.OAExceptionCode;
 import com.foxconn.sw.data.dto.Header;
 import com.foxconn.sw.data.dto.entity.oa.TaskDetailVo;
@@ -14,6 +15,7 @@ import com.foxconn.sw.data.dto.entity.oa.TaskLogVo;
 import com.foxconn.sw.data.dto.entity.oa.TaskProgressVo;
 import com.foxconn.sw.data.dto.entity.universal.IntegerParams;
 import com.foxconn.sw.data.entity.SwAppendResource;
+import com.foxconn.sw.data.entity.SwEmployee;
 import com.foxconn.sw.data.entity.SwTask;
 import com.foxconn.sw.data.entity.SwTaskLog;
 import com.foxconn.sw.data.exception.BizException;
@@ -44,6 +46,8 @@ public class TaskDetailProcessor {
     SwAppendResourceBusiness swAppendResourceBusiness;
     @Autowired
     CommonUserUtils commonUserUtils;
+    @Autowired
+    EmployeeBusiness employeeBusiness;
 
     public TaskEntityVo detail(IntegerParams data, Header head) {
         String employeeID = commonUserUtils.getEmployeeNo(head.getToken());
@@ -52,13 +56,6 @@ public class TaskDetailProcessor {
 
         if (Objects.isNull(detailVo)) {
             throw new BizException(OAExceptionCode.TASK_ERROR_EXCEPTION);
-        }
-
-        boolean isPermission = employeeID.equalsIgnoreCase(detailVo.getHandleEid())
-                || employeeID.equalsIgnoreCase(detailVo.getManagerEid())
-                || employeeID.equalsIgnoreCase(detailVo.getProposerEid());
-        if (!isPermission) {
-            throw new BizException(OAExceptionCode.NO_PERMISSION_EXCEPTION);
         }
 
         List<TaskProgressVo> taskProgressVos = getTaskProgressVos(data.getParams());
@@ -115,6 +112,14 @@ public class TaskDetailProcessor {
 
     private TaskDetailVo getDetailVo(Integer taskId, String employeeID) {
         SwTask task = taskBusiness.getTaskById(taskId);
+
+        boolean isPermission = employeeID.equalsIgnoreCase(task.getHandleEid())
+                || employeeID.equalsIgnoreCase(task.getManagerEid())
+                || employeeID.equalsIgnoreCase(task.getProposerEid());
+        if (!isPermission) {
+            throw new BizException(OAExceptionCode.NO_PERMISSION_EXCEPTION);
+        }
+
         TaskDetailVo taskDetailVo = TaskMapper.INSTANCE.toSwTaskDetailVo(task);
         taskDetailVo.setLevelInfoVo(TaskLevelUtils.processLevel(taskDetailVo.getLevel()));
         taskDetailVo.setStatusInfoVo(TaskStatusUtils.processStatus(employeeID, taskDetailVo.getStatus(), taskDetailVo.getManagerEid(), taskDetailVo.getHandleEid()));
@@ -127,7 +132,18 @@ public class TaskDetailProcessor {
 
             }
         }
+        processEmployee(taskDetailVo);
         return taskDetailVo;
+    }
+
+    private void processEmployee(TaskDetailVo taskDetailVo) {
+        List<String> employeeNos = Lists.newArrayList(taskDetailVo.getProposerEid(), taskDetailVo.getManagerEid(), taskDetailVo.getHandleEid());
+        List<SwEmployee> employees = employeeBusiness.selectEmployeeByENos(employeeNos);
+        if (!CollectionUtils.isEmpty(employees)) {
+            taskDetailVo.setProposerEid(employees.stream().filter(e -> e.getEmployeeNo().equalsIgnoreCase(taskDetailVo.getProposerEid())).findFirst().get().getName());
+            taskDetailVo.setManagerEid(employees.stream().filter(e -> e.getEmployeeNo().equalsIgnoreCase(taskDetailVo.getManagerEid())).findFirst().map(e -> e.getName()).orElse(""));
+            taskDetailVo.setHandleEid(employees.stream().filter(e -> e.getEmployeeNo().equalsIgnoreCase(taskDetailVo.getHandleEid())).findFirst().map(e -> e.getName()).orElse(""));
+        }
     }
 
 

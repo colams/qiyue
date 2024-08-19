@@ -1,9 +1,12 @@
 package com.foxconn.sw.data.dto.entity.oa;
 
-public class TaskAssignParams {
+import jakarta.validation.constraints.NotNull;
 
+public class TaskAssignParams {
+    @NotNull
     private Integer taskId;
 
+    @NotNull
     private String assignEid;
 
     private String content;

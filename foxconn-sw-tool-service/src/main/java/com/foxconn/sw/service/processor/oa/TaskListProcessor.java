@@ -5,6 +5,7 @@ import com.foxconn.sw.data.constants.enums.OperateTypeEnum;
 import com.foxconn.sw.data.dto.Header;
 import com.foxconn.sw.data.dto.PageEntity;
 import com.foxconn.sw.data.dto.PageParams;
+import com.foxconn.sw.data.dto.entity.acount.UserInfo;
 import com.foxconn.sw.data.dto.entity.oa.InfoColorVo;
 import com.foxconn.sw.data.dto.entity.oa.TaskBriefListVo;
 import com.foxconn.sw.data.dto.entity.oa.TaskParams;
@@ -28,31 +29,31 @@ public class TaskListProcessor {
     SwTaskBusiness taskBusiness;
 
     public PageEntity<TaskBriefListVo> list(PageParams<TaskParams> taskParams, Header head) {
-        String employeeId = userUtils.getEmployeeNo(head.getToken());
-        List<TaskBriefListVo> briefVos = taskBusiness.listBriefVos(taskParams, employeeId);
-        processAfter(briefVos, employeeId);
-        int totalCount = taskBusiness.getTotalCountByParams(taskParams.getParams(), employeeId);
+        UserInfo userInfo = userUtils.queryUserInfo(head.getToken());
+        List<TaskBriefListVo> briefVos = taskBusiness.listBriefVos(taskParams, userInfo.getEmployeeNo());
+        processAfter(briefVos, userInfo);
+        int totalCount = taskBusiness.getTotalCountByParams(taskParams.getParams(), userInfo.getEmployeeNo());
         PageEntity<TaskBriefListVo> voPageEntity = new PageEntity<>(totalCount, briefVos);
         return voPageEntity;
     }
 
-    private void processAfter(List<TaskBriefListVo> briefVos, String employeeNo) {
+    private void processAfter(List<TaskBriefListVo> briefVos, UserInfo userInfo) {
         briefVos.forEach(e -> {
-            InfoColorVo statusInfoVo = TaskStatusUtils.processStatus(employeeNo, e.getStatus(), e.getManagerEid(), e.getHandleEid());
+            InfoColorVo statusInfoVo = TaskStatusUtils.processStatus(userInfo.getEmployeeName(), e.getStatus(), e.getManagerEid(), e.getHandleEid());
             e.setStatusInfoVo(statusInfoVo);
-            e.setOperateList(processOperate(e, employeeNo));
+            e.setOperateList(processOperate(e, userInfo.getEmployeeName()));
             e.setLevelInfo(TaskLevelUtils.processLevel(e.getLevel()));
             e.setProject(TaskProjectUtils.processProject(e.getProject()));
             e.setCategory(TaskCategoryUtils.processCategory(e.getTopCategory(), e.getCategory()));
         });
     }
 
-    private List<OperateEntity> processOperate(TaskBriefListVo e, String employeeNo) {
+    private List<OperateEntity> processOperate(TaskBriefListVo e, String employeeName) {
         List<OperateEntity> entityList = new ArrayList<>();
         for (OperateTypeEnum op : OperateTypeEnum.values()) {
             OperateEntity operate = new OperateEntity();
             operate.setOperateName(op.getMsg());
-            OperateTypeEnum.EnableInfo enableInfo = op.getEnable(e, employeeNo);
+            OperateTypeEnum.EnableInfo enableInfo = op.getEnable(e, employeeName);
             operate.setEnable(enableInfo.isEnable());
             operate.setMsg(enableInfo.getMsg());
             operate.setOperateType(op.name());

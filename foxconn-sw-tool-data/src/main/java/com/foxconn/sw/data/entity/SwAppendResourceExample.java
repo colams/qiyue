@@ -165,63 +165,73 @@ public class SwAppendResourceExample {
             return (Criteria) this;
         }
 
-        public Criteria andSourceTypeIsNull() {
-            addCriterion("source_type is null");
+        public Criteria andOriginNameIsNull() {
+            addCriterion("origin_name is null");
             return (Criteria) this;
         }
 
-        public Criteria andSourceTypeIsNotNull() {
-            addCriterion("source_type is not null");
+        public Criteria andOriginNameIsNotNull() {
+            addCriterion("origin_name is not null");
             return (Criteria) this;
         }
 
-        public Criteria andSourceTypeEqualTo(Integer value) {
-            addCriterion("source_type =", value, "sourceType");
+        public Criteria andOriginNameEqualTo(String value) {
+            addCriterion("origin_name =", value, "originName");
             return (Criteria) this;
         }
 
-        public Criteria andSourceTypeNotEqualTo(Integer value) {
-            addCriterion("source_type <>", value, "sourceType");
+        public Criteria andOriginNameNotEqualTo(String value) {
+            addCriterion("origin_name <>", value, "originName");
             return (Criteria) this;
         }
 
-        public Criteria andSourceTypeGreaterThan(Integer value) {
-            addCriterion("source_type >", value, "sourceType");
+        public Criteria andOriginNameGreaterThan(String value) {
+            addCriterion("origin_name >", value, "originName");
             return (Criteria) this;
         }
 
-        public Criteria andSourceTypeGreaterThanOrEqualTo(Integer value) {
-            addCriterion("source_type >=", value, "sourceType");
+        public Criteria andOriginNameGreaterThanOrEqualTo(String value) {
+            addCriterion("origin_name >=", value, "originName");
             return (Criteria) this;
         }
 
-        public Criteria andSourceTypeLessThan(Integer value) {
-            addCriterion("source_type <", value, "sourceType");
+        public Criteria andOriginNameLessThan(String value) {
+            addCriterion("origin_name <", value, "originName");
             return (Criteria) this;
         }
 
-        public Criteria andSourceTypeLessThanOrEqualTo(Integer value) {
-            addCriterion("source_type <=", value, "sourceType");
+        public Criteria andOriginNameLessThanOrEqualTo(String value) {
+            addCriterion("origin_name <=", value, "originName");
             return (Criteria) this;
         }
 
-        public Criteria andSourceTypeIn(List<Integer> values) {
-            addCriterion("source_type in", values, "sourceType");
+        public Criteria andOriginNameLike(String value) {
+            addCriterion("origin_name like", value, "originName");
             return (Criteria) this;
         }
 
-        public Criteria andSourceTypeNotIn(List<Integer> values) {
-            addCriterion("source_type not in", values, "sourceType");
+        public Criteria andOriginNameNotLike(String value) {
+            addCriterion("origin_name not like", value, "originName");
             return (Criteria) this;
         }
 
-        public Criteria andSourceTypeBetween(Integer value1, Integer value2) {
-            addCriterion("source_type between", value1, value2, "sourceType");
+        public Criteria andOriginNameIn(List<String> values) {
+            addCriterion("origin_name in", values, "originName");
             return (Criteria) this;
         }
 
-        public Criteria andSourceTypeNotBetween(Integer value1, Integer value2) {
-            addCriterion("source_type not between", value1, value2, "sourceType");
+        public Criteria andOriginNameNotIn(List<String> values) {
+            addCriterion("origin_name not in", values, "originName");
+            return (Criteria) this;
+        }
+
+        public Criteria andOriginNameBetween(String value1, String value2) {
+            addCriterion("origin_name between", value1, value2, "originName");
+            return (Criteria) this;
+        }
+
+        public Criteria andOriginNameNotBetween(String value1, String value2) {
+            addCriterion("origin_name not between", value1, value2, "originName");
             return (Criteria) this;
         }
 
@@ -292,6 +302,76 @@ public class SwAppendResourceExample {
 
         public Criteria andFilePathNotBetween(String value1, String value2) {
             addCriterion("file_path not between", value1, value2, "filePath");
+            return (Criteria) this;
+        }
+
+        public Criteria andUploadTypeIsNull() {
+            addCriterion("upload_type is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andUploadTypeIsNotNull() {
+            addCriterion("upload_type is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andUploadTypeEqualTo(String value) {
+            addCriterion("upload_type =", value, "uploadType");
+            return (Criteria) this;
+        }
+
+        public Criteria andUploadTypeNotEqualTo(String value) {
+            addCriterion("upload_type <>", value, "uploadType");
+            return (Criteria) this;
+        }
+
+        public Criteria andUploadTypeGreaterThan(String value) {
+            addCriterion("upload_type >", value, "uploadType");
+            return (Criteria) this;
+        }
+
+        public Criteria andUploadTypeGreaterThanOrEqualTo(String value) {
+            addCriterion("upload_type >=", value, "uploadType");
+            return (Criteria) this;
+        }
+
+        public Criteria andUploadTypeLessThan(String value) {
+            addCriterion("upload_type <", value, "uploadType");
+            return (Criteria) this;
+        }
+
+        public Criteria andUploadTypeLessThanOrEqualTo(String value) {
+            addCriterion("upload_type <=", value, "uploadType");
+            return (Criteria) this;
+        }
+
+        public Criteria andUploadTypeLike(String value) {
+            addCriterion("upload_type like", value, "uploadType");
+            return (Criteria) this;
+        }
+
+        public Criteria andUploadTypeNotLike(String value) {
+            addCriterion("upload_type not like", value, "uploadType");
+            return (Criteria) this;
+        }
+
+        public Criteria andUploadTypeIn(List<String> values) {
+            addCriterion("upload_type in", values, "uploadType");
+            return (Criteria) this;
+        }
+
+        public Criteria andUploadTypeNotIn(List<String> values) {
+            addCriterion("upload_type not in", values, "uploadType");
+            return (Criteria) this;
+        }
+
+        public Criteria andUploadTypeBetween(String value1, String value2) {
+            addCriterion("upload_type between", value1, value2, "uploadType");
+            return (Criteria) this;
+        }
+
+        public Criteria andUploadTypeNotBetween(String value1, String value2) {
+            addCriterion("upload_type not between", value1, value2, "uploadType");
             return (Criteria) this;
         }
 
@@ -425,8 +505,18 @@ public class SwAppendResourceExample {
             return (Criteria) this;
         }
 
+        public Criteria andOriginNameLikeInsensitive(String value) {
+            addCriterion("upper(origin_name) like", value.toUpperCase(), "originName");
+            return (Criteria) this;
+        }
+
         public Criteria andFilePathLikeInsensitive(String value) {
             addCriterion("upper(file_path) like", value.toUpperCase(), "filePath");
+            return (Criteria) this;
+        }
+
+        public Criteria andUploadTypeLikeInsensitive(String value) {
+            addCriterion("upper(upload_type) like", value.toUpperCase(), "uploadType");
             return (Criteria) this;
         }
 

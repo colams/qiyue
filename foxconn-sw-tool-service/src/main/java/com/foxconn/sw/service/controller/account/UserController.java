@@ -4,10 +4,7 @@ import com.foxconn.sw.business.account.UserBusiness;
 import com.foxconn.sw.data.constants.TagsConstants;
 import com.foxconn.sw.data.dto.Request;
 import com.foxconn.sw.data.dto.Response;
-import com.foxconn.sw.data.dto.entity.acount.EmployeeParams;
-import com.foxconn.sw.data.dto.entity.acount.EmployeeVo;
-import com.foxconn.sw.data.dto.entity.acount.UserInfo;
-import com.foxconn.sw.data.dto.entity.acount.UserParams;
+import com.foxconn.sw.data.dto.entity.acount.*;
 import com.foxconn.sw.data.dto.entity.universal.StringParams;
 import com.foxconn.sw.service.processor.acount.QueryUsersProcessor;
 import com.foxconn.sw.service.utils.ResponseUtils;
@@ -52,8 +49,25 @@ public class UserController {
     @Operation(summary = "查询员工信息", tags = TagsConstants.ACCOUNT)
     @ApiResponse(responseCode = "0", description = "成功码")
     @PostMapping("/queryEmployee")
-    public Response<List<EmployeeVo>> queryEmployee(@Valid @RequestBody Request<EmployeeParams> request){
+    public Response<List<EmployeeVo>> queryEmployee(@Valid @RequestBody Request<EmployeeParams> request) {
         List<EmployeeVo> employeeVos = userBusiness.queryEmployees(request.getData());
         return ResponseUtils.success(employeeVos, request.getTraceId());
+    }
+
+
+    @Operation(summary = "验证密码是否正确", tags = TagsConstants.ACCOUNT)
+    @ApiResponse(responseCode = "0", description = "成功码")
+    @PostMapping("/validatePwd")
+    public Response validatePwd(@Valid @RequestBody Request<LoginParams> request) {
+        // todo wait implement validatePwd
+        return ResponseUtils.success(request.getTraceId());
+    }
+
+    @Operation(summary = "验证密码是否正确", tags = TagsConstants.ACCOUNT)
+    @ApiResponse(responseCode = "0", description = "成功码")
+    @PostMapping("/updatePwd")
+    public Response updatePwd(@Valid @RequestBody Request<UpdatePwdParams> request) {
+        // todo wait implement updatePwd
+        return ResponseUtils.success(request.getTraceId());
     }
 }

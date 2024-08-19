@@ -5,25 +5,43 @@ import java.time.LocalDateTime;
 public class SwEmployee {
     private Integer id;
 
+    private String employeeNo;
+
     private String name;
 
-    private String employeeNo;
+    private String firstName;
+
+    private String lastName;
+
+    private Integer gender;
 
     private Integer departmentId;
 
-    private String jobTitle;
+    private Integer postId;
 
-    private String email;
+    private String innerEmail;
+
+    private String outerMail;
+
+    private String landLine;
 
     private String phoneNumber;
 
     private String hireDate;
 
+    private Integer position;
+
     private Integer status;
+
+    private Integer outerWorkYears;
+
+    private Integer outerAbcYears;
 
     private String positionStartDate;
 
     private String positionEndDate;
+
+    private String signature;
 
     private LocalDateTime datetimeLastchange;
 
@@ -40,6 +58,19 @@ public class SwEmployee {
         this.id = id;
     }
 
+    public String getEmployeeNo() {
+        return employeeNo;
+    }
+
+    public SwEmployee withEmployeeNo(String employeeNo) {
+        this.setEmployeeNo(employeeNo);
+        return this;
+    }
+
+    public void setEmployeeNo(String employeeNo) {
+        this.employeeNo = employeeNo == null ? null : employeeNo.trim();
+    }
+
     public String getName() {
         return name;
     }
@@ -53,17 +84,43 @@ public class SwEmployee {
         this.name = name == null ? null : name.trim();
     }
 
-    public String getEmployeeNo() {
-        return employeeNo;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public SwEmployee withEmployeeNo(String employeeNo) {
-        this.setEmployeeNo(employeeNo);
+    public SwEmployee withFirstName(String firstName) {
+        this.setFirstName(firstName);
         return this;
     }
 
-    public void setEmployeeNo(String employeeNo) {
-        this.employeeNo = employeeNo == null ? null : employeeNo.trim();
+    public void setFirstName(String firstName) {
+        this.firstName = firstName == null ? null : firstName.trim();
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public SwEmployee withLastName(String lastName) {
+        this.setLastName(lastName);
+        return this;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName == null ? null : lastName.trim();
+    }
+
+    public Integer getGender() {
+        return gender;
+    }
+
+    public SwEmployee withGender(Integer gender) {
+        this.setGender(gender);
+        return this;
+    }
+
+    public void setGender(Integer gender) {
+        this.gender = gender;
     }
 
     public Integer getDepartmentId() {
@@ -79,30 +136,56 @@ public class SwEmployee {
         this.departmentId = departmentId;
     }
 
-    public String getJobTitle() {
-        return jobTitle;
+    public Integer getPostId() {
+        return postId;
     }
 
-    public SwEmployee withJobTitle(String jobTitle) {
-        this.setJobTitle(jobTitle);
+    public SwEmployee withPostId(Integer postId) {
+        this.setPostId(postId);
         return this;
     }
 
-    public void setJobTitle(String jobTitle) {
-        this.jobTitle = jobTitle == null ? null : jobTitle.trim();
+    public void setPostId(Integer postId) {
+        this.postId = postId;
     }
 
-    public String getEmail() {
-        return email;
+    public String getInnerEmail() {
+        return innerEmail;
     }
 
-    public SwEmployee withEmail(String email) {
-        this.setEmail(email);
+    public SwEmployee withInnerEmail(String innerEmail) {
+        this.setInnerEmail(innerEmail);
         return this;
     }
 
-    public void setEmail(String email) {
-        this.email = email == null ? null : email.trim();
+    public void setInnerEmail(String innerEmail) {
+        this.innerEmail = innerEmail == null ? null : innerEmail.trim();
+    }
+
+    public String getOuterMail() {
+        return outerMail;
+    }
+
+    public SwEmployee withOuterMail(String outerMail) {
+        this.setOuterMail(outerMail);
+        return this;
+    }
+
+    public void setOuterMail(String outerMail) {
+        this.outerMail = outerMail == null ? null : outerMail.trim();
+    }
+
+    public String getLandLine() {
+        return landLine;
+    }
+
+    public SwEmployee withLandLine(String landLine) {
+        this.setLandLine(landLine);
+        return this;
+    }
+
+    public void setLandLine(String landLine) {
+        this.landLine = landLine == null ? null : landLine.trim();
     }
 
     public String getPhoneNumber() {
@@ -131,6 +214,19 @@ public class SwEmployee {
         this.hireDate = hireDate == null ? null : hireDate.trim();
     }
 
+    public Integer getPosition() {
+        return position;
+    }
+
+    public SwEmployee withPosition(Integer position) {
+        this.setPosition(position);
+        return this;
+    }
+
+    public void setPosition(Integer position) {
+        this.position = position;
+    }
+
     public Integer getStatus() {
         return status;
     }
@@ -142,6 +238,32 @@ public class SwEmployee {
 
     public void setStatus(Integer status) {
         this.status = status;
+    }
+
+    public Integer getOuterWorkYears() {
+        return outerWorkYears;
+    }
+
+    public SwEmployee withOuterWorkYears(Integer outerWorkYears) {
+        this.setOuterWorkYears(outerWorkYears);
+        return this;
+    }
+
+    public void setOuterWorkYears(Integer outerWorkYears) {
+        this.outerWorkYears = outerWorkYears;
+    }
+
+    public Integer getOuterAbcYears() {
+        return outerAbcYears;
+    }
+
+    public SwEmployee withOuterAbcYears(Integer outerAbcYears) {
+        this.setOuterAbcYears(outerAbcYears);
+        return this;
+    }
+
+    public void setOuterAbcYears(Integer outerAbcYears) {
+        this.outerAbcYears = outerAbcYears;
     }
 
     public String getPositionStartDate() {
@@ -168,6 +290,19 @@ public class SwEmployee {
 
     public void setPositionEndDate(String positionEndDate) {
         this.positionEndDate = positionEndDate == null ? null : positionEndDate.trim();
+    }
+
+    public String getSignature() {
+        return signature;
+    }
+
+    public SwEmployee withSignature(String signature) {
+        this.setSignature(signature);
+        return this;
+    }
+
+    public void setSignature(String signature) {
+        this.signature = signature == null ? null : signature.trim();
     }
 
     public LocalDateTime getDatetimeLastchange() {
