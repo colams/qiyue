@@ -1,6 +1,7 @@
 package com.foxconn.sw.service.processor.oa;
 
 import com.foxconn.sw.business.SwAppendResourceBusiness;
+import com.foxconn.sw.business.mapper.AppendResourceMapper;
 import com.foxconn.sw.business.mapper.SwTaskLogMapper;
 import com.foxconn.sw.business.mapper.TaskMapper;
 import com.foxconn.sw.business.oa.SwTaskBusiness;
@@ -86,14 +87,15 @@ public class TaskDetailProcessor {
                 if (!CollectionUtils.isEmpty(result)) {
                     var map = result
                             .stream()
-                            .collect(Collectors.toMap(SwAppendResource::getId, SwAppendResource::getFilePath));
+                            .collect(Collectors.toMap(SwAppendResource::getId,
+                                    AppendResourceMapper.INSTANCE::toAppendResource));
                     taskProgressVos.forEach(e -> {
                         if (!CollectionUtils.isEmpty(e.getResourceIds())) {
                             e.getResourceIds().forEach(id -> {
-                                if (Objects.isNull(e.getResourcesUrl())) {
-                                    e.setResourcesUrl(Lists.newArrayList());
+                                if (Objects.isNull(e.getResources())) {
+                                    e.setResources(Lists.newArrayList());
                                 }
-                                e.getResourcesUrl().add(map.get(id));
+                                e.getResources().add(map.get(id));
                             });
                         }
                     });
@@ -125,13 +127,6 @@ public class TaskDetailProcessor {
         taskDetailVo.setStatusInfoVo(TaskStatusUtils.processStatus(employeeID, taskDetailVo.getStatus(), taskDetailVo.getManagerEid(), taskDetailVo.getHandleEid()));
         taskDetailVo.setProject(TaskProjectUtils.processProject(taskDetailVo.getProject()));
         taskDetailVo.setCategory(TaskCategoryUtils.processCategory(taskDetailVo.getTopCategory(), taskDetailVo.getCategory()));
-        if (!CollectionUtils.isEmpty(taskDetailVo.getResourceIds())) {
-            var result = swAppendResourceBusiness.getAppendResources(taskDetailVo.getResourceIds());
-            if (!CollectionUtils.isEmpty(result)) {
-                taskDetailVo.setResourceUrls(result.stream().map(e -> e.getFilePath()).collect(Collectors.toList()));
-
-            }
-        }
         processEmployee(taskDetailVo);
         return taskDetailVo;
     }

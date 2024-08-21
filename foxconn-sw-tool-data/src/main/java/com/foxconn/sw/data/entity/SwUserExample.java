@@ -375,6 +375,76 @@ public class SwUserExample {
             return (Criteria) this;
         }
 
+        public Criteria andSignatureIsNull() {
+            addCriterion("signature is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andSignatureIsNotNull() {
+            addCriterion("signature is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andSignatureEqualTo(String value) {
+            addCriterion("signature =", value, "signature");
+            return (Criteria) this;
+        }
+
+        public Criteria andSignatureNotEqualTo(String value) {
+            addCriterion("signature <>", value, "signature");
+            return (Criteria) this;
+        }
+
+        public Criteria andSignatureGreaterThan(String value) {
+            addCriterion("signature >", value, "signature");
+            return (Criteria) this;
+        }
+
+        public Criteria andSignatureGreaterThanOrEqualTo(String value) {
+            addCriterion("signature >=", value, "signature");
+            return (Criteria) this;
+        }
+
+        public Criteria andSignatureLessThan(String value) {
+            addCriterion("signature <", value, "signature");
+            return (Criteria) this;
+        }
+
+        public Criteria andSignatureLessThanOrEqualTo(String value) {
+            addCriterion("signature <=", value, "signature");
+            return (Criteria) this;
+        }
+
+        public Criteria andSignatureLike(String value) {
+            addCriterion("signature like", value, "signature");
+            return (Criteria) this;
+        }
+
+        public Criteria andSignatureNotLike(String value) {
+            addCriterion("signature not like", value, "signature");
+            return (Criteria) this;
+        }
+
+        public Criteria andSignatureIn(List<String> values) {
+            addCriterion("signature in", values, "signature");
+            return (Criteria) this;
+        }
+
+        public Criteria andSignatureNotIn(List<String> values) {
+            addCriterion("signature not in", values, "signature");
+            return (Criteria) this;
+        }
+
+        public Criteria andSignatureBetween(String value1, String value2) {
+            addCriterion("signature between", value1, value2, "signature");
+            return (Criteria) this;
+        }
+
+        public Criteria andSignatureNotBetween(String value1, String value2) {
+            addCriterion("signature not between", value1, value2, "signature");
+            return (Criteria) this;
+        }
+
         public Criteria andCreateTimeIsNull() {
             addCriterion("create_time is null");
             return (Criteria) this;
@@ -507,6 +577,11 @@ public class SwUserExample {
 
         public Criteria andSoltLikeInsensitive(String value) {
             addCriterion("upper(solt) like", value.toUpperCase(), "solt");
+            return (Criteria) this;
+        }
+
+        public Criteria andSignatureLikeInsensitive(String value) {
+            addCriterion("upper(signature) like", value.toUpperCase(), "signature");
             return (Criteria) this;
         }
     }

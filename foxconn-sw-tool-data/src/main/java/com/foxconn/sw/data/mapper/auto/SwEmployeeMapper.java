@@ -40,20 +40,16 @@ public interface SwEmployeeMapper {
         "post_id, inner_email, ",
         "outer_mail, land_line, ",
         "phone_number, hire_date, ",
-        "position, status, ",
-        "outer_work_years, outer_abc_years, ",
-        "position_start_date, position_end_date, ",
-        "signature, datetime_lastchange)",
+        "status, outer_work_years, ",
+        "outer_abc_years, datetime_lastchange)",
         "values (#{employeeNo,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, ",
         "#{firstName,jdbcType=VARCHAR}, #{lastName,jdbcType=VARCHAR}, ",
         "#{gender,jdbcType=INTEGER}, #{departmentId,jdbcType=INTEGER}, ",
         "#{postId,jdbcType=INTEGER}, #{innerEmail,jdbcType=VARCHAR}, ",
         "#{outerMail,jdbcType=VARCHAR}, #{landLine,jdbcType=VARCHAR}, ",
         "#{phoneNumber,jdbcType=VARCHAR}, #{hireDate,jdbcType=VARCHAR}, ",
-        "#{position,jdbcType=INTEGER}, #{status,jdbcType=INTEGER}, ",
-        "#{outerWorkYears,jdbcType=INTEGER}, #{outerAbcYears,jdbcType=INTEGER}, ",
-        "#{positionStartDate,jdbcType=VARCHAR}, #{positionEndDate,jdbcType=VARCHAR}, ",
-        "#{signature,jdbcType=VARCHAR}, #{datetimeLastchange,jdbcType=TIMESTAMP})"
+        "#{status,jdbcType=INTEGER}, #{outerWorkYears,jdbcType=INTEGER}, ",
+        "#{outerAbcYears,jdbcType=INTEGER}, #{datetimeLastchange,jdbcType=TIMESTAMP})"
     })
     @SelectKey(statement="SELECT LAST_INSERT_ID()", keyProperty="id", before=false, resultType=Integer.class)
     int insert(SwEmployee record);
@@ -77,13 +73,9 @@ public interface SwEmployeeMapper {
         @Result(column="land_line", property="landLine", jdbcType=JdbcType.VARCHAR),
         @Result(column="phone_number", property="phoneNumber", jdbcType=JdbcType.VARCHAR),
         @Result(column="hire_date", property="hireDate", jdbcType=JdbcType.VARCHAR),
-        @Result(column="position", property="position", jdbcType=JdbcType.INTEGER),
         @Result(column="status", property="status", jdbcType=JdbcType.INTEGER),
         @Result(column="outer_work_years", property="outerWorkYears", jdbcType=JdbcType.INTEGER),
         @Result(column="outer_abc_years", property="outerAbcYears", jdbcType=JdbcType.INTEGER),
-        @Result(column="position_start_date", property="positionStartDate", jdbcType=JdbcType.VARCHAR),
-        @Result(column="position_end_date", property="positionEndDate", jdbcType=JdbcType.VARCHAR),
-        @Result(column="signature", property="signature", jdbcType=JdbcType.VARCHAR),
         @Result(column="datetime_lastchange", property="datetimeLastchange", jdbcType=JdbcType.TIMESTAMP)
     })
     List<SwEmployee> selectByExampleWithRowbounds(SwEmployeeExample example, RowBounds rowBounds);
@@ -103,13 +95,9 @@ public interface SwEmployeeMapper {
         @Result(column="land_line", property="landLine", jdbcType=JdbcType.VARCHAR),
         @Result(column="phone_number", property="phoneNumber", jdbcType=JdbcType.VARCHAR),
         @Result(column="hire_date", property="hireDate", jdbcType=JdbcType.VARCHAR),
-        @Result(column="position", property="position", jdbcType=JdbcType.INTEGER),
         @Result(column="status", property="status", jdbcType=JdbcType.INTEGER),
         @Result(column="outer_work_years", property="outerWorkYears", jdbcType=JdbcType.INTEGER),
         @Result(column="outer_abc_years", property="outerAbcYears", jdbcType=JdbcType.INTEGER),
-        @Result(column="position_start_date", property="positionStartDate", jdbcType=JdbcType.VARCHAR),
-        @Result(column="position_end_date", property="positionEndDate", jdbcType=JdbcType.VARCHAR),
-        @Result(column="signature", property="signature", jdbcType=JdbcType.VARCHAR),
         @Result(column="datetime_lastchange", property="datetimeLastchange", jdbcType=JdbcType.TIMESTAMP)
     })
     List<SwEmployee> selectByExample(SwEmployeeExample example);
@@ -117,9 +105,8 @@ public interface SwEmployeeMapper {
     @Select({
         "select",
         "id, employee_no, name, first_name, last_name, gender, department_id, post_id, ",
-        "inner_email, outer_mail, land_line, phone_number, hire_date, position, status, ",
-        "outer_work_years, outer_abc_years, position_start_date, position_end_date, signature, ",
-        "datetime_lastchange",
+        "inner_email, outer_mail, land_line, phone_number, hire_date, status, outer_work_years, ",
+        "outer_abc_years, datetime_lastchange",
         "from sw_employee",
         "where id = #{id,jdbcType=INTEGER}"
     })
@@ -137,13 +124,9 @@ public interface SwEmployeeMapper {
         @Result(column="land_line", property="landLine", jdbcType=JdbcType.VARCHAR),
         @Result(column="phone_number", property="phoneNumber", jdbcType=JdbcType.VARCHAR),
         @Result(column="hire_date", property="hireDate", jdbcType=JdbcType.VARCHAR),
-        @Result(column="position", property="position", jdbcType=JdbcType.INTEGER),
         @Result(column="status", property="status", jdbcType=JdbcType.INTEGER),
         @Result(column="outer_work_years", property="outerWorkYears", jdbcType=JdbcType.INTEGER),
         @Result(column="outer_abc_years", property="outerAbcYears", jdbcType=JdbcType.INTEGER),
-        @Result(column="position_start_date", property="positionStartDate", jdbcType=JdbcType.VARCHAR),
-        @Result(column="position_end_date", property="positionEndDate", jdbcType=JdbcType.VARCHAR),
-        @Result(column="signature", property="signature", jdbcType=JdbcType.VARCHAR),
         @Result(column="datetime_lastchange", property="datetimeLastchange", jdbcType=JdbcType.TIMESTAMP)
     })
     SwEmployee selectByPrimaryKey(Integer id);
@@ -171,13 +154,9 @@ public interface SwEmployeeMapper {
           "land_line = #{landLine,jdbcType=VARCHAR},",
           "phone_number = #{phoneNumber,jdbcType=VARCHAR},",
           "hire_date = #{hireDate,jdbcType=VARCHAR},",
-          "position = #{position,jdbcType=INTEGER},",
           "status = #{status,jdbcType=INTEGER},",
           "outer_work_years = #{outerWorkYears,jdbcType=INTEGER},",
           "outer_abc_years = #{outerAbcYears,jdbcType=INTEGER},",
-          "position_start_date = #{positionStartDate,jdbcType=VARCHAR},",
-          "position_end_date = #{positionEndDate,jdbcType=VARCHAR},",
-          "signature = #{signature,jdbcType=VARCHAR},",
           "datetime_lastchange = #{datetimeLastchange,jdbcType=TIMESTAMP}",
         "where id = #{id,jdbcType=INTEGER}"
     })

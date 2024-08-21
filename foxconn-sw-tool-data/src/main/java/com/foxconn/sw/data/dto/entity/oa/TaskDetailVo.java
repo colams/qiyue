@@ -1,5 +1,7 @@
 package com.foxconn.sw.data.dto.entity.oa;
 
+import com.foxconn.sw.data.dto.entity.ResourceVo;
+
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -66,9 +68,6 @@ public class TaskDetailVo {
      */
     private String proposerEid;
 
-    private List<Integer> resourceIds;
-
-    private List<String> resourceUrls;
 
     /**
      * 经办人
@@ -199,22 +198,6 @@ public class TaskDetailVo {
 
     public void setProposerEid(String proposerEid) {
         this.proposerEid = proposerEid;
-    }
-
-    public List<Integer> getResourceIds() {
-        return resourceIds;
-    }
-
-    public void setResourceIds(List<Integer> resourceIds) {
-        this.resourceIds = resourceIds;
-    }
-
-    public List<String> getResourceUrls() {
-        return resourceUrls;
-    }
-
-    public void setResourceUrls(List<String> resourceUrls) {
-        this.resourceUrls = resourceUrls;
     }
 
     public String getManagerEid() {

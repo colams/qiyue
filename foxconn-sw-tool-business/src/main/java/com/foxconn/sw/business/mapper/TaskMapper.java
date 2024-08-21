@@ -18,7 +18,6 @@ public interface TaskMapper {
     @Mapping(target = "resourceIds", source = "taskDetailVo.resourceIds", qualifiedByName = "listIntegerToString")
     SwTask brief2SwTask(TaskBriefDetailVo taskDetailVo);
 
-    @Mapping(target = "resourceIds", source = "taskDetailVo.resourceIds", qualifiedByName = "stringToListInt")
     TaskDetailVo toSwTaskDetailVo(SwTask taskDetailVo);
 
 }

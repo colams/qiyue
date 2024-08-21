@@ -29,4 +29,8 @@ public class ConvertUtils {
                 .collect(Collectors.toList());
     }
 
+    @Named("urlPreFix")
+    public static String urlPreFix(Integer id, String fileName) {
+        return DomainRetrieval.getDomain() + "/api/universal/down/" + id + "/" + fileName;
+    }
 }

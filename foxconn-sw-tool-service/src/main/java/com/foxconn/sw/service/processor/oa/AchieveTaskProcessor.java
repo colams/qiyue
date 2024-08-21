@@ -4,12 +4,10 @@ import com.foxconn.sw.business.oa.SwTaskBusiness;
 import com.foxconn.sw.business.oa.SwTaskLogBusiness;
 import com.foxconn.sw.business.oa.SwTaskProgressBusiness;
 import com.foxconn.sw.common.utils.ConvertUtils;
-import com.foxconn.sw.data.constants.enums.oa.TaskStatusEnums;
 import com.foxconn.sw.data.constants.enums.retcode.RetCode;
 import com.foxconn.sw.data.dto.Header;
 import com.foxconn.sw.data.dto.entity.acount.UserInfo;
 import com.foxconn.sw.data.dto.entity.oa.TaskProgressBriefParams;
-import com.foxconn.sw.data.entity.SwTask;
 import com.foxconn.sw.data.entity.SwTaskProgress;
 import com.foxconn.sw.data.exception.BizException;
 import com.foxconn.sw.service.processor.user.CommonUserUtils;
@@ -18,6 +16,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @Component
@@ -46,11 +45,16 @@ public class AchieveTaskProcessor {
         UserInfo userInfo = commonUserUtils.queryUserInfo(head.getToken());
         String employeeName = commonUserUtils.getEmployeeName(userInfo);
 
+        if (briefParamsList.size() == 1) {
+            taskBusiness.achieveTask(briefParamsList.get(0).getTaskId(), briefParamsList.get(0).getProgress());
+            taskLogBusiness.addTaskLog(briefParamsList.get(0).getTaskId(), employeeName, String.format("%s 更新任务进度为 100%", employeeName, briefParamsList.get(0).getProgress()));
+        }
+
         briefParamsList.forEach(m -> {
             boolean result = saveProcess(m, userInfo.getEmployeeNo());
             if (result && Optional.ofNullable(m.getProgress()).orElse(0) > 0) {
                 taskBusiness.achieveTask(m.getTaskId(), m.getProgress());
-                taskLogBusiness.addTaskLog(m.getTaskId(), employeeName, String.format("%s 更新任务进度为 %s%", employeeName, m.getProgress()));
+                taskLogBusiness.addTaskLog(m.getTaskId(), employeeName, String.format("%s 更新任务进度为 %s%%", employeeName, m.getProgress()));
             }
         });
 
@@ -69,7 +73,11 @@ public class AchieveTaskProcessor {
         taskProgress.setOperateEid(employeeID);
         taskProgress.setResourceIds(ConvertUtils.listIntegerToString(briefParams.getResourceIds()));
         taskProgress.setProgress(briefParams.getProgress());
-        taskProgress.setContent(briefParams.getContent());
+        if (Objects.isNull(briefParams.getProgress())) {
+            taskProgress.setContent("完成操作：" + briefParams.getContent());
+        } else {
+            taskProgress.setContent(briefParams.getContent());
+        }
         return taskProgressBusiness.addProcessInfo(taskProgress);
     }
 }

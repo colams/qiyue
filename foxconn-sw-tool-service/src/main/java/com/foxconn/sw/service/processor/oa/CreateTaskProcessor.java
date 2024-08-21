@@ -58,6 +58,7 @@ public class CreateTaskProcessor {
         SwTaskProgress progress = new SwTaskProgress();
         progress.setTaskId(task.getId());
         progress.setOperateEid(user.getEmployeeNo());
+        progress.setResourceIds(task.getResourceIds());
         progress.setProgress(0);
         progress.setContent(content);
         progressBusiness.addProcessInfo(progress);

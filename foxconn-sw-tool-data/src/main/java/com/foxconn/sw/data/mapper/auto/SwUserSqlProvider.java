@@ -40,6 +40,10 @@ public class SwUserSqlProvider {
             sql.VALUES("solt", "#{solt,jdbcType=VARCHAR}");
         }
         
+        if (record.getSignature() != null) {
+            sql.VALUES("signature", "#{signature,jdbcType=VARCHAR}");
+        }
+        
         if (record.getCreateTime() != null) {
             sql.VALUES("create_time", "#{createTime,jdbcType=TIMESTAMP}");
         }
@@ -61,6 +65,7 @@ public class SwUserSqlProvider {
         sql.SELECT("employee_no");
         sql.SELECT("password");
         sql.SELECT("solt");
+        sql.SELECT("signature");
         sql.SELECT("create_time");
         sql.SELECT("datetime_lastchange");
         sql.FROM("sw_user");
@@ -96,6 +101,10 @@ public class SwUserSqlProvider {
             sql.SET("solt = #{record.solt,jdbcType=VARCHAR}");
         }
         
+        if (record.getSignature() != null) {
+            sql.SET("signature = #{record.signature,jdbcType=VARCHAR}");
+        }
+        
         if (record.getCreateTime() != null) {
             sql.SET("create_time = #{record.createTime,jdbcType=TIMESTAMP}");
         }
@@ -116,6 +125,7 @@ public class SwUserSqlProvider {
         sql.SET("employee_no = #{record.employeeNo,jdbcType=VARCHAR}");
         sql.SET("password = #{record.password,jdbcType=VARCHAR}");
         sql.SET("solt = #{record.solt,jdbcType=VARCHAR}");
+        sql.SET("signature = #{record.signature,jdbcType=VARCHAR}");
         sql.SET("create_time = #{record.createTime,jdbcType=TIMESTAMP}");
         sql.SET("datetime_lastchange = #{record.datetimeLastchange,jdbcType=TIMESTAMP}");
         
@@ -138,6 +148,10 @@ public class SwUserSqlProvider {
         
         if (record.getSolt() != null) {
             sql.SET("solt = #{solt,jdbcType=VARCHAR}");
+        }
+        
+        if (record.getSignature() != null) {
+            sql.SET("signature = #{signature,jdbcType=VARCHAR}");
         }
         
         if (record.getCreateTime() != null) {

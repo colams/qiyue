@@ -11,6 +11,8 @@ public class SwUser {
 
     private String solt;
 
+    private String signature;
+
     private LocalDateTime createTime;
 
     private LocalDateTime datetimeLastchange;
@@ -65,6 +67,19 @@ public class SwUser {
 
     public void setSolt(String solt) {
         this.solt = solt == null ? null : solt.trim();
+    }
+
+    public String getSignature() {
+        return signature;
+    }
+
+    public SwUser withSignature(String signature) {
+        this.setSignature(signature);
+        return this;
+    }
+
+    public void setSignature(String signature) {
+        this.signature = signature == null ? null : signature.trim();
     }
 
     public LocalDateTime getCreateTime() {

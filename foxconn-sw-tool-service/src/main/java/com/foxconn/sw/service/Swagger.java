@@ -38,7 +38,11 @@ public class Swagger {
 
     @Bean
     public GroupedOpenApi accountApi() {
-        return createGroupedOpenApi(TagsConstants.ACCOUNT);
+        String[] paths = new String[]{
+                "/api/" + TagsConstants.ACCOUNT + "/**",
+                "/api/profile/**"
+        };
+        return createGroupedOpenApi(TagsConstants.ACCOUNT, paths);
     }
 
     @Bean
@@ -66,6 +70,8 @@ public class Swagger {
                 String.format(API_PREFIX, TagsConstants.SYSTEM),
                 String.format(API_PREFIX, "depart"),
                 String.format(API_PREFIX, "property"),
+                String.format(API_PREFIX, "basic"),
+
         };
         return createGroupedOpenApi(TagsConstants.SYSTEM, paths);
     }

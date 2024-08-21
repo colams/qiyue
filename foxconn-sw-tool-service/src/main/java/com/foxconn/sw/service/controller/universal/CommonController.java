@@ -5,12 +5,12 @@ import com.foxconn.sw.common.utils.ExecToolUtils;
 import com.foxconn.sw.common.utils.UUIDUtils;
 import com.foxconn.sw.common.utils.UploadUtils;
 import com.foxconn.sw.data.constants.TagsConstants;
-import com.foxconn.sw.data.constants.enums.FileAttrTypeEnums;
 import com.foxconn.sw.data.constants.enums.retcode.RetCode;
 import com.foxconn.sw.data.dto.Request;
 import com.foxconn.sw.data.dto.Response;
 import com.foxconn.sw.data.dto.entity.universal.IntegerParams;
 import com.foxconn.sw.data.dto.entity.universal.UploadResult;
+import com.foxconn.sw.data.entity.SwAppendResource;
 import com.foxconn.sw.data.exception.BizException;
 import com.foxconn.sw.data.interfaces.IResult;
 import com.foxconn.sw.service.processor.user.CommonUserUtils;
@@ -53,14 +53,13 @@ public class CommonController {
     CommonUserUtils userUtils;
 
     @Operation(summary = "下载文件", tags = TagsConstants.UNIVERSAL)
-    @GetMapping("/down/{fileName}")
-    public ResponseEntity<Resource> down(@PathVariable String fileName) throws Exception {
-        String filePath = filePathUtils.getFilePath(FileAttrTypeEnums.TOOL.getSymbol()) + fileName;
-        System.out.println(filePath);
+    @GetMapping("/down/{id}/{fileName}")
+    public ResponseEntity<Resource> down(@PathVariable Integer id, @PathVariable String fileName) throws Exception {
+        SwAppendResource appendResource = resourceBusiness.getAppendResources(id);
+        String filePath = filePathUtils.getFilePath(appendResource.getUploadType()) + fileName;
         File file = new File(filePath);
         // 创建资源对象
         Resource resource = new UrlResource(file.toURI());
-
         // 设置响应头
         HttpHeaders headers = new HttpHeaders();
         headers.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + file.getName());
@@ -85,9 +84,8 @@ public class CommonController {
         }
 
         String fileBaseUrl = filePathUtils.getFilePath(uploadType);
-        String path = UploadUtils.upload(fileBaseUrl, file, uploadType);
+        String path = UploadUtils.upload(fileBaseUrl, file);
         int resourceID = 0;
-
 
         if (StringUtils.isNoneBlank(path)) {
             resourceID = resourceBusiness.saveResource(path, file.getOriginalFilename(), uploadType);
@@ -99,6 +97,14 @@ public class CommonController {
         IResult code = resourceID <= 0 ? RetCode.UPLOAD_FILE_ERROR : RetCode.SUCCESS;
 
         return ResponseUtils.response(result, code, UUIDUtils.getUuid());
+    }
+
+    @Operation(summary = "常用入口信息", tags = TagsConstants.UNIVERSAL)
+    @ApiResponse(responseCode = "0", description = "成功码")
+    @PostMapping("/entrance")
+    public Response entrance(@Valid @RequestBody Request<IntegerParams> request) {
+        Response response = ResponseUtils.success(request.getTraceId());
+        return response;
     }
 
     @Operation(summary = "test 接口", tags = TagsConstants.UNIVERSAL)
@@ -114,14 +120,6 @@ public class CommonController {
 
         String fileName = ExecToolUtils.outputResult(results);
         return ResponseUtils.response(fileName, RetCode.SUCCESS, UUIDUtils.getUuid());
-    }
-
-    @Operation(summary = "常用入口信息", tags = TagsConstants.UNIVERSAL)
-    @ApiResponse(responseCode = "0", description = "成功码")
-    @PostMapping("/entrance")
-    public Response entrance(@Valid @RequestBody Request<IntegerParams> request) {
-        Response response = ResponseUtils.success(request.getTraceId());
-        return response;
     }
 
 

@@ -32,10 +32,10 @@ public class OverviewProcessor {
 
         List<TaskOverviewVo> taskOverviews = Lists.newArrayList();
         taskOverviews.add(init(0, "total", "全部任務", formatData(0, employeeNo, now)));
-        taskOverviews.add(init(1, "processing", "待确认", formatData(2, employeeNo, now)));
-        taskOverviews.add(init(2, "processing", "处理中", formatData(3, employeeNo, now)));
-        taskOverviews.add(init(3, "complete", "待驗收", formatData(4, employeeNo, now)));
-        taskOverviews.add(init(4, "over_date", "逾期", formatData(5, employeeNo, now)));
+        taskOverviews.add(init(1, "processing", "待確認", formatData(1, employeeNo, now)));
+        taskOverviews.add(init(2, "processing", "處理中", formatData(2, employeeNo, now)));
+        taskOverviews.add(init(3, "complete", "待驗收", formatData(3, employeeNo, now)));
+        taskOverviews.add(init(4, "over_date", "逾期", formatData(4, employeeNo, now)));
         return taskOverviews;
     }
 

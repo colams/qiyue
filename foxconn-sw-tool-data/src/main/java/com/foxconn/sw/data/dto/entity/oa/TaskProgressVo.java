@@ -1,5 +1,7 @@
 package com.foxconn.sw.data.dto.entity.oa;
 
+import com.foxconn.sw.data.dto.entity.ResourceVo;
+
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -15,7 +17,7 @@ public class TaskProgressVo {
 
     private List<Integer> resourceIds;
 
-    private List<String> resourcesUrl;
+    private List<ResourceVo> resources;
 
     private String content;
 
@@ -61,14 +63,6 @@ public class TaskProgressVo {
         this.resourceIds = resourceIds;
     }
 
-    public List<String> getResourcesUrl() {
-        return resourcesUrl;
-    }
-
-    public void setResourcesUrl(List<String> resourcesUrl) {
-        this.resourcesUrl = resourcesUrl;
-    }
-
     public String getContent() {
         return content;
     }
@@ -83,5 +77,13 @@ public class TaskProgressVo {
 
     public void setCreateTime(LocalDateTime createTime) {
         this.createTime = createTime;
+    }
+
+    public List<ResourceVo> getResources() {
+        return resources;
+    }
+
+    public void setResources(List<ResourceVo> resources) {
+        this.resources = resources;
     }
 }

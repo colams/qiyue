@@ -73,10 +73,10 @@ public class SwTaskBusiness {
         return taskExtensionMapper.updateByPrimaryKeySelective(task) > 0;
     }
 
-    public boolean closeTask(Integer id) {
+    public boolean updateTaskStatus(Integer id,TaskStatusEnums taskStatus) {
         SwTask task = new SwTask();
         task.setId(id);
-        task.setStatus(TaskStatusEnums.CLOSED.getCode());
+        task.setStatus(taskStatus.getCode());
         return taskExtensionMapper.updateByPrimaryKeySelective(task) > 0;
     }
 }

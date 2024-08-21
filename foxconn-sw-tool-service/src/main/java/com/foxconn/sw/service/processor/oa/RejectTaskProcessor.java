@@ -33,23 +33,28 @@ public class RejectTaskProcessor {
     public boolean reject(TaskRejectParams data, Header head) {
         UserInfo user = commonUserUtils.queryUserInfo(head.getToken());
         SwTask swTask = taskBusiness.getTaskById(data.getTaskId());
-        boolean result = rejectClose(data.getTaskId(), user);
+
+        boolean result;
+        if (swTask.getProposerEid().equalsIgnoreCase(user.getEmployeeNo())) {
+            result = rejectAchieve(data.getTaskId(), user);
+        } else {
+            result = rejectClose(data.getTaskId(), user);
+        }
+
         return result;
     }
 
-    private boolean copyTask(SwTask swTask, UserInfo user) {
-        swTask.setStatus(TaskStatusEnums.DRAFT.getCode());
-        boolean result = taskBusiness.createTask(swTask);
+    private boolean rejectAchieve(Integer taskId, UserInfo user) {
+        boolean result = taskBusiness.updateTaskStatus(taskId, TaskStatusEnums.PROCESSING);
         if (result) {
-            String operator = String.format("%s(%s)", user.getEmployeeName(), user.getEmployeeNo());
-            String content = String.format("%s 创建了任务", operator);
-            taskLogBusiness.addTaskLog(swTask.getId(), operator, content);
+            taskLogBusiness.addTaskLog(taskId, user.getEmployeeName(), "任务 验收驳回");
+            addProgress(taskId, user);
         }
         return result;
     }
 
     private boolean rejectClose(int taskID, UserInfo user) {
-        boolean result = taskBusiness.closeTask(taskID);
+        boolean result = taskBusiness.updateTaskStatus(taskID, TaskStatusEnums.CLOSED);
         if (result) {
             taskLogBusiness.addTaskLog(taskID, user.getEmployeeName(), "任务 因驳回 关闭");
             addProgress(taskID, user);
@@ -58,7 +63,7 @@ public class RejectTaskProcessor {
     }
 
     private void addProgress(int taskID, UserInfo user) {
-        String content = String.format("%s 駁回了任務", user.getEmployeeName());
+        String content = String.format("%s 駁回了任務", String.format("%s(%s)", user.getEmployeeName(), user.getEmployeeNo()));
         SwTaskProgress progress = new SwTaskProgress();
         progress.setTaskId(taskID);
         progress.setOperateEid(user.getEmployeeNo());

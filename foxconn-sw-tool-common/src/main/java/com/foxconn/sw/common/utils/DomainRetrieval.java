@@ -21,8 +21,6 @@ public class DomainRetrieval {
             data = serverName + ":" + serverPort;
         }
         return "http://" + data;
-
-
     }
 
 }

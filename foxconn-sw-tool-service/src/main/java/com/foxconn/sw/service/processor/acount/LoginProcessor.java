@@ -2,7 +2,6 @@ package com.foxconn.sw.service.processor.acount;
 
 import com.foxconn.sw.business.account.UserBusiness;
 import com.foxconn.sw.business.account.UserLoginBusiness;
-import com.foxconn.sw.common.utils.SecurityUtils;
 import com.foxconn.sw.common.utils.UUIDUtils;
 import com.foxconn.sw.data.constants.enums.retcode.AccountExceptionCode;
 import com.foxconn.sw.data.dto.entity.acount.LoginParams;
@@ -11,7 +10,7 @@ import com.foxconn.sw.data.dto.entity.acount.UserInfo;
 import com.foxconn.sw.data.entity.SwUser;
 import com.foxconn.sw.data.entity.SwUserLogin;
 import com.foxconn.sw.data.exception.BizException;
-import org.apache.commons.lang3.StringUtils;
+import com.foxconn.sw.service.utils.PasswordUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -34,10 +33,7 @@ public class LoginProcessor {
      */
     public LoginStateVo login(LoginParams data) {
         SwUser user = userBusiness.queryUser(data.getEmployeeNo());
-        boolean validity = assertPassword(data, user);
-        if (!validity) {
-            throw new BizException(AccountExceptionCode.LOGIN_ACCOUNT_EXCEPTION);
-        }
+        PasswordUtils.assertPassword(data, user);
         return getLoginStateVo(data.getEmployeeNo());
     }
 
@@ -64,18 +60,5 @@ public class LoginProcessor {
         return vo;
     }
 
-    /**
-     * 账户有效性和密码一致性验证
-     *
-     * @param data
-     * @param user
-     * @return
-     */
-    private boolean assertPassword(LoginParams data, SwUser user) {
 
-        return Objects.nonNull(user)
-                && (StringUtils.isBlank(user.getPassword())
-                || user.getPassword().equalsIgnoreCase(data.getPassword())
-                || user.getPassword().equalsIgnoreCase(SecurityUtils.encodeMD5(data.getPassword() + user.getSolt())));
-    }
 }

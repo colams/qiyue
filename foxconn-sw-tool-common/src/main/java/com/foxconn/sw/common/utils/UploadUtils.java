@@ -16,13 +16,12 @@ public class UploadUtils {
      *
      * @param fileBasepath
      * @param multipartFile
-     * @param uploadType
      * @return
      */
-    public static String upload(String fileBasepath, MultipartFile multipartFile, String uploadType) {
+    public static String upload(String fileBasepath, MultipartFile multipartFile) {
         try {
             // 构建保存文件的完整路径
-            String fileName = renameFile(uploadType, multipartFile.getOriginalFilename());
+            String fileName = renameFile(multipartFile.getOriginalFilename());
             String filePath = fileBasepath + fileName;
             // 保存文件
             File file = new File(filePath);
@@ -45,13 +44,12 @@ public class UploadUtils {
     /**
      * 规范上传文件命名
      *
-     * @param fileName
      * @param originalName
      * @return
      */
-    private static String renameFile(String fileName, String originalName) {
+    private static String renameFile(String originalName) {
         String timeStamp = DateTimeUtils.getFilePrefix();
-        return String.format("%s_%s.%s", fileName, timeStamp, getFileExtension(originalName));
+        return String.format("%s.%s", timeStamp, getFileExtension(originalName));
     }
 
     private static String getFileExtension(String fileName) {

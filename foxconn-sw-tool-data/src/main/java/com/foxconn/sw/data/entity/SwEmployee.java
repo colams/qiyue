@@ -29,19 +29,11 @@ public class SwEmployee {
 
     private String hireDate;
 
-    private Integer position;
-
     private Integer status;
 
     private Integer outerWorkYears;
 
     private Integer outerAbcYears;
-
-    private String positionStartDate;
-
-    private String positionEndDate;
-
-    private String signature;
 
     private LocalDateTime datetimeLastchange;
 
@@ -214,19 +206,6 @@ public class SwEmployee {
         this.hireDate = hireDate == null ? null : hireDate.trim();
     }
 
-    public Integer getPosition() {
-        return position;
-    }
-
-    public SwEmployee withPosition(Integer position) {
-        this.setPosition(position);
-        return this;
-    }
-
-    public void setPosition(Integer position) {
-        this.position = position;
-    }
-
     public Integer getStatus() {
         return status;
     }
@@ -264,45 +243,6 @@ public class SwEmployee {
 
     public void setOuterAbcYears(Integer outerAbcYears) {
         this.outerAbcYears = outerAbcYears;
-    }
-
-    public String getPositionStartDate() {
-        return positionStartDate;
-    }
-
-    public SwEmployee withPositionStartDate(String positionStartDate) {
-        this.setPositionStartDate(positionStartDate);
-        return this;
-    }
-
-    public void setPositionStartDate(String positionStartDate) {
-        this.positionStartDate = positionStartDate == null ? null : positionStartDate.trim();
-    }
-
-    public String getPositionEndDate() {
-        return positionEndDate;
-    }
-
-    public SwEmployee withPositionEndDate(String positionEndDate) {
-        this.setPositionEndDate(positionEndDate);
-        return this;
-    }
-
-    public void setPositionEndDate(String positionEndDate) {
-        this.positionEndDate = positionEndDate == null ? null : positionEndDate.trim();
-    }
-
-    public String getSignature() {
-        return signature;
-    }
-
-    public SwEmployee withSignature(String signature) {
-        this.setSignature(signature);
-        return this;
-    }
-
-    public void setSignature(String signature) {
-        this.signature = signature == null ? null : signature.trim();
     }
 
     public LocalDateTime getDatetimeLastchange() {

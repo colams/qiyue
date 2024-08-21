@@ -76,10 +76,6 @@ public class SwEmployeeSqlProvider {
             sql.VALUES("hire_date", "#{hireDate,jdbcType=VARCHAR}");
         }
         
-        if (record.getPosition() != null) {
-            sql.VALUES("position", "#{position,jdbcType=INTEGER}");
-        }
-        
         if (record.getStatus() != null) {
             sql.VALUES("status", "#{status,jdbcType=INTEGER}");
         }
@@ -90,18 +86,6 @@ public class SwEmployeeSqlProvider {
         
         if (record.getOuterAbcYears() != null) {
             sql.VALUES("outer_abc_years", "#{outerAbcYears,jdbcType=INTEGER}");
-        }
-        
-        if (record.getPositionStartDate() != null) {
-            sql.VALUES("position_start_date", "#{positionStartDate,jdbcType=VARCHAR}");
-        }
-        
-        if (record.getPositionEndDate() != null) {
-            sql.VALUES("position_end_date", "#{positionEndDate,jdbcType=VARCHAR}");
-        }
-        
-        if (record.getSignature() != null) {
-            sql.VALUES("signature", "#{signature,jdbcType=VARCHAR}");
         }
         
         if (record.getDatetimeLastchange() != null) {
@@ -130,13 +114,9 @@ public class SwEmployeeSqlProvider {
         sql.SELECT("land_line");
         sql.SELECT("phone_number");
         sql.SELECT("hire_date");
-        sql.SELECT("position");
         sql.SELECT("status");
         sql.SELECT("outer_work_years");
         sql.SELECT("outer_abc_years");
-        sql.SELECT("position_start_date");
-        sql.SELECT("position_end_date");
-        sql.SELECT("signature");
         sql.SELECT("datetime_lastchange");
         sql.FROM("sw_employee");
         applyWhere(sql, example, false);
@@ -207,10 +187,6 @@ public class SwEmployeeSqlProvider {
             sql.SET("hire_date = #{record.hireDate,jdbcType=VARCHAR}");
         }
         
-        if (record.getPosition() != null) {
-            sql.SET("position = #{record.position,jdbcType=INTEGER}");
-        }
-        
         if (record.getStatus() != null) {
             sql.SET("status = #{record.status,jdbcType=INTEGER}");
         }
@@ -221,18 +197,6 @@ public class SwEmployeeSqlProvider {
         
         if (record.getOuterAbcYears() != null) {
             sql.SET("outer_abc_years = #{record.outerAbcYears,jdbcType=INTEGER}");
-        }
-        
-        if (record.getPositionStartDate() != null) {
-            sql.SET("position_start_date = #{record.positionStartDate,jdbcType=VARCHAR}");
-        }
-        
-        if (record.getPositionEndDate() != null) {
-            sql.SET("position_end_date = #{record.positionEndDate,jdbcType=VARCHAR}");
-        }
-        
-        if (record.getSignature() != null) {
-            sql.SET("signature = #{record.signature,jdbcType=VARCHAR}");
         }
         
         if (record.getDatetimeLastchange() != null) {
@@ -260,13 +224,9 @@ public class SwEmployeeSqlProvider {
         sql.SET("land_line = #{record.landLine,jdbcType=VARCHAR}");
         sql.SET("phone_number = #{record.phoneNumber,jdbcType=VARCHAR}");
         sql.SET("hire_date = #{record.hireDate,jdbcType=VARCHAR}");
-        sql.SET("position = #{record.position,jdbcType=INTEGER}");
         sql.SET("status = #{record.status,jdbcType=INTEGER}");
         sql.SET("outer_work_years = #{record.outerWorkYears,jdbcType=INTEGER}");
         sql.SET("outer_abc_years = #{record.outerAbcYears,jdbcType=INTEGER}");
-        sql.SET("position_start_date = #{record.positionStartDate,jdbcType=VARCHAR}");
-        sql.SET("position_end_date = #{record.positionEndDate,jdbcType=VARCHAR}");
-        sql.SET("signature = #{record.signature,jdbcType=VARCHAR}");
         sql.SET("datetime_lastchange = #{record.datetimeLastchange,jdbcType=TIMESTAMP}");
         
         SwEmployeeExample example = (SwEmployeeExample) parameter.get("example");
@@ -326,10 +286,6 @@ public class SwEmployeeSqlProvider {
             sql.SET("hire_date = #{hireDate,jdbcType=VARCHAR}");
         }
         
-        if (record.getPosition() != null) {
-            sql.SET("position = #{position,jdbcType=INTEGER}");
-        }
-        
         if (record.getStatus() != null) {
             sql.SET("status = #{status,jdbcType=INTEGER}");
         }
@@ -340,18 +296,6 @@ public class SwEmployeeSqlProvider {
         
         if (record.getOuterAbcYears() != null) {
             sql.SET("outer_abc_years = #{outerAbcYears,jdbcType=INTEGER}");
-        }
-        
-        if (record.getPositionStartDate() != null) {
-            sql.SET("position_start_date = #{positionStartDate,jdbcType=VARCHAR}");
-        }
-        
-        if (record.getPositionEndDate() != null) {
-            sql.SET("position_end_date = #{positionEndDate,jdbcType=VARCHAR}");
-        }
-        
-        if (record.getSignature() != null) {
-            sql.SET("signature = #{signature,jdbcType=VARCHAR}");
         }
         
         if (record.getDatetimeLastchange() != null) {

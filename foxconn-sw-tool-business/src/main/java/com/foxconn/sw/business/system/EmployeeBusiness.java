@@ -47,4 +47,8 @@ public class EmployeeBusiness {
         List<SwEmployee> swEmployees = swEmployeeExtensionMapper.selectByExample(example);
         return swEmployees;
     }
+
+    public boolean updateEmployee(SwEmployee updateEmployee) {
+        return swEmployeeExtensionMapper.updateByPrimaryKey(updateEmployee) > 0;
+    }
 }
