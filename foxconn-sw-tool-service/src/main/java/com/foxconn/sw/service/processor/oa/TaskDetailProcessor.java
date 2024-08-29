@@ -8,6 +8,7 @@ import com.foxconn.sw.business.oa.SwTaskBusiness;
 import com.foxconn.sw.business.oa.SwTaskLogBusiness;
 import com.foxconn.sw.business.oa.SwTaskProgressBusiness;
 import com.foxconn.sw.business.system.EmployeeBusiness;
+import com.foxconn.sw.data.constants.enums.OperateTypeEnum;
 import com.foxconn.sw.data.constants.enums.retcode.OAExceptionCode;
 import com.foxconn.sw.data.dto.Header;
 import com.foxconn.sw.data.dto.entity.oa.TaskDetailVo;
@@ -15,21 +16,20 @@ import com.foxconn.sw.data.dto.entity.oa.TaskEntityVo;
 import com.foxconn.sw.data.dto.entity.oa.TaskLogVo;
 import com.foxconn.sw.data.dto.entity.oa.TaskProgressVo;
 import com.foxconn.sw.data.dto.entity.universal.IntegerParams;
+import com.foxconn.sw.data.dto.entity.universal.OperateEntity;
 import com.foxconn.sw.data.entity.SwAppendResource;
 import com.foxconn.sw.data.entity.SwEmployee;
 import com.foxconn.sw.data.entity.SwTask;
 import com.foxconn.sw.data.entity.SwTaskLog;
 import com.foxconn.sw.data.exception.BizException;
-import com.foxconn.sw.service.processor.oa.utils.TaskCategoryUtils;
-import com.foxconn.sw.service.processor.oa.utils.TaskLevelUtils;
-import com.foxconn.sw.service.processor.oa.utils.TaskProjectUtils;
-import com.foxconn.sw.service.processor.oa.utils.TaskStatusUtils;
+import com.foxconn.sw.service.processor.oa.utils.*;
 import com.foxconn.sw.service.processor.user.CommonUserUtils;
 import com.google.common.collect.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -67,7 +67,6 @@ public class TaskDetailProcessor {
         taskEntityVo.setTaskDetailVo(detailVo);
         taskEntityVo.setTaskProgressVos(taskProgressVos);
         taskEntityVo.setTaskLogVos(taskLogVos);
-
         return taskEntityVo;
     }
 
@@ -124,11 +123,25 @@ public class TaskDetailProcessor {
 
         TaskDetailVo taskDetailVo = TaskMapper.INSTANCE.toSwTaskDetailVo(task);
         taskDetailVo.setLevelInfoVo(TaskLevelUtils.processLevel(taskDetailVo.getLevel()));
-        taskDetailVo.setStatusInfoVo(TaskStatusUtils.processStatus(employeeID, taskDetailVo.getStatus(), taskDetailVo.getManagerEid(), taskDetailVo.getHandleEid()));
+        taskDetailVo.setStatusInfoVo(TaskStatusUtils.processStatus(taskDetailVo.getStatus(), taskDetailVo.getRejectStatus(), taskDetailVo.getHandleEid()));
         taskDetailVo.setProject(TaskProjectUtils.processProject(taskDetailVo.getProject()));
         taskDetailVo.setCategory(TaskCategoryUtils.processCategory(taskDetailVo.getTopCategory(), taskDetailVo.getCategory()));
+        taskDetailVo.setOperateList(processOperate(taskDetailVo, employeeID));
         processEmployee(taskDetailVo);
         return taskDetailVo;
+    }
+
+    private List<OperateEntity> processOperate(TaskDetailVo taskDetailVo, String employeeName) {
+        List<OperateEntity> entityList = new ArrayList<>();
+        for (OperateTypeEnum op : OperateTypeEnum.values()) {
+            if (op.getPage().equalsIgnoreCase("detail")) {
+                OperateEntity operate = TaskOperateUtils.processDetailOperate(employeeName, taskDetailVo, op);
+                if (Objects.nonNull(operate)) {
+                    entityList.add(operate);
+                }
+            }
+        }
+        return entityList;
     }
 
     private void processEmployee(TaskDetailVo taskDetailVo) {

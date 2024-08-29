@@ -4,6 +4,7 @@ public enum BasicPropertyEnums {
 
     TOOL_CATEGORY(1, "tool_category", "工具库工具分类"),
     MODULE(2, "system_module", "系统功能模块"),
+    JOB_POSITION(3, "job_position", "职务信息"),
 
 
     ;

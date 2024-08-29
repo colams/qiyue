@@ -14,6 +14,7 @@ public enum OAExceptionCode implements IResult {
     NO_PERMISSION_EXCEPTION(1100002, "没有权限访问资源！"),
 
 
+
     ;
 
     OAExceptionCode(int code, String msg) {

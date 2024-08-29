@@ -11,6 +11,9 @@ public class TaskBriefListVo {
      * 表主键ID
      */
     private Integer id;
+
+    private Long taskNo;
+
     /**
      * 专案-所属项目
      */
@@ -107,12 +110,30 @@ public class TaskBriefListVo {
      */
     private List<OperateEntity> operateList;
 
+    /**
+     * 支持的操作列表
+     */
+    private Integer rejectStatus;
+
+    /**
+     * 跟进状态
+     */
+    private Integer followStatus;
+
     public Integer getId() {
         return id;
     }
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public Long getTaskNo() {
+        return taskNo;
+    }
+
+    public void setTaskNo(Long taskNo) {
+        this.taskNo = taskNo;
     }
 
     public String getTopCategory() {
@@ -265,5 +286,21 @@ public class TaskBriefListVo {
 
     public void setOperateList(List<OperateEntity> operateList) {
         this.operateList = operateList;
+    }
+
+    public Integer getRejectStatus() {
+        return rejectStatus;
+    }
+
+    public void setRejectStatus(Integer rejectStatus) {
+        this.rejectStatus = rejectStatus;
+    }
+
+    public Integer getFollowStatus() {
+        return followStatus;
+    }
+
+    public void setFollowStatus(Integer followStatus) {
+        this.followStatus = followStatus;
     }
 }

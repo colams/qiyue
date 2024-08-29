@@ -3,7 +3,6 @@ package com.foxconn.sw.service.controller.universal;
 import com.foxconn.sw.business.SwAppendResourceBusiness;
 import com.foxconn.sw.common.utils.ExecToolUtils;
 import com.foxconn.sw.common.utils.UUIDUtils;
-import com.foxconn.sw.common.utils.UploadUtils;
 import com.foxconn.sw.data.constants.TagsConstants;
 import com.foxconn.sw.data.constants.enums.retcode.RetCode;
 import com.foxconn.sw.data.dto.Request;
@@ -11,15 +10,13 @@ import com.foxconn.sw.data.dto.Response;
 import com.foxconn.sw.data.dto.entity.universal.IntegerParams;
 import com.foxconn.sw.data.dto.entity.universal.UploadResult;
 import com.foxconn.sw.data.entity.SwAppendResource;
-import com.foxconn.sw.data.exception.BizException;
-import com.foxconn.sw.data.interfaces.IResult;
+import com.foxconn.sw.service.processor.universal.UploadProcessor;
 import com.foxconn.sw.service.processor.user.CommonUserUtils;
 import com.foxconn.sw.service.utils.FilePathUtils;
 import com.foxconn.sw.service.utils.ResponseUtils;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import jakarta.validation.Valid;
-import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,6 +48,8 @@ public class CommonController {
     SwAppendResourceBusiness resourceBusiness;
     @Autowired
     CommonUserUtils userUtils;
+    @Autowired
+    UploadProcessor uploadProcessor;
 
     @Operation(summary = "下载文件", tags = TagsConstants.UNIVERSAL)
     @GetMapping("/down/{id}/{fileName}")
@@ -74,29 +73,10 @@ public class CommonController {
     @Operation(summary = "上传文件new", tags = TagsConstants.UNIVERSAL)
     @ApiResponse(responseCode = "0", description = "成功码")
     @PostMapping("/upload")
-    public Response<UploadResult> upload(@RequestParam("file") MultipartFile file,
-                                         @RequestParam("uploadType") String uploadType) throws FileNotFoundException {
-        if (file.isEmpty()) {
-            return ResponseUtils.failure(RetCode.EMPTY_FILE_ERROR, UUIDUtils.getUuid());
-        }
-        if (StringUtils.isBlank(uploadType)) {
-            throw new BizException(RetCode.UPLOAD_FILE_TYPE_ERROR);
-        }
-
-        String fileBaseUrl = filePathUtils.getFilePath(uploadType);
-        String path = UploadUtils.upload(fileBaseUrl, file);
-        int resourceID = 0;
-
-        if (StringUtils.isNoneBlank(path)) {
-            resourceID = resourceBusiness.saveResource(path, file.getOriginalFilename(), uploadType);
-        }
-
-        UploadResult result = new UploadResult();
-        result.setFilePath(path);
-        result.setFileId(resourceID);
-        IResult code = resourceID <= 0 ? RetCode.UPLOAD_FILE_ERROR : RetCode.SUCCESS;
-
-        return ResponseUtils.response(result, code, UUIDUtils.getUuid());
+    public Response<List<UploadResult>> upload(@RequestParam("file") MultipartFile[] file,
+                                               @RequestParam("uploadType") String uploadType) throws FileNotFoundException {
+        List<UploadResult> results = uploadProcessor.uploadFiles(file, uploadType);
+        return ResponseUtils.response(results, RetCode.SUCCESS, UUIDUtils.getUuid());
     }
 
     @Operation(summary = "常用入口信息", tags = TagsConstants.UNIVERSAL)

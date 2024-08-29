@@ -43,8 +43,9 @@ public class AssignTaskProcessor {
 
         boolean result = taskBusiness.assignTask(data.getTaskId(), data.getAssignEid());
         if (result) {
-            String content = String.format("%s 任务分派给了 %s; %s",
+            String content = String.format("%s(%s) 任务分派给了 %s; %s",
                     user.getEmployeeName(),
+                    user.getEmployeeNo(),
                     String.format("%s(%s)", employee.getName(), employee.getEmployeeNo()),
                     Optional.ofNullable(data.getContent()).orElse(""));
             String operator = String.format("%s(%s)", user.getEmployeeName(), user.getEmployeeNo());

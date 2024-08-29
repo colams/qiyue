@@ -1,6 +1,8 @@
 package com.foxconn.sw.data.mapper.extension.system;
 
 import com.foxconn.sw.data.dto.entity.acount.EmployeeVo;
+import com.foxconn.sw.data.entity.SwEmployee;
+import com.foxconn.sw.data.entity.SwEmployeeExample;
 import com.foxconn.sw.data.mapper.auto.SwEmployeeMapper;
 import org.apache.ibatis.annotations.Result;
 import org.apache.ibatis.annotations.Results;
@@ -29,4 +31,6 @@ public interface SwEmployeeExtensionMapper extends SwEmployeeMapper {
     })
     List<EmployeeVo> getEmployeesByLevel();
 
+
+    List<SwEmployee> queryEmployees(SwEmployeeExample example);
 }

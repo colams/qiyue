@@ -54,6 +54,7 @@ public class UserBusiness {
         swUser.setId(user.getId());
         swUser.setSolt(user.getSolt());
         swUser.setPassword(user.getPassword());
+        swUser.setSignature(user.getSignature());
         boolean result = sysUserExtensionMapper.updateByPrimaryKeySelective(user) > 0;
         if (!result) {
             throw new BizException(AccountExceptionCode.RESET_PASSWORD_EXCEPTION);

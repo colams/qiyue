@@ -77,6 +77,9 @@
         <table tableName="sw_append_resource">
             <generatedKey column="id" identity="true" sqlStatement="mysql"/>
         </table>
+        <table tableName="sw_contact_gather">
+            <generatedKey column="id" identity="true" sqlStatement="mysql"/>
+        </table>
         <table tableName="sw_department">
             <generatedKey column="id" identity="true" sqlStatement="mysql"/>
         </table>
@@ -104,6 +107,9 @@
         <table tableName="sw_task_evaluation">
             <generatedKey column="id" identity="true" sqlStatement="mysql"/>
         </table>
+        <table tableName="sw_task_follow">
+            <generatedKey column="id" identity="true" sqlStatement="mysql"/>
+        </table>
         <table tableName="sw_task_log">
             <generatedKey column="id" identity="true" sqlStatement="mysql"/>
         </table>
@@ -126,6 +132,12 @@
             <generatedKey column="id" identity="true" sqlStatement="mysql"/>
         </table>
         <table tableName="sw_user_role">
+            <generatedKey column="id" identity="true" sqlStatement="mysql"/>
+        </table>
+        <table tableName="sw_work_report">
+            <generatedKey column="id" identity="true" sqlStatement="mysql"/>
+        </table>
+        <table tableName="task_no_seed">
             <generatedKey column="id" identity="true" sqlStatement="mysql"/>
         </table>
     </context>

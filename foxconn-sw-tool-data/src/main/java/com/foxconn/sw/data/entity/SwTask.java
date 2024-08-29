@@ -5,6 +5,8 @@ import java.time.LocalDateTime;
 public class SwTask {
     private Integer id;
 
+    private Long taskNo;
+
     private String topCategory;
 
     private String category;
@@ -23,9 +25,7 @@ public class SwTask {
 
     private Integer status;
 
-    private Integer handleStatus;
-
-    private Integer proposerStatus;
+    private Integer rejectStatus;
 
     private String proposerEid;
 
@@ -40,6 +40,8 @@ public class SwTask {
     private String startDate;
 
     private String endDate;
+
+    private String reflection;
 
     private LocalDateTime createTime;
 
@@ -56,6 +58,19 @@ public class SwTask {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public Long getTaskNo() {
+        return taskNo;
+    }
+
+    public SwTask withTaskNo(Long taskNo) {
+        this.setTaskNo(taskNo);
+        return this;
+    }
+
+    public void setTaskNo(Long taskNo) {
+        this.taskNo = taskNo;
     }
 
     public String getTopCategory() {
@@ -175,30 +190,17 @@ public class SwTask {
         this.status = status;
     }
 
-    public Integer getHandleStatus() {
-        return handleStatus;
+    public Integer getRejectStatus() {
+        return rejectStatus;
     }
 
-    public SwTask withHandleStatus(Integer handleStatus) {
-        this.setHandleStatus(handleStatus);
+    public SwTask withRejectStatus(Integer rejectStatus) {
+        this.setRejectStatus(rejectStatus);
         return this;
     }
 
-    public void setHandleStatus(Integer handleStatus) {
-        this.handleStatus = handleStatus;
-    }
-
-    public Integer getProposerStatus() {
-        return proposerStatus;
-    }
-
-    public SwTask withProposerStatus(Integer proposerStatus) {
-        this.setProposerStatus(proposerStatus);
-        return this;
-    }
-
-    public void setProposerStatus(Integer proposerStatus) {
-        this.proposerStatus = proposerStatus;
+    public void setRejectStatus(Integer rejectStatus) {
+        this.rejectStatus = rejectStatus;
     }
 
     public String getProposerEid() {
@@ -290,6 +292,19 @@ public class SwTask {
 
     public void setEndDate(String endDate) {
         this.endDate = endDate == null ? null : endDate.trim();
+    }
+
+    public String getReflection() {
+        return reflection;
+    }
+
+    public SwTask withReflection(String reflection) {
+        this.setReflection(reflection);
+        return this;
+    }
+
+    public void setReflection(String reflection) {
+        this.reflection = reflection == null ? null : reflection.trim();
     }
 
     public LocalDateTime getCreateTime() {

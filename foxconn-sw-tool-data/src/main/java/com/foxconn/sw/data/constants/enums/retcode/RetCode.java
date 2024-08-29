@@ -15,6 +15,7 @@ public enum RetCode implements IResult {
     UPLOAD_FILE_ERROR(6, "upload file error"),
     ENUM_CONVERT_ERROR(7, "enum convert error"),
     UPLOAD_FILE_TYPE_ERROR(8, "upload file file error"),
+    SYSTEM_ERROR(9, "system error"),
 
     ;
 

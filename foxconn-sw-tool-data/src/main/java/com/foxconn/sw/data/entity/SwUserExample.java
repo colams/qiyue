@@ -375,6 +375,66 @@ public class SwUserExample {
             return (Criteria) this;
         }
 
+        public Criteria andAvatarIdIsNull() {
+            addCriterion("avatar_id is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andAvatarIdIsNotNull() {
+            addCriterion("avatar_id is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andAvatarIdEqualTo(Integer value) {
+            addCriterion("avatar_id =", value, "avatarId");
+            return (Criteria) this;
+        }
+
+        public Criteria andAvatarIdNotEqualTo(Integer value) {
+            addCriterion("avatar_id <>", value, "avatarId");
+            return (Criteria) this;
+        }
+
+        public Criteria andAvatarIdGreaterThan(Integer value) {
+            addCriterion("avatar_id >", value, "avatarId");
+            return (Criteria) this;
+        }
+
+        public Criteria andAvatarIdGreaterThanOrEqualTo(Integer value) {
+            addCriterion("avatar_id >=", value, "avatarId");
+            return (Criteria) this;
+        }
+
+        public Criteria andAvatarIdLessThan(Integer value) {
+            addCriterion("avatar_id <", value, "avatarId");
+            return (Criteria) this;
+        }
+
+        public Criteria andAvatarIdLessThanOrEqualTo(Integer value) {
+            addCriterion("avatar_id <=", value, "avatarId");
+            return (Criteria) this;
+        }
+
+        public Criteria andAvatarIdIn(List<Integer> values) {
+            addCriterion("avatar_id in", values, "avatarId");
+            return (Criteria) this;
+        }
+
+        public Criteria andAvatarIdNotIn(List<Integer> values) {
+            addCriterion("avatar_id not in", values, "avatarId");
+            return (Criteria) this;
+        }
+
+        public Criteria andAvatarIdBetween(Integer value1, Integer value2) {
+            addCriterion("avatar_id between", value1, value2, "avatarId");
+            return (Criteria) this;
+        }
+
+        public Criteria andAvatarIdNotBetween(Integer value1, Integer value2) {
+            addCriterion("avatar_id not between", value1, value2, "avatarId");
+            return (Criteria) this;
+        }
+
         public Criteria andSignatureIsNull() {
             addCriterion("signature is null");
             return (Criteria) this;

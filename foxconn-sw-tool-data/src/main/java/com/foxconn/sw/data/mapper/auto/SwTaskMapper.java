@@ -34,26 +34,28 @@ public interface SwTaskMapper {
     int deleteByPrimaryKey(Integer id);
 
     @Insert({
-        "insert into sw_task (top_category, category, ",
-        "title, top_project, ",
-        "project, description, ",
-        "level, progress_percent, ",
-        "status, handle_status, ",
-        "proposer_status, proposer_eid, ",
+        "insert into sw_task (task_no, top_category, ",
+        "category, title, ",
+        "top_project, project, ",
+        "description, level, ",
+        "progress_percent, status, ",
+        "reject_status, proposer_eid, ",
         "manager_eid, handle_eid, ",
         "dead_line, resource_ids, ",
         "start_date, end_date, ",
-        "create_time, datetime_lastchange)",
-        "values (#{topCategory,jdbcType=VARCHAR}, #{category,jdbcType=VARCHAR}, ",
-        "#{title,jdbcType=VARCHAR}, #{topProject,jdbcType=VARCHAR}, ",
-        "#{project,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, ",
-        "#{level,jdbcType=VARCHAR}, #{progressPercent,jdbcType=INTEGER}, ",
-        "#{status,jdbcType=INTEGER}, #{handleStatus,jdbcType=INTEGER}, ",
-        "#{proposerStatus,jdbcType=INTEGER}, #{proposerEid,jdbcType=VARCHAR}, ",
+        "reflection, create_time, ",
+        "datetime_lastchange)",
+        "values (#{taskNo,jdbcType=BIGINT}, #{topCategory,jdbcType=VARCHAR}, ",
+        "#{category,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, ",
+        "#{topProject,jdbcType=VARCHAR}, #{project,jdbcType=VARCHAR}, ",
+        "#{description,jdbcType=VARCHAR}, #{level,jdbcType=VARCHAR}, ",
+        "#{progressPercent,jdbcType=INTEGER}, #{status,jdbcType=INTEGER}, ",
+        "#{rejectStatus,jdbcType=INTEGER}, #{proposerEid,jdbcType=VARCHAR}, ",
         "#{managerEid,jdbcType=VARCHAR}, #{handleEid,jdbcType=VARCHAR}, ",
         "#{deadLine,jdbcType=VARCHAR}, #{resourceIds,jdbcType=VARCHAR}, ",
         "#{startDate,jdbcType=VARCHAR}, #{endDate,jdbcType=VARCHAR}, ",
-        "#{createTime,jdbcType=TIMESTAMP}, #{datetimeLastchange,jdbcType=TIMESTAMP})"
+        "#{reflection,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, ",
+        "#{datetimeLastchange,jdbcType=TIMESTAMP})"
     })
     @SelectKey(statement="SELECT LAST_INSERT_ID()", keyProperty="id", before=false, resultType=Integer.class)
     int insert(SwTask record);
@@ -65,6 +67,7 @@ public interface SwTaskMapper {
     @SelectProvider(type=SwTaskSqlProvider.class, method="selectByExample")
     @Results({
         @Result(column="id", property="id", jdbcType=JdbcType.INTEGER, id=true),
+        @Result(column="task_no", property="taskNo", jdbcType=JdbcType.BIGINT),
         @Result(column="top_category", property="topCategory", jdbcType=JdbcType.VARCHAR),
         @Result(column="category", property="category", jdbcType=JdbcType.VARCHAR),
         @Result(column="title", property="title", jdbcType=JdbcType.VARCHAR),
@@ -74,8 +77,7 @@ public interface SwTaskMapper {
         @Result(column="level", property="level", jdbcType=JdbcType.VARCHAR),
         @Result(column="progress_percent", property="progressPercent", jdbcType=JdbcType.INTEGER),
         @Result(column="status", property="status", jdbcType=JdbcType.INTEGER),
-        @Result(column="handle_status", property="handleStatus", jdbcType=JdbcType.INTEGER),
-        @Result(column="proposer_status", property="proposerStatus", jdbcType=JdbcType.INTEGER),
+        @Result(column="reject_status", property="rejectStatus", jdbcType=JdbcType.INTEGER),
         @Result(column="proposer_eid", property="proposerEid", jdbcType=JdbcType.VARCHAR),
         @Result(column="manager_eid", property="managerEid", jdbcType=JdbcType.VARCHAR),
         @Result(column="handle_eid", property="handleEid", jdbcType=JdbcType.VARCHAR),
@@ -83,6 +85,7 @@ public interface SwTaskMapper {
         @Result(column="resource_ids", property="resourceIds", jdbcType=JdbcType.VARCHAR),
         @Result(column="start_date", property="startDate", jdbcType=JdbcType.VARCHAR),
         @Result(column="end_date", property="endDate", jdbcType=JdbcType.VARCHAR),
+        @Result(column="reflection", property="reflection", jdbcType=JdbcType.VARCHAR),
         @Result(column="create_time", property="createTime", jdbcType=JdbcType.TIMESTAMP),
         @Result(column="datetime_lastchange", property="datetimeLastchange", jdbcType=JdbcType.TIMESTAMP)
     })
@@ -91,6 +94,7 @@ public interface SwTaskMapper {
     @SelectProvider(type=SwTaskSqlProvider.class, method="selectByExample")
     @Results({
         @Result(column="id", property="id", jdbcType=JdbcType.INTEGER, id=true),
+        @Result(column="task_no", property="taskNo", jdbcType=JdbcType.BIGINT),
         @Result(column="top_category", property="topCategory", jdbcType=JdbcType.VARCHAR),
         @Result(column="category", property="category", jdbcType=JdbcType.VARCHAR),
         @Result(column="title", property="title", jdbcType=JdbcType.VARCHAR),
@@ -100,8 +104,7 @@ public interface SwTaskMapper {
         @Result(column="level", property="level", jdbcType=JdbcType.VARCHAR),
         @Result(column="progress_percent", property="progressPercent", jdbcType=JdbcType.INTEGER),
         @Result(column="status", property="status", jdbcType=JdbcType.INTEGER),
-        @Result(column="handle_status", property="handleStatus", jdbcType=JdbcType.INTEGER),
-        @Result(column="proposer_status", property="proposerStatus", jdbcType=JdbcType.INTEGER),
+        @Result(column="reject_status", property="rejectStatus", jdbcType=JdbcType.INTEGER),
         @Result(column="proposer_eid", property="proposerEid", jdbcType=JdbcType.VARCHAR),
         @Result(column="manager_eid", property="managerEid", jdbcType=JdbcType.VARCHAR),
         @Result(column="handle_eid", property="handleEid", jdbcType=JdbcType.VARCHAR),
@@ -109,6 +112,7 @@ public interface SwTaskMapper {
         @Result(column="resource_ids", property="resourceIds", jdbcType=JdbcType.VARCHAR),
         @Result(column="start_date", property="startDate", jdbcType=JdbcType.VARCHAR),
         @Result(column="end_date", property="endDate", jdbcType=JdbcType.VARCHAR),
+        @Result(column="reflection", property="reflection", jdbcType=JdbcType.VARCHAR),
         @Result(column="create_time", property="createTime", jdbcType=JdbcType.TIMESTAMP),
         @Result(column="datetime_lastchange", property="datetimeLastchange", jdbcType=JdbcType.TIMESTAMP)
     })
@@ -116,14 +120,15 @@ public interface SwTaskMapper {
 
     @Select({
         "select",
-        "id, top_category, category, title, top_project, project, description, level, ",
-        "progress_percent, status, handle_status, proposer_status, proposer_eid, manager_eid, ",
-        "handle_eid, dead_line, resource_ids, start_date, end_date, create_time, datetime_lastchange",
+        "id, task_no, top_category, category, title, top_project, project, description, ",
+        "level, progress_percent, status, reject_status, proposer_eid, manager_eid, handle_eid, ",
+        "dead_line, resource_ids, start_date, end_date, reflection, create_time, datetime_lastchange",
         "from sw_task",
         "where id = #{id,jdbcType=INTEGER}"
     })
     @Results({
         @Result(column="id", property="id", jdbcType=JdbcType.INTEGER, id=true),
+        @Result(column="task_no", property="taskNo", jdbcType=JdbcType.BIGINT),
         @Result(column="top_category", property="topCategory", jdbcType=JdbcType.VARCHAR),
         @Result(column="category", property="category", jdbcType=JdbcType.VARCHAR),
         @Result(column="title", property="title", jdbcType=JdbcType.VARCHAR),
@@ -133,8 +138,7 @@ public interface SwTaskMapper {
         @Result(column="level", property="level", jdbcType=JdbcType.VARCHAR),
         @Result(column="progress_percent", property="progressPercent", jdbcType=JdbcType.INTEGER),
         @Result(column="status", property="status", jdbcType=JdbcType.INTEGER),
-        @Result(column="handle_status", property="handleStatus", jdbcType=JdbcType.INTEGER),
-        @Result(column="proposer_status", property="proposerStatus", jdbcType=JdbcType.INTEGER),
+        @Result(column="reject_status", property="rejectStatus", jdbcType=JdbcType.INTEGER),
         @Result(column="proposer_eid", property="proposerEid", jdbcType=JdbcType.VARCHAR),
         @Result(column="manager_eid", property="managerEid", jdbcType=JdbcType.VARCHAR),
         @Result(column="handle_eid", property="handleEid", jdbcType=JdbcType.VARCHAR),
@@ -142,6 +146,7 @@ public interface SwTaskMapper {
         @Result(column="resource_ids", property="resourceIds", jdbcType=JdbcType.VARCHAR),
         @Result(column="start_date", property="startDate", jdbcType=JdbcType.VARCHAR),
         @Result(column="end_date", property="endDate", jdbcType=JdbcType.VARCHAR),
+        @Result(column="reflection", property="reflection", jdbcType=JdbcType.VARCHAR),
         @Result(column="create_time", property="createTime", jdbcType=JdbcType.TIMESTAMP),
         @Result(column="datetime_lastchange", property="datetimeLastchange", jdbcType=JdbcType.TIMESTAMP)
     })
@@ -158,7 +163,8 @@ public interface SwTaskMapper {
 
     @Update({
         "update sw_task",
-        "set top_category = #{topCategory,jdbcType=VARCHAR},",
+        "set task_no = #{taskNo,jdbcType=BIGINT},",
+          "top_category = #{topCategory,jdbcType=VARCHAR},",
           "category = #{category,jdbcType=VARCHAR},",
           "title = #{title,jdbcType=VARCHAR},",
           "top_project = #{topProject,jdbcType=VARCHAR},",
@@ -167,8 +173,7 @@ public interface SwTaskMapper {
           "level = #{level,jdbcType=VARCHAR},",
           "progress_percent = #{progressPercent,jdbcType=INTEGER},",
           "status = #{status,jdbcType=INTEGER},",
-          "handle_status = #{handleStatus,jdbcType=INTEGER},",
-          "proposer_status = #{proposerStatus,jdbcType=INTEGER},",
+          "reject_status = #{rejectStatus,jdbcType=INTEGER},",
           "proposer_eid = #{proposerEid,jdbcType=VARCHAR},",
           "manager_eid = #{managerEid,jdbcType=VARCHAR},",
           "handle_eid = #{handleEid,jdbcType=VARCHAR},",
@@ -176,6 +181,7 @@ public interface SwTaskMapper {
           "resource_ids = #{resourceIds,jdbcType=VARCHAR},",
           "start_date = #{startDate,jdbcType=VARCHAR},",
           "end_date = #{endDate,jdbcType=VARCHAR},",
+          "reflection = #{reflection,jdbcType=VARCHAR},",
           "create_time = #{createTime,jdbcType=TIMESTAMP},",
           "datetime_lastchange = #{datetimeLastchange,jdbcType=TIMESTAMP}",
         "where id = #{id,jdbcType=INTEGER}"

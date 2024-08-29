@@ -35,11 +35,13 @@ public interface SwUserMapper {
 
     @Insert({
         "insert into sw_user (employee_no, password, ",
-        "solt, signature, ",
-        "create_time, datetime_lastchange)",
+        "solt, avatar_id, ",
+        "signature, create_time, ",
+        "datetime_lastchange)",
         "values (#{employeeNo,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, ",
-        "#{solt,jdbcType=VARCHAR}, #{signature,jdbcType=VARCHAR}, ",
-        "#{createTime,jdbcType=TIMESTAMP}, #{datetimeLastchange,jdbcType=TIMESTAMP})"
+        "#{solt,jdbcType=VARCHAR}, #{avatarId,jdbcType=INTEGER}, ",
+        "#{signature,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, ",
+        "#{datetimeLastchange,jdbcType=TIMESTAMP})"
     })
     @SelectKey(statement="SELECT LAST_INSERT_ID()", keyProperty="id", before=false, resultType=Integer.class)
     int insert(SwUser record);
@@ -54,6 +56,7 @@ public interface SwUserMapper {
         @Result(column="employee_no", property="employeeNo", jdbcType=JdbcType.VARCHAR),
         @Result(column="password", property="password", jdbcType=JdbcType.VARCHAR),
         @Result(column="solt", property="solt", jdbcType=JdbcType.VARCHAR),
+        @Result(column="avatar_id", property="avatarId", jdbcType=JdbcType.INTEGER),
         @Result(column="signature", property="signature", jdbcType=JdbcType.VARCHAR),
         @Result(column="create_time", property="createTime", jdbcType=JdbcType.TIMESTAMP),
         @Result(column="datetime_lastchange", property="datetimeLastchange", jdbcType=JdbcType.TIMESTAMP)
@@ -66,6 +69,7 @@ public interface SwUserMapper {
         @Result(column="employee_no", property="employeeNo", jdbcType=JdbcType.VARCHAR),
         @Result(column="password", property="password", jdbcType=JdbcType.VARCHAR),
         @Result(column="solt", property="solt", jdbcType=JdbcType.VARCHAR),
+        @Result(column="avatar_id", property="avatarId", jdbcType=JdbcType.INTEGER),
         @Result(column="signature", property="signature", jdbcType=JdbcType.VARCHAR),
         @Result(column="create_time", property="createTime", jdbcType=JdbcType.TIMESTAMP),
         @Result(column="datetime_lastchange", property="datetimeLastchange", jdbcType=JdbcType.TIMESTAMP)
@@ -74,7 +78,7 @@ public interface SwUserMapper {
 
     @Select({
         "select",
-        "id, employee_no, password, solt, signature, create_time, datetime_lastchange",
+        "id, employee_no, password, solt, avatar_id, signature, create_time, datetime_lastchange",
         "from sw_user",
         "where id = #{id,jdbcType=INTEGER}"
     })
@@ -83,6 +87,7 @@ public interface SwUserMapper {
         @Result(column="employee_no", property="employeeNo", jdbcType=JdbcType.VARCHAR),
         @Result(column="password", property="password", jdbcType=JdbcType.VARCHAR),
         @Result(column="solt", property="solt", jdbcType=JdbcType.VARCHAR),
+        @Result(column="avatar_id", property="avatarId", jdbcType=JdbcType.INTEGER),
         @Result(column="signature", property="signature", jdbcType=JdbcType.VARCHAR),
         @Result(column="create_time", property="createTime", jdbcType=JdbcType.TIMESTAMP),
         @Result(column="datetime_lastchange", property="datetimeLastchange", jdbcType=JdbcType.TIMESTAMP)
@@ -103,6 +108,7 @@ public interface SwUserMapper {
         "set employee_no = #{employeeNo,jdbcType=VARCHAR},",
           "password = #{password,jdbcType=VARCHAR},",
           "solt = #{solt,jdbcType=VARCHAR},",
+          "avatar_id = #{avatarId,jdbcType=INTEGER},",
           "signature = #{signature,jdbcType=VARCHAR},",
           "create_time = #{createTime,jdbcType=TIMESTAMP},",
           "datetime_lastchange = #{datetimeLastchange,jdbcType=TIMESTAMP}",

@@ -6,23 +6,24 @@ import static com.foxconn.sw.data.constants.enums.retcode.RetCode.ENUM_CONVERT_E
 
 public enum TaskStatusEnums {
 
-    DRAFT(0, "草稿"), // 发布人可见
-    PENDING(1, "待确认"),// 待确认-发布人；新需求-中间人
-    CONFIRMING(2, "确认中"),// 确认中-发布人&中间人，新需求-负责人
-    PROCESSING(3, "处理中"),  //  负责人&中间人&发布人
-    ACCEPTING(4, "待验收"),   // 负责人&中间人&发布人
-    COMPLETED(5, "已完成"),
-    CLOSED(6, "已关闭"),
+    DRAFT(0, "草稿", "#966400"), // 发布人可见
+    PENDING(1, "待確認", "rgb(255,192,0)"),// 待确认-发布人&中间人；无DRI都是带确认
+    PROCESSING(2, "處理中", "blue"),// 處理中-有DRI
+    ACCEPTING(3, "待驗收", "#98FB98"),  //  负责人&中间人&发布人，更新狀態
+    COMPLETED(4, "已完成", "#008000"),   // 负责人&中间人&发布人
+    CLOSED(6, "已關閉", "gray"),
 
     ;
 
-    TaskStatusEnums(Integer code, String msg) {
+    TaskStatusEnums(Integer code, String msg, String color) {
         this.code = code;
         this.msg = msg;
+        this.color = color;
     }
 
     private Integer code;
     private String msg;
+    private String color;
 
     public Integer getCode() {
         return code;
@@ -30,6 +31,10 @@ public enum TaskStatusEnums {
 
     public String getMsg() {
         return msg;
+    }
+
+    public String getColor() {
+        return color;
     }
 
     public static TaskStatusEnums getStatusByCode(Integer code) {
@@ -40,6 +45,4 @@ public enum TaskStatusEnums {
         }
         throw new BizException(ENUM_CONVERT_ERROR);
     }
-
-
 }

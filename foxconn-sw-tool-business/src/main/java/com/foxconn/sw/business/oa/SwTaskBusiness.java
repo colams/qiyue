@@ -1,6 +1,7 @@
 package com.foxconn.sw.business.oa;
 
 import com.foxconn.sw.common.utils.DateTimeUtils;
+import com.foxconn.sw.data.constants.enums.oa.RejectStatusEnum;
 import com.foxconn.sw.data.constants.enums.oa.TaskStatusEnums;
 import com.foxconn.sw.data.dto.PageParams;
 import com.foxconn.sw.data.dto.entity.oa.TaskBriefListVo;
@@ -10,6 +11,7 @@ import com.foxconn.sw.data.mapper.extension.oa.SwTaskExtensionMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Component
@@ -28,13 +30,15 @@ public class SwTaskBusiness {
     }
 
     public List<TaskBriefListVo> listBriefVos(PageParams<TaskParams> data, String employeeId) {
-        String now = DateTimeUtils.formatNow();
+        LocalDateTime localDateTime = LocalDateTime.now();
+        String now = DateTimeUtils.formatYMD(localDateTime);
         int start = (data.getCurrentPage() - 1) * data.getPageSize();
         return taskExtensionMapper.listBriefVos(start, data.getPageSize(), data.getParams(), employeeId, now);
     }
 
     public int getTotalCountByParams(TaskParams params, String employeeId) {
-        String now = DateTimeUtils.formatNow();
+        LocalDateTime localDateTime = LocalDateTime.now();
+        String now = DateTimeUtils.formatYMD(localDateTime);
         return taskExtensionMapper.getTotalCountByParams(params, employeeId, now);
     }
 
@@ -57,11 +61,13 @@ public class SwTaskBusiness {
         return taskExtensionMapper.updateByPrimaryKeySelective(task) > 0;
     }
 
-    public boolean achieveTask(Integer taskId, Integer progress) {
+    public boolean achieveTask(Integer taskId, Integer progress, String content) {
         SwTask task = new SwTask();
         task.setId(taskId);
         task.setProgressPercent(progress);
         task.setStatus(TaskStatusEnums.ACCEPTING.getCode());
+        task.setRejectStatus(RejectStatusEnum.UN_REJECT.getCode());
+        task.setReflection(content);
         return taskExtensionMapper.updateByPrimaryKeySelective(task) > 0;
     }
 
@@ -69,14 +75,22 @@ public class SwTaskBusiness {
         SwTask task = new SwTask();
         task.setId(taskId);
         task.setHandleEid(assignEid);
-        task.setStatus(TaskStatusEnums.CONFIRMING.getCode());
+        task.setRejectStatus(RejectStatusEnum.UN_REJECT.getCode());
         return taskExtensionMapper.updateByPrimaryKeySelective(task) > 0;
     }
 
-    public boolean updateTaskStatus(Integer id,TaskStatusEnums taskStatus) {
+    public boolean updateTaskStatus(Integer id, TaskStatusEnums taskStatus) {
         SwTask task = new SwTask();
         task.setId(id);
         task.setStatus(taskStatus.getCode());
+        return taskExtensionMapper.updateByPrimaryKeySelective(task) > 0;
+    }
+
+    public boolean updateTaskStatus(Integer id, TaskStatusEnums taskStatus, Integer rejectStatus) {
+        SwTask task = new SwTask();
+        task.setId(id);
+        task.setStatus(taskStatus.getCode());
+        task.setRejectStatus(rejectStatus);
         return taskExtensionMapper.updateByPrimaryKeySelective(task) > 0;
     }
 }

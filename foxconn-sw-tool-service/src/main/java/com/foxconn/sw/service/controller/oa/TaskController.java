@@ -1,5 +1,6 @@
 package com.foxconn.sw.service.controller.oa;
 
+import com.foxconn.sw.business.oa.SwTaskBusiness;
 import com.foxconn.sw.data.constants.TagsConstants;
 import com.foxconn.sw.data.dto.PageEntity;
 import com.foxconn.sw.data.dto.PageParams;
@@ -7,6 +8,7 @@ import com.foxconn.sw.data.dto.Request;
 import com.foxconn.sw.data.dto.Response;
 import com.foxconn.sw.data.dto.entity.oa.*;
 import com.foxconn.sw.data.dto.entity.universal.IntegerParams;
+import com.foxconn.sw.data.entity.SwTask;
 import com.foxconn.sw.service.processor.oa.*;
 import com.foxconn.sw.service.utils.ResponseUtils;
 import io.swagger.v3.oas.annotations.Operation;
@@ -49,14 +51,20 @@ public class TaskController {
     AchieveTaskProcessor achieveTaskProcessor;
     @Autowired
     RevokeProcessor revokeProcessor;
+    @Autowired
+    FollowProcessor followProcessor;
+    @Autowired
+    AcceptProcessor acceptProcessor;
+    @Autowired
+    SwTaskBusiness swTaskBusiness;
 
 
     @Operation(summary = "创建任务", tags = TagsConstants.OA)
     @ApiResponse(responseCode = "0", description = "成功码")
     @PostMapping("/create")
     public Response createTask(@Valid @RequestBody Request<TaskBriefDetailVo> request) {
-        createTaskProcessor.createTask(request.getData(), request.getHead());
-        return ResponseUtils.success(request.getTraceId());
+        Integer taskID = createTaskProcessor.createTask(request.getData(), request.getHead());
+        return ResponseUtils.success(taskID, request.getTraceId());
     }
 
     @Operation(summary = "更新任务", tags = TagsConstants.OA)
@@ -81,6 +89,14 @@ public class TaskController {
     public Response<TaskEntityVo> detail(@Valid @RequestBody Request<IntegerParams> request) {
         TaskEntityVo taskEntityVo = taskDetailProcessor.detail(request.getData(), request.getHead());
         return ResponseUtils.success(taskEntityVo, request.getTraceId());
+    }
+
+    @Operation(summary = "任务信息", tags = TagsConstants.OA)
+    @ApiResponse(responseCode = "0", description = "成功码")
+    @PostMapping("/briefDetail")
+    public Response<SwTask> briefDetail(@Valid @RequestBody Request<IntegerParams> request) {
+        SwTask task = swTaskBusiness.getTaskById(request.getData().getParams());
+        return ResponseUtils.success(task, request.getTraceId());
     }
 
     @Operation(summary = "列表页-任务总览", tags = TagsConstants.OA)
@@ -126,9 +142,9 @@ public class TaskController {
     @Operation(summary = "完成任务", tags = TagsConstants.OA)
     @ApiResponse(responseCode = "0", description = "成功码")
     @PostMapping("/achieve")
-    public Response<Boolean> achieve(@Valid @RequestBody Request<List<TaskProgressBriefParams>> request) {
-        boolean result = achieveTaskProcessor.achieve(request.getData(), request.getHead());
-        return ResponseUtils.success(result, request.getTraceId());
+    public Response achieve(@Valid @RequestBody Request<TaskProgressBriefParams> request) {
+        achieveTaskProcessor.achieve(request.getData(), request.getHead());
+        return ResponseUtils.success(request.getTraceId());
     }
 
     @Operation(summary = "撤销任务", tags = TagsConstants.OA)
@@ -136,6 +152,22 @@ public class TaskController {
     @PostMapping("/revoke")
     public Response<Boolean> revoke(@Valid @RequestBody Request<IntegerParams> request) {
         boolean result = revokeProcessor.revoke(request.getData(), request.getHead());
+        return ResponseUtils.success(result, request.getTraceId());
+    }
+
+    @Operation(summary = "撤销任务", tags = TagsConstants.OA)
+    @ApiResponse(responseCode = "0", description = "成功码")
+    @PostMapping("/follow")
+    public Response follow(@Valid @RequestBody Request<FollowParams> request) {
+        boolean result = followProcessor.follow(request.getData(), request.getHead());
+        return ResponseUtils.success(result, request.getTraceId());
+    }
+
+    @Operation(summary = "接受任务", tags = TagsConstants.OA)
+    @ApiResponse(responseCode = "0", description = "成功码")
+    @PostMapping("/accept")
+    public Response accept(@Valid @RequestBody Request<IntegerParams> request) {
+        boolean result = acceptProcessor.accept(request.getData().getParams(), request.getHead());
         return ResponseUtils.success(result, request.getTraceId());
     }
 }

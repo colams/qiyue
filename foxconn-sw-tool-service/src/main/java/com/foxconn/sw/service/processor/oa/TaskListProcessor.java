@@ -1,6 +1,7 @@
 package com.foxconn.sw.service.processor.oa;
 
 import com.foxconn.sw.business.oa.SwTaskBusiness;
+import com.foxconn.sw.business.oa.SwTaskFollowBusiness;
 import com.foxconn.sw.data.constants.enums.OperateTypeEnum;
 import com.foxconn.sw.data.dto.Header;
 import com.foxconn.sw.data.dto.PageEntity;
@@ -10,16 +11,17 @@ import com.foxconn.sw.data.dto.entity.oa.InfoColorVo;
 import com.foxconn.sw.data.dto.entity.oa.TaskBriefListVo;
 import com.foxconn.sw.data.dto.entity.oa.TaskParams;
 import com.foxconn.sw.data.dto.entity.universal.OperateEntity;
-import com.foxconn.sw.service.processor.oa.utils.TaskCategoryUtils;
-import com.foxconn.sw.service.processor.oa.utils.TaskLevelUtils;
-import com.foxconn.sw.service.processor.oa.utils.TaskProjectUtils;
-import com.foxconn.sw.service.processor.oa.utils.TaskStatusUtils;
+import com.foxconn.sw.data.entity.SwTaskFollow;
+import com.foxconn.sw.service.processor.oa.utils.*;
 import com.foxconn.sw.service.processor.user.CommonUserUtils;
+import org.apache.commons.compress.utils.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @Component
 public class TaskListProcessor {
@@ -27,6 +29,8 @@ public class TaskListProcessor {
     CommonUserUtils userUtils;
     @Autowired
     SwTaskBusiness taskBusiness;
+    @Autowired
+    SwTaskFollowBusiness followBusiness;
 
     public PageEntity<TaskBriefListVo> list(PageParams<TaskParams> taskParams, Header head) {
         UserInfo userInfo = userUtils.queryUserInfo(head.getToken());
@@ -38,26 +42,32 @@ public class TaskListProcessor {
     }
 
     private void processAfter(List<TaskBriefListVo> briefVos, UserInfo userInfo) {
+        List<Integer> taskIDs = briefVos.stream().map(TaskBriefListVo::getId).collect(Collectors.toList());
+        List<SwTaskFollow> follows = followBusiness.queryFollow(taskIDs);
+        Map<Integer, List<SwTaskFollow>> map = follows.stream().collect(Collectors.groupingBy(SwTaskFollow::getTaskId));
+
         briefVos.forEach(e -> {
-            InfoColorVo statusInfoVo = TaskStatusUtils.processStatus(userInfo.getEmployeeName(), e.getStatus(), e.getManagerEid(), e.getHandleEid());
+            InfoColorVo statusInfoVo = TaskStatusUtils.processStatus(e.getStatus(), e.getRejectStatus(), e.getHandleEid());
             e.setStatusInfoVo(statusInfoVo);
             e.setOperateList(processOperate(e, userInfo.getEmployeeName()));
             e.setLevelInfo(TaskLevelUtils.processLevel(e.getLevel()));
             e.setProject(TaskProjectUtils.processProject(e.getProject()));
             e.setCategory(TaskCategoryUtils.processCategory(e.getTopCategory(), e.getCategory()));
+            e.setFollowStatus(getFollowStatus(map, e.getId()));
         });
+    }
+
+    private Integer getFollowStatus(Map<Integer, List<SwTaskFollow>> map, Integer taskID) {
+        return map.getOrDefault(taskID, Lists.newArrayList()).size();
     }
 
     private List<OperateEntity> processOperate(TaskBriefListVo e, String employeeName) {
         List<OperateEntity> entityList = new ArrayList<>();
         for (OperateTypeEnum op : OperateTypeEnum.values()) {
-            OperateEntity operate = new OperateEntity();
-            operate.setOperateName(op.getMsg());
-            OperateTypeEnum.EnableInfo enableInfo = op.getEnable(e, employeeName);
-            operate.setEnable(enableInfo.isEnable());
-            operate.setMsg(enableInfo.getMsg());
-            operate.setOperateType(op.name());
-            entityList.add(operate);
+            if (op.getPage().equalsIgnoreCase("list")) {
+                OperateEntity operate = TaskOperateUtils.processOperate(employeeName, e, op);
+                entityList.add(operate);
+            }
         }
         return entityList;
     }

@@ -4,20 +4,15 @@ import com.foxconn.sw.business.oa.SwTaskBusiness;
 import com.foxconn.sw.business.oa.SwTaskLogBusiness;
 import com.foxconn.sw.business.oa.SwTaskProgressBusiness;
 import com.foxconn.sw.common.utils.ConvertUtils;
-import com.foxconn.sw.data.constants.enums.retcode.RetCode;
 import com.foxconn.sw.data.dto.Header;
 import com.foxconn.sw.data.dto.entity.acount.UserInfo;
 import com.foxconn.sw.data.dto.entity.oa.TaskProgressBriefParams;
 import com.foxconn.sw.data.entity.SwTaskProgress;
-import com.foxconn.sw.data.exception.BizException;
 import com.foxconn.sw.service.processor.user.CommonUserUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.util.CollectionUtils;
 
-import java.util.List;
 import java.util.Objects;
-import java.util.Optional;
 
 @Component
 public class AchieveTaskProcessor {
@@ -34,37 +29,20 @@ public class AchieveTaskProcessor {
     /**
      * 完成任务
      *
-     * @param briefParamsList
+     * @param briefParams
      * @param head
      * @return
      */
-    public boolean achieve(List<TaskProgressBriefParams> briefParamsList, Header head) {
-        if (CollectionUtils.isEmpty(briefParamsList)) {
-            throw new BizException(RetCode.VALIDATE_FAILED);
-        }
+    public boolean achieve(TaskProgressBriefParams briefParams, Header head) {
         UserInfo userInfo = commonUserUtils.queryUserInfo(head.getToken());
         String employeeName = commonUserUtils.getEmployeeName(userInfo);
 
-        if (briefParamsList.size() == 1) {
-            taskBusiness.achieveTask(briefParamsList.get(0).getTaskId(), briefParamsList.get(0).getProgress());
-            taskLogBusiness.addTaskLog(briefParamsList.get(0).getTaskId(), employeeName, String.format("%s 更新任务进度为 100%", employeeName, briefParamsList.get(0).getProgress()));
+        boolean result = saveProcess(briefParams, userInfo.getEmployeeNo());
+        if (result) {
+            taskBusiness.achieveTask(briefParams.getTaskId(), briefParams.getProgress(),briefParams.getContent());
+            taskLogBusiness.addTaskLog(briefParams.getTaskId(), employeeName, String.format("%s 完成任务", employeeName));
         }
-
-        briefParamsList.forEach(m -> {
-            boolean result = saveProcess(m, userInfo.getEmployeeNo());
-            if (result && Optional.ofNullable(m.getProgress()).orElse(0) > 0) {
-                taskBusiness.achieveTask(m.getTaskId(), m.getProgress());
-                taskLogBusiness.addTaskLog(m.getTaskId(), employeeName, String.format("%s 更新任务进度为 %s%%", employeeName, m.getProgress()));
-            }
-        });
-
-        saveAchieveLog(briefParamsList.get(0).getTaskId(), employeeName);
         return true;
-    }
-
-    private boolean saveAchieveLog(Integer taskId, String employeeName) {
-        String content = String.format("%s 完成任务", employeeName);
-        return taskLogBusiness.addTaskLog(taskId, employeeName, content);
     }
 
     private boolean saveProcess(TaskProgressBriefParams briefParams, String employeeID) {

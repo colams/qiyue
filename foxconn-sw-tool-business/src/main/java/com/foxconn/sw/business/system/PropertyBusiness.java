@@ -35,7 +35,7 @@ public class PropertyBusiness {
     }
 
     public boolean updatePropertyByID(SwProperty property) {
-        return propertyExtensionMapper.updateByPrimaryKey(property) > 0;
+        return propertyExtensionMapper.updateByPrimaryKeySelective(property) > 0;
     }
 
     public boolean createProperty(SwProperty property) {

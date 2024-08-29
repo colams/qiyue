@@ -11,6 +11,12 @@ public class TaskBriefDetailVo {
     /**
      * 专案-所属项目
      */
+    @Schema(description = "任務ID")
+    private Integer id;
+
+    /**
+     * 专案-所属项目
+     */
     @Schema(description = "专案-所属项目")
     @NotNull(message = "专案不能爲空！")
     @Pattern(regexp = "^(?!\\s*$)\\S+.*$", message = "专案不能全部为空格")
@@ -90,6 +96,14 @@ public class TaskBriefDetailVo {
      */
     @Schema(description = "0-暂存/草稿，1-待确认需求")
     private Integer status;
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
     public String getProject() {
         return project;

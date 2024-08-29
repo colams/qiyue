@@ -83,18 +83,20 @@ public class WebConfigurer implements WebMvcConfigurer {
                 .allowedOriginPatterns("*")  // 允许来自 http://example.com 的跨域请求
                 .allowedMethods("*")  // 允许的请求方法
                 .allowedHeaders("*")  // 允许所有请求头
+                .exposedHeaders("Content-Disposition")
                 .allowCredentials(true);  // 允许携带凭证（如 Cookies）
     }
 
     @Bean
-    public FilterRegistrationBean crosFilter(){
-        UrlBasedCorsConfigurationSource source=  new UrlBasedCorsConfigurationSource();
+    public FilterRegistrationBean crosFilter() {
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         CorsConfiguration config = new CorsConfiguration();
         config.setAllowCredentials(true);
         config.addAllowedOriginPattern("*");
         config.addAllowedHeader("*");
         config.addAllowedMethod("*");
-        source.registerCorsConfiguration("/**",config);
+        config.addExposedHeader("Content-Disposition");
+        source.registerCorsConfiguration("/**", config);
         FilterRegistrationBean bean = new FilterRegistrationBean(new CorsFilter(source));
         bean.setOrder(0);
         return bean;

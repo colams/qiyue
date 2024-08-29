@@ -6,9 +6,10 @@ public class OperateEntity {
 
     private String operateName;
     private Boolean enable;
-    @Schema(description = "取值范围：查看(view),更新(update),分派(assign),验收(check),撤销(revoke)", name = "操作类型")
+    // @Schema(description = "取值范围：查看(view),更新(update),分派(assign),验收(check),撤销(revoke)", name = "操作类型")
+    @Schema(description = "取值范围：查看(view),更新(update),跟催(going),撤销(revoke)", name = "操作类型")
     private String operateType;
-    private String msg;
+    private Integer subOperateType;
 
     public String getOperateName() {
         return operateName;
@@ -34,11 +35,11 @@ public class OperateEntity {
         this.operateType = operateType;
     }
 
-    public String getMsg() {
-        return msg;
+    public Integer getSubOperateType() {
+        return subOperateType;
     }
 
-    public void setMsg(String msg) {
-        this.msg = msg;
+    public void setSubOperateType(Integer subOperateType) {
+        this.subOperateType = subOperateType;
     }
 }

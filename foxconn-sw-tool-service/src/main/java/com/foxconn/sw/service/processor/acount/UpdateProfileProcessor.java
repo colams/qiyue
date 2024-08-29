@@ -50,6 +50,6 @@ public class UpdateProfileProcessor {
         SwUser updateUser = new SwUser();
         updateUser.setId(user.getId());
         updateUser.setSignature(data.getSignature());
-        return userBusiness.update(user);
+        return userBusiness.update(updateUser);
     }
 }

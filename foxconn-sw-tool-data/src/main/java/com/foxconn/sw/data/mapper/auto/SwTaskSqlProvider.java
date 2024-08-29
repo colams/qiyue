@@ -28,6 +28,10 @@ public class SwTaskSqlProvider {
         SQL sql = new SQL();
         sql.INSERT_INTO("sw_task");
         
+        if (record.getTaskNo() != null) {
+            sql.VALUES("task_no", "#{taskNo,jdbcType=BIGINT}");
+        }
+        
         if (record.getTopCategory() != null) {
             sql.VALUES("top_category", "#{topCategory,jdbcType=VARCHAR}");
         }
@@ -64,12 +68,8 @@ public class SwTaskSqlProvider {
             sql.VALUES("status", "#{status,jdbcType=INTEGER}");
         }
         
-        if (record.getHandleStatus() != null) {
-            sql.VALUES("handle_status", "#{handleStatus,jdbcType=INTEGER}");
-        }
-        
-        if (record.getProposerStatus() != null) {
-            sql.VALUES("proposer_status", "#{proposerStatus,jdbcType=INTEGER}");
+        if (record.getRejectStatus() != null) {
+            sql.VALUES("reject_status", "#{rejectStatus,jdbcType=INTEGER}");
         }
         
         if (record.getProposerEid() != null) {
@@ -100,6 +100,10 @@ public class SwTaskSqlProvider {
             sql.VALUES("end_date", "#{endDate,jdbcType=VARCHAR}");
         }
         
+        if (record.getReflection() != null) {
+            sql.VALUES("reflection", "#{reflection,jdbcType=VARCHAR}");
+        }
+        
         if (record.getCreateTime() != null) {
             sql.VALUES("create_time", "#{createTime,jdbcType=TIMESTAMP}");
         }
@@ -118,6 +122,7 @@ public class SwTaskSqlProvider {
         } else {
             sql.SELECT("id");
         }
+        sql.SELECT("task_no");
         sql.SELECT("top_category");
         sql.SELECT("category");
         sql.SELECT("title");
@@ -127,8 +132,7 @@ public class SwTaskSqlProvider {
         sql.SELECT("level");
         sql.SELECT("progress_percent");
         sql.SELECT("status");
-        sql.SELECT("handle_status");
-        sql.SELECT("proposer_status");
+        sql.SELECT("reject_status");
         sql.SELECT("proposer_eid");
         sql.SELECT("manager_eid");
         sql.SELECT("handle_eid");
@@ -136,6 +140,7 @@ public class SwTaskSqlProvider {
         sql.SELECT("resource_ids");
         sql.SELECT("start_date");
         sql.SELECT("end_date");
+        sql.SELECT("reflection");
         sql.SELECT("create_time");
         sql.SELECT("datetime_lastchange");
         sql.FROM("sw_task");
@@ -157,6 +162,10 @@ public class SwTaskSqlProvider {
         
         if (record.getId() != null) {
             sql.SET("id = #{record.id,jdbcType=INTEGER}");
+        }
+        
+        if (record.getTaskNo() != null) {
+            sql.SET("task_no = #{record.taskNo,jdbcType=BIGINT}");
         }
         
         if (record.getTopCategory() != null) {
@@ -195,12 +204,8 @@ public class SwTaskSqlProvider {
             sql.SET("status = #{record.status,jdbcType=INTEGER}");
         }
         
-        if (record.getHandleStatus() != null) {
-            sql.SET("handle_status = #{record.handleStatus,jdbcType=INTEGER}");
-        }
-        
-        if (record.getProposerStatus() != null) {
-            sql.SET("proposer_status = #{record.proposerStatus,jdbcType=INTEGER}");
+        if (record.getRejectStatus() != null) {
+            sql.SET("reject_status = #{record.rejectStatus,jdbcType=INTEGER}");
         }
         
         if (record.getProposerEid() != null) {
@@ -231,6 +236,10 @@ public class SwTaskSqlProvider {
             sql.SET("end_date = #{record.endDate,jdbcType=VARCHAR}");
         }
         
+        if (record.getReflection() != null) {
+            sql.SET("reflection = #{record.reflection,jdbcType=VARCHAR}");
+        }
+        
         if (record.getCreateTime() != null) {
             sql.SET("create_time = #{record.createTime,jdbcType=TIMESTAMP}");
         }
@@ -248,6 +257,7 @@ public class SwTaskSqlProvider {
         sql.UPDATE("sw_task");
         
         sql.SET("id = #{record.id,jdbcType=INTEGER}");
+        sql.SET("task_no = #{record.taskNo,jdbcType=BIGINT}");
         sql.SET("top_category = #{record.topCategory,jdbcType=VARCHAR}");
         sql.SET("category = #{record.category,jdbcType=VARCHAR}");
         sql.SET("title = #{record.title,jdbcType=VARCHAR}");
@@ -257,8 +267,7 @@ public class SwTaskSqlProvider {
         sql.SET("level = #{record.level,jdbcType=VARCHAR}");
         sql.SET("progress_percent = #{record.progressPercent,jdbcType=INTEGER}");
         sql.SET("status = #{record.status,jdbcType=INTEGER}");
-        sql.SET("handle_status = #{record.handleStatus,jdbcType=INTEGER}");
-        sql.SET("proposer_status = #{record.proposerStatus,jdbcType=INTEGER}");
+        sql.SET("reject_status = #{record.rejectStatus,jdbcType=INTEGER}");
         sql.SET("proposer_eid = #{record.proposerEid,jdbcType=VARCHAR}");
         sql.SET("manager_eid = #{record.managerEid,jdbcType=VARCHAR}");
         sql.SET("handle_eid = #{record.handleEid,jdbcType=VARCHAR}");
@@ -266,6 +275,7 @@ public class SwTaskSqlProvider {
         sql.SET("resource_ids = #{record.resourceIds,jdbcType=VARCHAR}");
         sql.SET("start_date = #{record.startDate,jdbcType=VARCHAR}");
         sql.SET("end_date = #{record.endDate,jdbcType=VARCHAR}");
+        sql.SET("reflection = #{record.reflection,jdbcType=VARCHAR}");
         sql.SET("create_time = #{record.createTime,jdbcType=TIMESTAMP}");
         sql.SET("datetime_lastchange = #{record.datetimeLastchange,jdbcType=TIMESTAMP}");
         
@@ -277,6 +287,10 @@ public class SwTaskSqlProvider {
     public String updateByPrimaryKeySelective(SwTask record) {
         SQL sql = new SQL();
         sql.UPDATE("sw_task");
+        
+        if (record.getTaskNo() != null) {
+            sql.SET("task_no = #{taskNo,jdbcType=BIGINT}");
+        }
         
         if (record.getTopCategory() != null) {
             sql.SET("top_category = #{topCategory,jdbcType=VARCHAR}");
@@ -314,12 +328,8 @@ public class SwTaskSqlProvider {
             sql.SET("status = #{status,jdbcType=INTEGER}");
         }
         
-        if (record.getHandleStatus() != null) {
-            sql.SET("handle_status = #{handleStatus,jdbcType=INTEGER}");
-        }
-        
-        if (record.getProposerStatus() != null) {
-            sql.SET("proposer_status = #{proposerStatus,jdbcType=INTEGER}");
+        if (record.getRejectStatus() != null) {
+            sql.SET("reject_status = #{rejectStatus,jdbcType=INTEGER}");
         }
         
         if (record.getProposerEid() != null) {
@@ -348,6 +358,10 @@ public class SwTaskSqlProvider {
         
         if (record.getEndDate() != null) {
             sql.SET("end_date = #{endDate,jdbcType=VARCHAR}");
+        }
+        
+        if (record.getReflection() != null) {
+            sql.SET("reflection = #{reflection,jdbcType=VARCHAR}");
         }
         
         if (record.getCreateTime() != null) {

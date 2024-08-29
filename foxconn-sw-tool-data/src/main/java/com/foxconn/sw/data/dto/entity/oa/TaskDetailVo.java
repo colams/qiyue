@@ -1,6 +1,7 @@
 package com.foxconn.sw.data.dto.entity.oa;
 
 import com.foxconn.sw.data.dto.entity.ResourceVo;
+import com.foxconn.sw.data.dto.entity.universal.OperateEntity;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -11,6 +12,8 @@ public class TaskDetailVo {
      * 表主键ID
      */
     private Integer id;
+
+    private Long taskNo;
 
     /**
      * 任务分类
@@ -104,12 +107,31 @@ public class TaskDetailVo {
      */
     private Integer progressPercent;
 
+
+    /**
+     * 支持的操作列表
+     */
+    private List<OperateEntity> operateList;
+
+    private String reflection;
+
+    private Integer rejectStatus;
+
+
     public Integer getId() {
         return id;
     }
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public Long getTaskNo() {
+        return taskNo;
+    }
+
+    public void setTaskNo(Long taskNo) {
+        this.taskNo = taskNo;
     }
 
     public String getTopCategory() {
@@ -254,5 +276,29 @@ public class TaskDetailVo {
 
     public void setProgressPercent(Integer progressPercent) {
         this.progressPercent = progressPercent;
+    }
+
+    public List<OperateEntity> getOperateList() {
+        return operateList;
+    }
+
+    public void setOperateList(List<OperateEntity> operateList) {
+        this.operateList = operateList;
+    }
+
+    public String getReflection() {
+        return reflection;
+    }
+
+    public void setReflection(String reflection) {
+        this.reflection = reflection;
+    }
+
+    public Integer getRejectStatus() {
+        return rejectStatus;
+    }
+
+    public void setRejectStatus(Integer rejectStatus) {
+        this.rejectStatus = rejectStatus;
     }
 }

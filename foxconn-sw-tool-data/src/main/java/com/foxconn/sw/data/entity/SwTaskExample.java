@@ -165,6 +165,66 @@ public class SwTaskExample {
             return (Criteria) this;
         }
 
+        public Criteria andTaskNoIsNull() {
+            addCriterion("task_no is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andTaskNoIsNotNull() {
+            addCriterion("task_no is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andTaskNoEqualTo(Long value) {
+            addCriterion("task_no =", value, "taskNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andTaskNoNotEqualTo(Long value) {
+            addCriterion("task_no <>", value, "taskNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andTaskNoGreaterThan(Long value) {
+            addCriterion("task_no >", value, "taskNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andTaskNoGreaterThanOrEqualTo(Long value) {
+            addCriterion("task_no >=", value, "taskNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andTaskNoLessThan(Long value) {
+            addCriterion("task_no <", value, "taskNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andTaskNoLessThanOrEqualTo(Long value) {
+            addCriterion("task_no <=", value, "taskNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andTaskNoIn(List<Long> values) {
+            addCriterion("task_no in", values, "taskNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andTaskNoNotIn(List<Long> values) {
+            addCriterion("task_no not in", values, "taskNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andTaskNoBetween(Long value1, Long value2) {
+            addCriterion("task_no between", value1, value2, "taskNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andTaskNoNotBetween(Long value1, Long value2) {
+            addCriterion("task_no not between", value1, value2, "taskNo");
+            return (Criteria) this;
+        }
+
         public Criteria andTopCategoryIsNull() {
             addCriterion("top_category is null");
             return (Criteria) this;
@@ -775,123 +835,63 @@ public class SwTaskExample {
             return (Criteria) this;
         }
 
-        public Criteria andHandleStatusIsNull() {
-            addCriterion("handle_status is null");
+        public Criteria andRejectStatusIsNull() {
+            addCriterion("reject_status is null");
             return (Criteria) this;
         }
 
-        public Criteria andHandleStatusIsNotNull() {
-            addCriterion("handle_status is not null");
+        public Criteria andRejectStatusIsNotNull() {
+            addCriterion("reject_status is not null");
             return (Criteria) this;
         }
 
-        public Criteria andHandleStatusEqualTo(Integer value) {
-            addCriterion("handle_status =", value, "handleStatus");
+        public Criteria andRejectStatusEqualTo(Integer value) {
+            addCriterion("reject_status =", value, "rejectStatus");
             return (Criteria) this;
         }
 
-        public Criteria andHandleStatusNotEqualTo(Integer value) {
-            addCriterion("handle_status <>", value, "handleStatus");
+        public Criteria andRejectStatusNotEqualTo(Integer value) {
+            addCriterion("reject_status <>", value, "rejectStatus");
             return (Criteria) this;
         }
 
-        public Criteria andHandleStatusGreaterThan(Integer value) {
-            addCriterion("handle_status >", value, "handleStatus");
+        public Criteria andRejectStatusGreaterThan(Integer value) {
+            addCriterion("reject_status >", value, "rejectStatus");
             return (Criteria) this;
         }
 
-        public Criteria andHandleStatusGreaterThanOrEqualTo(Integer value) {
-            addCriterion("handle_status >=", value, "handleStatus");
+        public Criteria andRejectStatusGreaterThanOrEqualTo(Integer value) {
+            addCriterion("reject_status >=", value, "rejectStatus");
             return (Criteria) this;
         }
 
-        public Criteria andHandleStatusLessThan(Integer value) {
-            addCriterion("handle_status <", value, "handleStatus");
+        public Criteria andRejectStatusLessThan(Integer value) {
+            addCriterion("reject_status <", value, "rejectStatus");
             return (Criteria) this;
         }
 
-        public Criteria andHandleStatusLessThanOrEqualTo(Integer value) {
-            addCriterion("handle_status <=", value, "handleStatus");
+        public Criteria andRejectStatusLessThanOrEqualTo(Integer value) {
+            addCriterion("reject_status <=", value, "rejectStatus");
             return (Criteria) this;
         }
 
-        public Criteria andHandleStatusIn(List<Integer> values) {
-            addCriterion("handle_status in", values, "handleStatus");
+        public Criteria andRejectStatusIn(List<Integer> values) {
+            addCriterion("reject_status in", values, "rejectStatus");
             return (Criteria) this;
         }
 
-        public Criteria andHandleStatusNotIn(List<Integer> values) {
-            addCriterion("handle_status not in", values, "handleStatus");
+        public Criteria andRejectStatusNotIn(List<Integer> values) {
+            addCriterion("reject_status not in", values, "rejectStatus");
             return (Criteria) this;
         }
 
-        public Criteria andHandleStatusBetween(Integer value1, Integer value2) {
-            addCriterion("handle_status between", value1, value2, "handleStatus");
+        public Criteria andRejectStatusBetween(Integer value1, Integer value2) {
+            addCriterion("reject_status between", value1, value2, "rejectStatus");
             return (Criteria) this;
         }
 
-        public Criteria andHandleStatusNotBetween(Integer value1, Integer value2) {
-            addCriterion("handle_status not between", value1, value2, "handleStatus");
-            return (Criteria) this;
-        }
-
-        public Criteria andProposerStatusIsNull() {
-            addCriterion("proposer_status is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andProposerStatusIsNotNull() {
-            addCriterion("proposer_status is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andProposerStatusEqualTo(Integer value) {
-            addCriterion("proposer_status =", value, "proposerStatus");
-            return (Criteria) this;
-        }
-
-        public Criteria andProposerStatusNotEqualTo(Integer value) {
-            addCriterion("proposer_status <>", value, "proposerStatus");
-            return (Criteria) this;
-        }
-
-        public Criteria andProposerStatusGreaterThan(Integer value) {
-            addCriterion("proposer_status >", value, "proposerStatus");
-            return (Criteria) this;
-        }
-
-        public Criteria andProposerStatusGreaterThanOrEqualTo(Integer value) {
-            addCriterion("proposer_status >=", value, "proposerStatus");
-            return (Criteria) this;
-        }
-
-        public Criteria andProposerStatusLessThan(Integer value) {
-            addCriterion("proposer_status <", value, "proposerStatus");
-            return (Criteria) this;
-        }
-
-        public Criteria andProposerStatusLessThanOrEqualTo(Integer value) {
-            addCriterion("proposer_status <=", value, "proposerStatus");
-            return (Criteria) this;
-        }
-
-        public Criteria andProposerStatusIn(List<Integer> values) {
-            addCriterion("proposer_status in", values, "proposerStatus");
-            return (Criteria) this;
-        }
-
-        public Criteria andProposerStatusNotIn(List<Integer> values) {
-            addCriterion("proposer_status not in", values, "proposerStatus");
-            return (Criteria) this;
-        }
-
-        public Criteria andProposerStatusBetween(Integer value1, Integer value2) {
-            addCriterion("proposer_status between", value1, value2, "proposerStatus");
-            return (Criteria) this;
-        }
-
-        public Criteria andProposerStatusNotBetween(Integer value1, Integer value2) {
-            addCriterion("proposer_status not between", value1, value2, "proposerStatus");
+        public Criteria andRejectStatusNotBetween(Integer value1, Integer value2) {
+            addCriterion("reject_status not between", value1, value2, "rejectStatus");
             return (Criteria) this;
         }
 
@@ -1385,6 +1385,76 @@ public class SwTaskExample {
             return (Criteria) this;
         }
 
+        public Criteria andReflectionIsNull() {
+            addCriterion("reflection is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andReflectionIsNotNull() {
+            addCriterion("reflection is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andReflectionEqualTo(String value) {
+            addCriterion("reflection =", value, "reflection");
+            return (Criteria) this;
+        }
+
+        public Criteria andReflectionNotEqualTo(String value) {
+            addCriterion("reflection <>", value, "reflection");
+            return (Criteria) this;
+        }
+
+        public Criteria andReflectionGreaterThan(String value) {
+            addCriterion("reflection >", value, "reflection");
+            return (Criteria) this;
+        }
+
+        public Criteria andReflectionGreaterThanOrEqualTo(String value) {
+            addCriterion("reflection >=", value, "reflection");
+            return (Criteria) this;
+        }
+
+        public Criteria andReflectionLessThan(String value) {
+            addCriterion("reflection <", value, "reflection");
+            return (Criteria) this;
+        }
+
+        public Criteria andReflectionLessThanOrEqualTo(String value) {
+            addCriterion("reflection <=", value, "reflection");
+            return (Criteria) this;
+        }
+
+        public Criteria andReflectionLike(String value) {
+            addCriterion("reflection like", value, "reflection");
+            return (Criteria) this;
+        }
+
+        public Criteria andReflectionNotLike(String value) {
+            addCriterion("reflection not like", value, "reflection");
+            return (Criteria) this;
+        }
+
+        public Criteria andReflectionIn(List<String> values) {
+            addCriterion("reflection in", values, "reflection");
+            return (Criteria) this;
+        }
+
+        public Criteria andReflectionNotIn(List<String> values) {
+            addCriterion("reflection not in", values, "reflection");
+            return (Criteria) this;
+        }
+
+        public Criteria andReflectionBetween(String value1, String value2) {
+            addCriterion("reflection between", value1, value2, "reflection");
+            return (Criteria) this;
+        }
+
+        public Criteria andReflectionNotBetween(String value1, String value2) {
+            addCriterion("reflection not between", value1, value2, "reflection");
+            return (Criteria) this;
+        }
+
         public Criteria andCreateTimeIsNull() {
             addCriterion("create_time is null");
             return (Criteria) this;
@@ -1572,6 +1642,11 @@ public class SwTaskExample {
 
         public Criteria andEndDateLikeInsensitive(String value) {
             addCriterion("upper(end_date) like", value.toUpperCase(), "endDate");
+            return (Criteria) this;
+        }
+
+        public Criteria andReflectionLikeInsensitive(String value) {
+            addCriterion("upper(reflection) like", value.toUpperCase(), "reflection");
             return (Criteria) this;
         }
     }

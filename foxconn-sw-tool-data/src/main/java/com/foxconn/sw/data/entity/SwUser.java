@@ -11,6 +11,8 @@ public class SwUser {
 
     private String solt;
 
+    private Integer avatarId;
+
     private String signature;
 
     private LocalDateTime createTime;
@@ -67,6 +69,19 @@ public class SwUser {
 
     public void setSolt(String solt) {
         this.solt = solt == null ? null : solt.trim();
+    }
+
+    public Integer getAvatarId() {
+        return avatarId;
+    }
+
+    public SwUser withAvatarId(Integer avatarId) {
+        this.setAvatarId(avatarId);
+        return this;
+    }
+
+    public void setAvatarId(Integer avatarId) {
+        this.avatarId = avatarId;
     }
 
     public String getSignature() {

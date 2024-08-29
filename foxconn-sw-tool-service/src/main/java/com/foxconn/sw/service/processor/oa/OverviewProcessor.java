@@ -9,6 +9,7 @@ import com.google.common.collect.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Component
@@ -28,7 +29,8 @@ public class OverviewProcessor {
     public List<TaskOverviewVo> overview(Header head) {
 
         String employeeNo = commonUserUtils.getEmployeeNo(head.getToken());
-        String now = DateTimeUtils.formatNow();
+        LocalDateTime localDateTime = LocalDateTime.now();
+        String now = DateTimeUtils.formatYMD(localDateTime);
 
         List<TaskOverviewVo> taskOverviews = Lists.newArrayList();
         taskOverviews.add(init(0, "total", "全部任務", formatData(0, employeeNo, now)));

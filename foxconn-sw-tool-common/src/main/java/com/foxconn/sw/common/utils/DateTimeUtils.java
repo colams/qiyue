@@ -20,8 +20,7 @@ public class DateTimeUtils {
      *
      * @return
      */
-    public static String formatNow() {
-        LocalDateTime localDateTime = LocalDateTime.now();
+    public static String format(LocalDateTime localDateTime) {
         return localDateTime.format(DateTimeFormatter.ofPattern(DateTimePattern.yyyyMMddHHmmss2));
     }
 
@@ -30,11 +29,29 @@ public class DateTimeUtils {
      *
      * @return
      */
-    public static String formatNow2() {
-        LocalDateTime localDateTime = LocalDateTime.now();
-        return localDateTime.format(DateTimeFormatter.ofPattern(DateTimePattern.yyyyMMddHHmmsssss));
+    public static String formatYMD(LocalDateTime localDateTime) {
+        return localDateTime.format(DateTimeFormatter.ofPattern(DateTimePattern.yyyyMMdd1));
     }
 
+    /**
+     * 设置时间戳
+     *
+     * @return
+     */
+    public static String format(LocalDateTime localDateTime, String pattern) {
+        return localDateTime.format(DateTimeFormatter.ofPattern(pattern));
+    }
+
+
+    /**
+     * 设置时间戳
+     *
+     * @return
+     */
+    public static String formatYMD() {
+        LocalDateTime localDateTime = LocalDateTime.now();
+        return localDateTime.format(DateTimeFormatter.ofPattern(DateTimePattern.yyyyMMdd));
+    }
 
     /**
      * 设置时间戳
@@ -54,6 +71,10 @@ public class DateTimeUtils {
         String yyyyMMddHHmmsssss = "yyyy-MM-dd HH:mm:ss.SSS";
 
         String yyyyMMddHHmmssSSS = "yyyyMMddHHmmssSSS";
+
+        String yyyyMMdd = "yyyyMMdd";
+
+        String yyyyMMdd1 = "yyyy-MM-dd";
 
     }
 }
