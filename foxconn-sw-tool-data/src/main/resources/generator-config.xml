@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<!--參考： https://blog.csdn.net/qq_42740745/article/details/106272852-->
+<generatorConfiguration>
+    <properties resource="jdbc.properties"/>
+    <classPathEntry location="src\main\resources\mysql-connector-java-8.0.29.jar"/>
+    <!-- MySQL-->
+    <context id="MySqlTables" defaultModelType="flat" targetRuntime="MyBatis3">
+
+        <!-- 自动识别数据库关键字，默认false，如果设置为true，根据SqlReservedWords中定义的关键字列表；
+        一般保留默认值，遇到数据库关键字（Java关键字），使用columnOverride覆盖-->
+        <!--        <property name="autoDelimitKeywords" value="true"/>-->
+        <property name="javaFileEncoding" value="UTF-8"/>
+
+        <!--分页插件-->
+        <plugin type="org.mybatis.generator.plugins.RowBoundsPlugin"/>
+        <!--大小写不敏感插件-->
+        <plugin type="org.mybatis.generator.plugins.CaseInsensitiveLikePlugin"/>
+        <!--build模式生成model-->
+        <plugin type="org.mybatis.generator.plugins.FluentBuilderMethodsPlugin"/>
+        <!--给mapper 接口增加 @Mapper 注解 用了都说好-->
+        <plugin type="org.mybatis.generator.plugins.MapperAnnotationPlugin"/>
+
+        <commentGenerator>
+            <property name="suppressDate" value="true"/>
+            <property name="suppressAllComments" value="true"/>
+        </commentGenerator>
+
+        <jdbcConnection driverClass="${jdbc.driver}"
+                        connectionURL="${jdbc.url}"
+                        userId="${jdbc.username}"
+                        password="${jdbc.password}">
+        </jdbcConnection>
+
+        <javaTypeResolver>
+            <!--
+            true：使用BigDecimal对应DECIMAL和 NUMERIC数据类型
+            false：默认,
+                scale>0;length>18：使用BigDecimal;
+                scale=0;length[10,18]：使用Long；
+                scale=0;length[5,9]：使用Integer；
+                scale=0;length<5：使用Short；
+            -->
+            <!--<property name="useJSR310Types" value="false"/>-->
+            <property name="forceBigDecimals" value="false"/>
+            <property name="useJSR310Types" value="true"/>
+        </javaTypeResolver>
+
+        <javaModelGenerator targetPackage="com.foxconn.sw.data.entity"
+                            targetProject="src\main\java">
+            <property name="enableSubPackages" value="false"/>
+            <property name="trimStrings" value="true"/>
+            <property name="constructorBased" value="false"/>
+            <property name="immutable" value="false"/>
+            <property name="delegate" value="org.mybatis.generator.internal.LegacyJavaModelGenerator"/>
+        </javaModelGenerator>
+
+        <!--<sqlMapGenerator targetPackage="cn.colams.dal.mapper"-->
+        <!--targetProject="src\main\resources\">-->
+        <!--<property name="enableSubPackages" value="false"/>-->
+        <!--</sqlMapGenerator>-->
+
+        <!--<javaClientGenerator type="XMLMAPPER" targetPackage="cn.colams.dal.dao"-->
+        <!--targetProject="src\main\java">-->
+        <!--<property name="enableSubPackages" value="true"/>-->
+        <!--</javaClientGenerator>-->
+        <!--type:{ANNOTATEDMAPPER(纯注解 Mapper), MIXEDMAPPER(混合), XMLMAPPER(纯xml, myBatis作者亲自说用这个的)}-->
+        <javaClientGenerator type="ANNOTATEDMAPPER" targetPackage="com.foxconn.sw.data.mapper.auto"
+                             targetProject="src\main\java">
+            <property name="enableSubPackages" value="false"/>
+        </javaClientGenerator>
+        <table tableName="sw_announcement">
+            <generatedKey column="id" identity="true" sqlStatement="mysql"/>
+        </table>
+        <table tableName="sw_append_resource">
+            <generatedKey column="id" identity="true" sqlStatement="mysql"/>
+        </table>
+        <table tableName="sw_contact_gather">
+            <generatedKey column="id" identity="true" sqlStatement="mysql"/>
+        </table>
+        <table tableName="sw_department">
+            <generatedKey column="id" identity="true" sqlStatement="mysql"/>
+        </table>
+        <table tableName="sw_employee">
+            <generatedKey column="id" identity="true" sqlStatement="mysql"/>
+        </table>
+        <table tableName="sw_log">
+            <generatedKey column="id" identity="true" sqlStatement="mysql"/>
+        </table>
+        <table tableName="sw_menu">
+            <generatedKey column="id" identity="true" sqlStatement="mysql"/>
+        </table>
+        <table tableName="sw_property">
+            <generatedKey column="id" identity="true" sqlStatement="mysql"/>
+        </table>
+        <table tableName="sw_role">
+            <generatedKey column="id" identity="true" sqlStatement="mysql"/>
+        </table>
+        <table tableName="sw_role_menu">
+            <generatedKey column="id" identity="true" sqlStatement="mysql"/>
+        </table>
+        <table tableName="sw_task">
+            <generatedKey column="id" identity="true" sqlStatement="mysql"/>
+        </table>
+        <table tableName="sw_task_evaluation">
+            <generatedKey column="id" identity="true" sqlStatement="mysql"/>
+        </table>
+        <table tableName="sw_task_follow">
+            <generatedKey column="id" identity="true" sqlStatement="mysql"/>
+        </table>
+        <table tableName="sw_task_log">
+            <generatedKey column="id" identity="true" sqlStatement="mysql"/>
+        </table>
+        <table tableName="sw_task_progress">
+            <generatedKey column="id" identity="true" sqlStatement="mysql"/>
+        </table>
+        <table tableName="sw_tool_run_result">
+            <generatedKey column="id" identity="true" sqlStatement="mysql"/>
+        </table>
+        <table tableName="sw_tools">
+            <generatedKey column="id" identity="true" sqlStatement="mysql"/>
+        </table>
+        <table tableName="sw_tools_history">
+            <generatedKey column="id" identity="true" sqlStatement="mysql"/>
+        </table>
+        <table tableName="sw_user">
+            <generatedKey column="id" identity="true" sqlStatement="mysql"/>
+        </table>
+        <table tableName="sw_user_login">
+            <generatedKey column="id" identity="true" sqlStatement="mysql"/>
+        </table>
+        <table tableName="sw_user_role">
+            <generatedKey column="id" identity="true" sqlStatement="mysql"/>
+        </table>
+        <table tableName="sw_work_report">
+            <generatedKey column="id" identity="true" sqlStatement="mysql"/>
+        </table>
+        <table tableName="task_no_seed">
+            <generatedKey column="id" identity="true" sqlStatement="mysql"/>
+        </table>
+    </context>
+
+
+</generatorConfiguration>
