@@ -31,6 +31,10 @@ public class PasswordUtils {
      */
     public static boolean assertPassword(String password, SwUser user) {
 
+        if (Objects.isNull(user)) {
+            throw new BizException(AccountExceptionCode.LOGIN_ACCOUNT_UN_REGIST_EXCEPTION);
+        }
+
         boolean validity = Objects.nonNull(user)
                 && (StringUtils.isBlank(user.getPassword())
                 || user.getPassword().equalsIgnoreCase(password)

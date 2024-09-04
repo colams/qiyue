@@ -5,6 +5,7 @@ import com.foxconn.sw.business.mapper.AppendResourceMapper;
 import com.foxconn.sw.business.mapper.SwTaskLogMapper;
 import com.foxconn.sw.business.mapper.TaskMapper;
 import com.foxconn.sw.business.oa.SwTaskBusiness;
+import com.foxconn.sw.business.oa.SwTaskEmployeeRelationBusiness;
 import com.foxconn.sw.business.oa.SwTaskLogBusiness;
 import com.foxconn.sw.business.oa.SwTaskProgressBusiness;
 import com.foxconn.sw.business.system.EmployeeBusiness;
@@ -17,10 +18,7 @@ import com.foxconn.sw.data.dto.entity.oa.TaskLogVo;
 import com.foxconn.sw.data.dto.entity.oa.TaskProgressVo;
 import com.foxconn.sw.data.dto.entity.universal.IntegerParams;
 import com.foxconn.sw.data.dto.entity.universal.OperateEntity;
-import com.foxconn.sw.data.entity.SwAppendResource;
-import com.foxconn.sw.data.entity.SwEmployee;
-import com.foxconn.sw.data.entity.SwTask;
-import com.foxconn.sw.data.entity.SwTaskLog;
+import com.foxconn.sw.data.entity.*;
 import com.foxconn.sw.data.exception.BizException;
 import com.foxconn.sw.service.processor.oa.utils.*;
 import com.foxconn.sw.service.processor.user.CommonUserUtils;
@@ -49,6 +47,8 @@ public class TaskDetailProcessor {
     CommonUserUtils commonUserUtils;
     @Autowired
     EmployeeBusiness employeeBusiness;
+    @Autowired
+    SwTaskEmployeeRelationBusiness relationBusiness;
 
     public TaskEntityVo detail(IntegerParams data, Header head) {
         String employeeID = commonUserUtils.getEmployeeNo(head.getToken());
@@ -113,14 +113,6 @@ public class TaskDetailProcessor {
 
     private TaskDetailVo getDetailVo(Integer taskId, String employeeID) {
         SwTask task = taskBusiness.getTaskById(taskId);
-
-        boolean isPermission = employeeID.equalsIgnoreCase(task.getHandleEid())
-                || employeeID.equalsIgnoreCase(task.getManagerEid())
-                || employeeID.equalsIgnoreCase(task.getProposerEid());
-        if (!isPermission) {
-            throw new BizException(OAExceptionCode.NO_PERMISSION_EXCEPTION);
-        }
-
         TaskDetailVo taskDetailVo = TaskMapper.INSTANCE.toSwTaskDetailVo(task);
         taskDetailVo.setLevelInfoVo(TaskLevelUtils.processLevel(taskDetailVo.getLevel()));
         taskDetailVo.setStatusInfoVo(TaskStatusUtils.processStatus(taskDetailVo.getStatus(), taskDetailVo.getRejectStatus(), taskDetailVo.getHandleEid()));
@@ -145,7 +137,8 @@ public class TaskDetailProcessor {
     }
 
     private void processEmployee(TaskDetailVo taskDetailVo) {
-        List<String> employeeNos = Lists.newArrayList(taskDetailVo.getProposerEid(), taskDetailVo.getManagerEid(), taskDetailVo.getHandleEid());
+        List<String> employeeNos= relationBusiness.getRelationByTaskId(taskDetailVo.getId());
+
         List<SwEmployee> employees = employeeBusiness.selectEmployeeByENos(employeeNos);
         if (!CollectionUtils.isEmpty(employees)) {
             taskDetailVo.setProposerEid(employees.stream().filter(e -> e.getEmployeeNo().equalsIgnoreCase(taskDetailVo.getProposerEid())).findFirst().get().getName());

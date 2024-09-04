@@ -31,7 +31,7 @@ public class PermissionAspect {
 
 
     @Around("checkPermission() && @annotation(permission) && args(request,..)")
-    public Object aroundAdvice(ProceedingJoinPoint joinPoint, Permission permission, Request request) throws Throwable {
+    public Object aroundAdvice(ProceedingJoinPoint joinPoint, Permission permission, Object request) throws Throwable {
         Object retValue = null;
         String result = "fail";
         try {
@@ -49,7 +49,13 @@ public class PermissionAspect {
     }
 
 
-    private void contextInit(Request request) {
+    private void contextInit(Object obj) {
+        Request request;
+        if (obj instanceof Request) {
+            request = (Request) obj;
+        } else {
+            request = JsonUtils.deserialize((String) obj, Request.class);
+        }
         UserInfo userInfo = commonUserUtils.queryUserInfo(request.getHead().getToken());
         String nameEmployeeNo = String.format("%s(%s)", userInfo.getEmployeeName(), userInfo.getEmployeeNo());
         RequestContext.put(RequestContext.ContextKey.USER_INFO, userInfo);

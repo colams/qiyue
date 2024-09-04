@@ -1,5 +1,6 @@
 package com.foxconn.sw.data.dto.entity.oa;
 
+import com.foxconn.sw.data.dto.entity.acount.EmployeeVo;
 import jakarta.validation.constraints.NotNull;
 
 public class WorkReportVo {
@@ -7,6 +8,7 @@ public class WorkReportVo {
     private int id;
     private int week;
     private int num;
+    private EmployeeVo employee;
     @NotNull(message = "内容不能为空")
     private String project;
     @NotNull(message = "内容不能为空")
@@ -42,6 +44,14 @@ public class WorkReportVo {
 
     public void setNum(int num) {
         this.num = num;
+    }
+
+    public EmployeeVo getEmployee() {
+        return employee;
+    }
+
+    public void setEmployee(EmployeeVo employee) {
+        this.employee = employee;
     }
 
     public String getProject() {

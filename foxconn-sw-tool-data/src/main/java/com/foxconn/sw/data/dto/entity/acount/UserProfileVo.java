@@ -22,6 +22,8 @@ public class UserProfileVo {
 
     private Integer postId;
 
+    private String position;
+
     private String innerEmail;
 
     private String outerMail;
@@ -174,6 +176,14 @@ public class UserProfileVo {
 
     public void setOuterAbcYears(Integer outerAbcYears) {
         this.outerAbcYears = outerAbcYears;
+    }
+
+    public String getPosition() {
+        return position;
+    }
+
+    public void setPosition(String position) {
+        this.position = position;
     }
 
     public String getSignature() {

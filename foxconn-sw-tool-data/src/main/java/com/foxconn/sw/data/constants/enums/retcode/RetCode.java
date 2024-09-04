@@ -6,11 +6,11 @@ import com.foxconn.sw.data.interfaces.IResult;
  * 常用错误消息
  */
 public enum RetCode implements IResult {
-    SUCCESS(0, "接口调用成功"),
-    FAILURE(1, "接口调用失败"),
-    VALIDATE_FAILED(2, "参数校验失败"),
-    FORBIDDEN(3, "没有权限访问资源"),
-    SYSTEM_EXCEPTION(4, "接口发生异常"),
+    SUCCESS(0, "接口調用成功"),
+    FAILURE(1, "接口調用失败"),
+    VALIDATE_FAILED(2, "參數校驗失敗"),
+    FORBIDDEN(3, "沒有權限訪問資源"),
+    SYSTEM_EXCEPTION(4, "接口異常,請聯繫管理員(張占騰)"),
     EMPTY_FILE_ERROR(5, "empty file error"),
     UPLOAD_FILE_ERROR(6, "upload file error"),
     ENUM_CONVERT_ERROR(7, "enum convert error"),

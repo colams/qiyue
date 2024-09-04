@@ -3,6 +3,7 @@ package com.foxconn.sw.service.processor.oa;
 import com.foxconn.sw.business.TaskNoSeedSingleton;
 import com.foxconn.sw.business.mapper.TaskMapper;
 import com.foxconn.sw.business.oa.SwTaskBusiness;
+import com.foxconn.sw.business.oa.SwTaskEmployeeRelationBusiness;
 import com.foxconn.sw.business.oa.SwTaskLogBusiness;
 import com.foxconn.sw.business.oa.SwTaskProgressBusiness;
 import com.foxconn.sw.business.system.EmployeeBusiness;
@@ -37,13 +38,15 @@ public class CreateTaskProcessor {
     SwTaskProgressBusiness progressBusiness;
     @Autowired
     TaskNoSeedSingleton taskNoSeedSingleton;
+    @Autowired
+    SwTaskEmployeeRelationBusiness taskEmployeeRelation;
 
     public Integer createTask(TaskBriefDetailVo data, Header head) {
 
         SwTask task = TaskMapper.INSTANCE.brief2SwTask(data);
         UserInfo user = userUtils.queryUserInfo(head.getToken());
         task.setProposerEid(user.getEmployeeNo());
-        task.setTaskNo(taskNoSeedSingleton.getTaskNo());
+
 
         boolean result;
         int taskID = 0;
@@ -54,6 +57,7 @@ public class CreateTaskProcessor {
             task.setRejectStatus(RejectStatusEnum.UN_REJECT.getCode());
             result = swTaskBusiness.updateTask(task);
         } else {
+            task.setTaskNo(taskNoSeedSingleton.getTaskNo());
             result = swTaskBusiness.createTask(task);
             taskID = task.getId();
         }
@@ -61,8 +65,13 @@ public class CreateTaskProcessor {
         if (result) {
             addTaskLog(user, task, isUpdate);
             addProcessInfo(user, task, isUpdate);
+            addTaskEmployee(user, taskID, task.getManagerEid());
         }
         return taskID;
+    }
+
+    private void addTaskEmployee(UserInfo user, int taskID, String managerEid) {
+        taskEmployeeRelation.addTaskEmployee(user, taskID, managerEid);
     }
 
     private void addTaskLog(UserInfo user, SwTask task, boolean isUpdate) {
@@ -87,7 +96,7 @@ public class CreateTaskProcessor {
             content = String.format("發起並派送給：%s(%s)", ee.getName(), ee.getEmployeeNo());
         } else if (task.getStatus() == DRAFT.getCode()) {
             if (isUpdate) {
-                content = String.format("修改了草稿，任務編號：%s", task.getTaskNo());
+                content = "修改了草稿";
             } else {
                 content = String.format("創建了草稿，任務編號：%s", task.getTaskNo());
             }

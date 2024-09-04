@@ -42,6 +42,9 @@ public class WebConfigurer implements WebMvcConfigurer {
         registry.addResourceHandler("/static/**")
                 .addResourceLocations(ResourceUtils.CLASSPATH_URL_PREFIX + "/static/");
 
+        registry.addResourceHandler("/upload/**")
+                .addResourceLocations(ResourceUtils.FILE_URL_PREFIX + configReader.getBaseUploadPath());
+
         registry.addResourceHandler("/upload/icon/**")
                 .addResourceLocations(ResourceUtils.FILE_URL_PREFIX + ICON_PATH);
 

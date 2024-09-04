@@ -9,6 +9,7 @@ import com.foxconn.sw.data.dto.Response;
 import com.foxconn.sw.data.dto.entity.oa.*;
 import com.foxconn.sw.data.dto.entity.universal.IntegerParams;
 import com.foxconn.sw.data.entity.SwTask;
+import com.foxconn.sw.service.aspects.Permission;
 import com.foxconn.sw.service.processor.oa.*;
 import com.foxconn.sw.service.utils.ResponseUtils;
 import io.swagger.v3.oas.annotations.Operation;
@@ -115,12 +116,21 @@ public class TaskController {
         return ResponseUtils.success(result, request.getTraceId());
     }
 
+    @Permission
     @Operation(summary = "任务更新-追加任务进度和说明信息", tags = TagsConstants.OA)
     @ApiResponse(responseCode = "0", description = "成功码")
     @PostMapping("/updateProgress")
     public Response<Boolean> updateProgress(@Valid @RequestBody Request<TaskProgressBriefParams> request) {
-        boolean result = updateProgressProcessor.updateProgress(request.getData(), request.getHead());
+        boolean result = updateProgressProcessor.updateProgress(request.getData());
         return ResponseUtils.success(result, request.getTraceId());
+    }
+
+    @Operation(summary = "完成任务", tags = TagsConstants.OA)
+    @ApiResponse(responseCode = "0", description = "成功码")
+    @PostMapping("/achieve")
+    public Response achieve(@Valid @RequestBody Request<TaskProgressBriefParams> request) {
+        achieveTaskProcessor.achieve(request.getData(), request.getHead());
+        return ResponseUtils.success(request.getTraceId());
     }
 
     @Operation(summary = "task任务打分评价", tags = TagsConstants.OA)
@@ -137,14 +147,6 @@ public class TaskController {
     public Response<Boolean> reject(@RequestBody Request<TaskRejectParams> request) {
         boolean result = rejectTaskProcessor.reject(request.getData(), request.getHead());
         return ResponseUtils.success(result, request.getTraceId());
-    }
-
-    @Operation(summary = "完成任务", tags = TagsConstants.OA)
-    @ApiResponse(responseCode = "0", description = "成功码")
-    @PostMapping("/achieve")
-    public Response achieve(@Valid @RequestBody Request<TaskProgressBriefParams> request) {
-        achieveTaskProcessor.achieve(request.getData(), request.getHead());
-        return ResponseUtils.success(request.getTraceId());
     }
 
     @Operation(summary = "撤销任务", tags = TagsConstants.OA)

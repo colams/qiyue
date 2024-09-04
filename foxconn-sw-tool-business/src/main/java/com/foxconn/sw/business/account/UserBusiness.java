@@ -1,5 +1,6 @@
 package com.foxconn.sw.business.account;
 
+import com.foxconn.sw.business.SwAppendResourceBusiness;
 import com.foxconn.sw.data.constants.enums.retcode.AccountExceptionCode;
 import com.foxconn.sw.data.dto.entity.acount.EmployeeParams;
 import com.foxconn.sw.data.dto.entity.acount.EmployeeVo;
@@ -9,6 +10,7 @@ import com.foxconn.sw.data.entity.SwUser;
 import com.foxconn.sw.data.entity.SwUserExample;
 import com.foxconn.sw.data.exception.BizException;
 import com.foxconn.sw.data.mapper.extension.acount.SwUserExtensionMapper;
+import com.github.houbb.opencc4j.util.ZhConverterUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
@@ -20,6 +22,8 @@ public class UserBusiness {
 
     @Autowired
     SwUserExtensionMapper sysUserExtensionMapper;
+    @Autowired
+    SwAppendResourceBusiness resourceBusiness;
 
     public SwUser save(SwUser swUser) {
         boolean result = sysUserExtensionMapper.insertSelective(swUser) > 0;
@@ -42,7 +46,10 @@ public class UserBusiness {
     }
 
     public UserInfo queryUserInfo(String employeeID) {
-        return sysUserExtensionMapper.queryUserInfo(employeeID);
+        UserInfo userInfo = sysUserExtensionMapper.queryUserInfo(employeeID);
+        userInfo.setDepartName(ZhConverterUtil.convertToTraditional(userInfo.getDepartName()));
+        userInfo.setAvatar(resourceBusiness.getResourceUrl(userInfo.getAvatarID()));
+        return userInfo;
     }
 
     public List<EmployeeVo> queryEmployees(EmployeeParams employeeParams) {
@@ -60,5 +67,9 @@ public class UserBusiness {
             throw new BizException(AccountExceptionCode.RESET_PASSWORD_EXCEPTION);
         }
         return true;
+    }
+
+    public int update(String employeeNo, Integer resourceID) {
+        return sysUserExtensionMapper.updateAvatarId(employeeNo, resourceID);
     }
 }

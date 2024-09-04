@@ -18,6 +18,7 @@ import jakarta.validation.Valid;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
@@ -63,6 +64,9 @@ public class AddressBookController {
         String fileName = DateTimeUtils.getTimeStamp() + ".xlsx";
         response.setHeader("Content-Disposition", "attachment; filename=" + fileName);
         List<AddressBookVo> bookVoList = listAddressBookProcessor.list(request.getHead(), request.getData());
+        if (CollectionUtils.isEmpty(bookVoList)) {
+            return ResponseEntity.ok().body(null);
+        }
         // 使用Apache POI生成Excel文件
         Workbook workbook = ExcelUtils.generateExcel(bookVoList);
 

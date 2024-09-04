@@ -104,6 +104,9 @@
         <table tableName="sw_task">
             <generatedKey column="id" identity="true" sqlStatement="mysql"/>
         </table>
+        <table tableName="sw_task_employee_relation">
+            <generatedKey column="id" identity="true" sqlStatement="mysql"/>
+        </table>
         <table tableName="sw_task_evaluation">
             <generatedKey column="id" identity="true" sqlStatement="mysql"/>
         </table>

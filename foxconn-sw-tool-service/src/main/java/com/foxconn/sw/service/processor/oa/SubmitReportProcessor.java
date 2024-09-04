@@ -16,6 +16,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import static com.foxconn.sw.data.constants.enums.retcode.OAExceptionCode.LESS_ITEM_EXCEPTION;
 import static com.foxconn.sw.data.constants.enums.retcode.RetCode.VALIDATE_FAILED;
 
 @Component
@@ -31,14 +32,14 @@ public class SubmitReportProcessor {
         Map<Integer, List<WorkReportParams>> paramsMap = data.stream().collect(Collectors.groupingBy(WorkReportParams::getWeek));
 
         if (paramsMap.size() != 2) {
-            throw new BizException(VALIDATE_FAILED);
+            throw new BizException(LESS_ITEM_EXCEPTION);
         }
 
         List<WorkReportParams> currentWeeks = paramsMap.get(weekOfYear);
         List<WorkReportParams> nextWeeks = paramsMap.get(weekOfYear + 1);
 
         if (CollectionUtils.isEmpty(currentWeeks) || CollectionUtils.isEmpty(nextWeeks)) {
-            throw new BizException(VALIDATE_FAILED);
+            throw new BizException(LESS_ITEM_EXCEPTION);
         }
 
         workReportBusiness.invalidReport(Lists.newArrayList(weekOfYear, weekOfYear + 1));
@@ -57,7 +58,6 @@ public class SubmitReportProcessor {
             report.setWeek(weekOfYear);
             report.setNum(e.getNum());
             report.setProject(e.getProject());
-            report.setProjectItem(e.getProjectItem());
             report.setDays(e.getDay());
             report.setTarget(e.getTarget());
             report.setCurrent(e.getCurrent());

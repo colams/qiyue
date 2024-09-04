@@ -12,7 +12,7 @@ import static com.foxconn.sw.data.constants.enums.oa.TaskStatusEnums.*;
 
 public class TaskOperateUtils {
 
-    public static OperateEntity processOperate(String userNo, TaskBriefListVo briefListVo, OperateTypeEnum op) {
+    public static OperateEntity processOperate(String employeeNo, TaskBriefListVo briefListVo, OperateTypeEnum op) {
         TaskStatusEnums taskStatusEnums = TaskStatusEnums.getStatusByCode(briefListVo.getStatus());
         OperateEntity operate = null;
         Integer subType = null;
@@ -23,23 +23,26 @@ public class TaskOperateUtils {
                 break;
             case UPDATE:
                 if ((taskStatusEnums == DRAFT
+                        || taskStatusEnums == REVOKE
                         || (taskStatusEnums == PENDING
                         && briefListVo.getRejectStatus() == RejectStatusEnum.RELEASE_REJECT.getCode()))
-                        && userNo.equalsIgnoreCase(briefListVo.getProposerEid())) {
+                        && employeeNo.equalsIgnoreCase(briefListVo.getProposerEID())) {
                     enable = true;
                     subType = 0;
-                } else if (taskStatusEnums != CLOSED
+                } else if (taskStatusEnums != REVOKE
+                        && taskStatusEnums != CLOSED
                         && taskStatusEnums != COMPLETED
-                        && StringUtils.isEmpty(briefListVo.getHandleEid())
-                        && userNo.equalsIgnoreCase(briefListVo.getManagerEid())) {
+                        && StringUtils.isEmpty(briefListVo.getHandlerEID())
+                        && employeeNo.equalsIgnoreCase(briefListVo.getManagerEID())) {
                     enable = true;
                     subType = 1;
                 } else if (taskStatusEnums == ACCEPTING
-                        && userNo.equalsIgnoreCase(briefListVo.getProposerEid())) {
+                        && employeeNo.equalsIgnoreCase(briefListVo.getProposerEID())) {
                     enable = true;
                     subType = 1;
-                } else if ((taskStatusEnums == PENDING || taskStatusEnums == PROCESSING) &&
-                        userNo.equalsIgnoreCase(briefListVo.getHandleEid())) {
+                } else if ((taskStatusEnums == PENDING
+                        || taskStatusEnums == PROCESSING)
+                        && employeeNo.equalsIgnoreCase(briefListVo.getHandlerEID())) {
                     enable = true;
                     subType = 1;
                 }
@@ -49,14 +52,14 @@ public class TaskOperateUtils {
                 if ((taskStatusEnums == PROCESSING
                         || (taskStatusEnums == PENDING
                         && briefListVo.getRejectStatus() != RejectStatusEnum.RELEASE_REJECT.getCode()))
-                        && userNo.equalsIgnoreCase(briefListVo.getProposerEid())) {
+                        && employeeNo.equalsIgnoreCase(briefListVo.getProposerEID())) {
                     enable = true;
                 }
                 operate = initVo(op.getMsg(), op.name(), enable);
                 break;
             case REVOKE:
                 if (taskStatusEnums == PENDING
-                        && userNo.equalsIgnoreCase(briefListVo.getProposerEid())) {
+                        && employeeNo.equalsIgnoreCase(briefListVo.getProposerEID())) {
                     enable = true;
                 }
                 operate = initVo(op.getMsg(), op.name(), enable);
@@ -98,13 +101,13 @@ public class TaskOperateUtils {
                     enable = true;
                 }
                 break;
-            case ACHIEVE:
-                if (taskStatusEnums == PROCESSING
-                        && userNo.equalsIgnoreCase(taskDetailVo.getHandleEid())
-                        && taskDetailVo.getProgressPercent() == 100) {
-                    enable = true;
-                }
-                break;
+//            case ACHIEVE:
+//                if (taskStatusEnums == PROCESSING
+//                        && userNo.equalsIgnoreCase(taskDetailVo.getHandleEid())
+//                        && taskDetailVo.getProgressPercent() == 100) {
+//                    enable = true;
+//                }
+//                break;
             case CHECK:
                 if (taskStatusEnums == ACCEPTING
                         && userNo.equalsIgnoreCase(taskDetailVo.getProposerEid())) {

@@ -53,11 +53,16 @@ public class SwTaskBusiness {
         return taskExtensionMapper.selectByPrimaryKey(taskId);
     }
 
-    public boolean updateProgress(Integer taskId, Integer progress) {
+    public boolean updateProgress(Integer taskId, Integer progress,String content) {
         SwTask task = new SwTask();
         task.setId(taskId);
         task.setProgressPercent(progress);
         task.setStatus(TaskStatusEnums.PROCESSING.getCode());
+        if (progress==100){
+            task.setStatus(TaskStatusEnums.ACCEPTING.getCode());
+            task.setRejectStatus(RejectStatusEnum.UN_REJECT.getCode());
+            task.setReflection(content);
+        }
         return taskExtensionMapper.updateByPrimaryKeySelective(task) > 0;
     }
 

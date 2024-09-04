@@ -1,6 +1,7 @@
 package com.foxconn.sw.service.processor.oa;
 
 import com.foxconn.sw.business.oa.SwTaskBusiness;
+import com.foxconn.sw.business.oa.SwTaskEmployeeRelationBusiness;
 import com.foxconn.sw.business.oa.SwTaskLogBusiness;
 import com.foxconn.sw.business.oa.SwTaskProgressBusiness;
 import com.foxconn.sw.business.system.EmployeeBusiness;
@@ -28,6 +29,8 @@ public class AssignTaskProcessor {
     private SwTaskLogBusiness taskLogBusiness;
     @Autowired
     private EmployeeBusiness employeeBusiness;
+    @Autowired
+    private SwTaskEmployeeRelationBusiness employeeRelationBusiness;
 
     /**
      * 分派 工作任务
@@ -51,6 +54,7 @@ public class AssignTaskProcessor {
             String operator = String.format("%s(%s)", user.getEmployeeName(), user.getEmployeeNo());
             addProcessInfo(data, user, content);
             addTaskLog(data, operator, content);
+            employeeRelationBusiness.addTaskEmployee(user, data.getTaskId(), data.getAssignEid());
         }
         return result;
     }

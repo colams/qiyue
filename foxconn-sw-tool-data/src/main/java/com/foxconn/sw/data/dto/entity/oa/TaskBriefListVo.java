@@ -73,17 +73,13 @@ public class TaskBriefListVo {
     /**
      * 任务提出人
      */
-    private String proposerEid;
+    private String proposer;
 
-    /**
-     *
-     */
-    private String managerEid;
 
     /**
      * 任务处理人
      */
-    private String handleEid;
+    private String handler;
 
     /**
      * 任务期限 YYYY-MM-DD
@@ -119,6 +115,52 @@ public class TaskBriefListVo {
      * 跟进状态
      */
     private Integer followStatus;
+
+    private String handler2;
+    private String handlerEID;
+    private String managerEID;
+    private String proposerEID;
+    private Integer nextID;
+
+    public String getHandler2() {
+        return handler2;
+    }
+
+    public void setHandler2(String handler2) {
+        this.handler2 = handler2;
+    }
+
+    public Integer getNextID() {
+        return nextID;
+    }
+
+    public void setNextID(Integer nextID) {
+        this.nextID = nextID;
+    }
+
+    public String getManagerEID() {
+        return managerEID;
+    }
+
+    public void setManagerEID(String managerEID) {
+        this.managerEID = managerEID;
+    }
+
+    public String getHandlerEID() {
+        return handlerEID;
+    }
+
+    public void setHandlerEID(String handlerEID) {
+        this.handlerEID = handlerEID;
+    }
+
+    public String getProposerEID() {
+        return proposerEID;
+    }
+
+    public void setProposerEID(String proposerEID) {
+        this.proposerEID = proposerEID;
+    }
 
     public Integer getId() {
         return id;
@@ -224,28 +266,20 @@ public class TaskBriefListVo {
         this.statusInfoVo = statusInfoVo;
     }
 
-    public String getProposerEid() {
-        return proposerEid;
+    public String getProposer() {
+        return proposer;
     }
 
-    public void setProposerEid(String proposerEid) {
-        this.proposerEid = proposerEid;
+    public void setProposer(String proposer) {
+        this.proposer = proposer;
     }
 
-    public String getManagerEid() {
-        return managerEid;
+    public String getHandler() {
+        return handler;
     }
 
-    public void setManagerEid(String managerEid) {
-        this.managerEid = managerEid;
-    }
-
-    public String getHandleEid() {
-        return handleEid;
-    }
-
-    public void setHandleEid(String handleEid) {
-        this.handleEid = handleEid;
+    public void setHandler(String handler) {
+        this.handler = handler;
     }
 
     public String getDeadLine() {
@@ -303,4 +337,5 @@ public class TaskBriefListVo {
     public void setFollowStatus(Integer followStatus) {
         this.followStatus = followStatus;
     }
+
 }

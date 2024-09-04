@@ -15,7 +15,7 @@ public class UpdateProgressProcessorTest extends BaseTest {
     public void updateProgress() {
         Header head = initHead();
         TaskProgressBriefParams briefParams = initParams();
-        boolean result = updateProgressProcessor.updateProgress(briefParams, head);
+        boolean result = updateProgressProcessor.updateProgress(briefParams);
         System.out.println(result);
     }
 
