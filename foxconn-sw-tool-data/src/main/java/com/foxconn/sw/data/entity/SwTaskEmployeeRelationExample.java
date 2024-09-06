@@ -355,6 +355,66 @@ public class SwTaskEmployeeRelationExample {
             return (Criteria) this;
         }
 
+        public Criteria andRoleFlagIsNull() {
+            addCriterion("role_flag is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andRoleFlagIsNotNull() {
+            addCriterion("role_flag is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andRoleFlagEqualTo(Integer value) {
+            addCriterion("role_flag =", value, "roleFlag");
+            return (Criteria) this;
+        }
+
+        public Criteria andRoleFlagNotEqualTo(Integer value) {
+            addCriterion("role_flag <>", value, "roleFlag");
+            return (Criteria) this;
+        }
+
+        public Criteria andRoleFlagGreaterThan(Integer value) {
+            addCriterion("role_flag >", value, "roleFlag");
+            return (Criteria) this;
+        }
+
+        public Criteria andRoleFlagGreaterThanOrEqualTo(Integer value) {
+            addCriterion("role_flag >=", value, "roleFlag");
+            return (Criteria) this;
+        }
+
+        public Criteria andRoleFlagLessThan(Integer value) {
+            addCriterion("role_flag <", value, "roleFlag");
+            return (Criteria) this;
+        }
+
+        public Criteria andRoleFlagLessThanOrEqualTo(Integer value) {
+            addCriterion("role_flag <=", value, "roleFlag");
+            return (Criteria) this;
+        }
+
+        public Criteria andRoleFlagIn(List<Integer> values) {
+            addCriterion("role_flag in", values, "roleFlag");
+            return (Criteria) this;
+        }
+
+        public Criteria andRoleFlagNotIn(List<Integer> values) {
+            addCriterion("role_flag not in", values, "roleFlag");
+            return (Criteria) this;
+        }
+
+        public Criteria andRoleFlagBetween(Integer value1, Integer value2) {
+            addCriterion("role_flag between", value1, value2, "roleFlag");
+            return (Criteria) this;
+        }
+
+        public Criteria andRoleFlagNotBetween(Integer value1, Integer value2) {
+            addCriterion("role_flag not between", value1, value2, "roleFlag");
+            return (Criteria) this;
+        }
+
         public Criteria andIsDeleteIsNull() {
             addCriterion("is_delete is null");
             return (Criteria) this;

@@ -15,7 +15,7 @@ public interface SwTaskEmployeeRelationExtensionMapper extends SwTaskEmployeeRel
 
     @Select({
             "select ",
-            "id, task_id, employee_no, prev_id, is_delete, create_time, datetime_lastchange",
+            "id, task_id, employee_no, prev_id,role_flag, is_delete, create_time, datetime_lastchange",
             "from sw_task_employee_relation ",
             "where task_id = #{taskId,jdbcType=INTEGER}",
             "and employee_no = #{employeeNo,jdbcType=VARCHAR}",
@@ -26,6 +26,7 @@ public interface SwTaskEmployeeRelationExtensionMapper extends SwTaskEmployeeRel
             @Result(column = "task_id", property = "taskId", jdbcType = JdbcType.INTEGER),
             @Result(column = "employee_no", property = "employeeNo", jdbcType = JdbcType.VARCHAR),
             @Result(column = "prev_id", property = "prevId", jdbcType = JdbcType.INTEGER),
+            @Result(column = "role_flag", property = "roleFlag", jdbcType = JdbcType.INTEGER),
             @Result(column = "is_delete", property = "isDelete", jdbcType = JdbcType.INTEGER),
             @Result(column = "create_time", property = "createTime", jdbcType = JdbcType.TIMESTAMP),
             @Result(column = "datetime_lastchange", property = "datetimeLastchange", jdbcType = JdbcType.TIMESTAMP)
@@ -35,7 +36,7 @@ public interface SwTaskEmployeeRelationExtensionMapper extends SwTaskEmployeeRel
 
     @Select({
             "select ",
-            "id, task_id, employee_no, prev_id, is_delete, create_time, datetime_lastchange",
+            "id, task_id, employee_no, prev_id,role_flag, is_delete, create_time, datetime_lastchange",
             "from sw_task_employee_relation ",
             "where task_id = #{taskId,jdbcType=INTEGER}",
             "and employee_no = #{employeeNo,jdbcType=VARCHAR}",
@@ -46,6 +47,7 @@ public interface SwTaskEmployeeRelationExtensionMapper extends SwTaskEmployeeRel
             @Result(column = "task_id", property = "taskId", jdbcType = JdbcType.INTEGER),
             @Result(column = "employee_no", property = "employeeNo", jdbcType = JdbcType.VARCHAR),
             @Result(column = "prev_id", property = "prevId", jdbcType = JdbcType.INTEGER),
+            @Result(column = "role_flag", property = "roleFlag", jdbcType = JdbcType.INTEGER),
             @Result(column = "is_delete", property = "isDelete", jdbcType = JdbcType.INTEGER),
             @Result(column = "create_time", property = "createTime", jdbcType = JdbcType.TIMESTAMP),
             @Result(column = "datetime_lastchange", property = "datetimeLastchange", jdbcType = JdbcType.TIMESTAMP)

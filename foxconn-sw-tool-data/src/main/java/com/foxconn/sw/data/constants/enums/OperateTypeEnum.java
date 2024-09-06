@@ -11,7 +11,6 @@ public enum OperateTypeEnum {
     ASSIGN("分派", "detail"),
     ACCEPT("接受", "detail"),
     SUBMIT("提交", "detail"),
-    ACHIEVE("完成", "detail"),
     CHECK("驗收", "detail"),
     ;
 

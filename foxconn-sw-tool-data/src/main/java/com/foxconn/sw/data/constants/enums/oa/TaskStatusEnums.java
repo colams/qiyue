@@ -45,4 +45,8 @@ public enum TaskStatusEnums {
         }
         throw new BizException(ENUM_CONVERT_ERROR);
     }
+
+    public boolean isMatch(TaskStatusEnums taskStatusEnums) {
+        return this == taskStatusEnums;
+    }
 }

@@ -121,6 +121,15 @@ public class TaskBriefListVo {
     private String managerEID;
     private String proposerEID;
     private Integer nextID;
+    private Integer roleFlag;
+
+    public Integer getRoleFlag() {
+        return roleFlag;
+    }
+
+    public void setRoleFlag(Integer roleFlag) {
+        this.roleFlag = roleFlag;
+    }
 
     public String getHandler2() {
         return handler2;

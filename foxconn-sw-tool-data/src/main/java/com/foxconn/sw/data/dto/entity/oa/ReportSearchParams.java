@@ -4,17 +4,19 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class ReportSearchParams {
 
-    private Integer nearly;
-    private Integer weekOfYear;
-    @Schema(description = "查詢類型：0/null- 默認查詢自己，1-查詢團隊")
+    @Schema(description = "查詢類型：0/null- 默認查詢自己，1-查詢自己，2-查詢团队")
     private Integer searchType;
 
-    public Integer getNearly() {
-        return nearly;
+    private Integer weekOfYear;
+    private String startDate;
+    private String endDate;
+
+    public Integer getSearchType() {
+        return searchType;
     }
 
-    public void setNearly(Integer nearly) {
-        this.nearly = nearly;
+    public void setSearchType(Integer searchType) {
+        this.searchType = searchType;
     }
 
     public Integer getWeekOfYear() {
@@ -25,11 +27,19 @@ public class ReportSearchParams {
         this.weekOfYear = weekOfYear;
     }
 
-    public Integer getSearchType() {
-        return searchType;
+    public String getStartDate() {
+        return startDate;
     }
 
-    public void setSearchType(Integer searchType) {
-        this.searchType = searchType;
+    public void setStartDate(String startDate) {
+        this.startDate = startDate;
+    }
+
+    public String getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(String endDate) {
+        this.endDate = endDate;
     }
 }

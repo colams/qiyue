@@ -130,6 +130,15 @@ public class DepartmentBusiness {
         return department;
     }
 
+    public List<SwDepartment> getDepartment(String employeeNo) {
+        List<SwDepartment> departments = getDepartment();
+        List<SwDepartment> department = departments.stream()
+                .filter(e -> employeeNo.equalsIgnoreCase(e.getManagerNo()))
+                .collect(Collectors.toList());
+        return Optional.ofNullable(department).orElse(Lists.newArrayList());
+    }
+
+
     public List<SwDepartment> getDepartment() {
         if (!CollectionUtils.isEmpty(departmentList)) {
             return departmentList;

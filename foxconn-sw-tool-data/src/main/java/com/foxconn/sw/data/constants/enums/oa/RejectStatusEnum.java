@@ -9,7 +9,7 @@ public enum RejectStatusEnum {
     UN_REJECT(0, "草稿"), // 無駁回
     RELEASE_REJECT(1, "發佈駁回"),// 發佈駁回
     ACCEPTING_REJECT(2, "驗收駁回"),// 驗收駁回
-            ;
+    ;
 
     RejectStatusEnum(Integer code, String msg) {
         this.code = code;
@@ -34,6 +34,10 @@ public enum RejectStatusEnum {
             }
         }
         throw new BizException(ENUM_CONVERT_ERROR);
+    }
+
+    public boolean test(Integer code) {
+        return getCode() == code;
     }
 
 }

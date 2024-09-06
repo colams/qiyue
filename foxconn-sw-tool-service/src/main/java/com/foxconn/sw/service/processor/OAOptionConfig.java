@@ -16,7 +16,7 @@ public class OAOptionConfig {
         return optionsVos;
     }
 
-    public static List<OptionsVo> initTaskType() {
+    public static List<OptionsVo> initProject() {
         List<OptionsVo> optionsVos = new ArrayList<>();
         List<OptionsVo> optionsVos1 = new ArrayList<>();
         OptionsVo optionsVo1 = new OptionsVo("1", "FF", optionsVos1);
@@ -96,7 +96,7 @@ public class OAOptionConfig {
         return optionsVos;
     }
 
-    public static List<OptionsVo> initProject() {
+    public static List<OptionsVo> initTaskType() {
         List<OptionsVo> optionsVos = new ArrayList<>();
         List<OptionsVo> optionsVos1 = new ArrayList<>();
         OptionsVo optionsVo1 = new OptionsVo("1", "MIL", optionsVos1);

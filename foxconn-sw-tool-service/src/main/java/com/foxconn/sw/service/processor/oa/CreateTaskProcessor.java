@@ -1,20 +1,22 @@
 package com.foxconn.sw.service.processor.oa;
 
 import com.foxconn.sw.business.TaskNoSeedSingleton;
+import com.foxconn.sw.business.context.RequestContext;
 import com.foxconn.sw.business.mapper.TaskMapper;
 import com.foxconn.sw.business.oa.SwTaskBusiness;
 import com.foxconn.sw.business.oa.SwTaskEmployeeRelationBusiness;
 import com.foxconn.sw.business.oa.SwTaskLogBusiness;
 import com.foxconn.sw.business.oa.SwTaskProgressBusiness;
 import com.foxconn.sw.business.system.EmployeeBusiness;
+import com.foxconn.sw.data.constants.enums.TaskRoleFlagEnums;
 import com.foxconn.sw.data.constants.enums.oa.RejectStatusEnum;
 import com.foxconn.sw.data.dto.Header;
-import com.foxconn.sw.data.dto.entity.acount.UserInfo;
 import com.foxconn.sw.data.dto.entity.oa.TaskBriefDetailVo;
 import com.foxconn.sw.data.entity.SwEmployee;
 import com.foxconn.sw.data.entity.SwTask;
 import com.foxconn.sw.data.entity.SwTaskProgress;
 import com.foxconn.sw.service.processor.user.CommonUserUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -44,9 +46,7 @@ public class CreateTaskProcessor {
     public Integer createTask(TaskBriefDetailVo data, Header head) {
 
         SwTask task = TaskMapper.INSTANCE.brief2SwTask(data);
-        UserInfo user = userUtils.queryUserInfo(head.getToken());
-        task.setProposerEid(user.getEmployeeNo());
-
+        task.setProposerEid(RequestContext.getEmployeeNo());
 
         boolean result;
         int taskID = 0;
@@ -63,19 +63,27 @@ public class CreateTaskProcessor {
         }
 
         if (result) {
-            addTaskLog(user, task, isUpdate);
-            addProcessInfo(user, task, isUpdate);
-            addTaskEmployee(user, taskID, task.getManagerEid());
+            addTaskLog(task, isUpdate);
+            addProcessInfo(task, isUpdate);
+            addTaskEmployee(taskID, task.getManagerEid());
         }
         return taskID;
     }
 
-    private void addTaskEmployee(UserInfo user, int taskID, String managerEid) {
-        taskEmployeeRelation.addTaskEmployee(user, taskID, managerEid);
+    private void addTaskEmployee(int taskID, String managerEid) {
+        String userEmployeeNo = RequestContext.getEmployeeNo();
+        if (StringUtils.isNotEmpty(managerEid) && userEmployeeNo.equalsIgnoreCase(managerEid)) {
+            taskEmployeeRelation.addTaskEmployee(userEmployeeNo, taskID, TaskRoleFlagEnums.Proposer_Flag, TaskRoleFlagEnums.Manager_Flag);
+        } else {
+            Integer relationID = taskEmployeeRelation.addTaskEmployee(userEmployeeNo, taskID, TaskRoleFlagEnums.Proposer_Flag);
+            if (StringUtils.isNotEmpty(managerEid)) {
+                taskEmployeeRelation.addTaskEmployee(managerEid, taskID, relationID, TaskRoleFlagEnums.Manager_Flag);
+            }
+        }
     }
 
-    private void addTaskLog(UserInfo user, SwTask task, boolean isUpdate) {
-        String operator = String.format("%s(%s)", user.getEmployeeName(), user.getEmployeeNo());
+    private void addTaskLog(SwTask task, boolean isUpdate) {
+        String operator = RequestContext.getNameEmployeeNo();
         String content = String.format("由 %s 创建了任务", operator);
 
         if (task.getStatus() == DRAFT.getCode()) {
@@ -89,7 +97,7 @@ public class CreateTaskProcessor {
         taskLogBusiness.addTaskLog(task.getId(), operator, content);
     }
 
-    private void addProcessInfo(UserInfo user, SwTask task, boolean isUpdate) {
+    private void addProcessInfo(SwTask task, boolean isUpdate) {
         String content = "";
         if (task.getStatus() == PENDING.getCode()) {
             SwEmployee ee = employeeBusiness.selectEmployeeByENo(task.getManagerEid());
@@ -104,7 +112,7 @@ public class CreateTaskProcessor {
 
         SwTaskProgress progress = new SwTaskProgress();
         progress.setTaskId(task.getId());
-        progress.setOperateEid(user.getEmployeeNo());
+        progress.setOperateEid(RequestContext.getEmployeeNo());
         progress.setResourceIds(task.getResourceIds());
         progress.setProgress(0);
         progress.setContent(content);

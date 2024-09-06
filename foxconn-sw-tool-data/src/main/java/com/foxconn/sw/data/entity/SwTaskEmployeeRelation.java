@@ -11,6 +11,8 @@ public class SwTaskEmployeeRelation {
 
     private Integer prevId;
 
+    private Integer roleFlag;
+
     private Integer isDelete;
 
     private LocalDateTime createTime;
@@ -67,6 +69,19 @@ public class SwTaskEmployeeRelation {
 
     public void setPrevId(Integer prevId) {
         this.prevId = prevId;
+    }
+
+    public Integer getRoleFlag() {
+        return roleFlag;
+    }
+
+    public SwTaskEmployeeRelation withRoleFlag(Integer roleFlag) {
+        this.setRoleFlag(roleFlag);
+        return this;
+    }
+
+    public void setRoleFlag(Integer roleFlag) {
+        this.roleFlag = roleFlag;
     }
 
     public Integer getIsDelete() {

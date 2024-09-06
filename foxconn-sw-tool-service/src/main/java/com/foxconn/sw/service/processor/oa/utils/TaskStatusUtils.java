@@ -8,13 +8,12 @@ import org.apache.commons.lang3.StringUtils;
 public class TaskStatusUtils {
 
 
-    public static InfoColorVo processStatus(Integer status, Integer rejectStatus, String handleEid) {
+    public static InfoColorVo processStatus(Integer status, Integer rejectStatus) {
         TaskStatusEnums taskStatusEnums = TaskStatusEnums.getStatusByCode(status);
         String desc = taskStatusEnums.getMsg();
         if (taskStatusEnums.getCode() == TaskStatusEnums.PENDING.getCode()
-                && rejectStatus == RejectStatusEnum.RELEASE_REJECT.getCode()
-                && StringUtils.isEmpty(handleEid)) {
-            desc = "发布驳回";
+                && rejectStatus == RejectStatusEnum.RELEASE_REJECT.getCode()) {
+            desc = "发布回退";
         } else if (taskStatusEnums.getCode() == TaskStatusEnums.PROCESSING.getCode()
                 && rejectStatus == RejectStatusEnum.ACCEPTING_REJECT.getCode()) {
             desc = "验收驳回";

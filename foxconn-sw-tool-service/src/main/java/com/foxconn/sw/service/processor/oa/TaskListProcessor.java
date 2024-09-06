@@ -48,7 +48,7 @@ public class TaskListProcessor {
         Map<Integer, List<SwTaskFollow>> map = follows.stream().collect(Collectors.groupingBy(SwTaskFollow::getTaskId));
 
         briefVos.forEach(e -> {
-            InfoColorVo statusInfoVo = TaskStatusUtils.processStatus(e.getStatus(), e.getRejectStatus(), e.getHandler());
+            InfoColorVo statusInfoVo = TaskStatusUtils.processStatus(e.getStatus(), e.getRejectStatus());
             e.setStatusInfoVo(statusInfoVo);
             e.setOperateList(processOperate(e, userInfo.getEmployeeNo()));
             e.setLevelInfo(TaskLevelUtils.processLevel(e.getLevel()));

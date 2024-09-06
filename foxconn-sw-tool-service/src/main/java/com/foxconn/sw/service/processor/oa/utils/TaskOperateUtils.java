@@ -6,8 +6,12 @@ import com.foxconn.sw.data.constants.enums.oa.TaskStatusEnums;
 import com.foxconn.sw.data.dto.entity.oa.TaskBriefListVo;
 import com.foxconn.sw.data.dto.entity.oa.TaskDetailVo;
 import com.foxconn.sw.data.dto.entity.universal.OperateEntity;
+import com.foxconn.sw.data.entity.SwTaskEmployeeRelation;
 import org.apache.commons.lang3.StringUtils;
 
+import java.util.List;
+
+import static com.foxconn.sw.data.constants.enums.TaskRoleFlagEnums.*;
 import static com.foxconn.sw.data.constants.enums.oa.TaskStatusEnums.*;
 
 public class TaskOperateUtils {
@@ -68,51 +72,39 @@ public class TaskOperateUtils {
         return operate;
     }
 
-    public static OperateEntity processDetailOperate(String userNo, TaskDetailVo taskDetailVo, OperateTypeEnum op) {
+    public static OperateEntity processDetailOperate(String employeeNo, TaskDetailVo taskDetailVo,
+                                                     OperateTypeEnum op, List<SwTaskEmployeeRelation> relations) {
+        SwTaskEmployeeRelation relation = relations.stream()
+                .filter(e -> e.getEmployeeNo().equalsIgnoreCase(employeeNo))
+                .findFirst()
+                .orElse(null);
+
+        boolean hasHandler = relations.stream().anyMatch(e -> Handler_Flag.test(e.getRoleFlag()));
+
+        boolean isProposer = Proposer_Flag.test(relation.getRoleFlag());
+        boolean isManger = Manager_Flag.test(relation.getRoleFlag());
+        boolean isHandler = Handler_Flag.test(relation.getRoleFlag());
+
+
         TaskStatusEnums taskStatusEnums = TaskStatusEnums.getStatusByCode(taskDetailVo.getStatus());
         boolean enable = false;
         switch (op) {
             case REJECT:
-                if ((taskStatusEnums == PENDING
-                        && userNo.equalsIgnoreCase(taskDetailVo.getManagerEid())
-                        && StringUtils.isEmpty(taskDetailVo.getHandleEid())
-                        && RejectStatusEnum.UN_REJECT.getCode() == taskDetailVo.getRejectStatus())
-                        || (taskStatusEnums == ACCEPTING
-                        && userNo.equalsIgnoreCase(taskDetailVo.getProposerEid()))) {
-                    enable = true;
-                }
+                boolean pendingAndUnReject = PENDING.equals(taskStatusEnums)
+                        && RejectStatusEnum.UN_REJECT.test(taskDetailVo.getRejectStatus());
+                enable = (pendingAndUnReject && (isManger || isHandler)) || (ACCEPTING.equals(taskStatusEnums) && isProposer);
                 break;
             case ASSIGN:
-                if (taskStatusEnums == PENDING
-                        && (userNo.equalsIgnoreCase(taskDetailVo.getManagerEid())
-                        || userNo.equalsIgnoreCase(taskDetailVo.getHandleEid()))) {
-                    enable = true;
-                }
+                enable = PENDING.equals(taskStatusEnums) && (isManger || isHandler);
                 break;
             case ACCEPT:
-                if (taskStatusEnums == PENDING
-                        && userNo.equalsIgnoreCase(taskDetailVo.getHandleEid())) {
-                    enable = true;
-                }
+                enable = PENDING.equals(taskStatusEnums) && isManger;
                 break;
             case SUBMIT:
-                if (taskStatusEnums == PROCESSING
-                        && userNo.equalsIgnoreCase(taskDetailVo.getHandleEid())) {
-                    enable = true;
-                }
+                enable = PROCESSING.equals(taskStatusEnums) && isHandler;
                 break;
-//            case ACHIEVE:
-//                if (taskStatusEnums == PROCESSING
-//                        && userNo.equalsIgnoreCase(taskDetailVo.getHandleEid())
-//                        && taskDetailVo.getProgressPercent() == 100) {
-//                    enable = true;
-//                }
-//                break;
             case CHECK:
-                if (taskStatusEnums == ACCEPTING
-                        && userNo.equalsIgnoreCase(taskDetailVo.getProposerEid())) {
-                    enable = true;
-                }
+                enable = ACCEPTING.equals(taskStatusEnums) && isProposer;
                 break;
         }
         return enable ? initVo(op.getMsg(), op.name(), true) : null;

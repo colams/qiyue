@@ -40,6 +40,10 @@ public class SwTaskEmployeeRelationSqlProvider {
             sql.VALUES("prev_id", "#{prevId,jdbcType=INTEGER}");
         }
         
+        if (record.getRoleFlag() != null) {
+            sql.VALUES("role_flag", "#{roleFlag,jdbcType=INTEGER}");
+        }
+        
         if (record.getIsDelete() != null) {
             sql.VALUES("is_delete", "#{isDelete,jdbcType=INTEGER}");
         }
@@ -65,6 +69,7 @@ public class SwTaskEmployeeRelationSqlProvider {
         sql.SELECT("task_id");
         sql.SELECT("employee_no");
         sql.SELECT("prev_id");
+        sql.SELECT("role_flag");
         sql.SELECT("is_delete");
         sql.SELECT("create_time");
         sql.SELECT("datetime_lastchange");
@@ -101,6 +106,10 @@ public class SwTaskEmployeeRelationSqlProvider {
             sql.SET("prev_id = #{record.prevId,jdbcType=INTEGER}");
         }
         
+        if (record.getRoleFlag() != null) {
+            sql.SET("role_flag = #{record.roleFlag,jdbcType=INTEGER}");
+        }
+        
         if (record.getIsDelete() != null) {
             sql.SET("is_delete = #{record.isDelete,jdbcType=INTEGER}");
         }
@@ -125,6 +134,7 @@ public class SwTaskEmployeeRelationSqlProvider {
         sql.SET("task_id = #{record.taskId,jdbcType=INTEGER}");
         sql.SET("employee_no = #{record.employeeNo,jdbcType=VARCHAR}");
         sql.SET("prev_id = #{record.prevId,jdbcType=INTEGER}");
+        sql.SET("role_flag = #{record.roleFlag,jdbcType=INTEGER}");
         sql.SET("is_delete = #{record.isDelete,jdbcType=INTEGER}");
         sql.SET("create_time = #{record.createTime,jdbcType=TIMESTAMP}");
         sql.SET("datetime_lastchange = #{record.datetimeLastchange,jdbcType=TIMESTAMP}");
@@ -148,6 +158,10 @@ public class SwTaskEmployeeRelationSqlProvider {
         
         if (record.getPrevId() != null) {
             sql.SET("prev_id = #{prevId,jdbcType=INTEGER}");
+        }
+        
+        if (record.getRoleFlag() != null) {
+            sql.SET("role_flag = #{roleFlag,jdbcType=INTEGER}");
         }
         
         if (record.getIsDelete() != null) {

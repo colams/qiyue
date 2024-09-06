@@ -15,7 +15,7 @@ public interface DepartmentExtensionMapper extends SwDepartmentMapper {
 
     @Select({
             "select",
-            "id, name, parent_id",
+            "id, name, parent_id,manager_no",
             "from sw_department",
             "where status=1"
     })
@@ -23,6 +23,7 @@ public interface DepartmentExtensionMapper extends SwDepartmentMapper {
             @Result(column="id", property="id", jdbcType= JdbcType.INTEGER),
             @Result(column="name", property="name", jdbcType=JdbcType.VARCHAR),
             @Result(column="parent_id", property="parentId", jdbcType=JdbcType.INTEGER),
+            @Result(column="manager_no", property="managerNo", jdbcType=JdbcType.VARCHAR),
     })
     List<DepartmentVo> getDepartList();
 }

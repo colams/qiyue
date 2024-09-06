@@ -1,6 +1,5 @@
 package com.foxconn.sw.business.oa;
 
-import com.foxconn.sw.business.context.RequestContext;
 import com.foxconn.sw.data.dto.entity.oa.ReportSearchParams;
 import com.foxconn.sw.data.entity.SwWorkReport;
 import com.foxconn.sw.data.entity.SwWorkReportExample;
@@ -28,6 +27,16 @@ public class SwWorkReportBusiness {
         return Optional.ofNullable(reports).orElse(Lists.newArrayList());
     }
 
+    public List<SwWorkReport> queryReport(Integer weekOfYear, String employeeNo) {
+        SwWorkReportExample example = new SwWorkReportExample();
+        SwWorkReportExample.Criteria criteria = example.createCriteria();
+        criteria.andWeekEqualTo(weekOfYear);
+        criteria.andEmployeeNoEqualTo(employeeNo);
+        criteria.andStatusEqualTo(1);
+        List<SwWorkReport> reports = reportExtensionMapper.selectByExample(example);
+        return Optional.ofNullable(reports).orElse(Lists.newArrayList());
+    }
+
     public int invalidReport(ArrayList<Integer> weekOfYears) {
         SwWorkReportExample example = new SwWorkReportExample();
         SwWorkReportExample.Criteria criteria = example.createCriteria();
@@ -39,6 +48,13 @@ public class SwWorkReportBusiness {
         return reportExtensionMapper.updateByExampleSelective(report, example);
     }
 
+    public boolean updateBatchReports(List<SwWorkReport> reports) {
+        reports.forEach(e -> {
+            reportExtensionMapper.updateByPrimaryKeySelective(e);
+        });
+        return true;
+    }
+
     public boolean inertBatchReports(List<SwWorkReport> reports) {
         reports.forEach(e -> {
             reportExtensionMapper.insertSelective(e);
@@ -46,11 +62,20 @@ public class SwWorkReportBusiness {
         return true;
     }
 
-    public List<SwWorkReport> queryReport(ReportSearchParams searchParams) {
+    public boolean deleteBatchReports(List<SwWorkReport> reports) {
+        reports.forEach(e -> {
+            e.setStatus(0);
+            reportExtensionMapper.updateByPrimaryKeySelective(e);
+        });
+        return true;
+    }
+
+    public List<SwWorkReport> queryReport(ReportSearchParams searchParams, List<String> employees) {
         SwWorkReportExample example = new SwWorkReportExample();
         SwWorkReportExample.Criteria criteria = example.createCriteria();
-        criteria.andEmployeeNoEqualTo(RequestContext.getEmployeeNo());
-        if (Objects.nonNull(searchParams.getWeekOfYear())) {
+        criteria.andStatusEqualTo(1);
+        criteria.andEmployeeNoIn(employees);
+        if (Objects.nonNull(searchParams.getWeekOfYear()) && searchParams.getWeekOfYear() > 0) {
             criteria.andWeekEqualTo(searchParams.getWeekOfYear());
         }
         List<SwWorkReport> reports = reportExtensionMapper.selectByExample(example);
