@@ -2,19 +2,16 @@ package com.foxconn.sw.service;
 
 
 import com.foxconn.sw.data.dto.Header;
+import org.apache.commons.lang3.tuple.Pair;
 import org.junit.runner.RunWith;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.junit4.SpringRunner;
 
-import java.io.UnsupportedEncodingException;
-import java.nio.ByteBuffer;
-import java.nio.CharBuffer;
-import java.nio.charset.Charset;
-import java.nio.charset.CharsetEncoder;
-import java.nio.charset.StandardCharsets;
-import java.nio.charset.UnsupportedCharsetException;
+import java.time.LocalDate;
+import java.time.temporal.WeekFields;
+import java.util.Calendar;
+import java.util.Locale;
 
 
 @SpringBootApplication(scanBasePackages = {
@@ -35,19 +32,17 @@ public class BaseTest {
     }
 
     public static void main(String[] args) {
-        String originalText = "Big5字符串";
-
-        try {
-            // 将UTF-8编码的字节转换回字符串
-            String convertedText = new String(originalText.getBytes(StandardCharsets.UTF_8), "MS950");
-
-            System.out.println("Original Text: " + originalText);
-            System.out.println("Converted Text: " + convertedText);
-        } catch (UnsupportedCharsetException | UnsupportedEncodingException e) {
-            System.out.println("Charset not supported.");
-        }
+        System.out.println(getWeekOfYear());
     }
 
+
+    private static Pair getWeekOfYear() {
+        LocalDate date = LocalDate.of(2024, 12, 29);
+        WeekFields weekFields = WeekFields.of(Locale.getDefault());
+        int week = date.get(weekFields.weekOfWeekBasedYear());
+        int year = date.get(weekFields.weekBasedYear());
+        return Pair.of(week, year);
+    }
 
 
 }

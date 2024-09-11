@@ -7,7 +7,12 @@ public class ReportSearchParams {
     @Schema(description = "查詢類型：0/null- 默認查詢自己，1-查詢自己，2-查詢团队")
     private Integer searchType;
 
-    private Integer weekOfYear;
+    /**
+     * 每个周 的 周一
+     */
+    private String weekOfStart;
+
+    private String employeeName;
     private String startDate;
     private String endDate;
 
@@ -19,12 +24,20 @@ public class ReportSearchParams {
         this.searchType = searchType;
     }
 
-    public Integer getWeekOfYear() {
-        return weekOfYear;
+    public String getEmployeeName() {
+        return employeeName;
     }
 
-    public void setWeekOfYear(Integer weekOfYear) {
-        this.weekOfYear = weekOfYear;
+    public void setEmployeeName(String employeeName) {
+        this.employeeName = employeeName;
+    }
+
+    public String getWeekOfStart() {
+        return weekOfStart;
+    }
+
+    public void setWeekOfStart(String weekOfStart) {
+        this.weekOfStart = weekOfStart;
     }
 
     public String getStartDate() {

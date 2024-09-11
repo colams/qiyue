@@ -7,6 +7,8 @@ import java.util.List;
 public class WorkReportVo {
 
     private Integer week;
+    private String yearWeek;
+    private String employeeNo;
     private EmployeeVo employee;
     private List<WorkReportDetail> reportDetailList;
     private String message;
@@ -17,6 +19,22 @@ public class WorkReportVo {
 
     public void setWeek(Integer week) {
         this.week = week;
+    }
+
+    public String getYearWeek() {
+        return yearWeek;
+    }
+
+    public void setYearWeek(String yearWeek) {
+        this.yearWeek = yearWeek;
+    }
+
+    public String getEmployeeNo() {
+        return employeeNo;
+    }
+
+    public void setEmployeeNo(String employeeNo) {
+        this.employeeNo = employeeNo;
     }
 
     public EmployeeVo getEmployee() {

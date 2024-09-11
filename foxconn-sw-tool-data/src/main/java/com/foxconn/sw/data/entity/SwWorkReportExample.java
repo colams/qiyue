@@ -235,6 +235,76 @@ public class SwWorkReportExample {
             return (Criteria) this;
         }
 
+        public Criteria andYearWeekIsNull() {
+            addCriterion("year_week is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andYearWeekIsNotNull() {
+            addCriterion("year_week is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andYearWeekEqualTo(String value) {
+            addCriterion("year_week =", value, "yearWeek");
+            return (Criteria) this;
+        }
+
+        public Criteria andYearWeekNotEqualTo(String value) {
+            addCriterion("year_week <>", value, "yearWeek");
+            return (Criteria) this;
+        }
+
+        public Criteria andYearWeekGreaterThan(String value) {
+            addCriterion("year_week >", value, "yearWeek");
+            return (Criteria) this;
+        }
+
+        public Criteria andYearWeekGreaterThanOrEqualTo(String value) {
+            addCriterion("year_week >=", value, "yearWeek");
+            return (Criteria) this;
+        }
+
+        public Criteria andYearWeekLessThan(String value) {
+            addCriterion("year_week <", value, "yearWeek");
+            return (Criteria) this;
+        }
+
+        public Criteria andYearWeekLessThanOrEqualTo(String value) {
+            addCriterion("year_week <=", value, "yearWeek");
+            return (Criteria) this;
+        }
+
+        public Criteria andYearWeekLike(String value) {
+            addCriterion("year_week like", value, "yearWeek");
+            return (Criteria) this;
+        }
+
+        public Criteria andYearWeekNotLike(String value) {
+            addCriterion("year_week not like", value, "yearWeek");
+            return (Criteria) this;
+        }
+
+        public Criteria andYearWeekIn(List<String> values) {
+            addCriterion("year_week in", values, "yearWeek");
+            return (Criteria) this;
+        }
+
+        public Criteria andYearWeekNotIn(List<String> values) {
+            addCriterion("year_week not in", values, "yearWeek");
+            return (Criteria) this;
+        }
+
+        public Criteria andYearWeekBetween(String value1, String value2) {
+            addCriterion("year_week between", value1, value2, "yearWeek");
+            return (Criteria) this;
+        }
+
+        public Criteria andYearWeekNotBetween(String value1, String value2) {
+            addCriterion("year_week not between", value1, value2, "yearWeek");
+            return (Criteria) this;
+        }
+
         public Criteria andWeekIsNull() {
             addCriterion("week is null");
             return (Criteria) this;
@@ -422,76 +492,6 @@ public class SwWorkReportExample {
 
         public Criteria andProjectNotBetween(String value1, String value2) {
             addCriterion("project not between", value1, value2, "project");
-            return (Criteria) this;
-        }
-
-        public Criteria andProjectItemIsNull() {
-            addCriterion("project_item is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andProjectItemIsNotNull() {
-            addCriterion("project_item is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andProjectItemEqualTo(String value) {
-            addCriterion("project_item =", value, "projectItem");
-            return (Criteria) this;
-        }
-
-        public Criteria andProjectItemNotEqualTo(String value) {
-            addCriterion("project_item <>", value, "projectItem");
-            return (Criteria) this;
-        }
-
-        public Criteria andProjectItemGreaterThan(String value) {
-            addCriterion("project_item >", value, "projectItem");
-            return (Criteria) this;
-        }
-
-        public Criteria andProjectItemGreaterThanOrEqualTo(String value) {
-            addCriterion("project_item >=", value, "projectItem");
-            return (Criteria) this;
-        }
-
-        public Criteria andProjectItemLessThan(String value) {
-            addCriterion("project_item <", value, "projectItem");
-            return (Criteria) this;
-        }
-
-        public Criteria andProjectItemLessThanOrEqualTo(String value) {
-            addCriterion("project_item <=", value, "projectItem");
-            return (Criteria) this;
-        }
-
-        public Criteria andProjectItemLike(String value) {
-            addCriterion("project_item like", value, "projectItem");
-            return (Criteria) this;
-        }
-
-        public Criteria andProjectItemNotLike(String value) {
-            addCriterion("project_item not like", value, "projectItem");
-            return (Criteria) this;
-        }
-
-        public Criteria andProjectItemIn(List<String> values) {
-            addCriterion("project_item in", values, "projectItem");
-            return (Criteria) this;
-        }
-
-        public Criteria andProjectItemNotIn(List<String> values) {
-            addCriterion("project_item not in", values, "projectItem");
-            return (Criteria) this;
-        }
-
-        public Criteria andProjectItemBetween(String value1, String value2) {
-            addCriterion("project_item between", value1, value2, "projectItem");
-            return (Criteria) this;
-        }
-
-        public Criteria andProjectItemNotBetween(String value1, String value2) {
-            addCriterion("project_item not between", value1, value2, "projectItem");
             return (Criteria) this;
         }
 
@@ -1000,13 +1000,13 @@ public class SwWorkReportExample {
             return (Criteria) this;
         }
 
-        public Criteria andProjectLikeInsensitive(String value) {
-            addCriterion("upper(project) like", value.toUpperCase(), "project");
+        public Criteria andYearWeekLikeInsensitive(String value) {
+            addCriterion("upper(year_week) like", value.toUpperCase(), "yearWeek");
             return (Criteria) this;
         }
 
-        public Criteria andProjectItemLikeInsensitive(String value) {
-            addCriterion("upper(project_item) like", value.toUpperCase(), "projectItem");
+        public Criteria andProjectLikeInsensitive(String value) {
+            addCriterion("upper(project) like", value.toUpperCase(), "project");
             return (Criteria) this;
         }
 

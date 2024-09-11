@@ -7,13 +7,13 @@ public class SwWorkReport {
 
     private String employeeNo;
 
+    private String yearWeek;
+
     private Integer week;
 
     private Integer num;
 
     private String project;
-
-    private String projectItem;
 
     private Integer days;
 
@@ -57,6 +57,19 @@ public class SwWorkReport {
         this.employeeNo = employeeNo == null ? null : employeeNo.trim();
     }
 
+    public String getYearWeek() {
+        return yearWeek;
+    }
+
+    public void setYearWeek(String yearWeek) {
+        this.yearWeek = yearWeek == null ? null : yearWeek.trim();
+    }
+
+    public SwWorkReport withYearWeek(String yearWeek) {
+        this.setYearWeek(yearWeek);
+        return this;
+    }
+
     public Integer getWeek() {
         return week;
     }
@@ -94,19 +107,6 @@ public class SwWorkReport {
 
     public void setProject(String project) {
         this.project = project == null ? null : project.trim();
-    }
-
-    public String getProjectItem() {
-        return projectItem;
-    }
-
-    public SwWorkReport withProjectItem(String projectItem) {
-        this.setProjectItem(projectItem);
-        return this;
-    }
-
-    public void setProjectItem(String projectItem) {
-        this.projectItem = projectItem == null ? null : projectItem.trim();
     }
 
     public Integer getDays() {

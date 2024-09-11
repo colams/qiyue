@@ -21,21 +21,29 @@ public class OAOptionConfig {
         List<OptionsVo> optionsVos1 = new ArrayList<>();
         OptionsVo optionsVo1 = new OptionsVo("1", "FF", optionsVos1);
         optionsVos1.add(new OptionsVo("1-1", "GA"));
+        optionsVos1.add(new OptionsVo("1-2", "NW"));
+        optionsVos1.add(new OptionsVo("1-3", "GB"));
+        optionsVos1.add(new OptionsVo("1-4", "Magen"));
+        optionsVos1.add(new OptionsVo("1-5", "Reno"));
+        optionsVos1.add(new OptionsVo("1-6", "JU-M"));
 
         List<OptionsVo> optionsVos2 = new ArrayList<>();
         OptionsVo optionsVo2 = new OptionsVo("2", "AF", optionsVos2);
         optionsVos2.add(new OptionsVo("2-1", "CHS"));
+        optionsVos2.add(new OptionsVo("2-2", "CHS25"));
+        optionsVos2.add(new OptionsVo("2-3", "CHS26"));
 
         List<OptionsVo> optionsVos3 = new ArrayList<>();
         OptionsVo optionsVo3 = new OptionsVo("3", "SS", optionsVos3);
         addOptionVo("3-1", "MW23", optionsVos3);
         addOptionVo("3-2", "MW24", optionsVos3);
         addOptionVo("3-3", "MW25", optionsVos3);
+        addOptionVo("3-4", "ATW", optionsVos3);
 
-        addOptionVo("3-4", "AKC", optionsVos3);
-        addOptionVo("3-5", "BWI24", optionsVos3);
-        addOptionVo("3-6", "BWI25", optionsVos3);
-        addOptionVo("3-7", "BOI", optionsVos3);
+        addOptionVo("3-5", "AKC", optionsVos3);
+        addOptionVo("3-6", "BWI24", optionsVos3);
+        addOptionVo("3-7", "BWI25", optionsVos3);
+        addOptionVo("3-8", "BOI", optionsVos3);
 
         List<OptionsVo> optionsVos4 = new ArrayList<>();
         OptionsVo optionsVo4 = new OptionsVo("4", "3D", optionsVos4);

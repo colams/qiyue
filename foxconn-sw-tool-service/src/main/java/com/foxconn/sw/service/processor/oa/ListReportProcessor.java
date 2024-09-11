@@ -8,18 +8,18 @@ import com.foxconn.sw.data.dto.entity.acount.EmployeeVo;
 import com.foxconn.sw.data.dto.entity.oa.ReportSearchParams;
 import com.foxconn.sw.data.dto.entity.oa.WorkReportDetail;
 import com.foxconn.sw.data.dto.entity.oa.WorkReportVo;
-import com.foxconn.sw.data.entity.SwDepartment;
 import com.foxconn.sw.data.entity.SwEmployee;
 import com.foxconn.sw.data.entity.SwWorkReport;
 import com.foxconn.sw.data.exception.BizException;
+import com.foxconn.sw.service.processor.oa.utils.ReportSearchParamsUtils;
 import com.google.common.collect.Lists;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.math.NumberUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import static com.foxconn.sw.data.constants.enums.retcode.RetCode.VALIDATE_FAILED;
@@ -35,24 +35,36 @@ public class ListReportProcessor {
     EmployeeBusiness employeeBusiness;
 
     public List<WorkReportVo> listReport(ReportSearchParams searchParams) {
-        List<String> employees = getEmployeeNos(searchParams.getSearchType());
+        return listReport(searchParams, false);
+    }
+
+    public List<WorkReportVo> listReport(ReportSearchParams searchParams, boolean isExport) {
+        List<String> employees = getEmployeeNos(searchParams.getSearchType(), searchParams.getEmployeeName());
 
         if (CollectionUtils.isEmpty(employees)) {
             throw new BizException(VALIDATE_FAILED);
         }
 
-        List<SwWorkReport> reports = reportBusiness.queryReport(searchParams, employees);
+        List<String> searchWeeks = ReportSearchParamsUtils.getYearWeekPair(searchParams, isExport);
+        List<SwWorkReport> reports = reportBusiness.queryReport(searchWeeks, employees);
+
         List<WorkReportVo> vos = new ArrayList<>();
-        reports.forEach(e -> {
-            WorkReportVo vo = vos.stream().filter(v -> e.getWeek() == v.getWeek() && v.getEmployee().getEmployeeNo().equalsIgnoreCase(e.getEmployeeNo())).findFirst().orElse(null);
+        reports.stream().forEach(e -> {
+            WorkReportVo vo = vos.stream()
+                    .filter(v -> e.getYearWeek().equalsIgnoreCase(v.getYearWeek())
+                            && v.getEmployee().getEmployeeNo().equalsIgnoreCase(e.getEmployeeNo()))
+                    .findFirst()
+                    .orElse(null);
             WorkReportDetail detail = initDetail(e);
             if (Objects.isNull(vo)) {
                 vo = new WorkReportVo();
                 vo.setWeek(e.getWeek());
+                vo.setYearWeek(e.getYearWeek());
                 EmployeeVo employeeVo = new EmployeeVo();
                 employeeVo.setEmployeeNo(e.getEmployeeNo());
                 employeeVo.setName(getEmployeeName(e.getEmployeeNo()));
                 vo.setEmployee(employeeVo);
+                vo.setEmployeeNo(e.getEmployeeNo());
                 vo.setReportDetailList(Lists.newArrayList(detail));
                 vos.add(vo);
             } else {
@@ -61,20 +73,24 @@ public class ListReportProcessor {
         });
 
         employees.forEach(e -> {
-            List<Integer> listWeeks = vos.stream().map(WorkReportVo::getWeek).collect(Collectors.toList());
-            for (Integer week : listWeeks) {
-                vos.stream()
-                        .filter(o -> o.getWeek() == week && e.equalsIgnoreCase(o.getEmployee().getEmployeeNo()))
-                        .findFirst()
-                        .orElseGet(() -> {
-                            WorkReportVo defaultVo = getDefaultVo(week, e);
-                            vos.add(defaultVo);
-                            return defaultVo;
-                        });
+            for (String yearWeek : searchWeeks) {
+                Optional<WorkReportVo> vo = vos.stream().filter(r -> r.getYearWeek().equalsIgnoreCase(yearWeek)
+                                && r.getEmployeeNo().equalsIgnoreCase(e))
+                        .findFirst();
+                if (!vo.isPresent()) {
+                    vos.add(getDefaultVo(yearWeek, e));
+                }
             }
         });
-
-        return vos;
+        List<WorkReportVo> result = vos.stream().map(e -> {
+            if (!CollectionUtils.isEmpty(e.getReportDetailList())) {
+                e.getReportDetailList().stream().sorted(Comparator.comparing(WorkReportDetail::getNum));
+            }
+            return e;
+        }).collect(Collectors.toList());
+        return result.stream()
+                .sorted(Comparator.comparing(WorkReportVo::getEmployeeNo).thenComparing(WorkReportVo::getYearWeek))
+                .collect(Collectors.toList());
     }
 
     private WorkReportVo getDefaultVo(Integer week, String employeeNo) {
@@ -86,6 +102,21 @@ public class ListReportProcessor {
         vo.setWeek(week);
         vo.setEmployee(employeeVo);
         vo.setMessage("週報未提交");
+        vo.setEmployeeNo(employeeNo);
+        return vo;
+    }
+
+    private WorkReportVo getDefaultVo(String yearWeek, String employeeNo) {
+        EmployeeVo employeeVo = new EmployeeVo();
+        employeeVo.setEmployeeNo(employeeNo);
+        employeeVo.setName(getEmployeeName(employeeNo));
+
+        WorkReportVo vo = new WorkReportVo();
+        vo.setWeek(NumberUtils.toInt(yearWeek.split("-")[1]));
+        vo.setEmployee(employeeVo);
+        vo.setMessage("週報未提交");
+        vo.setEmployeeNo(employeeNo);
+        vo.setYearWeek(yearWeek);
         return vo;
     }
 
@@ -111,44 +142,20 @@ public class ListReportProcessor {
                 .orElse("");
     }
 
-    private List<String> getEmployeeNos(Integer searchType) {
-        List<String> list = Lists.newArrayList(RequestContext.getEmployeeNo());
-        if (Objects.nonNull(searchType) && searchType == 2) {
-            List<Integer> departIds = getMangeDepart(RequestContext.getEmployeeNo());
-            list = employeeBusiness.getEmployeeList()
-                    .stream()
-                    .filter(e -> departIds.contains(e.getDepartmentId()))
-                    .map(SwEmployee::getEmployeeNo)
-                    .collect(Collectors.toList());
+    private List<String> getEmployeeNos(Integer searchType, String employeeName) {
+        if (Objects.isNull(searchType) || searchType < 2) {
+            return Lists.newArrayList(RequestContext.getEmployeeNo());
         }
-        return list;
-    }
 
-    public List<Integer> getMangeDepart(String employeeNo) {
-        List<SwDepartment> departments = departmentBusiness.getDepartment();
-        List<SwDepartment> directDepartments = departmentBusiness.getDepartment(employeeNo);
-        List<Integer> departIds = getAllMangeDepart(departments, directDepartments)
-                .stream()
-                .map(SwDepartment::getId)
-                .collect(Collectors.toList());
-        return departIds;
-    }
 
-    private List<SwDepartment> getAllMangeDepart(List<SwDepartment> departments, List<SwDepartment> directDepartments) {
-        List<SwDepartment> departmentList = new ArrayList<>();
-        departmentList.addAll(directDepartments);
-        List<SwDepartment> temps = departments.stream()
-                .filter(e -> directDepartments.stream()
-                        .anyMatch(ed -> e.getParentId() == ed.getId()))
+        List<SwEmployee> employees = employeeBusiness.queryMembers(RequestContext.getEmployeeNo());
+        if (CollectionUtils.isEmpty(employees)) {
+            return Lists.newArrayList(RequestContext.getEmployeeNo());
+        }
+
+        return employees.stream()
+                .filter(e -> StringUtils.isEmpty(employeeName) || e.getEmployeeNo().equalsIgnoreCase(employeeName))
+                .map(SwEmployee::getEmployeeNo)
                 .collect(Collectors.toList());
-        if (CollectionUtils.isEmpty(temps)) {
-            return departmentList;
-        }
-        List<SwDepartment> nextDeparts = getAllMangeDepart(departments, temps);
-        if (!CollectionUtils.isEmpty(nextDeparts)) {
-            departmentList.addAll(nextDeparts);
-        }
-        departmentList.addAll(temps);
-        return departmentList;
     }
 }

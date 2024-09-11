@@ -1,30 +1,17 @@
 package com.foxconn.sw.data.dto.entity.acount;
 
-import com.alibaba.excel.annotation.ExcelProperty;
-
 public class AddressBookVo {
 
-    @ExcelProperty(value = "處級", index = 0)
     private String seniorDepart;
-    @ExcelProperty(value = "部門", index = 1)
     private String department;
-    @ExcelProperty(value = "工號", index = 2)
     private String employeeNo;
-    @ExcelProperty(value = "姓名", index = 4)
     private String name;
-    @ExcelProperty(value = "英文名", index = 5)
     private String enName;
-    @ExcelProperty(value = "性別", index = 6)
     private String gender;
-    @ExcelProperty(value = "電話", index = 7)
     private String phoneMobile;
-    @ExcelProperty(value = "內網電話", index = 8)
     private String landLine;
-    @ExcelProperty(value = "內部郵箱", index = 9)
     private String innerMail;
-    @ExcelProperty(value = "外部郵箱", index = 10)
     private String outerMail;
-    @ExcelProperty(value = "收藏狀態", index = 11)
     private Integer status;
 
 

@@ -164,8 +164,9 @@ public class TaskDetailProcessor {
         if (!CollectionUtils.isEmpty(employees)) {
             taskDetailVo.setProposer(employees.stream()
                     .filter(e -> e.getEmployeeNo().equalsIgnoreCase(proposeNo))
+                    .map(e -> e.getName())
                     .findFirst()
-                    .get().getName());
+                    .orElse(""));
             taskDetailVo.setManager(employees.stream()
                     .filter(e -> StringUtils.isNotEmpty(e.getEmployeeNo()) && managerNos.contains(e.getEmployeeNo()))
                     .map(e -> e.getName())

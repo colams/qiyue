@@ -1,16 +1,14 @@
 package com.foxconn.sw.business.oa;
 
-import com.foxconn.sw.data.dto.entity.oa.ReportSearchParams;
 import com.foxconn.sw.data.entity.SwWorkReport;
 import com.foxconn.sw.data.entity.SwWorkReportExample;
 import com.foxconn.sw.data.mapper.extension.oa.SwWorkReportExtensionMapper;
 import com.google.common.collect.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.util.CollectionUtils;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 
 @Component
@@ -19,33 +17,14 @@ public class SwWorkReportBusiness {
     @Autowired
     SwWorkReportExtensionMapper reportExtensionMapper;
 
-    public List<SwWorkReport> queryReport(List<Integer> weekOfYears) {
+    public List<SwWorkReport> queryReport(String yearWeek, String employeeNo) {
         SwWorkReportExample example = new SwWorkReportExample();
         SwWorkReportExample.Criteria criteria = example.createCriteria();
-        criteria.andWeekIn(weekOfYears);
-        List<SwWorkReport> reports = reportExtensionMapper.selectByExample(example);
-        return Optional.ofNullable(reports).orElse(Lists.newArrayList());
-    }
-
-    public List<SwWorkReport> queryReport(Integer weekOfYear, String employeeNo) {
-        SwWorkReportExample example = new SwWorkReportExample();
-        SwWorkReportExample.Criteria criteria = example.createCriteria();
-        criteria.andWeekEqualTo(weekOfYear);
+        criteria.andYearWeekEqualTo(yearWeek);
         criteria.andEmployeeNoEqualTo(employeeNo);
         criteria.andStatusEqualTo(1);
         List<SwWorkReport> reports = reportExtensionMapper.selectByExample(example);
         return Optional.ofNullable(reports).orElse(Lists.newArrayList());
-    }
-
-    public int invalidReport(ArrayList<Integer> weekOfYears) {
-        SwWorkReportExample example = new SwWorkReportExample();
-        SwWorkReportExample.Criteria criteria = example.createCriteria();
-        criteria.andWeekIn(weekOfYears);
-        criteria.andStatusEqualTo(1);
-
-        SwWorkReport report = new SwWorkReport();
-        report.setStatus(0);
-        return reportExtensionMapper.updateByExampleSelective(report, example);
     }
 
     public boolean updateBatchReports(List<SwWorkReport> reports) {
@@ -70,13 +49,14 @@ public class SwWorkReportBusiness {
         return true;
     }
 
-    public List<SwWorkReport> queryReport(ReportSearchParams searchParams, List<String> employees) {
+    public List<SwWorkReport> queryReport(List<String> searchWeeks, List<String> employees) {
         SwWorkReportExample example = new SwWorkReportExample();
-        SwWorkReportExample.Criteria criteria = example.createCriteria();
-        criteria.andStatusEqualTo(1);
-        criteria.andEmployeeNoIn(employees);
-        if (Objects.nonNull(searchParams.getWeekOfYear()) && searchParams.getWeekOfYear() > 0) {
-            criteria.andWeekEqualTo(searchParams.getWeekOfYear());
+        SwWorkReportExample.Criteria criteria = example.createCriteria()
+                .andStatusEqualTo(1)
+                .andEmployeeNoIn(employees);
+
+        if (!CollectionUtils.isEmpty(searchWeeks)) {
+            criteria.andYearWeekIn(searchWeeks);
         }
         List<SwWorkReport> reports = reportExtensionMapper.selectByExample(example);
         return reports;

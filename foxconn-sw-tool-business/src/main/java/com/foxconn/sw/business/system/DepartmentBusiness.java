@@ -149,4 +149,37 @@ public class DepartmentBusiness {
         departmentList = departmentExtensionMapper.selectByExample(example);
         return departmentList;
     }
+
+    public List<Integer> getMangeDepart(String employeeNo) {
+        List<SwDepartment> departments = getDepartment();
+        List<SwDepartment> directDepartments = getDepartment(employeeNo);
+        if (CollectionUtils.isEmpty(directDepartments)) {
+            return Lists.newArrayList();
+        }
+
+        List<Integer> departIds = getAllMangeDepart(departments, directDepartments)
+                .stream()
+                .map(SwDepartment::getId)
+                .collect(Collectors.toList());
+        return departIds;
+    }
+
+
+    private List<SwDepartment> getAllMangeDepart(List<SwDepartment> departments, List<SwDepartment> directDepartments) {
+        List<SwDepartment> departmentList = new ArrayList<>();
+        departmentList.addAll(directDepartments);
+        List<SwDepartment> temps = departments.stream()
+                .filter(e -> directDepartments.stream()
+                        .anyMatch(ed -> e.getParentId() == ed.getId()))
+                .collect(Collectors.toList());
+        if (CollectionUtils.isEmpty(temps)) {
+            return departmentList;
+        }
+        List<SwDepartment> nextDeparts = getAllMangeDepart(departments, temps);
+        if (!CollectionUtils.isEmpty(nextDeparts)) {
+            departmentList.addAll(nextDeparts);
+        }
+        departmentList.addAll(temps);
+        return departmentList;
+    }
 }

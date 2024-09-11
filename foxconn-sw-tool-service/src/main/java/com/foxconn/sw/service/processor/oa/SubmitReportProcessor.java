@@ -2,14 +2,16 @@ package com.foxconn.sw.service.processor.oa;
 
 import com.foxconn.sw.business.context.RequestContext;
 import com.foxconn.sw.business.oa.SwWorkReportBusiness;
+import com.foxconn.sw.common.utils.WeekUtils;
 import com.foxconn.sw.data.dto.entity.oa.WorkReportParams;
 import com.foxconn.sw.data.entity.SwWorkReport;
 import com.foxconn.sw.data.exception.BizException;
+import org.apache.commons.lang3.tuple.Pair;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
 
-import java.util.Calendar;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -25,29 +27,42 @@ public class SubmitReportProcessor {
 
 
     public boolean submitReport(List<WorkReportParams> data) {
-        Map<Integer, List<WorkReportParams>> paramsMap = data.stream().collect(Collectors.groupingBy(WorkReportParams::getWeek));
+        Map<Integer, List<WorkReportParams>> paramsMap = data.stream()
+                .collect(Collectors.groupingBy(WorkReportParams::getWeek));
         checkParams(paramsMap);
 
         String employeeNo = RequestContext.getEmployeeNo();
+        int year = LocalDate.now().getYear();
+
+        int nextWeek = paramsMap.keySet().toArray(new Integer[]{})[1];
+        int currentWeek = paramsMap.keySet().toArray(new Integer[]{})[0];
+        String nextYearWeek = getYearWeek(nextWeek, nextWeek, year);
+
+
         for (Map.Entry<Integer, List<WorkReportParams>> entry : paramsMap.entrySet()) {
-
-            int currentWeekOfYear = entry.getKey();
+            String yearWeek = getYearWeek(entry.getKey(), nextWeek, year);
             List<WorkReportParams> workReportParams = entry.getValue();
-
-            List<SwWorkReport> reports = workReportBusiness.queryReport(currentWeekOfYear, employeeNo);
-            processReports(workReportParams, reports);
+            List<SwWorkReport> reports = workReportBusiness.queryReport(yearWeek, employeeNo);
+            processReports(workReportParams, reports, yearWeek);
         }
         return true;
     }
 
-    private void processReports(List<WorkReportParams> workReportParams, List<SwWorkReport> reports) {
+    private String getYearWeek(int week, int nextWeek, int year) {
+        if (nextWeek == 1 && week != nextWeek) {
+            year += 1;
+        }
+        return String.format("%s-%02d", year, week);
+    }
+
+    private void processReports(List<WorkReportParams> workReportParams, List<SwWorkReport> reports, String yearWeek) {
         List<SwWorkReport> updateReports = workReportParams.stream()
                 .filter(e -> Objects.nonNull(e.getId()) && e.getId() > 0)
-                .map(e -> convertReport(e)).collect(Collectors.toList());
+                .map(e -> convertReport(e, yearWeek)).collect(Collectors.toList());
 
         List<SwWorkReport> insertReports = workReportParams.stream()
                 .filter(e -> Objects.isNull(e.getId()) || e.getId() <= 0)
-                .map(e -> convertReport(e)).collect(Collectors.toList());
+                .map(e -> convertReport(e, yearWeek)).collect(Collectors.toList());
 
         List<SwWorkReport> deleteReports = reports.stream()
                 .filter(e -> updateReports.stream()
@@ -67,9 +82,10 @@ public class SubmitReportProcessor {
             throw new BizException(LESS_ITEM_EXCEPTION);
         }
 
-        int weekOfYear = getWeekOfYear();
+        Pair<Integer, Integer> pair = WeekUtils.getWeekYearInfo();
+        int weekOfYear = pair.getLeft();
         List<WorkReportParams> currentWeeks = paramsMap.get(weekOfYear);
-        List<WorkReportParams> nextWeeks = paramsMap.get(weekOfYear + 1);
+        List<WorkReportParams> nextWeeks = paramsMap.get(paramsMap.keySet().stream().toList().get(1));
 
         if (CollectionUtils.isEmpty(currentWeeks) || CollectionUtils.isEmpty(nextWeeks)) {
             throw new BizException(LESS_ITEM_EXCEPTION);
@@ -89,10 +105,11 @@ public class SubmitReportProcessor {
         return true;
     }
 
-    private SwWorkReport convertReport(WorkReportParams e) {
+    private SwWorkReport convertReport(WorkReportParams e, String yearWeek) {
         SwWorkReport report = new SwWorkReport();
         report.setId(e.getId());
         report.setEmployeeNo(RequestContext.getEmployeeNo());
+        report.setYearWeek(yearWeek);
         report.setWeek(e.getWeek());
         report.setNum(e.getNum());
         report.setProject(e.getProject());
@@ -103,11 +120,5 @@ public class SubmitReportProcessor {
         report.setDescription(e.getDescription());
         report.setRemark(e.getRemark());
         return report;
-    }
-
-    private Integer getWeekOfYear() {
-        Calendar calendar = Calendar.getInstance();
-        int weekOfYear = calendar.get(Calendar.WEEK_OF_YEAR);
-        return weekOfYear;
     }
 }

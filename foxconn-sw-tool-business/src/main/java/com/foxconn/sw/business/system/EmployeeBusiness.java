@@ -7,6 +7,7 @@ import com.foxconn.sw.data.entity.SwEmployee;
 import com.foxconn.sw.data.entity.SwEmployeeExample;
 import com.foxconn.sw.data.exception.BizException;
 import com.foxconn.sw.data.mapper.extension.system.SwEmployeeExtensionMapper;
+import com.google.common.collect.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
@@ -95,6 +96,20 @@ public class EmployeeBusiness {
         example.setOrderByClause(" department_id ,post_id,employee_no ");
         List<SwEmployee> employees = swEmployeeExtensionMapper.selectByExample(example);
         return employees;
+    }
+
+    public List<SwEmployee> queryMembers(String employeeNo) {
+        List<Integer> departIds = departmentBusiness.getMangeDepart(employeeNo);
+
+        if (CollectionUtils.isEmpty(departIds)) {
+            return Lists.newArrayList();
+        }
+
+        List<SwEmployee> list = getEmployeeList()
+                .stream()
+                .filter(e -> departIds.contains(e.getDepartmentId()))
+                .collect(Collectors.toList());
+        return list;
     }
 
 
