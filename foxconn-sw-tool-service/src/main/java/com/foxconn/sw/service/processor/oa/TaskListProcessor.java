@@ -15,6 +15,7 @@ import com.foxconn.sw.data.entity.SwTaskFollow;
 import com.foxconn.sw.service.processor.oa.utils.*;
 import com.foxconn.sw.service.processor.user.CommonUserUtils;
 import org.apache.commons.compress.utils.Lists;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -47,25 +48,35 @@ public class TaskListProcessor {
         Map<Integer, List<SwTaskFollow>> map = follows.stream().collect(Collectors.groupingBy(SwTaskFollow::getTaskId));
 
         briefVos.forEach(e -> {
-            InfoColorVo statusInfoVo = TaskStatusUtils.processStatus(e.getStatus(), e.getRejectStatus(), e.getHandleEid());
+            InfoColorVo statusInfoVo = TaskStatusUtils.processStatus(e.getStatus(), e.getRejectStatus());
             e.setStatusInfoVo(statusInfoVo);
-            e.setOperateList(processOperate(e, userInfo.getEmployeeName()));
+            e.setOperateList(processOperate(e, userInfo.getEmployeeNo()));
             e.setLevelInfo(TaskLevelUtils.processLevel(e.getLevel()));
             e.setProject(TaskProjectUtils.processProject(e.getProject()));
             e.setCategory(TaskCategoryUtils.processCategory(e.getTopCategory(), e.getCategory()));
             e.setFollowStatus(getFollowStatus(map, e.getId()));
+            e.setManagerEID(getProcessEID(e));
+            e.setHandler(getProcessEID(e));
         });
+    }
+
+    private String getProcessEID(TaskBriefListVo e) {
+        if (StringUtils.isEmpty(e.getHandler())) {
+            return e.getHandler2();
+        }
+        return e.getHandler();
     }
 
     private Integer getFollowStatus(Map<Integer, List<SwTaskFollow>> map, Integer taskID) {
         return map.getOrDefault(taskID, Lists.newArrayList()).size();
     }
 
-    private List<OperateEntity> processOperate(TaskBriefListVo e, String employeeName) {
+    private List<OperateEntity> processOperate(TaskBriefListVo e, String employeeNo) {
         List<OperateEntity> entityList = new ArrayList<>();
+
         for (OperateTypeEnum op : OperateTypeEnum.values()) {
             if (op.getPage().equalsIgnoreCase("list")) {
-                OperateEntity operate = TaskOperateUtils.processOperate(employeeName, e, op);
+                OperateEntity operate = TaskOperateUtils.processOperate(employeeNo, e, op);
                 entityList.add(operate);
             }
         }

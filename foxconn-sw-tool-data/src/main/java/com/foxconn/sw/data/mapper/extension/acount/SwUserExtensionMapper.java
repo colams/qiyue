@@ -5,9 +5,7 @@ import com.foxconn.sw.data.dto.entity.acount.EmployeeVo;
 import com.foxconn.sw.data.dto.entity.acount.UserInfo;
 import com.foxconn.sw.data.dto.entity.acount.UserParams;
 import com.foxconn.sw.data.mapper.auto.SwUserMapper;
-import org.apache.ibatis.annotations.Result;
-import org.apache.ibatis.annotations.Results;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
 import org.apache.ibatis.type.JdbcType;
 import org.springframework.stereotype.Repository;
 
@@ -15,7 +13,7 @@ import java.util.List;
 
 @Repository
 public interface SwUserExtensionMapper extends SwUserMapper {
-    @Select({"select su.employee_no,se.name,sd.name as departName \n" +
+    @Select({"select su.employee_no,se.name,sd.name as departName,su.avatar_id \n" +
             "from sw_user su\n" +
             "    left join sw_employee se on su.employee_no=se.employee_no\n" +
             "    left join sw_department sd on se.department_id=sd.id\n" +
@@ -26,6 +24,7 @@ public interface SwUserExtensionMapper extends SwUserMapper {
             @Result(column = "employee_no", property = "employeeNo", jdbcType = JdbcType.VARCHAR),
             @Result(column = "name", property = "employeeName", jdbcType = JdbcType.VARCHAR),
             @Result(column = "departName", property = "departName", jdbcType = JdbcType.VARCHAR),
+            @Result(column = "avatar_id", property = "avatarID", jdbcType = JdbcType.INTEGER),
     })
     UserInfo queryUserInfo(String employeeNo);
 
@@ -67,4 +66,12 @@ public interface SwUserExtensionMapper extends SwUserMapper {
             @Result(column = "job_title", property = "jobTitle", jdbcType = JdbcType.VARCHAR),
     })
     List<UserInfo> queryUserInfos(UserParams data);
+
+
+    @Update({
+            "update sw_user",
+            "set avatar_id = #{avatarID,jdbcType=INTEGER} ",
+            "where employee_no = #{employeeNo,jdbcType=VARCHAR}"
+    })
+    Integer updateAvatarId(@Param("employeeNo") String employeeNo ,@Param("avatarID") Integer avatarID);
 }

@@ -9,6 +9,7 @@ import com.foxconn.sw.data.dto.Response;
 import com.foxconn.sw.data.dto.entity.oa.*;
 import com.foxconn.sw.data.dto.entity.universal.IntegerParams;
 import com.foxconn.sw.data.entity.SwTask;
+import com.foxconn.sw.service.aspects.Permission;
 import com.foxconn.sw.service.processor.oa.*;
 import com.foxconn.sw.service.utils.ResponseUtils;
 import io.swagger.v3.oas.annotations.Operation;
@@ -56,9 +57,9 @@ public class TaskController {
     @Autowired
     AcceptProcessor acceptProcessor;
     @Autowired
-    SwTaskBusiness swTaskBusiness;
+    BriefDetailProcessor briefDetail;
 
-
+    @Permission
     @Operation(summary = "创建任务", tags = TagsConstants.OA)
     @ApiResponse(responseCode = "0", description = "成功码")
     @PostMapping("/create")
@@ -75,6 +76,7 @@ public class TaskController {
         return ResponseUtils.success(request.getTraceId());
     }
 
+    @Permission
     @Operation(summary = "任务列表", tags = TagsConstants.OA)
     @ApiResponse(responseCode = "0", description = "成功码")
     @PostMapping("/list")
@@ -83,6 +85,7 @@ public class TaskController {
         return ResponseUtils.success(taskList, request.getTraceId());
     }
 
+    @Permission
     @Operation(summary = "任务详情", tags = TagsConstants.OA)
     @ApiResponse(responseCode = "0", description = "成功码")
     @PostMapping("/detail")
@@ -95,7 +98,7 @@ public class TaskController {
     @ApiResponse(responseCode = "0", description = "成功码")
     @PostMapping("/briefDetail")
     public Response<SwTask> briefDetail(@Valid @RequestBody Request<IntegerParams> request) {
-        SwTask task = swTaskBusiness.getTaskById(request.getData().getParams());
+        SwTask task = briefDetail.getTaskById(request.getData().getParams());
         return ResponseUtils.success(task, request.getTraceId());
     }
 
@@ -107,6 +110,7 @@ public class TaskController {
         return ResponseUtils.success(taskList, request.getTraceId());
     }
 
+    @Permission
     @Operation(summary = "分派任务", tags = TagsConstants.OA)
     @ApiResponse(responseCode = "0", description = "成功码")
     @PostMapping("/assign")
@@ -115,12 +119,21 @@ public class TaskController {
         return ResponseUtils.success(result, request.getTraceId());
     }
 
+    @Permission
     @Operation(summary = "任务更新-追加任务进度和说明信息", tags = TagsConstants.OA)
     @ApiResponse(responseCode = "0", description = "成功码")
     @PostMapping("/updateProgress")
     public Response<Boolean> updateProgress(@Valid @RequestBody Request<TaskProgressBriefParams> request) {
-        boolean result = updateProgressProcessor.updateProgress(request.getData(), request.getHead());
+        boolean result = updateProgressProcessor.updateProgress(request.getData());
         return ResponseUtils.success(result, request.getTraceId());
+    }
+
+    @Operation(summary = "完成任务", tags = TagsConstants.OA)
+    @ApiResponse(responseCode = "0", description = "成功码")
+    @PostMapping("/achieve")
+    public Response achieve(@Valid @RequestBody Request<TaskProgressBriefParams> request) {
+        achieveTaskProcessor.achieve(request.getData(), request.getHead());
+        return ResponseUtils.success(request.getTraceId());
     }
 
     @Operation(summary = "task任务打分评价", tags = TagsConstants.OA)
@@ -139,14 +152,6 @@ public class TaskController {
         return ResponseUtils.success(result, request.getTraceId());
     }
 
-    @Operation(summary = "完成任务", tags = TagsConstants.OA)
-    @ApiResponse(responseCode = "0", description = "成功码")
-    @PostMapping("/achieve")
-    public Response achieve(@Valid @RequestBody Request<TaskProgressBriefParams> request) {
-        achieveTaskProcessor.achieve(request.getData(), request.getHead());
-        return ResponseUtils.success(request.getTraceId());
-    }
-
     @Operation(summary = "撤销任务", tags = TagsConstants.OA)
     @ApiResponse(responseCode = "0", description = "成功码")
     @PostMapping("/revoke")
@@ -163,6 +168,7 @@ public class TaskController {
         return ResponseUtils.success(result, request.getTraceId());
     }
 
+    @Permission
     @Operation(summary = "接受任务", tags = TagsConstants.OA)
     @ApiResponse(responseCode = "0", description = "成功码")
     @PostMapping("/accept")

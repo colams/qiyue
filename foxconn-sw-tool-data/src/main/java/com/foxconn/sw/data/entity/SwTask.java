@@ -17,8 +17,6 @@ public class SwTask {
 
     private String project;
 
-    private String description;
-
     private String level;
 
     private Integer progressPercent;
@@ -46,6 +44,8 @@ public class SwTask {
     private LocalDateTime createTime;
 
     private LocalDateTime datetimeLastchange;
+
+    private String description;
 
     public Integer getId() {
         return id;
@@ -136,19 +136,6 @@ public class SwTask {
 
     public void setProject(String project) {
         this.project = project == null ? null : project.trim();
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public SwTask withDescription(String description) {
-        this.setDescription(description);
-        return this;
-    }
-
-    public void setDescription(String description) {
-        this.description = description == null ? null : description.trim();
     }
 
     public String getLevel() {
@@ -331,5 +318,18 @@ public class SwTask {
 
     public void setDatetimeLastchange(LocalDateTime datetimeLastchange) {
         this.datetimeLastchange = datetimeLastchange;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description == null ? null : description.trim();
+    }
+
+    public SwTask withDescription(String description) {
+        this.setDescription(description);
+        return this;
     }
 }

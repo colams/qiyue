@@ -1,6 +1,7 @@
 package com.foxconn.sw.service.processor.oa;
 
 import com.foxconn.sw.business.oa.SwTaskBusiness;
+import com.foxconn.sw.business.oa.SwTaskEmployeeRelationBusiness;
 import com.foxconn.sw.business.oa.SwTaskProgressBusiness;
 import com.foxconn.sw.data.constants.enums.oa.TaskStatusEnums;
 import com.foxconn.sw.data.dto.Header;
@@ -21,6 +22,8 @@ public class AcceptProcessor {
     SwTaskProgressBusiness taskProgressBusiness;
     @Autowired
     CommonUserUtils commonUserUtils;
+    @Autowired
+    SwTaskEmployeeRelationBusiness employeeRelationBusiness;
 
     public boolean accept(Integer taskID, Header head) {
         UserInfo userInfo = commonUserUtils.queryUserInfo(head.getToken());
@@ -38,6 +41,7 @@ public class AcceptProcessor {
             progress.setProgress(0);
             progress.setContent(String.format("%s(%s) 接受了任務", userInfo.getEmployeeName(), userInfo.getEmployeeNo()));
             taskProgressBusiness.addProcessInfo(progress);
+            employeeRelationBusiness.acceptTaskEmployee(taskID);
         }
         return result;
     }

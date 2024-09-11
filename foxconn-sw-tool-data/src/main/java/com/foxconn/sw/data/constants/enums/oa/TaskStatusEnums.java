@@ -11,8 +11,8 @@ public enum TaskStatusEnums {
     PROCESSING(2, "處理中", "blue"),// 處理中-有DRI
     ACCEPTING(3, "待驗收", "#98FB98"),  //  负责人&中间人&发布人，更新狀態
     COMPLETED(4, "已完成", "#008000"),   // 负责人&中间人&发布人
-    CLOSED(6, "已關閉", "gray"),
-
+    REVOKE(6, "已撤销", "gray"),
+    CLOSED(7, "已關閉", "#d05667"),
     ;
 
     TaskStatusEnums(Integer code, String msg, String color) {
@@ -44,5 +44,9 @@ public enum TaskStatusEnums {
             }
         }
         throw new BizException(ENUM_CONVERT_ERROR);
+    }
+
+    public boolean isMatch(TaskStatusEnums taskStatusEnums) {
+        return this == taskStatusEnums;
     }
 }

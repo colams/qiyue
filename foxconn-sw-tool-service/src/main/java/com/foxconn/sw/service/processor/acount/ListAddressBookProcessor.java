@@ -3,6 +3,7 @@ package com.foxconn.sw.service.processor.acount;
 import com.foxconn.sw.business.account.SwContactGatherBusiness;
 import com.foxconn.sw.business.system.DepartmentBusiness;
 import com.foxconn.sw.business.system.EmployeeBusiness;
+import com.foxconn.sw.data.constants.enums.GenderEnums;
 import com.foxconn.sw.data.dto.Header;
 import com.foxconn.sw.data.dto.entity.acount.AddressBookParams;
 import com.foxconn.sw.data.dto.entity.acount.AddressBookVo;
@@ -14,10 +15,8 @@ import com.google.common.collect.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Component
 public class ListAddressBookProcessor {
@@ -40,32 +39,41 @@ public class ListAddressBookProcessor {
 
         List<AddressBookVo> bookVoList = new ArrayList<>();
         employees.forEach(e -> {
-            AddressBookVo vo = new AddressBookVo();
-
-            List<DepartmentVo> voList = getDepartList(voMap, e.getDepartmentId());
-
-            vo.setSeniorDepart(voList.stream().filter(departmentVo -> departmentVo.getName().endsWith("處")).map(v->v.getName()).findFirst().orElse("-"));
-            vo.setDepartment(voList.stream().filter(departmentVo -> departmentVo.getName().contains("部")).map(v->v.getName()).findFirst().orElse("-"));
-            vo.setEmployeeNo(e.getEmployeeNo());
-            vo.setName(e.getName());
-            vo.setEnName(String.format("%s %s", e.getFirstName(), e.getLastName()));
-
-            if (e.getGender() == 1) {
-                vo.setGender("男");
-            } else if (e.getGender() == 2) {
-                vo.setGender("女");
-            } else {
-                vo.setGender("");
+            AddressBookVo vo = toAddressBookVo(e, voMap, gatherMap);
+            if (Objects.nonNull(vo)) {
+                bookVoList.add(vo);
             }
-
-            vo.setPhoneMobile(e.getPhoneNumber());
-            vo.setLandLine(e.getLandLine());
-            vo.setInnerMail(e.getInnerEmail());
-            vo.setOuterMail(e.getOuterMail());
-            vo.setStatus(Objects.nonNull(gatherMap.get(e.getEmployeeNo())) ? 1 : 0);
-            bookVoList.add(vo);
         });
-        return bookVoList;
+
+        return Optional.ofNullable(bookVoList)
+                .orElse(Lists.newArrayList())
+                .stream()
+                .filter(e -> Objects.isNull(data.getStatus()) || data.getStatus() == 0 || data.getStatus() == e.getStatus())
+                .collect(Collectors.toList());
+    }
+
+    private AddressBookVo toAddressBookVo(SwEmployee e, Map<Integer, DepartmentVo> voMap, Map<String, SwContactGather> gatherMap) {
+
+        AddressBookVo vo = new AddressBookVo();
+
+        List<DepartmentVo> voList = getDepartList(voMap, e.getDepartmentId());
+
+        vo.setSeniorDepart(voList.stream().filter(departmentVo -> departmentVo.getName().endsWith("處")).map(v -> v.getName()).findFirst().orElse("-"));
+        vo.setDepartment(voList.stream().filter(departmentVo -> departmentVo.getName().contains("部")).map(v -> v.getName()).findFirst().orElse("-"));
+        vo.setEmployeeNo(e.getEmployeeNo());
+        vo.setName(e.getName());
+        vo.setEnName(String.format("%s %s", e.getFirstName(), e.getLastName()));
+        vo.setGender(GenderEnums.getGenderDes(e.getGender()));
+        vo.setPhoneMobile(e.getPhoneNumber());
+        vo.setLandLine(e.getLandLine());
+        vo.setInnerMail(e.getInnerEmail());
+        vo.setOuterMail(e.getOuterMail());
+        vo.setStatus(getGatherStatus(gatherMap, e.getEmployeeNo()));
+        return vo;
+    }
+
+    private Integer getGatherStatus(Map<String, SwContactGather> gatherMap, String employeeNo) {
+        return Objects.nonNull(gatherMap.get(employeeNo)) ? 1 : 0;
     }
 
     private List<DepartmentVo> getDepartList(Map<Integer, DepartmentVo> voMap, int departID) {

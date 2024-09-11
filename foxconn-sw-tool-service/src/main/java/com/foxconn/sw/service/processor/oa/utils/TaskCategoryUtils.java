@@ -10,7 +10,7 @@ import java.util.stream.Collectors;
 public class TaskCategoryUtils {
 
     public static String processCategory(String topCategory, String category) {
-        List<OptionsVo> list = OAOptionConfig.initProject();
+        List<OptionsVo> list = OAOptionConfig.initTaskType();
         String result = category;
         String topResult = topCategory;
 

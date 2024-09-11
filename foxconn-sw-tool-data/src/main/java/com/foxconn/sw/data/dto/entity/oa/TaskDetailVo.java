@@ -1,6 +1,5 @@
 package com.foxconn.sw.data.dto.entity.oa;
 
-import com.foxconn.sw.data.dto.entity.ResourceVo;
 import com.foxconn.sw.data.dto.entity.universal.OperateEntity;
 
 import java.time.LocalDateTime;
@@ -69,18 +68,18 @@ public class TaskDetailVo {
     /**
      * 任务提出人
      */
-    private String proposerEid;
+    private String proposer;
 
 
     /**
      * 经办人
      */
-    private String managerEid;
+    private List<String> manager;
 
     /**
      * 任务处理人
      */
-    private String handleEid;
+    private String handle;
 
     /**
      * 任务期限 YYYY-MM-DD
@@ -214,28 +213,28 @@ public class TaskDetailVo {
         this.statusInfoVo = statusInfoVo;
     }
 
-    public String getProposerEid() {
-        return proposerEid;
+    public String getProposer() {
+        return proposer;
     }
 
-    public void setProposerEid(String proposerEid) {
-        this.proposerEid = proposerEid;
+    public void setProposer(String proposer) {
+        this.proposer = proposer;
     }
 
-    public String getManagerEid() {
-        return managerEid;
+    public List<String> getManager() {
+        return manager;
     }
 
-    public void setManagerEid(String managerEid) {
-        this.managerEid = managerEid;
+    public void setManager(List<String> manager) {
+        this.manager = manager;
     }
 
-    public String getHandleEid() {
-        return handleEid;
+    public String getHandle() {
+        return handle;
     }
 
-    public void setHandleEid(String handleEid) {
-        this.handleEid = handleEid;
+    public void setHandle(String handle) {
+        this.handle = handle;
     }
 
     public String getDeadLine() {

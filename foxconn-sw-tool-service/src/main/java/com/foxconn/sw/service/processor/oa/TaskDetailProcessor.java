@@ -5,10 +5,12 @@ import com.foxconn.sw.business.mapper.AppendResourceMapper;
 import com.foxconn.sw.business.mapper.SwTaskLogMapper;
 import com.foxconn.sw.business.mapper.TaskMapper;
 import com.foxconn.sw.business.oa.SwTaskBusiness;
+import com.foxconn.sw.business.oa.SwTaskEmployeeRelationBusiness;
 import com.foxconn.sw.business.oa.SwTaskLogBusiness;
 import com.foxconn.sw.business.oa.SwTaskProgressBusiness;
 import com.foxconn.sw.business.system.EmployeeBusiness;
 import com.foxconn.sw.data.constants.enums.OperateTypeEnum;
+import com.foxconn.sw.data.constants.enums.TaskRoleFlagEnums;
 import com.foxconn.sw.data.constants.enums.retcode.OAExceptionCode;
 import com.foxconn.sw.data.dto.Header;
 import com.foxconn.sw.data.dto.entity.oa.TaskDetailVo;
@@ -17,14 +19,12 @@ import com.foxconn.sw.data.dto.entity.oa.TaskLogVo;
 import com.foxconn.sw.data.dto.entity.oa.TaskProgressVo;
 import com.foxconn.sw.data.dto.entity.universal.IntegerParams;
 import com.foxconn.sw.data.dto.entity.universal.OperateEntity;
-import com.foxconn.sw.data.entity.SwAppendResource;
-import com.foxconn.sw.data.entity.SwEmployee;
-import com.foxconn.sw.data.entity.SwTask;
-import com.foxconn.sw.data.entity.SwTaskLog;
+import com.foxconn.sw.data.entity.*;
 import com.foxconn.sw.data.exception.BizException;
 import com.foxconn.sw.service.processor.oa.utils.*;
 import com.foxconn.sw.service.processor.user.CommonUserUtils;
 import com.google.common.collect.Lists;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
@@ -49,11 +49,13 @@ public class TaskDetailProcessor {
     CommonUserUtils commonUserUtils;
     @Autowired
     EmployeeBusiness employeeBusiness;
+    @Autowired
+    SwTaskEmployeeRelationBusiness relationBusiness;
 
     public TaskEntityVo detail(IntegerParams data, Header head) {
-        String employeeID = commonUserUtils.getEmployeeNo(head.getToken());
+        String employeeNo = commonUserUtils.getEmployeeNo(head.getToken());
 
-        TaskDetailVo detailVo = getDetailVo(data.getParams(), employeeID);
+        TaskDetailVo detailVo = getDetailVo(data.getParams(), employeeNo);
 
         if (Objects.isNull(detailVo)) {
             throw new BizException(OAExceptionCode.TASK_ERROR_EXCEPTION);
@@ -111,31 +113,26 @@ public class TaskDetailProcessor {
         return taskLogVos;
     }
 
-    private TaskDetailVo getDetailVo(Integer taskId, String employeeID) {
+    private TaskDetailVo getDetailVo(Integer taskId, String employeeNo) {
+
+        List<SwTaskEmployeeRelation> relations = relationBusiness.getRelationsByTaskId(taskId);
+
         SwTask task = taskBusiness.getTaskById(taskId);
-
-        boolean isPermission = employeeID.equalsIgnoreCase(task.getHandleEid())
-                || employeeID.equalsIgnoreCase(task.getManagerEid())
-                || employeeID.equalsIgnoreCase(task.getProposerEid());
-        if (!isPermission) {
-            throw new BizException(OAExceptionCode.NO_PERMISSION_EXCEPTION);
-        }
-
         TaskDetailVo taskDetailVo = TaskMapper.INSTANCE.toSwTaskDetailVo(task);
         taskDetailVo.setLevelInfoVo(TaskLevelUtils.processLevel(taskDetailVo.getLevel()));
-        taskDetailVo.setStatusInfoVo(TaskStatusUtils.processStatus(taskDetailVo.getStatus(), taskDetailVo.getRejectStatus(), taskDetailVo.getHandleEid()));
+        taskDetailVo.setStatusInfoVo(TaskStatusUtils.processStatus(taskDetailVo.getStatus(), taskDetailVo.getRejectStatus()));
         taskDetailVo.setProject(TaskProjectUtils.processProject(taskDetailVo.getProject()));
         taskDetailVo.setCategory(TaskCategoryUtils.processCategory(taskDetailVo.getTopCategory(), taskDetailVo.getCategory()));
-        taskDetailVo.setOperateList(processOperate(taskDetailVo, employeeID));
-        processEmployee(taskDetailVo);
+        taskDetailVo.setOperateList(processOperate(taskDetailVo, employeeNo, relations));
+        processEmployee(taskDetailVo, relations);
         return taskDetailVo;
     }
 
-    private List<OperateEntity> processOperate(TaskDetailVo taskDetailVo, String employeeName) {
+    private List<OperateEntity> processOperate(TaskDetailVo taskDetailVo, String employeeNo, List<SwTaskEmployeeRelation> relations) {
         List<OperateEntity> entityList = new ArrayList<>();
         for (OperateTypeEnum op : OperateTypeEnum.values()) {
             if (op.getPage().equalsIgnoreCase("detail")) {
-                OperateEntity operate = TaskOperateUtils.processDetailOperate(employeeName, taskDetailVo, op);
+                OperateEntity operate = TaskOperateUtils.processDetailOperate(employeeNo, taskDetailVo, op, relations);
                 if (Objects.nonNull(operate)) {
                     entityList.add(operate);
                 }
@@ -144,13 +141,40 @@ public class TaskDetailProcessor {
         return entityList;
     }
 
-    private void processEmployee(TaskDetailVo taskDetailVo) {
-        List<String> employeeNos = Lists.newArrayList(taskDetailVo.getProposerEid(), taskDetailVo.getManagerEid(), taskDetailVo.getHandleEid());
+    private void processEmployee(TaskDetailVo taskDetailVo, List<SwTaskEmployeeRelation> relations) {
+        List<String> employeeNos = relations.stream().map(e -> e.getEmployeeNo()).collect(Collectors.toList());
+
+        String proposeNo = relations.stream()
+                .filter(e -> TaskRoleFlagEnums.checkFlag(e.getRoleFlag(), TaskRoleFlagEnums.Proposer_Flag))
+                .map(SwTaskEmployeeRelation::getEmployeeNo)
+                .findFirst().orElse("");
+
+        List<String> managerNos = relations.stream()
+                .filter(e -> TaskRoleFlagEnums.checkFlag(e.getRoleFlag(), TaskRoleFlagEnums.Manager_Flag))
+                .map(SwTaskEmployeeRelation::getEmployeeNo)
+                .collect(Collectors.toList());
+
+        String handlerNo = relations.stream()
+                .filter(e -> TaskRoleFlagEnums.checkFlag(e.getRoleFlag(), TaskRoleFlagEnums.Handler_Flag))
+                .map(SwTaskEmployeeRelation::getEmployeeNo)
+                .findFirst().orElse("");
+
+
         List<SwEmployee> employees = employeeBusiness.selectEmployeeByENos(employeeNos);
         if (!CollectionUtils.isEmpty(employees)) {
-            taskDetailVo.setProposerEid(employees.stream().filter(e -> e.getEmployeeNo().equalsIgnoreCase(taskDetailVo.getProposerEid())).findFirst().get().getName());
-            taskDetailVo.setManagerEid(employees.stream().filter(e -> e.getEmployeeNo().equalsIgnoreCase(taskDetailVo.getManagerEid())).findFirst().map(e -> e.getName()).orElse(""));
-            taskDetailVo.setHandleEid(employees.stream().filter(e -> e.getEmployeeNo().equalsIgnoreCase(taskDetailVo.getHandleEid())).findFirst().map(e -> e.getName()).orElse(""));
+            taskDetailVo.setProposer(employees.stream()
+                    .filter(e -> e.getEmployeeNo().equalsIgnoreCase(proposeNo))
+                    .map(e -> e.getName())
+                    .findFirst()
+                    .orElse(""));
+            taskDetailVo.setManager(employees.stream()
+                    .filter(e -> StringUtils.isNotEmpty(e.getEmployeeNo()) && managerNos.contains(e.getEmployeeNo()))
+                    .map(e -> e.getName())
+                    .collect(Collectors.toList()));
+            taskDetailVo.setHandle(employees.stream()
+                    .filter(e -> e.getEmployeeNo().equalsIgnoreCase(handlerNo))
+                    .findFirst()
+                    .map(e -> e.getName()).orElse(""));
         }
     }
 

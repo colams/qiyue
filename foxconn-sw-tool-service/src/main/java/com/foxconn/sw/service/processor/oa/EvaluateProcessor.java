@@ -36,7 +36,7 @@ public class EvaluateProcessor {
      */
     public boolean evaluate(TaskEvaluateParams data, Header head) {
         String employeeNo = commonUserUtils.getEmployeeNo(head.getToken());
-        String employeeName = commonUserUtils.getEmployeeNo(head.getToken());
+        String employeeName = commonUserUtils.getEmployeeName(head.getToken());
         completeTask(data.getTaskId());
         boolean result = saveEvaluate(data, employeeNo);
         if (result) {

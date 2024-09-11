@@ -1,13 +1,12 @@
 package com.foxconn.sw.service.processor.oa;
 
+import com.foxconn.sw.business.context.RequestContext;
 import com.foxconn.sw.business.mapper.TaskProgressMapper;
 import com.foxconn.sw.business.oa.SwTaskBusiness;
 import com.foxconn.sw.business.oa.SwTaskLogBusiness;
 import com.foxconn.sw.business.oa.SwTaskProgressBusiness;
-import com.foxconn.sw.data.dto.Header;
 import com.foxconn.sw.data.dto.entity.oa.TaskProgressBriefParams;
 import com.foxconn.sw.data.entity.SwTaskProgress;
-import com.foxconn.sw.service.processor.user.CommonUserUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -23,27 +22,23 @@ public class UpdateProgressProcessor {
     private SwTaskLogBusiness taskLogBusiness;
     @Autowired
     private SwTaskProgressBusiness taskProgressBusiness;
-    @Autowired
-    private CommonUserUtils commonUserUtils;
 
-    public boolean updateProgress(TaskProgressBriefParams data, Header head) {
-
-        String employeeID = commonUserUtils.getEmployeeNo(head.getToken());
+    public boolean updateProgress(TaskProgressBriefParams data) {
 
         if (Objects.nonNull(data.getProgress())) {
-            updateTaskProcess(data.getTaskId(), data.getProgress(), employeeID);
+            updateTaskProcess(data, data.getProgress());
         }
-        return addProcessInfo(data, employeeID);
+        return addProcessInfo(data);
     }
 
     /**
      * 保存进度操作信息
      *
      * @param data
-     * @param employeeID
      * @return
      */
-    private boolean addProcessInfo(TaskProgressBriefParams data, String employeeID) {
+    private boolean addProcessInfo(TaskProgressBriefParams data) {
+        String employeeID = RequestContext.getEmployeeNo();
         SwTaskProgress progress = TaskProgressMapper.INSTANCE.toTaskProcess(data);
         progress.setOperateEid(employeeID);
         return taskProgressBusiness.addProcessInfo(progress);
@@ -52,15 +47,16 @@ public class UpdateProgressProcessor {
     /**
      * 更新任务进度，记录日志信息
      *
-     * @param taskId
+     * @param data
      * @param progress
-     * @param employeeID
      * @return
      */
-    private boolean updateTaskProcess(Integer taskId, Integer progress, String employeeID) {
-        boolean result = taskBusiness.updateProgress(taskId, progress);
+    private boolean updateTaskProcess(TaskProgressBriefParams data, Integer progress) {
+        String employeeID = RequestContext.getEmployeeNo();
+        String nameEmployeeNo = RequestContext.getNameEmployeeNo();
+        boolean result = taskBusiness.updateProgress(data.getTaskId(), progress, data.getContent());
         if (result) {
-            taskLogBusiness.addTaskLog(taskId, employeeID, String.format("%s 更新任务进度为：%s%%", employeeID, progress));
+            taskLogBusiness.addTaskLog(data.getTaskId(), employeeID, String.format("%s 更新任务进度", nameEmployeeNo, progress));
         }
         return result;
     }

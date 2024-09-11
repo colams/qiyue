@@ -19,6 +19,8 @@ import org.springframework.stereotype.Component;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
+import static com.foxconn.sw.data.constants.enums.retcode.AccountExceptionCode.CREATE_repeat_ACCOUNT_EXCEPTION;
+
 @Component
 public class RegisterProcessor {
 
@@ -31,6 +33,7 @@ public class RegisterProcessor {
 
     public LoginStateVo register(UserBriefParams data) {
         // 创建 用户账户
+        checkExist(data);
         SwUser sysUser = createUser(data);
         if (Objects.isNull(sysUser)) {
             throw new BizException(AccountExceptionCode.CREATE_ACCOUNT_EXCEPTION);
@@ -39,6 +42,14 @@ public class RegisterProcessor {
         // 生成登录信息
         LoginStateVo result = createLoginState(data.getEmployeeNo());
         return result;
+    }
+
+    private boolean checkExist(UserBriefParams data) {
+        SwUser user = userBusiness.queryUser(data.getEmployeeNo());
+        if (Objects.nonNull(user)) {
+            throw new BizException(CREATE_repeat_ACCOUNT_EXCEPTION);
+        }
+        return true;
     }
 
     private SwEmployee saveEmployee(UserBriefParams data) {
@@ -56,6 +67,7 @@ public class RegisterProcessor {
         employee.setName(data.getName());
         employee.setEmployeeNo(data.getEmployeeNo());
         employee.setDepartmentId(data.getDepartmentId());
+        employee.setStatus(0);
         return employee;
     }
 

@@ -9,7 +9,7 @@ import com.foxconn.sw.data.dto.entity.acount.AddressBookVo;
 import com.foxconn.sw.data.dto.entity.acount.AddressGatherParams;
 import com.foxconn.sw.service.processor.acount.GatherAddressBookProcessor;
 import com.foxconn.sw.service.processor.acount.ListAddressBookProcessor;
-import com.foxconn.sw.service.utils.ExcelUtils;
+import com.foxconn.sw.service.utils.ExcelAddresskBookUtils;
 import com.foxconn.sw.service.utils.ResponseUtils;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -18,6 +18,7 @@ import jakarta.validation.Valid;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
@@ -63,8 +64,11 @@ public class AddressBookController {
         String fileName = DateTimeUtils.getTimeStamp() + ".xlsx";
         response.setHeader("Content-Disposition", "attachment; filename=" + fileName);
         List<AddressBookVo> bookVoList = listAddressBookProcessor.list(request.getHead(), request.getData());
+        if (CollectionUtils.isEmpty(bookVoList)) {
+            return ResponseEntity.ok().body(null);
+        }
         // 使用Apache POI生成Excel文件
-        Workbook workbook = ExcelUtils.generateExcel(bookVoList);
+        Workbook workbook = ExcelAddresskBookUtils.generateExcel(bookVoList);
 
         // 将Excel文件写入响应输出流
         OutputStream outputStream = response.getOutputStream();

@@ -10,13 +10,19 @@ public class WorkReportParams {
     @NotNull(message = "内容不能为空")
     private String project;
     @NotNull(message = "内容不能为空")
-    private String projectItem;
-    @NotNull(message = "内容不能为空")
     private String description;
     private Integer day;
     private Integer target;
     private Integer current;
     private String remark;
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
     public Integer getWeek() {
         return week;
@@ -42,13 +48,6 @@ public class WorkReportParams {
         this.project = project;
     }
 
-    public String getProjectItem() {
-        return projectItem;
-    }
-
-    public void setProjectItem(String projectItem) {
-        this.projectItem = projectItem;
-    }
 
     public String getDescription() {
         return description;

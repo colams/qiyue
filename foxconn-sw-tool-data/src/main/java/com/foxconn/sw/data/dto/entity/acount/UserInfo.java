@@ -10,6 +10,10 @@ public class UserInfo {
 
     private String departName;
 
+    private String avatar;
+
+    private Integer avatarID;
+
     public String getEmployeeNo() {
         return employeeNo;
     }
@@ -40,5 +44,21 @@ public class UserInfo {
 
     public void setDepartName(String departName) {
         this.departName = departName;
+    }
+
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
+    }
+
+    public Integer getAvatarID() {
+        return avatarID;
+    }
+
+    public void setAvatarID(Integer avatarID) {
+        this.avatarID = avatarID;
     }
 }

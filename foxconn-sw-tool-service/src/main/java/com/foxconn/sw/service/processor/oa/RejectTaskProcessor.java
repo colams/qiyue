@@ -38,7 +38,7 @@ public class RejectTaskProcessor {
 
         if (swTask.getStatus() != TaskStatusEnums.ACCEPTING.getCode()
                 && swTask.getStatus() != TaskStatusEnums.PENDING.getCode()) {
-            throw new BizException(1, String.format("當前狀態不允許駁回(%s)", swTask.getStatus()));
+            throw new BizException(1, String.format("當前狀態不允許回退(%s)", swTask.getStatus()));
         }
 
         boolean result;
@@ -63,7 +63,7 @@ public class RejectTaskProcessor {
     private boolean rejectClose(TaskRejectParams data, UserInfo user, int rejectStatus) {
         boolean result = taskBusiness.updateTaskStatus(data.getTaskId(), TaskStatusEnums.PENDING, rejectStatus);
         if (result) {
-            taskLogBusiness.addTaskLog(data.getTaskId(), user.getEmployeeName(), "任务 驳回: " + data.getContent());
+            taskLogBusiness.addTaskLog(data.getTaskId(), user.getEmployeeName(), "任务退回: " + data.getContent());
             addProgress(data, user, rejectStatus);
         }
         return result;
@@ -71,7 +71,7 @@ public class RejectTaskProcessor {
 
     private void addProgress(TaskRejectParams data, UserInfo user, int rejectStatus) {
 
-        String content = String.format("%s 駁回了任務:%s",
+        String content = String.format("%s 回退了任務:%s",
                 String.format("%s(%s)", user.getEmployeeName(), user.getEmployeeNo()),
                 data.getContent());
         if (rejectStatus == RejectStatusEnum.ACCEPTING_REJECT.getCode()) {

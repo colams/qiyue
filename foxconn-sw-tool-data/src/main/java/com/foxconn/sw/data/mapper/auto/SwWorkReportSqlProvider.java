@@ -27,25 +27,25 @@ public class SwWorkReportSqlProvider {
     public String insertSelective(SwWorkReport record) {
         SQL sql = new SQL();
         sql.INSERT_INTO("sw_work_report");
-        
+
         if (record.getEmployeeNo() != null) {
             sql.VALUES("employee_no", "#{employeeNo,jdbcType=VARCHAR}");
         }
-        
+
+        if (record.getYearWeek() != null) {
+            sql.VALUES("year_week", "#{yearWeek,jdbcType=VARCHAR}");
+        }
+
         if (record.getWeek() != null) {
             sql.VALUES("week", "#{week,jdbcType=INTEGER}");
         }
-        
+
         if (record.getNum() != null) {
             sql.VALUES("num", "#{num,jdbcType=INTEGER}");
         }
-        
+
         if (record.getProject() != null) {
             sql.VALUES("project", "#{project,jdbcType=VARCHAR}");
-        }
-        
-        if (record.getProjectItem() != null) {
-            sql.VALUES("project_item", "#{projectItem,jdbcType=VARCHAR}");
         }
         
         if (record.getDays() != null) {
@@ -91,10 +91,10 @@ public class SwWorkReportSqlProvider {
             sql.SELECT("id");
         }
         sql.SELECT("employee_no");
+        sql.SELECT("year_week");
         sql.SELECT("week");
         sql.SELECT("num");
         sql.SELECT("project");
-        sql.SELECT("project_item");
         sql.SELECT("days");
         sql.SELECT("target");
         sql.SELECT("current");
@@ -119,29 +119,29 @@ public class SwWorkReportSqlProvider {
         
         SQL sql = new SQL();
         sql.UPDATE("sw_work_report");
-        
+
         if (record.getId() != null) {
             sql.SET("id = #{record.id,jdbcType=INTEGER}");
         }
-        
+
         if (record.getEmployeeNo() != null) {
             sql.SET("employee_no = #{record.employeeNo,jdbcType=VARCHAR}");
         }
-        
+
+        if (record.getYearWeek() != null) {
+            sql.SET("year_week = #{record.yearWeek,jdbcType=VARCHAR}");
+        }
+
         if (record.getWeek() != null) {
             sql.SET("week = #{record.week,jdbcType=INTEGER}");
         }
-        
+
         if (record.getNum() != null) {
             sql.SET("num = #{record.num,jdbcType=INTEGER}");
         }
-        
+
         if (record.getProject() != null) {
             sql.SET("project = #{record.project,jdbcType=VARCHAR}");
-        }
-        
-        if (record.getProjectItem() != null) {
-            sql.SET("project_item = #{record.projectItem,jdbcType=VARCHAR}");
         }
         
         if (record.getDays() != null) {
@@ -186,10 +186,10 @@ public class SwWorkReportSqlProvider {
         
         sql.SET("id = #{record.id,jdbcType=INTEGER}");
         sql.SET("employee_no = #{record.employeeNo,jdbcType=VARCHAR}");
+        sql.SET("year_week = #{record.yearWeek,jdbcType=VARCHAR}");
         sql.SET("week = #{record.week,jdbcType=INTEGER}");
         sql.SET("num = #{record.num,jdbcType=INTEGER}");
         sql.SET("project = #{record.project,jdbcType=VARCHAR}");
-        sql.SET("project_item = #{record.projectItem,jdbcType=VARCHAR}");
         sql.SET("days = #{record.days,jdbcType=INTEGER}");
         sql.SET("target = #{record.target,jdbcType=INTEGER}");
         sql.SET("current = #{record.current,jdbcType=INTEGER}");
@@ -207,25 +207,25 @@ public class SwWorkReportSqlProvider {
     public String updateByPrimaryKeySelective(SwWorkReport record) {
         SQL sql = new SQL();
         sql.UPDATE("sw_work_report");
-        
+
         if (record.getEmployeeNo() != null) {
             sql.SET("employee_no = #{employeeNo,jdbcType=VARCHAR}");
         }
-        
+
+        if (record.getYearWeek() != null) {
+            sql.SET("year_week = #{yearWeek,jdbcType=VARCHAR}");
+        }
+
         if (record.getWeek() != null) {
             sql.SET("week = #{week,jdbcType=INTEGER}");
         }
-        
+
         if (record.getNum() != null) {
             sql.SET("num = #{num,jdbcType=INTEGER}");
         }
-        
+
         if (record.getProject() != null) {
             sql.SET("project = #{project,jdbcType=VARCHAR}");
-        }
-        
-        if (record.getProjectItem() != null) {
-            sql.SET("project_item = #{projectItem,jdbcType=VARCHAR}");
         }
         
         if (record.getDays() != null) {
