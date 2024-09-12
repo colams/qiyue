@@ -49,11 +49,14 @@ public interface SwTaskEmployeeRelationExtensionMapper extends SwTaskEmployeeRel
     List<SwTaskEmployeeRelation> selectByTaskID(Integer taskId);
 
     @Update({
+            "<script>",
             "update sw_task_employee_relation",
-            "set is_delete = 1",
-            "where role_flag & 4 > 0 ",
-            "and employee_no not in (#{employeeNos}) ",
-            "and task_id = #{taskId,jdbcType=INTEGER} "
+            "set is_delete=1",
+            "where id in",
+            "<foreach collection='ids' item='id' open='(' separator=',' close=')'>",
+            "#{id,jdbcType=INTEGER}",
+            "</foreach>",
+            "</script>"
     })
-    boolean deleteWatchRelation(@Param("employeeNos") List<String> employeeNos, @Param("taskId") Integer taskId);
+    int deleteWatchRelation(@Param("ids") List<Integer> ids);
 }

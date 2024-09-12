@@ -38,14 +38,14 @@ public class SwTaskEmployeeRelationBusiness {
             }
         }
 
-        List<String> deleteEmployees = new ArrayList<>();
+        List<Integer> deleteIds = new ArrayList<>();
         relations.forEach(e -> {
             if (!roleMap.containsKey(e.getEmployeeNo())) {
-                deleteEmployees.add(e.getEmployeeNo());
+                deleteIds.add(e.getId());
             }
         });
-        if (!CollectionUtils.isEmpty(deleteEmployees)) {
-            employeeRelationExtensionMapper.deleteWatchRelation(deleteEmployees, taskID);
+        if (!CollectionUtils.isEmpty(deleteIds)) {
+            employeeRelationExtensionMapper.deleteWatchRelation(deleteIds);
         }
         return true;
     }

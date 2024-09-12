@@ -15,7 +15,6 @@ import com.foxconn.sw.data.entity.SwTaskFollow;
 import com.foxconn.sw.service.processor.oa.utils.*;
 import com.foxconn.sw.service.processor.user.CommonUserUtils;
 import org.apache.commons.compress.utils.Lists;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -55,17 +54,17 @@ public class TaskListProcessor {
             e.setProject(TaskProjectUtils.processProject(e.getProject()));
             e.setCategory(TaskCategoryUtils.processCategory(e.getTopCategory(), e.getCategory()));
             e.setFollowStatus(getFollowStatus(map, e.getId()));
-            e.setManagerEID(getProcessEID(e));
-            e.setHandler(getProcessEID(e));
+//            e.setManagerEID(getProcessEID(e));
+//            e.setHandler(getProcessEID(e));
         });
     }
 
-    private String getProcessEID(TaskBriefListVo e) {
-        if (StringUtils.isEmpty(e.getHandler())) {
-            return e.getHandler2();
-        }
-        return e.getHandler();
-    }
+//    private String getProcessEID(TaskBriefListVo e) {
+//        if (StringUtils.isEmpty(e.getHandler())) {
+//            return e.getHandler2();
+//        }
+//        return e.getHandler();
+//    }
 
     private Integer getFollowStatus(Map<Integer, List<SwTaskFollow>> map, Integer taskID) {
         return map.getOrDefault(taskID, Lists.newArrayList()).size();
