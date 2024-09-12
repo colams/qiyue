@@ -69,7 +69,7 @@ public interface SwWorkReportMapper {
             @Result(column = "description", property = "description", jdbcType = JdbcType.VARCHAR),
             @Result(column = "remark", property = "remark", jdbcType = JdbcType.VARCHAR),
             @Result(column = "create_time", property = "createTime", jdbcType = JdbcType.TIMESTAMP),
-        @Result(column="datetime_lastchange", property="datetimeLastchange", jdbcType=JdbcType.TIMESTAMP)
+            @Result(column = "datetime_lastchange", property = "datetimeLastchange", jdbcType = JdbcType.TIMESTAMP)
     })
     List<SwWorkReport> selectByExampleWithRowbounds(SwWorkReportExample example, RowBounds rowBounds);
 
@@ -88,7 +88,7 @@ public interface SwWorkReportMapper {
             @Result(column = "description", property = "description", jdbcType = JdbcType.VARCHAR),
             @Result(column = "remark", property = "remark", jdbcType = JdbcType.VARCHAR),
             @Result(column = "create_time", property = "createTime", jdbcType = JdbcType.TIMESTAMP),
-        @Result(column="datetime_lastchange", property="datetimeLastchange", jdbcType=JdbcType.TIMESTAMP)
+            @Result(column = "datetime_lastchange", property = "datetimeLastchange", jdbcType = JdbcType.TIMESTAMP)
     })
     List<SwWorkReport> selectByExample(SwWorkReportExample example);
 
@@ -113,7 +113,7 @@ public interface SwWorkReportMapper {
             @Result(column = "description", property = "description", jdbcType = JdbcType.VARCHAR),
             @Result(column = "remark", property = "remark", jdbcType = JdbcType.VARCHAR),
             @Result(column = "create_time", property = "createTime", jdbcType = JdbcType.TIMESTAMP),
-        @Result(column="datetime_lastchange", property="datetimeLastchange", jdbcType=JdbcType.TIMESTAMP)
+            @Result(column = "datetime_lastchange", property = "datetimeLastchange", jdbcType = JdbcType.TIMESTAMP)
     })
     SwWorkReport selectByPrimaryKey(Integer id);
 
@@ -140,8 +140,8 @@ public interface SwWorkReportMapper {
             "description = #{description,jdbcType=VARCHAR},",
             "remark = #{remark,jdbcType=VARCHAR},",
             "create_time = #{createTime,jdbcType=TIMESTAMP},",
-          "datetime_lastchange = #{datetimeLastchange,jdbcType=TIMESTAMP}",
-        "where id = #{id,jdbcType=INTEGER}"
+            "datetime_lastchange = #{datetimeLastchange,jdbcType=TIMESTAMP}",
+            "where id = #{id,jdbcType=INTEGER}"
     })
     int updateByPrimaryKey(SwWorkReport record);
 }

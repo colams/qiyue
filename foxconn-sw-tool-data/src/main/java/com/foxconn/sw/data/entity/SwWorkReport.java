@@ -61,13 +61,13 @@ public class SwWorkReport {
         return yearWeek;
     }
 
-    public void setYearWeek(String yearWeek) {
-        this.yearWeek = yearWeek == null ? null : yearWeek.trim();
-    }
-
     public SwWorkReport withYearWeek(String yearWeek) {
         this.setYearWeek(yearWeek);
         return this;
+    }
+
+    public void setYearWeek(String yearWeek) {
+        this.yearWeek = yearWeek == null ? null : yearWeek.trim();
     }
 
     public Integer getWeek() {

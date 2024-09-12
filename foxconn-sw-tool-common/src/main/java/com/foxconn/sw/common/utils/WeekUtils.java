@@ -13,7 +13,6 @@ import java.time.temporal.WeekFields;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
-import java.util.Objects;
 
 public class WeekUtils {
 
@@ -78,17 +77,32 @@ public class WeekUtils {
      * @return Left：week，Right：year
      */
     public static Pair<Integer, Integer> getWeekOfYearAndYear(LocalDate date) {
-        if (Objects.isNull(date)) {
+        if (date == null) {
             date = LocalDate.now();
         }
 
-        LocalDate startOfYear = LocalDate.of(date.getYear(), 1, 1);
-        int daysSinceStart = date.getDayOfYear() - startOfYear.getDayOfYear();
-        int adjustedDaysSinceStart = daysSinceStart + ((startOfYear.getDayOfWeek().getValue() == 7) ? 1 : (startOfYear.getDayOfWeek().getValue() >= 2 ? 8 - startOfYear.getDayOfWeek().getValue() : 1 - startOfYear.getDayOfWeek().getValue()));
-        int weekNumber = adjustedDaysSinceStart / 7 + 1;
+        LocalDate yearStart = LocalDate.of(date.getYear(), 1, 1);
+        int daysFromYearStart = date.getDayOfYear() - yearStart.getDayOfYear();
+        int yearStartDayOfWeekValue = yearStart.getDayOfWeek().getValue();
+
+        int adjustedDays;
+        if (yearStartDayOfWeekValue <= DayOfWeek.MONDAY.getValue()) {
+            adjustedDays = daysFromYearStart + (yearStartDayOfWeekValue == DayOfWeek.MONDAY.getValue() ? 0 : (1 - yearStartDayOfWeekValue));
+        } else {
+            adjustedDays = daysFromYearStart + (8 - yearStartDayOfWeekValue);
+        }
+
+        int weekNumber = adjustedDays / 7 + 1;
         int year = date.getYear();
-        if (weekNumber == 1 && date.isBefore(startOfYear.plusWeeks(1))) {
+
+        if (date.isBefore(yearStart.plusWeeks(1)) && weekNumber == 1) {
             year--;
+        } else if (date.isAfter(yearStart.plusYears(1).minusDays(1)) && weekNumber > 51) {
+            year++;
+            weekNumber = 1;
+        } else if (date.getDayOfWeek() == DayOfWeek.MONDAY && date.isAfter(yearStart)) {
+            weekNumber = adjustedDays / 7 + 1;
+            year = date.getYear();
         }
         return Pair.of(weekNumber, year);
     }

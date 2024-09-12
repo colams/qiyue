@@ -6,6 +6,7 @@ import com.foxconn.sw.data.dto.entity.acount.UserInfo;
 import com.foxconn.sw.data.dto.entity.oa.WorkReportDetail;
 import com.foxconn.sw.data.dto.entity.oa.WorkReportVo;
 import com.google.common.collect.Lists;
+import org.apache.poi.ss.usermodel.Font;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.ss.util.CellRangeAddress;
 import org.apache.poi.ss.util.RegionUtil;
@@ -14,6 +15,7 @@ import org.apache.poi.xssf.usermodel.XSSFColor;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.util.CollectionUtils;
 
+import java.awt.Color;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
@@ -34,29 +36,29 @@ public class ExcelWorkReportUtils {
     private static Integer FontSize_16 = 16;
 
     // RGB值 -标题颜色
-    private static XSSFColor Title_Color = new XSSFColor(new java.awt.Color(153, 204, 255), new DefaultIndexedColorMap());
+    private static XSSFColor Title_Color = new XSSFColor(new Color(153, 204, 255), new DefaultIndexedColorMap());
     // RGB值 -计划颜色
-    private static XSSFColor Plan_Color = new XSSFColor(new java.awt.Color(255, 204, 153), new DefaultIndexedColorMap());
+    private static XSSFColor Plan_Color = new XSSFColor(new Color(255, 204, 153), new DefaultIndexedColorMap());
     // RGB值 -当前周颜色
-    private static XSSFColor Current_Color = new XSSFColor(new java.awt.Color(204, 255, 204), new DefaultIndexedColorMap());
+    private static XSSFColor Current_Color = new XSSFColor(new Color(204, 255, 204), new DefaultIndexedColorMap());
     // RGB值 -历史颜色
-    private static XSSFColor History_Color = new XSSFColor(new java.awt.Color(192, 192, 192), new DefaultIndexedColorMap());
+    private static XSSFColor History_Color = new XSSFColor(new Color(192, 192, 192), new DefaultIndexedColorMap());
 
     // RGB值 -计划颜色
-    private static XSSFColor S_Plan_Color = new XSSFColor(new java.awt.Color(255, 204, 153), new DefaultIndexedColorMap());
+    private static XSSFColor S_Plan_Color = new XSSFColor(new Color(255, 204, 153), new DefaultIndexedColorMap());
     // RGB值 -历史颜色
-    private static XSSFColor S_History_Color = new XSSFColor(new java.awt.Color(192, 192, 192), new DefaultIndexedColorMap());
+    private static XSSFColor S_History_Color = new XSSFColor(new Color(192, 192, 192), new DefaultIndexedColorMap());
     // RGB值 -计划颜色
-    private static XSSFColor Items_Color = new XSSFColor(new java.awt.Color(255, 153, 204), new DefaultIndexedColorMap());
+    private static XSSFColor Items_Color = new XSSFColor(new Color(255, 153, 204), new DefaultIndexedColorMap());
 
     // RGB值 -计划颜色
-    private static XSSFColor Red_Color = new XSSFColor(new java.awt.Color(255, 0, 0), new DefaultIndexedColorMap());
+    private static XSSFColor Red_Color = new XSSFColor(new Color(255, 0, 0), new DefaultIndexedColorMap());
 
     // RGB值 -计划颜色
-    private static XSSFColor Reach_Color = new XSSFColor(new java.awt.Color(51, 153, 102), new DefaultIndexedColorMap());
+    private static XSSFColor Reach_Color = new XSSFColor(new Color(51, 153, 102), new DefaultIndexedColorMap());
 
     // RGB值 -计划颜色
-    private static XSSFColor Gray_Color = new XSSFColor(new java.awt.Color(192, 192, 192), new DefaultIndexedColorMap());
+    private static XSSFColor Gray_Color = new XSSFColor(new Color(192, 192, 192), new DefaultIndexedColorMap());
 
     public static Workbook generateExcel(List<WorkReportVo> vos) {
         Map<String, List<WorkReportVo>> map = vos.stream()
@@ -134,62 +136,74 @@ public class ExcelWorkReportUtils {
             cell36.setCellStyle(titleStyle);
         }
 
-        for (WorkReportVo vo : vos) {
+        int colorFlag = 0;
+        for (int index = 0; index < vos.size(); index++) {
+            WorkReportVo vo = vos.get(index);
             if (CollectionUtils.isEmpty(vo.getReportDetailList())) {
                 continue;
             }
+            XSSFColor baseColor = Gray_Color;
+            if (colorFlag == 0) {
+                baseColor = Plan_Color;
+            } else if (colorFlag == 1) {
+                baseColor = Current_Color;
+            }
+
+            CellStyle baseCellStyle = contentStyle(workbook, baseColor, HorizontalAlignment.CENTER, VerticalAlignment.CENTER);
+            CellStyle baseContentCellStyle = contentStyle(workbook, baseColor, HorizontalAlignment.LEFT, VerticalAlignment.TOP);
+
+            CellStyle redStyle = contentStyle(workbook, Red_Color);
+            CellStyle reachStyle = contentStyle(workbook, Reach_Color);
+
 
             int lastRow = rowNum;
-            CellStyle contentStyle = contentStyle(workbook, Current_Color);
-            CellStyle contentStyle2 = contentStyle2(workbook, Current_Color);
-            CellStyle redStyle = contentStyle2(workbook, Red_Color);
-            CellStyle reachColor = contentStyle2(workbook, Reach_Color);
-
-            CellStyle grayStyle = contentStyle(workbook, Gray_Color);
-            CellStyle planStyle = contentStyle(workbook, Plan_Color);
-
-
             Row row = sheet.createRow(rowNum++);
             Cell contentCell0 = row.createCell(0);
             Cell contentCell1 = row.createCell(1);
 
             contentCell0.setCellValue("WK" + vo.getWeek());
-            contentCell0.setCellStyle(contentStyle);
+            contentCell0.setCellStyle(baseCellStyle);
 
             contentCell1.setCellValue(vo.getEmployee().getName());
-            contentCell1.setCellStyle(contentStyle);
+            contentCell1.setCellStyle(baseCellStyle);
 
             for (int i = 0; i < vo.getReportDetailList().size(); i++) {
                 Row currentRow = i == 0 ? row : sheet.createRow(rowNum++);
                 if (i > 0) {
                     Cell contentCell00 = currentRow.createCell(0);
-                    contentCell00.setCellStyle(contentStyle);
+                    contentCell00.setCellStyle(baseCellStyle);
                     Cell contentCell01 = currentRow.createCell(1);
-                    contentCell01.setCellStyle(contentStyle);
+                    contentCell01.setCellStyle(baseCellStyle);
                 }
                 boolean isFinish = vo.getReportDetailList().get(i).getCurrent() == 100;
-                boolean isReach = vo.getReportDetailList().get(i).getCurrent() < 100
-                        && vo.getReportDetailList().get(i).getCurrent() < vo.getReportDetailList().get(i).getTarget();
+                boolean isReach = vo.getReportDetailList().get(i).getCurrent() == vo.getReportDetailList().get(i).getTarget();
 
 
                 Cell contentCell2 = currentRow.createCell(2);
                 contentCell2.setCellValue(vo.getReportDetailList().get(i).getDescription());
-                contentCell2.setCellStyle(contentStyle2);
+                contentCell2.setCellStyle(baseContentCellStyle);
                 Cell contentCell3 = currentRow.createCell(3);
                 contentCell3.setCellValue(vo.getReportDetailList().get(i).getDay());
-                contentCell3.setCellStyle(contentStyle);
+                contentCell3.setCellStyle(baseCellStyle);
+
                 Cell contentCell4 = currentRow.createCell(4);
                 contentCell4.setCellValue(vo.getReportDetailList().get(i).getTarget());
-                contentCell4.setCellStyle(contentStyle);
+                contentCell4.setCellStyle(baseCellStyle);
                 Cell contentCell5 = currentRow.createCell(5);
                 contentCell5.setCellValue(vo.getReportDetailList().get(i).getCurrent());
-                contentCell5.setCellStyle(!isFinish ? redStyle : isReach ? reachColor : contentStyle2);
+
+                CellStyle curStyle = baseCellStyle;
+                if (colorFlag > 0) {
+                    curStyle = isFinish ? baseCellStyle : isReach ? reachStyle : redStyle;
+                }
+                contentCell5.setCellStyle(curStyle);
+
                 Cell contentCell6 = currentRow.createCell(6);
                 contentCell6.setCellValue(vo.getReportDetailList().get(i).getRemark());
-                contentCell6.setCellStyle(contentStyle2);
+                contentCell6.setCellStyle(baseContentCellStyle);
             }
             lastRow += vo.getReportDetailList().size() - 1;
-
+            colorFlag++;
 
             if (row.getRowNum() < lastRow) {
                 CellRangeAddress cellAddressWeek = new CellRangeAddress(
@@ -378,8 +392,11 @@ public class ExcelWorkReportUtils {
         return style(workbook, HorizontalAlignment.CENTER, VerticalAlignment.CENTER, true, Font_ArialUnicodeMS, FontSize_10, false, color);
     }
 
-    private static CellStyle contentStyle2(Workbook workbook, XSSFColor color) {
-        return style(workbook, HorizontalAlignment.LEFT, VerticalAlignment.TOP, true, Font_ArialUnicodeMS, FontSize_10, false, color);
+    private static CellStyle contentStyle(Workbook workbook,
+                                          XSSFColor color,
+                                          HorizontalAlignment hAlignment,
+                                          VerticalAlignment vAlignment) {
+        return style(workbook, hAlignment, vAlignment, true, Font_ArialUnicodeMS, FontSize_10, false, color);
     }
 
     /**

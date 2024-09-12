@@ -89,21 +89,8 @@ public class ListReportProcessor {
             return e;
         }).collect(Collectors.toList());
         return result.stream()
-                .sorted(Comparator.comparing(WorkReportVo::getEmployeeNo).thenComparing(WorkReportVo::getYearWeek))
+                .sorted(Comparator.comparing(WorkReportVo::getEmployeeNo).thenComparing(WorkReportVo::getYearWeek).reversed())
                 .collect(Collectors.toList());
-    }
-
-    private WorkReportVo getDefaultVo(Integer week, String employeeNo) {
-        EmployeeVo employeeVo = new EmployeeVo();
-        employeeVo.setEmployeeNo(employeeNo);
-        employeeVo.setName(getEmployeeName(employeeNo));
-
-        WorkReportVo vo = new WorkReportVo();
-        vo.setWeek(week);
-        vo.setEmployee(employeeVo);
-        vo.setMessage("週報未提交");
-        vo.setEmployeeNo(employeeNo);
-        return vo;
     }
 
     private WorkReportVo getDefaultVo(String yearWeek, String employeeNo) {
@@ -117,6 +104,7 @@ public class ListReportProcessor {
         vo.setMessage("週報未提交");
         vo.setEmployeeNo(employeeNo);
         vo.setYearWeek(yearWeek);
+        vo.setReportDetailList(Lists.newArrayList());
         return vo;
     }
 

@@ -1,7 +1,9 @@
 package com.foxconn.sw.data.mapper.extension.oa;
 
+import com.foxconn.sw.data.dto.entity.oa.BriefTaskVo;
 import com.foxconn.sw.data.dto.entity.oa.TaskBriefListVo;
 import com.foxconn.sw.data.dto.entity.oa.TaskParams;
+import com.foxconn.sw.data.entity.SwTask;
 import com.foxconn.sw.data.mapper.auto.SwTaskMapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Result;
@@ -104,4 +106,38 @@ public interface SwTaskExtensionMapper extends SwTaskMapper {
             "</script>"
     })
     int getTotalCountByParams(@Param("params") TaskParams params, @Param("employeeId") String employeeId, @Param("nowDate") String nowDate);
+
+    @Select({
+            "select",
+            "id, task_no, top_category, category, title, top_project, project, level, progress_percent, ",
+            "status, reject_status, proposer_eid, manager_eid, handle_eid, dead_line, resource_ids, ",
+            "start_date, end_date, reflection, create_time, datetime_lastchange, description",
+            "from sw_task",
+            "where id = #{id,jdbcType=INTEGER}"
+    })
+    @Results({
+            @Result(column = "id", property = "id", jdbcType = JdbcType.INTEGER, id = true),
+            @Result(column = "task_no", property = "taskNo", jdbcType = JdbcType.BIGINT),
+            @Result(column = "top_category", property = "topCategory", jdbcType = JdbcType.VARCHAR),
+            @Result(column = "category", property = "category", jdbcType = JdbcType.VARCHAR),
+            @Result(column = "title", property = "title", jdbcType = JdbcType.VARCHAR),
+            @Result(column = "top_project", property = "topProject", jdbcType = JdbcType.VARCHAR),
+            @Result(column = "project", property = "project", jdbcType = JdbcType.VARCHAR),
+            @Result(column = "level", property = "level", jdbcType = JdbcType.VARCHAR),
+            @Result(column = "progress_percent", property = "progressPercent", jdbcType = JdbcType.INTEGER),
+            @Result(column = "status", property = "status", jdbcType = JdbcType.INTEGER),
+            @Result(column = "reject_status", property = "rejectStatus", jdbcType = JdbcType.INTEGER),
+            @Result(column = "proposer_eid", property = "proposerEid", jdbcType = JdbcType.VARCHAR),
+            @Result(column = "manager_eid", property = "managerEid", jdbcType = JdbcType.VARCHAR),
+            @Result(column = "handle_eid", property = "handleEid", jdbcType = JdbcType.VARCHAR),
+            @Result(column = "dead_line", property = "deadLine", jdbcType = JdbcType.VARCHAR),
+            @Result(column = "resource_ids", property = "resourceIds", jdbcType = JdbcType.VARCHAR),
+            @Result(column = "start_date", property = "startDate", jdbcType = JdbcType.VARCHAR),
+            @Result(column = "end_date", property = "endDate", jdbcType = JdbcType.VARCHAR),
+            @Result(column = "reflection", property = "reflection", jdbcType = JdbcType.VARCHAR),
+            @Result(column = "create_time", property = "createTime", jdbcType = JdbcType.TIMESTAMP),
+            @Result(column = "datetime_lastchange", property = "datetimeLastchange", jdbcType = JdbcType.TIMESTAMP),
+            @Result(column = "description", property = "description", jdbcType = JdbcType.LONGVARCHAR)
+    })
+    BriefTaskVo selectByTaskId(Integer id);
 }

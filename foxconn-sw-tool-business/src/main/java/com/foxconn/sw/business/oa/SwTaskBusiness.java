@@ -4,6 +4,7 @@ import com.foxconn.sw.common.utils.DateTimeUtils;
 import com.foxconn.sw.data.constants.enums.oa.RejectStatusEnum;
 import com.foxconn.sw.data.constants.enums.oa.TaskStatusEnums;
 import com.foxconn.sw.data.dto.PageParams;
+import com.foxconn.sw.data.dto.entity.oa.BriefTaskVo;
 import com.foxconn.sw.data.dto.entity.oa.TaskBriefListVo;
 import com.foxconn.sw.data.dto.entity.oa.TaskParams;
 import com.foxconn.sw.data.entity.SwTask;
@@ -49,16 +50,16 @@ public class SwTaskBusiness {
         return taskExtensionMapper.getTotalCountByParams(params, employeeId, now);
     }
 
-    public SwTask getTaskById(Integer taskId) {
-        return taskExtensionMapper.selectByPrimaryKey(taskId);
+    public BriefTaskVo getTaskById(Integer taskId) {
+        return taskExtensionMapper.selectByTaskId(taskId);
     }
 
-    public boolean updateProgress(Integer taskId, Integer progress,String content) {
+    public boolean updateProgress(Integer taskId, Integer progress, String content) {
         SwTask task = new SwTask();
         task.setId(taskId);
         task.setProgressPercent(progress);
         task.setStatus(TaskStatusEnums.PROCESSING.getCode());
-        if (progress==100){
+        if (progress == 100) {
             task.setStatus(TaskStatusEnums.ACCEPTING.getCode());
             task.setRejectStatus(RejectStatusEnum.UN_REJECT.getCode());
             task.setReflection(content);

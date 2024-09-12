@@ -65,21 +65,9 @@ public class CreateTaskProcessor {
         if (result) {
             addTaskLog(task, isUpdate);
             addProcessInfo(task, isUpdate);
-            addTaskEmployee(taskID, task.getManagerEid());
+            taskEmployeeRelation.addRelationAtCreate(taskID, task.getManagerEid(), data.getWatchers());
         }
         return taskID;
-    }
-
-    private void addTaskEmployee(int taskID, String managerEid) {
-        String userEmployeeNo = RequestContext.getEmployeeNo();
-        if (StringUtils.isNotEmpty(managerEid) && userEmployeeNo.equalsIgnoreCase(managerEid)) {
-            taskEmployeeRelation.addTaskEmployee(userEmployeeNo, taskID, TaskRoleFlagEnums.Proposer_Flag, TaskRoleFlagEnums.Manager_Flag);
-        } else {
-            Integer relationID = taskEmployeeRelation.addTaskEmployee(userEmployeeNo, taskID, TaskRoleFlagEnums.Proposer_Flag);
-            if (StringUtils.isNotEmpty(managerEid)) {
-                taskEmployeeRelation.addTaskEmployee(managerEid, taskID, relationID, TaskRoleFlagEnums.Manager_Flag);
-            }
-        }
     }
 
     private void addTaskLog(SwTask task, boolean isUpdate) {

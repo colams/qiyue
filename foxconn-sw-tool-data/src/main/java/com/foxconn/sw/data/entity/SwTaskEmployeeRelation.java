@@ -13,6 +13,8 @@ public class SwTaskEmployeeRelation {
 
     private Integer roleFlag;
 
+    private Integer isActive;
+
     private Integer isDelete;
 
     private LocalDateTime createTime;
@@ -82,6 +84,19 @@ public class SwTaskEmployeeRelation {
 
     public void setRoleFlag(Integer roleFlag) {
         this.roleFlag = roleFlag;
+    }
+
+    public Integer getIsActive() {
+        return isActive;
+    }
+
+    public SwTaskEmployeeRelation withIsActive(Integer isActive) {
+        this.setIsActive(isActive);
+        return this;
+    }
+
+    public void setIsActive(Integer isActive) {
+        this.isActive = isActive;
     }
 
     public Integer getIsDelete() {

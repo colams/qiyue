@@ -324,12 +324,12 @@ public class SwTask {
         return description;
     }
 
-    public void setDescription(String description) {
-        this.description = description == null ? null : description.trim();
-    }
-
     public SwTask withDescription(String description) {
         this.setDescription(description);
         return this;
+    }
+
+    public void setDescription(String description) {
+        this.description = description == null ? null : description.trim();
     }
 }

@@ -34,14 +34,14 @@ public interface SwTaskEmployeeRelationMapper {
     int deleteByPrimaryKey(Integer id);
 
     @Insert({
-        "insert into sw_task_employee_relation (task_id, employee_no, ",
-        "prev_id, role_flag, ",
-        "is_delete, create_time, ",
-        "datetime_lastchange)",
-        "values (#{taskId,jdbcType=INTEGER}, #{employeeNo,jdbcType=VARCHAR}, ",
-        "#{prevId,jdbcType=INTEGER}, #{roleFlag,jdbcType=INTEGER}, ",
-        "#{isDelete,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, ",
-        "#{datetimeLastchange,jdbcType=TIMESTAMP})"
+            "insert into sw_task_employee_relation (task_id, employee_no, ",
+            "prev_id, role_flag, ",
+            "is_active, is_delete, ",
+            "create_time, datetime_lastchange)",
+            "values (#{taskId,jdbcType=INTEGER}, #{employeeNo,jdbcType=VARCHAR}, ",
+            "#{prevId,jdbcType=INTEGER}, #{roleFlag,jdbcType=INTEGER}, ",
+            "#{isActive,jdbcType=INTEGER}, #{isDelete,jdbcType=INTEGER}, ",
+            "#{createTime,jdbcType=TIMESTAMP}, #{datetimeLastchange,jdbcType=TIMESTAMP})"
     })
     @SelectKey(statement="SELECT LAST_INSERT_ID()", keyProperty="id", before=false, resultType=Integer.class)
     int insert(SwTaskEmployeeRelation record);
@@ -52,45 +52,49 @@ public interface SwTaskEmployeeRelationMapper {
 
     @SelectProvider(type=SwTaskEmployeeRelationSqlProvider.class, method="selectByExample")
     @Results({
-        @Result(column="id", property="id", jdbcType=JdbcType.INTEGER, id=true),
-        @Result(column="task_id", property="taskId", jdbcType=JdbcType.INTEGER),
-        @Result(column="employee_no", property="employeeNo", jdbcType=JdbcType.VARCHAR),
-        @Result(column="prev_id", property="prevId", jdbcType=JdbcType.INTEGER),
-        @Result(column="role_flag", property="roleFlag", jdbcType=JdbcType.INTEGER),
-        @Result(column="is_delete", property="isDelete", jdbcType=JdbcType.INTEGER),
-        @Result(column="create_time", property="createTime", jdbcType=JdbcType.TIMESTAMP),
-        @Result(column="datetime_lastchange", property="datetimeLastchange", jdbcType=JdbcType.TIMESTAMP)
+            @Result(column = "id", property = "id", jdbcType = JdbcType.INTEGER, id = true),
+            @Result(column = "task_id", property = "taskId", jdbcType = JdbcType.INTEGER),
+            @Result(column = "employee_no", property = "employeeNo", jdbcType = JdbcType.VARCHAR),
+            @Result(column = "prev_id", property = "prevId", jdbcType = JdbcType.INTEGER),
+            @Result(column = "role_flag", property = "roleFlag", jdbcType = JdbcType.INTEGER),
+            @Result(column = "is_active", property = "isActive", jdbcType = JdbcType.INTEGER),
+            @Result(column = "is_delete", property = "isDelete", jdbcType = JdbcType.INTEGER),
+            @Result(column = "create_time", property = "createTime", jdbcType = JdbcType.TIMESTAMP),
+            @Result(column = "datetime_lastchange", property = "datetimeLastchange", jdbcType = JdbcType.TIMESTAMP)
     })
     List<SwTaskEmployeeRelation> selectByExampleWithRowbounds(SwTaskEmployeeRelationExample example, RowBounds rowBounds);
 
     @SelectProvider(type=SwTaskEmployeeRelationSqlProvider.class, method="selectByExample")
     @Results({
-        @Result(column="id", property="id", jdbcType=JdbcType.INTEGER, id=true),
-        @Result(column="task_id", property="taskId", jdbcType=JdbcType.INTEGER),
-        @Result(column="employee_no", property="employeeNo", jdbcType=JdbcType.VARCHAR),
-        @Result(column="prev_id", property="prevId", jdbcType=JdbcType.INTEGER),
-        @Result(column="role_flag", property="roleFlag", jdbcType=JdbcType.INTEGER),
-        @Result(column="is_delete", property="isDelete", jdbcType=JdbcType.INTEGER),
-        @Result(column="create_time", property="createTime", jdbcType=JdbcType.TIMESTAMP),
-        @Result(column="datetime_lastchange", property="datetimeLastchange", jdbcType=JdbcType.TIMESTAMP)
+            @Result(column = "id", property = "id", jdbcType = JdbcType.INTEGER, id = true),
+            @Result(column = "task_id", property = "taskId", jdbcType = JdbcType.INTEGER),
+            @Result(column = "employee_no", property = "employeeNo", jdbcType = JdbcType.VARCHAR),
+            @Result(column = "prev_id", property = "prevId", jdbcType = JdbcType.INTEGER),
+            @Result(column = "role_flag", property = "roleFlag", jdbcType = JdbcType.INTEGER),
+            @Result(column = "is_active", property = "isActive", jdbcType = JdbcType.INTEGER),
+            @Result(column = "is_delete", property = "isDelete", jdbcType = JdbcType.INTEGER),
+            @Result(column = "create_time", property = "createTime", jdbcType = JdbcType.TIMESTAMP),
+            @Result(column = "datetime_lastchange", property = "datetimeLastchange", jdbcType = JdbcType.TIMESTAMP)
     })
     List<SwTaskEmployeeRelation> selectByExample(SwTaskEmployeeRelationExample example);
 
     @Select({
-        "select",
-        "id, task_id, employee_no, prev_id, role_flag, is_delete, create_time, datetime_lastchange",
-        "from sw_task_employee_relation",
-        "where id = #{id,jdbcType=INTEGER}"
+            "select",
+            "id, task_id, employee_no, prev_id, role_flag, is_active, is_delete, create_time, ",
+            "datetime_lastchange",
+            "from sw_task_employee_relation",
+            "where id = #{id,jdbcType=INTEGER}"
     })
     @Results({
-        @Result(column="id", property="id", jdbcType=JdbcType.INTEGER, id=true),
-        @Result(column="task_id", property="taskId", jdbcType=JdbcType.INTEGER),
-        @Result(column="employee_no", property="employeeNo", jdbcType=JdbcType.VARCHAR),
-        @Result(column="prev_id", property="prevId", jdbcType=JdbcType.INTEGER),
-        @Result(column="role_flag", property="roleFlag", jdbcType=JdbcType.INTEGER),
-        @Result(column="is_delete", property="isDelete", jdbcType=JdbcType.INTEGER),
-        @Result(column="create_time", property="createTime", jdbcType=JdbcType.TIMESTAMP),
-        @Result(column="datetime_lastchange", property="datetimeLastchange", jdbcType=JdbcType.TIMESTAMP)
+            @Result(column = "id", property = "id", jdbcType = JdbcType.INTEGER, id = true),
+            @Result(column = "task_id", property = "taskId", jdbcType = JdbcType.INTEGER),
+            @Result(column = "employee_no", property = "employeeNo", jdbcType = JdbcType.VARCHAR),
+            @Result(column = "prev_id", property = "prevId", jdbcType = JdbcType.INTEGER),
+            @Result(column = "role_flag", property = "roleFlag", jdbcType = JdbcType.INTEGER),
+            @Result(column = "is_active", property = "isActive", jdbcType = JdbcType.INTEGER),
+            @Result(column = "is_delete", property = "isDelete", jdbcType = JdbcType.INTEGER),
+            @Result(column = "create_time", property = "createTime", jdbcType = JdbcType.TIMESTAMP),
+            @Result(column = "datetime_lastchange", property = "datetimeLastchange", jdbcType = JdbcType.TIMESTAMP)
     })
     SwTaskEmployeeRelation selectByPrimaryKey(Integer id);
 
@@ -104,15 +108,16 @@ public interface SwTaskEmployeeRelationMapper {
     int updateByPrimaryKeySelective(SwTaskEmployeeRelation record);
 
     @Update({
-        "update sw_task_employee_relation",
-        "set task_id = #{taskId,jdbcType=INTEGER},",
-          "employee_no = #{employeeNo,jdbcType=VARCHAR},",
-          "prev_id = #{prevId,jdbcType=INTEGER},",
-          "role_flag = #{roleFlag,jdbcType=INTEGER},",
-          "is_delete = #{isDelete,jdbcType=INTEGER},",
-          "create_time = #{createTime,jdbcType=TIMESTAMP},",
-          "datetime_lastchange = #{datetimeLastchange,jdbcType=TIMESTAMP}",
-        "where id = #{id,jdbcType=INTEGER}"
+            "update sw_task_employee_relation",
+            "set task_id = #{taskId,jdbcType=INTEGER},",
+            "employee_no = #{employeeNo,jdbcType=VARCHAR},",
+            "prev_id = #{prevId,jdbcType=INTEGER},",
+            "role_flag = #{roleFlag,jdbcType=INTEGER},",
+            "is_active = #{isActive,jdbcType=INTEGER},",
+            "is_delete = #{isDelete,jdbcType=INTEGER},",
+            "create_time = #{createTime,jdbcType=TIMESTAMP},",
+            "datetime_lastchange = #{datetimeLastchange,jdbcType=TIMESTAMP}",
+            "where id = #{id,jdbcType=INTEGER}"
     })
     int updateByPrimaryKey(SwTaskEmployeeRelation record);
 }
