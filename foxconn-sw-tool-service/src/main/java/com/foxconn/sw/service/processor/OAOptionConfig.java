@@ -88,10 +88,13 @@ public class OAOptionConfig {
         OptionsVo optionsVo7 = new OptionsVo("7", "工具", optionsVos7);
         addOptionVo("7-1", "辦公助手", optionsVos7);
         addOptionVo("7-2", "FA工具", optionsVos7);
+        addOptionVo("7-3", "其他工具", optionsVos7);
 
         List<OptionsVo> optionsVos8 = new ArrayList<>();
         OptionsVo optionsVo8 = new OptionsVo("8", "其他", optionsVos8);
-        addOptionVo("8-1", "其他", optionsVos8);
+        addOptionVo("8-1", "系統開發", optionsVos8);
+        addOptionVo("8-2", "文檔", optionsVos8);
+        addOptionVo("8-3", "其他", optionsVos8);
 
         optionsVos.add(optionsVo1);
         optionsVos.add(optionsVo2);

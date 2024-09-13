@@ -62,13 +62,15 @@ public class SwTaskEmployeeRelationBusiness {
 
         if (optional.isPresent()) {
             SwTaskEmployeeRelation relation = optional.get();
-            if (relation.getRoleFlag() != simpleRelation.getRoleFlag()) {
+            if (relation.getRoleFlag() != simpleRelation.getRoleFlag()
+                    || relation.getPrevId() != prevID
+                    || relation.getIsActive() != simpleRelation.getActive()) {
                 SwTaskEmployeeRelation updateRelation = new SwTaskEmployeeRelation();
                 updateRelation.setPrevId(prevID);
                 updateRelation.setRoleFlag(simpleRelation.getRoleFlag());
                 updateRelation.setIsActive(simpleRelation.getActive());
                 updateRelation.setId(relation.getId());
-                employeeRelationExtensionMapper.updateByPrimaryKey(updateRelation);
+                employeeRelationExtensionMapper.updateByPrimaryKeySelective(updateRelation);
             }
             relationID = relation.getId();
         } else {
@@ -108,11 +110,14 @@ public class SwTaskEmployeeRelationBusiness {
                 continue;
             }
 
+            boolean hasKey = map.containsKey(employeeNo);
             SimpleRelation relation = map.getOrDefault(employeeNo, new SimpleRelation());
             relation.setActive(active);
             relation.setRoleFlag(roleFlagEnums.setFlag(relation.getRoleFlag()));
             relation.setEmployeeNo(employeeNo);
-            relation.setOrderBy(orderBy);
+            if (!hasKey) {
+                relation.setOrderBy(orderBy);
+            }
             map.put(employeeNo, relation);
         }
     }

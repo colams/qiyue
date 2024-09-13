@@ -56,7 +56,7 @@ public class ListAddressBookProcessor {
 
         AddressBookVo vo = new AddressBookVo();
 
-        List<DepartmentVo> voList = getDepartList(voMap, e.getDepartmentId());
+        List<DepartmentVo> voList = departmentBusiness.getDepartList(voMap, e.getDepartmentId());
 
         vo.setSeniorDepart(voList.stream().filter(departmentVo -> departmentVo.getName().endsWith("處")).map(v -> v.getName()).findFirst().orElse("-"));
         vo.setDepartment(voList.stream().filter(departmentVo -> departmentVo.getName().contains("部")).map(v -> v.getName()).findFirst().orElse("-"));
@@ -74,19 +74,6 @@ public class ListAddressBookProcessor {
 
     private Integer getGatherStatus(Map<String, SwContactGather> gatherMap, String employeeNo) {
         return Objects.nonNull(gatherMap.get(employeeNo)) ? 1 : 0;
-    }
-
-    private List<DepartmentVo> getDepartList(Map<Integer, DepartmentVo> voMap, int departID) {
-        List<DepartmentVo> vos = new ArrayList<>();
-
-        DepartmentVo departmentVo = voMap.get(departID);
-        if (Objects.isNull(departmentVo.getParentId()) || departmentVo.getParentId() == 0) {
-            return vos;
-        }
-        List<DepartmentVo> temps = getDepartList(voMap, departmentVo.getParentId());
-        temps.addAll(Lists.newArrayList(departmentVo));
-        vos.addAll(temps);
-        return vos;
     }
 
 

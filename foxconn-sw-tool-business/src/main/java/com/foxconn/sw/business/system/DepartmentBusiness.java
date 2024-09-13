@@ -182,4 +182,38 @@ public class DepartmentBusiness {
         departmentList.addAll(temps);
         return departmentList;
     }
+
+    public String getFullDepartName(int departID) {
+        Map<Integer, DepartmentVo> voMap = getDepartMap();
+        List<DepartmentVo> departmentVos = getDepartList(voMap, departID);
+        return departmentVos.stream().map(e -> e.getName()).collect(Collectors.joining(" - "));
+    }
+
+    public String getShortDepartName(int departID) {
+        Map<Integer, DepartmentVo> voMap = getDepartMap();
+        List<DepartmentVo> departmentVos = getDepartList(voMap, departID);
+        if (departmentVos.size() > 2) {
+            return departmentVos.subList(departmentVos.size() - 2, departmentVos.size())
+                    .stream()
+                    .map(e -> e.getName())
+                    .collect(Collectors.joining(" "));
+        }
+        return departmentVos.stream()
+                .map(e -> e.getName())
+                .collect(Collectors.joining(" "));
+    }
+
+
+    public List<DepartmentVo> getDepartList(Map<Integer, DepartmentVo> voMap, int departID) {
+        List<DepartmentVo> vos = new ArrayList<>();
+
+        DepartmentVo departmentVo = voMap.get(departID);
+        if (Objects.isNull(departmentVo.getParentId()) || departmentVo.getParentId() == 0) {
+            return vos;
+        }
+        List<DepartmentVo> temps = getDepartList(voMap, departmentVo.getParentId());
+        temps.addAll(Lists.newArrayList(departmentVo));
+        vos.addAll(temps);
+        return vos;
+    }
 }

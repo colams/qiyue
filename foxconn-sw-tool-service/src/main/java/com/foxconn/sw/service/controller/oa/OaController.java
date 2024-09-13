@@ -3,7 +3,7 @@ package com.foxconn.sw.service.controller.oa;
 import com.foxconn.sw.data.constants.TagsConstants;
 import com.foxconn.sw.data.dto.Request;
 import com.foxconn.sw.data.dto.Response;
-import com.foxconn.sw.data.dto.entity.acount.EmployeeVo;
+import com.foxconn.sw.data.dto.entity.acount.EmployeeOptionVo;
 import com.foxconn.sw.data.dto.entity.oa.OAOptionVo;
 import com.foxconn.sw.service.processor.oa.AssignEmployeesProcessor;
 import com.foxconn.sw.service.processor.universal.OptionListProcessor;
@@ -37,8 +37,8 @@ public class OaController {
     @Operation(summary = "OA 分类信息", tags = TagsConstants.OA)
     @ApiResponse(responseCode = "0", description = "成功码")
     @PostMapping("/assignEmployees")
-    public Response<List<EmployeeVo>> assignEmployees(@Valid @RequestBody Request request) {
-        List<EmployeeVo> vos = assignEmployeesProcessor.assignEmployees();
+    public Response<List<EmployeeOptionVo>> assignEmployees(@Valid @RequestBody Request request) {
+        List<EmployeeOptionVo> vos = assignEmployeesProcessor.assignEmployees();
         return ResponseUtils.success(vos, request.getTraceId());
     }
 

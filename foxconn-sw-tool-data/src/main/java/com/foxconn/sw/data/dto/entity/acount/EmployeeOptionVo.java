@@ -2,7 +2,7 @@ package com.foxconn.sw.data.dto.entity.acount;
 
 import jakarta.validation.constraints.Pattern;
 
-public class EmployeeVo {
+public class EmployeeOptionVo {
 
     @Pattern(regexp = "^\\S*$", message = "字符串不能全部为空格")
     private String name;
@@ -10,7 +10,7 @@ public class EmployeeVo {
     @Pattern(regexp = "^\\S*$", message = "字符串不能全部为空格")
     private String employeeNo;
 
-    private Integer departmentId;
+    private String department;
 
     public String getName() {
         return name;
@@ -28,11 +28,11 @@ public class EmployeeVo {
         this.employeeNo = employeeNo;
     }
 
-    public Integer getDepartmentId() {
-        return departmentId;
+    public String getDepartment() {
+        return department;
     }
 
-    public void setDepartmentId(Integer departmentId) {
-        this.departmentId = departmentId;
+    public void setDepartment(String department) {
+        this.department = department;
     }
 }

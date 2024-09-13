@@ -10,12 +10,12 @@ import com.foxconn.sw.data.dto.entity.system.DepartmentVo;
 import com.foxconn.sw.data.entity.SwEmployee;
 import com.foxconn.sw.data.entity.SwUser;
 import com.foxconn.sw.service.processor.user.CommonUserUtils;
-import com.google.common.collect.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.*;
-import java.util.stream.Collectors;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Component
 public class ProfileProcessor {
@@ -57,7 +57,7 @@ public class ProfileProcessor {
         profileVo.setOuterWorkYears(employee.getOuterWorkYears());
         profileVo.setOuterAbcYears(employee.getOuterAbcYears());
         profileVo.setSignature(swUser.getSignature());
-        profileVo.setDepartment(getFullDepartName(employee.getDepartmentId()));
+        profileVo.setDepartment(departmentBusiness.getFullDepartName(employee.getDepartmentId()));
         profileVo.setAvatar(appendResourceBusiness.getResourceUrl(swUser.getAvatarId()));
         return profileVo;
     }
@@ -104,24 +104,4 @@ public class ProfileProcessor {
         List<DepartmentVo> vos = departmentBusiness.getDepartList();
         return vos.stream().filter(e -> e.getId() == departID).findFirst().map(DepartmentVo::getName).orElse("");
     }
-
-    private String getFullDepartName(int departID) {
-        Map<Integer, DepartmentVo> voMap = departmentBusiness.getDepartMap();
-        List<DepartmentVo> departmentVos = getDepartList(voMap, departID);
-        return departmentVos.stream().map(e -> e.getName()).collect(Collectors.joining(" - "));
-    }
-
-    private List<DepartmentVo> getDepartList(Map<Integer, DepartmentVo> voMap, int departID) {
-        List<DepartmentVo> vos = new ArrayList<>();
-
-        DepartmentVo departmentVo = voMap.get(departID);
-        if (Objects.isNull(departmentVo.getParentId()) || departmentVo.getParentId() == 0) {
-            return vos;
-        }
-        List<DepartmentVo> temps = getDepartList(voMap, departmentVo.getParentId());
-        temps.addAll(Lists.newArrayList(departmentVo));
-        vos.addAll(temps);
-        return vos;
-    }
-
 }
