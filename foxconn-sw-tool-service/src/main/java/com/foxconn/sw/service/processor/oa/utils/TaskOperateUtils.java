@@ -3,9 +3,9 @@ package com.foxconn.sw.service.processor.oa.utils;
 import com.foxconn.sw.data.constants.enums.OperateTypeEnum;
 import com.foxconn.sw.data.constants.enums.oa.RejectStatusEnum;
 import com.foxconn.sw.data.constants.enums.oa.TaskStatusEnums;
-import com.foxconn.sw.data.dto.entity.oa.TaskBriefListVo;
 import com.foxconn.sw.data.dto.entity.oa.TaskDetailVo;
 import com.foxconn.sw.data.dto.entity.universal.OperateEntity;
+import com.foxconn.sw.data.entity.SwTask;
 import com.foxconn.sw.data.entity.SwTaskEmployeeRelation;
 import org.apache.commons.lang3.StringUtils;
 
@@ -16,8 +16,8 @@ import static com.foxconn.sw.data.constants.enums.oa.TaskStatusEnums.*;
 
 public class TaskOperateUtils {
 
-    public static OperateEntity processOperate(String employeeNo, TaskBriefListVo briefListVo, OperateTypeEnum op) {
-        TaskStatusEnums taskStatusEnums = TaskStatusEnums.getStatusByCode(briefListVo.getStatus());
+    public static OperateEntity processOperate(String employeeNo, SwTask task, OperateTypeEnum op) {
+        TaskStatusEnums taskStatusEnums = TaskStatusEnums.getStatusByCode(task.getStatus());
         OperateEntity operate = null;
         Integer subType = null;
         boolean enable = false;
@@ -29,24 +29,24 @@ public class TaskOperateUtils {
                 if ((taskStatusEnums == DRAFT
                         || taskStatusEnums == REVOKE
                         || (taskStatusEnums == PENDING
-                        && briefListVo.getRejectStatus() == RejectStatusEnum.RELEASE_REJECT.getCode()))
-                        && employeeNo.equalsIgnoreCase(briefListVo.getProposerEID())) {
+                        && task.getRejectStatus() == RejectStatusEnum.RELEASE_REJECT.getCode()))
+                        && employeeNo.equalsIgnoreCase(task.getProposerEid())) {
                     enable = true;
                     subType = 0;
                 } else if (taskStatusEnums != REVOKE
                         && taskStatusEnums != CLOSED
                         && taskStatusEnums != COMPLETED
-                        && StringUtils.isEmpty(briefListVo.getHandlerEID())
-                        && employeeNo.equalsIgnoreCase(briefListVo.getManagerEID())) {
+                        && StringUtils.isEmpty(task.getHandleEid())
+                        && employeeNo.equalsIgnoreCase(task.getManagerEid())) {
                     enable = true;
                     subType = 1;
                 } else if (taskStatusEnums == ACCEPTING
-                        && employeeNo.equalsIgnoreCase(briefListVo.getProposerEID())) {
+                        && employeeNo.equalsIgnoreCase(task.getProposerEid())) {
                     enable = true;
                     subType = 1;
                 } else if ((taskStatusEnums == PENDING
                         || taskStatusEnums == PROCESSING)
-                        && employeeNo.equalsIgnoreCase(briefListVo.getHandlerEID())) {
+                        && employeeNo.equalsIgnoreCase(task.getHandleEid())) {
                     enable = true;
                     subType = 1;
                 }
@@ -55,15 +55,15 @@ public class TaskOperateUtils {
             case REMINDER:
                 if ((taskStatusEnums == PROCESSING
                         || (taskStatusEnums == PENDING
-                        && briefListVo.getRejectStatus() != RejectStatusEnum.RELEASE_REJECT.getCode()))
-                        && employeeNo.equalsIgnoreCase(briefListVo.getProposerEID())) {
+                        && task.getRejectStatus() != RejectStatusEnum.RELEASE_REJECT.getCode()))
+                        && employeeNo.equalsIgnoreCase(task.getProposerEid())) {
                     enable = true;
                 }
                 operate = initVo(op.getMsg(), op.name(), enable);
                 break;
             case REVOKE:
                 if (taskStatusEnums == PENDING
-                        && employeeNo.equalsIgnoreCase(briefListVo.getProposerEID())) {
+                        && employeeNo.equalsIgnoreCase(task.getProposerEid())) {
                     enable = true;
                 }
                 operate = initVo(op.getMsg(), op.name(), enable);

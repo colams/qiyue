@@ -15,11 +15,6 @@ public class TaskBriefListVo {
     private Long taskNo;
 
     /**
-     * 专案-所属项目
-     */
-    private String topCategory;
-
-    /**
      * 任务分类
      */
     private String category;
@@ -28,11 +23,6 @@ public class TaskBriefListVo {
      * 任务标题-任务名称
      */
     private String title;
-
-    /**
-     * 专案-所属项目
-     */
-    private String topProject;
 
     /**
      * 专案-所属项目
@@ -76,16 +66,6 @@ public class TaskBriefListVo {
     private String deadLine;
 
     /**
-     * 任务开始时间 YYYY-MM-DD
-     */
-    private String startDate;
-
-    /**
-     * 任务结束时间 YYYY-MM-DD
-     */
-    private String endDate;
-
-    /**
      * 任务创建时间 YYYY-MM-DD HH:mm:ss
      */
     private LocalDateTime createTime;
@@ -105,12 +85,7 @@ public class TaskBriefListVo {
      */
     private Integer followStatus;
 
-    private String handler2;
-    private String handlerEID;
-    private String managerEID;
-    private String proposerEID;
-    private Integer roleFlag;
-
+    private String supervisor;
 
     public Integer getId() {
         return id;
@@ -126,14 +101,6 @@ public class TaskBriefListVo {
 
     public void setTaskNo(Long taskNo) {
         this.taskNo = taskNo;
-    }
-
-    public String getTopCategory() {
-        return topCategory;
-    }
-
-    public void setTopCategory(String topCategory) {
-        this.topCategory = topCategory;
     }
 
     public String getCategory() {
@@ -152,13 +119,6 @@ public class TaskBriefListVo {
         this.title = title;
     }
 
-    public String getTopProject() {
-        return topProject;
-    }
-
-    public void setTopProject(String topProject) {
-        this.topProject = topProject;
-    }
 
     public String getProject() {
         return project;
@@ -224,22 +184,6 @@ public class TaskBriefListVo {
         this.deadLine = deadLine;
     }
 
-    public String getStartDate() {
-        return startDate;
-    }
-
-    public void setStartDate(String startDate) {
-        this.startDate = startDate;
-    }
-
-    public String getEndDate() {
-        return endDate;
-    }
-
-    public void setEndDate(String endDate) {
-        this.endDate = endDate;
-    }
-
     public LocalDateTime getCreateTime() {
         return createTime;
     }
@@ -272,43 +216,12 @@ public class TaskBriefListVo {
         this.followStatus = followStatus;
     }
 
-    public String getHandler2() {
-        return handler2;
+    public String getSupervisor() {
+        return supervisor;
     }
 
-    public void setHandler2(String handler2) {
-        this.handler2 = handler2;
+    public void setSupervisor(String supervisor) {
+        this.supervisor = supervisor;
     }
 
-    public String getHandlerEID() {
-        return handlerEID;
-    }
-
-    public void setHandlerEID(String handlerEID) {
-        this.handlerEID = handlerEID;
-    }
-
-    public String getManagerEID() {
-        return managerEID;
-    }
-
-    public void setManagerEID(String managerEID) {
-        this.managerEID = managerEID;
-    }
-
-    public String getProposerEID() {
-        return proposerEID;
-    }
-
-    public void setProposerEID(String proposerEID) {
-        this.proposerEID = proposerEID;
-    }
-
-    public Integer getRoleFlag() {
-        return roleFlag;
-    }
-
-    public void setRoleFlag(Integer roleFlag) {
-        this.roleFlag = roleFlag;
-    }
 }

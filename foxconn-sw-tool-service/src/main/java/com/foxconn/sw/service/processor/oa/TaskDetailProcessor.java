@@ -1,6 +1,7 @@
 package com.foxconn.sw.service.processor.oa;
 
 import com.foxconn.sw.business.SwAppendResourceBusiness;
+import com.foxconn.sw.business.context.RequestContext;
 import com.foxconn.sw.business.mapper.AppendResourceMapper;
 import com.foxconn.sw.business.mapper.SwTaskLogMapper;
 import com.foxconn.sw.business.mapper.TaskMapper;
@@ -53,8 +54,7 @@ public class TaskDetailProcessor {
     SwTaskEmployeeRelationBusiness relationBusiness;
 
     public TaskEntityVo detail(IntegerParams data, Header head) {
-        String employeeNo = commonUserUtils.getEmployeeNo(head.getToken());
-
+        String employeeNo = RequestContext.getEmployeeNo();
         TaskDetailVo detailVo = getDetailVo(data.getParams(), employeeNo);
 
         if (Objects.isNull(detailVo)) {

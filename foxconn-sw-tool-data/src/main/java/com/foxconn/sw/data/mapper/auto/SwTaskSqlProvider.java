@@ -84,34 +84,22 @@ public class SwTaskSqlProvider {
             sql.VALUES("dead_line", "#{deadLine,jdbcType=VARCHAR}");
         }
         
-        if (record.getResourceIds() != null) {
-            sql.VALUES("resource_ids", "#{resourceIds,jdbcType=VARCHAR}");
-        }
-        
-        if (record.getStartDate() != null) {
-            sql.VALUES("start_date", "#{startDate,jdbcType=VARCHAR}");
-        }
-        
-        if (record.getEndDate() != null) {
-            sql.VALUES("end_date", "#{endDate,jdbcType=VARCHAR}");
-        }
-        
         if (record.getReflection() != null) {
             sql.VALUES("reflection", "#{reflection,jdbcType=VARCHAR}");
         }
-
+        
         if (record.getCreateTime() != null) {
             sql.VALUES("create_time", "#{createTime,jdbcType=TIMESTAMP}");
         }
-
+        
         if (record.getDatetimeLastchange() != null) {
             sql.VALUES("datetime_lastchange", "#{datetimeLastchange,jdbcType=TIMESTAMP}");
         }
-
+        
         if (record.getDescription() != null) {
             sql.VALUES("description", "#{description,jdbcType=LONGVARCHAR}");
         }
-
+        
         return sql.toString();
     }
 
@@ -136,20 +124,17 @@ public class SwTaskSqlProvider {
         sql.SELECT("manager_eid");
         sql.SELECT("handle_eid");
         sql.SELECT("dead_line");
-        sql.SELECT("resource_ids");
-        sql.SELECT("start_date");
-        sql.SELECT("end_date");
         sql.SELECT("reflection");
         sql.SELECT("create_time");
         sql.SELECT("datetime_lastchange");
         sql.SELECT("description");
         sql.FROM("sw_task");
         applyWhere(sql, example, false);
-
+        
         if (example != null && example.getOrderByClause() != null) {
             sql.ORDER_BY(example.getOrderByClause());
         }
-
+        
         return sql.toString();
     }
 
@@ -174,117 +159,102 @@ public class SwTaskSqlProvider {
         sql.SELECT("manager_eid");
         sql.SELECT("handle_eid");
         sql.SELECT("dead_line");
-        sql.SELECT("resource_ids");
-        sql.SELECT("start_date");
-        sql.SELECT("end_date");
         sql.SELECT("reflection");
         sql.SELECT("create_time");
         sql.SELECT("datetime_lastchange");
         sql.FROM("sw_task");
         applyWhere(sql, example, false);
-
+        
         if (example != null && example.getOrderByClause() != null) {
             sql.ORDER_BY(example.getOrderByClause());
         }
-
+        
         return sql.toString();
     }
 
     public String updateByExampleSelective(Map<String, Object> parameter) {
         SwTask record = (SwTask) parameter.get("record");
         SwTaskExample example = (SwTaskExample) parameter.get("example");
-
+        
         SQL sql = new SQL();
         sql.UPDATE("sw_task");
-
+        
         if (record.getId() != null) {
             sql.SET("id = #{record.id,jdbcType=INTEGER}");
         }
-
+        
         if (record.getTaskNo() != null) {
             sql.SET("task_no = #{record.taskNo,jdbcType=BIGINT}");
         }
-
+        
         if (record.getTopCategory() != null) {
             sql.SET("top_category = #{record.topCategory,jdbcType=VARCHAR}");
         }
-
+        
         if (record.getCategory() != null) {
             sql.SET("category = #{record.category,jdbcType=VARCHAR}");
         }
-
+        
         if (record.getTitle() != null) {
             sql.SET("title = #{record.title,jdbcType=VARCHAR}");
         }
-
+        
         if (record.getTopProject() != null) {
             sql.SET("top_project = #{record.topProject,jdbcType=VARCHAR}");
         }
-
+        
         if (record.getProject() != null) {
             sql.SET("project = #{record.project,jdbcType=VARCHAR}");
         }
-
+        
         if (record.getLevel() != null) {
             sql.SET("level = #{record.level,jdbcType=VARCHAR}");
         }
-
+        
         if (record.getProgressPercent() != null) {
             sql.SET("progress_percent = #{record.progressPercent,jdbcType=INTEGER}");
         }
-
+        
         if (record.getStatus() != null) {
             sql.SET("status = #{record.status,jdbcType=INTEGER}");
         }
-
+        
         if (record.getRejectStatus() != null) {
             sql.SET("reject_status = #{record.rejectStatus,jdbcType=INTEGER}");
         }
-
+        
         if (record.getProposerEid() != null) {
             sql.SET("proposer_eid = #{record.proposerEid,jdbcType=VARCHAR}");
         }
-
+        
         if (record.getManagerEid() != null) {
             sql.SET("manager_eid = #{record.managerEid,jdbcType=VARCHAR}");
         }
-
+        
         if (record.getHandleEid() != null) {
             sql.SET("handle_eid = #{record.handleEid,jdbcType=VARCHAR}");
         }
-
+        
         if (record.getDeadLine() != null) {
             sql.SET("dead_line = #{record.deadLine,jdbcType=VARCHAR}");
         }
-
-        if (record.getResourceIds() != null) {
-            sql.SET("resource_ids = #{record.resourceIds,jdbcType=VARCHAR}");
-        }
-
-        if (record.getStartDate() != null) {
-            sql.SET("start_date = #{record.startDate,jdbcType=VARCHAR}");
-        }
-
-        if (record.getEndDate() != null) {
-            sql.SET("end_date = #{record.endDate,jdbcType=VARCHAR}");
-        }
-
+        
         if (record.getReflection() != null) {
             sql.SET("reflection = #{record.reflection,jdbcType=VARCHAR}");
         }
-
+        
         if (record.getCreateTime() != null) {
             sql.SET("create_time = #{record.createTime,jdbcType=TIMESTAMP}");
         }
-
+        
         if (record.getDatetimeLastchange() != null) {
             sql.SET("datetime_lastchange = #{record.datetimeLastchange,jdbcType=TIMESTAMP}");
         }
-
+        
         if (record.getDescription() != null) {
             sql.SET("description = #{record.description,jdbcType=LONGVARCHAR}");
         }
-
+        
         applyWhere(sql, example, true);
         return sql.toString();
     }
@@ -292,7 +262,7 @@ public class SwTaskSqlProvider {
     public String updateByExampleWithBLOBs(Map<String, Object> parameter) {
         SQL sql = new SQL();
         sql.UPDATE("sw_task");
-
+        
         sql.SET("id = #{record.id,jdbcType=INTEGER}");
         sql.SET("task_no = #{record.taskNo,jdbcType=BIGINT}");
         sql.SET("top_category = #{record.topCategory,jdbcType=VARCHAR}");
@@ -308,14 +278,11 @@ public class SwTaskSqlProvider {
         sql.SET("manager_eid = #{record.managerEid,jdbcType=VARCHAR}");
         sql.SET("handle_eid = #{record.handleEid,jdbcType=VARCHAR}");
         sql.SET("dead_line = #{record.deadLine,jdbcType=VARCHAR}");
-        sql.SET("resource_ids = #{record.resourceIds,jdbcType=VARCHAR}");
-        sql.SET("start_date = #{record.startDate,jdbcType=VARCHAR}");
-        sql.SET("end_date = #{record.endDate,jdbcType=VARCHAR}");
         sql.SET("reflection = #{record.reflection,jdbcType=VARCHAR}");
         sql.SET("create_time = #{record.createTime,jdbcType=TIMESTAMP}");
         sql.SET("datetime_lastchange = #{record.datetimeLastchange,jdbcType=TIMESTAMP}");
         sql.SET("description = #{record.description,jdbcType=LONGVARCHAR}");
-
+        
         SwTaskExample example = (SwTaskExample) parameter.get("example");
         applyWhere(sql, example, true);
         return sql.toString();
@@ -340,9 +307,6 @@ public class SwTaskSqlProvider {
         sql.SET("manager_eid = #{record.managerEid,jdbcType=VARCHAR}");
         sql.SET("handle_eid = #{record.handleEid,jdbcType=VARCHAR}");
         sql.SET("dead_line = #{record.deadLine,jdbcType=VARCHAR}");
-        sql.SET("resource_ids = #{record.resourceIds,jdbcType=VARCHAR}");
-        sql.SET("start_date = #{record.startDate,jdbcType=VARCHAR}");
-        sql.SET("end_date = #{record.endDate,jdbcType=VARCHAR}");
         sql.SET("reflection = #{record.reflection,jdbcType=VARCHAR}");
         sql.SET("create_time = #{record.createTime,jdbcType=TIMESTAMP}");
         sql.SET("datetime_lastchange = #{record.datetimeLastchange,jdbcType=TIMESTAMP}");
@@ -412,36 +376,24 @@ public class SwTaskSqlProvider {
             sql.SET("dead_line = #{deadLine,jdbcType=VARCHAR}");
         }
         
-        if (record.getResourceIds() != null) {
-            sql.SET("resource_ids = #{resourceIds,jdbcType=VARCHAR}");
-        }
-        
-        if (record.getStartDate() != null) {
-            sql.SET("start_date = #{startDate,jdbcType=VARCHAR}");
-        }
-        
-        if (record.getEndDate() != null) {
-            sql.SET("end_date = #{endDate,jdbcType=VARCHAR}");
-        }
-        
         if (record.getReflection() != null) {
             sql.SET("reflection = #{reflection,jdbcType=VARCHAR}");
         }
-
+        
         if (record.getCreateTime() != null) {
             sql.SET("create_time = #{createTime,jdbcType=TIMESTAMP}");
         }
-
+        
         if (record.getDatetimeLastchange() != null) {
             sql.SET("datetime_lastchange = #{datetimeLastchange,jdbcType=TIMESTAMP}");
         }
-
+        
         if (record.getDescription() != null) {
             sql.SET("description = #{description,jdbcType=LONGVARCHAR}");
         }
-
+        
         sql.WHERE("id = #{id,jdbcType=INTEGER}");
-
+        
         return sql.toString();
     }
 

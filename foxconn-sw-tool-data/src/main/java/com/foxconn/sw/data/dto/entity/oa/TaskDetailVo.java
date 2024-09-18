@@ -87,16 +87,6 @@ public class TaskDetailVo {
     private String deadLine;
 
     /**
-     * 任务开始时间 YYYY-MM-DD
-     */
-    private String startDate;
-
-    /**
-     * 任务结束时间 YYYY-MM-DD
-     */
-    private String endDate;
-
-    /**
      * 任务创建时间 YYYY-MM-DD HH:mm:ss
      */
     private LocalDateTime createTime;
@@ -243,22 +233,6 @@ public class TaskDetailVo {
 
     public void setDeadLine(String deadLine) {
         this.deadLine = deadLine;
-    }
-
-    public String getStartDate() {
-        return startDate;
-    }
-
-    public void setStartDate(String startDate) {
-        this.startDate = startDate;
-    }
-
-    public String getEndDate() {
-        return endDate;
-    }
-
-    public void setEndDate(String endDate) {
-        this.endDate = endDate;
     }
 
     public LocalDateTime getCreateTime() {

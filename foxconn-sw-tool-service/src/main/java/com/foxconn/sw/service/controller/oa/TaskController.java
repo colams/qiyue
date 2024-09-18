@@ -1,6 +1,5 @@
 package com.foxconn.sw.service.controller.oa;
 
-import com.foxconn.sw.business.oa.SwTaskBusiness;
 import com.foxconn.sw.data.constants.TagsConstants;
 import com.foxconn.sw.data.dto.PageEntity;
 import com.foxconn.sw.data.dto.PageParams;
@@ -86,6 +85,15 @@ public class TaskController {
     }
 
     @Permission
+    @Operation(summary = "列表页-任务总览", tags = TagsConstants.OA)
+    @ApiResponse(responseCode = "0", description = "成功码")
+    @PostMapping("/overview")
+    public Response<List<TaskOverviewVo>> overview(@Valid @RequestBody Request<IntegerParams> request) {
+        List<TaskOverviewVo> taskList = overviewProcessor.overview(request.getData());
+        return ResponseUtils.success(taskList, request.getTraceId());
+    }
+
+    @Permission
     @Operation(summary = "任务详情", tags = TagsConstants.OA)
     @ApiResponse(responseCode = "0", description = "成功码")
     @PostMapping("/detail")
@@ -100,14 +108,6 @@ public class TaskController {
     public Response<SwTask> briefDetail(@Valid @RequestBody Request<IntegerParams> request) {
         SwTask task = briefDetail.getTaskById(request.getData().getParams());
         return ResponseUtils.success(task, request.getTraceId());
-    }
-
-    @Operation(summary = "列表页-任务总览", tags = TagsConstants.OA)
-    @ApiResponse(responseCode = "0", description = "成功码")
-    @PostMapping("/overview")
-    public Response<List<TaskOverviewVo>> overview(@Valid @RequestBody Request request) {
-        List<TaskOverviewVo> taskList = overviewProcessor.overview(request.getHead());
-        return ResponseUtils.success(taskList, request.getTraceId());
     }
 
     @Permission

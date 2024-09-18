@@ -98,6 +98,17 @@ public class EmployeeBusiness {
         return employees;
     }
 
+    public List<String> queryMemberNo(String employeeNo, boolean hasSelf) {
+        List<String> employeeNos = queryMembers(employeeNo).stream()
+                .map(SwEmployee::getEmployeeNo)
+                .filter(e -> hasSelf || employeeNo.equalsIgnoreCase(e))
+                .collect(Collectors.toList());
+        if (hasSelf && CollectionUtils.isEmpty(employeeNos)) {
+            employeeNos.add(employeeNo);
+        }
+        return employeeNos;
+    }
+
     public List<SwEmployee> queryMembers(String employeeNo) {
         List<Integer> departIds = departmentBusiness.getMangeDepart(employeeNo);
 

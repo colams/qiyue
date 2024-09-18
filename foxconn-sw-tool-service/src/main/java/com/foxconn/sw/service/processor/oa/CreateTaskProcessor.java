@@ -8,7 +8,7 @@ import com.foxconn.sw.business.oa.SwTaskEmployeeRelationBusiness;
 import com.foxconn.sw.business.oa.SwTaskLogBusiness;
 import com.foxconn.sw.business.oa.SwTaskProgressBusiness;
 import com.foxconn.sw.business.system.EmployeeBusiness;
-import com.foxconn.sw.data.constants.enums.TaskRoleFlagEnums;
+import com.foxconn.sw.common.utils.ConvertUtils;
 import com.foxconn.sw.data.constants.enums.oa.RejectStatusEnum;
 import com.foxconn.sw.data.dto.Header;
 import com.foxconn.sw.data.dto.entity.oa.TaskBriefDetailVo;
@@ -16,10 +16,10 @@ import com.foxconn.sw.data.entity.SwEmployee;
 import com.foxconn.sw.data.entity.SwTask;
 import com.foxconn.sw.data.entity.SwTaskProgress;
 import com.foxconn.sw.service.processor.user.CommonUserUtils;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
 import java.util.Objects;
 
 import static com.foxconn.sw.data.constants.enums.oa.TaskStatusEnums.DRAFT;
@@ -64,7 +64,7 @@ public class CreateTaskProcessor {
 
         if (result) {
             addTaskLog(task, isUpdate);
-            addProcessInfo(task, isUpdate);
+            addProcessInfo(task, data.getResourceIds(), isUpdate);
             taskEmployeeRelation.addRelationAtCreate(taskID, task.getManagerEid(), data.getWatchers());
         }
         return taskID;
@@ -85,7 +85,7 @@ public class CreateTaskProcessor {
         taskLogBusiness.addTaskLog(task.getId(), operator, content);
     }
 
-    private void addProcessInfo(SwTask task, boolean isUpdate) {
+    private void addProcessInfo(SwTask task, List<Integer> resourceIds, boolean isUpdate) {
         String content = "";
         if (task.getStatus() == PENDING.getCode()) {
             SwEmployee ee = employeeBusiness.selectEmployeeByENo(task.getManagerEid());
@@ -101,7 +101,7 @@ public class CreateTaskProcessor {
         SwTaskProgress progress = new SwTaskProgress();
         progress.setTaskId(task.getId());
         progress.setOperateEid(RequestContext.getEmployeeNo());
-        progress.setResourceIds(task.getResourceIds());
+        progress.setResourceIds(ConvertUtils.listIntegerToString(resourceIds));
         progress.setProgress(0);
         progress.setContent(content);
         progressBusiness.addProcessInfo(progress);

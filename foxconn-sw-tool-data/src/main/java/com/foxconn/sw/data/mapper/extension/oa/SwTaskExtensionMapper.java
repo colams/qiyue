@@ -1,8 +1,8 @@
 package com.foxconn.sw.data.mapper.extension.oa;
 
 import com.foxconn.sw.data.dto.entity.oa.BriefTaskVo;
-import com.foxconn.sw.data.dto.entity.oa.TaskBriefListVo;
 import com.foxconn.sw.data.dto.entity.oa.TaskParams;
+import com.foxconn.sw.data.entity.SwTask;
 import com.foxconn.sw.data.mapper.auto.SwTaskMapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Result;
@@ -19,17 +19,19 @@ public interface SwTaskExtensionMapper extends SwTaskMapper {
 
     @Select({"<script>",
             "select ",
-            "st.id,task_no, reject_status,top_category, category, title, top_project, project, level, ",
-            "progress_percent, st.status, proposer_eid, se1.name as proposer,handle_eid,",
-            "se2.name as handler2,manager_eid,ste.role_flag, ",
-            "dead_line, resource_ids, start_date, end_date, st.create_time",
+            "st.*",
             "from sw_task st ",
             " inner join sw_task_employee_relation ste on ste.task_id=st.id ",
-            " left join sw_employee se1 on st.proposer_eid=se1.employee_no ",
-            " left join sw_employee se2 on ste.employee_no=se2.employee_no ",
-            "where ste.employee_no=#{employeeId,jdbcType=VARCHAR} ",
+            "<where>",
+            " ste.employee_no in ",
+            "<foreach collection='employeeNos' open='(' close=')' separator=',' item='employeeNo'>",
+            " #{employeeNo} ",
+            "</foreach>",
             "<if test='params.keyWord!=null and params.keyWord!=\"\"' >",
             " and title like CONCAT('%', #{params.keyWord,jdbcType=VARCHAR}, '%') ",
+            "</if> ",
+            "<if test='params.taskNo!=null and params.taskNo!=0' >",
+            " and task_no=#{params.taskNo,jdbcType=BIGINT}",
             "</if> ",
             "<if test='params.searchType==1'  >",
             " and st.status=1 ",
@@ -43,34 +45,37 @@ public interface SwTaskExtensionMapper extends SwTaskMapper {
             "<if test='params.searchType==4'  >",
             " and st.status in (1,2,3) and dead_line &lt;#{nowDate,jdbcType=VARCHAR} ",
             "</if> ",
+            "</where>",
             "ORDER BY st.id desc",
             "LIMIT #{start,jdbcType=INTEGER} , #{end,jdbcType=INTEGER} ",
             "</script>"
     })
     @Results({
             @Result(column = "id", property = "id", jdbcType = JdbcType.INTEGER, id = true),
-            @Result(column = "task_no", property = "taskNo", jdbcType = JdbcType.VARCHAR),
+            @Result(column = "task_no", property = "taskNo", jdbcType = JdbcType.BIGINT),
             @Result(column = "top_category", property = "topCategory", jdbcType = JdbcType.VARCHAR),
             @Result(column = "category", property = "category", jdbcType = JdbcType.VARCHAR),
             @Result(column = "title", property = "title", jdbcType = JdbcType.VARCHAR),
-            @Result(column = "project", property = "project", jdbcType = JdbcType.VARCHAR),
             @Result(column = "top_project", property = "topProject", jdbcType = JdbcType.VARCHAR),
+            @Result(column = "project", property = "project", jdbcType = JdbcType.VARCHAR),
             @Result(column = "level", property = "level", jdbcType = JdbcType.VARCHAR),
             @Result(column = "progress_percent", property = "progressPercent", jdbcType = JdbcType.INTEGER),
             @Result(column = "status", property = "status", jdbcType = JdbcType.INTEGER),
             @Result(column = "reject_status", property = "rejectStatus", jdbcType = JdbcType.INTEGER),
-            @Result(column = "proposer", property = "proposer", jdbcType = JdbcType.VARCHAR),
-            @Result(column = "proposer_eid", property = "proposerEID", jdbcType = JdbcType.VARCHAR),
-            @Result(column = "manager_eid", property = "managerEID", jdbcType = JdbcType.VARCHAR),
-            @Result(column = "role_flag", property = "roleFlag", jdbcType = JdbcType.INTEGER),
-            @Result(column = "handler2", property = "handler2", jdbcType = JdbcType.VARCHAR),
-            @Result(column = "handle_eid", property = "handlerEID", jdbcType = JdbcType.VARCHAR),
+            @Result(column = "proposer_eid", property = "proposerEid", jdbcType = JdbcType.VARCHAR),
+            @Result(column = "manager_eid", property = "managerEid", jdbcType = JdbcType.VARCHAR),
+            @Result(column = "handle_eid", property = "handleEid", jdbcType = JdbcType.VARCHAR),
             @Result(column = "dead_line", property = "deadLine", jdbcType = JdbcType.VARCHAR),
-            @Result(column = "start_date", property = "startDate", jdbcType = JdbcType.VARCHAR),
-            @Result(column = "end_date", property = "endDate", jdbcType = JdbcType.VARCHAR),
+            @Result(column = "reflection", property = "reflection", jdbcType = JdbcType.VARCHAR),
             @Result(column = "create_time", property = "createTime", jdbcType = JdbcType.TIMESTAMP),
+            @Result(column = "datetime_lastchange", property = "datetimeLastchange", jdbcType = JdbcType.TIMESTAMP),
+            @Result(column = "description", property = "description", jdbcType = JdbcType.LONGVARCHAR)
     })
-    List<TaskBriefListVo> listBriefVos(@Param("start") int start, @Param("end") int end, @Param("params") TaskParams params, @Param("employeeId") String employeeId, @Param("nowDate") String nowDate);
+    List<SwTask> listBriefVos(@Param("start") int start,
+                              @Param("end") int end,
+                              @Param("params") TaskParams params,
+                              @Param("employeeNos") List<String> employeeNos,
+                              @Param("nowDate") String nowDate);
 
     @Select({"<script>",
             "select count(1)",
@@ -78,9 +83,16 @@ public interface SwTaskExtensionMapper extends SwTaskMapper {
             " inner join sw_task_employee_relation ste on ste.task_id=st.id ",
             " left join sw_employee se1 on st.proposer_eid=se1.employee_no ",
             " left join sw_employee se2 on ste.employee_no=se2.employee_no ",
-            "where ste.employee_no=#{employeeId,jdbcType=VARCHAR} ",
+            "<where>",
+            " ste.employee_no in ",
+            "<foreach collection='employeeNos' open='(' close=')' separator=',' item='employeeNo'>",
+            " #{employeeNo} ",
+            "</foreach>",
             "<if test='params.keyWord!=null and params.keyWord!=\"\"' >",
             " and title like CONCAT('%', #{params.keyWord,jdbcType=VARCHAR}, '%') ",
+            "</if> ",
+            "<if test='params.taskNo!=null and params.taskNo!=0' >",
+            " and task_no=#{params.taskNo,jdbcType=BIGINT}",
             "</if> ",
             "<if test='params.searchType==1'  >",
             " and st.status=1 ",
@@ -94,16 +106,14 @@ public interface SwTaskExtensionMapper extends SwTaskMapper {
             "<if test='params.searchType==4'  >",
             " and st.status in (1,2,3) and dead_line &lt;#{nowDate,jdbcType=VARCHAR} ",
             "</if> ",
+            "</where>",
             "ORDER BY st.id ",
             "</script>"
     })
-    int getTotalCountByParams(@Param("params") TaskParams params, @Param("employeeId") String employeeId, @Param("nowDate") String nowDate);
+    int getTotalCountByParams(@Param("params") TaskParams params, @Param("employeeNos") List<String> employeeNos, @Param("nowDate") String nowDate);
 
     @Select({
-            "select",
-            "id, task_no, top_category, category, title, top_project, project, level, progress_percent, ",
-            "status, reject_status, proposer_eid, manager_eid, handle_eid, dead_line, resource_ids, ",
-            "start_date, end_date, reflection, create_time, datetime_lastchange, description",
+            "select * ",
             "from sw_task",
             "where id = #{id,jdbcType=INTEGER}"
     })
@@ -123,9 +133,6 @@ public interface SwTaskExtensionMapper extends SwTaskMapper {
             @Result(column = "manager_eid", property = "managerEid", jdbcType = JdbcType.VARCHAR),
             @Result(column = "handle_eid", property = "handleEid", jdbcType = JdbcType.VARCHAR),
             @Result(column = "dead_line", property = "deadLine", jdbcType = JdbcType.VARCHAR),
-            @Result(column = "resource_ids", property = "resourceIds", jdbcType = JdbcType.VARCHAR),
-            @Result(column = "start_date", property = "startDate", jdbcType = JdbcType.VARCHAR),
-            @Result(column = "end_date", property = "endDate", jdbcType = JdbcType.VARCHAR),
             @Result(column = "reflection", property = "reflection", jdbcType = JdbcType.VARCHAR),
             @Result(column = "create_time", property = "createTime", jdbcType = JdbcType.TIMESTAMP),
             @Result(column = "datetime_lastchange", property = "datetimeLastchange", jdbcType = JdbcType.TIMESTAMP),

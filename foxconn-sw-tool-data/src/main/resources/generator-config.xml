@@ -80,6 +80,12 @@
         <table tableName="sw_contact_gather">
             <generatedKey column="id" identity="true" sqlStatement="mysql"/>
         </table>
+        <table tableName="sw_custom_group">
+            <generatedKey column="id" identity="true" sqlStatement="mysql"/>
+        </table>
+        <table tableName="sw_custom_member">
+            <generatedKey column="id" identity="true" sqlStatement="mysql"/>
+        </table>
         <table tableName="sw_department">
             <generatedKey column="id" identity="true" sqlStatement="mysql"/>
         </table>

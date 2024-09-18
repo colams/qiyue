@@ -30,24 +30,24 @@ public class SwTaskBusiness {
         return taskExtensionMapper.updateByPrimaryKeySelective(task) > 0;
     }
 
-    public List<TaskBriefListVo> listBriefVos(PageParams<TaskParams> data, String employeeId) {
+    public List<SwTask> listBriefVos(PageParams<TaskParams> data, List<String> employeeNos) {
         LocalDateTime localDateTime = LocalDateTime.now();
         String now = DateTimeUtils.formatYMD(localDateTime);
         int start = (data.getCurrentPage() - 1) * data.getPageSize();
-        return taskExtensionMapper.listBriefVos(start, data.getPageSize(), data.getParams(), employeeId, now);
+        return taskExtensionMapper.listBriefVos(start, data.getPageSize(), data.getParams(), employeeNos, now);
     }
 
-    public int getTotalCountByParams(TaskParams params, String employeeId) {
+    public int getTotalCountByParams(TaskParams params, List<String> employeeNos) {
         LocalDateTime localDateTime = LocalDateTime.now();
         String now = DateTimeUtils.formatYMD(localDateTime);
-        return taskExtensionMapper.getTotalCountByParams(params, employeeId, now);
+        return taskExtensionMapper.getTotalCountByParams(params, employeeNos, now);
     }
 
-    public int getTotalCountByParams(int searchType, String employeeId, String now) {
+    public int getTotalCountByParams(int searchType, List<String> employees, String now) {
         TaskParams params = new TaskParams();
         params.setKeyWord("");
         params.setSearchType(searchType);
-        return taskExtensionMapper.getTotalCountByParams(params, employeeId, now);
+        return taskExtensionMapper.getTotalCountByParams(params, employees, now);
     }
 
     public BriefTaskVo getTaskById(Integer taskId) {

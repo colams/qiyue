@@ -157,6 +157,15 @@ public class SwTaskEmployeeRelationBusiness {
         return Optional.ofNullable(relations).orElse(Lists.newArrayList());
     }
 
+    public List<SwTaskEmployeeRelation> queryEmployeeRelation(List<Integer> taskIDs) {
+        SwTaskEmployeeRelationExample example = new SwTaskEmployeeRelationExample();
+        SwTaskEmployeeRelationExample.Criteria criteria = example.createCriteria();
+        criteria.andTaskIdIn(taskIDs);
+        criteria.andIsDeleteEqualTo(0);
+        List<SwTaskEmployeeRelation> relations = employeeRelationExtensionMapper.selectByExample(example);
+        return Optional.ofNullable(relations).orElse(Lists.newArrayList());
+    }
+
     public class SimpleRelation {
         private String employeeNo;
         private int roleFlag;

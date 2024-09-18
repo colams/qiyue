@@ -35,27 +35,27 @@ public class SwTaskEmployeeRelationSqlProvider {
         if (record.getEmployeeNo() != null) {
             sql.VALUES("employee_no", "#{employeeNo,jdbcType=VARCHAR}");
         }
-
+        
         if (record.getPrevId() != null) {
             sql.VALUES("prev_id", "#{prevId,jdbcType=INTEGER}");
         }
-
+        
         if (record.getRoleFlag() != null) {
             sql.VALUES("role_flag", "#{roleFlag,jdbcType=INTEGER}");
         }
-
+        
         if (record.getIsActive() != null) {
             sql.VALUES("is_active", "#{isActive,jdbcType=INTEGER}");
         }
-
+        
         if (record.getIsDelete() != null) {
             sql.VALUES("is_delete", "#{isDelete,jdbcType=INTEGER}");
         }
-
+        
         if (record.getCreateTime() != null) {
             sql.VALUES("create_time", "#{createTime,jdbcType=TIMESTAMP}");
         }
-
+        
         if (record.getDatetimeLastchange() != null) {
             sql.VALUES("datetime_lastchange", "#{datetimeLastchange,jdbcType=TIMESTAMP}");
         }
@@ -106,27 +106,27 @@ public class SwTaskEmployeeRelationSqlProvider {
         if (record.getEmployeeNo() != null) {
             sql.SET("employee_no = #{record.employeeNo,jdbcType=VARCHAR}");
         }
-
+        
         if (record.getPrevId() != null) {
             sql.SET("prev_id = #{record.prevId,jdbcType=INTEGER}");
         }
-
+        
         if (record.getRoleFlag() != null) {
             sql.SET("role_flag = #{record.roleFlag,jdbcType=INTEGER}");
         }
-
+        
         if (record.getIsActive() != null) {
             sql.SET("is_active = #{record.isActive,jdbcType=INTEGER}");
         }
-
+        
         if (record.getIsDelete() != null) {
             sql.SET("is_delete = #{record.isDelete,jdbcType=INTEGER}");
         }
-
+        
         if (record.getCreateTime() != null) {
             sql.SET("create_time = #{record.createTime,jdbcType=TIMESTAMP}");
         }
-
+        
         if (record.getDatetimeLastchange() != null) {
             sql.SET("datetime_lastchange = #{record.datetimeLastchange,jdbcType=TIMESTAMP}");
         }
@@ -165,27 +165,27 @@ public class SwTaskEmployeeRelationSqlProvider {
         if (record.getEmployeeNo() != null) {
             sql.SET("employee_no = #{employeeNo,jdbcType=VARCHAR}");
         }
-
+        
         if (record.getPrevId() != null) {
             sql.SET("prev_id = #{prevId,jdbcType=INTEGER}");
         }
-
+        
         if (record.getRoleFlag() != null) {
             sql.SET("role_flag = #{roleFlag,jdbcType=INTEGER}");
         }
-
+        
         if (record.getIsActive() != null) {
             sql.SET("is_active = #{isActive,jdbcType=INTEGER}");
         }
-
+        
         if (record.getIsDelete() != null) {
             sql.SET("is_delete = #{isDelete,jdbcType=INTEGER}");
         }
-
+        
         if (record.getCreateTime() != null) {
             sql.SET("create_time = #{createTime,jdbcType=TIMESTAMP}");
         }
-
+        
         if (record.getDatetimeLastchange() != null) {
             sql.SET("datetime_lastchange = #{datetimeLastchange,jdbcType=TIMESTAMP}");
         }
