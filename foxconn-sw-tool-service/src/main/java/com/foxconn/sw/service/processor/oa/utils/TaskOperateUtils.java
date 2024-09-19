@@ -37,7 +37,7 @@ public class TaskOperateUtils {
                         && taskStatusEnums != CLOSED
                         && taskStatusEnums != COMPLETED
                         && StringUtils.isEmpty(task.getHandleEid())
-                        && employeeNo.equalsIgnoreCase(task.getManagerEid())) {
+                        && employeeNo.equalsIgnoreCase(task.getProposerEid())) {
                     enable = true;
                     subType = 1;
                 } else if (taskStatusEnums == ACCEPTING
