@@ -51,6 +51,15 @@ public class AddressBookController {
         return ResponseUtils.success(bookVoList, request.getTraceId());
     }
 
+    @Permission
+    @Operation(summary = "通讯录信息", tags = TagsConstants.ACCOUNT)
+    @ApiResponse(responseCode = "0", description = "成功码")
+    @PostMapping("/addressByEno")
+    public Response<AddressBookVo> addressByEno(@Valid @RequestBody Request<StringParams> request) {
+        AddressBookVo bookVoList = listAddressBookProcessor.list(request.getData().getParams());
+        return ResponseUtils.success(bookVoList, request.getTraceId());
+    }
+
     @Operation(summary = "关注通讯信息", tags = TagsConstants.ACCOUNT)
     @ApiResponse(responseCode = "0", description = "成功码")
     @PostMapping("/gather")
@@ -98,7 +107,7 @@ public class AddressBookController {
         createGroup.createGroup(request.getHead(), request.getData());
         return ResponseUtils.success(null, request.getTraceId());
     }
-    
+
     @Permission
     @Operation(summary = "導出通讯录信息", tags = TagsConstants.ACCOUNT)
     @ApiResponse(responseCode = "0", description = "成功码")

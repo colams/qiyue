@@ -2,6 +2,7 @@ package com.foxconn.sw.service.processor.oa;
 
 import com.foxconn.sw.business.context.RequestContext;
 import com.foxconn.sw.business.oa.SwWorkReportBusiness;
+import com.foxconn.sw.business.oa.SwWorkReportLockBusiness;
 import com.foxconn.sw.business.system.DepartmentBusiness;
 import com.foxconn.sw.business.system.EmployeeBusiness;
 import com.foxconn.sw.data.dto.entity.acount.EmployeeVo;
@@ -33,6 +34,8 @@ public class ListReportProcessor {
     DepartmentBusiness departmentBusiness;
     @Autowired
     EmployeeBusiness employeeBusiness;
+    @Autowired
+    SwWorkReportLockBusiness reportLockBusiness;
 
     public List<WorkReportVo> listReport(ReportSearchParams searchParams) {
         return listReport(searchParams, false);
@@ -47,6 +50,9 @@ public class ListReportProcessor {
 
         List<String> searchWeeks = ReportSearchParamsUtils.getYearWeekPair(searchParams, isExport);
         List<SwWorkReport> reports = reportBusiness.queryReport(searchWeeks, employees);
+        if (isExport && ReportSearchParamsUtils.getTimeSpan(searchParams.getStartDate(), searchParams.getEndDate()) < 7) {
+            reportLockBusiness.updateLockStatusYearWeek(searchWeeks.get(0));
+        }
 
         List<WorkReportVo> vos = new ArrayList<>();
         reports.stream().forEach(e -> {
@@ -89,7 +95,8 @@ public class ListReportProcessor {
             return e;
         }).collect(Collectors.toList());
         return result.stream()
-                .sorted(Comparator.comparing(WorkReportVo::getEmployeeNo).thenComparing(WorkReportVo::getYearWeek).reversed())
+                .sorted(Comparator.comparing(WorkReportVo::getEmployeeNo)
+                        .thenComparing(WorkReportVo::getYearWeek).reversed())
                 .collect(Collectors.toList());
     }
 
@@ -134,7 +141,6 @@ public class ListReportProcessor {
         if (Objects.isNull(searchType) || searchType < 2) {
             return Lists.newArrayList(RequestContext.getEmployeeNo());
         }
-
 
         List<SwEmployee> employees = employeeBusiness.queryMembers(RequestContext.getEmployeeNo());
         if (CollectionUtils.isEmpty(employees)) {

@@ -95,9 +95,7 @@ public class WeekUtils {
         int weekNumber = adjustedDays / 7 + 1;
         int year = date.getYear();
 
-        if (date.isBefore(yearStart.plusWeeks(1)) && weekNumber == 1) {
-            year--;
-        } else if (date.isAfter(yearStart.plusYears(1).minusDays(1)) && weekNumber > 51) {
+        if (date.isAfter(yearStart.plusYears(1).minusDays(1)) && weekNumber > 51) {
             year++;
             weekNumber = 1;
         } else if (date.getDayOfWeek() == DayOfWeek.MONDAY && date.isAfter(yearStart)) {

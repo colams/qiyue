@@ -7,7 +7,9 @@ import com.foxconn.sw.data.dto.Response;
 import com.foxconn.sw.data.dto.entity.oa.ReportSearchParams;
 import com.foxconn.sw.data.dto.entity.oa.WorkReportParams;
 import com.foxconn.sw.data.dto.entity.oa.WorkReportVo;
+import com.foxconn.sw.data.dto.entity.universal.StringParams;
 import com.foxconn.sw.service.aspects.Permission;
+import com.foxconn.sw.service.processor.oa.ExportStatusProcessor;
 import com.foxconn.sw.service.processor.oa.ListReportProcessor;
 import com.foxconn.sw.service.processor.oa.ReportAuthorityProcessor;
 import com.foxconn.sw.service.processor.oa.SubmitReportProcessor;
@@ -39,6 +41,8 @@ public class WorkReportController {
     @Autowired
     ReportAuthorityProcessor reportAuthority;
     @Autowired
+    ExportStatusProcessor exportStatus;
+    @Autowired
     HttpServletResponse response;
 
     @Permission
@@ -67,6 +71,24 @@ public class WorkReportController {
     public Response submitReport(@Valid @RequestBody Request<List<WorkReportParams>> request) {
         submitReport.submitReport(request.getData());
         return ResponseUtils.success(request.getTraceId());
+    }
+
+    @Permission
+    @Operation(summary = "取消导出工作汇报", tags = TagsConstants.OA)
+    @ApiResponse(responseCode = "0", description = "成功码")
+    @PostMapping("/updateExport")
+    public Response updateExport(@Valid @RequestBody Request<StringParams> request) {
+        exportStatus.updateExport(request.getData());
+        return ResponseUtils.success(request.getTraceId());
+    }
+
+    @Permission
+    @Operation(summary = "取消导出工作汇报", tags = TagsConstants.OA)
+    @ApiResponse(responseCode = "0", description = "成功码")
+    @PostMapping("/exportStatus")
+    public Response<Boolean> exportStatus(@Valid @RequestBody Request<StringParams> request) {
+        boolean result = exportStatus.exportStatus(request.getData());
+        return ResponseUtils.success(result, request.getTraceId());
     }
 
     @Permission

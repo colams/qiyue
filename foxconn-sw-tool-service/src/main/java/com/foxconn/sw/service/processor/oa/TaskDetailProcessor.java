@@ -14,6 +14,7 @@ import com.foxconn.sw.data.constants.enums.OperateTypeEnum;
 import com.foxconn.sw.data.constants.enums.TaskRoleFlagEnums;
 import com.foxconn.sw.data.constants.enums.retcode.OAExceptionCode;
 import com.foxconn.sw.data.dto.Header;
+import com.foxconn.sw.data.dto.entity.acount.EmployeeVo;
 import com.foxconn.sw.data.dto.entity.oa.TaskDetailVo;
 import com.foxconn.sw.data.dto.entity.oa.TaskEntityVo;
 import com.foxconn.sw.data.dto.entity.oa.TaskLogVo;
@@ -164,18 +165,26 @@ public class TaskDetailProcessor {
         if (!CollectionUtils.isEmpty(employees)) {
             taskDetailVo.setProposer(employees.stream()
                     .filter(e -> e.getEmployeeNo().equalsIgnoreCase(proposeNo))
-                    .map(e -> e.getName())
+                    .map(e -> toEmployeeVo(e))
                     .findFirst()
-                    .orElse(""));
+                    .orElse(null));
             taskDetailVo.setManager(employees.stream()
                     .filter(e -> StringUtils.isNotEmpty(e.getEmployeeNo()) && managerNos.contains(e.getEmployeeNo()))
-                    .map(e -> e.getName())
+                    .map(e -> toEmployeeVo(e))
                     .collect(Collectors.toList()));
             taskDetailVo.setHandle(employees.stream()
                     .filter(e -> e.getEmployeeNo().equalsIgnoreCase(handlerNo))
                     .findFirst()
-                    .map(e -> e.getName()).orElse(""));
+                    .map(e -> toEmployeeVo(e))
+                    .orElse(null));
         }
+    }
+
+    private EmployeeVo toEmployeeVo(SwEmployee e) {
+        EmployeeVo vo = new EmployeeVo();
+        vo.setEmployeeNo(e.getEmployeeNo());
+        vo.setName(e.getName());
+        return vo;
     }
 
 

@@ -146,6 +146,9 @@
         <table tableName="sw_work_report">
             <generatedKey column="id" identity="true" sqlStatement="mysql"/>
         </table>
+        <table tableName="sw_work_report_lock">
+            <generatedKey column="id" identity="true" sqlStatement="mysql"/>
+        </table>
         <table tableName="task_no_seed">
             <generatedKey column="id" identity="true" sqlStatement="mysql"/>
         </table>

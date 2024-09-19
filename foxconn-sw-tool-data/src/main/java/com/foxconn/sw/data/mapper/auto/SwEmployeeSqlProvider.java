@@ -32,6 +32,10 @@ public class SwEmployeeSqlProvider {
             sql.VALUES("employee_no", "#{employeeNo,jdbcType=VARCHAR}");
         }
         
+        if (record.getAssistant() != null) {
+            sql.VALUES("assistant", "#{assistant,jdbcType=VARCHAR}");
+        }
+        
         if (record.getName() != null) {
             sql.VALUES("name", "#{name,jdbcType=VARCHAR}");
         }
@@ -103,6 +107,7 @@ public class SwEmployeeSqlProvider {
             sql.SELECT("id");
         }
         sql.SELECT("employee_no");
+        sql.SELECT("assistant");
         sql.SELECT("name");
         sql.SELECT("first_name");
         sql.SELECT("last_name");
@@ -141,6 +146,10 @@ public class SwEmployeeSqlProvider {
         
         if (record.getEmployeeNo() != null) {
             sql.SET("employee_no = #{record.employeeNo,jdbcType=VARCHAR}");
+        }
+        
+        if (record.getAssistant() != null) {
+            sql.SET("assistant = #{record.assistant,jdbcType=VARCHAR}");
         }
         
         if (record.getName() != null) {
@@ -213,6 +222,7 @@ public class SwEmployeeSqlProvider {
         
         sql.SET("id = #{record.id,jdbcType=INTEGER}");
         sql.SET("employee_no = #{record.employeeNo,jdbcType=VARCHAR}");
+        sql.SET("assistant = #{record.assistant,jdbcType=VARCHAR}");
         sql.SET("name = #{record.name,jdbcType=VARCHAR}");
         sql.SET("first_name = #{record.firstName,jdbcType=VARCHAR}");
         sql.SET("last_name = #{record.lastName,jdbcType=VARCHAR}");
@@ -240,6 +250,10 @@ public class SwEmployeeSqlProvider {
         
         if (record.getEmployeeNo() != null) {
             sql.SET("employee_no = #{employeeNo,jdbcType=VARCHAR}");
+        }
+        
+        if (record.getAssistant() != null) {
+            sql.SET("assistant = #{assistant,jdbcType=VARCHAR}");
         }
         
         if (record.getName() != null) {

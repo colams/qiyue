@@ -1,5 +1,6 @@
 package com.foxconn.sw.data.dto.entity.oa;
 
+import com.foxconn.sw.data.dto.entity.acount.EmployeeVo;
 import com.foxconn.sw.data.dto.entity.universal.OperateEntity;
 
 import java.time.LocalDateTime;
@@ -68,18 +69,18 @@ public class TaskDetailVo {
     /**
      * 任务提出人
      */
-    private String proposer;
+    private EmployeeVo proposer;
 
 
     /**
      * 经办人
      */
-    private List<String> manager;
+    private List<EmployeeVo> manager;
 
     /**
      * 任务处理人
      */
-    private String handle;
+    private EmployeeVo handle;
 
     /**
      * 任务期限 YYYY-MM-DD
@@ -203,27 +204,27 @@ public class TaskDetailVo {
         this.statusInfoVo = statusInfoVo;
     }
 
-    public String getProposer() {
+    public EmployeeVo getProposer() {
         return proposer;
     }
 
-    public void setProposer(String proposer) {
+    public void setProposer(EmployeeVo proposer) {
         this.proposer = proposer;
     }
 
-    public List<String> getManager() {
+    public List<EmployeeVo> getManager() {
         return manager;
     }
 
-    public void setManager(List<String> manager) {
+    public void setManager(List<EmployeeVo> manager) {
         this.manager = manager;
     }
 
-    public String getHandle() {
+    public EmployeeVo getHandle() {
         return handle;
     }
 
-    public void setHandle(String handle) {
+    public void setHandle(EmployeeVo handle) {
         this.handle = handle;
     }
 

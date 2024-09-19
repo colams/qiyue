@@ -55,6 +55,12 @@ public class ListAddressBookProcessor {
                 .collect(Collectors.toList());
     }
 
+    public AddressBookVo list(String eNo) {
+        SwEmployee employees = employeeBusiness.queryEmployeeByEno(eNo);
+        AddressBookVo vo = toAddressBookVo(employees, true, new HashMap<>(), new HashMap<>());
+        return vo;
+    }
+
     private AddressBookVo toAddressBookVo(SwEmployee e,
                                           boolean isMask,
                                           Map<Integer, DepartmentVo> voMap,
@@ -62,10 +68,13 @@ public class ListAddressBookProcessor {
 
         AddressBookVo vo = new AddressBookVo();
 
-        List<DepartmentVo> voList = departmentBusiness.getDepartList(voMap, e.getDepartmentId());
+        if (voMap.keySet().size() > 0) {
+            List<DepartmentVo> voList = departmentBusiness.getDepartList(voMap, e.getDepartmentId());
 
-        vo.setSeniorDepart(voList.stream().filter(departmentVo -> departmentVo.getName().endsWith("處")).map(v -> v.getName()).findFirst().orElse("-"));
-        vo.setDepartment(voList.stream().filter(departmentVo -> departmentVo.getName().contains("部")).map(v -> v.getName()).findFirst().orElse("-"));
+            vo.setSeniorDepart(voList.stream().filter(departmentVo -> departmentVo.getName().endsWith("處")).map(v -> v.getName()).findFirst().orElse("-"));
+            vo.setDepartment(voList.stream().filter(departmentVo -> departmentVo.getName().contains("部")).map(v -> v.getName()).findFirst().orElse("-"));
+        }
+
         vo.setEmployeeNo(e.getEmployeeNo());
         vo.setName(e.getName());
         vo.setEnName(String.format("%s %s", e.getFirstName(), e.getLastName()));

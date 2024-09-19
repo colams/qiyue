@@ -7,6 +7,8 @@ public class SwEmployee {
 
     private String employeeNo;
 
+    private String assistant;
+
     private String name;
 
     private String firstName;
@@ -61,6 +63,19 @@ public class SwEmployee {
 
     public void setEmployeeNo(String employeeNo) {
         this.employeeNo = employeeNo == null ? null : employeeNo.trim();
+    }
+
+    public String getAssistant() {
+        return assistant;
+    }
+
+    public SwEmployee withAssistant(String assistant) {
+        this.setAssistant(assistant);
+        return this;
+    }
+
+    public void setAssistant(String assistant) {
+        this.assistant = assistant == null ? null : assistant.trim();
     }
 
     public String getName() {

@@ -23,6 +23,7 @@ public class EmployeeBusiness {
     @Autowired
     DepartmentBusiness departmentBusiness;
 
+    private static final List<String> employeeNos = Lists.newArrayList("G1652984");
 
     private static List<SwEmployee> employeeList = new ArrayList<>();
 
@@ -98,6 +99,16 @@ public class EmployeeBusiness {
         return employees;
     }
 
+    public SwEmployee queryEmployeeByEno(String eNo) {
+        SwEmployeeExample example = new SwEmployeeExample();
+        SwEmployeeExample.Criteria criteria = example.createCriteria();
+        criteria.andEmployeeNoEqualTo(eNo);
+        example.setOrderByClause(" department_id ,post_id,employee_no ");
+        List<SwEmployee> employees = swEmployeeExtensionMapper.selectByExample(example);
+        return employees.get(0);
+    }
+
+
     public List<String> queryMemberNo(String employeeNo, boolean hasSelf) {
         List<String> employeeNos = queryMembers(employeeNo).stream()
                 .map(SwEmployee::getEmployeeNo)
@@ -110,7 +121,19 @@ public class EmployeeBusiness {
     }
 
     public List<SwEmployee> queryMembers(String employeeNo) {
-        List<Integer> departIds = departmentBusiness.getMangeDepart(employeeNo);
+
+        String partnerEmployeeNo = employeeNo;
+        if (checkConfig(employeeNo)) {
+            partnerEmployeeNo = getEmployeeList()
+                    .stream()
+                    .filter(e -> employeeNo.contains(e.getAssistant()))
+                    .map(e -> e.getEmployeeNo())
+                    .findFirst()
+                    .orElse("");
+
+        }
+
+        List<Integer> departIds = departmentBusiness.getMangeDepart(partnerEmployeeNo);
 
         if (CollectionUtils.isEmpty(departIds)) {
             return Lists.newArrayList();
@@ -121,6 +144,10 @@ public class EmployeeBusiness {
                 .filter(e -> departIds.contains(e.getDepartmentId()))
                 .collect(Collectors.toList());
         return list;
+    }
+
+    private boolean checkConfig(String employeeNo) {
+        return employeeNos.contains(employeeNo);
     }
 
 
