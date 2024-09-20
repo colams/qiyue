@@ -25,7 +25,8 @@ public class ReportSearchParamsUtils {
             int timeSpan = getTimeSpan(searchParams.getStartDate(), searchParams.getEndDate());
             if (timeSpan < 7) {
                 startDate = getFirstWeekMonday(LocalDate.now().getYear());
-                endDate = LocalDate.now().plusWeeks(1);
+                endDate = LocalDate.parse(searchParams.getEndDate(),
+                        DateTimeFormatter.ofPattern(yyyyMMdd1));
             } else {
                 startDate = LocalDate.parse(searchParams.getStartDate(),
                         DateTimeFormatter.ofPattern(yyyyMMdd1));

@@ -4,6 +4,8 @@ import com.foxconn.sw.data.validate.ConstantsValue;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.Pattern;
 
+import java.util.List;
+
 public class TaskParams {
 
 
@@ -16,6 +18,9 @@ public class TaskParams {
     @Schema(description = "任务发起人")
     private String proposer;
 
+    @Schema(description = "状态")
+    private List<Integer> statusList;
+
     @Schema(description = "专案")
     private String project;
 
@@ -27,7 +32,6 @@ public class TaskParams {
 
     @Schema(description = "分类")
     private String create_e;
-
 
 
     @Schema(description = "模糊查询关键词")
@@ -63,6 +67,14 @@ public class TaskParams {
 
     public void setProposer(String proposer) {
         this.proposer = proposer;
+    }
+
+    public List<Integer> getStatusList() {
+        return statusList;
+    }
+
+    public void setStatusList(List<Integer> statusList) {
+        this.statusList = statusList;
     }
 
     public String getProject() {

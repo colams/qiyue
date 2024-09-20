@@ -25,7 +25,6 @@ public class SwWorkReportLockBusiness {
         return Objects.nonNull(reportLock) && reportLock.getLockStatus() == 0;
     }
 
-
     /**
      * 获取锁定信息
      *
