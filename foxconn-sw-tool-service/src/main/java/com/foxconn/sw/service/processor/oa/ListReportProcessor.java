@@ -51,7 +51,7 @@ public class ListReportProcessor {
         List<String> searchWeeks = ReportSearchParamsUtils.getYearWeekPair(searchParams, isExport);
         List<SwWorkReport> reports = reportBusiness.queryReport(searchWeeks, employees);
         if (isExport && ReportSearchParamsUtils.getTimeSpan(searchParams.getStartDate(), searchParams.getEndDate()) < 7) {
-            reportLockBusiness.updateLockStatusYearWeek(searchWeeks.get(0));
+            reportLockBusiness.updateLockStatusYearWeek(searchWeeks.get(searchWeeks.size() - 2));
         }
 
         List<WorkReportVo> vos = new ArrayList<>();
@@ -90,7 +90,10 @@ public class ListReportProcessor {
         });
         List<WorkReportVo> result = vos.stream().map(e -> {
             if (!CollectionUtils.isEmpty(e.getReportDetailList())) {
-                e.getReportDetailList().stream().sorted(Comparator.comparing(WorkReportDetail::getNum));
+                e.setReportDetailList(e.getReportDetailList()
+                        .stream()
+                        .sorted(Comparator.comparing(WorkReportDetail::getNum))
+                        .collect(Collectors.toList()));
             }
             return e;
         }).collect(Collectors.toList());

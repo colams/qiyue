@@ -99,7 +99,7 @@ public class TaskListProcessor {
 
         vo.setDeadLine(e.getDeadLine());
         vo.setCreateTime(e.getCreateTime());
-        vo.setOperateList(processOperate(e, RequestContext.getEmployeeNo()));
+
         vo.setRejectStatus(e.getRejectStatus());
         vo.setFollowStatus(getFollowStatus(map, e.getId()));
         vo.setProposer(employeeBusiness.selectEmployeeByENo(e.getProposerEid()).getName());
@@ -127,6 +127,8 @@ public class TaskListProcessor {
             vo.setSupervisor(supervisorNo);
         }
 
+        vo.setOperateList(processOperate(e, RequestContext.getEmployeeNo(), optional));
+
         return vo;
     }
 
@@ -138,12 +140,12 @@ public class TaskListProcessor {
         return map.getOrDefault(taskID, Lists.newArrayList()).size();
     }
 
-    private List<OperateEntity> processOperate(SwTask e, String employeeNo) {
+    private List<OperateEntity> processOperate(SwTask e, String employeeNo, Optional<SwTaskEmployeeRelation> optional) {
         List<OperateEntity> entityList = new ArrayList<>();
 
         for (OperateTypeEnum op : OperateTypeEnum.values()) {
             if (op.getPage().equalsIgnoreCase("list")) {
-                OperateEntity operate = TaskOperateUtils.processOperate(employeeNo, e, op);
+                OperateEntity operate = TaskOperateUtils.processOperate(employeeNo, e, op, optional);
                 entityList.add(operate);
             }
         }

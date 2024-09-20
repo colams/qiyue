@@ -7,6 +7,8 @@ public class SwDepartment {
 
     private String name;
 
+    private String shortName;
+
     private String managerNo;
 
     private String description;
@@ -45,6 +47,19 @@ public class SwDepartment {
 
     public void setName(String name) {
         this.name = name == null ? null : name.trim();
+    }
+
+    public String getShortName() {
+        return shortName;
+    }
+
+    public SwDepartment withShortName(String shortName) {
+        this.setShortName(shortName);
+        return this;
+    }
+
+    public void setShortName(String shortName) {
+        this.shortName = shortName == null ? null : shortName.trim();
     }
 
     public String getManagerNo() {

@@ -1,6 +1,5 @@
 package com.foxconn.sw.service.controller.oa;
 
-import com.foxconn.sw.common.utils.DateTimeUtils;
 import com.foxconn.sw.data.constants.TagsConstants;
 import com.foxconn.sw.data.dto.Request;
 import com.foxconn.sw.data.dto.Response;
@@ -13,6 +12,7 @@ import com.foxconn.sw.service.processor.oa.ExportStatusProcessor;
 import com.foxconn.sw.service.processor.oa.ListReportProcessor;
 import com.foxconn.sw.service.processor.oa.ReportAuthorityProcessor;
 import com.foxconn.sw.service.processor.oa.SubmitReportProcessor;
+import com.foxconn.sw.service.processor.oa.utils.ReportSearchParamsUtils;
 import com.foxconn.sw.service.utils.ExcelWorkReportUtils;
 import com.foxconn.sw.service.utils.ResponseUtils;
 import io.swagger.v3.oas.annotations.Operation;
@@ -99,7 +99,8 @@ public class WorkReportController {
     public ResponseEntity export(@Valid @RequestBody Request<ReportSearchParams> request) throws IOException {
         // 设置响应头
         response.setContentType("application/vnd.ms-excel");
-        String fileName = DateTimeUtils.getTimeStamp() + ".xlsx";
+        String weekOfYear = ReportSearchParamsUtils.processDate(request.getData().getStartDate());
+        String fileName = String.format("CMA_RD_SW_Weekly Report _WK%s.xlsx", weekOfYear);
         response.setHeader("Content-Disposition", "attachment; filename=" + fileName);
         List<WorkReportVo> vos = listReport.listReport(request.getData(), true);
         if (CollectionUtils.isEmpty(vos)) {

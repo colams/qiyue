@@ -49,7 +49,7 @@ public class SwWorkReportSqlProvider {
         }
         
         if (record.getDays() != null) {
-            sql.VALUES("days", "#{days,jdbcType=INTEGER}");
+            sql.VALUES("days", "#{days,jdbcType=DOUBLE}");
         }
         
         if (record.getTarget() != null) {
@@ -145,7 +145,7 @@ public class SwWorkReportSqlProvider {
         }
         
         if (record.getDays() != null) {
-            sql.SET("days = #{record.days,jdbcType=INTEGER}");
+            sql.SET("days = #{record.days,jdbcType=DOUBLE}");
         }
         
         if (record.getTarget() != null) {
@@ -190,7 +190,7 @@ public class SwWorkReportSqlProvider {
         sql.SET("week = #{record.week,jdbcType=INTEGER}");
         sql.SET("num = #{record.num,jdbcType=INTEGER}");
         sql.SET("project = #{record.project,jdbcType=VARCHAR}");
-        sql.SET("days = #{record.days,jdbcType=INTEGER}");
+        sql.SET("days = #{record.days,jdbcType=DOUBLE}");
         sql.SET("target = #{record.target,jdbcType=INTEGER}");
         sql.SET("current = #{record.current,jdbcType=INTEGER}");
         sql.SET("status = #{record.status,jdbcType=INTEGER}");
@@ -229,7 +229,7 @@ public class SwWorkReportSqlProvider {
         }
         
         if (record.getDays() != null) {
-            sql.SET("days = #{days,jdbcType=INTEGER}");
+            sql.SET("days = #{days,jdbcType=DOUBLE}");
         }
         
         if (record.getTarget() != null) {

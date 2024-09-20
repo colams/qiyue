@@ -76,4 +76,9 @@ public class ReportSearchParamsUtils {
         Pair<Integer, Integer> pair = WeekUtils.getWeekOfYearAndYear(searchDate);
         return String.format("%s-%02d", pair.getRight(), pair.getLeft());
     }
+
+    public static String processDate(String searchDate) {
+        Pair<Integer, Integer> pair = WeekUtils.getWeekOfYearAndYear(searchDate);
+        return String.format("%s%02d", pair.getRight(), pair.getLeft());
+    }
 }

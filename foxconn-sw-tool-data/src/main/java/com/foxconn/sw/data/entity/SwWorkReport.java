@@ -15,7 +15,7 @@ public class SwWorkReport {
 
     private String project;
 
-    private Integer days;
+    private Double days;
 
     private Integer target;
 
@@ -109,16 +109,16 @@ public class SwWorkReport {
         this.project = project == null ? null : project.trim();
     }
 
-    public Integer getDays() {
+    public Double getDays() {
         return days;
     }
 
-    public SwWorkReport withDays(Integer days) {
+    public SwWorkReport withDays(Double days) {
         this.setDays(days);
         return this;
     }
 
-    public void setDays(Integer days) {
+    public void setDays(Double days) {
         this.days = days;
     }
 

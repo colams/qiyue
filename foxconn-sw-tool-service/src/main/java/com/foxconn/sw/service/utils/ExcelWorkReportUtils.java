@@ -318,11 +318,11 @@ public class ExcelWorkReportUtils {
         RegionUtil.setBorderRight(BorderStyle.MEDIUM, cellRangeAddress, sheet);
     }
 
-    private static int getReportDays(List<WorkReportVo> reportVos, Integer weekNum) {
+    private static Double getReportDays(List<WorkReportVo> reportVos, Integer weekNum) {
         return reportVos.stream()
                 .filter(e -> e.getWeek() == weekNum)
                 .flatMap(e -> e.getReportDetailList().stream())
-                .mapToInt(WorkReportDetail::getDay)
+                .mapToDouble(WorkReportDetail::getDay)
                 .sum();
     }
 
@@ -368,6 +368,12 @@ public class ExcelWorkReportUtils {
     }
 
     private static void createCell(Row row, Integer number, String text, CellStyle cellStyle) {
+        Cell cell = row.createCell(number);
+        cell.setCellValue(text);
+        cell.setCellStyle(cellStyle);
+    }
+
+    private static void createCell(Row row, Integer number, Double text, CellStyle cellStyle) {
         Cell cell = row.createCell(number);
         cell.setCellValue(text);
         cell.setCellStyle(cellStyle);

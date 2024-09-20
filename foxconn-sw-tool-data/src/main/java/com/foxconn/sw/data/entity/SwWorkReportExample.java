@@ -505,52 +505,52 @@ public class SwWorkReportExample {
             return (Criteria) this;
         }
 
-        public Criteria andDaysEqualTo(Integer value) {
+        public Criteria andDaysEqualTo(Double value) {
             addCriterion("days =", value, "days");
             return (Criteria) this;
         }
 
-        public Criteria andDaysNotEqualTo(Integer value) {
+        public Criteria andDaysNotEqualTo(Double value) {
             addCriterion("days <>", value, "days");
             return (Criteria) this;
         }
 
-        public Criteria andDaysGreaterThan(Integer value) {
+        public Criteria andDaysGreaterThan(Double value) {
             addCriterion("days >", value, "days");
             return (Criteria) this;
         }
 
-        public Criteria andDaysGreaterThanOrEqualTo(Integer value) {
+        public Criteria andDaysGreaterThanOrEqualTo(Double value) {
             addCriterion("days >=", value, "days");
             return (Criteria) this;
         }
 
-        public Criteria andDaysLessThan(Integer value) {
+        public Criteria andDaysLessThan(Double value) {
             addCriterion("days <", value, "days");
             return (Criteria) this;
         }
 
-        public Criteria andDaysLessThanOrEqualTo(Integer value) {
+        public Criteria andDaysLessThanOrEqualTo(Double value) {
             addCriterion("days <=", value, "days");
             return (Criteria) this;
         }
 
-        public Criteria andDaysIn(List<Integer> values) {
+        public Criteria andDaysIn(List<Double> values) {
             addCriterion("days in", values, "days");
             return (Criteria) this;
         }
 
-        public Criteria andDaysNotIn(List<Integer> values) {
+        public Criteria andDaysNotIn(List<Double> values) {
             addCriterion("days not in", values, "days");
             return (Criteria) this;
         }
 
-        public Criteria andDaysBetween(Integer value1, Integer value2) {
+        public Criteria andDaysBetween(Double value1, Double value2) {
             addCriterion("days between", value1, value2, "days");
             return (Criteria) this;
         }
 
-        public Criteria andDaysNotBetween(Integer value1, Integer value2) {
+        public Criteria andDaysNotBetween(Double value1, Double value2) {
             addCriterion("days not between", value1, value2, "days");
             return (Criteria) this;
         }
