@@ -140,7 +140,9 @@ public class EmployeeBusiness {
 
         }
 
-        List<Integer> departIds = getDepartIDs(departID, partnerEmployeeNo);
+        int deptId = selectEmployeeByENo(partnerEmployeeNo).getDepartmentId();
+
+        List<Integer> departIds = getDepartIDs(deptId == departID ? 0 : departID, partnerEmployeeNo);
 
         if (CollectionUtils.isEmpty(departIds)) {
             return Lists.newArrayList();

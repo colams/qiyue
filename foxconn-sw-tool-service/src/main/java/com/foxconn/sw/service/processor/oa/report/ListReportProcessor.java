@@ -99,7 +99,7 @@ public class ListReportProcessor {
 
         Map<String, Integer> map = queryScore(searchWeeks);
         List<WorkReportVo> result = vos.stream().map(e -> {
-            Integer score = map.getOrDefault(e.getYearWeek(), 0);
+            Integer score = map.getOrDefault(yearWeekEno(e.getYearWeek(), e.getEmployeeNo()), 0);
             e.setCanScore(employeeBusiness.isDRIHigher(e.getEmployeeNo(), RequestContext.getEmployeeNo()));
             e.setScore(score);
             return e;
@@ -112,7 +112,13 @@ public class ListReportProcessor {
 
     private Map<String, Integer> queryScore(List<String> yearWeeks) {
         List<SwWorkReportScore> scores = scoreBusiness.queryScores(yearWeeks);
-        return scores.stream().collect(Collectors.toMap(SwWorkReportScore::getYearWeek, SwWorkReportScore::getScore));
+        return scores.stream()
+                .collect(Collectors.toMap(e -> yearWeekEno(e.getYearWeek(), e.getEmployeeNo()),
+                        SwWorkReportScore::getScore));
+    }
+
+    private String yearWeekEno(String yearWeek, String eno) {
+        return yearWeek + "_" + eno;
     }
 
     private WorkReportVo getDefaultVo(String yearWeek, String employeeNo) {
