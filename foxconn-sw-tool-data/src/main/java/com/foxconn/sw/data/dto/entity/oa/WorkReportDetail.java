@@ -3,7 +3,6 @@ package com.foxconn.sw.data.dto.entity.oa;
 public class WorkReportDetail {
 
     private int id;
-    private int num;
     private String project;
     private String description;
     private Double day;
@@ -17,14 +16,6 @@ public class WorkReportDetail {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public int getNum() {
-        return num;
-    }
-
-    public void setNum(int num) {
-        this.num = num;
     }
 
     public String getProject() {

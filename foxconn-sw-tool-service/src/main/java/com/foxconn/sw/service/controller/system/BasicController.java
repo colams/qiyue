@@ -4,7 +4,8 @@ import com.foxconn.sw.data.constants.TagsConstants;
 import com.foxconn.sw.data.dto.Request;
 import com.foxconn.sw.data.dto.Response;
 import com.foxconn.sw.data.dto.entity.system.DepartmentVo;
-import com.foxconn.sw.data.dto.entity.system.PostVo;
+import com.foxconn.sw.data.dto.entity.universal.StringParams;
+import com.foxconn.sw.service.aspects.Permission;
 import com.foxconn.sw.service.processor.system.GetDepartListProcessor;
 import com.foxconn.sw.service.utils.ResponseUtils;
 import io.swagger.v3.oas.annotations.Operation;
@@ -24,11 +25,20 @@ public class BasicController {
     @Autowired
     GetDepartListProcessor getDepartListProcessor;
 
-    @Operation(summary = "部门信息树", tags = TagsConstants.SYSTEM)
+    @Operation(summary = "所有部门信息树", tags = TagsConstants.SYSTEM)
     @ApiResponse(responseCode = "0", description = "成功码")
     @PostMapping("/departList")
     public Response<List<DepartmentVo>> getDepartList(@Valid @RequestBody Request request) {
         List<DepartmentVo> departmentVos = getDepartListProcessor.getDepartList();
+        return ResponseUtils.success(departmentVos, request.getTraceId());
+    }
+
+    @Permission
+    @Operation(summary = "获取下属部门信息", tags = TagsConstants.SYSTEM)
+    @ApiResponse(responseCode = "0", description = "成功码")
+    @PostMapping("/subDepts")
+    public Response<List<DepartmentVo>> subDepts(@Valid @RequestBody Request request) {
+        List<DepartmentVo> departmentVos = getDepartListProcessor.subDepts();
         return ResponseUtils.success(departmentVos, request.getTraceId());
     }
 }

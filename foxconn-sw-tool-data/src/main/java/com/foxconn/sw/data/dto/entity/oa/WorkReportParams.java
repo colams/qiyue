@@ -6,7 +6,6 @@ public class WorkReportParams {
 
     private Integer id;
     private Integer week;
-    private Integer num;
     @NotNull(message = "内容不能为空")
     private String project;
     @NotNull(message = "内容不能为空")
@@ -30,14 +29,6 @@ public class WorkReportParams {
 
     public void setWeek(Integer week) {
         this.week = week;
-    }
-
-    public Integer getNum() {
-        return num;
-    }
-
-    public void setNum(Integer num) {
-        this.num = num;
     }
 
     public String getProject() {

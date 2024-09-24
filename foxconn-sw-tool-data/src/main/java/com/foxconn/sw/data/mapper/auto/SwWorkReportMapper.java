@@ -35,14 +35,14 @@ public interface SwWorkReportMapper {
 
     @Insert({
         "insert into sw_work_report (employee_no, year_week, ",
-        "week, num, project, ",
-        "days, target, current, ",
+        "week, project, days, ",
+        "target, current, ",
         "status, description, ",
         "remark, create_time, ",
         "datetime_lastchange)",
         "values (#{employeeNo,jdbcType=VARCHAR}, #{yearWeek,jdbcType=VARCHAR}, ",
-        "#{week,jdbcType=INTEGER}, #{num,jdbcType=INTEGER}, #{project,jdbcType=VARCHAR}, ",
-        "#{days,jdbcType=DOUBLE}, #{target,jdbcType=INTEGER}, #{current,jdbcType=INTEGER}, ",
+        "#{week,jdbcType=INTEGER}, #{project,jdbcType=VARCHAR}, #{days,jdbcType=DOUBLE}, ",
+        "#{target,jdbcType=INTEGER}, #{current,jdbcType=INTEGER}, ",
         "#{status,jdbcType=INTEGER}, #{description,jdbcType=VARCHAR}, ",
         "#{remark,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, ",
         "#{datetimeLastchange,jdbcType=TIMESTAMP})"
@@ -60,7 +60,6 @@ public interface SwWorkReportMapper {
         @Result(column="employee_no", property="employeeNo", jdbcType=JdbcType.VARCHAR),
         @Result(column="year_week", property="yearWeek", jdbcType=JdbcType.VARCHAR),
         @Result(column="week", property="week", jdbcType=JdbcType.INTEGER),
-        @Result(column="num", property="num", jdbcType=JdbcType.INTEGER),
         @Result(column="project", property="project", jdbcType=JdbcType.VARCHAR),
         @Result(column="days", property="days", jdbcType=JdbcType.DOUBLE),
         @Result(column="target", property="target", jdbcType=JdbcType.INTEGER),
@@ -79,7 +78,6 @@ public interface SwWorkReportMapper {
         @Result(column="employee_no", property="employeeNo", jdbcType=JdbcType.VARCHAR),
         @Result(column="year_week", property="yearWeek", jdbcType=JdbcType.VARCHAR),
         @Result(column="week", property="week", jdbcType=JdbcType.INTEGER),
-        @Result(column="num", property="num", jdbcType=JdbcType.INTEGER),
         @Result(column="project", property="project", jdbcType=JdbcType.VARCHAR),
         @Result(column="days", property="days", jdbcType=JdbcType.DOUBLE),
         @Result(column="target", property="target", jdbcType=JdbcType.INTEGER),
@@ -94,8 +92,8 @@ public interface SwWorkReportMapper {
 
     @Select({
         "select",
-        "id, employee_no, year_week, week, num, project, days, target, current, status, ",
-        "description, remark, create_time, datetime_lastchange",
+        "id, employee_no, year_week, week, project, days, target, current, status, description, ",
+        "remark, create_time, datetime_lastchange",
         "from sw_work_report",
         "where id = #{id,jdbcType=INTEGER}"
     })
@@ -104,7 +102,6 @@ public interface SwWorkReportMapper {
         @Result(column="employee_no", property="employeeNo", jdbcType=JdbcType.VARCHAR),
         @Result(column="year_week", property="yearWeek", jdbcType=JdbcType.VARCHAR),
         @Result(column="week", property="week", jdbcType=JdbcType.INTEGER),
-        @Result(column="num", property="num", jdbcType=JdbcType.INTEGER),
         @Result(column="project", property="project", jdbcType=JdbcType.VARCHAR),
         @Result(column="days", property="days", jdbcType=JdbcType.DOUBLE),
         @Result(column="target", property="target", jdbcType=JdbcType.INTEGER),
@@ -131,7 +128,6 @@ public interface SwWorkReportMapper {
         "set employee_no = #{employeeNo,jdbcType=VARCHAR},",
           "year_week = #{yearWeek,jdbcType=VARCHAR},",
           "week = #{week,jdbcType=INTEGER},",
-          "num = #{num,jdbcType=INTEGER},",
           "project = #{project,jdbcType=VARCHAR},",
           "days = #{days,jdbcType=DOUBLE},",
           "target = #{target,jdbcType=INTEGER},",

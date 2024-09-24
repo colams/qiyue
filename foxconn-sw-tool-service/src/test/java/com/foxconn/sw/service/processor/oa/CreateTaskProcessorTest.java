@@ -1,11 +1,9 @@
 package com.foxconn.sw.service.processor.oa;
 
-import com.foxconn.sw.business.mapper.TaskMapper;
-import com.foxconn.sw.common.utils.JsonUtils;
 import com.foxconn.sw.data.dto.Header;
 import com.foxconn.sw.data.dto.entity.oa.TaskBriefDetailVo;
-import com.foxconn.sw.data.entity.SwTask;
 import com.foxconn.sw.service.BaseTest;
+import com.foxconn.sw.service.processor.oa.task.CreateTaskProcessor;
 import org.assertj.core.util.Lists;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;

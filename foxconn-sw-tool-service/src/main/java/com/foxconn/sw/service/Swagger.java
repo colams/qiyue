@@ -23,7 +23,11 @@ public class Swagger {
 
     @Bean
     public GroupedOpenApi oaApi() {
-        return createGroupedOpenApi(TagsConstants.OA);
+        String[] paths = new String[]{
+                "/api/" + TagsConstants.OA + "/**",
+                "/api/meet/**"
+        };
+        return createGroupedOpenApi(TagsConstants.OA, paths);
     }
 
     @Bean

@@ -11,8 +11,6 @@ public class SwWorkReport {
 
     private Integer week;
 
-    private Integer num;
-
     private String project;
 
     private Double days;
@@ -81,19 +79,6 @@ public class SwWorkReport {
 
     public void setWeek(Integer week) {
         this.week = week;
-    }
-
-    public Integer getNum() {
-        return num;
-    }
-
-    public SwWorkReport withNum(Integer num) {
-        this.setNum(num);
-        return this;
-    }
-
-    public void setNum(Integer num) {
-        this.num = num;
     }
 
     public String getProject() {

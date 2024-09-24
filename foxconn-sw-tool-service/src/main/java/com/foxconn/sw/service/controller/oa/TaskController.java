@@ -9,7 +9,7 @@ import com.foxconn.sw.data.dto.entity.oa.*;
 import com.foxconn.sw.data.dto.entity.universal.IntegerParams;
 import com.foxconn.sw.data.entity.SwTask;
 import com.foxconn.sw.service.aspects.Permission;
-import com.foxconn.sw.service.processor.oa.*;
+import com.foxconn.sw.service.processor.oa.task.*;
 import com.foxconn.sw.service.utils.ResponseUtils;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -36,13 +36,11 @@ public class TaskController {
     @Autowired
     CreateTaskProcessor createTaskProcessor;
     @Autowired
-    updateTaskProcessor updateTaskProcessor;
+    UpdateTaskProcessor updateTaskProcessor;
     @Autowired
     AssignTaskProcessor assignTaskProcessor;
     @Autowired
     UpdateProgressProcessor updateProgressProcessor;
-    @Autowired
-    StatusUpdateProcessor statusUpdateProcessor;
     @Autowired
     EvaluateProcessor evaluateProcessor;
     @Autowired

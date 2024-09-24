@@ -3,6 +3,7 @@ package com.foxconn.sw.service.processor.oa;
 import com.foxconn.sw.data.dto.Header;
 import com.foxconn.sw.data.dto.entity.oa.TaskProgressBriefParams;
 import com.foxconn.sw.service.BaseTest;
+import com.foxconn.sw.service.processor.oa.task.UpdateProgressProcessor;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 

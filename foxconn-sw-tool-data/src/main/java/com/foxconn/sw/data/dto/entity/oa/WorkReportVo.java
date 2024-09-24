@@ -12,6 +12,8 @@ public class WorkReportVo {
     private EmployeeVo employee;
     private List<WorkReportDetail> reportDetailList;
     private String message;
+    private int score;
+    private boolean canScore;
 
     public Integer getWeek() {
         return week;
@@ -59,5 +61,21 @@ public class WorkReportVo {
 
     public void setMessage(String message) {
         this.message = message;
+    }
+
+    public int getScore() {
+        return score;
+    }
+
+    public void setScore(int score) {
+        this.score = score;
+    }
+
+    public boolean isCanScore() {
+        return canScore;
+    }
+
+    public void setCanScore(boolean canScore) {
+        this.canScore = canScore;
     }
 }

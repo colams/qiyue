@@ -7,11 +7,13 @@ import com.foxconn.sw.data.dto.entity.oa.ReportSearchParams;
 import com.foxconn.sw.data.dto.entity.oa.WorkReportParams;
 import com.foxconn.sw.data.dto.entity.oa.WorkReportVo;
 import com.foxconn.sw.data.dto.entity.universal.StringParams;
+import com.foxconn.sw.data.dto.request.report.ScoreParams;
 import com.foxconn.sw.service.aspects.Permission;
-import com.foxconn.sw.service.processor.oa.ExportStatusProcessor;
-import com.foxconn.sw.service.processor.oa.ListReportProcessor;
 import com.foxconn.sw.service.processor.oa.ReportAuthorityProcessor;
-import com.foxconn.sw.service.processor.oa.SubmitReportProcessor;
+import com.foxconn.sw.service.processor.oa.report.ExportStatusProcessor;
+import com.foxconn.sw.service.processor.oa.report.ListReportProcessor;
+import com.foxconn.sw.service.processor.oa.report.ScoreReportProcessor;
+import com.foxconn.sw.service.processor.oa.report.SubmitReportProcessor;
 import com.foxconn.sw.service.processor.oa.utils.ReportSearchParamsUtils;
 import com.foxconn.sw.service.utils.ExcelWorkReportUtils;
 import com.foxconn.sw.service.utils.ResponseUtils;
@@ -42,6 +44,8 @@ public class WorkReportController {
     ReportAuthorityProcessor reportAuthority;
     @Autowired
     ExportStatusProcessor exportStatus;
+    @Autowired
+    ScoreReportProcessor scoreReport;
     @Autowired
     HttpServletResponse response;
 
@@ -74,7 +78,7 @@ public class WorkReportController {
     }
 
     @Permission
-    @Operation(summary = "取消导出工作汇报", tags = TagsConstants.OA)
+    @Operation(summary = "更新导出工作锁定状态", tags = TagsConstants.OA)
     @ApiResponse(responseCode = "0", description = "成功码")
     @PostMapping("/updateExport")
     public Response updateExport(@Valid @RequestBody Request<StringParams> request) {
@@ -88,6 +92,15 @@ public class WorkReportController {
     @PostMapping("/exportStatus")
     public Response<Boolean> exportStatus(@Valid @RequestBody Request<StringParams> request) {
         boolean result = exportStatus.exportStatus(request.getData());
+        return ResponseUtils.success(result, request.getTraceId());
+    }
+
+    @Permission
+    @Operation(summary = "周报打分接口", tags = TagsConstants.OA)
+    @ApiResponse(responseCode = "0", description = "成功码")
+    @PostMapping("/score")
+    public Response<Boolean> score(@Valid @RequestBody Request<ScoreParams> request) {
+        boolean result = scoreReport.score(request.getData());
         return ResponseUtils.success(result, request.getTraceId());
     }
 

@@ -10,7 +10,7 @@ public class TaskParams {
 
 
     @Schema(description = "编码信息")
-    private Long taskNo;
+    private String taskNo;
 
     @Schema(description = "标题信息")
     private String title;
@@ -45,11 +45,11 @@ public class TaskParams {
     @Schema(description = "是否请求团队内容")
     private Integer isTeam;
 
-    public Long getTaskNo() {
+    public String getTaskNo() {
         return taskNo;
     }
 
-    public void setTaskNo(Long taskNo) {
+    public void setTaskNo(String taskNo) {
         this.taskNo = taskNo;
     }
 

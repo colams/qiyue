@@ -83,6 +83,11 @@ public class TaskDetailVo {
     private EmployeeVo handle;
 
     /**
+     * 任务处理人
+     */
+    private List<EmployeeVo> watchers;
+
+    /**
      * 任务期限 YYYY-MM-DD
      */
     private String deadLine;
@@ -274,5 +279,13 @@ public class TaskDetailVo {
 
     public void setRejectStatus(Integer rejectStatus) {
         this.rejectStatus = rejectStatus;
+    }
+
+    public List<EmployeeVo> getWatchers() {
+        return watchers;
+    }
+
+    public void setWatchers(List<EmployeeVo> watchers) {
+        this.watchers = watchers;
     }
 }

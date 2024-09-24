@@ -40,10 +40,6 @@ public class SwWorkReportSqlProvider {
             sql.VALUES("week", "#{week,jdbcType=INTEGER}");
         }
         
-        if (record.getNum() != null) {
-            sql.VALUES("num", "#{num,jdbcType=INTEGER}");
-        }
-        
         if (record.getProject() != null) {
             sql.VALUES("project", "#{project,jdbcType=VARCHAR}");
         }
@@ -93,7 +89,6 @@ public class SwWorkReportSqlProvider {
         sql.SELECT("employee_no");
         sql.SELECT("year_week");
         sql.SELECT("week");
-        sql.SELECT("num");
         sql.SELECT("project");
         sql.SELECT("days");
         sql.SELECT("target");
@@ -134,10 +129,6 @@ public class SwWorkReportSqlProvider {
         
         if (record.getWeek() != null) {
             sql.SET("week = #{record.week,jdbcType=INTEGER}");
-        }
-        
-        if (record.getNum() != null) {
-            sql.SET("num = #{record.num,jdbcType=INTEGER}");
         }
         
         if (record.getProject() != null) {
@@ -188,7 +179,6 @@ public class SwWorkReportSqlProvider {
         sql.SET("employee_no = #{record.employeeNo,jdbcType=VARCHAR}");
         sql.SET("year_week = #{record.yearWeek,jdbcType=VARCHAR}");
         sql.SET("week = #{record.week,jdbcType=INTEGER}");
-        sql.SET("num = #{record.num,jdbcType=INTEGER}");
         sql.SET("project = #{record.project,jdbcType=VARCHAR}");
         sql.SET("days = #{record.days,jdbcType=DOUBLE}");
         sql.SET("target = #{record.target,jdbcType=INTEGER}");
@@ -218,10 +208,6 @@ public class SwWorkReportSqlProvider {
         
         if (record.getWeek() != null) {
             sql.SET("week = #{week,jdbcType=INTEGER}");
-        }
-        
-        if (record.getNum() != null) {
-            sql.SET("num = #{num,jdbcType=INTEGER}");
         }
         
         if (record.getProject() != null) {

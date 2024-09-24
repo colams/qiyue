@@ -3,6 +3,7 @@ package com.foxconn.sw.business.system;
 import com.foxconn.sw.data.constants.enums.retcode.AccountExceptionCode;
 import com.foxconn.sw.data.dto.entity.acount.AddressBookParams;
 import com.foxconn.sw.data.dto.entity.acount.EmployeeVo;
+import com.foxconn.sw.data.entity.SwDepartment;
 import com.foxconn.sw.data.entity.SwEmployee;
 import com.foxconn.sw.data.entity.SwEmployeeExample;
 import com.foxconn.sw.data.exception.BizException;
@@ -14,6 +15,7 @@ import org.springframework.util.CollectionUtils;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Component
@@ -120,7 +122,12 @@ public class EmployeeBusiness {
         return employeeNos;
     }
 
+
     public List<SwEmployee> queryMembers(String employeeNo) {
+        return queryMembers(employeeNo, 0);
+    }
+
+    public List<SwEmployee> queryMembers(String employeeNo, Integer departID) {
 
         String partnerEmployeeNo = employeeNo;
         if (checkConfig(employeeNo)) {
@@ -133,7 +140,7 @@ public class EmployeeBusiness {
 
         }
 
-        List<Integer> departIds = departmentBusiness.getMangeDepart(partnerEmployeeNo);
+        List<Integer> departIds = getDepartIDs(departID, partnerEmployeeNo);
 
         if (CollectionUtils.isEmpty(departIds)) {
             return Lists.newArrayList();
@@ -146,9 +153,22 @@ public class EmployeeBusiness {
         return list;
     }
 
+
+    public boolean isDRIHigher(String employeeNo, String higherEno) {
+        SwDepartment department = departmentBusiness.getDepartment(selectEmployeeByENo(employeeNo).getDepartmentId());
+        return higherEno.equalsIgnoreCase(department.getManagerNo());
+    }
+
     private boolean checkConfig(String employeeNo) {
         return employeeNos.contains(employeeNo);
     }
 
+    private List<Integer> getDepartIDs(Integer departID, String partnerEmployeeNo) {
+        List<Integer> departIds = Lists.newArrayList(departID);
+        if (Objects.isNull(departID) || departID <= 0) {
+            departIds = departmentBusiness.getMangeDepart(partnerEmployeeNo);
+        }
+        return departIds;
+    }
 
 }
