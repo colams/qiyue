@@ -365,66 +365,6 @@ public class SwWorkReportExample {
             return (Criteria) this;
         }
 
-        public Criteria andNumIsNull() {
-            addCriterion("num is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andNumIsNotNull() {
-            addCriterion("num is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andNumEqualTo(Integer value) {
-            addCriterion("num =", value, "num");
-            return (Criteria) this;
-        }
-
-        public Criteria andNumNotEqualTo(Integer value) {
-            addCriterion("num <>", value, "num");
-            return (Criteria) this;
-        }
-
-        public Criteria andNumGreaterThan(Integer value) {
-            addCriterion("num >", value, "num");
-            return (Criteria) this;
-        }
-
-        public Criteria andNumGreaterThanOrEqualTo(Integer value) {
-            addCriterion("num >=", value, "num");
-            return (Criteria) this;
-        }
-
-        public Criteria andNumLessThan(Integer value) {
-            addCriterion("num <", value, "num");
-            return (Criteria) this;
-        }
-
-        public Criteria andNumLessThanOrEqualTo(Integer value) {
-            addCriterion("num <=", value, "num");
-            return (Criteria) this;
-        }
-
-        public Criteria andNumIn(List<Integer> values) {
-            addCriterion("num in", values, "num");
-            return (Criteria) this;
-        }
-
-        public Criteria andNumNotIn(List<Integer> values) {
-            addCriterion("num not in", values, "num");
-            return (Criteria) this;
-        }
-
-        public Criteria andNumBetween(Integer value1, Integer value2) {
-            addCriterion("num between", value1, value2, "num");
-            return (Criteria) this;
-        }
-
-        public Criteria andNumNotBetween(Integer value1, Integer value2) {
-            addCriterion("num not between", value1, value2, "num");
-            return (Criteria) this;
-        }
-
         public Criteria andProjectIsNull() {
             addCriterion("project is null");
             return (Criteria) this;
@@ -505,52 +445,52 @@ public class SwWorkReportExample {
             return (Criteria) this;
         }
 
-        public Criteria andDaysEqualTo(Integer value) {
+        public Criteria andDaysEqualTo(Double value) {
             addCriterion("days =", value, "days");
             return (Criteria) this;
         }
 
-        public Criteria andDaysNotEqualTo(Integer value) {
+        public Criteria andDaysNotEqualTo(Double value) {
             addCriterion("days <>", value, "days");
             return (Criteria) this;
         }
 
-        public Criteria andDaysGreaterThan(Integer value) {
+        public Criteria andDaysGreaterThan(Double value) {
             addCriterion("days >", value, "days");
             return (Criteria) this;
         }
 
-        public Criteria andDaysGreaterThanOrEqualTo(Integer value) {
+        public Criteria andDaysGreaterThanOrEqualTo(Double value) {
             addCriterion("days >=", value, "days");
             return (Criteria) this;
         }
 
-        public Criteria andDaysLessThan(Integer value) {
+        public Criteria andDaysLessThan(Double value) {
             addCriterion("days <", value, "days");
             return (Criteria) this;
         }
 
-        public Criteria andDaysLessThanOrEqualTo(Integer value) {
+        public Criteria andDaysLessThanOrEqualTo(Double value) {
             addCriterion("days <=", value, "days");
             return (Criteria) this;
         }
 
-        public Criteria andDaysIn(List<Integer> values) {
+        public Criteria andDaysIn(List<Double> values) {
             addCriterion("days in", values, "days");
             return (Criteria) this;
         }
 
-        public Criteria andDaysNotIn(List<Integer> values) {
+        public Criteria andDaysNotIn(List<Double> values) {
             addCriterion("days not in", values, "days");
             return (Criteria) this;
         }
 
-        public Criteria andDaysBetween(Integer value1, Integer value2) {
+        public Criteria andDaysBetween(Double value1, Double value2) {
             addCriterion("days between", value1, value2, "days");
             return (Criteria) this;
         }
 
-        public Criteria andDaysNotBetween(Integer value1, Integer value2) {
+        public Criteria andDaysNotBetween(Double value1, Double value2) {
             addCriterion("days not between", value1, value2, "days");
             return (Criteria) this;
         }

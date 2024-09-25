@@ -1,5 +1,6 @@
 package com.foxconn.sw.service.processor.system;
 
+import com.foxconn.sw.business.context.RequestContext;
 import com.foxconn.sw.business.system.DepartmentBusiness;
 import com.foxconn.sw.data.dto.entity.system.DepartmentVo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,5 +16,9 @@ public class GetDepartListProcessor {
 
     public List<DepartmentVo> getDepartList() {
         return departmentBusiness.getTreeDepartmentVos();
+    }
+
+    public List<DepartmentVo> subDepts() {
+        return departmentBusiness.getMangeDepartVo(RequestContext.getEmployeeNo());
     }
 }

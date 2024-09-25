@@ -15,11 +15,6 @@ public class TaskBriefListVo {
     private Long taskNo;
 
     /**
-     * 专案-所属项目
-     */
-    private String topCategory;
-
-    /**
      * 任务分类
      */
     private String category;
@@ -32,17 +27,7 @@ public class TaskBriefListVo {
     /**
      * 专案-所属项目
      */
-    private String topProject;
-
-    /**
-     * 专案-所属项目
-     */
     private String project;
-
-    /**
-     * 任务描述
-     */
-    private String description;
 
     /**
      * 优先等级
@@ -75,26 +60,10 @@ public class TaskBriefListVo {
      */
     private String proposer;
 
-
-    /**
-     * 任务处理人
-     */
-    private String handler;
-
     /**
      * 任务期限 YYYY-MM-DD
      */
     private String deadLine;
-
-    /**
-     * 任务开始时间 YYYY-MM-DD
-     */
-    private String startDate;
-
-    /**
-     * 任务结束时间 YYYY-MM-DD
-     */
-    private String endDate;
 
     /**
      * 任务创建时间 YYYY-MM-DD HH:mm:ss
@@ -116,60 +85,7 @@ public class TaskBriefListVo {
      */
     private Integer followStatus;
 
-    private String handler2;
-    private String handlerEID;
-    private String managerEID;
-    private String proposerEID;
-    private Integer nextID;
-    private Integer roleFlag;
-
-    public Integer getRoleFlag() {
-        return roleFlag;
-    }
-
-    public void setRoleFlag(Integer roleFlag) {
-        this.roleFlag = roleFlag;
-    }
-
-    public String getHandler2() {
-        return handler2;
-    }
-
-    public void setHandler2(String handler2) {
-        this.handler2 = handler2;
-    }
-
-    public Integer getNextID() {
-        return nextID;
-    }
-
-    public void setNextID(Integer nextID) {
-        this.nextID = nextID;
-    }
-
-    public String getManagerEID() {
-        return managerEID;
-    }
-
-    public void setManagerEID(String managerEID) {
-        this.managerEID = managerEID;
-    }
-
-    public String getHandlerEID() {
-        return handlerEID;
-    }
-
-    public void setHandlerEID(String handlerEID) {
-        this.handlerEID = handlerEID;
-    }
-
-    public String getProposerEID() {
-        return proposerEID;
-    }
-
-    public void setProposerEID(String proposerEID) {
-        this.proposerEID = proposerEID;
-    }
+    private String supervisor;
 
     public Integer getId() {
         return id;
@@ -185,14 +101,6 @@ public class TaskBriefListVo {
 
     public void setTaskNo(Long taskNo) {
         this.taskNo = taskNo;
-    }
-
-    public String getTopCategory() {
-        return topCategory;
-    }
-
-    public void setTopCategory(String topCategory) {
-        this.topCategory = topCategory;
     }
 
     public String getCategory() {
@@ -211,21 +119,6 @@ public class TaskBriefListVo {
         this.title = title;
     }
 
-    public InfoColorVo getLevelInfo() {
-        return levelInfo;
-    }
-
-    public void setLevelInfo(InfoColorVo levelInfo) {
-        this.levelInfo = levelInfo;
-    }
-
-    public String getTopProject() {
-        return topProject;
-    }
-
-    public void setTopProject(String topProject) {
-        this.topProject = topProject;
-    }
 
     public String getProject() {
         return project;
@@ -235,20 +128,20 @@ public class TaskBriefListVo {
         this.project = project;
     }
 
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
     public String getLevel() {
         return level;
     }
 
     public void setLevel(String level) {
         this.level = level;
+    }
+
+    public InfoColorVo getLevelInfo() {
+        return levelInfo;
+    }
+
+    public void setLevelInfo(InfoColorVo levelInfo) {
+        this.levelInfo = levelInfo;
     }
 
     public int getProgressPercent() {
@@ -283,36 +176,12 @@ public class TaskBriefListVo {
         this.proposer = proposer;
     }
 
-    public String getHandler() {
-        return handler;
-    }
-
-    public void setHandler(String handler) {
-        this.handler = handler;
-    }
-
     public String getDeadLine() {
         return deadLine;
     }
 
     public void setDeadLine(String deadLine) {
         this.deadLine = deadLine;
-    }
-
-    public String getStartDate() {
-        return startDate;
-    }
-
-    public void setStartDate(String startDate) {
-        this.startDate = startDate;
-    }
-
-    public String getEndDate() {
-        return endDate;
-    }
-
-    public void setEndDate(String endDate) {
-        this.endDate = endDate;
     }
 
     public LocalDateTime getCreateTime() {
@@ -345,6 +214,14 @@ public class TaskBriefListVo {
 
     public void setFollowStatus(Integer followStatus) {
         this.followStatus = followStatus;
+    }
+
+    public String getSupervisor() {
+        return supervisor;
+    }
+
+    public void setSupervisor(String supervisor) {
+        this.supervisor = supervisor;
     }
 
 }

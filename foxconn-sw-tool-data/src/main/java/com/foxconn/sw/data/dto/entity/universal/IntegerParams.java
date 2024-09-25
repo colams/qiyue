@@ -9,7 +9,7 @@ public class IntegerParams {
      * params
      */
     @NotNull(message = "参数不能为空")
-    @Min(value = 1, message = "参数不能小于0")
+    @Min(value = 0, message = "参数不能小于0")
     private Integer params;
 
     public Integer getParams() {

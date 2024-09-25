@@ -5,7 +5,11 @@ import java.time.LocalDateTime;
 public class SwDepartment {
     private Integer id;
 
+    private Integer level;
+
     private String name;
+
+    private String shortName;
 
     private String managerNo;
 
@@ -34,6 +38,19 @@ public class SwDepartment {
         this.id = id;
     }
 
+    public Integer getLevel() {
+        return level;
+    }
+
+    public SwDepartment withLevel(Integer level) {
+        this.setLevel(level);
+        return this;
+    }
+
+    public void setLevel(Integer level) {
+        this.level = level;
+    }
+
     public String getName() {
         return name;
     }
@@ -45,6 +62,19 @@ public class SwDepartment {
 
     public void setName(String name) {
         this.name = name == null ? null : name.trim();
+    }
+
+    public String getShortName() {
+        return shortName;
+    }
+
+    public SwDepartment withShortName(String shortName) {
+        this.setShortName(shortName);
+        return this;
+    }
+
+    public void setShortName(String shortName) {
+        this.shortName = shortName == null ? null : shortName.trim();
     }
 
     public String getManagerNo() {

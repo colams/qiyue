@@ -75,6 +75,5 @@ public class DateTimeUtils {
         String yyyyMMdd = "yyyyMMdd";
 
         String yyyyMMdd1 = "yyyy-MM-dd";
-
     }
 }

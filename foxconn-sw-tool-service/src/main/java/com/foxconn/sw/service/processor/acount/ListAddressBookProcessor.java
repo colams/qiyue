@@ -1,5 +1,6 @@
 package com.foxconn.sw.service.processor.acount;
 
+import cn.hutool.core.util.DesensitizedUtil;
 import com.foxconn.sw.business.account.SwContactGatherBusiness;
 import com.foxconn.sw.business.system.DepartmentBusiness;
 import com.foxconn.sw.business.system.EmployeeBusiness;
@@ -32,14 +33,16 @@ public class ListAddressBookProcessor {
 
     public List<AddressBookVo> list(Header head, AddressBookParams data) {
         String userNo = commonUserUtils.getEmployeeNo(head.getToken());
-
+        List<String> employeeNos = employeeBusiness.queryMemberNo(userNo, true);
         List<SwEmployee> employees = employeeBusiness.queryEmployees(data);
+
         Map<String, SwContactGather> gatherMap = gatherBusiness.queryGatherInfo(userNo);
         Map<Integer, DepartmentVo> voMap = departmentBusiness.getDepartMap();
 
         List<AddressBookVo> bookVoList = new ArrayList<>();
         employees.forEach(e -> {
-            AddressBookVo vo = toAddressBookVo(e, voMap, gatherMap);
+            boolean isMask = !employeeNos.contains(e.getEmployeeNo());
+            AddressBookVo vo = toAddressBookVo(e, isMask, voMap, gatherMap);
             if (Objects.nonNull(vo)) {
                 bookVoList.add(vo);
             }
@@ -52,19 +55,31 @@ public class ListAddressBookProcessor {
                 .collect(Collectors.toList());
     }
 
-    private AddressBookVo toAddressBookVo(SwEmployee e, Map<Integer, DepartmentVo> voMap, Map<String, SwContactGather> gatherMap) {
+    public AddressBookVo list(String eNo) {
+        SwEmployee employees = employeeBusiness.queryEmployeeByEno(eNo);
+        AddressBookVo vo = toAddressBookVo(employees, true, new HashMap<>(), new HashMap<>());
+        return vo;
+    }
+
+    private AddressBookVo toAddressBookVo(SwEmployee e,
+                                          boolean isMask,
+                                          Map<Integer, DepartmentVo> voMap,
+                                          Map<String, SwContactGather> gatherMap) {
 
         AddressBookVo vo = new AddressBookVo();
 
-        List<DepartmentVo> voList = getDepartList(voMap, e.getDepartmentId());
+        if (voMap.keySet().size() > 0) {
+            List<DepartmentVo> voList = departmentBusiness.getDepartList(voMap, e.getDepartmentId());
 
-        vo.setSeniorDepart(voList.stream().filter(departmentVo -> departmentVo.getName().endsWith("處")).map(v -> v.getName()).findFirst().orElse("-"));
-        vo.setDepartment(voList.stream().filter(departmentVo -> departmentVo.getName().contains("部")).map(v -> v.getName()).findFirst().orElse("-"));
+            vo.setSeniorDepart(voList.stream().filter(departmentVo -> departmentVo.getName().endsWith("處")).map(v -> v.getName()).findFirst().orElse("-"));
+            vo.setDepartment(voList.stream().filter(departmentVo -> departmentVo.getName().contains("部")).map(v -> v.getName()).findFirst().orElse("-"));
+        }
+
         vo.setEmployeeNo(e.getEmployeeNo());
         vo.setName(e.getName());
         vo.setEnName(String.format("%s %s", e.getFirstName(), e.getLastName()));
         vo.setGender(GenderEnums.getGenderDes(e.getGender()));
-        vo.setPhoneMobile(e.getPhoneNumber());
+        vo.setPhoneMobile(processPhone(isMask, e.getPhoneNumber()));
         vo.setLandLine(e.getLandLine());
         vo.setInnerMail(e.getInnerEmail());
         vo.setOuterMail(e.getOuterMail());
@@ -72,21 +87,15 @@ public class ListAddressBookProcessor {
         return vo;
     }
 
-    private Integer getGatherStatus(Map<String, SwContactGather> gatherMap, String employeeNo) {
-        return Objects.nonNull(gatherMap.get(employeeNo)) ? 1 : 0;
+    private String processPhone(boolean isMask, String phone) {
+        if (isMask) {
+            return DesensitizedUtil.mobilePhone(phone);
+        }
+        return phone;
     }
 
-    private List<DepartmentVo> getDepartList(Map<Integer, DepartmentVo> voMap, int departID) {
-        List<DepartmentVo> vos = new ArrayList<>();
-
-        DepartmentVo departmentVo = voMap.get(departID);
-        if (Objects.isNull(departmentVo.getParentId()) || departmentVo.getParentId() == 0) {
-            return vos;
-        }
-        List<DepartmentVo> temps = getDepartList(voMap, departmentVo.getParentId());
-        temps.addAll(Lists.newArrayList(departmentVo));
-        vos.addAll(temps);
-        return vos;
+    private Integer getGatherStatus(Map<String, SwContactGather> gatherMap, String employeeNo) {
+        return Objects.nonNull(gatherMap.get(employeeNo)) ? 1 : 0;
     }
 
 

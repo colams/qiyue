@@ -34,18 +34,18 @@ public interface SwWorkReportMapper {
     int deleteByPrimaryKey(Integer id);
 
     @Insert({
-            "insert into sw_work_report (employee_no, year_week, ",
-            "week, num, project, ",
-            "days, target, current, ",
-            "status, description, ",
-            "remark, create_time, ",
-            "datetime_lastchange)",
-            "values (#{employeeNo,jdbcType=VARCHAR}, #{yearWeek,jdbcType=VARCHAR}, ",
-            "#{week,jdbcType=INTEGER}, #{num,jdbcType=INTEGER}, #{project,jdbcType=VARCHAR}, ",
-            "#{days,jdbcType=INTEGER}, #{target,jdbcType=INTEGER}, #{current,jdbcType=INTEGER}, ",
-            "#{status,jdbcType=INTEGER}, #{description,jdbcType=VARCHAR}, ",
-            "#{remark,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, ",
-            "#{datetimeLastchange,jdbcType=TIMESTAMP})"
+        "insert into sw_work_report (employee_no, year_week, ",
+        "week, project, days, ",
+        "target, current, ",
+        "status, description, ",
+        "remark, create_time, ",
+        "datetime_lastchange)",
+        "values (#{employeeNo,jdbcType=VARCHAR}, #{yearWeek,jdbcType=VARCHAR}, ",
+        "#{week,jdbcType=INTEGER}, #{project,jdbcType=VARCHAR}, #{days,jdbcType=DOUBLE}, ",
+        "#{target,jdbcType=INTEGER}, #{current,jdbcType=INTEGER}, ",
+        "#{status,jdbcType=INTEGER}, #{description,jdbcType=VARCHAR}, ",
+        "#{remark,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, ",
+        "#{datetimeLastchange,jdbcType=TIMESTAMP})"
     })
     @SelectKey(statement="SELECT LAST_INSERT_ID()", keyProperty="id", before=false, resultType=Integer.class)
     int insert(SwWorkReport record);
@@ -56,63 +56,60 @@ public interface SwWorkReportMapper {
 
     @SelectProvider(type=SwWorkReportSqlProvider.class, method="selectByExample")
     @Results({
-            @Result(column = "id", property = "id", jdbcType = JdbcType.INTEGER, id = true),
-            @Result(column = "employee_no", property = "employeeNo", jdbcType = JdbcType.VARCHAR),
-            @Result(column = "year_week", property = "yearWeek", jdbcType = JdbcType.VARCHAR),
-            @Result(column = "week", property = "week", jdbcType = JdbcType.INTEGER),
-            @Result(column = "num", property = "num", jdbcType = JdbcType.INTEGER),
-            @Result(column = "project", property = "project", jdbcType = JdbcType.VARCHAR),
-            @Result(column = "days", property = "days", jdbcType = JdbcType.INTEGER),
-            @Result(column = "target", property = "target", jdbcType = JdbcType.INTEGER),
-            @Result(column = "current", property = "current", jdbcType = JdbcType.INTEGER),
-            @Result(column = "status", property = "status", jdbcType = JdbcType.INTEGER),
-            @Result(column = "description", property = "description", jdbcType = JdbcType.VARCHAR),
-            @Result(column = "remark", property = "remark", jdbcType = JdbcType.VARCHAR),
-            @Result(column = "create_time", property = "createTime", jdbcType = JdbcType.TIMESTAMP),
+        @Result(column="id", property="id", jdbcType=JdbcType.INTEGER, id=true),
+        @Result(column="employee_no", property="employeeNo", jdbcType=JdbcType.VARCHAR),
+        @Result(column="year_week", property="yearWeek", jdbcType=JdbcType.VARCHAR),
+        @Result(column="week", property="week", jdbcType=JdbcType.INTEGER),
+        @Result(column="project", property="project", jdbcType=JdbcType.VARCHAR),
+        @Result(column="days", property="days", jdbcType=JdbcType.DOUBLE),
+        @Result(column="target", property="target", jdbcType=JdbcType.INTEGER),
+        @Result(column="current", property="current", jdbcType=JdbcType.INTEGER),
+        @Result(column="status", property="status", jdbcType=JdbcType.INTEGER),
+        @Result(column="description", property="description", jdbcType=JdbcType.VARCHAR),
+        @Result(column="remark", property="remark", jdbcType=JdbcType.VARCHAR),
+        @Result(column="create_time", property="createTime", jdbcType=JdbcType.TIMESTAMP),
         @Result(column="datetime_lastchange", property="datetimeLastchange", jdbcType=JdbcType.TIMESTAMP)
     })
     List<SwWorkReport> selectByExampleWithRowbounds(SwWorkReportExample example, RowBounds rowBounds);
 
     @SelectProvider(type=SwWorkReportSqlProvider.class, method="selectByExample")
     @Results({
-            @Result(column = "id", property = "id", jdbcType = JdbcType.INTEGER, id = true),
-            @Result(column = "employee_no", property = "employeeNo", jdbcType = JdbcType.VARCHAR),
-            @Result(column = "year_week", property = "yearWeek", jdbcType = JdbcType.VARCHAR),
-            @Result(column = "week", property = "week", jdbcType = JdbcType.INTEGER),
-            @Result(column = "num", property = "num", jdbcType = JdbcType.INTEGER),
-            @Result(column = "project", property = "project", jdbcType = JdbcType.VARCHAR),
-            @Result(column = "days", property = "days", jdbcType = JdbcType.INTEGER),
-            @Result(column = "target", property = "target", jdbcType = JdbcType.INTEGER),
-            @Result(column = "current", property = "current", jdbcType = JdbcType.INTEGER),
-            @Result(column = "status", property = "status", jdbcType = JdbcType.INTEGER),
-            @Result(column = "description", property = "description", jdbcType = JdbcType.VARCHAR),
-            @Result(column = "remark", property = "remark", jdbcType = JdbcType.VARCHAR),
-            @Result(column = "create_time", property = "createTime", jdbcType = JdbcType.TIMESTAMP),
+        @Result(column="id", property="id", jdbcType=JdbcType.INTEGER, id=true),
+        @Result(column="employee_no", property="employeeNo", jdbcType=JdbcType.VARCHAR),
+        @Result(column="year_week", property="yearWeek", jdbcType=JdbcType.VARCHAR),
+        @Result(column="week", property="week", jdbcType=JdbcType.INTEGER),
+        @Result(column="project", property="project", jdbcType=JdbcType.VARCHAR),
+        @Result(column="days", property="days", jdbcType=JdbcType.DOUBLE),
+        @Result(column="target", property="target", jdbcType=JdbcType.INTEGER),
+        @Result(column="current", property="current", jdbcType=JdbcType.INTEGER),
+        @Result(column="status", property="status", jdbcType=JdbcType.INTEGER),
+        @Result(column="description", property="description", jdbcType=JdbcType.VARCHAR),
+        @Result(column="remark", property="remark", jdbcType=JdbcType.VARCHAR),
+        @Result(column="create_time", property="createTime", jdbcType=JdbcType.TIMESTAMP),
         @Result(column="datetime_lastchange", property="datetimeLastchange", jdbcType=JdbcType.TIMESTAMP)
     })
     List<SwWorkReport> selectByExample(SwWorkReportExample example);
 
     @Select({
-            "select",
-            "id, employee_no, year_week, week, num, project, days, target, current, status, ",
-            "description, remark, create_time, datetime_lastchange",
-            "from sw_work_report",
-            "where id = #{id,jdbcType=INTEGER}"
+        "select",
+        "id, employee_no, year_week, week, project, days, target, current, status, description, ",
+        "remark, create_time, datetime_lastchange",
+        "from sw_work_report",
+        "where id = #{id,jdbcType=INTEGER}"
     })
     @Results({
-            @Result(column = "id", property = "id", jdbcType = JdbcType.INTEGER, id = true),
-            @Result(column = "employee_no", property = "employeeNo", jdbcType = JdbcType.VARCHAR),
-            @Result(column = "year_week", property = "yearWeek", jdbcType = JdbcType.VARCHAR),
-            @Result(column = "week", property = "week", jdbcType = JdbcType.INTEGER),
-            @Result(column = "num", property = "num", jdbcType = JdbcType.INTEGER),
-            @Result(column = "project", property = "project", jdbcType = JdbcType.VARCHAR),
-            @Result(column = "days", property = "days", jdbcType = JdbcType.INTEGER),
-            @Result(column = "target", property = "target", jdbcType = JdbcType.INTEGER),
-            @Result(column = "current", property = "current", jdbcType = JdbcType.INTEGER),
-            @Result(column = "status", property = "status", jdbcType = JdbcType.INTEGER),
-            @Result(column = "description", property = "description", jdbcType = JdbcType.VARCHAR),
-            @Result(column = "remark", property = "remark", jdbcType = JdbcType.VARCHAR),
-            @Result(column = "create_time", property = "createTime", jdbcType = JdbcType.TIMESTAMP),
+        @Result(column="id", property="id", jdbcType=JdbcType.INTEGER, id=true),
+        @Result(column="employee_no", property="employeeNo", jdbcType=JdbcType.VARCHAR),
+        @Result(column="year_week", property="yearWeek", jdbcType=JdbcType.VARCHAR),
+        @Result(column="week", property="week", jdbcType=JdbcType.INTEGER),
+        @Result(column="project", property="project", jdbcType=JdbcType.VARCHAR),
+        @Result(column="days", property="days", jdbcType=JdbcType.DOUBLE),
+        @Result(column="target", property="target", jdbcType=JdbcType.INTEGER),
+        @Result(column="current", property="current", jdbcType=JdbcType.INTEGER),
+        @Result(column="status", property="status", jdbcType=JdbcType.INTEGER),
+        @Result(column="description", property="description", jdbcType=JdbcType.VARCHAR),
+        @Result(column="remark", property="remark", jdbcType=JdbcType.VARCHAR),
+        @Result(column="create_time", property="createTime", jdbcType=JdbcType.TIMESTAMP),
         @Result(column="datetime_lastchange", property="datetimeLastchange", jdbcType=JdbcType.TIMESTAMP)
     })
     SwWorkReport selectByPrimaryKey(Integer id);
@@ -127,19 +124,18 @@ public interface SwWorkReportMapper {
     int updateByPrimaryKeySelective(SwWorkReport record);
 
     @Update({
-            "update sw_work_report",
-            "set employee_no = #{employeeNo,jdbcType=VARCHAR},",
-            "year_week = #{yearWeek,jdbcType=VARCHAR},",
-            "week = #{week,jdbcType=INTEGER},",
-            "num = #{num,jdbcType=INTEGER},",
-            "project = #{project,jdbcType=VARCHAR},",
-            "days = #{days,jdbcType=INTEGER},",
-            "target = #{target,jdbcType=INTEGER},",
-            "current = #{current,jdbcType=INTEGER},",
-            "status = #{status,jdbcType=INTEGER},",
-            "description = #{description,jdbcType=VARCHAR},",
-            "remark = #{remark,jdbcType=VARCHAR},",
-            "create_time = #{createTime,jdbcType=TIMESTAMP},",
+        "update sw_work_report",
+        "set employee_no = #{employeeNo,jdbcType=VARCHAR},",
+          "year_week = #{yearWeek,jdbcType=VARCHAR},",
+          "week = #{week,jdbcType=INTEGER},",
+          "project = #{project,jdbcType=VARCHAR},",
+          "days = #{days,jdbcType=DOUBLE},",
+          "target = #{target,jdbcType=INTEGER},",
+          "current = #{current,jdbcType=INTEGER},",
+          "status = #{status,jdbcType=INTEGER},",
+          "description = #{description,jdbcType=VARCHAR},",
+          "remark = #{remark,jdbcType=VARCHAR},",
+          "create_time = #{createTime,jdbcType=TIMESTAMP},",
           "datetime_lastchange = #{datetimeLastchange,jdbcType=TIMESTAMP}",
         "where id = #{id,jdbcType=INTEGER}"
     })

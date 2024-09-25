@@ -1,16 +1,20 @@
 package com.foxconn.sw.service.controller.oa;
 
-import com.foxconn.sw.common.utils.DateTimeUtils;
 import com.foxconn.sw.data.constants.TagsConstants;
 import com.foxconn.sw.data.dto.Request;
 import com.foxconn.sw.data.dto.Response;
 import com.foxconn.sw.data.dto.entity.oa.ReportSearchParams;
 import com.foxconn.sw.data.dto.entity.oa.WorkReportParams;
 import com.foxconn.sw.data.dto.entity.oa.WorkReportVo;
+import com.foxconn.sw.data.dto.entity.universal.StringParams;
+import com.foxconn.sw.data.dto.request.report.ScoreParams;
 import com.foxconn.sw.service.aspects.Permission;
-import com.foxconn.sw.service.processor.oa.ListReportProcessor;
 import com.foxconn.sw.service.processor.oa.ReportAuthorityProcessor;
-import com.foxconn.sw.service.processor.oa.SubmitReportProcessor;
+import com.foxconn.sw.service.processor.oa.report.ExportStatusProcessor;
+import com.foxconn.sw.service.processor.oa.report.ListReportProcessor;
+import com.foxconn.sw.service.processor.oa.report.ScoreReportProcessor;
+import com.foxconn.sw.service.processor.oa.report.SubmitReportProcessor;
+import com.foxconn.sw.service.processor.oa.utils.ReportSearchParamsUtils;
 import com.foxconn.sw.service.utils.ExcelWorkReportUtils;
 import com.foxconn.sw.service.utils.ResponseUtils;
 import io.swagger.v3.oas.annotations.Operation;
@@ -39,6 +43,10 @@ public class WorkReportController {
     @Autowired
     ReportAuthorityProcessor reportAuthority;
     @Autowired
+    ExportStatusProcessor exportStatus;
+    @Autowired
+    ScoreReportProcessor scoreReport;
+    @Autowired
     HttpServletResponse response;
 
     @Permission
@@ -49,7 +57,6 @@ public class WorkReportController {
         boolean result = reportAuthority.reportAuthority();
         return ResponseUtils.success(result, request.getTraceId());
     }
-
 
     @Permission
     @Operation(summary = "获取工作汇报", tags = TagsConstants.OA)
@@ -70,6 +77,33 @@ public class WorkReportController {
     }
 
     @Permission
+    @Operation(summary = "更新导出工作锁定状态", tags = TagsConstants.OA)
+    @ApiResponse(responseCode = "0", description = "成功码")
+    @PostMapping("/updateExport")
+    public Response updateExport(@Valid @RequestBody Request<StringParams> request) {
+        exportStatus.updateExport(request.getData());
+        return ResponseUtils.success(request.getTraceId());
+    }
+
+    @Permission
+    @Operation(summary = "取消导出工作汇报", tags = TagsConstants.OA)
+    @ApiResponse(responseCode = "0", description = "成功码")
+    @PostMapping("/exportStatus")
+    public Response<Boolean> exportStatus(@Valid @RequestBody Request<StringParams> request) {
+        boolean result = exportStatus.exportStatus(request.getData());
+        return ResponseUtils.success(result, request.getTraceId());
+    }
+
+    @Permission
+    @Operation(summary = "周报打分接口", tags = TagsConstants.OA)
+    @ApiResponse(responseCode = "0", description = "成功码")
+    @PostMapping("/score")
+    public Response<Boolean> score(@Valid @RequestBody Request<ScoreParams> request) {
+        boolean result = scoreReport.score(request.getData());
+        return ResponseUtils.success(result, request.getTraceId());
+    }
+
+    @Permission
     @Operation(summary = "導出周报信息", tags = TagsConstants.OA)
     @ApiResponse(responseCode = "0", description = "成功码")
     @CrossOrigin(exposedHeaders = {"Content-Disposition"})
@@ -77,7 +111,8 @@ public class WorkReportController {
     public ResponseEntity export(@Valid @RequestBody Request<ReportSearchParams> request) throws IOException {
         // 设置响应头
         response.setContentType("application/vnd.ms-excel");
-        String fileName = DateTimeUtils.getTimeStamp() + ".xlsx";
+        String weekOfYear = ReportSearchParamsUtils.processDate(request.getData().getStartDate());
+        String fileName = String.format("CMA_RD_SW_Weekly Report _WK%s.xlsx", weekOfYear);
         response.setHeader("Content-Disposition", "attachment; filename=" + fileName);
         List<WorkReportVo> vos = listReport.listReport(request.getData(), true);
         if (CollectionUtils.isEmpty(vos)) {
@@ -94,6 +129,4 @@ public class WorkReportController {
         workbook.close();
         return ResponseEntity.ok().body(null);
     }
-
-
 }

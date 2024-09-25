@@ -36,12 +36,12 @@ public interface SwTaskEmployeeRelationMapper {
     @Insert({
         "insert into sw_task_employee_relation (task_id, employee_no, ",
         "prev_id, role_flag, ",
-        "is_delete, create_time, ",
-        "datetime_lastchange)",
+        "is_active, is_delete, ",
+        "create_time, datetime_lastchange)",
         "values (#{taskId,jdbcType=INTEGER}, #{employeeNo,jdbcType=VARCHAR}, ",
         "#{prevId,jdbcType=INTEGER}, #{roleFlag,jdbcType=INTEGER}, ",
-        "#{isDelete,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, ",
-        "#{datetimeLastchange,jdbcType=TIMESTAMP})"
+        "#{isActive,jdbcType=INTEGER}, #{isDelete,jdbcType=INTEGER}, ",
+        "#{createTime,jdbcType=TIMESTAMP}, #{datetimeLastchange,jdbcType=TIMESTAMP})"
     })
     @SelectKey(statement="SELECT LAST_INSERT_ID()", keyProperty="id", before=false, resultType=Integer.class)
     int insert(SwTaskEmployeeRelation record);
@@ -57,6 +57,7 @@ public interface SwTaskEmployeeRelationMapper {
         @Result(column="employee_no", property="employeeNo", jdbcType=JdbcType.VARCHAR),
         @Result(column="prev_id", property="prevId", jdbcType=JdbcType.INTEGER),
         @Result(column="role_flag", property="roleFlag", jdbcType=JdbcType.INTEGER),
+        @Result(column="is_active", property="isActive", jdbcType=JdbcType.INTEGER),
         @Result(column="is_delete", property="isDelete", jdbcType=JdbcType.INTEGER),
         @Result(column="create_time", property="createTime", jdbcType=JdbcType.TIMESTAMP),
         @Result(column="datetime_lastchange", property="datetimeLastchange", jdbcType=JdbcType.TIMESTAMP)
@@ -70,6 +71,7 @@ public interface SwTaskEmployeeRelationMapper {
         @Result(column="employee_no", property="employeeNo", jdbcType=JdbcType.VARCHAR),
         @Result(column="prev_id", property="prevId", jdbcType=JdbcType.INTEGER),
         @Result(column="role_flag", property="roleFlag", jdbcType=JdbcType.INTEGER),
+        @Result(column="is_active", property="isActive", jdbcType=JdbcType.INTEGER),
         @Result(column="is_delete", property="isDelete", jdbcType=JdbcType.INTEGER),
         @Result(column="create_time", property="createTime", jdbcType=JdbcType.TIMESTAMP),
         @Result(column="datetime_lastchange", property="datetimeLastchange", jdbcType=JdbcType.TIMESTAMP)
@@ -78,7 +80,8 @@ public interface SwTaskEmployeeRelationMapper {
 
     @Select({
         "select",
-        "id, task_id, employee_no, prev_id, role_flag, is_delete, create_time, datetime_lastchange",
+        "id, task_id, employee_no, prev_id, role_flag, is_active, is_delete, create_time, ",
+        "datetime_lastchange",
         "from sw_task_employee_relation",
         "where id = #{id,jdbcType=INTEGER}"
     })
@@ -88,6 +91,7 @@ public interface SwTaskEmployeeRelationMapper {
         @Result(column="employee_no", property="employeeNo", jdbcType=JdbcType.VARCHAR),
         @Result(column="prev_id", property="prevId", jdbcType=JdbcType.INTEGER),
         @Result(column="role_flag", property="roleFlag", jdbcType=JdbcType.INTEGER),
+        @Result(column="is_active", property="isActive", jdbcType=JdbcType.INTEGER),
         @Result(column="is_delete", property="isDelete", jdbcType=JdbcType.INTEGER),
         @Result(column="create_time", property="createTime", jdbcType=JdbcType.TIMESTAMP),
         @Result(column="datetime_lastchange", property="datetimeLastchange", jdbcType=JdbcType.TIMESTAMP)
@@ -109,6 +113,7 @@ public interface SwTaskEmployeeRelationMapper {
           "employee_no = #{employeeNo,jdbcType=VARCHAR},",
           "prev_id = #{prevId,jdbcType=INTEGER},",
           "role_flag = #{roleFlag,jdbcType=INTEGER},",
+          "is_active = #{isActive,jdbcType=INTEGER},",
           "is_delete = #{isDelete,jdbcType=INTEGER},",
           "create_time = #{createTime,jdbcType=TIMESTAMP},",
           "datetime_lastchange = #{datetimeLastchange,jdbcType=TIMESTAMP}",

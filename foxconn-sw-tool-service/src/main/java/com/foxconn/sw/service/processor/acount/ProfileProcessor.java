@@ -9,13 +9,12 @@ import com.foxconn.sw.data.dto.entity.acount.UserProfileVo;
 import com.foxconn.sw.data.dto.entity.system.DepartmentVo;
 import com.foxconn.sw.data.entity.SwEmployee;
 import com.foxconn.sw.data.entity.SwUser;
+import com.foxconn.sw.service.processor.config.PositionConfig;
 import com.foxconn.sw.service.processor.user.CommonUserUtils;
-import com.google.common.collect.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.*;
-import java.util.stream.Collectors;
+import java.util.List;
 
 @Component
 public class ProfileProcessor {
@@ -48,7 +47,7 @@ public class ProfileProcessor {
         profileVo.setGender(employee.getGender());
         profileVo.setDepartmentId(employee.getDepartmentId());
         profileVo.setPostId(employee.getPostId());
-        profileVo.setPosition(getPosition(employee.getEmployeeNo()));
+        profileVo.setPosition(PositionConfig.getPosition(employee.getEmployeeNo()));
         profileVo.setInnerEmail(employee.getInnerEmail());
         profileVo.setOuterMail(employee.getOuterMail());
         profileVo.setLandLine(employee.getLandLine());
@@ -57,71 +56,14 @@ public class ProfileProcessor {
         profileVo.setOuterWorkYears(employee.getOuterWorkYears());
         profileVo.setOuterAbcYears(employee.getOuterAbcYears());
         profileVo.setSignature(swUser.getSignature());
-        profileVo.setDepartment(getFullDepartName(employee.getDepartmentId()));
+        profileVo.setDepartment(departmentBusiness.getFullDepartName(employee.getDepartmentId()));
         profileVo.setAvatar(appendResourceBusiness.getResourceUrl(swUser.getAvatarId()));
         return profileVo;
     }
 
-    private String getPosition(String employeeNo) {
-        Map<String, String> map = new HashMap<>();
-        map.put("PL1910055", "資深經理");
-        map.put("PL1910121", "資深副理");
-        map.put("G1654668", "副課長");
-        map.put("G1651074", "副課長");
-        map.put("F2827381", "經理");
-        map.put("F1655140", "專理");
-        map.put("G1650067", "課長");
-        map.put("G1654631", "工程師");
-        map.put("F1678218", "課長");
-        map.put("F2829504", "專理");
-        map.put("G1654707", "副課長");
-        map.put("F1679627", "經理");
-        map.put("F1668046", "資深專理");
-        map.put("F1669075", "專理");
-        map.put("G1651084", "副課長");
-        map.put("G1653388", "工程師");
-        map.put("G1653619", "工程師");
-        map.put("F1648344", "資深副理");
-        map.put("F1676766", "副課長");
-        map.put("F9233118", "專理");
-        map.put("F1631845", "專理");
-        map.put("FSUS140", "工程師");
-        map.put("G1655080", "資深專理");
-        map.put("F1652662", "課長");
-        map.put("G1655716", "工程師");
-        map.put("G1655614", "副課長");
-        map.put("PL2210065", "工程師");
-        map.put("F1669092", "副課長");
-        map.put("PL1910091", "經理");
-        map.put("F5400084", "資深專理");
-        map.put("F1666045", "專理");
-        map.put("G1650865", "副課長");
-        map.put("F1669081", "課長");
-        return map.getOrDefault(employeeNo, "工程師");
-    }
 
     private String getDepartName(int departID) {
         List<DepartmentVo> vos = departmentBusiness.getDepartList();
         return vos.stream().filter(e -> e.getId() == departID).findFirst().map(DepartmentVo::getName).orElse("");
     }
-
-    private String getFullDepartName(int departID) {
-        Map<Integer, DepartmentVo> voMap = departmentBusiness.getDepartMap();
-        List<DepartmentVo> departmentVos = getDepartList(voMap, departID);
-        return departmentVos.stream().map(e -> e.getName()).collect(Collectors.joining(" - "));
-    }
-
-    private List<DepartmentVo> getDepartList(Map<Integer, DepartmentVo> voMap, int departID) {
-        List<DepartmentVo> vos = new ArrayList<>();
-
-        DepartmentVo departmentVo = voMap.get(departID);
-        if (Objects.isNull(departmentVo.getParentId()) || departmentVo.getParentId() == 0) {
-            return vos;
-        }
-        List<DepartmentVo> temps = getDepartList(voMap, departmentVo.getParentId());
-        temps.addAll(Lists.newArrayList(departmentVo));
-        vos.addAll(temps);
-        return vos;
-    }
-
 }

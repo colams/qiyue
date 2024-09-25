@@ -23,11 +23,11 @@
             <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] INFO %logger{36} - %msg%n</pattern>
             <charset>UTF-8</charset>
         </encoder>
-<!--        <filter class="ch.qos.logback.classic.filter.LevelFilter">-->
-<!--            <level>INFO</level>-->
-<!--            <onMatch>ACCEPT</onMatch>-->
-<!--            <onMismatch>DENY</onMismatch>-->
-<!--        </filter>-->
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>INFO</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
     </appender>
 
     <!-- debug 日志文件输出 -->
@@ -43,13 +43,8 @@
             <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] DEBUG %logger{36} - %msg%n</pattern>
             <charset>UTF-8</charset>
         </encoder>
-<!--        <filter class="ch.qos.logback.classic.filter.LevelFilter">-->
-<!--            <level>DEBUG</level>-->
-<!--            <onMatch>ACCEPT</onMatch>-->
-<!--            <onMismatch>DENY</onMismatch>-->
-<!--        </filter>-->
         <filter class="ch.qos.logback.classic.filter.LevelFilter">
-            <level>WARN</level>
+            <level>DEBUG</level>
             <onMatch>ACCEPT</onMatch>
             <onMismatch>DENY</onMismatch>
         </filter>

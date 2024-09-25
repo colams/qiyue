@@ -2,9 +2,11 @@ package com.foxconn.sw.data.constants;
 
 public enum DepartLevel {
 
-    Directorate(0, "总办"),
-    Ministerial(1, "處級"),
-    SectionChief(2, "部級"),
+    UnDefine(0, ""),
+    Directorate(1, "总办"),
+    DivisionChief(2, "處級"),
+    Ministerial(3, "部級"),
+    SectionChief(4, "課級"),
     ;
 
     DepartLevel(Integer level, String name) {

@@ -13,6 +13,8 @@ public class ReportSearchParams {
     private String weekOfStart;
 
     private String employeeName;
+    private Integer departID;
+    private Integer levelType;
     private String startDate;
     private String endDate;
 
@@ -32,12 +34,28 @@ public class ReportSearchParams {
         this.employeeName = employeeName;
     }
 
+    public Integer getDepartID() {
+        return departID;
+    }
+
+    public void setDepartID(Integer departID) {
+        this.departID = departID;
+    }
+
     public String getWeekOfStart() {
         return weekOfStart;
     }
 
     public void setWeekOfStart(String weekOfStart) {
         this.weekOfStart = weekOfStart;
+    }
+
+    public Integer getLevelType() {
+        return levelType;
+    }
+
+    public void setLevelType(Integer levelType) {
+        this.levelType = levelType;
     }
 
     public String getStartDate() {

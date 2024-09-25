@@ -33,12 +33,6 @@ public class SwTask {
 
     private String deadLine;
 
-    private String resourceIds;
-
-    private String startDate;
-
-    private String endDate;
-
     private String reflection;
 
     private LocalDateTime createTime;
@@ -242,45 +236,6 @@ public class SwTask {
         this.deadLine = deadLine == null ? null : deadLine.trim();
     }
 
-    public String getResourceIds() {
-        return resourceIds;
-    }
-
-    public SwTask withResourceIds(String resourceIds) {
-        this.setResourceIds(resourceIds);
-        return this;
-    }
-
-    public void setResourceIds(String resourceIds) {
-        this.resourceIds = resourceIds == null ? null : resourceIds.trim();
-    }
-
-    public String getStartDate() {
-        return startDate;
-    }
-
-    public SwTask withStartDate(String startDate) {
-        this.setStartDate(startDate);
-        return this;
-    }
-
-    public void setStartDate(String startDate) {
-        this.startDate = startDate == null ? null : startDate.trim();
-    }
-
-    public String getEndDate() {
-        return endDate;
-    }
-
-    public SwTask withEndDate(String endDate) {
-        this.setEndDate(endDate);
-        return this;
-    }
-
-    public void setEndDate(String endDate) {
-        this.endDate = endDate == null ? null : endDate.trim();
-    }
-
     public String getReflection() {
         return reflection;
     }
@@ -324,12 +279,12 @@ public class SwTask {
         return description;
     }
 
-    public void setDescription(String description) {
-        this.description = description == null ? null : description.trim();
-    }
-
     public SwTask withDescription(String description) {
         this.setDescription(description);
         return this;
+    }
+
+    public void setDescription(String description) {
+        this.description = description == null ? null : description.trim();
     }
 }

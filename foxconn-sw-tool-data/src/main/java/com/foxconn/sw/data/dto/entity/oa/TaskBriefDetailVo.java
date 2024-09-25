@@ -92,6 +92,12 @@ public class TaskBriefDetailVo {
     private String managerEid;
 
     /**
+     * 关注人
+     */
+    @Schema(description = "关注人")
+    private List<String> watchers;
+
+    /**
      * 状态
      */
     @Schema(description = "0-暂存/草稿，1-待确认需求")
@@ -105,12 +111,28 @@ public class TaskBriefDetailVo {
         this.id = id;
     }
 
+    public String getTopProject() {
+        return topProject;
+    }
+
+    public void setTopProject(String topProject) {
+        this.topProject = topProject;
+    }
+
     public String getProject() {
         return project;
     }
 
     public void setProject(String project) {
         this.project = project;
+    }
+
+    public String getTopCategory() {
+        return topCategory;
+    }
+
+    public void setTopCategory(String topCategory) {
+        this.topCategory = topCategory;
     }
 
     public String getCategory() {
@@ -145,22 +167,6 @@ public class TaskBriefDetailVo {
         this.title = title;
     }
 
-    public String getTopProject() {
-        return topProject;
-    }
-
-    public void setTopProject(String topProject) {
-        this.topProject = topProject;
-    }
-
-    public String getTopCategory() {
-        return topCategory;
-    }
-
-    public void setTopCategory(String topCategory) {
-        this.topCategory = topCategory;
-    }
-
     public String getDescription() {
         return description;
     }
@@ -183,6 +189,14 @@ public class TaskBriefDetailVo {
 
     public void setManagerEid(String managerEid) {
         this.managerEid = managerEid;
+    }
+
+    public List<String> getWatchers() {
+        return watchers;
+    }
+
+    public void setWatchers(List<String> watchers) {
+        this.watchers = watchers;
     }
 
     public Integer getStatus() {

@@ -6,12 +6,11 @@ public class WorkReportParams {
 
     private Integer id;
     private Integer week;
-    private Integer num;
     @NotNull(message = "内容不能为空")
     private String project;
     @NotNull(message = "内容不能为空")
     private String description;
-    private Integer day;
+    private Double day;
     private Integer target;
     private Integer current;
     private String remark;
@@ -32,14 +31,6 @@ public class WorkReportParams {
         this.week = week;
     }
 
-    public Integer getNum() {
-        return num;
-    }
-
-    public void setNum(Integer num) {
-        this.num = num;
-    }
-
     public String getProject() {
         return project;
     }
@@ -57,11 +48,11 @@ public class WorkReportParams {
         this.description = description;
     }
 
-    public Integer getDay() {
+    public Double getDay() {
         return day;
     }
 
-    public void setDay(Integer day) {
+    public void setDay(Double day) {
         this.day = day;
     }
 

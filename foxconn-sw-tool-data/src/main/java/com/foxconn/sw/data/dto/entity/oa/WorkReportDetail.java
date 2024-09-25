@@ -3,12 +3,11 @@ package com.foxconn.sw.data.dto.entity.oa;
 public class WorkReportDetail {
 
     private int id;
-    private int num;
     private String project;
     private String description;
-    private int day;
-    private int target;
-    private int current;
+    private Double day;
+    private Integer target;
+    private Integer current;
     private String remark;
 
     public int getId() {
@@ -17,14 +16,6 @@ public class WorkReportDetail {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public int getNum() {
-        return num;
-    }
-
-    public void setNum(int num) {
-        this.num = num;
     }
 
     public String getProject() {
@@ -43,27 +34,27 @@ public class WorkReportDetail {
         this.description = description;
     }
 
-    public int getDay() {
+    public Double getDay() {
         return day;
     }
 
-    public void setDay(int day) {
+    public void setDay(Double day) {
         this.day = day;
     }
 
-    public int getTarget() {
+    public Integer getTarget() {
         return target;
     }
 
-    public void setTarget(int target) {
+    public void setTarget(Integer target) {
         this.target = target;
     }
 
-    public int getCurrent() {
+    public Integer getCurrent() {
         return current;
     }
 
-    public void setCurrent(int current) {
+    public void setCurrent(Integer current) {
         this.current = current;
     }
 

@@ -61,25 +61,25 @@ public class DepartmentBusiness {
 
 
     private static List<DepartmentVo> buildDepartmentVoTree(List<DepartmentVo> vos) {
-        Map<Integer, DepartmentVo> menuMap = vos.stream()
+        Map<Integer, DepartmentVo> departmentVoMap = vos.stream()
                 .collect(Collectors.toMap(DepartmentVo::getId, e -> e));
         // 构建菜单树
-        List<DepartmentVo> rootMenus = buildTree(menuMap);
+        List<DepartmentVo> rootMenus = buildTree(departmentVoMap);
         return rootMenus;
     }
 
-    private static List<DepartmentVo> buildTree(Map<Integer, DepartmentVo> menuMap) {
-        List<DepartmentVo> rootMenus = new ArrayList<>();
+    private static List<DepartmentVo> buildTree(Map<Integer, DepartmentVo> departmentVoMap) {
+        List<DepartmentVo> rootDeparts = new ArrayList<>();
 
-        for (DepartmentVo menu : menuMap.values()) {
-            Integer parentId = menu.getParentId();
+        for (DepartmentVo departmentVo : departmentVoMap.values()) {
+            Integer parentId = departmentVo.getParentId();
             if (parentId == null || parentId == 0) {
-                rootMenus.add(menu);
-                buildSubTree(menu, menuMap);
+                rootDeparts.add(departmentVo);
+                buildSubTree(departmentVo, departmentVoMap);
             }
         }
 
-        return rootMenus;
+        return rootDeparts;
     }
 
     private static void buildSubTree(DepartmentVo parentMenu, Map<Integer, DepartmentVo> menuMap) {
@@ -100,6 +100,15 @@ public class DepartmentBusiness {
         List<DepartmentVo> departmentVos = getDepartList();
         return getDepartmentIds(departmentVos, NumberUtils.toInt(searchKey), 0);
     }
+
+    public List<Integer> getSubDepartID(Integer searchDeptId) {
+        if (Objects.isNull(searchDeptId)) {
+            return Lists.newArrayList();
+        }
+        List<DepartmentVo> departmentVos = getDepartList();
+        return getDepartmentIds(departmentVos, searchDeptId, 0);
+    }
+
 
     private List<Integer> getDepartmentIds(List<DepartmentVo> vos, Integer currId, int type) {
         List<Integer> result = new ArrayList<>();
@@ -165,6 +174,29 @@ public class DepartmentBusiness {
     }
 
 
+    public List<DepartmentVo> getMangeDepartVo(String employeeNo) {
+        List<DepartmentVo> vo = getTreeDepartmentVos();
+        return searchTree(vo, employeeNo);
+    }
+
+    public List<DepartmentVo> searchTree(List<DepartmentVo> treeVos, String employeeNo) {
+        List<DepartmentVo> result = treeVos.stream()
+                .filter(e -> employeeNo.equalsIgnoreCase(e.getManagerNo()))
+                .collect(Collectors.toList());
+        if (CollectionUtils.isEmpty(result)) {
+            for (DepartmentVo vo : treeVos) {
+                if (CollectionUtils.isEmpty(vo.getChildren())) {
+                    continue;
+                }
+                result = searchTree(vo.getChildren(), employeeNo);
+                if (!CollectionUtils.isEmpty(result)) {
+                    break;
+                }
+            }
+        }
+        return result;
+    }
+
     private List<SwDepartment> getAllMangeDepart(List<SwDepartment> departments, List<SwDepartment> directDepartments) {
         List<SwDepartment> departmentList = new ArrayList<>();
         departmentList.addAll(directDepartments);
@@ -181,5 +213,39 @@ public class DepartmentBusiness {
         }
         departmentList.addAll(temps);
         return departmentList;
+    }
+
+    public String getFullDepartName(int departID) {
+        Map<Integer, DepartmentVo> voMap = getDepartMap();
+        List<DepartmentVo> departmentVos = getDepartList(voMap, departID);
+        return departmentVos.stream().map(e -> e.getName()).collect(Collectors.joining(" - "));
+    }
+
+    public String getShortDepartName(int departID) {
+        Map<Integer, DepartmentVo> voMap = getDepartMap();
+        List<DepartmentVo> departmentVos = getDepartList(voMap, departID);
+        if (departmentVos.size() > 2) {
+            return departmentVos.subList(departmentVos.size() - 2, departmentVos.size())
+                    .stream()
+                    .map(e -> e.getName())
+                    .collect(Collectors.joining(" "));
+        }
+        return departmentVos.stream()
+                .map(e -> e.getName())
+                .collect(Collectors.joining(" "));
+    }
+
+
+    public List<DepartmentVo> getDepartList(Map<Integer, DepartmentVo> voMap, int departID) {
+        List<DepartmentVo> vos = new ArrayList<>();
+
+        DepartmentVo departmentVo = voMap.get(departID);
+        if (Objects.isNull(departmentVo.getParentId()) || departmentVo.getParentId() == 0) {
+            return vos;
+        }
+        List<DepartmentVo> temps = getDepartList(voMap, departmentVo.getParentId());
+        temps.addAll(Lists.newArrayList(departmentVo));
+        vos.addAll(temps);
+        return vos;
     }
 }

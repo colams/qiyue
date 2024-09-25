@@ -4,6 +4,7 @@ import com.foxconn.sw.common.utils.JsonUtils;
 import com.foxconn.sw.data.dto.PageParams;
 import com.foxconn.sw.data.dto.entity.oa.TaskParams;
 import com.foxconn.sw.service.BaseTest;
+import com.foxconn.sw.service.processor.oa.task.TaskListProcessor;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 

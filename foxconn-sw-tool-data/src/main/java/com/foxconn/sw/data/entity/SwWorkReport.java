@@ -11,11 +11,9 @@ public class SwWorkReport {
 
     private Integer week;
 
-    private Integer num;
-
     private String project;
 
-    private Integer days;
+    private Double days;
 
     private Integer target;
 
@@ -61,13 +59,13 @@ public class SwWorkReport {
         return yearWeek;
     }
 
-    public void setYearWeek(String yearWeek) {
-        this.yearWeek = yearWeek == null ? null : yearWeek.trim();
-    }
-
     public SwWorkReport withYearWeek(String yearWeek) {
         this.setYearWeek(yearWeek);
         return this;
+    }
+
+    public void setYearWeek(String yearWeek) {
+        this.yearWeek = yearWeek == null ? null : yearWeek.trim();
     }
 
     public Integer getWeek() {
@@ -83,19 +81,6 @@ public class SwWorkReport {
         this.week = week;
     }
 
-    public Integer getNum() {
-        return num;
-    }
-
-    public SwWorkReport withNum(Integer num) {
-        this.setNum(num);
-        return this;
-    }
-
-    public void setNum(Integer num) {
-        this.num = num;
-    }
-
     public String getProject() {
         return project;
     }
@@ -109,16 +94,16 @@ public class SwWorkReport {
         this.project = project == null ? null : project.trim();
     }
 
-    public Integer getDays() {
+    public Double getDays() {
         return days;
     }
 
-    public SwWorkReport withDays(Integer days) {
+    public SwWorkReport withDays(Double days) {
         this.setDays(days);
         return this;
     }
 
-    public void setDays(Integer days) {
+    public void setDays(Double days) {
         this.days = days;
     }
 

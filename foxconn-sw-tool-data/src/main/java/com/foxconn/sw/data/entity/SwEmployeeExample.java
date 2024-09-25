@@ -235,6 +235,76 @@ public class SwEmployeeExample {
             return (Criteria) this;
         }
 
+        public Criteria andAssistantIsNull() {
+            addCriterion("assistant is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andAssistantIsNotNull() {
+            addCriterion("assistant is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andAssistantEqualTo(String value) {
+            addCriterion("assistant =", value, "assistant");
+            return (Criteria) this;
+        }
+
+        public Criteria andAssistantNotEqualTo(String value) {
+            addCriterion("assistant <>", value, "assistant");
+            return (Criteria) this;
+        }
+
+        public Criteria andAssistantGreaterThan(String value) {
+            addCriterion("assistant >", value, "assistant");
+            return (Criteria) this;
+        }
+
+        public Criteria andAssistantGreaterThanOrEqualTo(String value) {
+            addCriterion("assistant >=", value, "assistant");
+            return (Criteria) this;
+        }
+
+        public Criteria andAssistantLessThan(String value) {
+            addCriterion("assistant <", value, "assistant");
+            return (Criteria) this;
+        }
+
+        public Criteria andAssistantLessThanOrEqualTo(String value) {
+            addCriterion("assistant <=", value, "assistant");
+            return (Criteria) this;
+        }
+
+        public Criteria andAssistantLike(String value) {
+            addCriterion("assistant like", value, "assistant");
+            return (Criteria) this;
+        }
+
+        public Criteria andAssistantNotLike(String value) {
+            addCriterion("assistant not like", value, "assistant");
+            return (Criteria) this;
+        }
+
+        public Criteria andAssistantIn(List<String> values) {
+            addCriterion("assistant in", values, "assistant");
+            return (Criteria) this;
+        }
+
+        public Criteria andAssistantNotIn(List<String> values) {
+            addCriterion("assistant not in", values, "assistant");
+            return (Criteria) this;
+        }
+
+        public Criteria andAssistantBetween(String value1, String value2) {
+            addCriterion("assistant between", value1, value2, "assistant");
+            return (Criteria) this;
+        }
+
+        public Criteria andAssistantNotBetween(String value1, String value2) {
+            addCriterion("assistant not between", value1, value2, "assistant");
+            return (Criteria) this;
+        }
+
         public Criteria andNameIsNull() {
             addCriterion("name is null");
             return (Criteria) this;
@@ -1155,6 +1225,66 @@ public class SwEmployeeExample {
             return (Criteria) this;
         }
 
+        public Criteria andManagerLevelIsNull() {
+            addCriterion("manager_level is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andManagerLevelIsNotNull() {
+            addCriterion("manager_level is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andManagerLevelEqualTo(Integer value) {
+            addCriterion("manager_level =", value, "managerLevel");
+            return (Criteria) this;
+        }
+
+        public Criteria andManagerLevelNotEqualTo(Integer value) {
+            addCriterion("manager_level <>", value, "managerLevel");
+            return (Criteria) this;
+        }
+
+        public Criteria andManagerLevelGreaterThan(Integer value) {
+            addCriterion("manager_level >", value, "managerLevel");
+            return (Criteria) this;
+        }
+
+        public Criteria andManagerLevelGreaterThanOrEqualTo(Integer value) {
+            addCriterion("manager_level >=", value, "managerLevel");
+            return (Criteria) this;
+        }
+
+        public Criteria andManagerLevelLessThan(Integer value) {
+            addCriterion("manager_level <", value, "managerLevel");
+            return (Criteria) this;
+        }
+
+        public Criteria andManagerLevelLessThanOrEqualTo(Integer value) {
+            addCriterion("manager_level <=", value, "managerLevel");
+            return (Criteria) this;
+        }
+
+        public Criteria andManagerLevelIn(List<Integer> values) {
+            addCriterion("manager_level in", values, "managerLevel");
+            return (Criteria) this;
+        }
+
+        public Criteria andManagerLevelNotIn(List<Integer> values) {
+            addCriterion("manager_level not in", values, "managerLevel");
+            return (Criteria) this;
+        }
+
+        public Criteria andManagerLevelBetween(Integer value1, Integer value2) {
+            addCriterion("manager_level between", value1, value2, "managerLevel");
+            return (Criteria) this;
+        }
+
+        public Criteria andManagerLevelNotBetween(Integer value1, Integer value2) {
+            addCriterion("manager_level not between", value1, value2, "managerLevel");
+            return (Criteria) this;
+        }
+
         public Criteria andDatetimeLastchangeIsNull() {
             addCriterion("datetime_lastchange is null");
             return (Criteria) this;
@@ -1217,6 +1347,11 @@ public class SwEmployeeExample {
 
         public Criteria andEmployeeNoLikeInsensitive(String value) {
             addCriterion("upper(employee_no) like", value.toUpperCase(), "employeeNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andAssistantLikeInsensitive(String value) {
+            addCriterion("upper(assistant) like", value.toUpperCase(), "assistant");
             return (Criteria) this;
         }
 

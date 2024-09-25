@@ -28,8 +28,16 @@ public class SwDepartmentSqlProvider {
         SQL sql = new SQL();
         sql.INSERT_INTO("sw_department");
         
+        if (record.getLevel() != null) {
+            sql.VALUES("level", "#{level,jdbcType=INTEGER}");
+        }
+        
         if (record.getName() != null) {
             sql.VALUES("name", "#{name,jdbcType=VARCHAR}");
+        }
+        
+        if (record.getShortName() != null) {
+            sql.VALUES("short_name", "#{shortName,jdbcType=VARCHAR}");
         }
         
         if (record.getManagerNo() != null) {
@@ -70,7 +78,9 @@ public class SwDepartmentSqlProvider {
         } else {
             sql.SELECT("id");
         }
+        sql.SELECT("level");
         sql.SELECT("name");
+        sql.SELECT("short_name");
         sql.SELECT("manager_no");
         sql.SELECT("description");
         sql.SELECT("parent_id");
@@ -99,8 +109,16 @@ public class SwDepartmentSqlProvider {
             sql.SET("id = #{record.id,jdbcType=INTEGER}");
         }
         
+        if (record.getLevel() != null) {
+            sql.SET("level = #{record.level,jdbcType=INTEGER}");
+        }
+        
         if (record.getName() != null) {
             sql.SET("name = #{record.name,jdbcType=VARCHAR}");
+        }
+        
+        if (record.getShortName() != null) {
+            sql.SET("short_name = #{record.shortName,jdbcType=VARCHAR}");
         }
         
         if (record.getManagerNo() != null) {
@@ -140,7 +158,9 @@ public class SwDepartmentSqlProvider {
         sql.UPDATE("sw_department");
         
         sql.SET("id = #{record.id,jdbcType=INTEGER}");
+        sql.SET("level = #{record.level,jdbcType=INTEGER}");
         sql.SET("name = #{record.name,jdbcType=VARCHAR}");
+        sql.SET("short_name = #{record.shortName,jdbcType=VARCHAR}");
         sql.SET("manager_no = #{record.managerNo,jdbcType=VARCHAR}");
         sql.SET("description = #{record.description,jdbcType=VARCHAR}");
         sql.SET("parent_id = #{record.parentId,jdbcType=INTEGER}");
@@ -158,8 +178,16 @@ public class SwDepartmentSqlProvider {
         SQL sql = new SQL();
         sql.UPDATE("sw_department");
         
+        if (record.getLevel() != null) {
+            sql.SET("level = #{level,jdbcType=INTEGER}");
+        }
+        
         if (record.getName() != null) {
             sql.SET("name = #{name,jdbcType=VARCHAR}");
+        }
+        
+        if (record.getShortName() != null) {
+            sql.SET("short_name = #{shortName,jdbcType=VARCHAR}");
         }
         
         if (record.getManagerNo() != null) {

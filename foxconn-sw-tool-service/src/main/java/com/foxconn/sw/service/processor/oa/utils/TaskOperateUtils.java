@@ -3,21 +3,37 @@ package com.foxconn.sw.service.processor.oa.utils;
 import com.foxconn.sw.data.constants.enums.OperateTypeEnum;
 import com.foxconn.sw.data.constants.enums.oa.RejectStatusEnum;
 import com.foxconn.sw.data.constants.enums.oa.TaskStatusEnums;
-import com.foxconn.sw.data.dto.entity.oa.TaskBriefListVo;
 import com.foxconn.sw.data.dto.entity.oa.TaskDetailVo;
 import com.foxconn.sw.data.dto.entity.universal.OperateEntity;
+import com.foxconn.sw.data.entity.SwTask;
 import com.foxconn.sw.data.entity.SwTaskEmployeeRelation;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.List;
+import java.util.Optional;
 
 import static com.foxconn.sw.data.constants.enums.TaskRoleFlagEnums.*;
 import static com.foxconn.sw.data.constants.enums.oa.TaskStatusEnums.*;
 
 public class TaskOperateUtils {
 
-    public static OperateEntity processOperate(String employeeNo, TaskBriefListVo briefListVo, OperateTypeEnum op) {
-        TaskStatusEnums taskStatusEnums = TaskStatusEnums.getStatusByCode(briefListVo.getStatus());
+    public static OperateEntity processOperate(String employeeNo,
+                                               SwTask task,
+                                               OperateTypeEnum op,
+                                               Optional<SwTaskEmployeeRelation> optional) {
+        TaskStatusEnums taskStatusEnums = TaskStatusEnums.getStatusByCode(task.getStatus());
+
+        boolean isProposer = false;
+        boolean isManger = false;
+        boolean isHandler = false;
+
+        if (optional.isPresent()) {
+            SwTaskEmployeeRelation relation = optional.get();
+            isProposer = Proposer_Flag.test(relation.getRoleFlag());
+            isManger = Manager_Flag.test(relation.getRoleFlag());
+            isHandler = Handler_Flag.test(relation.getRoleFlag());
+        }
+
         OperateEntity operate = null;
         Integer subType = null;
         boolean enable = false;
@@ -26,44 +42,36 @@ public class TaskOperateUtils {
                 operate = initVo(op.getMsg(), op.name(), !enable, subType);
                 break;
             case UPDATE:
-                if ((taskStatusEnums == DRAFT
-                        || taskStatusEnums == REVOKE
-                        || (taskStatusEnums == PENDING
-                        && briefListVo.getRejectStatus() == RejectStatusEnum.RELEASE_REJECT.getCode()))
-                        && employeeNo.equalsIgnoreCase(briefListVo.getProposerEID())) {
-                    enable = true;
-                    subType = 0;
-                } else if (taskStatusEnums != REVOKE
-                        && taskStatusEnums != CLOSED
-                        && taskStatusEnums != COMPLETED
-                        && StringUtils.isEmpty(briefListVo.getHandlerEID())
-                        && employeeNo.equalsIgnoreCase(briefListVo.getManagerEID())) {
-                    enable = true;
+                if (isProposer) {
+                    subType = taskStatusEnums == ACCEPTING ? 1 : 0;
+                    enable = taskStatusEnums == DRAFT   // 草稿
+                            || taskStatusEnums == REVOKE    // 已撤销
+                            || (taskStatusEnums == PENDING && task.getRejectStatus() == RejectStatusEnum.RELEASE_REJECT.getCode()) // 驳回
+                            || taskStatusEnums == ACCEPTING;    // 待验收
+                }
+
+                if (!enable && isHandler) {
                     subType = 1;
-                } else if (taskStatusEnums == ACCEPTING
-                        && employeeNo.equalsIgnoreCase(briefListVo.getProposerEID())) {
-                    enable = true;
+                    enable = (taskStatusEnums == PENDING && task.getRejectStatus() != RejectStatusEnum.RELEASE_REJECT.getCode())
+                            || taskStatusEnums == PROCESSING;
+                }
+
+                if (!enable && isManger) {
                     subType = 1;
-                } else if ((taskStatusEnums == PENDING
-                        || taskStatusEnums == PROCESSING)
-                        && employeeNo.equalsIgnoreCase(briefListVo.getHandlerEID())) {
-                    enable = true;
-                    subType = 1;
+                    enable = taskStatusEnums == PENDING && task.getRejectStatus() != RejectStatusEnum.RELEASE_REJECT.getCode();
                 }
                 operate = initVo(op.getMsg(), op.name(), enable, subType);
                 break;
             case REMINDER:
                 if ((taskStatusEnums == PROCESSING
-                        || (taskStatusEnums == PENDING
-                        && briefListVo.getRejectStatus() != RejectStatusEnum.RELEASE_REJECT.getCode()))
-                        && employeeNo.equalsIgnoreCase(briefListVo.getProposerEID())) {
+                        || (taskStatusEnums == PENDING && task.getRejectStatus() != RejectStatusEnum.RELEASE_REJECT.getCode()))
+                        && isProposer) {
                     enable = true;
                 }
                 operate = initVo(op.getMsg(), op.name(), enable);
                 break;
             case REVOKE:
-                if (taskStatusEnums == PENDING
-                        && employeeNo.equalsIgnoreCase(briefListVo.getProposerEID())) {
+                if (taskStatusEnums == PENDING && isProposer) {
                     enable = true;
                 }
                 operate = initVo(op.getMsg(), op.name(), enable);
@@ -78,8 +86,6 @@ public class TaskOperateUtils {
                 .filter(e -> e.getEmployeeNo().equalsIgnoreCase(employeeNo))
                 .findFirst()
                 .orElse(null);
-
-        boolean hasHandler = relations.stream().anyMatch(e -> Handler_Flag.test(e.getRoleFlag()));
 
         boolean isProposer = Proposer_Flag.test(relation.getRoleFlag());
         boolean isManger = Manager_Flag.test(relation.getRoleFlag());

@@ -7,6 +7,8 @@ public class SwEmployee {
 
     private String employeeNo;
 
+    private String assistant;
+
     private String name;
 
     private String firstName;
@@ -35,6 +37,8 @@ public class SwEmployee {
 
     private Integer outerAbcYears;
 
+    private Integer managerLevel;
+
     private LocalDateTime datetimeLastchange;
 
     public Integer getId() {
@@ -61,6 +65,19 @@ public class SwEmployee {
 
     public void setEmployeeNo(String employeeNo) {
         this.employeeNo = employeeNo == null ? null : employeeNo.trim();
+    }
+
+    public String getAssistant() {
+        return assistant;
+    }
+
+    public SwEmployee withAssistant(String assistant) {
+        this.setAssistant(assistant);
+        return this;
+    }
+
+    public void setAssistant(String assistant) {
+        this.assistant = assistant == null ? null : assistant.trim();
     }
 
     public String getName() {
@@ -243,6 +260,19 @@ public class SwEmployee {
 
     public void setOuterAbcYears(Integer outerAbcYears) {
         this.outerAbcYears = outerAbcYears;
+    }
+
+    public Integer getManagerLevel() {
+        return managerLevel;
+    }
+
+    public SwEmployee withManagerLevel(Integer managerLevel) {
+        this.setManagerLevel(managerLevel);
+        return this;
+    }
+
+    public void setManagerLevel(Integer managerLevel) {
+        this.managerLevel = managerLevel;
     }
 
     public LocalDateTime getDatetimeLastchange() {

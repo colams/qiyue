@@ -3,6 +3,7 @@ package com.foxconn.sw.business.system;
 import com.foxconn.sw.data.constants.enums.retcode.AccountExceptionCode;
 import com.foxconn.sw.data.dto.entity.acount.AddressBookParams;
 import com.foxconn.sw.data.dto.entity.acount.EmployeeVo;
+import com.foxconn.sw.data.entity.SwDepartment;
 import com.foxconn.sw.data.entity.SwEmployee;
 import com.foxconn.sw.data.entity.SwEmployeeExample;
 import com.foxconn.sw.data.exception.BizException;
@@ -14,6 +15,7 @@ import org.springframework.util.CollectionUtils;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Component
@@ -23,6 +25,7 @@ public class EmployeeBusiness {
     @Autowired
     DepartmentBusiness departmentBusiness;
 
+    private static final List<String> employeeNos = Lists.newArrayList("G1652984");
 
     private static List<SwEmployee> employeeList = new ArrayList<>();
 
@@ -98,8 +101,48 @@ public class EmployeeBusiness {
         return employees;
     }
 
+    public SwEmployee queryEmployeeByEno(String eNo) {
+        SwEmployeeExample example = new SwEmployeeExample();
+        SwEmployeeExample.Criteria criteria = example.createCriteria();
+        criteria.andEmployeeNoEqualTo(eNo);
+        example.setOrderByClause(" department_id ,post_id,employee_no ");
+        List<SwEmployee> employees = swEmployeeExtensionMapper.selectByExample(example);
+        return employees.get(0);
+    }
+
+
+    public List<String> queryMemberNo(String employeeNo, boolean hasSelf) {
+        List<String> employeeNos = queryMembers(employeeNo).stream()
+                .map(SwEmployee::getEmployeeNo)
+                .filter(e -> hasSelf || employeeNo.equalsIgnoreCase(e))
+                .collect(Collectors.toList());
+        if (hasSelf && CollectionUtils.isEmpty(employeeNos)) {
+            employeeNos.add(employeeNo);
+        }
+        return employeeNos;
+    }
+
+
     public List<SwEmployee> queryMembers(String employeeNo) {
-        List<Integer> departIds = departmentBusiness.getMangeDepart(employeeNo);
+        return queryMembers(employeeNo, 0);
+    }
+
+    public List<SwEmployee> queryMembers(String employeeNo, Integer departID) {
+
+        String partnerEmployeeNo = employeeNo;
+        if (checkConfig(employeeNo)) {
+            partnerEmployeeNo = getEmployeeList()
+                    .stream()
+                    .filter(e -> employeeNo.contains(e.getAssistant()))
+                    .map(e -> e.getEmployeeNo())
+                    .findFirst()
+                    .orElse("");
+
+        }
+
+        int deptId = selectEmployeeByENo(partnerEmployeeNo).getDepartmentId();
+
+        List<Integer> departIds = getDepartIDs(deptId == departID ? 0 : departID, partnerEmployeeNo);
 
         if (CollectionUtils.isEmpty(departIds)) {
             return Lists.newArrayList();
@@ -112,5 +155,22 @@ public class EmployeeBusiness {
         return list;
     }
 
+
+    public boolean isDRIHigher(String employeeNo, String higherEno) {
+        SwDepartment department = departmentBusiness.getDepartment(selectEmployeeByENo(employeeNo).getDepartmentId());
+        return higherEno.equalsIgnoreCase(department.getManagerNo());
+    }
+
+    private boolean checkConfig(String employeeNo) {
+        return employeeNos.contains(employeeNo);
+    }
+
+    private List<Integer> getDepartIDs(Integer departID, String partnerEmployeeNo) {
+        List<Integer> departIds = Lists.newArrayList(departID);
+        if (Objects.isNull(departID) || departID <= 0) {
+            departIds = departmentBusiness.getMangeDepart(partnerEmployeeNo);
+        }
+        return departIds;
+    }
 
 }

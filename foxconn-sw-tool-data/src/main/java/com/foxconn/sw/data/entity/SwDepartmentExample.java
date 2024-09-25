@@ -165,6 +165,66 @@ public class SwDepartmentExample {
             return (Criteria) this;
         }
 
+        public Criteria andLevelIsNull() {
+            addCriterion("level is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andLevelIsNotNull() {
+            addCriterion("level is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andLevelEqualTo(Integer value) {
+            addCriterion("level =", value, "level");
+            return (Criteria) this;
+        }
+
+        public Criteria andLevelNotEqualTo(Integer value) {
+            addCriterion("level <>", value, "level");
+            return (Criteria) this;
+        }
+
+        public Criteria andLevelGreaterThan(Integer value) {
+            addCriterion("level >", value, "level");
+            return (Criteria) this;
+        }
+
+        public Criteria andLevelGreaterThanOrEqualTo(Integer value) {
+            addCriterion("level >=", value, "level");
+            return (Criteria) this;
+        }
+
+        public Criteria andLevelLessThan(Integer value) {
+            addCriterion("level <", value, "level");
+            return (Criteria) this;
+        }
+
+        public Criteria andLevelLessThanOrEqualTo(Integer value) {
+            addCriterion("level <=", value, "level");
+            return (Criteria) this;
+        }
+
+        public Criteria andLevelIn(List<Integer> values) {
+            addCriterion("level in", values, "level");
+            return (Criteria) this;
+        }
+
+        public Criteria andLevelNotIn(List<Integer> values) {
+            addCriterion("level not in", values, "level");
+            return (Criteria) this;
+        }
+
+        public Criteria andLevelBetween(Integer value1, Integer value2) {
+            addCriterion("level between", value1, value2, "level");
+            return (Criteria) this;
+        }
+
+        public Criteria andLevelNotBetween(Integer value1, Integer value2) {
+            addCriterion("level not between", value1, value2, "level");
+            return (Criteria) this;
+        }
+
         public Criteria andNameIsNull() {
             addCriterion("name is null");
             return (Criteria) this;
@@ -232,6 +292,76 @@ public class SwDepartmentExample {
 
         public Criteria andNameNotBetween(String value1, String value2) {
             addCriterion("name not between", value1, value2, "name");
+            return (Criteria) this;
+        }
+
+        public Criteria andShortNameIsNull() {
+            addCriterion("short_name is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andShortNameIsNotNull() {
+            addCriterion("short_name is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andShortNameEqualTo(String value) {
+            addCriterion("short_name =", value, "shortName");
+            return (Criteria) this;
+        }
+
+        public Criteria andShortNameNotEqualTo(String value) {
+            addCriterion("short_name <>", value, "shortName");
+            return (Criteria) this;
+        }
+
+        public Criteria andShortNameGreaterThan(String value) {
+            addCriterion("short_name >", value, "shortName");
+            return (Criteria) this;
+        }
+
+        public Criteria andShortNameGreaterThanOrEqualTo(String value) {
+            addCriterion("short_name >=", value, "shortName");
+            return (Criteria) this;
+        }
+
+        public Criteria andShortNameLessThan(String value) {
+            addCriterion("short_name <", value, "shortName");
+            return (Criteria) this;
+        }
+
+        public Criteria andShortNameLessThanOrEqualTo(String value) {
+            addCriterion("short_name <=", value, "shortName");
+            return (Criteria) this;
+        }
+
+        public Criteria andShortNameLike(String value) {
+            addCriterion("short_name like", value, "shortName");
+            return (Criteria) this;
+        }
+
+        public Criteria andShortNameNotLike(String value) {
+            addCriterion("short_name not like", value, "shortName");
+            return (Criteria) this;
+        }
+
+        public Criteria andShortNameIn(List<String> values) {
+            addCriterion("short_name in", values, "shortName");
+            return (Criteria) this;
+        }
+
+        public Criteria andShortNameNotIn(List<String> values) {
+            addCriterion("short_name not in", values, "shortName");
+            return (Criteria) this;
+        }
+
+        public Criteria andShortNameBetween(String value1, String value2) {
+            addCriterion("short_name between", value1, value2, "shortName");
+            return (Criteria) this;
+        }
+
+        public Criteria andShortNameNotBetween(String value1, String value2) {
+            addCriterion("short_name not between", value1, value2, "shortName");
             return (Criteria) this;
         }
 
@@ -697,6 +827,11 @@ public class SwDepartmentExample {
 
         public Criteria andNameLikeInsensitive(String value) {
             addCriterion("upper(name) like", value.toUpperCase(), "name");
+            return (Criteria) this;
+        }
+
+        public Criteria andShortNameLikeInsensitive(String value) {
+            addCriterion("upper(short_name) like", value.toUpperCase(), "shortName");
             return (Criteria) this;
         }
 

@@ -415,6 +415,66 @@ public class SwTaskEmployeeRelationExample {
             return (Criteria) this;
         }
 
+        public Criteria andIsActiveIsNull() {
+            addCriterion("is_active is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsActiveIsNotNull() {
+            addCriterion("is_active is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsActiveEqualTo(Integer value) {
+            addCriterion("is_active =", value, "isActive");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsActiveNotEqualTo(Integer value) {
+            addCriterion("is_active <>", value, "isActive");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsActiveGreaterThan(Integer value) {
+            addCriterion("is_active >", value, "isActive");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsActiveGreaterThanOrEqualTo(Integer value) {
+            addCriterion("is_active >=", value, "isActive");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsActiveLessThan(Integer value) {
+            addCriterion("is_active <", value, "isActive");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsActiveLessThanOrEqualTo(Integer value) {
+            addCriterion("is_active <=", value, "isActive");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsActiveIn(List<Integer> values) {
+            addCriterion("is_active in", values, "isActive");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsActiveNotIn(List<Integer> values) {
+            addCriterion("is_active not in", values, "isActive");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsActiveBetween(Integer value1, Integer value2) {
+            addCriterion("is_active between", value1, value2, "isActive");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsActiveNotBetween(Integer value1, Integer value2) {
+            addCriterion("is_active not between", value1, value2, "isActive");
+            return (Criteria) this;
+        }
+
         public Criteria andIsDeleteIsNull() {
             addCriterion("is_delete is null");
             return (Criteria) this;

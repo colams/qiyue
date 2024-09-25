@@ -1,7 +1,6 @@
 package com.foxconn.sw.service.controller.account;
 
 import com.foxconn.sw.business.account.UserBusiness;
-import com.foxconn.sw.business.context.RequestContext;
 import com.foxconn.sw.business.system.EmployeeBusiness;
 import com.foxconn.sw.data.constants.TagsConstants;
 import com.foxconn.sw.data.dto.Request;
@@ -10,8 +9,10 @@ import com.foxconn.sw.data.dto.entity.acount.EmployeeParams;
 import com.foxconn.sw.data.dto.entity.acount.EmployeeVo;
 import com.foxconn.sw.data.dto.entity.acount.UserInfo;
 import com.foxconn.sw.data.dto.entity.acount.UserParams;
-import com.foxconn.sw.data.entity.SwEmployee;
+import com.foxconn.sw.data.dto.entity.universal.StringParams;
+import com.foxconn.sw.data.dto.request.account.QuerySubEmpParams;
 import com.foxconn.sw.service.aspects.Permission;
+import com.foxconn.sw.service.processor.acount.QueryMemberProcessor;
 import com.foxconn.sw.service.processor.acount.QueryUsersProcessor;
 import com.foxconn.sw.service.utils.ResponseUtils;
 import io.swagger.v3.oas.annotations.Operation;
@@ -23,7 +24,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @CrossOrigin
 @RestController
@@ -38,6 +38,8 @@ public class UserController {
     QueryUsersProcessor queryUsersProcessor;
     @Autowired
     EmployeeBusiness employeeBusiness;
+    @Autowired
+    QueryMemberProcessor queryMemberProcessor;
 
     @Operation(summary = "用户信息列表", tags = TagsConstants.ACCOUNT)
     @ApiResponse(responseCode = "0", description = "成功码")
@@ -45,6 +47,14 @@ public class UserController {
     public Response<List<UserInfo>> userList(@Valid @RequestBody Request<UserParams> request) {
         List<UserInfo> userList = queryUsersProcessor.queryUsers(request.getData());
         return ResponseUtils.success(userList, request.getTraceId());
+    }
+
+    @Operation(summary = "用户信息", tags = TagsConstants.ACCOUNT)
+    @ApiResponse(responseCode = "0", description = "成功码")
+    @PostMapping("/userInfo")
+    public Response<UserInfo> userInfo(@Valid @RequestBody Request<StringParams> request) {
+        UserInfo userInfo = queryUsersProcessor.queryUsers(request.getData());
+        return ResponseUtils.success(userInfo, request.getTraceId());
     }
 
     @Operation(summary = "查询员工信息", tags = TagsConstants.ACCOUNT)
@@ -56,18 +66,11 @@ public class UserController {
     }
 
     @Permission
-    @Operation(summary = "获取主管下级所有成员", tags = TagsConstants.ACCOUNT)
+    @Operation(summary = "获取主管下属员工", tags = TagsConstants.ACCOUNT)
     @ApiResponse(responseCode = "0", description = "成功码")
     @PostMapping("/queryMembers")
-    public Response<List<EmployeeVo>> queryMembers(@Valid @RequestBody Request request) {
-        List<SwEmployee> employeeVos = employeeBusiness.queryMembers(RequestContext.getEmployeeNo());
-        List<EmployeeVo> vos = employeeVos.stream().map(e -> {
-            EmployeeVo vo = new EmployeeVo();
-            vo.setName(e.getName());
-            vo.setEmployeeNo(e.getEmployeeNo());
-            return vo;
-        }).collect(Collectors.toList());
-
+    public Response<List<EmployeeVo>> queryMembers(@Valid @RequestBody Request<QuerySubEmpParams> request) {
+        List<EmployeeVo> vos = queryMemberProcessor.queryMembers(request.getData());
         return ResponseUtils.success(vos, request.getTraceId());
     }
 }

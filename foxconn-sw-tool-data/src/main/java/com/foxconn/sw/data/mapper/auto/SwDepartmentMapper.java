@@ -34,11 +34,13 @@ public interface SwDepartmentMapper {
     int deleteByPrimaryKey(Integer id);
 
     @Insert({
-        "insert into sw_department (name, manager_no, ",
+        "insert into sw_department (level, name, ",
+        "short_name, manager_no, ",
         "description, parent_id, ",
         "status, start_date, ",
         "end_date, datetime_lastchange)",
-        "values (#{name,jdbcType=VARCHAR}, #{managerNo,jdbcType=VARCHAR}, ",
+        "values (#{level,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, ",
+        "#{shortName,jdbcType=VARCHAR}, #{managerNo,jdbcType=VARCHAR}, ",
         "#{description,jdbcType=VARCHAR}, #{parentId,jdbcType=INTEGER}, ",
         "#{status,jdbcType=INTEGER}, #{startDate,jdbcType=VARCHAR}, ",
         "#{endDate,jdbcType=VARCHAR}, #{datetimeLastchange,jdbcType=TIMESTAMP})"
@@ -53,7 +55,9 @@ public interface SwDepartmentMapper {
     @SelectProvider(type=SwDepartmentSqlProvider.class, method="selectByExample")
     @Results({
         @Result(column="id", property="id", jdbcType=JdbcType.INTEGER, id=true),
+        @Result(column="level", property="level", jdbcType=JdbcType.INTEGER),
         @Result(column="name", property="name", jdbcType=JdbcType.VARCHAR),
+        @Result(column="short_name", property="shortName", jdbcType=JdbcType.VARCHAR),
         @Result(column="manager_no", property="managerNo", jdbcType=JdbcType.VARCHAR),
         @Result(column="description", property="description", jdbcType=JdbcType.VARCHAR),
         @Result(column="parent_id", property="parentId", jdbcType=JdbcType.INTEGER),
@@ -67,7 +71,9 @@ public interface SwDepartmentMapper {
     @SelectProvider(type=SwDepartmentSqlProvider.class, method="selectByExample")
     @Results({
         @Result(column="id", property="id", jdbcType=JdbcType.INTEGER, id=true),
+        @Result(column="level", property="level", jdbcType=JdbcType.INTEGER),
         @Result(column="name", property="name", jdbcType=JdbcType.VARCHAR),
+        @Result(column="short_name", property="shortName", jdbcType=JdbcType.VARCHAR),
         @Result(column="manager_no", property="managerNo", jdbcType=JdbcType.VARCHAR),
         @Result(column="description", property="description", jdbcType=JdbcType.VARCHAR),
         @Result(column="parent_id", property="parentId", jdbcType=JdbcType.INTEGER),
@@ -80,14 +86,16 @@ public interface SwDepartmentMapper {
 
     @Select({
         "select",
-        "id, name, manager_no, description, parent_id, status, start_date, end_date, ",
-        "datetime_lastchange",
+        "id, level, name, short_name, manager_no, description, parent_id, status, start_date, ",
+        "end_date, datetime_lastchange",
         "from sw_department",
         "where id = #{id,jdbcType=INTEGER}"
     })
     @Results({
         @Result(column="id", property="id", jdbcType=JdbcType.INTEGER, id=true),
+        @Result(column="level", property="level", jdbcType=JdbcType.INTEGER),
         @Result(column="name", property="name", jdbcType=JdbcType.VARCHAR),
+        @Result(column="short_name", property="shortName", jdbcType=JdbcType.VARCHAR),
         @Result(column="manager_no", property="managerNo", jdbcType=JdbcType.VARCHAR),
         @Result(column="description", property="description", jdbcType=JdbcType.VARCHAR),
         @Result(column="parent_id", property="parentId", jdbcType=JdbcType.INTEGER),
@@ -109,7 +117,9 @@ public interface SwDepartmentMapper {
 
     @Update({
         "update sw_department",
-        "set name = #{name,jdbcType=VARCHAR},",
+        "set level = #{level,jdbcType=INTEGER},",
+          "name = #{name,jdbcType=VARCHAR},",
+          "short_name = #{shortName,jdbcType=VARCHAR},",
           "manager_no = #{managerNo,jdbcType=VARCHAR},",
           "description = #{description,jdbcType=VARCHAR},",
           "parent_id = #{parentId,jdbcType=INTEGER},",
