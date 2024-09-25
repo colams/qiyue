@@ -43,7 +43,7 @@ public class ReportSearchParamsUtils {
                 }
 
                 startDate = StringExtensionUtils.toLocalDate(searchParams.getStartDate());
-                endDate = StringExtensionUtils.toLocalDate(searchParams.getEndDate());
+                endDate = getSearchDate(searchParams.getEndDate(), searchType);
             }
         }
         List<String> result = new ArrayList<>();

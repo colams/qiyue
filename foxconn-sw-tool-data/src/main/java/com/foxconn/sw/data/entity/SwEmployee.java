@@ -37,6 +37,8 @@ public class SwEmployee {
 
     private Integer outerAbcYears;
 
+    private Integer managerLevel;
+
     private LocalDateTime datetimeLastchange;
 
     public Integer getId() {
@@ -258,6 +260,19 @@ public class SwEmployee {
 
     public void setOuterAbcYears(Integer outerAbcYears) {
         this.outerAbcYears = outerAbcYears;
+    }
+
+    public Integer getManagerLevel() {
+        return managerLevel;
+    }
+
+    public SwEmployee withManagerLevel(Integer managerLevel) {
+        this.setManagerLevel(managerLevel);
+        return this;
+    }
+
+    public void setManagerLevel(Integer managerLevel) {
+        this.managerLevel = managerLevel;
     }
 
     public LocalDateTime getDatetimeLastchange() {

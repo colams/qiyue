@@ -1225,6 +1225,66 @@ public class SwEmployeeExample {
             return (Criteria) this;
         }
 
+        public Criteria andManagerLevelIsNull() {
+            addCriterion("manager_level is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andManagerLevelIsNotNull() {
+            addCriterion("manager_level is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andManagerLevelEqualTo(Integer value) {
+            addCriterion("manager_level =", value, "managerLevel");
+            return (Criteria) this;
+        }
+
+        public Criteria andManagerLevelNotEqualTo(Integer value) {
+            addCriterion("manager_level <>", value, "managerLevel");
+            return (Criteria) this;
+        }
+
+        public Criteria andManagerLevelGreaterThan(Integer value) {
+            addCriterion("manager_level >", value, "managerLevel");
+            return (Criteria) this;
+        }
+
+        public Criteria andManagerLevelGreaterThanOrEqualTo(Integer value) {
+            addCriterion("manager_level >=", value, "managerLevel");
+            return (Criteria) this;
+        }
+
+        public Criteria andManagerLevelLessThan(Integer value) {
+            addCriterion("manager_level <", value, "managerLevel");
+            return (Criteria) this;
+        }
+
+        public Criteria andManagerLevelLessThanOrEqualTo(Integer value) {
+            addCriterion("manager_level <=", value, "managerLevel");
+            return (Criteria) this;
+        }
+
+        public Criteria andManagerLevelIn(List<Integer> values) {
+            addCriterion("manager_level in", values, "managerLevel");
+            return (Criteria) this;
+        }
+
+        public Criteria andManagerLevelNotIn(List<Integer> values) {
+            addCriterion("manager_level not in", values, "managerLevel");
+            return (Criteria) this;
+        }
+
+        public Criteria andManagerLevelBetween(Integer value1, Integer value2) {
+            addCriterion("manager_level between", value1, value2, "managerLevel");
+            return (Criteria) this;
+        }
+
+        public Criteria andManagerLevelNotBetween(Integer value1, Integer value2) {
+            addCriterion("manager_level not between", value1, value2, "managerLevel");
+            return (Criteria) this;
+        }
+
         public Criteria andDatetimeLastchangeIsNull() {
             addCriterion("datetime_lastchange is null");
             return (Criteria) this;

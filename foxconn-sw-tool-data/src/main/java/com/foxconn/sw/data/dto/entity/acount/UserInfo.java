@@ -14,6 +14,8 @@ public class UserInfo {
 
     private Integer avatarID;
 
+    private Integer managerLevel;
+
     public String getEmployeeNo() {
         return employeeNo;
     }
@@ -60,5 +62,13 @@ public class UserInfo {
 
     public void setAvatarID(Integer avatarID) {
         this.avatarID = avatarID;
+    }
+
+    public Integer getManagerLevel() {
+        return managerLevel;
+    }
+
+    public void setManagerLevel(Integer managerLevel) {
+        this.managerLevel = managerLevel;
     }
 }

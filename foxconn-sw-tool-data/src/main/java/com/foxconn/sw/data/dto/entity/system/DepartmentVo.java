@@ -8,6 +8,7 @@ public class DepartmentVo {
     private Integer parentId;
     private String name;
     private String managerNo;
+    private Integer level;
     private List<DepartmentVo> children;
 
     public Integer getId() {
@@ -40,6 +41,14 @@ public class DepartmentVo {
 
     public void setManagerNo(String managerNo) {
         this.managerNo = managerNo;
+    }
+
+    public Integer getLevel() {
+        return level;
+    }
+
+    public void setLevel(Integer level) {
+        this.level = level;
     }
 
     public List<DepartmentVo> getChildren() {

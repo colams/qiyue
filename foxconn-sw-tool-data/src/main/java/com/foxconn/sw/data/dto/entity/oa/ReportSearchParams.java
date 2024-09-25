@@ -14,6 +14,7 @@ public class ReportSearchParams {
 
     private String employeeName;
     private Integer departID;
+    private Integer levelType;
     private String startDate;
     private String endDate;
 
@@ -47,6 +48,14 @@ public class ReportSearchParams {
 
     public void setWeekOfStart(String weekOfStart) {
         this.weekOfStart = weekOfStart;
+    }
+
+    public Integer getLevelType() {
+        return levelType;
+    }
+
+    public void setLevelType(Integer levelType) {
+        this.levelType = levelType;
     }
 
     public String getStartDate() {

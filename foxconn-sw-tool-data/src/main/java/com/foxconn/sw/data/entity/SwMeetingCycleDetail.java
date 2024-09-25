@@ -9,6 +9,14 @@ public class SwMeetingCycleDetail {
 
     private String room;
 
+    private String title;
+
+    private String description;
+
+    private String resourceIds;
+
+    private String operator;
+
     private String meetingDate;
 
     private String startTime;
@@ -58,6 +66,58 @@ public class SwMeetingCycleDetail {
 
     public void setRoom(String room) {
         this.room = room == null ? null : room.trim();
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public SwMeetingCycleDetail withTitle(String title) {
+        this.setTitle(title);
+        return this;
+    }
+
+    public void setTitle(String title) {
+        this.title = title == null ? null : title.trim();
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public SwMeetingCycleDetail withDescription(String description) {
+        this.setDescription(description);
+        return this;
+    }
+
+    public void setDescription(String description) {
+        this.description = description == null ? null : description.trim();
+    }
+
+    public String getResourceIds() {
+        return resourceIds;
+    }
+
+    public SwMeetingCycleDetail withResourceIds(String resourceIds) {
+        this.setResourceIds(resourceIds);
+        return this;
+    }
+
+    public void setResourceIds(String resourceIds) {
+        this.resourceIds = resourceIds == null ? null : resourceIds.trim();
+    }
+
+    public String getOperator() {
+        return operator;
+    }
+
+    public SwMeetingCycleDetail withOperator(String operator) {
+        this.setOperator(operator);
+        return this;
+    }
+
+    public void setOperator(String operator) {
+        this.operator = operator == null ? null : operator.trim();
     }
 
     public String getMeetingDate() {

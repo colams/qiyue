@@ -26,8 +26,6 @@ public class UpdateMeetingProcessor {
     MeetingMemberBusiness meetingMemberBusiness;
 
     public Boolean update(UpdateMeetingParams data) {
-
-
         SwMeeting meeting = meetingBusiness.getMeetingByID(data.getMeetingID());
         if (meeting.getRepeat() == 1) {
             processCycle(meeting, data);

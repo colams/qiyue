@@ -49,6 +49,7 @@ public class UserBusiness {
         UserInfo userInfo = sysUserExtensionMapper.queryUserInfo(employeeID);
         userInfo.setDepartName(ZhConverterUtil.convertToTraditional(userInfo.getDepartName()));
         userInfo.setAvatar(resourceBusiness.getResourceUrl(userInfo.getAvatarID()));
+        userInfo.setManagerLevel(userInfo.getManagerLevel());
         return userInfo;
     }
 

@@ -6,13 +6,10 @@ import com.foxconn.sw.data.dto.Response;
 import com.foxconn.sw.data.dto.entity.meeting.MeetingVo;
 import com.foxconn.sw.data.dto.request.meeting.DeleteParams;
 import com.foxconn.sw.data.dto.request.meeting.EstablishMeetingParams;
-import com.foxconn.sw.data.dto.request.meeting.UpdateMeetingParams;
 import com.foxconn.sw.data.dto.request.meeting.ListMeetingParams;
+import com.foxconn.sw.data.dto.request.meeting.UpdateMeetingParams;
 import com.foxconn.sw.service.aspects.Permission;
-import com.foxconn.sw.service.processor.meeting.DeleteProcessor;
-import com.foxconn.sw.service.processor.meeting.EstablishProcessor;
-import com.foxconn.sw.service.processor.meeting.ListMeetingProcessor;
-import com.foxconn.sw.service.processor.meeting.UpdateMeetingProcessor;
+import com.foxconn.sw.service.processor.meeting.*;
 import com.foxconn.sw.service.utils.ResponseUtils;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -32,6 +29,8 @@ public class MeetingController {
     @Autowired
     ListMeetingProcessor listMeeting;
     @Autowired
+    DetailMeetingProcessor detailMeeting;
+    @Autowired
     DeleteProcessor deleteProcessor;
     @Autowired
     UpdateMeetingProcessor updateMeetingProcessor;
@@ -40,8 +39,17 @@ public class MeetingController {
     @Operation(summary = "会议列表", tags = TagsConstants.OA)
     @ApiResponse(responseCode = "0", description = "成功码")
     @PostMapping("/list")
-    public Response list(@Valid @RequestBody Request<ListMeetingParams> request) {
+    public Response<List<MeetingVo>> list(@Valid @RequestBody Request<ListMeetingParams> request) {
         List<MeetingVo> vos = listMeeting.list(request.getData());
+        return ResponseUtils.success(vos, request.getTraceId());
+    }
+
+    @Permission
+    @Operation(summary = "会议列表", tags = TagsConstants.OA)
+    @ApiResponse(responseCode = "0", description = "成功码")
+    @PostMapping("/detail")
+    public Response<List<MeetingVo>> detail(@Valid @RequestBody Request<ListMeetingParams> request) {
+        List<MeetingVo> vos = detailMeeting.detail(request.getData());
         return ResponseUtils.success(vos, request.getTraceId());
     }
 

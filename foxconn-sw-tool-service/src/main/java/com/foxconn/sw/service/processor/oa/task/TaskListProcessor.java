@@ -5,6 +5,7 @@ import com.foxconn.sw.business.oa.SwTaskBusiness;
 import com.foxconn.sw.business.oa.SwTaskEmployeeRelationBusiness;
 import com.foxconn.sw.business.oa.SwTaskFollowBusiness;
 import com.foxconn.sw.business.system.EmployeeBusiness;
+import com.foxconn.sw.common.utils.StringExtensionUtils;
 import com.foxconn.sw.data.constants.enums.OperateTypeEnum;
 import com.foxconn.sw.data.constants.enums.TaskRoleFlagEnums;
 import com.foxconn.sw.data.dto.Header;
@@ -26,8 +27,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
 
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.stream.Collectors;
+
+import static com.foxconn.sw.common.utils.StringExtensionUtils.DateTimePattern.yyyyMMdd;
 
 @Component
 public class TaskListProcessor {
@@ -44,12 +48,20 @@ public class TaskListProcessor {
 
     public PageEntity<TaskBriefListVo> list(PageParams<TaskParams> taskParams, Header head) {
         UserInfo userInfo = userUtils.queryUserInfo(head.getToken());
+        taskParams.getParams().setCreate_e(processDate(taskParams.getParams().getCreate_e()));
         List<String> employeeNos = getQueryEmployee(userInfo.getEmployeeNo(), taskParams.getParams().getIsTeam());
         List<SwTask> tasks = taskBusiness.listBriefVos(taskParams, employeeNos);
         List<TaskBriefListVo> briefListVos = processAfter(tasks, userInfo);
         int totalCount = taskBusiness.getTotalCountByParams(taskParams.getParams(), employeeNos);
         PageEntity<TaskBriefListVo> voPageEntity = new PageEntity<>(totalCount, briefListVos);
         return voPageEntity;
+    }
+
+    private String processDate(String create_e) {
+        if (StringUtils.isEmpty(create_e)) {
+            return null;
+        }
+        return StringExtensionUtils.toLocalDate(create_e).plusDays(1).format(DateTimeFormatter.ofPattern(yyyyMMdd));
     }
 
     private List<String> getQueryEmployee(String employeeNo, Integer isTeam) {

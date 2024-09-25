@@ -28,6 +28,10 @@ public class SwDepartmentSqlProvider {
         SQL sql = new SQL();
         sql.INSERT_INTO("sw_department");
         
+        if (record.getLevel() != null) {
+            sql.VALUES("level", "#{level,jdbcType=INTEGER}");
+        }
+        
         if (record.getName() != null) {
             sql.VALUES("name", "#{name,jdbcType=VARCHAR}");
         }
@@ -74,6 +78,7 @@ public class SwDepartmentSqlProvider {
         } else {
             sql.SELECT("id");
         }
+        sql.SELECT("level");
         sql.SELECT("name");
         sql.SELECT("short_name");
         sql.SELECT("manager_no");
@@ -102,6 +107,10 @@ public class SwDepartmentSqlProvider {
         
         if (record.getId() != null) {
             sql.SET("id = #{record.id,jdbcType=INTEGER}");
+        }
+        
+        if (record.getLevel() != null) {
+            sql.SET("level = #{record.level,jdbcType=INTEGER}");
         }
         
         if (record.getName() != null) {
@@ -149,6 +158,7 @@ public class SwDepartmentSqlProvider {
         sql.UPDATE("sw_department");
         
         sql.SET("id = #{record.id,jdbcType=INTEGER}");
+        sql.SET("level = #{record.level,jdbcType=INTEGER}");
         sql.SET("name = #{record.name,jdbcType=VARCHAR}");
         sql.SET("short_name = #{record.shortName,jdbcType=VARCHAR}");
         sql.SET("manager_no = #{record.managerNo,jdbcType=VARCHAR}");
@@ -167,6 +177,10 @@ public class SwDepartmentSqlProvider {
     public String updateByPrimaryKeySelective(SwDepartment record) {
         SQL sql = new SQL();
         sql.UPDATE("sw_department");
+        
+        if (record.getLevel() != null) {
+            sql.SET("level = #{level,jdbcType=INTEGER}");
+        }
         
         if (record.getName() != null) {
             sql.SET("name = #{name,jdbcType=VARCHAR}");

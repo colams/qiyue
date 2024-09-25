@@ -14,6 +14,7 @@ import com.foxconn.sw.data.entity.SwEmployee;
 import com.foxconn.sw.data.entity.SwWorkReport;
 import com.foxconn.sw.data.entity.SwWorkReportScore;
 import com.foxconn.sw.data.exception.BizException;
+import com.foxconn.sw.service.processor.config.PositionConfig;
 import com.foxconn.sw.service.processor.oa.utils.ReportSearchParamsUtils;
 import com.google.common.collect.Lists;
 import org.apache.commons.lang3.StringUtils;
@@ -46,9 +47,7 @@ public class ListReportProcessor {
     }
 
     public List<WorkReportVo> listReport(ReportSearchParams searchParams, boolean isExport) {
-        List<String> employees = getEmployeeNos(searchParams.getSearchType(),
-                searchParams.getEmployeeName(),
-                searchParams.getDepartID());
+        List<String> employees = getEmployeeNos(searchParams);
 
         if (CollectionUtils.isEmpty(employees)) {
             throw new BizException(VALIDATE_FAILED);
@@ -56,7 +55,8 @@ public class ListReportProcessor {
 
         List<String> searchWeeks = ReportSearchParamsUtils.getYearWeekPair(searchParams, isExport);
         List<SwWorkReport> reports = reportBusiness.queryReport(searchWeeks, employees);
-        if (isExport && ReportSearchParamsUtils.getTimeSpan(searchParams.getStartDate(), searchParams.getEndDate()) < 7) {
+        boolean sameWeek = ReportSearchParamsUtils.getTimeSpan(searchParams.getStartDate(), searchParams.getEndDate()) < 7;
+        if (isExport && sameWeek) {
             // 暂时先不锁定
             // reportLockBusiness.updateLockStatusYearWeek(searchWeeks.get(searchWeeks.size() - 2));
         }
@@ -159,8 +159,8 @@ public class ListReportProcessor {
                 .orElse("");
     }
 
-    private List<String> getEmployeeNos(Integer searchType, String employeeName, Integer departID) {
-        if (Objects.isNull(searchType) || searchType < 2) {
+    private List<String> getEmployeeNos(ReportSearchParams searchParams) {
+        if (Objects.isNull(searchParams.getSearchType()) || searchParams.getSearchType() < 2) {
             return Lists.newArrayList(RequestContext.getEmployeeNo());
         }
 
@@ -169,12 +169,34 @@ public class ListReportProcessor {
             return Lists.newArrayList(RequestContext.getEmployeeNo());
         }
 
-        List<Integer> subDeptIds = departmentBusiness.getSubDepartID(departID);
+        List<Integer> subDeptIds = departmentBusiness.getSubDepartID(searchParams.getDepartID());
 
-        return employees.stream()
-                .filter(e -> StringUtils.isEmpty(employeeName) || e.getEmployeeNo().equalsIgnoreCase(employeeName))
+        List<String> result = employees.stream()
+                .filter(e -> StringUtils.isEmpty(searchParams.getEmployeeName())
+                        || e.getEmployeeNo().equalsIgnoreCase(searchParams.getEmployeeName()))
                 .filter(e -> CollectionUtils.isEmpty(subDeptIds) || subDeptIds.contains(e.getDepartmentId()))
                 .map(SwEmployee::getEmployeeNo)
                 .collect(Collectors.toList());
+
+        List<Integer> levels = getDeptLevels(searchParams.getLevelType());
+        if (!StringUtils.isEmpty(searchParams.getEmployeeName()) || CollectionUtils.isEmpty(levels)) {
+            return result;
+        } else {
+            List<String> tempList = PositionConfig.getPositionEmployees(levels);
+            result = employees.stream()
+                    .filter(e -> tempList.contains(e.getEmployeeNo()))
+                    .filter(e -> CollectionUtils.isEmpty(subDeptIds) || subDeptIds.contains(e.getDepartmentId()))
+                    .map(SwEmployee::getEmployeeNo)
+                    .collect(Collectors.toList());
+        }
+        return result;
+    }
+
+    private List<Integer> getDeptLevels(Integer levelType) {
+        if (Objects.isNull(levelType) || levelType == 0) {
+            return Lists.newArrayList();
+        }
+
+        return Lists.newArrayList(levelType);
     }
 }

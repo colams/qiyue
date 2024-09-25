@@ -1,7 +1,6 @@
 package com.foxconn.sw.service.controller.account;
 
 import com.foxconn.sw.business.account.UserBusiness;
-import com.foxconn.sw.business.context.RequestContext;
 import com.foxconn.sw.business.system.EmployeeBusiness;
 import com.foxconn.sw.data.constants.TagsConstants;
 import com.foxconn.sw.data.dto.Request;
@@ -10,7 +9,8 @@ import com.foxconn.sw.data.dto.entity.acount.EmployeeParams;
 import com.foxconn.sw.data.dto.entity.acount.EmployeeVo;
 import com.foxconn.sw.data.dto.entity.acount.UserInfo;
 import com.foxconn.sw.data.dto.entity.acount.UserParams;
-import com.foxconn.sw.data.dto.entity.universal.IntegerParams;
+import com.foxconn.sw.data.dto.entity.universal.StringParams;
+import com.foxconn.sw.data.dto.request.account.QuerySubEmpParams;
 import com.foxconn.sw.service.aspects.Permission;
 import com.foxconn.sw.service.processor.acount.QueryMemberProcessor;
 import com.foxconn.sw.service.processor.acount.QueryUsersProcessor;
@@ -49,6 +49,14 @@ public class UserController {
         return ResponseUtils.success(userList, request.getTraceId());
     }
 
+    @Operation(summary = "用户信息", tags = TagsConstants.ACCOUNT)
+    @ApiResponse(responseCode = "0", description = "成功码")
+    @PostMapping("/userInfo")
+    public Response<UserInfo> userInfo(@Valid @RequestBody Request<StringParams> request) {
+        UserInfo userInfo = queryUsersProcessor.queryUsers(request.getData());
+        return ResponseUtils.success(userInfo, request.getTraceId());
+    }
+
     @Operation(summary = "查询员工信息", tags = TagsConstants.ACCOUNT)
     @ApiResponse(responseCode = "0", description = "成功码")
     @PostMapping("/queryEmployee")
@@ -61,9 +69,8 @@ public class UserController {
     @Operation(summary = "获取主管下属员工", tags = TagsConstants.ACCOUNT)
     @ApiResponse(responseCode = "0", description = "成功码")
     @PostMapping("/queryMembers")
-    public Response<List<EmployeeVo>> queryMembers(@Valid @RequestBody Request<IntegerParams> request) {
-        List<EmployeeVo> vos = queryMemberProcessor.queryMembers(RequestContext.getEmployeeNo(),
-                request.getData().getParams());
+    public Response<List<EmployeeVo>> queryMembers(@Valid @RequestBody Request<QuerySubEmpParams> request) {
+        List<EmployeeVo> vos = queryMemberProcessor.queryMembers(request.getData());
         return ResponseUtils.success(vos, request.getTraceId());
     }
 }

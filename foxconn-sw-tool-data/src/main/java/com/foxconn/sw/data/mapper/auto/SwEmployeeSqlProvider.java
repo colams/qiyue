@@ -92,6 +92,10 @@ public class SwEmployeeSqlProvider {
             sql.VALUES("outer_abc_years", "#{outerAbcYears,jdbcType=INTEGER}");
         }
         
+        if (record.getManagerLevel() != null) {
+            sql.VALUES("manager_level", "#{managerLevel,jdbcType=INTEGER}");
+        }
+        
         if (record.getDatetimeLastchange() != null) {
             sql.VALUES("datetime_lastchange", "#{datetimeLastchange,jdbcType=TIMESTAMP}");
         }
@@ -122,6 +126,7 @@ public class SwEmployeeSqlProvider {
         sql.SELECT("status");
         sql.SELECT("outer_work_years");
         sql.SELECT("outer_abc_years");
+        sql.SELECT("manager_level");
         sql.SELECT("datetime_lastchange");
         sql.FROM("sw_employee");
         applyWhere(sql, example, false);
@@ -208,6 +213,10 @@ public class SwEmployeeSqlProvider {
             sql.SET("outer_abc_years = #{record.outerAbcYears,jdbcType=INTEGER}");
         }
         
+        if (record.getManagerLevel() != null) {
+            sql.SET("manager_level = #{record.managerLevel,jdbcType=INTEGER}");
+        }
+        
         if (record.getDatetimeLastchange() != null) {
             sql.SET("datetime_lastchange = #{record.datetimeLastchange,jdbcType=TIMESTAMP}");
         }
@@ -237,6 +246,7 @@ public class SwEmployeeSqlProvider {
         sql.SET("status = #{record.status,jdbcType=INTEGER}");
         sql.SET("outer_work_years = #{record.outerWorkYears,jdbcType=INTEGER}");
         sql.SET("outer_abc_years = #{record.outerAbcYears,jdbcType=INTEGER}");
+        sql.SET("manager_level = #{record.managerLevel,jdbcType=INTEGER}");
         sql.SET("datetime_lastchange = #{record.datetimeLastchange,jdbcType=TIMESTAMP}");
         
         SwEmployeeExample example = (SwEmployeeExample) parameter.get("example");
@@ -310,6 +320,10 @@ public class SwEmployeeSqlProvider {
         
         if (record.getOuterAbcYears() != null) {
             sql.SET("outer_abc_years = #{outerAbcYears,jdbcType=INTEGER}");
+        }
+        
+        if (record.getManagerLevel() != null) {
+            sql.SET("manager_level = #{managerLevel,jdbcType=INTEGER}");
         }
         
         if (record.getDatetimeLastchange() != null) {

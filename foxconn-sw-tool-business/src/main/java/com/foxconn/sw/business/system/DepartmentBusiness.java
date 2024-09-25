@@ -197,16 +197,6 @@ public class DepartmentBusiness {
         return result;
     }
 
-    private DepartmentVo toDepartmentVo(SwDepartment e) {
-        DepartmentVo vo = new DepartmentVo();
-        vo.setId(e.getId());
-        vo.setParentId(e.getParentId());
-        vo.setName(e.getName());
-        vo.setManagerNo(e.getManagerNo());
-        return vo;
-    }
-
-
     private List<SwDepartment> getAllMangeDepart(List<SwDepartment> departments, List<SwDepartment> directDepartments) {
         List<SwDepartment> departmentList = new ArrayList<>();
         departmentList.addAll(directDepartments);

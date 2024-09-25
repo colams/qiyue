@@ -42,7 +42,7 @@ public interface SwEmployeeMapper {
         "land_line, phone_number, ",
         "hire_date, status, ",
         "outer_work_years, outer_abc_years, ",
-        "datetime_lastchange)",
+        "manager_level, datetime_lastchange)",
         "values (#{employeeNo,jdbcType=VARCHAR}, #{assistant,jdbcType=VARCHAR}, ",
         "#{name,jdbcType=VARCHAR}, #{firstName,jdbcType=VARCHAR}, ",
         "#{lastName,jdbcType=VARCHAR}, #{gender,jdbcType=INTEGER}, ",
@@ -51,7 +51,7 @@ public interface SwEmployeeMapper {
         "#{landLine,jdbcType=VARCHAR}, #{phoneNumber,jdbcType=VARCHAR}, ",
         "#{hireDate,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, ",
         "#{outerWorkYears,jdbcType=INTEGER}, #{outerAbcYears,jdbcType=INTEGER}, ",
-        "#{datetimeLastchange,jdbcType=TIMESTAMP})"
+        "#{managerLevel,jdbcType=INTEGER}, #{datetimeLastchange,jdbcType=TIMESTAMP})"
     })
     @SelectKey(statement="SELECT LAST_INSERT_ID()", keyProperty="id", before=false, resultType=Integer.class)
     int insert(SwEmployee record);
@@ -79,6 +79,7 @@ public interface SwEmployeeMapper {
         @Result(column="status", property="status", jdbcType=JdbcType.INTEGER),
         @Result(column="outer_work_years", property="outerWorkYears", jdbcType=JdbcType.INTEGER),
         @Result(column="outer_abc_years", property="outerAbcYears", jdbcType=JdbcType.INTEGER),
+        @Result(column="manager_level", property="managerLevel", jdbcType=JdbcType.INTEGER),
         @Result(column="datetime_lastchange", property="datetimeLastchange", jdbcType=JdbcType.TIMESTAMP)
     })
     List<SwEmployee> selectByExampleWithRowbounds(SwEmployeeExample example, RowBounds rowBounds);
@@ -102,6 +103,7 @@ public interface SwEmployeeMapper {
         @Result(column="status", property="status", jdbcType=JdbcType.INTEGER),
         @Result(column="outer_work_years", property="outerWorkYears", jdbcType=JdbcType.INTEGER),
         @Result(column="outer_abc_years", property="outerAbcYears", jdbcType=JdbcType.INTEGER),
+        @Result(column="manager_level", property="managerLevel", jdbcType=JdbcType.INTEGER),
         @Result(column="datetime_lastchange", property="datetimeLastchange", jdbcType=JdbcType.TIMESTAMP)
     })
     List<SwEmployee> selectByExample(SwEmployeeExample example);
@@ -110,7 +112,7 @@ public interface SwEmployeeMapper {
         "select",
         "id, employee_no, assistant, name, first_name, last_name, gender, department_id, ",
         "post_id, inner_email, outer_mail, land_line, phone_number, hire_date, status, ",
-        "outer_work_years, outer_abc_years, datetime_lastchange",
+        "outer_work_years, outer_abc_years, manager_level, datetime_lastchange",
         "from sw_employee",
         "where id = #{id,jdbcType=INTEGER}"
     })
@@ -132,6 +134,7 @@ public interface SwEmployeeMapper {
         @Result(column="status", property="status", jdbcType=JdbcType.INTEGER),
         @Result(column="outer_work_years", property="outerWorkYears", jdbcType=JdbcType.INTEGER),
         @Result(column="outer_abc_years", property="outerAbcYears", jdbcType=JdbcType.INTEGER),
+        @Result(column="manager_level", property="managerLevel", jdbcType=JdbcType.INTEGER),
         @Result(column="datetime_lastchange", property="datetimeLastchange", jdbcType=JdbcType.TIMESTAMP)
     })
     SwEmployee selectByPrimaryKey(Integer id);
@@ -163,6 +166,7 @@ public interface SwEmployeeMapper {
           "status = #{status,jdbcType=INTEGER},",
           "outer_work_years = #{outerWorkYears,jdbcType=INTEGER},",
           "outer_abc_years = #{outerAbcYears,jdbcType=INTEGER},",
+          "manager_level = #{managerLevel,jdbcType=INTEGER},",
           "datetime_lastchange = #{datetimeLastchange,jdbcType=TIMESTAMP}",
         "where id = #{id,jdbcType=INTEGER}"
     })

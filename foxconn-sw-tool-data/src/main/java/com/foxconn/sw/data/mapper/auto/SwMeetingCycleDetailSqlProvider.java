@@ -36,6 +36,22 @@ public class SwMeetingCycleDetailSqlProvider {
             sql.VALUES("room", "#{room,jdbcType=VARCHAR}");
         }
         
+        if (record.getTitle() != null) {
+            sql.VALUES("title", "#{title,jdbcType=VARCHAR}");
+        }
+        
+        if (record.getDescription() != null) {
+            sql.VALUES("description", "#{description,jdbcType=VARCHAR}");
+        }
+        
+        if (record.getResourceIds() != null) {
+            sql.VALUES("resource_ids", "#{resourceIds,jdbcType=VARCHAR}");
+        }
+        
+        if (record.getOperator() != null) {
+            sql.VALUES("operator", "#{operator,jdbcType=VARCHAR}");
+        }
+        
         if (record.getMeetingDate() != null) {
             sql.VALUES("meeting_date", "#{meetingDate,jdbcType=VARCHAR}");
         }
@@ -72,6 +88,10 @@ public class SwMeetingCycleDetailSqlProvider {
         }
         sql.SELECT("meeting_id");
         sql.SELECT("room");
+        sql.SELECT("title");
+        sql.SELECT("description");
+        sql.SELECT("resource_ids");
+        sql.SELECT("operator");
         sql.SELECT("meeting_date");
         sql.SELECT("start_time");
         sql.SELECT("end_time");
@@ -105,6 +125,22 @@ public class SwMeetingCycleDetailSqlProvider {
         
         if (record.getRoom() != null) {
             sql.SET("room = #{record.room,jdbcType=VARCHAR}");
+        }
+        
+        if (record.getTitle() != null) {
+            sql.SET("title = #{record.title,jdbcType=VARCHAR}");
+        }
+        
+        if (record.getDescription() != null) {
+            sql.SET("description = #{record.description,jdbcType=VARCHAR}");
+        }
+        
+        if (record.getResourceIds() != null) {
+            sql.SET("resource_ids = #{record.resourceIds,jdbcType=VARCHAR}");
+        }
+        
+        if (record.getOperator() != null) {
+            sql.SET("operator = #{record.operator,jdbcType=VARCHAR}");
         }
         
         if (record.getMeetingDate() != null) {
@@ -142,6 +178,10 @@ public class SwMeetingCycleDetailSqlProvider {
         sql.SET("id = #{record.id,jdbcType=INTEGER}");
         sql.SET("meeting_id = #{record.meetingId,jdbcType=INTEGER}");
         sql.SET("room = #{record.room,jdbcType=VARCHAR}");
+        sql.SET("title = #{record.title,jdbcType=VARCHAR}");
+        sql.SET("description = #{record.description,jdbcType=VARCHAR}");
+        sql.SET("resource_ids = #{record.resourceIds,jdbcType=VARCHAR}");
+        sql.SET("operator = #{record.operator,jdbcType=VARCHAR}");
         sql.SET("meeting_date = #{record.meetingDate,jdbcType=VARCHAR}");
         sql.SET("start_time = #{record.startTime,jdbcType=VARCHAR}");
         sql.SET("end_time = #{record.endTime,jdbcType=VARCHAR}");
@@ -164,6 +204,22 @@ public class SwMeetingCycleDetailSqlProvider {
         
         if (record.getRoom() != null) {
             sql.SET("room = #{room,jdbcType=VARCHAR}");
+        }
+        
+        if (record.getTitle() != null) {
+            sql.SET("title = #{title,jdbcType=VARCHAR}");
+        }
+        
+        if (record.getDescription() != null) {
+            sql.SET("description = #{description,jdbcType=VARCHAR}");
+        }
+        
+        if (record.getResourceIds() != null) {
+            sql.SET("resource_ids = #{resourceIds,jdbcType=VARCHAR}");
+        }
+        
+        if (record.getOperator() != null) {
+            sql.SET("operator = #{operator,jdbcType=VARCHAR}");
         }
         
         if (record.getMeetingDate() != null) {

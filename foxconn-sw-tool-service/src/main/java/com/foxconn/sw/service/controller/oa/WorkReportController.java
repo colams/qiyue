@@ -58,7 +58,6 @@ public class WorkReportController {
         return ResponseUtils.success(result, request.getTraceId());
     }
 
-
     @Permission
     @Operation(summary = "获取工作汇报", tags = TagsConstants.OA)
     @ApiResponse(responseCode = "0", description = "成功码")
@@ -130,6 +129,4 @@ public class WorkReportController {
         workbook.close();
         return ResponseEntity.ok().body(null);
     }
-
-
 }
