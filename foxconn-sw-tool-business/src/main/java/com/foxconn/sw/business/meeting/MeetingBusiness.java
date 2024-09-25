@@ -1,12 +1,13 @@
 package com.foxconn.sw.business.meeting;
 
 import com.foxconn.sw.business.context.RequestContext;
-import com.foxconn.sw.common.utils.ConvertUtils;
+import com.foxconn.sw.common.utils.JsonUtils;
 import com.foxconn.sw.data.dto.request.meeting.EstablishMeetingParams;
 import com.foxconn.sw.data.entity.SwMeeting;
 import com.foxconn.sw.data.mapper.extension.meeting.SwMeetingExtensionMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.util.CollectionUtils;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -26,9 +27,12 @@ public class MeetingBusiness {
         meeting.setMeetingDate(data.getTimeVo().getMeetingDate());
         meeting.setTitle(data.getTitle());
         meeting.setDescription(data.getDescription());
-        meeting.setResourceIds(ConvertUtils.listIntegerToString(data.getResourceIds()));
-        meeting.setRepeat(data.getRepeat());
-        meeting.setCycle(ConvertUtils.listIntegerToString(data.getCycleInts()));
+        if (CollectionUtils.isEmpty(data.getResourceIds())) {
+            meeting.setResourceIds(JsonUtils.serialize(data.getResourceIds()));
+        }
+        if (CollectionUtils.isEmpty(data.getCycleInts())) {
+            meeting.setCycle(JsonUtils.serialize(data.getCycleInts()));
+        }
         meetingMapper.insertSelective(meeting);
         return meeting.getId();
     }

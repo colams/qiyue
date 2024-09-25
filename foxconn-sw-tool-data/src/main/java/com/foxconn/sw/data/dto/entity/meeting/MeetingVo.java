@@ -17,7 +17,6 @@ public class MeetingVo {
     private String startTime;
     private String endTime;
 
-    private Integer repeat;
     private List<Integer> cycle;
 
     private EmployeeVo chairman;
@@ -86,14 +85,6 @@ public class MeetingVo {
 
     public void setEndTime(String endTime) {
         this.endTime = endTime;
-    }
-
-    public Integer getRepeat() {
-        return repeat;
-    }
-
-    public void setRepeat(Integer repeat) {
-        this.repeat = repeat;
     }
 
     public List<Integer> getCycle() {

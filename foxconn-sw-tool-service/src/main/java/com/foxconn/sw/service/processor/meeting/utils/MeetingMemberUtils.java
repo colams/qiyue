@@ -18,7 +18,6 @@ public class MeetingMemberUtils {
             return employeeRoleMap;
         }
 
-
         employeeRoleMap.put(eNoVo.getChairman(), Chairman_Flag.initFlag());
         eNoVo.getMaintainers().forEach(e -> {
             Integer role = employeeRoleMap.getOrDefault(e, 0);

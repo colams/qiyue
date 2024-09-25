@@ -12,8 +12,7 @@ public class EstablishMeetingParams {
     @NotNull
     private MeetingDateTimeVo timeVo;
     private Integer abcMeeting;
-    @NotNull
-    private Integer repeat;
+
     private List<Integer> cycleInts;
     @NotNull
     private String title;
@@ -45,14 +44,6 @@ public class EstablishMeetingParams {
 
     public void setAbcMeeting(Integer abcMeeting) {
         this.abcMeeting = abcMeeting;
-    }
-
-    public Integer getRepeat() {
-        return repeat;
-    }
-
-    public void setRepeat(Integer repeat) {
-        this.repeat = repeat;
     }
 
     public List<Integer> getCycleInts() {
