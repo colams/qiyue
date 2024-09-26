@@ -123,8 +123,8 @@ public class ListMeetingProcessor {
     }
 
     private Integer getMeetingDuration(String startTime, String endTime) {
-        LocalTime localTime_S = LocalTime.parse(startTime, DateTimeFormatter.ofPattern("HH:mm:ss"));
-        LocalTime localTime_E = LocalTime.parse(endTime, DateTimeFormatter.ofPattern("HH:mm:ss"));
+        LocalTime localTime_S = LocalTime.parse(startTime, DateTimeFormatter.ofPattern("HH:mm"));
+        LocalTime localTime_E = LocalTime.parse(endTime, DateTimeFormatter.ofPattern("HH:mm"));
         long secondsDiff = java.time.Duration.between(localTime_S, localTime_E).getSeconds();
         return (int) (secondsDiff / 60);
     }
