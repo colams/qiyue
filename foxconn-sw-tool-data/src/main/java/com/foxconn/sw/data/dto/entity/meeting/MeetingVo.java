@@ -16,6 +16,7 @@ public class MeetingVo {
     private String meetingDate;
     private String startTime;
     private String endTime;
+    private Integer duration;
 
     private List<Integer> cycle;
 
@@ -85,6 +86,14 @@ public class MeetingVo {
 
     public void setEndTime(String endTime) {
         this.endTime = endTime;
+    }
+
+    public Integer getDuration() {
+        return duration;
+    }
+
+    public void setDuration(Integer duration) {
+        this.duration = duration;
     }
 
     public List<Integer> getCycle() {

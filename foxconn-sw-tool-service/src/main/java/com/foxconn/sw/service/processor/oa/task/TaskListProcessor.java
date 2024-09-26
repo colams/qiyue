@@ -5,7 +5,7 @@ import com.foxconn.sw.business.oa.SwTaskBusiness;
 import com.foxconn.sw.business.oa.SwTaskEmployeeRelationBusiness;
 import com.foxconn.sw.business.oa.SwTaskFollowBusiness;
 import com.foxconn.sw.business.system.EmployeeBusiness;
-import com.foxconn.sw.common.utils.StringExtensionUtils;
+import com.foxconn.sw.common.utils.LocalDateExtUtils;
 import com.foxconn.sw.data.constants.enums.OperateTypeEnum;
 import com.foxconn.sw.data.constants.enums.TaskRoleFlagEnums;
 import com.foxconn.sw.data.dto.Header;
@@ -31,7 +31,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.stream.Collectors;
 
-import static com.foxconn.sw.common.utils.StringExtensionUtils.DateTimePattern.yyyyMMdd;
+import static com.foxconn.sw.common.utils.constanst.DateTimePattern.yyyyMMdd;
 
 @Component
 public class TaskListProcessor {
@@ -61,7 +61,7 @@ public class TaskListProcessor {
         if (StringUtils.isEmpty(create_e)) {
             return null;
         }
-        return StringExtensionUtils.toLocalDate(create_e).plusDays(1).format(DateTimeFormatter.ofPattern(yyyyMMdd));
+        return LocalDateExtUtils.toLocalDate(create_e).plusDays(1).format(DateTimeFormatter.ofPattern(yyyyMMdd));
     }
 
     private List<String> getQueryEmployee(String employeeNo, Integer isTeam) {

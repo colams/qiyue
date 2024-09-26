@@ -76,7 +76,6 @@ public class TaskBriefDetailVo {
      */
     @Schema(description = "任务描述")
     @NotNull(message = "任務描述不能爲空！")
-    @Pattern(regexp = "^(?!\\s*$)\\S+.*$", message = "任务描述不能全部为空格")
     private String description;
 
     /**

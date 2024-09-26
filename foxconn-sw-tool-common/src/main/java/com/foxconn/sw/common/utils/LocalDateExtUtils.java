@@ -3,17 +3,12 @@ package com.foxconn.sw.common.utils;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
-import static com.foxconn.sw.common.utils.StringExtensionUtils.DateTimePattern.yyyyMMdd;
+import static com.foxconn.sw.common.utils.constanst.DateTimePattern.yyyyMMdd;
 
-public class StringExtensionUtils {
-
-    public interface DateTimePattern {
-        String yyyyMMdd = "yyyy-MM-dd";
-    }
+public class LocalDateExtUtils {
 
     public static LocalDate toLocalDate(String strDate) {
         return LocalDate.parse(strDate, DateTimeFormatter.ofPattern(yyyyMMdd));
     }
-
 
 }

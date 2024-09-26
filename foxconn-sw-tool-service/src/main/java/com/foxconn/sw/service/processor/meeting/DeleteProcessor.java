@@ -4,7 +4,7 @@ import com.foxconn.sw.business.meeting.MeetingBusiness;
 import com.foxconn.sw.business.meeting.MeetingCycleDetailBusiness;
 import com.foxconn.sw.business.meeting.MeetingMemberBusiness;
 import com.foxconn.sw.common.utils.ConvertUtils;
-import com.foxconn.sw.common.utils.StringExtensionUtils;
+import com.foxconn.sw.common.utils.LocalDateExtUtils;
 import com.foxconn.sw.data.constants.enums.retcode.RetCode;
 import com.foxconn.sw.data.dto.request.meeting.DeleteParams;
 import com.foxconn.sw.data.entity.SwMeeting;
@@ -41,8 +41,8 @@ public class DeleteProcessor {
             return meetingBusiness.updateMeetingStatus(meeting);
         } else {
             List<Integer> weekOfDays = ConvertUtils.stringToListInt(meeting.getCycle());
-            Integer weekOfDay = StringExtensionUtils.toLocalDate(data.getDeleteDate()).getDayOfWeek().getValue() + 1;
-            if (!weekOfDays.contains(weekOfDay)){
+            Integer weekOfDay = LocalDateExtUtils.toLocalDate(data.getDeleteDate()).getDayOfWeek().getValue() + 1;
+            if (!weekOfDays.contains(weekOfDay)) {
                 throw new BizException(RetCode.VALIDATE_FAILED);
             }
             return meetingCycleDetailBusiness.addCycleCancelDate(data.getDeleteDate(), meeting);

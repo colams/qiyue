@@ -6,7 +6,8 @@ import com.foxconn.sw.business.meeting.MeetingCycleDetailBusiness;
 import com.foxconn.sw.business.meeting.MeetingMemberBusiness;
 import com.foxconn.sw.business.system.EmployeeBusiness;
 import com.foxconn.sw.common.utils.JsonUtils;
-import com.foxconn.sw.common.utils.StringExtensionUtils;
+import com.foxconn.sw.common.utils.LocalDateExtUtils;
+import com.foxconn.sw.common.utils.StringExtUtils;
 import com.foxconn.sw.data.constants.enums.MeetingRoleFlagEnums;
 import com.foxconn.sw.data.dto.entity.acount.EmployeeVo;
 import com.foxconn.sw.data.dto.entity.meeting.MeetingVo;
@@ -22,6 +23,8 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -39,10 +42,13 @@ public class ListMeetingProcessor {
     @Autowired
     EmployeeBusiness employeeBusiness;
 
-    public List<MeetingVo> list(ListMeetingParams params) {
-        List<SwMeeting> meetings = queryMeeting(params.getSearchDate());
+    public List[] list(ListMeetingParams params) {
+        LocalDate startDate = LocalDateExtUtils.toLocalDate(params.getSearchDate());
+        LocalDate endDate = LocalDateExtUtils.toLocalDate(params.getSearchDate()).plusDays(7);
+
+        List<SwMeeting> meetings = queryMeeting(startDate, endDate);
         if (CollectionUtils.isEmpty(meetings)) {
-            return Lists.newArrayList();
+            return new List[0];
         }
         List<Integer> meetingIDs = meetings.stream().map(e -> e.getId()).collect(Collectors.toList());
 
@@ -50,7 +56,18 @@ public class ListMeetingProcessor {
         Map<Integer, List<SwMeetingCycleDetail>> meetingCycleDetails = queryCycleDetail(meetingIDs);
 
         List<MeetingVo> lists = processMeetingVo(meetings, meetingMembers, meetingCycleDetails);
-        return lists;
+
+        List<MeetingVo>[] result = new List[7];
+        int index = 0;
+        while (startDate.compareTo(endDate) < 0) {
+            String date = StringExtUtils.toString(startDate);
+            List<MeetingVo> array = lists.stream()
+                    .filter(e -> e.getMeetingDate().equalsIgnoreCase(date))
+                    .collect(Collectors.toList());
+            startDate = startDate.plusDays(1);
+            result[index++] = array;
+        }
+        return result;
     }
 
     private List<MeetingVo> processMeetingVo(List<SwMeeting> meetings,
@@ -95,6 +112,7 @@ public class ListMeetingProcessor {
         vo.setMeetingDate(meeting.getMeetingDate());
         vo.setStartTime(meeting.getStartTime());
         vo.setEndTime(meeting.getEndTime());
+        vo.setDuration(getMeetingDuration(meeting.getStartTime(), meeting.getEndTime()));
         if (StringUtils.isNotEmpty(meeting.getCycle())) {
             vo.setCycle(JsonUtils.deserialize(meeting.getCycle(), List.class, Integer.class));
         }
@@ -102,6 +120,13 @@ public class ListMeetingProcessor {
         vo.setMaintainers(maintainers);
         vo.setMembers(members);
         return vo;
+    }
+
+    private Integer getMeetingDuration(String startTime, String endTime) {
+        LocalTime localTime_S = LocalTime.parse(startTime, DateTimeFormatter.ofPattern("HH:mm:ss"));
+        LocalTime localTime_E = LocalTime.parse(endTime, DateTimeFormatter.ofPattern("HH:mm:ss"));
+        long secondsDiff = java.time.Duration.between(localTime_S, localTime_E).getSeconds();
+        return (int) (secondsDiff / 60);
     }
 
     private EmployeeVo toEmployee(String employeeNo) {
@@ -127,10 +152,8 @@ public class ListMeetingProcessor {
     }
 
 
-    private List<SwMeeting> queryMeeting(String searchDate) {
+    private List<SwMeeting> queryMeeting(LocalDate startDate, LocalDate endDate) {
         String employeeNo = RequestContext.getEmployeeNo();
-        LocalDate startDate = StringExtensionUtils.toLocalDate(searchDate);
-        LocalDate endDate = StringExtensionUtils.toLocalDate(searchDate).plusDays(7);
         List<SwMeeting> meetings = meetingBusiness.queryMeeting(startDate, endDate, employeeNo);
         return meetings;
     }

@@ -1,6 +1,6 @@
 package com.foxconn.sw.service.processor.oa.utils;
 
-import com.foxconn.sw.common.utils.StringExtensionUtils;
+import com.foxconn.sw.common.utils.LocalDateExtUtils;
 import com.foxconn.sw.common.utils.WeekUtils;
 import com.foxconn.sw.data.dto.entity.oa.ReportSearchParams;
 import com.foxconn.sw.data.exception.BizException;
@@ -30,19 +30,19 @@ public class ReportSearchParamsUtils {
                 startDate = getFirstWeekMonday(LocalDate.now().getYear());
                 endDate = getSearchDate(searchParams.getEndDate(), searchType);
             } else {
-                startDate = StringExtensionUtils.toLocalDate(searchParams.getStartDate());
-                endDate = StringExtensionUtils.toLocalDate(searchParams.getEndDate());
+                startDate = LocalDateExtUtils.toLocalDate(searchParams.getStartDate());
+                endDate = LocalDateExtUtils.toLocalDate(searchParams.getEndDate());
             }
         } else {
             if (StringUtils.isNotEmpty(searchParams.getWeekOfStart())) {
-                startDate = StringExtensionUtils.toLocalDate(searchParams.getWeekOfStart());
+                startDate = LocalDateExtUtils.toLocalDate(searchParams.getWeekOfStart());
                 endDate = getSearchDate(searchParams.getEndDate(), searchType);
             } else {
                 if (StringUtils.isEmpty(searchParams.getStartDate()) || StringUtils.isEmpty(searchParams.getEndDate())) {
                     throw new BizException(VALIDATE_FAILED);
                 }
 
-                startDate = StringExtensionUtils.toLocalDate(searchParams.getStartDate());
+                startDate = LocalDateExtUtils.toLocalDate(searchParams.getStartDate());
                 endDate = getSearchDate(searchParams.getEndDate(), searchType);
             }
         }
@@ -56,7 +56,7 @@ public class ReportSearchParamsUtils {
     }
 
     public static LocalDate getSearchDate(String searchDateStr, int searchType) {
-        LocalDate localDate = StringExtensionUtils.toLocalDate(searchDateStr);
+        LocalDate localDate = LocalDateExtUtils.toLocalDate(searchDateStr);
         if (searchType != 2) {
             localDate = localDate.plusWeeks(1);
         }
