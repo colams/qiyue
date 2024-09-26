@@ -16,7 +16,7 @@ public class UserProfileVo {
 
     private String lastName;
 
-    private Integer gender;
+    private String gender;
 
     private Integer departmentId;
 
@@ -98,11 +98,11 @@ public class UserProfileVo {
         this.lastName = lastName;
     }
 
-    public Integer getGender() {
+    public String getGender() {
         return gender;
     }
 
-    public void setGender(Integer gender) {
+    public void setGender(String gender) {
         this.gender = gender;
     }
 

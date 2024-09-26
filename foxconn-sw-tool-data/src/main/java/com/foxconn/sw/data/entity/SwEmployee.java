@@ -15,7 +15,7 @@ public class SwEmployee {
 
     private String lastName;
 
-    private Integer gender;
+    private String gender;
 
     private Integer departmentId;
 
@@ -119,17 +119,17 @@ public class SwEmployee {
         this.lastName = lastName == null ? null : lastName.trim();
     }
 
-    public Integer getGender() {
+    public String getGender() {
         return gender;
     }
 
-    public SwEmployee withGender(Integer gender) {
+    public SwEmployee withGender(String gender) {
         this.setGender(gender);
         return this;
     }
 
-    public void setGender(Integer gender) {
-        this.gender = gender;
+    public void setGender(String gender) {
+        this.gender = gender == null ? null : gender.trim();
     }
 
     public Integer getDepartmentId() {

@@ -525,52 +525,62 @@ public class SwEmployeeExample {
             return (Criteria) this;
         }
 
-        public Criteria andGenderEqualTo(Integer value) {
+        public Criteria andGenderEqualTo(String value) {
             addCriterion("gender =", value, "gender");
             return (Criteria) this;
         }
 
-        public Criteria andGenderNotEqualTo(Integer value) {
+        public Criteria andGenderNotEqualTo(String value) {
             addCriterion("gender <>", value, "gender");
             return (Criteria) this;
         }
 
-        public Criteria andGenderGreaterThan(Integer value) {
+        public Criteria andGenderGreaterThan(String value) {
             addCriterion("gender >", value, "gender");
             return (Criteria) this;
         }
 
-        public Criteria andGenderGreaterThanOrEqualTo(Integer value) {
+        public Criteria andGenderGreaterThanOrEqualTo(String value) {
             addCriterion("gender >=", value, "gender");
             return (Criteria) this;
         }
 
-        public Criteria andGenderLessThan(Integer value) {
+        public Criteria andGenderLessThan(String value) {
             addCriterion("gender <", value, "gender");
             return (Criteria) this;
         }
 
-        public Criteria andGenderLessThanOrEqualTo(Integer value) {
+        public Criteria andGenderLessThanOrEqualTo(String value) {
             addCriterion("gender <=", value, "gender");
             return (Criteria) this;
         }
 
-        public Criteria andGenderIn(List<Integer> values) {
+        public Criteria andGenderLike(String value) {
+            addCriterion("gender like", value, "gender");
+            return (Criteria) this;
+        }
+
+        public Criteria andGenderNotLike(String value) {
+            addCriterion("gender not like", value, "gender");
+            return (Criteria) this;
+        }
+
+        public Criteria andGenderIn(List<String> values) {
             addCriterion("gender in", values, "gender");
             return (Criteria) this;
         }
 
-        public Criteria andGenderNotIn(List<Integer> values) {
+        public Criteria andGenderNotIn(List<String> values) {
             addCriterion("gender not in", values, "gender");
             return (Criteria) this;
         }
 
-        public Criteria andGenderBetween(Integer value1, Integer value2) {
+        public Criteria andGenderBetween(String value1, String value2) {
             addCriterion("gender between", value1, value2, "gender");
             return (Criteria) this;
         }
 
-        public Criteria andGenderNotBetween(Integer value1, Integer value2) {
+        public Criteria andGenderNotBetween(String value1, String value2) {
             addCriterion("gender not between", value1, value2, "gender");
             return (Criteria) this;
         }
@@ -1367,6 +1377,11 @@ public class SwEmployeeExample {
 
         public Criteria andLastNameLikeInsensitive(String value) {
             addCriterion("upper(last_name) like", value.toUpperCase(), "lastName");
+            return (Criteria) this;
+        }
+
+        public Criteria andGenderLikeInsensitive(String value) {
+            addCriterion("upper(gender) like", value.toUpperCase(), "gender");
             return (Criteria) this;
         }
 

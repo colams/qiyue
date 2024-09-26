@@ -49,7 +49,7 @@ public class SwEmployeeSqlProvider {
         }
         
         if (record.getGender() != null) {
-            sql.VALUES("gender", "#{gender,jdbcType=INTEGER}");
+            sql.VALUES("gender", "#{gender,jdbcType=VARCHAR}");
         }
         
         if (record.getDepartmentId() != null) {
@@ -170,7 +170,7 @@ public class SwEmployeeSqlProvider {
         }
         
         if (record.getGender() != null) {
-            sql.SET("gender = #{record.gender,jdbcType=INTEGER}");
+            sql.SET("gender = #{record.gender,jdbcType=VARCHAR}");
         }
         
         if (record.getDepartmentId() != null) {
@@ -235,7 +235,7 @@ public class SwEmployeeSqlProvider {
         sql.SET("name = #{record.name,jdbcType=VARCHAR}");
         sql.SET("first_name = #{record.firstName,jdbcType=VARCHAR}");
         sql.SET("last_name = #{record.lastName,jdbcType=VARCHAR}");
-        sql.SET("gender = #{record.gender,jdbcType=INTEGER}");
+        sql.SET("gender = #{record.gender,jdbcType=VARCHAR}");
         sql.SET("department_id = #{record.departmentId,jdbcType=INTEGER}");
         sql.SET("post_id = #{record.postId,jdbcType=INTEGER}");
         sql.SET("inner_email = #{record.innerEmail,jdbcType=VARCHAR}");
@@ -279,7 +279,7 @@ public class SwEmployeeSqlProvider {
         }
         
         if (record.getGender() != null) {
-            sql.SET("gender = #{gender,jdbcType=INTEGER}");
+            sql.SET("gender = #{gender,jdbcType=VARCHAR}");
         }
         
         if (record.getDepartmentId() != null) {

@@ -1,6 +1,8 @@
 package com.foxconn.sw.service.processor.meeting.utils;
 
+import com.foxconn.sw.business.context.RequestContext;
 import com.foxconn.sw.data.dto.communal.MeetingMemberEnoVo;
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -14,11 +16,15 @@ public class MeetingMemberUtils {
 
         Map<String, Integer> employeeRoleMap = new HashMap<>();
 
-        if (Objects.nonNull(eNoVo)) {
+        if (Objects.isNull(eNoVo)) {
             return employeeRoleMap;
         }
 
-        employeeRoleMap.put(eNoVo.getChairman(), Chairman_Flag.initFlag());
+        if (StringUtils.isEmpty(eNoVo.getChairman())) {
+            employeeRoleMap.put(RequestContext.getEmployeeNo(), Chairman_Flag.initFlag());
+        } else {
+            employeeRoleMap.put(eNoVo.getChairman(), Chairman_Flag.initFlag());
+        }
         eNoVo.getMaintainers().forEach(e -> {
             Integer role = employeeRoleMap.getOrDefault(e, 0);
             role = Maintainer_Flag.setFlag(role);

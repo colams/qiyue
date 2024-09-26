@@ -22,7 +22,7 @@ public interface SwMeetingExtensionMapper extends SwMeetingMapper {
             "inner join sw_meeting_member smm on sm.id = smm.meeting_id ",
             "where status in (0, 1)",
             "and smm.employee_no = #{employeeNo,jdbcType=VARCHAR}",
-            "and ((cycle = 1 and sm.create_time &gt;= #{startDate,jdbcType=TIMESTAMP}) or (meeting_date &lt; #{startDate,jdbcType=TIMESTAMP} and meeting_date &gt;= #{endDate,jdbcType=TIMESTAMP}))"
+            "and ((cycle = 1 and sm.create_time >= #{startDate,jdbcType=VARCHAR}) or (meeting_date >= #{startDate,jdbcType=VARCHAR} and meeting_date <= #{endDate,jdbcType=VARCHAR}))"
     })
     @Results({
             @Result(column = "id", property = "id", jdbcType = JdbcType.INTEGER, id = true),
