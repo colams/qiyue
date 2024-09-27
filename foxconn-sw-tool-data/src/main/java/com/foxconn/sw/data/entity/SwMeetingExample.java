@@ -715,63 +715,63 @@ public class SwMeetingExample {
             return (Criteria) this;
         }
 
-        public Criteria andRepeatIsNull() {
-            addCriterion("repeat is null");
+        public Criteria andIsRepeatIsNull() {
+            addCriterion("is_repeat is null");
             return (Criteria) this;
         }
 
-        public Criteria andRepeatIsNotNull() {
-            addCriterion("repeat is not null");
+        public Criteria andIsRepeatIsNotNull() {
+            addCriterion("is_repeat is not null");
             return (Criteria) this;
         }
 
-        public Criteria andRepeatEqualTo(Integer value) {
-            addCriterion("repeat =", value, "repeat");
+        public Criteria andIsRepeatEqualTo(Integer value) {
+            addCriterion("is_repeat =", value, "isRepeat");
             return (Criteria) this;
         }
 
-        public Criteria andRepeatNotEqualTo(Integer value) {
-            addCriterion("repeat <>", value, "repeat");
+        public Criteria andIsRepeatNotEqualTo(Integer value) {
+            addCriterion("is_repeat <>", value, "isRepeat");
             return (Criteria) this;
         }
 
-        public Criteria andRepeatGreaterThan(Integer value) {
-            addCriterion("repeat >", value, "repeat");
+        public Criteria andIsRepeatGreaterThan(Integer value) {
+            addCriterion("is_repeat >", value, "isRepeat");
             return (Criteria) this;
         }
 
-        public Criteria andRepeatGreaterThanOrEqualTo(Integer value) {
-            addCriterion("repeat >=", value, "repeat");
+        public Criteria andIsRepeatGreaterThanOrEqualTo(Integer value) {
+            addCriterion("is_repeat >=", value, "isRepeat");
             return (Criteria) this;
         }
 
-        public Criteria andRepeatLessThan(Integer value) {
-            addCriterion("repeat <", value, "repeat");
+        public Criteria andIsRepeatLessThan(Integer value) {
+            addCriterion("is_repeat <", value, "isRepeat");
             return (Criteria) this;
         }
 
-        public Criteria andRepeatLessThanOrEqualTo(Integer value) {
-            addCriterion("repeat <=", value, "repeat");
+        public Criteria andIsRepeatLessThanOrEqualTo(Integer value) {
+            addCriterion("is_repeat <=", value, "isRepeat");
             return (Criteria) this;
         }
 
-        public Criteria andRepeatIn(List<Integer> values) {
-            addCriterion("repeat in", values, "repeat");
+        public Criteria andIsRepeatIn(List<Integer> values) {
+            addCriterion("is_repeat in", values, "isRepeat");
             return (Criteria) this;
         }
 
-        public Criteria andRepeatNotIn(List<Integer> values) {
-            addCriterion("repeat not in", values, "repeat");
+        public Criteria andIsRepeatNotIn(List<Integer> values) {
+            addCriterion("is_repeat not in", values, "isRepeat");
             return (Criteria) this;
         }
 
-        public Criteria andRepeatBetween(Integer value1, Integer value2) {
-            addCriterion("repeat between", value1, value2, "repeat");
+        public Criteria andIsRepeatBetween(Integer value1, Integer value2) {
+            addCriterion("is_repeat between", value1, value2, "isRepeat");
             return (Criteria) this;
         }
 
-        public Criteria andRepeatNotBetween(Integer value1, Integer value2) {
-            addCriterion("repeat not between", value1, value2, "repeat");
+        public Criteria andIsRepeatNotBetween(Integer value1, Integer value2) {
+            addCriterion("is_repeat not between", value1, value2, "isRepeat");
             return (Criteria) this;
         }
 
@@ -842,6 +842,266 @@ public class SwMeetingExample {
 
         public Criteria andCycleNotBetween(String value1, String value2) {
             addCriterion("cycle not between", value1, value2, "cycle");
+            return (Criteria) this;
+        }
+
+        public Criteria andCycleStartIsNull() {
+            addCriterion("cycle_start is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCycleStartIsNotNull() {
+            addCriterion("cycle_start is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCycleStartEqualTo(String value) {
+            addCriterion("cycle_start =", value, "cycleStart");
+            return (Criteria) this;
+        }
+
+        public Criteria andCycleStartNotEqualTo(String value) {
+            addCriterion("cycle_start <>", value, "cycleStart");
+            return (Criteria) this;
+        }
+
+        public Criteria andCycleStartGreaterThan(String value) {
+            addCriterion("cycle_start >", value, "cycleStart");
+            return (Criteria) this;
+        }
+
+        public Criteria andCycleStartGreaterThanOrEqualTo(String value) {
+            addCriterion("cycle_start >=", value, "cycleStart");
+            return (Criteria) this;
+        }
+
+        public Criteria andCycleStartLessThan(String value) {
+            addCriterion("cycle_start <", value, "cycleStart");
+            return (Criteria) this;
+        }
+
+        public Criteria andCycleStartLessThanOrEqualTo(String value) {
+            addCriterion("cycle_start <=", value, "cycleStart");
+            return (Criteria) this;
+        }
+
+        public Criteria andCycleStartLike(String value) {
+            addCriterion("cycle_start like", value, "cycleStart");
+            return (Criteria) this;
+        }
+
+        public Criteria andCycleStartNotLike(String value) {
+            addCriterion("cycle_start not like", value, "cycleStart");
+            return (Criteria) this;
+        }
+
+        public Criteria andCycleStartIn(List<String> values) {
+            addCriterion("cycle_start in", values, "cycleStart");
+            return (Criteria) this;
+        }
+
+        public Criteria andCycleStartNotIn(List<String> values) {
+            addCriterion("cycle_start not in", values, "cycleStart");
+            return (Criteria) this;
+        }
+
+        public Criteria andCycleStartBetween(String value1, String value2) {
+            addCriterion("cycle_start between", value1, value2, "cycleStart");
+            return (Criteria) this;
+        }
+
+        public Criteria andCycleStartNotBetween(String value1, String value2) {
+            addCriterion("cycle_start not between", value1, value2, "cycleStart");
+            return (Criteria) this;
+        }
+
+        public Criteria andCycleExpireIsNull() {
+            addCriterion("cycle_expire is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCycleExpireIsNotNull() {
+            addCriterion("cycle_expire is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCycleExpireEqualTo(String value) {
+            addCriterion("cycle_expire =", value, "cycleExpire");
+            return (Criteria) this;
+        }
+
+        public Criteria andCycleExpireNotEqualTo(String value) {
+            addCriterion("cycle_expire <>", value, "cycleExpire");
+            return (Criteria) this;
+        }
+
+        public Criteria andCycleExpireGreaterThan(String value) {
+            addCriterion("cycle_expire >", value, "cycleExpire");
+            return (Criteria) this;
+        }
+
+        public Criteria andCycleExpireGreaterThanOrEqualTo(String value) {
+            addCriterion("cycle_expire >=", value, "cycleExpire");
+            return (Criteria) this;
+        }
+
+        public Criteria andCycleExpireLessThan(String value) {
+            addCriterion("cycle_expire <", value, "cycleExpire");
+            return (Criteria) this;
+        }
+
+        public Criteria andCycleExpireLessThanOrEqualTo(String value) {
+            addCriterion("cycle_expire <=", value, "cycleExpire");
+            return (Criteria) this;
+        }
+
+        public Criteria andCycleExpireLike(String value) {
+            addCriterion("cycle_expire like", value, "cycleExpire");
+            return (Criteria) this;
+        }
+
+        public Criteria andCycleExpireNotLike(String value) {
+            addCriterion("cycle_expire not like", value, "cycleExpire");
+            return (Criteria) this;
+        }
+
+        public Criteria andCycleExpireIn(List<String> values) {
+            addCriterion("cycle_expire in", values, "cycleExpire");
+            return (Criteria) this;
+        }
+
+        public Criteria andCycleExpireNotIn(List<String> values) {
+            addCriterion("cycle_expire not in", values, "cycleExpire");
+            return (Criteria) this;
+        }
+
+        public Criteria andCycleExpireBetween(String value1, String value2) {
+            addCriterion("cycle_expire between", value1, value2, "cycleExpire");
+            return (Criteria) this;
+        }
+
+        public Criteria andCycleExpireNotBetween(String value1, String value2) {
+            addCriterion("cycle_expire not between", value1, value2, "cycleExpire");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreateTimeIsNull() {
+            addCriterion("create_time is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreateTimeIsNotNull() {
+            addCriterion("create_time is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreateTimeEqualTo(LocalDateTime value) {
+            addCriterion("create_time =", value, "createTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreateTimeNotEqualTo(LocalDateTime value) {
+            addCriterion("create_time <>", value, "createTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreateTimeGreaterThan(LocalDateTime value) {
+            addCriterion("create_time >", value, "createTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreateTimeGreaterThanOrEqualTo(LocalDateTime value) {
+            addCriterion("create_time >=", value, "createTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreateTimeLessThan(LocalDateTime value) {
+            addCriterion("create_time <", value, "createTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreateTimeLessThanOrEqualTo(LocalDateTime value) {
+            addCriterion("create_time <=", value, "createTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreateTimeIn(List<LocalDateTime> values) {
+            addCriterion("create_time in", values, "createTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreateTimeNotIn(List<LocalDateTime> values) {
+            addCriterion("create_time not in", values, "createTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreateTimeBetween(LocalDateTime value1, LocalDateTime value2) {
+            addCriterion("create_time between", value1, value2, "createTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreateTimeNotBetween(LocalDateTime value1, LocalDateTime value2) {
+            addCriterion("create_time not between", value1, value2, "createTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andDatetimeLastchangeIsNull() {
+            addCriterion("datetime_lastchange is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andDatetimeLastchangeIsNotNull() {
+            addCriterion("datetime_lastchange is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andDatetimeLastchangeEqualTo(LocalDateTime value) {
+            addCriterion("datetime_lastchange =", value, "datetimeLastchange");
+            return (Criteria) this;
+        }
+
+        public Criteria andDatetimeLastchangeNotEqualTo(LocalDateTime value) {
+            addCriterion("datetime_lastchange <>", value, "datetimeLastchange");
+            return (Criteria) this;
+        }
+
+        public Criteria andDatetimeLastchangeGreaterThan(LocalDateTime value) {
+            addCriterion("datetime_lastchange >", value, "datetimeLastchange");
+            return (Criteria) this;
+        }
+
+        public Criteria andDatetimeLastchangeGreaterThanOrEqualTo(LocalDateTime value) {
+            addCriterion("datetime_lastchange >=", value, "datetimeLastchange");
+            return (Criteria) this;
+        }
+
+        public Criteria andDatetimeLastchangeLessThan(LocalDateTime value) {
+            addCriterion("datetime_lastchange <", value, "datetimeLastchange");
+            return (Criteria) this;
+        }
+
+        public Criteria andDatetimeLastchangeLessThanOrEqualTo(LocalDateTime value) {
+            addCriterion("datetime_lastchange <=", value, "datetimeLastchange");
+            return (Criteria) this;
+        }
+
+        public Criteria andDatetimeLastchangeIn(List<LocalDateTime> values) {
+            addCriterion("datetime_lastchange in", values, "datetimeLastchange");
+            return (Criteria) this;
+        }
+
+        public Criteria andDatetimeLastchangeNotIn(List<LocalDateTime> values) {
+            addCriterion("datetime_lastchange not in", values, "datetimeLastchange");
+            return (Criteria) this;
+        }
+
+        public Criteria andDatetimeLastchangeBetween(LocalDateTime value1, LocalDateTime value2) {
+            addCriterion("datetime_lastchange between", value1, value2, "datetimeLastchange");
+            return (Criteria) this;
+        }
+
+        public Criteria andDatetimeLastchangeNotBetween(LocalDateTime value1, LocalDateTime value2) {
+            addCriterion("datetime_lastchange not between", value1, value2, "datetimeLastchange");
             return (Criteria) this;
         }
 
@@ -975,126 +1235,6 @@ public class SwMeetingExample {
             return (Criteria) this;
         }
 
-        public Criteria andCreateTimeIsNull() {
-            addCriterion("create_time is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andCreateTimeIsNotNull() {
-            addCriterion("create_time is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andCreateTimeEqualTo(LocalDateTime value) {
-            addCriterion("create_time =", value, "createTime");
-            return (Criteria) this;
-        }
-
-        public Criteria andCreateTimeNotEqualTo(LocalDateTime value) {
-            addCriterion("create_time <>", value, "createTime");
-            return (Criteria) this;
-        }
-
-        public Criteria andCreateTimeGreaterThan(LocalDateTime value) {
-            addCriterion("create_time >", value, "createTime");
-            return (Criteria) this;
-        }
-
-        public Criteria andCreateTimeGreaterThanOrEqualTo(LocalDateTime value) {
-            addCriterion("create_time >=", value, "createTime");
-            return (Criteria) this;
-        }
-
-        public Criteria andCreateTimeLessThan(LocalDateTime value) {
-            addCriterion("create_time <", value, "createTime");
-            return (Criteria) this;
-        }
-
-        public Criteria andCreateTimeLessThanOrEqualTo(LocalDateTime value) {
-            addCriterion("create_time <=", value, "createTime");
-            return (Criteria) this;
-        }
-
-        public Criteria andCreateTimeIn(List<LocalDateTime> values) {
-            addCriterion("create_time in", values, "createTime");
-            return (Criteria) this;
-        }
-
-        public Criteria andCreateTimeNotIn(List<LocalDateTime> values) {
-            addCriterion("create_time not in", values, "createTime");
-            return (Criteria) this;
-        }
-
-        public Criteria andCreateTimeBetween(LocalDateTime value1, LocalDateTime value2) {
-            addCriterion("create_time between", value1, value2, "createTime");
-            return (Criteria) this;
-        }
-
-        public Criteria andCreateTimeNotBetween(LocalDateTime value1, LocalDateTime value2) {
-            addCriterion("create_time not between", value1, value2, "createTime");
-            return (Criteria) this;
-        }
-
-        public Criteria andDatetimeLastchangeIsNull() {
-            addCriterion("datetime_lastchange is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andDatetimeLastchangeIsNotNull() {
-            addCriterion("datetime_lastchange is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andDatetimeLastchangeEqualTo(LocalDateTime value) {
-            addCriterion("datetime_lastchange =", value, "datetimeLastchange");
-            return (Criteria) this;
-        }
-
-        public Criteria andDatetimeLastchangeNotEqualTo(LocalDateTime value) {
-            addCriterion("datetime_lastchange <>", value, "datetimeLastchange");
-            return (Criteria) this;
-        }
-
-        public Criteria andDatetimeLastchangeGreaterThan(LocalDateTime value) {
-            addCriterion("datetime_lastchange >", value, "datetimeLastchange");
-            return (Criteria) this;
-        }
-
-        public Criteria andDatetimeLastchangeGreaterThanOrEqualTo(LocalDateTime value) {
-            addCriterion("datetime_lastchange >=", value, "datetimeLastchange");
-            return (Criteria) this;
-        }
-
-        public Criteria andDatetimeLastchangeLessThan(LocalDateTime value) {
-            addCriterion("datetime_lastchange <", value, "datetimeLastchange");
-            return (Criteria) this;
-        }
-
-        public Criteria andDatetimeLastchangeLessThanOrEqualTo(LocalDateTime value) {
-            addCriterion("datetime_lastchange <=", value, "datetimeLastchange");
-            return (Criteria) this;
-        }
-
-        public Criteria andDatetimeLastchangeIn(List<LocalDateTime> values) {
-            addCriterion("datetime_lastchange in", values, "datetimeLastchange");
-            return (Criteria) this;
-        }
-
-        public Criteria andDatetimeLastchangeNotIn(List<LocalDateTime> values) {
-            addCriterion("datetime_lastchange not in", values, "datetimeLastchange");
-            return (Criteria) this;
-        }
-
-        public Criteria andDatetimeLastchangeBetween(LocalDateTime value1, LocalDateTime value2) {
-            addCriterion("datetime_lastchange between", value1, value2, "datetimeLastchange");
-            return (Criteria) this;
-        }
-
-        public Criteria andDatetimeLastchangeNotBetween(LocalDateTime value1, LocalDateTime value2) {
-            addCriterion("datetime_lastchange not between", value1, value2, "datetimeLastchange");
-            return (Criteria) this;
-        }
-
         public Criteria andRoomLikeInsensitive(String value) {
             addCriterion("upper(room) like", value.toUpperCase(), "room");
             return (Criteria) this;
@@ -1132,6 +1272,16 @@ public class SwMeetingExample {
 
         public Criteria andCycleLikeInsensitive(String value) {
             addCriterion("upper(cycle) like", value.toUpperCase(), "cycle");
+            return (Criteria) this;
+        }
+
+        public Criteria andCycleStartLikeInsensitive(String value) {
+            addCriterion("upper(cycle_start) like", value.toUpperCase(), "cycleStart");
+            return (Criteria) this;
+        }
+
+        public Criteria andCycleExpireLikeInsensitive(String value) {
+            addCriterion("upper(cycle_expire) like", value.toUpperCase(), "cycleExpire");
             return (Criteria) this;
         }
 

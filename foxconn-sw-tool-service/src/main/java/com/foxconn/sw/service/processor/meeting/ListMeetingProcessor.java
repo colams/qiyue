@@ -9,6 +9,7 @@ import com.foxconn.sw.common.utils.JsonUtils;
 import com.foxconn.sw.common.utils.LocalDateExtUtils;
 import com.foxconn.sw.common.utils.StringExtUtils;
 import com.foxconn.sw.data.constants.enums.MeetingRoleFlagEnums;
+import com.foxconn.sw.data.dto.communal.CycleMeetingVo;
 import com.foxconn.sw.data.dto.entity.acount.EmployeeVo;
 import com.foxconn.sw.data.dto.entity.meeting.MeetingVo;
 import com.foxconn.sw.data.dto.request.meeting.ListMeetingParams;
@@ -114,7 +115,10 @@ public class ListMeetingProcessor {
         vo.setEndTime(meeting.getEndTime());
         vo.setDuration(getMeetingDuration(meeting.getStartTime(), meeting.getEndTime()));
         if (StringUtils.isNotEmpty(meeting.getCycle())) {
-            vo.setCycle(JsonUtils.deserialize(meeting.getCycle(), List.class, Integer.class));
+            CycleMeetingVo cycleMeetingVo = new CycleMeetingVo();
+            cycleMeetingVo.setCycle(JsonUtils.deserialize(meeting.getCycle(), List.class, Integer.class));
+            cycleMeetingVo.setCycleStart(meeting.getCycleStart());
+            cycleMeetingVo.setCycleExpire(meeting.getCycleExpire());
         }
         vo.setChairman(chairman);
         vo.setMaintainers(maintainers);

@@ -1,5 +1,6 @@
 package com.foxconn.sw.data.dto.entity.meeting;
 
+import com.foxconn.sw.data.dto.communal.CycleMeetingVo;
 import com.foxconn.sw.data.dto.entity.acount.EmployeeVo;
 
 import java.util.List;
@@ -18,7 +19,7 @@ public class MeetingVo {
     private String endTime;
     private Integer duration;
 
-    private List<Integer> cycle;
+    private CycleMeetingVo cycleVo;
 
     private EmployeeVo chairman;
     private List<EmployeeVo> maintainers;
@@ -96,12 +97,12 @@ public class MeetingVo {
         this.duration = duration;
     }
 
-    public List<Integer> getCycle() {
-        return cycle;
+    public CycleMeetingVo getCycleVo() {
+        return cycleVo;
     }
 
-    public void setCycle(List<Integer> cycle) {
-        this.cycle = cycle;
+    public void setCycleVo(CycleMeetingVo cycleVo) {
+        this.cycleVo = cycleVo;
     }
 
     public EmployeeVo getChairman() {

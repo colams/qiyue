@@ -9,11 +9,13 @@ import com.foxconn.sw.data.dto.request.meeting.UpdateMeetingParams;
 import com.foxconn.sw.data.entity.SwMeeting;
 import com.foxconn.sw.data.entity.SwMeetingCycleDetail;
 import com.foxconn.sw.service.processor.meeting.utils.MeetingMemberUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 @Component
 public class UpdateMeetingProcessor {
@@ -27,7 +29,7 @@ public class UpdateMeetingProcessor {
 
     public Boolean update(UpdateMeetingParams data) {
         SwMeeting meeting = meetingBusiness.getMeetingByID(data.getMeetingID());
-        if (meeting.getRepeat() == 1) {
+        if ((Objects.nonNull(meeting.getIsRepeat()) && meeting.getIsRepeat() == 1) || StringUtils.isNotEmpty(meeting.getCycle())) {
             processCycle(meeting, data);
         } else {
             processMeeting(meeting, data);
@@ -46,8 +48,8 @@ public class UpdateMeetingProcessor {
         updateMeeting.setStartTime(data.getTimeVo().getStartTime());
         updateMeeting.setEndTime(data.getTimeVo().getEndTime());
         updateMeeting.setResourceIds(ConvertUtils.listIntegerToString(data.getResourceIds()));
-        updateMeeting.setRepeat(data.getRepeat());
-        updateMeeting.setCycle(ConvertUtils.listIntegerToString(data.getResourceIds()));
+        updateMeeting.setIsRepeat(data.getCycle().size() > 1 ? 1 : 0);
+        updateMeeting.setCycle(ConvertUtils.listIntegerToString(data.getCycle()));
         updateMeeting.setCreator(RequestContext.getEmployeeNo());
         return meetingBusiness.updateMeetingDetail(meeting);
     }

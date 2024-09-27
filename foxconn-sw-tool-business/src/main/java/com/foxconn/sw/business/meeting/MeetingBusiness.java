@@ -11,6 +11,7 @@ import org.springframework.util.CollectionUtils;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Objects;
 
 @Component
 public class MeetingBusiness {
@@ -27,11 +28,14 @@ public class MeetingBusiness {
         meeting.setMeetingDate(data.getTimeVo().getMeetingDate());
         meeting.setTitle(data.getTitle());
         meeting.setDescription(data.getDescription());
-        if (CollectionUtils.isEmpty(data.getResourceIds())) {
+        if (!CollectionUtils.isEmpty(data.getResourceIds())) {
             meeting.setResourceIds(JsonUtils.serialize(data.getResourceIds()));
         }
-        if (CollectionUtils.isEmpty(data.getCycleInts())) {
-            meeting.setCycle(JsonUtils.serialize(data.getCycleInts()));
+
+        if (Objects.nonNull(data.getCycleVo())) {
+            meeting.setCycle(JsonUtils.serialize(data.getCycleVo().getCycle()));
+            meeting.setCycleExpire(data.getCycleVo().getCycleExpire());
+            meeting.setCycleStart(data.getCycleVo().getCycleStart());
         }
         meetingMapper.insertSelective(meeting);
         return meeting.getId();

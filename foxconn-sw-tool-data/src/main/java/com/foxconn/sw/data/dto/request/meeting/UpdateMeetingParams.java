@@ -13,9 +13,7 @@ public class UpdateMeetingParams {
     @NotNull
     private MeetingDateTimeVo timeVo;
     private Integer abcMeeting;
-    @NotNull
-    private Integer repeat;
-    private List<Integer> cycleInts;
+    private List<Integer> cycle;
     @NotNull
     private String title;
     @NotNull
@@ -56,20 +54,12 @@ public class UpdateMeetingParams {
         this.abcMeeting = abcMeeting;
     }
 
-    public Integer getRepeat() {
-        return repeat;
+    public List<Integer> getCycle() {
+        return cycle;
     }
 
-    public void setRepeat(Integer repeat) {
-        this.repeat = repeat;
-    }
-
-    public List<Integer> getCycleInts() {
-        return cycleInts;
-    }
-
-    public void setCycleInts(List<Integer> cycleInts) {
-        this.cycleInts = cycleInts;
+    public void setCycle(List<Integer> cycle) {
+        this.cycle = cycle;
     }
 
     public String getTitle() {

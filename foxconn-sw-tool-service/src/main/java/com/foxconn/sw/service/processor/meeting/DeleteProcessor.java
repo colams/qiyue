@@ -37,7 +37,7 @@ public class DeleteProcessor {
     }
 
     private boolean processByRepeat(DeleteParams data, SwMeeting meeting) {
-        if (StringUtils.isEmpty(data.getDeleteDate()) || meeting.getRepeat() == 0) {
+        if (StringUtils.isEmpty(data.getDeleteDate()) || meeting.getIsRepeat() == 0) {
             return meetingBusiness.updateMeetingStatus(meeting);
         } else {
             List<Integer> weekOfDays = ConvertUtils.stringToListInt(meeting.getCycle());

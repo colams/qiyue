@@ -21,17 +21,21 @@ public class SwMeeting {
 
     private String resourceIds;
 
-    private Integer repeat;
+    private Integer isRepeat;
 
     private String cycle;
 
-    private Integer status;
+    private String cycleStart;
 
-    private String creator;
+    private String cycleExpire;
 
     private LocalDateTime createTime;
 
     private LocalDateTime datetimeLastchange;
+
+    private Integer status;
+
+    private String creator;
 
     public Integer getId() {
         return id;
@@ -150,17 +154,17 @@ public class SwMeeting {
         this.resourceIds = resourceIds == null ? null : resourceIds.trim();
     }
 
-    public Integer getRepeat() {
-        return repeat;
+    public Integer getIsRepeat() {
+        return isRepeat;
     }
 
-    public SwMeeting withRepeat(Integer repeat) {
-        this.setRepeat(repeat);
+    public SwMeeting withIsRepeat(Integer isRepeat) {
+        this.setIsRepeat(isRepeat);
         return this;
     }
 
-    public void setRepeat(Integer repeat) {
-        this.repeat = repeat;
+    public void setIsRepeat(Integer isRepeat) {
+        this.isRepeat = isRepeat;
     }
 
     public String getCycle() {
@@ -176,30 +180,30 @@ public class SwMeeting {
         this.cycle = cycle == null ? null : cycle.trim();
     }
 
-    public Integer getStatus() {
-        return status;
+    public String getCycleStart() {
+        return cycleStart;
     }
 
-    public SwMeeting withStatus(Integer status) {
-        this.setStatus(status);
+    public SwMeeting withCycleStart(String cycleStart) {
+        this.setCycleStart(cycleStart);
         return this;
     }
 
-    public void setStatus(Integer status) {
-        this.status = status;
+    public void setCycleStart(String cycleStart) {
+        this.cycleStart = cycleStart == null ? null : cycleStart.trim();
     }
 
-    public String getCreator() {
-        return creator;
+    public String getCycleExpire() {
+        return cycleExpire;
     }
 
-    public SwMeeting withCreator(String creator) {
-        this.setCreator(creator);
+    public SwMeeting withCycleExpire(String cycleExpire) {
+        this.setCycleExpire(cycleExpire);
         return this;
     }
 
-    public void setCreator(String creator) {
-        this.creator = creator == null ? null : creator.trim();
+    public void setCycleExpire(String cycleExpire) {
+        this.cycleExpire = cycleExpire == null ? null : cycleExpire.trim();
     }
 
     public LocalDateTime getCreateTime() {
@@ -226,5 +230,31 @@ public class SwMeeting {
 
     public void setDatetimeLastchange(LocalDateTime datetimeLastchange) {
         this.datetimeLastchange = datetimeLastchange;
+    }
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public SwMeeting withStatus(Integer status) {
+        this.setStatus(status);
+        return this;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
+    }
+
+    public String getCreator() {
+        return creator;
+    }
+
+    public SwMeeting withCreator(String creator) {
+        this.setCreator(creator);
+        return this;
+    }
+
+    public void setCreator(String creator) {
+        this.creator = creator == null ? null : creator.trim();
     }
 }

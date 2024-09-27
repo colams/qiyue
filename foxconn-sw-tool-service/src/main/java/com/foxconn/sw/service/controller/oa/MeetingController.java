@@ -4,10 +4,7 @@ import com.foxconn.sw.data.constants.TagsConstants;
 import com.foxconn.sw.data.dto.Request;
 import com.foxconn.sw.data.dto.Response;
 import com.foxconn.sw.data.dto.entity.meeting.MeetingVo;
-import com.foxconn.sw.data.dto.request.meeting.DeleteParams;
-import com.foxconn.sw.data.dto.request.meeting.EstablishMeetingParams;
-import com.foxconn.sw.data.dto.request.meeting.ListMeetingParams;
-import com.foxconn.sw.data.dto.request.meeting.UpdateMeetingParams;
+import com.foxconn.sw.data.dto.request.meeting.*;
 import com.foxconn.sw.service.aspects.Permission;
 import com.foxconn.sw.service.processor.meeting.*;
 import com.foxconn.sw.service.utils.ResponseUtils;
@@ -48,8 +45,8 @@ public class MeetingController {
     @Operation(summary = "会议列表", tags = TagsConstants.OA)
     @ApiResponse(responseCode = "0", description = "成功码")
     @PostMapping("/detail")
-    public Response<List<MeetingVo>> detail(@Valid @RequestBody Request<ListMeetingParams> request) {
-        List<MeetingVo> vos = detailMeeting.detail(request.getData());
+    public Response<MeetingVo> detail(@Valid @RequestBody Request<DetailMeetingParams> request) {
+        MeetingVo vos = detailMeeting.detail(request.getData());
         return ResponseUtils.success(vos, request.getTraceId());
     }
 
