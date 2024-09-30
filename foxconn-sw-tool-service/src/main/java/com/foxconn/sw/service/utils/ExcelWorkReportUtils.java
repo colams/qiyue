@@ -389,7 +389,6 @@ public class ExcelWorkReportUtils {
         for (int columnIndex = 0; columnIndex < length; columnIndex++) {
             if (columnIndex > 0) {
                 sheet.autoSizeColumn(columnIndex);
-                sheet.setColumnWidth(columnIndex, sheet.getColumnWidth(columnIndex) * 14 / 10);
             }
         }
     }
