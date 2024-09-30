@@ -66,7 +66,7 @@ public class SubmitReportProcessor {
 
         List<SwWorkReport> deleteReports = reports.stream()
                 .filter(e -> updateReports.stream()
-                        .allMatch(report -> report.getId() != e.getId()))
+                        .allMatch(report -> !report.getId().equals(e.getId())))
                 .map(e -> {
                     SwWorkReport report = new SwWorkReport();
                     report.setId(e.getId());
