@@ -22,13 +22,13 @@ public class MeetingRoomConfig {
 
         List<OptionsVo> optionsVos2 = new ArrayList<>();
         OptionsVo optionsVo2 = new OptionsVo("2", "F6-1.5F", optionsVos2);
-        optionsVos1.add(new OptionsVo("2-1", "Los Angelse"));
-        optionsVos1.add(new OptionsVo("2-2", "New York"));
-        optionsVos1.add(new OptionsVo("2-3", "San Francisco"));
-        optionsVos1.add(new OptionsVo("2-4", "Seattle"));
-        optionsVos1.add(new OptionsVo("2-5", "Hawaii"));
-        optionsVos1.add(new OptionsVo("2-6", "Chicago"));
-        optionsVos1.add(new OptionsVo("2-7", "califomia"));
+        optionsVos2.add(new OptionsVo("2-1", "Los Angelse"));
+        optionsVos2.add(new OptionsVo("2-2", "New York"));
+        optionsVos2.add(new OptionsVo("2-3", "San Francisco"));
+        optionsVos2.add(new OptionsVo("2-4", "Seattle"));
+        optionsVos2.add(new OptionsVo("2-5", "Hawaii"));
+        optionsVos2.add(new OptionsVo("2-6", "Chicago"));
+        optionsVos2.add(new OptionsVo("2-7", "Califomia"));
 
         List<OptionsVo> optionsVos3 = new ArrayList<>();
         OptionsVo optionsVo3 = new OptionsVo("3", "F2-1.5F", optionsVos3);

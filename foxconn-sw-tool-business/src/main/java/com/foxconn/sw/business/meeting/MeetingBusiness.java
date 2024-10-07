@@ -32,10 +32,11 @@ public class MeetingBusiness {
             meeting.setResourceIds(JsonUtils.serialize(data.getResourceIds()));
         }
 
-        if (Objects.nonNull(data.getCycleVo())) {
+        if (Objects.nonNull(data.getCycleVo()) && Objects.nonNull(data.getCycleVo().getCycle())) {
             meeting.setCycle(JsonUtils.serialize(data.getCycleVo().getCycle()));
             meeting.setCycleExpire(data.getCycleVo().getCycleExpire());
             meeting.setCycleStart(data.getCycleVo().getCycleStart());
+            meeting.setIsRepeat(1);
         }
         meetingMapper.insertSelective(meeting);
         return meeting.getId();

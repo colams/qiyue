@@ -29,6 +29,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Component
@@ -62,8 +63,11 @@ public class ListMeetingProcessor {
         int index = 0;
         while (startDate.compareTo(endDate) < 0) {
             String date = StringExtUtils.toString(startDate);
+            int weekOfDay = startDate.getDayOfWeek().getValue();
             List<MeetingVo> array = lists.stream()
-                    .filter(e -> e.getMeetingDate().equalsIgnoreCase(date))
+                    .filter(e -> e.getMeetingDate().equalsIgnoreCase(date)
+                            || (Objects.nonNull(e.getCycleVo())
+                            && e.getCycleVo().getCycle().contains(weekOfDay)))
                     .collect(Collectors.toList());
             startDate = startDate.plusDays(1);
             result[index++] = array;
