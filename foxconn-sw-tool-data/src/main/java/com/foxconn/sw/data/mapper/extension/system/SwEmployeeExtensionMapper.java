@@ -19,7 +19,7 @@ public interface SwEmployeeExtensionMapper extends SwEmployeeMapper {
     @Select({
             "<script> ",
             "select",
-            "se.name, se.employee_no,se.department_id ",
+            "se.name, se.employee_no,se.department_id,sd.name as departmentName ",
             "from sw_employee se inner join sw_department sd on se.department_id=sd.id",
             "where sd.id>1 ",
             "</script> ",
@@ -28,9 +28,7 @@ public interface SwEmployeeExtensionMapper extends SwEmployeeMapper {
             @Result(column = "name", property = "name", jdbcType = JdbcType.VARCHAR),
             @Result(column = "employee_no", property = "employeeNo", jdbcType = JdbcType.VARCHAR),
             @Result(column = "department_id", property = "departmentId", jdbcType = JdbcType.INTEGER),
+            @Result(column = "departmentName", property = "departmentName", jdbcType = JdbcType.VARCHAR),
     })
     List<EmployeeVo> getEmployeesByLevel();
-
-
-    List<SwEmployee> queryEmployees(SwEmployeeExample example);
 }

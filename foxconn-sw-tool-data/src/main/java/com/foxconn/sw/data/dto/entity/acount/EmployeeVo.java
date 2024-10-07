@@ -4,13 +4,13 @@ import jakarta.validation.constraints.Pattern;
 
 public class EmployeeVo {
 
-    @Pattern(regexp = "^\\S*$", message = "字符串不能全部为空格")
     private String name;
 
-    @Pattern(regexp = "^\\S*$", message = "字符串不能全部为空格")
     private String employeeNo;
 
     private Integer departmentId;
+
+    private String departmentName;
 
     public String getName() {
         return name;
@@ -34,5 +34,13 @@ public class EmployeeVo {
 
     public void setDepartmentId(Integer departmentId) {
         this.departmentId = departmentId;
+    }
+
+    public String getDepartmentName() {
+        return departmentName;
+    }
+
+    public void setDepartmentName(String departmentName) {
+        this.departmentName = departmentName;
     }
 }
