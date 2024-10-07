@@ -119,6 +119,7 @@ public class ListMeetingProcessor {
             cycleMeetingVo.setCycle(JsonUtils.deserialize(meeting.getCycle(), List.class, Integer.class));
             cycleMeetingVo.setCycleStart(meeting.getCycleStart());
             cycleMeetingVo.setCycleExpire(meeting.getCycleExpire());
+            vo.setCycleVo(cycleMeetingVo);
         }
         vo.setChairman(chairman);
         vo.setMaintainers(maintainers);

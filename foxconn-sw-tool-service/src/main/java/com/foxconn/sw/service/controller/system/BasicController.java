@@ -4,9 +4,11 @@ import com.foxconn.sw.data.constants.TagsConstants;
 import com.foxconn.sw.data.dto.Request;
 import com.foxconn.sw.data.dto.Response;
 import com.foxconn.sw.data.dto.entity.system.DepartmentVo;
+import com.foxconn.sw.data.dto.entity.universal.OptionsVo;
 import com.foxconn.sw.data.dto.entity.universal.StringParams;
 import com.foxconn.sw.service.aspects.Permission;
 import com.foxconn.sw.service.processor.system.GetDepartListProcessor;
+import com.foxconn.sw.service.processor.system.MeetingRoomProcessor;
 import com.foxconn.sw.service.utils.ResponseUtils;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -22,6 +24,8 @@ import java.util.List;
 public class BasicController {
 
 
+    @Autowired
+    MeetingRoomProcessor meetingRoom;
     @Autowired
     GetDepartListProcessor getDepartListProcessor;
 
@@ -39,6 +43,15 @@ public class BasicController {
     @PostMapping("/subDepts")
     public Response<List<DepartmentVo>> subDepts(@Valid @RequestBody Request request) {
         List<DepartmentVo> departmentVos = getDepartListProcessor.subDepts();
+        return ResponseUtils.success(departmentVos, request.getTraceId());
+    }
+
+    @Permission
+    @Operation(summary = "获取会议室信息", tags = TagsConstants.SYSTEM)
+    @ApiResponse(responseCode = "0", description = "成功码")
+    @PostMapping("/rooms")
+    public Response<List<OptionsVo>> meetRoom(@Valid @RequestBody Request request) {
+        List<OptionsVo> departmentVos = meetingRoom.rooms();
         return ResponseUtils.success(departmentVos, request.getTraceId());
     }
 }

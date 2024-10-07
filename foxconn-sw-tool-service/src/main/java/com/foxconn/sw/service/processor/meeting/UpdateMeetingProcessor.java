@@ -48,10 +48,10 @@ public class UpdateMeetingProcessor {
         updateMeeting.setStartTime(data.getTimeVo().getStartTime());
         updateMeeting.setEndTime(data.getTimeVo().getEndTime());
         updateMeeting.setResourceIds(ConvertUtils.listIntegerToString(data.getResourceIds()));
-        updateMeeting.setIsRepeat(data.getCycle().size() > 1 ? 1 : 0);
+        updateMeeting.setIsRepeat(Objects.nonNull(data.getCycle()) && data.getCycle().size() > 1 ? 1 : 0);
         updateMeeting.setCycle(ConvertUtils.listIntegerToString(data.getCycle()));
         updateMeeting.setCreator(RequestContext.getEmployeeNo());
-        return meetingBusiness.updateMeetingDetail(meeting);
+        return meetingBusiness.updateMeetingDetail(updateMeeting);
     }
 
     private boolean processCycle(SwMeeting meeting, UpdateMeetingParams data) {

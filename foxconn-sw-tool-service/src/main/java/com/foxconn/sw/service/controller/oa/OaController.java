@@ -39,8 +39,8 @@ public class OaController {
     @Operation(summary = "OA 分类信息", tags = TagsConstants.OA)
     @ApiResponse(responseCode = "0", description = "成功码")
     @PostMapping("/assignEmployees")
-    public Response<List<EmployeeOptionVo>> assignEmployees(@Valid @RequestBody Request request) {
-        List<EmployeeOptionVo> vos = assignEmployeesProcessor.assignEmployees();
+    public Response<List<EmployeeVo>> assignEmployees(@Valid @RequestBody Request request) {
+        List<EmployeeVo> vos = assignEmployeesProcessor.assignEmployees();
         return ResponseUtils.success(vos, request.getTraceId());
     }
 

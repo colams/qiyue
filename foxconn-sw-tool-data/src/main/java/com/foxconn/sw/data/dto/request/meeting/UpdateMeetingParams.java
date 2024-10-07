@@ -22,6 +22,8 @@ public class UpdateMeetingParams {
     private MeetingMemberEnoVo memberVo;
     private List<Integer> resourceIds;
 
+    private Integer operateType;
+
     public Integer getMeetingID() {
         return meetingID;
     }
@@ -92,5 +94,13 @@ public class UpdateMeetingParams {
 
     public void setResourceIds(List<Integer> resourceIds) {
         this.resourceIds = resourceIds;
+    }
+
+    public Integer getOperateType() {
+        return operateType;
+    }
+
+    public void setOperateType(Integer operateType) {
+        this.operateType = operateType;
     }
 }

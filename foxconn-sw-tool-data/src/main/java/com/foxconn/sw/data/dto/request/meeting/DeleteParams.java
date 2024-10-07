@@ -4,6 +4,7 @@ public class DeleteParams {
 
     private Integer meetingID;
     private String deleteDate;
+    private Integer operateType;
 
     public Integer getMeetingID() {
         return meetingID;
@@ -19,5 +20,13 @@ public class DeleteParams {
 
     public void setDeleteDate(String deleteDate) {
         this.deleteDate = deleteDate;
+    }
+
+    public Integer getOperateType() {
+        return operateType;
+    }
+
+    public void setOperateType(Integer operateType) {
+        this.operateType = operateType;
     }
 }
