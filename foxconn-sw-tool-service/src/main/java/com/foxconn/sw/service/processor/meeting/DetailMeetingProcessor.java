@@ -57,10 +57,11 @@ public class DetailMeetingProcessor {
         List<SwMeetingMember> meetingMembers = meetingMemberBusiness.queryMeetingMember(data.getMeetingID());
         List<SwMeetingCycleDetail> meetingCycleDetails = meetingCycleDetailBusiness.queryCycleDetail(data.getMeetingID());
 
-        return processMeetingVo(meeting, meetingMembers, meetingCycleDetails);
+        return processMeetingVo(meeting, data.getSearchDate(), meetingMembers, meetingCycleDetails);
     }
 
     private MeetingVo processMeetingVo(SwMeeting meeting,
+                                       String meetingDate,
                                        List<SwMeetingMember> allMembers,
                                        List<SwMeetingCycleDetail> meetingCycleDetails) {
         EmployeeVo chairman = allMembers.stream()
@@ -86,7 +87,7 @@ public class DetailMeetingProcessor {
         vo.setMeetingType(getMeetingType(meeting, allMembers));
         vo.setTitle(meeting.getTitle());
         vo.setDescription(meeting.getDescription());
-        vo.setMeetingDate(meeting.getMeetingDate());
+        vo.setMeetingDate(meetingDate);
         vo.setStartTime(meeting.getStartTime());
         vo.setEndTime(meeting.getEndTime());
         vo.setDuration(getMeetingDuration(meeting.getStartTime(), meeting.getEndTime()));
