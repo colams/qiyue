@@ -25,7 +25,7 @@ public class CreateTaskProcessorTest extends BaseTest {
 
     public static TaskBriefDetailVo initVo() {
         TaskBriefDetailVo vo = new TaskBriefDetailVo();
-        vo.setProject("系统开发");
+        vo.setProject("系统開發");
         vo.setCategory("软件BUG");
         vo.setLevel("特急");
         vo.setDeadLine("2024-08-20");

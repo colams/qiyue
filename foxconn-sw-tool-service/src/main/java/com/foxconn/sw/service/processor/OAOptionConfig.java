@@ -127,7 +127,7 @@ public class OAOptionConfig {
         OptionsVo optionsVo3 = new OptionsVo("3", "软件", optionsVos3);
         addOptionVo("3-1", "軟件需求", optionsVos3);
         addOptionVo("3-2", "軟件bug", optionsVos3);
-        addOptionVo("3-3", "系统开发", optionsVos3);
+        addOptionVo("3-3", "系统開發", optionsVos3);
 
         List<OptionsVo> optionsVos4 = new ArrayList<>();
         OptionsVo optionsVo4 = new OptionsVo("4", "報告", optionsVos4);
