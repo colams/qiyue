@@ -1,5 +1,6 @@
 package com.foxconn.sw.data.dto.request.meeting;
 
+import com.foxconn.sw.data.dto.communal.CycleMeetingVo;
 import com.foxconn.sw.data.dto.communal.MeetingDateTimeVo;
 import com.foxconn.sw.data.dto.communal.MeetingMemberEnoVo;
 import jakarta.validation.constraints.NotNull;
@@ -13,7 +14,7 @@ public class UpdateMeetingParams {
     @NotNull
     private MeetingDateTimeVo timeVo;
     private Integer abcMeeting;
-    private List<Integer> cycle;
+    private CycleMeetingVo cycleVo;
     @NotNull
     private String title;
     @NotNull
@@ -22,6 +23,10 @@ public class UpdateMeetingParams {
     private MeetingMemberEnoVo memberVo;
     private List<Integer> resourceIds;
 
+    /**
+     * 1-循环会议修改本次，
+     * 2-循环会议修改周期
+     */
     private Integer operateType;
 
     public Integer getMeetingID() {
@@ -56,12 +61,12 @@ public class UpdateMeetingParams {
         this.abcMeeting = abcMeeting;
     }
 
-    public List<Integer> getCycle() {
-        return cycle;
+    public CycleMeetingVo getCycleVo() {
+        return cycleVo;
     }
 
-    public void setCycle(List<Integer> cycle) {
-        this.cycle = cycle;
+    public void setCycleVo(CycleMeetingVo cycleVo) {
+        this.cycleVo = cycleVo;
     }
 
     public String getTitle() {

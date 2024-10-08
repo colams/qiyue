@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.Objects;
 
 @Component
 public class MeetingCycleDetailBusiness {
@@ -47,11 +48,27 @@ public class MeetingCycleDetailBusiness {
         return meetingCycleDetailMapper.selectByExample(example);
     }
 
+    public List<SwMeetingCycleDetail> queryCycleDetailWithDate(Integer meetingID, String meetingDate) {
+        SwMeetingCycleDetailExample example = new SwMeetingCycleDetailExample();
+        SwMeetingCycleDetailExample.Criteria criteria = example.createCriteria();
+        criteria.andMeetingIdEqualTo(meetingID);
+        criteria.andCancelEqualTo(0);
+        criteria.andMeetingDateEqualTo(meetingDate);
+        return meetingCycleDetailMapper.selectByExample(example);
+    }
+
     public boolean addCycleCancelDate(String deleteDate, SwMeeting meeting) {
         SwMeetingCycleDetail detail = new SwMeetingCycleDetail();
         detail.setMeetingId(meeting.getId());
         detail.setMeetingDate(deleteDate);
         detail.setCancel(1);
         return meetingCycleDetailMapper.insertSelective(detail) > 1;
+    }
+
+    public boolean updateCycle(SwMeetingCycleDetail detail) {
+        if (Objects.nonNull(detail.getId())) {
+            return meetingCycleDetailMapper.insertSelective(detail) > 0;
+        }
+        return meetingCycleDetailMapper.updateByPrimaryKeySelective(detail) > 0;
     }
 }

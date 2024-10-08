@@ -9,6 +9,7 @@ public class MeetingVo {
 
     private Integer meetingID;
     private String room;
+    private String roomName;
     private Integer meetingType;
 
     private String title;
@@ -39,6 +40,14 @@ public class MeetingVo {
 
     public void setRoom(String room) {
         this.room = room;
+    }
+
+    public String getRoomName() {
+        return roomName;
+    }
+
+    public void setRoomName(String roomName) {
+        this.roomName = roomName;
     }
 
     public Integer getMeetingType() {

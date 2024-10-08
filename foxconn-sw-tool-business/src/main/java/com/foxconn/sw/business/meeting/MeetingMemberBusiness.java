@@ -65,10 +65,16 @@ public class MeetingMemberBusiness {
 
     private SwMeetingMember toNewMember(SwMeetingMember e, Map<String, Integer> memberMap) {
         SwMeetingMember meetingMember = new SwMeetingMember();
+
+        int deleteStatus = memberMap.containsKey(e.getEmployeeNo()) ? 0 : 1;
+
         meetingMember.setId(e.getId());
-        meetingMember.setRole(e.getRole());
         meetingMember.setEmployeeNo(e.getEmployeeNo());
-        meetingMember.setIsDelete(memberMap.containsKey(e.getEmployeeNo()) ? 0 : 1);
+        meetingMember.setIsDelete(deleteStatus);
+        if (deleteStatus == 0) {
+            meetingMember.setRole(memberMap.get(e.getEmployeeNo()));
+        }
+
         return meetingMember;
     }
 

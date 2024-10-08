@@ -1,13 +1,12 @@
 package com.foxconn.sw.data.mapper.auto;
 
 import com.foxconn.sw.data.entity.SwMeeting;
-import com.foxconn.sw.data.entity.SwMeetingExample;
 import com.foxconn.sw.data.entity.SwMeetingExample.Criteria;
 import com.foxconn.sw.data.entity.SwMeetingExample.Criterion;
-import org.apache.ibatis.jdbc.SQL;
-
+import com.foxconn.sw.data.entity.SwMeetingExample;
 import java.util.List;
 import java.util.Map;
+import org.apache.ibatis.jdbc.SQL;
 
 public class SwMeetingSqlProvider {
 
@@ -52,47 +51,43 @@ public class SwMeetingSqlProvider {
         if (record.getStartTime() != null) {
             sql.VALUES("start_time", "#{startTime,jdbcType=VARCHAR}");
         }
-
+        
         if (record.getEndTime() != null) {
             sql.VALUES("end_time", "#{endTime,jdbcType=VARCHAR}");
         }
-
+        
         if (record.getResourceIds() != null) {
             sql.VALUES("resource_ids", "#{resourceIds,jdbcType=VARCHAR}");
         }
-
+        
         if (record.getIsRepeat() != null) {
             sql.VALUES("is_repeat", "#{isRepeat,jdbcType=INTEGER}");
         }
-
+        
         if (record.getCycle() != null) {
             sql.VALUES("cycle", "#{cycle,jdbcType=VARCHAR}");
         }
-
+        
         if (record.getCycleStart() != null) {
             sql.VALUES("cycle_start", "#{cycleStart,jdbcType=VARCHAR}");
         }
-
+        
         if (record.getCycleExpire() != null) {
             sql.VALUES("cycle_expire", "#{cycleExpire,jdbcType=VARCHAR}");
         }
-
-        if (record.getCreateTime() != null) {
-            sql.VALUES("create_time", "#{createTime,jdbcType=TIMESTAMP}");
-        }
-
-        if (record.getDatetimeLastchange() != null) {
-            sql.VALUES("datetime_lastchange", "#{datetimeLastchange,jdbcType=TIMESTAMP}");
-        }
-
+        
         if (record.getStatus() != null) {
             sql.VALUES("status", "#{status,jdbcType=INTEGER}");
         }
-
-        if (record.getCreator() != null) {
-            sql.VALUES("creator", "#{creator,jdbcType=VARCHAR}");
+        
+        if (record.getCreateTime() != null) {
+            sql.VALUES("create_time", "#{createTime,jdbcType=TIMESTAMP}");
         }
-
+        
+        if (record.getDatetimeLastchange() != null) {
+            sql.VALUES("datetime_lastchange", "#{datetimeLastchange,jdbcType=TIMESTAMP}");
+        }
+        
         return sql.toString();
     }
 
@@ -115,17 +110,16 @@ public class SwMeetingSqlProvider {
         sql.SELECT("cycle");
         sql.SELECT("cycle_start");
         sql.SELECT("cycle_expire");
+        sql.SELECT("status");
         sql.SELECT("create_time");
         sql.SELECT("datetime_lastchange");
-        sql.SELECT("status");
-        sql.SELECT("creator");
         sql.FROM("sw_meeting");
         applyWhere(sql, example, false);
-
+        
         if (example != null && example.getOrderByClause() != null) {
             sql.ORDER_BY(example.getOrderByClause());
         }
-
+        
         return sql.toString();
     }
 
@@ -163,47 +157,43 @@ public class SwMeetingSqlProvider {
         if (record.getStartTime() != null) {
             sql.SET("start_time = #{record.startTime,jdbcType=VARCHAR}");
         }
-
+        
         if (record.getEndTime() != null) {
             sql.SET("end_time = #{record.endTime,jdbcType=VARCHAR}");
         }
-
+        
         if (record.getResourceIds() != null) {
             sql.SET("resource_ids = #{record.resourceIds,jdbcType=VARCHAR}");
         }
-
+        
         if (record.getIsRepeat() != null) {
             sql.SET("is_repeat = #{record.isRepeat,jdbcType=INTEGER}");
         }
-
+        
         if (record.getCycle() != null) {
             sql.SET("cycle = #{record.cycle,jdbcType=VARCHAR}");
         }
-
+        
         if (record.getCycleStart() != null) {
             sql.SET("cycle_start = #{record.cycleStart,jdbcType=VARCHAR}");
         }
-
+        
         if (record.getCycleExpire() != null) {
             sql.SET("cycle_expire = #{record.cycleExpire,jdbcType=VARCHAR}");
         }
-
-        if (record.getCreateTime() != null) {
-            sql.SET("create_time = #{record.createTime,jdbcType=TIMESTAMP}");
-        }
-
-        if (record.getDatetimeLastchange() != null) {
-            sql.SET("datetime_lastchange = #{record.datetimeLastchange,jdbcType=TIMESTAMP}");
-        }
-
+        
         if (record.getStatus() != null) {
             sql.SET("status = #{record.status,jdbcType=INTEGER}");
         }
-
-        if (record.getCreator() != null) {
-            sql.SET("creator = #{record.creator,jdbcType=VARCHAR}");
+        
+        if (record.getCreateTime() != null) {
+            sql.SET("create_time = #{record.createTime,jdbcType=TIMESTAMP}");
         }
-
+        
+        if (record.getDatetimeLastchange() != null) {
+            sql.SET("datetime_lastchange = #{record.datetimeLastchange,jdbcType=TIMESTAMP}");
+        }
+        
         applyWhere(sql, example, true);
         return sql.toString();
     }
@@ -225,11 +215,10 @@ public class SwMeetingSqlProvider {
         sql.SET("cycle = #{record.cycle,jdbcType=VARCHAR}");
         sql.SET("cycle_start = #{record.cycleStart,jdbcType=VARCHAR}");
         sql.SET("cycle_expire = #{record.cycleExpire,jdbcType=VARCHAR}");
+        sql.SET("status = #{record.status,jdbcType=INTEGER}");
         sql.SET("create_time = #{record.createTime,jdbcType=TIMESTAMP}");
         sql.SET("datetime_lastchange = #{record.datetimeLastchange,jdbcType=TIMESTAMP}");
-        sql.SET("status = #{record.status,jdbcType=INTEGER}");
-        sql.SET("creator = #{record.creator,jdbcType=VARCHAR}");
-
+        
         SwMeetingExample example = (SwMeetingExample) parameter.get("example");
         applyWhere(sql, example, true);
         return sql.toString();
@@ -262,47 +251,43 @@ public class SwMeetingSqlProvider {
         if (record.getStartTime() != null) {
             sql.SET("start_time = #{startTime,jdbcType=VARCHAR}");
         }
-
+        
         if (record.getEndTime() != null) {
             sql.SET("end_time = #{endTime,jdbcType=VARCHAR}");
         }
-
+        
         if (record.getResourceIds() != null) {
             sql.SET("resource_ids = #{resourceIds,jdbcType=VARCHAR}");
         }
-
+        
         if (record.getIsRepeat() != null) {
             sql.SET("is_repeat = #{isRepeat,jdbcType=INTEGER}");
         }
-
+        
         if (record.getCycle() != null) {
             sql.SET("cycle = #{cycle,jdbcType=VARCHAR}");
         }
-
+        
         if (record.getCycleStart() != null) {
             sql.SET("cycle_start = #{cycleStart,jdbcType=VARCHAR}");
         }
-
+        
         if (record.getCycleExpire() != null) {
             sql.SET("cycle_expire = #{cycleExpire,jdbcType=VARCHAR}");
         }
-
-        if (record.getCreateTime() != null) {
-            sql.SET("create_time = #{createTime,jdbcType=TIMESTAMP}");
-        }
-
-        if (record.getDatetimeLastchange() != null) {
-            sql.SET("datetime_lastchange = #{datetimeLastchange,jdbcType=TIMESTAMP}");
-        }
-
+        
         if (record.getStatus() != null) {
             sql.SET("status = #{status,jdbcType=INTEGER}");
         }
-
-        if (record.getCreator() != null) {
-            sql.SET("creator = #{creator,jdbcType=VARCHAR}");
+        
+        if (record.getCreateTime() != null) {
+            sql.SET("create_time = #{createTime,jdbcType=TIMESTAMP}");
         }
-
+        
+        if (record.getDatetimeLastchange() != null) {
+            sql.SET("datetime_lastchange = #{datetimeLastchange,jdbcType=TIMESTAMP}");
+        }
+        
         sql.WHERE("id = #{id,jdbcType=INTEGER}");
         
         return sql.toString();

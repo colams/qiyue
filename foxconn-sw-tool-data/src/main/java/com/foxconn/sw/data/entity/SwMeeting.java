@@ -29,13 +29,11 @@ public class SwMeeting {
 
     private String cycleExpire;
 
+    private Integer status;
+
     private LocalDateTime createTime;
 
     private LocalDateTime datetimeLastchange;
-
-    private Integer status;
-
-    private String creator;
 
     public Integer getId() {
         return id;
@@ -206,6 +204,19 @@ public class SwMeeting {
         this.cycleExpire = cycleExpire == null ? null : cycleExpire.trim();
     }
 
+    public Integer getStatus() {
+        return status;
+    }
+
+    public SwMeeting withStatus(Integer status) {
+        this.setStatus(status);
+        return this;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
+    }
+
     public LocalDateTime getCreateTime() {
         return createTime;
     }
@@ -230,31 +241,5 @@ public class SwMeeting {
 
     public void setDatetimeLastchange(LocalDateTime datetimeLastchange) {
         this.datetimeLastchange = datetimeLastchange;
-    }
-
-    public Integer getStatus() {
-        return status;
-    }
-
-    public SwMeeting withStatus(Integer status) {
-        this.setStatus(status);
-        return this;
-    }
-
-    public void setStatus(Integer status) {
-        this.status = status;
-    }
-
-    public String getCreator() {
-        return creator;
-    }
-
-    public SwMeeting withCreator(String creator) {
-        this.setCreator(creator);
-        return this;
-    }
-
-    public void setCreator(String creator) {
-        this.creator = creator == null ? null : creator.trim();
     }
 }

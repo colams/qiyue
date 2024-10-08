@@ -2,9 +2,10 @@ package com.foxconn.sw.data.constants.enums;
 
 public enum MeetingRoleFlagEnums {
 
-    Chairman_Flag(1 << 0),  // 001 会议主持人
-    Maintainer_Flag(1 << 1), // 010 会议维护人
-    Member_Flag(1 << 2),  // 100 会议参与人
+    Chairman_Flag(1 << 0),  // 0001 会议主持人  1
+    Maintainer_Flag(1 << 1), // 0010 会议维护人 2
+    Member_Flag(1 << 2),  // 0100 会议参与人    4
+    Creator_Flag(1 << 3), // 1000 会议创建人    8
     ;
 
 

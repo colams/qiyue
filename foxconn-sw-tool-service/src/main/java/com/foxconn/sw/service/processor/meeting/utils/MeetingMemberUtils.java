@@ -2,7 +2,9 @@ package com.foxconn.sw.service.processor.meeting.utils;
 
 import com.foxconn.sw.business.context.RequestContext;
 import com.foxconn.sw.data.dto.communal.MeetingMemberEnoVo;
+import com.google.common.collect.Lists;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.util.CollectionUtils;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -37,7 +39,44 @@ public class MeetingMemberUtils {
             employeeRoleMap.put(e, role);
         });
 
+        Lists.newArrayList(RequestContext.getEmployeeNo()).forEach(e -> {
+            Integer role = employeeRoleMap.getOrDefault(e, 0);
+            role = Creator_Flag.setFlag(role);
+            employeeRoleMap.put(e, role);
+        });
+
         return employeeRoleMap;
     }
+
+    public static Map<String, Integer> processMemberRole2(MeetingMemberEnoVo eNoVo) {
+
+        Map<String, Integer> employeeRoleMap = new HashMap<>();
+
+        if (Objects.isNull(eNoVo)) {
+            return employeeRoleMap;
+        }
+
+        if (!StringUtils.isEmpty(eNoVo.getChairman())) {
+            employeeRoleMap.put(eNoVo.getChairman(), Chairman_Flag.initFlag());
+        }
+        if (!CollectionUtils.isEmpty(eNoVo.getMaintainers())) {
+            eNoVo.getMaintainers().forEach(e -> {
+                Integer role = employeeRoleMap.getOrDefault(e, 0);
+                role = Maintainer_Flag.setFlag(role);
+                employeeRoleMap.put(e, role);
+            });
+        }
+
+        if (!CollectionUtils.isEmpty(eNoVo.getMaintainers())) {
+            eNoVo.getMembers().forEach(e -> {
+                Integer role = employeeRoleMap.getOrDefault(e, 0);
+                role = Member_Flag.setFlag(role);
+                employeeRoleMap.put(e, role);
+            });
+        }
+
+        return employeeRoleMap;
+    }
+
 
 }

@@ -16,6 +16,7 @@ import com.foxconn.sw.data.entity.SwMeeting;
 import com.foxconn.sw.data.entity.SwMeetingCycleDetail;
 import com.foxconn.sw.data.entity.SwMeetingMember;
 import com.foxconn.sw.data.exception.BizException;
+import com.foxconn.sw.service.processor.MeetingRoomConfig;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -71,6 +72,7 @@ public class DetailMeetingProcessor {
         MeetingVo vo = new MeetingVo();
         vo.setMeetingID(meeting.getId());
         vo.setRoom(meeting.getRoom());
+        vo.setRoomName(MeetingRoomConfig.getText(meeting.getRoom()));
         vo.setMeetingType(getMeetingType(meeting, allMembers));
         vo.setTitle(meeting.getTitle());
         vo.setDescription(meeting.getDescription());
@@ -110,7 +112,9 @@ public class DetailMeetingProcessor {
                 .filter(e -> e.getEmployeeNo().equalsIgnoreCase(RequestContext.getEmployeeNo()))
                 .findFirst()
                 .orElse(null);
-        if (MeetingRoleFlagEnums.Chairman_Flag.test(member.getRole())) {
+        if (MeetingRoleFlagEnums.Chairman_Flag.test(member.getRole())
+                || MeetingRoleFlagEnums.Maintainer_Flag.test(member.getRole())
+                || MeetingRoleFlagEnums.Creator_Flag.test(member.getRole())) {
             return 1;
         }
 

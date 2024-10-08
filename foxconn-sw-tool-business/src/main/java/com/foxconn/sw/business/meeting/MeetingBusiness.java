@@ -22,7 +22,6 @@ public class MeetingBusiness {
     public Integer createMeeting(EstablishMeetingParams data) {
         SwMeeting meeting = new SwMeeting();
         meeting.setRoom(data.getRoom());
-        meeting.setCreator(RequestContext.getEmployeeNo());
         meeting.setStartTime(data.getTimeVo().getStartTime());
         meeting.setEndTime(data.getTimeVo().getEndTime());
         meeting.setMeetingDate(data.getTimeVo().getMeetingDate());

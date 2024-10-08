@@ -5,6 +5,7 @@ import com.foxconn.sw.business.meeting.MeetingBusiness;
 import com.foxconn.sw.business.meeting.MeetingCycleDetailBusiness;
 import com.foxconn.sw.business.meeting.MeetingMemberBusiness;
 import com.foxconn.sw.common.utils.ConvertUtils;
+import com.foxconn.sw.common.utils.JsonUtils;
 import com.foxconn.sw.data.dto.request.meeting.UpdateMeetingParams;
 import com.foxconn.sw.data.entity.SwMeeting;
 import com.foxconn.sw.data.entity.SwMeetingCycleDetail;
@@ -12,6 +13,7 @@ import com.foxconn.sw.service.processor.meeting.utils.MeetingMemberUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.util.CollectionUtils;
 
 import java.util.List;
 import java.util.Map;
@@ -29,10 +31,15 @@ public class UpdateMeetingProcessor {
 
     public Boolean update(UpdateMeetingParams data) {
         SwMeeting meeting = meetingBusiness.getMeetingByID(data.getMeetingID());
-        if ((Objects.nonNull(meeting.getIsRepeat()) && meeting.getIsRepeat() == 1) || StringUtils.isNotEmpty(meeting.getCycle())) {
+        if (((Objects.nonNull(meeting.getIsRepeat())
+                && meeting.getIsRepeat() == 1)
+                || StringUtils.isNotEmpty(meeting.getCycle()))
+                && Objects.nonNull(data.getOperateType())
+                && data.getOperateType() == 1) {
             processCycle(meeting, data);
         } else {
             processMeeting(meeting, data);
+            processMembers(data);
         }
         return true;
     }
@@ -48,32 +55,38 @@ public class UpdateMeetingProcessor {
         updateMeeting.setStartTime(data.getTimeVo().getStartTime());
         updateMeeting.setEndTime(data.getTimeVo().getEndTime());
         updateMeeting.setResourceIds(ConvertUtils.listIntegerToString(data.getResourceIds()));
-        updateMeeting.setIsRepeat(Objects.nonNull(data.getCycle()) && data.getCycle().size() > 1 ? 1 : 0);
-        updateMeeting.setCycle(ConvertUtils.listIntegerToString(data.getCycle()));
-        updateMeeting.setCreator(RequestContext.getEmployeeNo());
+
+        if (Objects.nonNull(data.getCycleVo()) && Objects.nonNull(data.getCycleVo().getCycle())) {
+            updateMeeting.setCycle(JsonUtils.serialize(data.getCycleVo().getCycle()));
+            updateMeeting.setCycleExpire(data.getCycleVo().getCycleExpire());
+            updateMeeting.setCycleStart(data.getCycleVo().getCycleStart());
+            updateMeeting.setIsRepeat(1);
+        }
         return meetingBusiness.updateMeetingDetail(updateMeeting);
     }
 
     private boolean processCycle(SwMeeting meeting, UpdateMeetingParams data) {
-
-        List<SwMeetingCycleDetail> cycles = meetingCycleDetailBusiness.queryCycleDetail(meeting.getId());
-
-//
-//        SwMeetingCycleDetail cycleDetail = new SwMeetingCycleDetail();
-//        cycleDetail.setMeetingId();
-//        cycleDetail.setRoom();
-//        cycleDetail.setMeetingDate();
-//        cycleDetail.setStartTime();
-//        cycleDetail.setEndTime();
-//        cycleDetail.setCancel();
-//        cycleDetail.setCreateTime();
-//        cycleDetail.setDatetimeLastchange();
-
+        List<SwMeetingCycleDetail> cycles = meetingCycleDetailBusiness.queryCycleDetailWithDate(meeting.getId(),
+                data.getTimeVo().getMeetingDate());
+        SwMeetingCycleDetail detail = cycles.stream().findFirst().orElse(new SwMeetingCycleDetail());
+        detail.setMeetingId(meeting.getId());
+        detail.setRoom(data.getRoom());
+        detail.setTitle(data.getTitle());
+        detail.setDescription(data.getDescription());
+        if (CollectionUtils.isEmpty(data.getResourceIds())) {
+            detail.setResourceIds(JsonUtils.serialize(data.getResourceIds()));
+        }
+        detail.setOperator(RequestContext.getEmployeeNo());
+        detail.setMeetingDate(data.getTimeVo().getMeetingDate());
+        detail.setStartTime(data.getTimeVo().getStartTime());
+        detail.setEndTime(data.getTimeVo().getEndTime());
+        detail.setCancel(0);
+        meetingCycleDetailBusiness.updateCycle(detail);
         return false;
     }
 
     private boolean processMembers(UpdateMeetingParams data) {
-        Map<String, Integer> map = MeetingMemberUtils.processMemberRole(data.getMemberVo());
+        Map<String, Integer> map = MeetingMemberUtils.processMemberRole2(data.getMemberVo());
         meetingMemberBusiness.updateMeetingMember(data.getMeetingID(), map);
         return true;
     }
