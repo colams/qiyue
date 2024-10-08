@@ -1,30 +1,38 @@
 package com.foxconn.sw.service.processor.meeting;
 
+import com.foxconn.sw.business.SwAppendResourceBusiness;
 import com.foxconn.sw.business.context.RequestContext;
 import com.foxconn.sw.business.meeting.MeetingBusiness;
 import com.foxconn.sw.business.meeting.MeetingCycleDetailBusiness;
 import com.foxconn.sw.business.meeting.MeetingMemberBusiness;
 import com.foxconn.sw.business.system.EmployeeBusiness;
+import com.foxconn.sw.common.utils.ConvertUtils;
 import com.foxconn.sw.common.utils.JsonUtils;
 import com.foxconn.sw.data.constants.enums.MeetingRoleFlagEnums;
 import com.foxconn.sw.data.constants.enums.retcode.RetCode;
 import com.foxconn.sw.data.dto.communal.CycleMeetingVo;
+import com.foxconn.sw.data.dto.entity.ResourceVo;
 import com.foxconn.sw.data.dto.entity.acount.EmployeeVo;
 import com.foxconn.sw.data.dto.entity.meeting.MeetingVo;
 import com.foxconn.sw.data.dto.request.meeting.DetailMeetingParams;
+import com.foxconn.sw.data.entity.SwAppendResource;
 import com.foxconn.sw.data.entity.SwMeeting;
 import com.foxconn.sw.data.entity.SwMeetingCycleDetail;
 import com.foxconn.sw.data.entity.SwMeetingMember;
 import com.foxconn.sw.data.exception.BizException;
 import com.foxconn.sw.service.processor.MeetingRoomConfig;
+import org.apache.commons.compress.utils.Lists;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.util.CollectionUtils;
 
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Component
@@ -37,6 +45,8 @@ public class DetailMeetingProcessor {
     MeetingCycleDetailBusiness meetingCycleDetailBusiness;
     @Autowired
     EmployeeBusiness employeeBusiness;
+    @Autowired
+    SwAppendResourceBusiness appendResourceBusiness;
 
     public MeetingVo detail(DetailMeetingParams data) {
         SwMeeting meeting = meetingBusiness.getMeetingByID(data.getMeetingID());
@@ -90,6 +100,21 @@ public class DetailMeetingProcessor {
         vo.setChairman(chairman);
         vo.setMaintainers(maintainers);
         vo.setMembers(members);
+        if (StringUtils.isNotEmpty(meeting.getResourceIds())) {
+            List<Integer> resourceIDs = JsonUtils.deserialize(meeting.getResourceIds(), List.class, Integer.class);
+            if (!CollectionUtils.isEmpty(resourceIDs)) {
+                List<SwAppendResource> resources = appendResourceBusiness.getAppendResources(resourceIDs);
+                List<ResourceVo> resourceVos = new ArrayList<>();
+                Optional.ofNullable(resources).orElse(Lists.newArrayList()).forEach(e -> {
+                    ResourceVo resourceVo = new ResourceVo();
+                    resourceVo.setId(e.getId());
+                    resourceVo.setName(e.getOriginName());
+                    resourceVo.setUrl(ConvertUtils.urlPreFix(e.getId(), e.getFilePath()));
+                    resourceVos.add(resourceVo);
+                });
+                vo.setResource(resourceVos);
+            }
+        }
         return vo;
     }
 

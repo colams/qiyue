@@ -3,7 +3,7 @@ package com.foxconn.sw.service.processor.meeting;
 import com.foxconn.sw.business.meeting.MeetingBusiness;
 import com.foxconn.sw.business.meeting.MeetingCycleDetailBusiness;
 import com.foxconn.sw.business.meeting.MeetingMemberBusiness;
-import com.foxconn.sw.common.utils.ConvertUtils;
+import com.foxconn.sw.common.utils.JsonUtils;
 import com.foxconn.sw.common.utils.LocalDateExtUtils;
 import com.foxconn.sw.data.constants.enums.retcode.RetCode;
 import com.foxconn.sw.data.dto.request.meeting.DeleteParams;
@@ -40,8 +40,11 @@ public class DeleteProcessor {
         if (StringUtils.isEmpty(data.getDeleteDate()) || meeting.getIsRepeat() == 0) {
             return meetingBusiness.updateMeetingStatus(meeting);
         } else {
-            List<Integer> weekOfDays = ConvertUtils.stringToListInt(meeting.getCycle());
-            Integer weekOfDay = LocalDateExtUtils.toLocalDate(data.getDeleteDate()).getDayOfWeek().getValue() + 1;
+            if (meeting.getMeetingDate().equalsIgnoreCase(data.getDeleteDate())) {
+                return meetingCycleDetailBusiness.addCycleCancelDate(data.getDeleteDate(), meeting);
+            }
+            List<Integer> weekOfDays = JsonUtils.deserialize(meeting.getCycle(), List.class, Integer.class);
+            Integer weekOfDay = LocalDateExtUtils.toLocalDate(data.getDeleteDate()).getDayOfWeek().getValue();
             if (!weekOfDays.contains(weekOfDay)) {
                 throw new BizException(RetCode.VALIDATE_FAILED);
             }

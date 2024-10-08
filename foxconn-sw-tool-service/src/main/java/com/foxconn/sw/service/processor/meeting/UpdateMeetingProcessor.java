@@ -4,7 +4,7 @@ import com.foxconn.sw.business.context.RequestContext;
 import com.foxconn.sw.business.meeting.MeetingBusiness;
 import com.foxconn.sw.business.meeting.MeetingCycleDetailBusiness;
 import com.foxconn.sw.business.meeting.MeetingMemberBusiness;
-import com.foxconn.sw.common.utils.ConvertUtils;
+import com.foxconn.sw.business.meeting.utils.CycleUtils;
 import com.foxconn.sw.common.utils.JsonUtils;
 import com.foxconn.sw.data.dto.request.meeting.UpdateMeetingParams;
 import com.foxconn.sw.data.entity.SwMeeting;
@@ -54,14 +54,8 @@ public class UpdateMeetingProcessor {
         updateMeeting.setMeetingDate(data.getTimeVo().getMeetingDate());
         updateMeeting.setStartTime(data.getTimeVo().getStartTime());
         updateMeeting.setEndTime(data.getTimeVo().getEndTime());
-        updateMeeting.setResourceIds(ConvertUtils.listIntegerToString(data.getResourceIds()));
-
-        if (Objects.nonNull(data.getCycleVo()) && Objects.nonNull(data.getCycleVo().getCycle())) {
-            updateMeeting.setCycle(JsonUtils.serialize(data.getCycleVo().getCycle()));
-            updateMeeting.setCycleExpire(data.getCycleVo().getCycleExpire());
-            updateMeeting.setCycleStart(data.getCycleVo().getCycleStart());
-            updateMeeting.setIsRepeat(1);
-        }
+        updateMeeting.setResourceIds(JsonUtils.serialize(data.getResourceIds()));
+        CycleUtils.processCycle(updateMeeting, data.getCycleVo());
         return meetingBusiness.updateMeetingDetail(updateMeeting);
     }
 

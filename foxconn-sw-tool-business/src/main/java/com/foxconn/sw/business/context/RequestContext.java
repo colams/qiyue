@@ -44,6 +44,7 @@ public class RequestContext {
         String USER_INFO = "userInfo";
         String NameEmployeeNo = "nameEmployeeNo";
         String EmployeeNo = "employeeNo";
+        String OperateType = "operateType";
 
     }
 }

@@ -1,6 +1,7 @@
 package com.foxconn.sw.business.meeting;
 
 import com.foxconn.sw.business.context.RequestContext;
+import com.foxconn.sw.business.meeting.utils.CycleUtils;
 import com.foxconn.sw.common.utils.JsonUtils;
 import com.foxconn.sw.data.dto.request.meeting.EstablishMeetingParams;
 import com.foxconn.sw.data.entity.SwMeeting;
@@ -11,7 +12,6 @@ import org.springframework.util.CollectionUtils;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Objects;
 
 @Component
 public class MeetingBusiness {
@@ -30,18 +30,13 @@ public class MeetingBusiness {
         if (!CollectionUtils.isEmpty(data.getResourceIds())) {
             meeting.setResourceIds(JsonUtils.serialize(data.getResourceIds()));
         }
-
-        if (Objects.nonNull(data.getCycleVo()) && Objects.nonNull(data.getCycleVo().getCycle())) {
-            meeting.setCycle(JsonUtils.serialize(data.getCycleVo().getCycle()));
-            meeting.setCycleExpire(data.getCycleVo().getCycleExpire());
-            meeting.setCycleStart(data.getCycleVo().getCycleStart());
-            meeting.setIsRepeat(1);
-        }
+        CycleUtils.processCycle(meeting, data.getCycleVo());
         meetingMapper.insertSelective(meeting);
         return meeting.getId();
     }
 
-    public List<SwMeeting> queryMeeting(LocalDate startDate, LocalDate endDate, String employeeNo) {
+    public List<SwMeeting> queryMeeting(LocalDate startDate, LocalDate endDate) {
+        String employeeNo = RequestContext.getEmployeeNo();
         List<SwMeeting> meetings = meetingMapper.selectMeetings(startDate, endDate, employeeNo);
         return meetings;
     }

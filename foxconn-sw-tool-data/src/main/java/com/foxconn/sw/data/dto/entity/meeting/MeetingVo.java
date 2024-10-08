@@ -1,6 +1,7 @@
 package com.foxconn.sw.data.dto.entity.meeting;
 
 import com.foxconn.sw.data.dto.communal.CycleMeetingVo;
+import com.foxconn.sw.data.dto.entity.ResourceVo;
 import com.foxconn.sw.data.dto.entity.acount.EmployeeVo;
 
 import java.util.List;
@@ -25,6 +26,8 @@ public class MeetingVo {
     private EmployeeVo chairman;
     private List<EmployeeVo> maintainers;
     private List<EmployeeVo> members;
+
+    private List<ResourceVo> resource;
 
     public Integer getMeetingID() {
         return meetingID;
@@ -136,5 +139,13 @@ public class MeetingVo {
 
     public void setMembers(List<EmployeeVo> members) {
         this.members = members;
+    }
+
+    public List<ResourceVo> getResource() {
+        return resource;
+    }
+
+    public void setResource(List<ResourceVo> resource) {
+        this.resource = resource;
     }
 }

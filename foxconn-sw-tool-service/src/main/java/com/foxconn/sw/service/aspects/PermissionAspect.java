@@ -35,7 +35,7 @@ public class PermissionAspect {
         Object retValue = null;
         String result = "fail";
         try {
-            contextInit(request);
+            contextInit(request, joinPoint.getSignature().getName());
             retValue = joinPoint.proceed();
             result = "success";
         } catch (Throwable throwable) {
@@ -49,7 +49,7 @@ public class PermissionAspect {
     }
 
 
-    private void contextInit(Object obj) {
+    private void contextInit(Object obj, String signatureName) {
         Request request;
         if (obj instanceof Request) {
             request = (Request) obj;
@@ -61,6 +61,7 @@ public class PermissionAspect {
         RequestContext.put(RequestContext.ContextKey.USER_INFO, userInfo);
         RequestContext.put(RequestContext.ContextKey.NameEmployeeNo, nameEmployeeNo);
         RequestContext.put(RequestContext.ContextKey.EmployeeNo, userInfo.getEmployeeNo());
+        RequestContext.put(RequestContext.ContextKey.OperateType, signatureName);
     }
 
     private void logParam(String result, ProceedingJoinPoint joinPoint, Object retValue) {
