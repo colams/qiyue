@@ -66,7 +66,7 @@ public class MeetingCycleDetailBusiness {
     }
 
     public boolean updateCycle(SwMeetingCycleDetail detail) {
-        if (Objects.nonNull(detail.getId())) {
+        if (Objects.isNull(detail.getId())) {
             return meetingCycleDetailMapper.insertSelective(detail) > 0;
         }
         return meetingCycleDetailMapper.updateByPrimaryKeySelective(detail) > 0;

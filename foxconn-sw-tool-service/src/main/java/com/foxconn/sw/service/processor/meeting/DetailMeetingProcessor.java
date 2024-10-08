@@ -21,7 +21,7 @@ import com.foxconn.sw.data.entity.SwMeetingCycleDetail;
 import com.foxconn.sw.data.entity.SwMeetingMember;
 import com.foxconn.sw.data.exception.BizException;
 import com.foxconn.sw.service.processor.MeetingRoomConfig;
-import org.apache.commons.compress.utils.Lists;
+import com.google.common.collect.Lists;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -63,7 +63,13 @@ public class DetailMeetingProcessor {
     private MeetingVo processMeetingVo(SwMeeting meeting,
                                        String meetingDate,
                                        List<SwMeetingMember> allMembers,
-                                       List<SwMeetingCycleDetail> meetingCycleDetails) {
+                                       List<SwMeetingCycleDetail> cycleDetails) {
+
+        SwMeetingCycleDetail detail = cycleDetails.stream()
+                .filter(e -> e.getMeetingDate().equalsIgnoreCase(meetingDate))
+                .findFirst()
+                .orElse(new SwMeetingCycleDetail());
+
         EmployeeVo chairman = allMembers.stream()
                 .filter(e -> MeetingRoleFlagEnums.Chairman_Flag.test(e.getRole()))
                 .map(e -> toEmployee(e.getEmployeeNo()))
@@ -82,15 +88,16 @@ public class DetailMeetingProcessor {
 
         MeetingVo vo = new MeetingVo();
         vo.setMeetingID(meeting.getId());
-        vo.setRoom(meeting.getRoom());
-        vo.setRoomName(MeetingRoomConfig.getText(meeting.getRoom()));
+        vo.setRoom(Optional.ofNullable(detail.getRoom()).orElse(meeting.getRoom()));
+        vo.setRoomName(MeetingRoomConfig.getText(vo.getRoom()));
         vo.setMeetingType(getMeetingType(meeting, allMembers));
-        vo.setTitle(meeting.getTitle());
-        vo.setDescription(meeting.getDescription());
+        vo.setTitle(Optional.ofNullable(detail.getTitle()).orElse(meeting.getTitle()));
+        vo.setDescription(Optional.ofNullable(detail.getDescription()).orElse(meeting.getDescription()));
         vo.setMeetingDate(meetingDate);
-        vo.setStartTime(meeting.getStartTime());
-        vo.setEndTime(meeting.getEndTime());
-        vo.setDuration(getMeetingDuration(meeting.getStartTime(), meeting.getEndTime()));
+        vo.setStartTime(Optional.ofNullable(detail.getStartTime()).orElse(meeting.getStartTime()));
+        vo.setEndTime(Optional.ofNullable(detail.getEndTime()).orElse(meeting.getEndTime()));
+        vo.setDuration(getMeetingDuration(vo.getStartTime(), vo.getEndTime()));
+
         if (StringUtils.isNotEmpty(meeting.getCycle())) {
             CycleMeetingVo cycleMeetingVo = new CycleMeetingVo();
             cycleMeetingVo.setCycle(JsonUtils.deserialize(meeting.getCycle(), List.class, Integer.class));
@@ -98,11 +105,20 @@ public class DetailMeetingProcessor {
             cycleMeetingVo.setCycleExpire(meeting.getCycleExpire());
             vo.setCycleVo(cycleMeetingVo);
         }
+
         vo.setChairman(chairman);
         vo.setMaintainers(maintainers);
         vo.setMembers(members);
-        if (StringUtils.isNotEmpty(meeting.getResourceIds())) {
-            List<Integer> resourceIDs = JsonUtils.deserialize(meeting.getResourceIds(), List.class, Integer.class);
+        if (StringUtils.isNotEmpty(meeting.getResourceIds()) || StringUtils.isNotEmpty(detail.getResourceIds())) {
+
+            List<Integer> resourceIDs = Lists.newArrayList();
+            if (StringUtils.isNotEmpty(meeting.getResourceIds())) {
+                resourceIDs.addAll(JsonUtils.deserialize(meeting.getResourceIds(), List.class, Integer.class));
+            }
+            if (StringUtils.isNotEmpty(detail.getResourceIds())) {
+                resourceIDs.addAll(JsonUtils.deserialize(detail.getResourceIds(), List.class, Integer.class));
+            }
+
             if (!CollectionUtils.isEmpty(resourceIDs)) {
                 List<SwAppendResource> resources = appendResourceBusiness.getAppendResources(resourceIDs);
                 List<ResourceVo> resourceVos = new ArrayList<>();

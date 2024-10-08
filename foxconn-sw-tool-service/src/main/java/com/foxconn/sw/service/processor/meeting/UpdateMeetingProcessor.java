@@ -9,6 +9,7 @@ import com.foxconn.sw.common.utils.JsonUtils;
 import com.foxconn.sw.data.dto.request.meeting.UpdateMeetingParams;
 import com.foxconn.sw.data.entity.SwMeeting;
 import com.foxconn.sw.data.entity.SwMeetingCycleDetail;
+import com.foxconn.sw.data.entity.SwMeetingMember;
 import com.foxconn.sw.service.processor.meeting.utils.MeetingMemberUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -67,7 +68,7 @@ public class UpdateMeetingProcessor {
         detail.setRoom(data.getRoom());
         detail.setTitle(data.getTitle());
         detail.setDescription(data.getDescription());
-        if (CollectionUtils.isEmpty(data.getResourceIds())) {
+        if (!CollectionUtils.isEmpty(data.getResourceIds())) {
             detail.setResourceIds(JsonUtils.serialize(data.getResourceIds()));
         }
         detail.setOperator(RequestContext.getEmployeeNo());
@@ -80,7 +81,8 @@ public class UpdateMeetingProcessor {
     }
 
     private boolean processMembers(UpdateMeetingParams data) {
-        Map<String, Integer> map = MeetingMemberUtils.processMemberRole2(data.getMemberVo());
+        List<SwMeetingMember> members = meetingMemberBusiness.queryMeetingMember(data.getMeetingID());
+        Map<String, Integer> map = MeetingMemberUtils.processMemberRole2(data.getMemberVo(), members);
         meetingMemberBusiness.updateMeetingMember(data.getMeetingID(), map);
         return true;
     }
