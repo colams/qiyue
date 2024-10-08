@@ -32,8 +32,8 @@ public class SwMeetingMemberSqlProvider {
             sql.VALUES("meeting_id", "#{meetingId,jdbcType=INTEGER}");
         }
         
-        if (record.getRole() != null) {
-            sql.VALUES("role", "#{role,jdbcType=INTEGER}");
+        if (record.getMeetingDetailId() != null) {
+            sql.VALUES("meeting_detail_id", "#{meetingDetailId,jdbcType=INTEGER}");
         }
         
         if (record.getEmployeeNo() != null) {
@@ -56,6 +56,10 @@ public class SwMeetingMemberSqlProvider {
             sql.VALUES("datetime_lastchange", "#{datetimeLastchange,jdbcType=TIMESTAMP}");
         }
         
+        if (record.getRole() != null) {
+            sql.VALUES("role", "#{role,jdbcType=INTEGER}");
+        }
+        
         return sql.toString();
     }
 
@@ -67,12 +71,13 @@ public class SwMeetingMemberSqlProvider {
             sql.SELECT("id");
         }
         sql.SELECT("meeting_id");
-        sql.SELECT("role");
+        sql.SELECT("meeting_detail_id");
         sql.SELECT("employee_no");
         sql.SELECT("name");
         sql.SELECT("is_delete");
         sql.SELECT("create_time");
         sql.SELECT("datetime_lastchange");
+        sql.SELECT("role");
         sql.FROM("sw_meeting_member");
         applyWhere(sql, example, false);
         
@@ -98,8 +103,8 @@ public class SwMeetingMemberSqlProvider {
             sql.SET("meeting_id = #{record.meetingId,jdbcType=INTEGER}");
         }
         
-        if (record.getRole() != null) {
-            sql.SET("role = #{record.role,jdbcType=INTEGER}");
+        if (record.getMeetingDetailId() != null) {
+            sql.SET("meeting_detail_id = #{record.meetingDetailId,jdbcType=INTEGER}");
         }
         
         if (record.getEmployeeNo() != null) {
@@ -122,6 +127,10 @@ public class SwMeetingMemberSqlProvider {
             sql.SET("datetime_lastchange = #{record.datetimeLastchange,jdbcType=TIMESTAMP}");
         }
         
+        if (record.getRole() != null) {
+            sql.SET("role = #{record.role,jdbcType=INTEGER}");
+        }
+        
         applyWhere(sql, example, true);
         return sql.toString();
     }
@@ -132,12 +141,13 @@ public class SwMeetingMemberSqlProvider {
         
         sql.SET("id = #{record.id,jdbcType=INTEGER}");
         sql.SET("meeting_id = #{record.meetingId,jdbcType=INTEGER}");
-        sql.SET("role = #{record.role,jdbcType=INTEGER}");
+        sql.SET("meeting_detail_id = #{record.meetingDetailId,jdbcType=INTEGER}");
         sql.SET("employee_no = #{record.employeeNo,jdbcType=VARCHAR}");
         sql.SET("name = #{record.name,jdbcType=VARCHAR}");
         sql.SET("is_delete = #{record.isDelete,jdbcType=INTEGER}");
         sql.SET("create_time = #{record.createTime,jdbcType=TIMESTAMP}");
         sql.SET("datetime_lastchange = #{record.datetimeLastchange,jdbcType=TIMESTAMP}");
+        sql.SET("role = #{record.role,jdbcType=INTEGER}");
         
         SwMeetingMemberExample example = (SwMeetingMemberExample) parameter.get("example");
         applyWhere(sql, example, true);
@@ -152,8 +162,8 @@ public class SwMeetingMemberSqlProvider {
             sql.SET("meeting_id = #{meetingId,jdbcType=INTEGER}");
         }
         
-        if (record.getRole() != null) {
-            sql.SET("role = #{role,jdbcType=INTEGER}");
+        if (record.getMeetingDetailId() != null) {
+            sql.SET("meeting_detail_id = #{meetingDetailId,jdbcType=INTEGER}");
         }
         
         if (record.getEmployeeNo() != null) {
@@ -174,6 +184,10 @@ public class SwMeetingMemberSqlProvider {
         
         if (record.getDatetimeLastchange() != null) {
             sql.SET("datetime_lastchange = #{datetimeLastchange,jdbcType=TIMESTAMP}");
+        }
+        
+        if (record.getRole() != null) {
+            sql.SET("role = #{role,jdbcType=INTEGER}");
         }
         
         sql.WHERE("id = #{id,jdbcType=INTEGER}");

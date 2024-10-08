@@ -225,63 +225,63 @@ public class SwMeetingMemberExample {
             return (Criteria) this;
         }
 
-        public Criteria andRoleIsNull() {
-            addCriterion("role is null");
+        public Criteria andMeetingDetailIdIsNull() {
+            addCriterion("meeting_detail_id is null");
             return (Criteria) this;
         }
 
-        public Criteria andRoleIsNotNull() {
-            addCriterion("role is not null");
+        public Criteria andMeetingDetailIdIsNotNull() {
+            addCriterion("meeting_detail_id is not null");
             return (Criteria) this;
         }
 
-        public Criteria andRoleEqualTo(Integer value) {
-            addCriterion("role =", value, "role");
+        public Criteria andMeetingDetailIdEqualTo(Integer value) {
+            addCriterion("meeting_detail_id =", value, "meetingDetailId");
             return (Criteria) this;
         }
 
-        public Criteria andRoleNotEqualTo(Integer value) {
-            addCriterion("role <>", value, "role");
+        public Criteria andMeetingDetailIdNotEqualTo(Integer value) {
+            addCriterion("meeting_detail_id <>", value, "meetingDetailId");
             return (Criteria) this;
         }
 
-        public Criteria andRoleGreaterThan(Integer value) {
-            addCriterion("role >", value, "role");
+        public Criteria andMeetingDetailIdGreaterThan(Integer value) {
+            addCriterion("meeting_detail_id >", value, "meetingDetailId");
             return (Criteria) this;
         }
 
-        public Criteria andRoleGreaterThanOrEqualTo(Integer value) {
-            addCriterion("role >=", value, "role");
+        public Criteria andMeetingDetailIdGreaterThanOrEqualTo(Integer value) {
+            addCriterion("meeting_detail_id >=", value, "meetingDetailId");
             return (Criteria) this;
         }
 
-        public Criteria andRoleLessThan(Integer value) {
-            addCriterion("role <", value, "role");
+        public Criteria andMeetingDetailIdLessThan(Integer value) {
+            addCriterion("meeting_detail_id <", value, "meetingDetailId");
             return (Criteria) this;
         }
 
-        public Criteria andRoleLessThanOrEqualTo(Integer value) {
-            addCriterion("role <=", value, "role");
+        public Criteria andMeetingDetailIdLessThanOrEqualTo(Integer value) {
+            addCriterion("meeting_detail_id <=", value, "meetingDetailId");
             return (Criteria) this;
         }
 
-        public Criteria andRoleIn(List<Integer> values) {
-            addCriterion("role in", values, "role");
+        public Criteria andMeetingDetailIdIn(List<Integer> values) {
+            addCriterion("meeting_detail_id in", values, "meetingDetailId");
             return (Criteria) this;
         }
 
-        public Criteria andRoleNotIn(List<Integer> values) {
-            addCriterion("role not in", values, "role");
+        public Criteria andMeetingDetailIdNotIn(List<Integer> values) {
+            addCriterion("meeting_detail_id not in", values, "meetingDetailId");
             return (Criteria) this;
         }
 
-        public Criteria andRoleBetween(Integer value1, Integer value2) {
-            addCriterion("role between", value1, value2, "role");
+        public Criteria andMeetingDetailIdBetween(Integer value1, Integer value2) {
+            addCriterion("meeting_detail_id between", value1, value2, "meetingDetailId");
             return (Criteria) this;
         }
 
-        public Criteria andRoleNotBetween(Integer value1, Integer value2) {
-            addCriterion("role not between", value1, value2, "role");
+        public Criteria andMeetingDetailIdNotBetween(Integer value1, Integer value2) {
+            addCriterion("meeting_detail_id not between", value1, value2, "meetingDetailId");
             return (Criteria) this;
         }
 
@@ -602,6 +602,66 @@ public class SwMeetingMemberExample {
 
         public Criteria andDatetimeLastchangeNotBetween(LocalDateTime value1, LocalDateTime value2) {
             addCriterion("datetime_lastchange not between", value1, value2, "datetimeLastchange");
+            return (Criteria) this;
+        }
+
+        public Criteria andRoleIsNull() {
+            addCriterion("role is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andRoleIsNotNull() {
+            addCriterion("role is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andRoleEqualTo(Integer value) {
+            addCriterion("role =", value, "role");
+            return (Criteria) this;
+        }
+
+        public Criteria andRoleNotEqualTo(Integer value) {
+            addCriterion("role <>", value, "role");
+            return (Criteria) this;
+        }
+
+        public Criteria andRoleGreaterThan(Integer value) {
+            addCriterion("role >", value, "role");
+            return (Criteria) this;
+        }
+
+        public Criteria andRoleGreaterThanOrEqualTo(Integer value) {
+            addCriterion("role >=", value, "role");
+            return (Criteria) this;
+        }
+
+        public Criteria andRoleLessThan(Integer value) {
+            addCriterion("role <", value, "role");
+            return (Criteria) this;
+        }
+
+        public Criteria andRoleLessThanOrEqualTo(Integer value) {
+            addCriterion("role <=", value, "role");
+            return (Criteria) this;
+        }
+
+        public Criteria andRoleIn(List<Integer> values) {
+            addCriterion("role in", values, "role");
+            return (Criteria) this;
+        }
+
+        public Criteria andRoleNotIn(List<Integer> values) {
+            addCriterion("role not in", values, "role");
+            return (Criteria) this;
+        }
+
+        public Criteria andRoleBetween(Integer value1, Integer value2) {
+            addCriterion("role between", value1, value2, "role");
+            return (Criteria) this;
+        }
+
+        public Criteria andRoleNotBetween(Integer value1, Integer value2) {
+            addCriterion("role not between", value1, value2, "role");
             return (Criteria) this;
         }
 

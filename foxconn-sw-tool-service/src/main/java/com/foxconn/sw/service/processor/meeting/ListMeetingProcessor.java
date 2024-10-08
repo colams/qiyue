@@ -58,25 +58,10 @@ public class ListMeetingProcessor {
         Map<Integer, List<SwMeetingMember>> meetingMembers = queryMeetingMember(meetingIDs);
         Map<Integer, List<SwMeetingCycleDetail>> meetingCycleDetails = queryCycleDetail(meetingIDs);
 
-        List<MeetingVo> lists = processMeetingVo(meetings, meetingMembers, meetingCycleDetails);
-
         List<MeetingVo>[] result = new List[7];
         int index = 0;
         while (startDate.compareTo(endDate) < 0) {
-            String date = StringExtUtils.toString(startDate);
-            int weekOfDay = startDate.getDayOfWeek().getValue();
-
-            List<MeetingVo> array = lists.stream()
-                    .filter(e -> e.getMeetingDate().equalsIgnoreCase(date)
-                            || (Objects.nonNull(e.getCycleVo())
-                            && e.getCycleVo().getCycle().contains(weekOfDay)
-                            && (StringUtils.isEmpty(e.getCycleVo().getCycleStart())
-                            || e.getCycleVo().getCycleStart().compareTo(date) <= 0)
-                            && (StringUtils.isEmpty(e.getCycleVo().getCycleExpire())
-                            || e.getCycleVo().getCycleExpire().compareTo(date) == 1)))
-                    .collect(Collectors.toList());
-
-
+            List<MeetingVo> array = processMeetingVo2(meetings, meetingMembers, meetingCycleDetails, startDate);
             startDate = startDate.plusDays(1);
             result[index++] = array;
         }
@@ -87,35 +72,34 @@ public class ListMeetingProcessor {
                                               Map<Integer, List<SwMeetingMember>> meetingMemberMap,
                                               Map<Integer, List<SwMeetingCycleDetail>> meetingCycleDetailMap,
                                               LocalDate currentDate) {
+        List<MeetingVo> vos = new ArrayList<>();
+        meetings.forEach(e -> {
+            if (currentMeeting(e, currentDate)) {
+                List<SwMeetingMember> members = meetingMemberMap.getOrDefault(e.getId(), Lists.newArrayList());
+                List<SwMeetingCycleDetail> cycleDetails = meetingCycleDetailMap.getOrDefault(e.getId(), Lists.newArrayList());
+                MeetingVo vo = convert2(e, currentDate, members, cycleDetails);
+                if (Objects.nonNull(vo)) {
+                    vos.add(vo);
+                }
+            }
+        });
+        return vos;
+    }
+
+    private MeetingVo convert2(SwMeeting meeting,
+                               LocalDate currentDate,
+                               List<SwMeetingMember> allMembers,
+                               List<SwMeetingCycleDetail> cycleDetails) {
         String date = StringExtUtils.toString(currentDate);
-        int weekOfDay = currentDate.getDayOfWeek().getValue();
 
-        List<MeetingVo> vos = new ArrayList<>();
-        meetings.forEach(e -> {
-            List<SwMeetingMember> members = meetingMemberMap.getOrDefault(e.getId(), Lists.newArrayList());
-            List<SwMeetingCycleDetail> cycleDetails = meetingCycleDetailMap.getOrDefault(e.getId(), Lists.newArrayList());
-            MeetingVo vo = convert(e, members, cycleDetails);
-            vos.add(vo);
-        });
-        return vos;
-    }
+        SwMeetingCycleDetail detail = cycleDetails.stream()
+                .filter(e -> e.getMeetingDate().equalsIgnoreCase(date))
+                .findFirst()
+                .orElse(null);
 
-    private List<MeetingVo> processMeetingVo(List<SwMeeting> meetings,
-                                             Map<Integer, List<SwMeetingMember>> meetingMemberMap,
-                                             Map<Integer, List<SwMeetingCycleDetail>> meetingCycleDetailMap) {
-        List<MeetingVo> vos = new ArrayList<>();
-        meetings.forEach(e -> {
-            List<SwMeetingMember> members = meetingMemberMap.getOrDefault(e.getId(), Lists.newArrayList());
-            List<SwMeetingCycleDetail> cycleDetails = meetingCycleDetailMap.getOrDefault(e.getId(), Lists.newArrayList());
-            MeetingVo vo = convert(e, members, cycleDetails);
-            vos.add(vo);
-        });
-        return vos;
-    }
-
-    private MeetingVo convert(SwMeeting meeting,
-                              List<SwMeetingMember> allMembers,
-                              List<SwMeetingCycleDetail> cycleDetails) {
+        if (Objects.nonNull(detail) && detail.getCancel() == 1) {
+            return null;
+        }
 
         EmployeeVo chairman = allMembers.stream()
                 .filter(e -> MeetingRoleFlagEnums.Chairman_Flag.test(e.getRole()))
@@ -140,11 +124,14 @@ public class ListMeetingProcessor {
         vo.setMeetingType(getMeetingType(meeting, allMembers));
         vo.setTitle(meeting.getTitle());
         vo.setDescription(meeting.getDescription());
-        vo.setMeetingDate(meeting.getMeetingDate());
         vo.setStartTime(meeting.getStartTime());
         vo.setEndTime(meeting.getEndTime());
         vo.setDuration(getMeetingDuration(meeting.getStartTime(), meeting.getEndTime()));
+
+
+        vo.setMeetingDate(meeting.getMeetingDate());
         if (StringUtils.isNotEmpty(meeting.getCycle())) {
+            vo.setMeetingDate(date);
             CycleMeetingVo cycleMeetingVo = new CycleMeetingVo();
             cycleMeetingVo.setCycle(JsonUtils.deserialize(meeting.getCycle(), List.class, Integer.class));
             if (StringUtils.isEmpty(meeting.getCycleStart())) {
@@ -157,6 +144,35 @@ public class ListMeetingProcessor {
         vo.setMaintainers(maintainers);
         vo.setMembers(members);
         return vo;
+    }
+
+    private boolean currentMeeting(SwMeeting meeting, LocalDate currentDate) {
+        String date = StringExtUtils.toString(currentDate);
+        int weekOfDay = currentDate.getDayOfWeek().getValue();
+        if (StringUtils.isNotEmpty(meeting.getMeetingDate())
+                && meeting.getMeetingDate().equalsIgnoreCase(date)) {
+            return true;
+        }
+
+        if (StringUtils.isNotEmpty(meeting.getCycle())) {
+            List<Integer> cycleInts = JsonUtils.deserialize(meeting.getCycle(),
+                    List.class, Integer.class);
+
+            if (!cycleInts.contains(weekOfDay)) {
+                return false;
+            }
+
+            if (meeting.getCycleStart().compareTo(date) > 0) {
+                return false;
+            }
+
+            if (StringUtils.isEmpty(meeting.getCycleExpire())
+                    || meeting.getCycleExpire().compareTo(date) == 1) {
+                return true;
+            }
+
+        }
+        return false;
     }
 
     private Integer getMeetingDuration(String startTime, String endTime) {

@@ -7,7 +7,7 @@ public class SwMeetingMember {
 
     private Integer meetingId;
 
-    private Integer role;
+    private Integer meetingDetailId;
 
     private String employeeNo;
 
@@ -18,6 +18,8 @@ public class SwMeetingMember {
     private LocalDateTime createTime;
 
     private LocalDateTime datetimeLastchange;
+
+    private Integer role;
 
     public Integer getId() {
         return id;
@@ -45,17 +47,17 @@ public class SwMeetingMember {
         this.meetingId = meetingId;
     }
 
-    public Integer getRole() {
-        return role;
+    public Integer getMeetingDetailId() {
+        return meetingDetailId;
     }
 
-    public SwMeetingMember withRole(Integer role) {
-        this.setRole(role);
+    public SwMeetingMember withMeetingDetailId(Integer meetingDetailId) {
+        this.setMeetingDetailId(meetingDetailId);
         return this;
     }
 
-    public void setRole(Integer role) {
-        this.role = role;
+    public void setMeetingDetailId(Integer meetingDetailId) {
+        this.meetingDetailId = meetingDetailId;
     }
 
     public String getEmployeeNo() {
@@ -121,5 +123,18 @@ public class SwMeetingMember {
 
     public void setDatetimeLastchange(LocalDateTime datetimeLastchange) {
         this.datetimeLastchange = datetimeLastchange;
+    }
+
+    public Integer getRole() {
+        return role;
+    }
+
+    public SwMeetingMember withRole(Integer role) {
+        this.setRole(role);
+        return this;
+    }
+
+    public void setRole(Integer role) {
+        this.role = role;
     }
 }

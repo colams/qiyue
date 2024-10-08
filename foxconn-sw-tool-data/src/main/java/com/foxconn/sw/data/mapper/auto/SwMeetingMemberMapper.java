@@ -34,14 +34,14 @@ public interface SwMeetingMemberMapper {
     int deleteByPrimaryKey(Integer id);
 
     @Insert({
-        "insert into sw_meeting_member (meeting_id, role, ",
+        "insert into sw_meeting_member (meeting_id, meeting_detail_id, ",
         "employee_no, name, ",
         "is_delete, create_time, ",
-        "datetime_lastchange)",
-        "values (#{meetingId,jdbcType=INTEGER}, #{role,jdbcType=INTEGER}, ",
+        "datetime_lastchange, role)",
+        "values (#{meetingId,jdbcType=INTEGER}, #{meetingDetailId,jdbcType=INTEGER}, ",
         "#{employeeNo,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, ",
         "#{isDelete,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, ",
-        "#{datetimeLastchange,jdbcType=TIMESTAMP})"
+        "#{datetimeLastchange,jdbcType=TIMESTAMP}, #{role,jdbcType=INTEGER})"
     })
     @SelectKey(statement="SELECT LAST_INSERT_ID()", keyProperty="id", before=false, resultType=Integer.class)
     int insert(SwMeetingMember record);
@@ -54,12 +54,13 @@ public interface SwMeetingMemberMapper {
     @Results({
         @Result(column="id", property="id", jdbcType=JdbcType.INTEGER, id=true),
         @Result(column="meeting_id", property="meetingId", jdbcType=JdbcType.INTEGER),
-        @Result(column="role", property="role", jdbcType=JdbcType.INTEGER),
+        @Result(column="meeting_detail_id", property="meetingDetailId", jdbcType=JdbcType.INTEGER),
         @Result(column="employee_no", property="employeeNo", jdbcType=JdbcType.VARCHAR),
         @Result(column="name", property="name", jdbcType=JdbcType.VARCHAR),
         @Result(column="is_delete", property="isDelete", jdbcType=JdbcType.INTEGER),
         @Result(column="create_time", property="createTime", jdbcType=JdbcType.TIMESTAMP),
-        @Result(column="datetime_lastchange", property="datetimeLastchange", jdbcType=JdbcType.TIMESTAMP)
+        @Result(column="datetime_lastchange", property="datetimeLastchange", jdbcType=JdbcType.TIMESTAMP),
+        @Result(column="role", property="role", jdbcType=JdbcType.INTEGER)
     })
     List<SwMeetingMember> selectByExampleWithRowbounds(SwMeetingMemberExample example, RowBounds rowBounds);
 
@@ -67,30 +68,33 @@ public interface SwMeetingMemberMapper {
     @Results({
         @Result(column="id", property="id", jdbcType=JdbcType.INTEGER, id=true),
         @Result(column="meeting_id", property="meetingId", jdbcType=JdbcType.INTEGER),
-        @Result(column="role", property="role", jdbcType=JdbcType.INTEGER),
+        @Result(column="meeting_detail_id", property="meetingDetailId", jdbcType=JdbcType.INTEGER),
         @Result(column="employee_no", property="employeeNo", jdbcType=JdbcType.VARCHAR),
         @Result(column="name", property="name", jdbcType=JdbcType.VARCHAR),
         @Result(column="is_delete", property="isDelete", jdbcType=JdbcType.INTEGER),
         @Result(column="create_time", property="createTime", jdbcType=JdbcType.TIMESTAMP),
-        @Result(column="datetime_lastchange", property="datetimeLastchange", jdbcType=JdbcType.TIMESTAMP)
+        @Result(column="datetime_lastchange", property="datetimeLastchange", jdbcType=JdbcType.TIMESTAMP),
+        @Result(column="role", property="role", jdbcType=JdbcType.INTEGER)
     })
     List<SwMeetingMember> selectByExample(SwMeetingMemberExample example);
 
     @Select({
         "select",
-        "id, meeting_id, role, employee_no, name, is_delete, create_time, datetime_lastchange",
+        "id, meeting_id, meeting_detail_id, employee_no, name, is_delete, create_time, ",
+        "datetime_lastchange, role",
         "from sw_meeting_member",
         "where id = #{id,jdbcType=INTEGER}"
     })
     @Results({
         @Result(column="id", property="id", jdbcType=JdbcType.INTEGER, id=true),
         @Result(column="meeting_id", property="meetingId", jdbcType=JdbcType.INTEGER),
-        @Result(column="role", property="role", jdbcType=JdbcType.INTEGER),
+        @Result(column="meeting_detail_id", property="meetingDetailId", jdbcType=JdbcType.INTEGER),
         @Result(column="employee_no", property="employeeNo", jdbcType=JdbcType.VARCHAR),
         @Result(column="name", property="name", jdbcType=JdbcType.VARCHAR),
         @Result(column="is_delete", property="isDelete", jdbcType=JdbcType.INTEGER),
         @Result(column="create_time", property="createTime", jdbcType=JdbcType.TIMESTAMP),
-        @Result(column="datetime_lastchange", property="datetimeLastchange", jdbcType=JdbcType.TIMESTAMP)
+        @Result(column="datetime_lastchange", property="datetimeLastchange", jdbcType=JdbcType.TIMESTAMP),
+        @Result(column="role", property="role", jdbcType=JdbcType.INTEGER)
     })
     SwMeetingMember selectByPrimaryKey(Integer id);
 
@@ -106,12 +110,13 @@ public interface SwMeetingMemberMapper {
     @Update({
         "update sw_meeting_member",
         "set meeting_id = #{meetingId,jdbcType=INTEGER},",
-          "role = #{role,jdbcType=INTEGER},",
+          "meeting_detail_id = #{meetingDetailId,jdbcType=INTEGER},",
           "employee_no = #{employeeNo,jdbcType=VARCHAR},",
           "name = #{name,jdbcType=VARCHAR},",
           "is_delete = #{isDelete,jdbcType=INTEGER},",
           "create_time = #{createTime,jdbcType=TIMESTAMP},",
-          "datetime_lastchange = #{datetimeLastchange,jdbcType=TIMESTAMP}",
+          "datetime_lastchange = #{datetimeLastchange,jdbcType=TIMESTAMP},",
+          "role = #{role,jdbcType=INTEGER}",
         "where id = #{id,jdbcType=INTEGER}"
     })
     int updateByPrimaryKey(SwMeetingMember record);
