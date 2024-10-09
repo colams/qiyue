@@ -115,6 +115,7 @@ public class TaskListProcessor {
         vo.setRejectStatus(e.getRejectStatus());
         vo.setFollowStatus(getFollowStatus(map, e.getId()));
         vo.setProposer(employeeBusiness.selectEmployeeByENo(e.getProposerEid()).getName());
+        vo.setTaskType(e.getTaskType());
 
         Optional<SwTaskEmployeeRelation> optional = relations.stream()
                 .filter(r -> r.getTaskId() == e.getId() && r.getEmployeeNo().equalsIgnoreCase(RequestContext.getEmployeeNo()))

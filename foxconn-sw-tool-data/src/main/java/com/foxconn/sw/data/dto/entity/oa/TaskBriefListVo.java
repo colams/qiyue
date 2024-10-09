@@ -87,6 +87,8 @@ public class TaskBriefListVo {
 
     private String supervisor;
 
+    private String taskType;
+
     public Integer getId() {
         return id;
     }
@@ -224,4 +226,11 @@ public class TaskBriefListVo {
         this.supervisor = supervisor;
     }
 
+    public String getTaskType() {
+        return taskType;
+    }
+
+    public void setTaskType(String taskType) {
+        this.taskType = taskType;
+    }
 }

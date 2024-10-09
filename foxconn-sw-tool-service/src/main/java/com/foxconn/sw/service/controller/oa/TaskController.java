@@ -61,7 +61,7 @@ public class TaskController {
     @ApiResponse(responseCode = "0", description = "成功码")
     @PostMapping("/create")
     public Response createTask(@Valid @RequestBody Request<TaskBriefDetailVo> request) {
-        Integer taskID = createTaskProcessor.createTask(request.getData(), request.getHead());
+        Integer taskID = createTaskProcessor.createTask(request.getData());
         return ResponseUtils.success(taskID, request.getTraceId());
     }
 

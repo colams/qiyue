@@ -43,7 +43,7 @@ public class LoginProcessor {
         SwUserLogin userLogin = userLoginBusiness.queryLoginStateByName(employeeNo, now);
 
         String token = UUIDUtils.getUuid();
-        LocalDateTime expireTime = now.plusHours(24);
+        LocalDateTime expireTime = now.plusHours(24 * 7);
 
 
         LoginStateVo vo;

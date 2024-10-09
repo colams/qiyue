@@ -102,6 +102,8 @@ public class TaskBriefDetailVo {
     @Schema(description = "0-暂存/草稿，1-待确认需求")
     private Integer status;
 
+    private String taskType;
+
     public Integer getId() {
         return id;
     }
@@ -204,5 +206,13 @@ public class TaskBriefDetailVo {
 
     public void setStatus(Integer status) {
         this.status = status;
+    }
+
+    public String getTaskType() {
+        return taskType;
+    }
+
+    public void setTaskType(String taskType) {
+        this.taskType = taskType;
     }
 }

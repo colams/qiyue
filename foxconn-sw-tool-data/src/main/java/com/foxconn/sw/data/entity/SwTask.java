@@ -7,15 +7,17 @@ public class SwTask {
 
     private Long taskNo;
 
+    private String title;
+
     private String topCategory;
 
     private String category;
 
-    private String title;
-
     private String topProject;
 
     private String project;
+
+    private String taskType;
 
     private String level;
 
@@ -67,6 +69,19 @@ public class SwTask {
         this.taskNo = taskNo;
     }
 
+    public String getTitle() {
+        return title;
+    }
+
+    public SwTask withTitle(String title) {
+        this.setTitle(title);
+        return this;
+    }
+
+    public void setTitle(String title) {
+        this.title = title == null ? null : title.trim();
+    }
+
     public String getTopCategory() {
         return topCategory;
     }
@@ -93,19 +108,6 @@ public class SwTask {
         this.category = category == null ? null : category.trim();
     }
 
-    public String getTitle() {
-        return title;
-    }
-
-    public SwTask withTitle(String title) {
-        this.setTitle(title);
-        return this;
-    }
-
-    public void setTitle(String title) {
-        this.title = title == null ? null : title.trim();
-    }
-
     public String getTopProject() {
         return topProject;
     }
@@ -130,6 +132,19 @@ public class SwTask {
 
     public void setProject(String project) {
         this.project = project == null ? null : project.trim();
+    }
+
+    public String getTaskType() {
+        return taskType;
+    }
+
+    public SwTask withTaskType(String taskType) {
+        this.setTaskType(taskType);
+        return this;
+    }
+
+    public void setTaskType(String taskType) {
+        this.taskType = taskType == null ? null : taskType.trim();
     }
 
     public String getLevel() {

@@ -11,7 +11,7 @@
     </appender>
 
     <!-- info 日志文件输出 -->
-    <appender name="fileAppender" class="ch.qos.logback.core.FileAppender">
+    <appender name="fileAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <file>${LOG_PATH}/info.log</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <!-- 日志文件名格式 -->
@@ -23,15 +23,15 @@
             <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] INFO %logger{36} - %msg%n</pattern>
             <charset>UTF-8</charset>
         </encoder>
-        <filter class="ch.qos.logback.classic.filter.LevelFilter">
-            <level>INFO</level>
-            <onMatch>ACCEPT</onMatch>
-            <onMismatch>DENY</onMismatch>
-        </filter>
+<!--        <filter class="ch.qos.logback.classic.filter.LevelFilter">-->
+<!--            <level>INFO</level>-->
+<!--            <onMatch>ACCEPT</onMatch>-->
+<!--            <onMismatch>DENY</onMismatch>-->
+<!--        </filter>-->
     </appender>
 
     <!-- debug 日志文件输出 -->
-    <appender name="debugAppender" class="ch.qos.logback.core.FileAppender">
+    <appender name="debugAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <file>${LOG_PATH}/debug.log</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <!-- 日志文件名格式 -->
@@ -51,7 +51,7 @@
     </appender>
 
     <!-- error 日志文件输出 -->
-    <appender name="errorAppender" class="ch.qos.logback.core.FileAppender">
+    <appender name="errorAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <file>${LOG_PATH}/error.log</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <!-- 日志文件名格式 -->
@@ -71,21 +71,21 @@
     </appender>
 
     <!-- 配置AsyncAppender，并指向FILE Appender -->
-    <appender name="asyncAppender" class="ch.qos.logback.classic.AsyncAppender">
-        <!-- 队列大小，默认为256，可以根据需要调整 -->
-        <queueSize>512</queueSize>
-        <!-- 当队列剩余容量小于discardingThreshold时，会丢弃INFO及以下级别的日志；默认为-1（queueSize的20%），设置为0表示不丢弃 -->
-        <discardingThreshold>0</discardingThreshold>
-        <!-- 队列满后是否阻塞，默认为false（不阻塞，丢弃日志）；如果设置为true，则队列满后阻塞 -->
-        <neverBlock>false</neverBlock>
-        <!-- 附加的Appender -->
-        <appender-ref ref="fileAppender"/>
-    </appender>
+<!--    <appender name="asyncAppender" class="ch.qos.logback.classic.AsyncAppender">-->
+<!--        &lt;!&ndash; 队列大小，默认为256，可以根据需要调整 &ndash;&gt;-->
+<!--        <queueSize>512</queueSize>-->
+<!--        &lt;!&ndash; 当队列剩余容量小于discardingThreshold时，会丢弃INFO及以下级别的日志；默认为-1（queueSize的20%），设置为0表示不丢弃 &ndash;&gt;-->
+<!--        <discardingThreshold>0</discardingThreshold>-->
+<!--        &lt;!&ndash; 队列满后是否阻塞，默认为false（不阻塞，丢弃日志）；如果设置为true，则队列满后阻塞 &ndash;&gt;-->
+<!--        <neverBlock>false</neverBlock>-->
+<!--        &lt;!&ndash; 附加的Appender &ndash;&gt;-->
+<!--        <appender-ref ref="fileAppender"/>-->
+<!--    </appender>-->
 
     <!-- 设置日志级别 -->
     <root level="info">
         <appender-ref ref="console"/>
-        <appender-ref ref="asyncAppender"/>
+        <appender-ref ref="fileAppender"/>
         <appender-ref ref="debugAppender"/>
         <appender-ref ref="errorAppender"/>
     </root>

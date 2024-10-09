@@ -18,7 +18,7 @@ public class CreateTaskProcessorTest extends BaseTest {
     public void createTask() {
         TaskBriefDetailVo data = initVo();
         Header head = initHead();
-        var result = createTaskProcessor.createTask(data, head);
+        var result = createTaskProcessor.createTask(data);
         System.out.println("createTask=================:" + result);
     }
 

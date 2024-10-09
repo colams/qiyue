@@ -43,7 +43,7 @@ public class CreateTaskProcessor {
     @Autowired
     SwTaskEmployeeRelationBusiness taskEmployeeRelation;
 
-    public Integer createTask(TaskBriefDetailVo data, Header head) {
+    public Integer createTask(TaskBriefDetailVo data) {
 
         SwTask task = TaskMapper.INSTANCE.brief2SwTask(data);
         task.setProposerEid(RequestContext.getEmployeeNo());

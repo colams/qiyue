@@ -1,13 +1,12 @@
 package com.foxconn.sw.data.dto.entity.collaboration;
 
-import com.foxconn.sw.data.dto.entity.acount.EmployeeVo;
-
 import java.util.List;
+import java.util.Map;
 
 public class CollaborationVo {
 
     private List<String> headers;
-    private List<EmployeeVo> employeeVos;
+    private List<Map<String, Object>> content;
 
     public List<String> getHeaders() {
         return headers;
@@ -17,11 +16,11 @@ public class CollaborationVo {
         this.headers = headers;
     }
 
-    public List<EmployeeVo> getEmployeeVos() {
-        return employeeVos;
+    public List<Map<String, Object>> getContent() {
+        return content;
     }
 
-    public void setEmployeeVos(List<EmployeeVo> employeeVos) {
-        this.employeeVos = employeeVos;
+    public void setContent(List<Map<String, Object>> content) {
+        this.content = content;
     }
 }

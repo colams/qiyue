@@ -32,6 +32,10 @@ public class SwTaskSqlProvider {
             sql.VALUES("task_no", "#{taskNo,jdbcType=BIGINT}");
         }
         
+        if (record.getTitle() != null) {
+            sql.VALUES("title", "#{title,jdbcType=VARCHAR}");
+        }
+        
         if (record.getTopCategory() != null) {
             sql.VALUES("top_category", "#{topCategory,jdbcType=VARCHAR}");
         }
@@ -40,16 +44,16 @@ public class SwTaskSqlProvider {
             sql.VALUES("category", "#{category,jdbcType=VARCHAR}");
         }
         
-        if (record.getTitle() != null) {
-            sql.VALUES("title", "#{title,jdbcType=VARCHAR}");
-        }
-        
         if (record.getTopProject() != null) {
             sql.VALUES("top_project", "#{topProject,jdbcType=VARCHAR}");
         }
         
         if (record.getProject() != null) {
             sql.VALUES("project", "#{project,jdbcType=VARCHAR}");
+        }
+        
+        if (record.getTaskType() != null) {
+            sql.VALUES("task_type", "#{taskType,jdbcType=VARCHAR}");
         }
         
         if (record.getLevel() != null) {
@@ -111,11 +115,12 @@ public class SwTaskSqlProvider {
             sql.SELECT("id");
         }
         sql.SELECT("task_no");
+        sql.SELECT("title");
         sql.SELECT("top_category");
         sql.SELECT("category");
-        sql.SELECT("title");
         sql.SELECT("top_project");
         sql.SELECT("project");
+        sql.SELECT("task_type");
         sql.SELECT("level");
         sql.SELECT("progress_percent");
         sql.SELECT("status");
@@ -146,11 +151,12 @@ public class SwTaskSqlProvider {
             sql.SELECT("id");
         }
         sql.SELECT("task_no");
+        sql.SELECT("title");
         sql.SELECT("top_category");
         sql.SELECT("category");
-        sql.SELECT("title");
         sql.SELECT("top_project");
         sql.SELECT("project");
+        sql.SELECT("task_type");
         sql.SELECT("level");
         sql.SELECT("progress_percent");
         sql.SELECT("status");
@@ -187,6 +193,10 @@ public class SwTaskSqlProvider {
             sql.SET("task_no = #{record.taskNo,jdbcType=BIGINT}");
         }
         
+        if (record.getTitle() != null) {
+            sql.SET("title = #{record.title,jdbcType=VARCHAR}");
+        }
+        
         if (record.getTopCategory() != null) {
             sql.SET("top_category = #{record.topCategory,jdbcType=VARCHAR}");
         }
@@ -195,16 +205,16 @@ public class SwTaskSqlProvider {
             sql.SET("category = #{record.category,jdbcType=VARCHAR}");
         }
         
-        if (record.getTitle() != null) {
-            sql.SET("title = #{record.title,jdbcType=VARCHAR}");
-        }
-        
         if (record.getTopProject() != null) {
             sql.SET("top_project = #{record.topProject,jdbcType=VARCHAR}");
         }
         
         if (record.getProject() != null) {
             sql.SET("project = #{record.project,jdbcType=VARCHAR}");
+        }
+        
+        if (record.getTaskType() != null) {
+            sql.SET("task_type = #{record.taskType,jdbcType=VARCHAR}");
         }
         
         if (record.getLevel() != null) {
@@ -265,11 +275,12 @@ public class SwTaskSqlProvider {
         
         sql.SET("id = #{record.id,jdbcType=INTEGER}");
         sql.SET("task_no = #{record.taskNo,jdbcType=BIGINT}");
+        sql.SET("title = #{record.title,jdbcType=VARCHAR}");
         sql.SET("top_category = #{record.topCategory,jdbcType=VARCHAR}");
         sql.SET("category = #{record.category,jdbcType=VARCHAR}");
-        sql.SET("title = #{record.title,jdbcType=VARCHAR}");
         sql.SET("top_project = #{record.topProject,jdbcType=VARCHAR}");
         sql.SET("project = #{record.project,jdbcType=VARCHAR}");
+        sql.SET("task_type = #{record.taskType,jdbcType=VARCHAR}");
         sql.SET("level = #{record.level,jdbcType=VARCHAR}");
         sql.SET("progress_percent = #{record.progressPercent,jdbcType=INTEGER}");
         sql.SET("status = #{record.status,jdbcType=INTEGER}");
@@ -294,11 +305,12 @@ public class SwTaskSqlProvider {
         
         sql.SET("id = #{record.id,jdbcType=INTEGER}");
         sql.SET("task_no = #{record.taskNo,jdbcType=BIGINT}");
+        sql.SET("title = #{record.title,jdbcType=VARCHAR}");
         sql.SET("top_category = #{record.topCategory,jdbcType=VARCHAR}");
         sql.SET("category = #{record.category,jdbcType=VARCHAR}");
-        sql.SET("title = #{record.title,jdbcType=VARCHAR}");
         sql.SET("top_project = #{record.topProject,jdbcType=VARCHAR}");
         sql.SET("project = #{record.project,jdbcType=VARCHAR}");
+        sql.SET("task_type = #{record.taskType,jdbcType=VARCHAR}");
         sql.SET("level = #{record.level,jdbcType=VARCHAR}");
         sql.SET("progress_percent = #{record.progressPercent,jdbcType=INTEGER}");
         sql.SET("status = #{record.status,jdbcType=INTEGER}");
@@ -324,6 +336,10 @@ public class SwTaskSqlProvider {
             sql.SET("task_no = #{taskNo,jdbcType=BIGINT}");
         }
         
+        if (record.getTitle() != null) {
+            sql.SET("title = #{title,jdbcType=VARCHAR}");
+        }
+        
         if (record.getTopCategory() != null) {
             sql.SET("top_category = #{topCategory,jdbcType=VARCHAR}");
         }
@@ -332,16 +348,16 @@ public class SwTaskSqlProvider {
             sql.SET("category = #{category,jdbcType=VARCHAR}");
         }
         
-        if (record.getTitle() != null) {
-            sql.SET("title = #{title,jdbcType=VARCHAR}");
-        }
-        
         if (record.getTopProject() != null) {
             sql.SET("top_project = #{topProject,jdbcType=VARCHAR}");
         }
         
         if (record.getProject() != null) {
             sql.SET("project = #{project,jdbcType=VARCHAR}");
+        }
+        
+        if (record.getTaskType() != null) {
+            sql.SET("task_type = #{taskType,jdbcType=VARCHAR}");
         }
         
         if (record.getLevel() != null) {
