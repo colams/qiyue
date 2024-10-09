@@ -77,6 +77,12 @@
         <table tableName="sw_append_resource">
             <generatedKey column="id" identity="true" sqlStatement="mysql"/>
         </table>
+        <table tableName="sw_collaboration_detail">
+            <generatedKey column="id" identity="true" sqlStatement="mysql"/>
+        </table>
+        <table tableName="sw_collaboration_user">
+            <generatedKey column="id" identity="true" sqlStatement="mysql"/>
+        </table>
         <table tableName="sw_contact_gather">
             <generatedKey column="id" identity="true" sqlStatement="mysql"/>
         </table>
@@ -89,6 +95,13 @@
         <table tableName="sw_department">
             <generatedKey column="id" identity="true" sqlStatement="mysql"/>
         </table>
+        <table tableName="sw_document">
+            <generatedKey column="id" identity="true" sqlStatement="mysql"/>
+        </table>
+        <table tableName="sw_document_history">
+            <generatedKey column="id" identity="true" sqlStatement="mysql"/>
+        </table>
+
         <table tableName="sw_employee">
             <generatedKey column="id" identity="true" sqlStatement="mysql"/>
         </table>

@@ -1,0 +1,95 @@
+package com.foxconn.sw.data.entity;
+
+import java.time.LocalDateTime;
+
+public class SwCollaborationDetail {
+    private Long id;
+
+    private Integer scuId;
+
+    private String item;
+
+    private String itemValue;
+
+    private LocalDateTime createTime;
+
+    private LocalDateTime datetimeLastchange;
+
+    public Long getId() {
+        return id;
+    }
+
+    public SwCollaborationDetail withId(Long id) {
+        this.setId(id);
+        return this;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Integer getScuId() {
+        return scuId;
+    }
+
+    public SwCollaborationDetail withScuId(Integer scuId) {
+        this.setScuId(scuId);
+        return this;
+    }
+
+    public void setScuId(Integer scuId) {
+        this.scuId = scuId;
+    }
+
+    public String getItem() {
+        return item;
+    }
+
+    public SwCollaborationDetail withItem(String item) {
+        this.setItem(item);
+        return this;
+    }
+
+    public void setItem(String item) {
+        this.item = item == null ? null : item.trim();
+    }
+
+    public String getItemValue() {
+        return itemValue;
+    }
+
+    public SwCollaborationDetail withItemValue(String itemValue) {
+        this.setItemValue(itemValue);
+        return this;
+    }
+
+    public void setItemValue(String itemValue) {
+        this.itemValue = itemValue == null ? null : itemValue.trim();
+    }
+
+    public LocalDateTime getCreateTime() {
+        return createTime;
+    }
+
+    public SwCollaborationDetail withCreateTime(LocalDateTime createTime) {
+        this.setCreateTime(createTime);
+        return this;
+    }
+
+    public void setCreateTime(LocalDateTime createTime) {
+        this.createTime = createTime;
+    }
+
+    public LocalDateTime getDatetimeLastchange() {
+        return datetimeLastchange;
+    }
+
+    public SwCollaborationDetail withDatetimeLastchange(LocalDateTime datetimeLastchange) {
+        this.setDatetimeLastchange(datetimeLastchange);
+        return this;
+    }
+
+    public void setDatetimeLastchange(LocalDateTime datetimeLastchange) {
+        this.datetimeLastchange = datetimeLastchange;
+    }
+}

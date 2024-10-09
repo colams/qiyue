@@ -33,13 +33,13 @@ public class CollaborationDetailProcessor {
 
     private Map<String, Object> initMap() {
         Map<String, Object> map = new HashMap<>();
-        map.put("id", 1);
         map.put("header1", "value1");
         map.put("header2", "value2");
         map.put("header3", "value3");
+        map.put("id", 1);
         map.put("status", 0);
         map.put("edit", false);
-        map.put("op", "op");
+        map.put("handler", "op");
         return map;
     }
 }

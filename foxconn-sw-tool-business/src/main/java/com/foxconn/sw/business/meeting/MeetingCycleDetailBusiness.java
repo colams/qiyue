@@ -16,23 +16,6 @@ public class MeetingCycleDetailBusiness {
     @Autowired
     SwMeetingCycleDetailExtensionMapper meetingCycleDetailMapper;
 
-    public Integer createMeeting() {
-        SwMeetingCycleDetail meetingCycleDetail = new SwMeetingCycleDetail();
-//        meetingCycleDetail.setId();
-//        meetingCycleDetail.setMeetingId();
-//        meetingCycleDetail.setRoom();
-//        meetingCycleDetail.setMeetingDate();
-//        meetingCycleDetail.setStartTime();
-//        meetingCycleDetail.setEndTime();
-//        meetingCycleDetail.setCancel();
-//        meetingCycleDetail.setCreateTime();
-//        meetingCycleDetail.setDatetimeLastchange();
-
-
-        meetingCycleDetailMapper.insertSelective(meetingCycleDetail);
-        return meetingCycleDetail.getId();
-    }
-
     public List<SwMeetingCycleDetail> queryCycleDetail(List<Integer> meetingIDs) {
         SwMeetingCycleDetailExample example = new SwMeetingCycleDetailExample();
         SwMeetingCycleDetailExample.Criteria criteria = example.createCriteria();
