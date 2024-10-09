@@ -1,5 +1,6 @@
 package com.foxconn.sw.service.processor.document;
 
+import com.foxconn.sw.data.dto.entity.universal.IntegerParams;
 import com.foxconn.sw.data.dto.request.document.CreateDocParams;
 import com.foxconn.sw.data.dto.request.document.DeleteDocParams;
 import org.springframework.stereotype.Component;
@@ -14,5 +15,9 @@ public class CreateDocProcessor {
 
     public boolean delete(DeleteDocParams data) {
         return true;
+    }
+
+    public boolean deleteHistory(IntegerParams data) {
+        return false;
     }
 }

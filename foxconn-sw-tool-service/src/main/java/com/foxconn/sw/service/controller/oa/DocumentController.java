@@ -4,6 +4,8 @@ import com.foxconn.sw.data.constants.TagsConstants;
 import com.foxconn.sw.data.dto.Request;
 import com.foxconn.sw.data.dto.Response;
 import com.foxconn.sw.data.dto.entity.document.DocumentVo;
+import com.foxconn.sw.data.dto.entity.document.HistoryVo;
+import com.foxconn.sw.data.dto.entity.universal.IntegerParams;
 import com.foxconn.sw.data.dto.request.document.CreateDocParams;
 import com.foxconn.sw.data.dto.request.document.DeleteDocParams;
 import com.foxconn.sw.data.dto.request.document.SearchDocParams;
@@ -35,7 +37,7 @@ public class DocumentController {
     @PostMapping("/create")
     public Response create(@Valid @RequestBody Request<CreateDocParams> request) {
         boolean result = createDoc.create(request.getData());
-        return ResponseUtils.success(request.getTraceId());
+        return ResponseUtils.success(result, request.getTraceId());
     }
 
     @Permission
@@ -44,9 +46,8 @@ public class DocumentController {
     @PostMapping("/revise")
     public Response revise(@Valid @RequestBody Request<CreateDocParams> request) {
         boolean result = createDoc.create(request.getData());
-        return ResponseUtils.success(request.getTraceId());
+        return ResponseUtils.success(result, request.getTraceId());
     }
-
 
     @Permission
     @Operation(summary = "删除文档信息", tags = TagsConstants.OA)
@@ -54,6 +55,15 @@ public class DocumentController {
     @PostMapping("/delete")
     public Response delete(@Valid @RequestBody Request<DeleteDocParams> request) {
         boolean result = createDoc.delete(request.getData());
+        return ResponseUtils.success(request.getTraceId());
+    }
+
+    @Permission
+    @Operation(summary = "删除文档信息", tags = TagsConstants.OA)
+    @ApiResponse(responseCode = "0", description = "成功码")
+    @PostMapping("/deleteHistory")
+    public Response deleteHistory(@Valid @RequestBody Request<IntegerParams> request) {
+        boolean result = createDoc.deleteHistory(request.getData());
         return ResponseUtils.success(request.getTraceId());
     }
 
@@ -66,4 +76,12 @@ public class DocumentController {
         return ResponseUtils.success(result, request.getTraceId());
     }
 
+    @Permission
+    @Operation(summary = "新增文档信息", tags = TagsConstants.OA)
+    @ApiResponse(responseCode = "0", description = "成功码")
+    @PostMapping("/history")
+    public Response<List<HistoryVo>> history(@Valid @RequestBody Request<IntegerParams> request) {
+        List<HistoryVo> result = listDoc.history(request.getData());
+        return ResponseUtils.success(result, request.getTraceId());
+    }
 }
