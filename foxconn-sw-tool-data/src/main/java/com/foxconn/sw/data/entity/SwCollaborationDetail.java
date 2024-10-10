@@ -5,7 +5,7 @@ import java.time.LocalDateTime;
 public class SwCollaborationDetail {
     private Long id;
 
-    private Integer scuId;
+    private Long scuId;
 
     private String item;
 
@@ -28,16 +28,16 @@ public class SwCollaborationDetail {
         this.id = id;
     }
 
-    public Integer getScuId() {
+    public Long getScuId() {
         return scuId;
     }
 
-    public SwCollaborationDetail withScuId(Integer scuId) {
+    public SwCollaborationDetail withScuId(Long scuId) {
         this.setScuId(scuId);
         return this;
     }
 
-    public void setScuId(Integer scuId) {
+    public void setScuId(Long scuId) {
         this.scuId = scuId;
     }
 

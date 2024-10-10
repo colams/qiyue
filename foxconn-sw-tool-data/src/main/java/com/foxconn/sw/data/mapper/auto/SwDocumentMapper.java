@@ -36,10 +36,12 @@ public interface SwDocumentMapper {
     @Insert({
         "insert into sw_document (document_name, category, ",
         "creator, source, ",
-        "create_time, datetime_lastchange)",
+        "is_delete, datetime_lastchange, ",
+        "create_time)",
         "values (#{documentName,jdbcType=VARCHAR}, #{category,jdbcType=INTEGER}, ",
         "#{creator,jdbcType=VARCHAR}, #{source,jdbcType=VARCHAR}, ",
-        "#{createTime,jdbcType=TIMESTAMP}, #{datetimeLastchange,jdbcType=TIMESTAMP})"
+        "#{isDelete,jdbcType=INTEGER}, #{datetimeLastchange,jdbcType=TIMESTAMP}, ",
+        "#{createTime,jdbcType=TIMESTAMP})"
     })
     @SelectKey(statement="SELECT LAST_INSERT_ID()", keyProperty="id", before=false, resultType=Integer.class)
     int insert(SwDocument record);
@@ -55,8 +57,9 @@ public interface SwDocumentMapper {
         @Result(column="category", property="category", jdbcType=JdbcType.INTEGER),
         @Result(column="creator", property="creator", jdbcType=JdbcType.VARCHAR),
         @Result(column="source", property="source", jdbcType=JdbcType.VARCHAR),
-        @Result(column="create_time", property="createTime", jdbcType=JdbcType.TIMESTAMP),
-        @Result(column="datetime_lastchange", property="datetimeLastchange", jdbcType=JdbcType.TIMESTAMP)
+        @Result(column="is_delete", property="isDelete", jdbcType=JdbcType.INTEGER),
+        @Result(column="datetime_lastchange", property="datetimeLastchange", jdbcType=JdbcType.TIMESTAMP),
+        @Result(column="create_time", property="createTime", jdbcType=JdbcType.TIMESTAMP)
     })
     List<SwDocument> selectByExampleWithRowbounds(SwDocumentExample example, RowBounds rowBounds);
 
@@ -67,14 +70,16 @@ public interface SwDocumentMapper {
         @Result(column="category", property="category", jdbcType=JdbcType.INTEGER),
         @Result(column="creator", property="creator", jdbcType=JdbcType.VARCHAR),
         @Result(column="source", property="source", jdbcType=JdbcType.VARCHAR),
-        @Result(column="create_time", property="createTime", jdbcType=JdbcType.TIMESTAMP),
-        @Result(column="datetime_lastchange", property="datetimeLastchange", jdbcType=JdbcType.TIMESTAMP)
+        @Result(column="is_delete", property="isDelete", jdbcType=JdbcType.INTEGER),
+        @Result(column="datetime_lastchange", property="datetimeLastchange", jdbcType=JdbcType.TIMESTAMP),
+        @Result(column="create_time", property="createTime", jdbcType=JdbcType.TIMESTAMP)
     })
     List<SwDocument> selectByExample(SwDocumentExample example);
 
     @Select({
         "select",
-        "id, document_name, category, creator, source, create_time, datetime_lastchange",
+        "id, document_name, category, creator, source, is_delete, datetime_lastchange, ",
+        "create_time",
         "from sw_document",
         "where id = #{id,jdbcType=INTEGER}"
     })
@@ -84,8 +89,9 @@ public interface SwDocumentMapper {
         @Result(column="category", property="category", jdbcType=JdbcType.INTEGER),
         @Result(column="creator", property="creator", jdbcType=JdbcType.VARCHAR),
         @Result(column="source", property="source", jdbcType=JdbcType.VARCHAR),
-        @Result(column="create_time", property="createTime", jdbcType=JdbcType.TIMESTAMP),
-        @Result(column="datetime_lastchange", property="datetimeLastchange", jdbcType=JdbcType.TIMESTAMP)
+        @Result(column="is_delete", property="isDelete", jdbcType=JdbcType.INTEGER),
+        @Result(column="datetime_lastchange", property="datetimeLastchange", jdbcType=JdbcType.TIMESTAMP),
+        @Result(column="create_time", property="createTime", jdbcType=JdbcType.TIMESTAMP)
     })
     SwDocument selectByPrimaryKey(Integer id);
 
@@ -104,8 +110,9 @@ public interface SwDocumentMapper {
           "category = #{category,jdbcType=INTEGER},",
           "creator = #{creator,jdbcType=VARCHAR},",
           "source = #{source,jdbcType=VARCHAR},",
-          "create_time = #{createTime,jdbcType=TIMESTAMP},",
-          "datetime_lastchange = #{datetimeLastchange,jdbcType=TIMESTAMP}",
+          "is_delete = #{isDelete,jdbcType=INTEGER},",
+          "datetime_lastchange = #{datetimeLastchange,jdbcType=TIMESTAMP},",
+          "create_time = #{createTime,jdbcType=TIMESTAMP}",
         "where id = #{id,jdbcType=INTEGER}"
     })
     int updateByPrimaryKey(SwDocument record);

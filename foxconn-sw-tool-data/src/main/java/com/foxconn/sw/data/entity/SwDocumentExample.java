@@ -435,63 +435,63 @@ public class SwDocumentExample {
             return (Criteria) this;
         }
 
-        public Criteria andCreateTimeIsNull() {
-            addCriterion("create_time is null");
+        public Criteria andIsDeleteIsNull() {
+            addCriterion("is_delete is null");
             return (Criteria) this;
         }
 
-        public Criteria andCreateTimeIsNotNull() {
-            addCriterion("create_time is not null");
+        public Criteria andIsDeleteIsNotNull() {
+            addCriterion("is_delete is not null");
             return (Criteria) this;
         }
 
-        public Criteria andCreateTimeEqualTo(LocalDateTime value) {
-            addCriterion("create_time =", value, "createTime");
+        public Criteria andIsDeleteEqualTo(Integer value) {
+            addCriterion("is_delete =", value, "isDelete");
             return (Criteria) this;
         }
 
-        public Criteria andCreateTimeNotEqualTo(LocalDateTime value) {
-            addCriterion("create_time <>", value, "createTime");
+        public Criteria andIsDeleteNotEqualTo(Integer value) {
+            addCriterion("is_delete <>", value, "isDelete");
             return (Criteria) this;
         }
 
-        public Criteria andCreateTimeGreaterThan(LocalDateTime value) {
-            addCriterion("create_time >", value, "createTime");
+        public Criteria andIsDeleteGreaterThan(Integer value) {
+            addCriterion("is_delete >", value, "isDelete");
             return (Criteria) this;
         }
 
-        public Criteria andCreateTimeGreaterThanOrEqualTo(LocalDateTime value) {
-            addCriterion("create_time >=", value, "createTime");
+        public Criteria andIsDeleteGreaterThanOrEqualTo(Integer value) {
+            addCriterion("is_delete >=", value, "isDelete");
             return (Criteria) this;
         }
 
-        public Criteria andCreateTimeLessThan(LocalDateTime value) {
-            addCriterion("create_time <", value, "createTime");
+        public Criteria andIsDeleteLessThan(Integer value) {
+            addCriterion("is_delete <", value, "isDelete");
             return (Criteria) this;
         }
 
-        public Criteria andCreateTimeLessThanOrEqualTo(LocalDateTime value) {
-            addCriterion("create_time <=", value, "createTime");
+        public Criteria andIsDeleteLessThanOrEqualTo(Integer value) {
+            addCriterion("is_delete <=", value, "isDelete");
             return (Criteria) this;
         }
 
-        public Criteria andCreateTimeIn(List<LocalDateTime> values) {
-            addCriterion("create_time in", values, "createTime");
+        public Criteria andIsDeleteIn(List<Integer> values) {
+            addCriterion("is_delete in", values, "isDelete");
             return (Criteria) this;
         }
 
-        public Criteria andCreateTimeNotIn(List<LocalDateTime> values) {
-            addCriterion("create_time not in", values, "createTime");
+        public Criteria andIsDeleteNotIn(List<Integer> values) {
+            addCriterion("is_delete not in", values, "isDelete");
             return (Criteria) this;
         }
 
-        public Criteria andCreateTimeBetween(LocalDateTime value1, LocalDateTime value2) {
-            addCriterion("create_time between", value1, value2, "createTime");
+        public Criteria andIsDeleteBetween(Integer value1, Integer value2) {
+            addCriterion("is_delete between", value1, value2, "isDelete");
             return (Criteria) this;
         }
 
-        public Criteria andCreateTimeNotBetween(LocalDateTime value1, LocalDateTime value2) {
-            addCriterion("create_time not between", value1, value2, "createTime");
+        public Criteria andIsDeleteNotBetween(Integer value1, Integer value2) {
+            addCriterion("is_delete not between", value1, value2, "isDelete");
             return (Criteria) this;
         }
 
@@ -552,6 +552,66 @@ public class SwDocumentExample {
 
         public Criteria andDatetimeLastchangeNotBetween(LocalDateTime value1, LocalDateTime value2) {
             addCriterion("datetime_lastchange not between", value1, value2, "datetimeLastchange");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreateTimeIsNull() {
+            addCriterion("create_time is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreateTimeIsNotNull() {
+            addCriterion("create_time is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreateTimeEqualTo(LocalDateTime value) {
+            addCriterion("create_time =", value, "createTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreateTimeNotEqualTo(LocalDateTime value) {
+            addCriterion("create_time <>", value, "createTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreateTimeGreaterThan(LocalDateTime value) {
+            addCriterion("create_time >", value, "createTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreateTimeGreaterThanOrEqualTo(LocalDateTime value) {
+            addCriterion("create_time >=", value, "createTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreateTimeLessThan(LocalDateTime value) {
+            addCriterion("create_time <", value, "createTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreateTimeLessThanOrEqualTo(LocalDateTime value) {
+            addCriterion("create_time <=", value, "createTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreateTimeIn(List<LocalDateTime> values) {
+            addCriterion("create_time in", values, "createTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreateTimeNotIn(List<LocalDateTime> values) {
+            addCriterion("create_time not in", values, "createTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreateTimeBetween(LocalDateTime value1, LocalDateTime value2) {
+            addCriterion("create_time between", value1, value2, "createTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreateTimeNotBetween(LocalDateTime value1, LocalDateTime value2) {
+            addCriterion("create_time not between", value1, value2, "createTime");
             return (Criteria) this;
         }
 

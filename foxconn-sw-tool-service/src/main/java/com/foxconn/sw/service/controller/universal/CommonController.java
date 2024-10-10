@@ -12,7 +12,7 @@ import com.foxconn.sw.data.dto.entity.universal.UploadResult;
 import com.foxconn.sw.data.entity.SwAppendResource;
 import com.foxconn.sw.service.processor.universal.UploadProcessor;
 import com.foxconn.sw.service.processor.user.CommonUserUtils;
-import com.foxconn.sw.service.utils.FilePathUtils;
+import com.foxconn.sw.common.utils.FilePathUtils;
 import com.foxconn.sw.service.utils.ResponseUtils;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;

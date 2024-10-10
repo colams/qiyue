@@ -1,5 +1,6 @@
 package com.foxconn.sw.service.processor.oa.task;
 
+import com.foxconn.sw.business.collaboration.CollaborationUserBusiness;
 import com.foxconn.sw.business.oa.SwTaskBusiness;
 import com.foxconn.sw.business.oa.SwTaskEmployeeRelationBusiness;
 import com.foxconn.sw.business.oa.SwTaskProgressBusiness;
@@ -24,6 +25,8 @@ public class AcceptProcessor {
     CommonUserUtils commonUserUtils;
     @Autowired
     SwTaskEmployeeRelationBusiness employeeRelationBusiness;
+    @Autowired
+    CollaborationUserBusiness collaborationUser;
 
     public boolean accept(Integer taskID, Header head) {
         UserInfo userInfo = commonUserUtils.queryUserInfo(head.getToken());
@@ -42,6 +45,10 @@ public class AcceptProcessor {
             progress.setContent(String.format("%s(%s) 接受了任務", userInfo.getEmployeeName(), userInfo.getEmployeeNo()));
             taskProgressBusiness.addProcessInfo(progress);
             employeeRelationBusiness.acceptTaskEmployee(taskID);
+
+            if ("collaboration".equalsIgnoreCase(task.getTaskType())) {
+                collaborationUser.acceptTask(task);
+            }
         }
         return result;
     }

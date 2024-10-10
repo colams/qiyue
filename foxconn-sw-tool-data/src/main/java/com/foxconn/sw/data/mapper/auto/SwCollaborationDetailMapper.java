@@ -37,7 +37,7 @@ public interface SwCollaborationDetailMapper {
         "insert into sw_collaboration_detail (scu_id, item, ",
         "item_value, create_time, ",
         "datetime_lastchange)",
-        "values (#{scuId,jdbcType=INTEGER}, #{item,jdbcType=VARCHAR}, ",
+        "values (#{scuId,jdbcType=BIGINT}, #{item,jdbcType=VARCHAR}, ",
         "#{itemValue,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, ",
         "#{datetimeLastchange,jdbcType=TIMESTAMP})"
     })
@@ -51,7 +51,7 @@ public interface SwCollaborationDetailMapper {
     @SelectProvider(type=SwCollaborationDetailSqlProvider.class, method="selectByExample")
     @Results({
         @Result(column="id", property="id", jdbcType=JdbcType.BIGINT, id=true),
-        @Result(column="scu_id", property="scuId", jdbcType=JdbcType.INTEGER),
+        @Result(column="scu_id", property="scuId", jdbcType=JdbcType.BIGINT),
         @Result(column="item", property="item", jdbcType=JdbcType.VARCHAR),
         @Result(column="item_value", property="itemValue", jdbcType=JdbcType.VARCHAR),
         @Result(column="create_time", property="createTime", jdbcType=JdbcType.TIMESTAMP),
@@ -62,7 +62,7 @@ public interface SwCollaborationDetailMapper {
     @SelectProvider(type=SwCollaborationDetailSqlProvider.class, method="selectByExample")
     @Results({
         @Result(column="id", property="id", jdbcType=JdbcType.BIGINT, id=true),
-        @Result(column="scu_id", property="scuId", jdbcType=JdbcType.INTEGER),
+        @Result(column="scu_id", property="scuId", jdbcType=JdbcType.BIGINT),
         @Result(column="item", property="item", jdbcType=JdbcType.VARCHAR),
         @Result(column="item_value", property="itemValue", jdbcType=JdbcType.VARCHAR),
         @Result(column="create_time", property="createTime", jdbcType=JdbcType.TIMESTAMP),
@@ -78,7 +78,7 @@ public interface SwCollaborationDetailMapper {
     })
     @Results({
         @Result(column="id", property="id", jdbcType=JdbcType.BIGINT, id=true),
-        @Result(column="scu_id", property="scuId", jdbcType=JdbcType.INTEGER),
+        @Result(column="scu_id", property="scuId", jdbcType=JdbcType.BIGINT),
         @Result(column="item", property="item", jdbcType=JdbcType.VARCHAR),
         @Result(column="item_value", property="itemValue", jdbcType=JdbcType.VARCHAR),
         @Result(column="create_time", property="createTime", jdbcType=JdbcType.TIMESTAMP),
@@ -97,7 +97,7 @@ public interface SwCollaborationDetailMapper {
 
     @Update({
         "update sw_collaboration_detail",
-        "set scu_id = #{scuId,jdbcType=INTEGER},",
+        "set scu_id = #{scuId,jdbcType=BIGINT},",
           "item = #{item,jdbcType=VARCHAR},",
           "item_value = #{itemValue,jdbcType=VARCHAR},",
           "create_time = #{createTime,jdbcType=TIMESTAMP},",

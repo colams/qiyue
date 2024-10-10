@@ -3,7 +3,7 @@ package com.foxconn.sw.data.entity;
 import java.time.LocalDateTime;
 
 public class SwCollaborationUser {
-    private Integer id;
+    private Long id;
 
     private Integer taskId;
 
@@ -17,16 +17,16 @@ public class SwCollaborationUser {
 
     private LocalDateTime datetimeLastchange;
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public SwCollaborationUser withId(Integer id) {
+    public SwCollaborationUser withId(Long id) {
         this.setId(id);
         return this;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

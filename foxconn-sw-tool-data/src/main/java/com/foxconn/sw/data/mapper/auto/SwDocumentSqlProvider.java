@@ -44,12 +44,16 @@ public class SwDocumentSqlProvider {
             sql.VALUES("source", "#{source,jdbcType=VARCHAR}");
         }
         
-        if (record.getCreateTime() != null) {
-            sql.VALUES("create_time", "#{createTime,jdbcType=TIMESTAMP}");
+        if (record.getIsDelete() != null) {
+            sql.VALUES("is_delete", "#{isDelete,jdbcType=INTEGER}");
         }
         
         if (record.getDatetimeLastchange() != null) {
             sql.VALUES("datetime_lastchange", "#{datetimeLastchange,jdbcType=TIMESTAMP}");
+        }
+        
+        if (record.getCreateTime() != null) {
+            sql.VALUES("create_time", "#{createTime,jdbcType=TIMESTAMP}");
         }
         
         return sql.toString();
@@ -66,8 +70,9 @@ public class SwDocumentSqlProvider {
         sql.SELECT("category");
         sql.SELECT("creator");
         sql.SELECT("source");
-        sql.SELECT("create_time");
+        sql.SELECT("is_delete");
         sql.SELECT("datetime_lastchange");
+        sql.SELECT("create_time");
         sql.FROM("sw_document");
         applyWhere(sql, example, false);
         
@@ -105,12 +110,16 @@ public class SwDocumentSqlProvider {
             sql.SET("source = #{record.source,jdbcType=VARCHAR}");
         }
         
-        if (record.getCreateTime() != null) {
-            sql.SET("create_time = #{record.createTime,jdbcType=TIMESTAMP}");
+        if (record.getIsDelete() != null) {
+            sql.SET("is_delete = #{record.isDelete,jdbcType=INTEGER}");
         }
         
         if (record.getDatetimeLastchange() != null) {
             sql.SET("datetime_lastchange = #{record.datetimeLastchange,jdbcType=TIMESTAMP}");
+        }
+        
+        if (record.getCreateTime() != null) {
+            sql.SET("create_time = #{record.createTime,jdbcType=TIMESTAMP}");
         }
         
         applyWhere(sql, example, true);
@@ -126,8 +135,9 @@ public class SwDocumentSqlProvider {
         sql.SET("category = #{record.category,jdbcType=INTEGER}");
         sql.SET("creator = #{record.creator,jdbcType=VARCHAR}");
         sql.SET("source = #{record.source,jdbcType=VARCHAR}");
-        sql.SET("create_time = #{record.createTime,jdbcType=TIMESTAMP}");
+        sql.SET("is_delete = #{record.isDelete,jdbcType=INTEGER}");
         sql.SET("datetime_lastchange = #{record.datetimeLastchange,jdbcType=TIMESTAMP}");
+        sql.SET("create_time = #{record.createTime,jdbcType=TIMESTAMP}");
         
         SwDocumentExample example = (SwDocumentExample) parameter.get("example");
         applyWhere(sql, example, true);
@@ -154,12 +164,16 @@ public class SwDocumentSqlProvider {
             sql.SET("source = #{source,jdbcType=VARCHAR}");
         }
         
-        if (record.getCreateTime() != null) {
-            sql.SET("create_time = #{createTime,jdbcType=TIMESTAMP}");
+        if (record.getIsDelete() != null) {
+            sql.SET("is_delete = #{isDelete,jdbcType=INTEGER}");
         }
         
         if (record.getDatetimeLastchange() != null) {
             sql.SET("datetime_lastchange = #{datetimeLastchange,jdbcType=TIMESTAMP}");
+        }
+        
+        if (record.getCreateTime() != null) {
+            sql.SET("create_time = #{createTime,jdbcType=TIMESTAMP}");
         }
         
         sql.WHERE("id = #{id,jdbcType=INTEGER}");

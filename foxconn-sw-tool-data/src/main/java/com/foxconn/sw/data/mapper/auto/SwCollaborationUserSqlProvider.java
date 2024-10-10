@@ -86,7 +86,7 @@ public class SwCollaborationUserSqlProvider {
         sql.UPDATE("sw_collaboration_user");
         
         if (record.getId() != null) {
-            sql.SET("id = #{record.id,jdbcType=INTEGER}");
+            sql.SET("id = #{record.id,jdbcType=BIGINT}");
         }
         
         if (record.getTaskId() != null) {
@@ -121,7 +121,7 @@ public class SwCollaborationUserSqlProvider {
         SQL sql = new SQL();
         sql.UPDATE("sw_collaboration_user");
         
-        sql.SET("id = #{record.id,jdbcType=INTEGER}");
+        sql.SET("id = #{record.id,jdbcType=BIGINT}");
         sql.SET("task_id = #{record.taskId,jdbcType=INTEGER}");
         sql.SET("employee_no = #{record.employeeNo,jdbcType=VARCHAR}");
         sql.SET("is_delete = #{record.isDelete,jdbcType=INTEGER}");
@@ -162,7 +162,7 @@ public class SwCollaborationUserSqlProvider {
             sql.SET("datetime_lastchange = #{datetimeLastchange,jdbcType=TIMESTAMP}");
         }
         
-        sql.WHERE("id = #{id,jdbcType=INTEGER}");
+        sql.WHERE("id = #{id,jdbcType=BIGINT}");
         
         return sql.toString();
     }

@@ -20,6 +20,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 
 @CrossOrigin
@@ -38,7 +39,7 @@ public class CollaborationController {
     @Operation(summary = "协作平台-獲取協作工作內容", tags = TagsConstants.OA)
     @ApiResponse(responseCode = "0", description = "成功码")
     @PostMapping("/detail")
-    public Response<CollaborationVo> detail(@Valid @RequestBody Request<CollaborationDetailParams> request) {
+    public Response<CollaborationVo> detail(@Valid @RequestBody Request<CollaborationDetailParams> request) throws FileNotFoundException {
         CollaborationVo collaborationVo = collaborationDetail.detail(request.getData());
         return ResponseUtils.success(collaborationVo, request.getTraceId());
     }

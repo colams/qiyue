@@ -1,4 +1,4 @@
-package com.foxconn.sw.service.utils;
+package com.foxconn.sw.common.utils;
 
 
 import com.foxconn.sw.common.utils.ConfigReader;

@@ -29,9 +29,9 @@ public interface SwCollaborationUserMapper {
 
     @Delete({
         "delete from sw_collaboration_user",
-        "where id = #{id,jdbcType=INTEGER}"
+        "where id = #{id,jdbcType=BIGINT}"
     })
-    int deleteByPrimaryKey(Integer id);
+    int deleteByPrimaryKey(Long id);
 
     @Insert({
         "insert into sw_collaboration_user (task_id, employee_no, ",
@@ -41,16 +41,16 @@ public interface SwCollaborationUserMapper {
         "#{isDelete,jdbcType=INTEGER}, #{status,jdbcType=INTEGER}, ",
         "#{createTime,jdbcType=TIMESTAMP}, #{datetimeLastchange,jdbcType=TIMESTAMP})"
     })
-    @SelectKey(statement="SELECT LAST_INSERT_ID()", keyProperty="id", before=false, resultType=Integer.class)
+    @SelectKey(statement="SELECT LAST_INSERT_ID()", keyProperty="id", before=false, resultType=Long.class)
     int insert(SwCollaborationUser record);
 
     @InsertProvider(type=SwCollaborationUserSqlProvider.class, method="insertSelective")
-    @SelectKey(statement="SELECT LAST_INSERT_ID()", keyProperty="id", before=false, resultType=Integer.class)
+    @SelectKey(statement="SELECT LAST_INSERT_ID()", keyProperty="id", before=false, resultType=Long.class)
     int insertSelective(SwCollaborationUser record);
 
     @SelectProvider(type=SwCollaborationUserSqlProvider.class, method="selectByExample")
     @Results({
-        @Result(column="id", property="id", jdbcType=JdbcType.INTEGER, id=true),
+        @Result(column="id", property="id", jdbcType=JdbcType.BIGINT, id=true),
         @Result(column="task_id", property="taskId", jdbcType=JdbcType.INTEGER),
         @Result(column="employee_no", property="employeeNo", jdbcType=JdbcType.VARCHAR),
         @Result(column="is_delete", property="isDelete", jdbcType=JdbcType.INTEGER),
@@ -62,7 +62,7 @@ public interface SwCollaborationUserMapper {
 
     @SelectProvider(type=SwCollaborationUserSqlProvider.class, method="selectByExample")
     @Results({
-        @Result(column="id", property="id", jdbcType=JdbcType.INTEGER, id=true),
+        @Result(column="id", property="id", jdbcType=JdbcType.BIGINT, id=true),
         @Result(column="task_id", property="taskId", jdbcType=JdbcType.INTEGER),
         @Result(column="employee_no", property="employeeNo", jdbcType=JdbcType.VARCHAR),
         @Result(column="is_delete", property="isDelete", jdbcType=JdbcType.INTEGER),
@@ -76,10 +76,10 @@ public interface SwCollaborationUserMapper {
         "select",
         "id, task_id, employee_no, is_delete, status, create_time, datetime_lastchange",
         "from sw_collaboration_user",
-        "where id = #{id,jdbcType=INTEGER}"
+        "where id = #{id,jdbcType=BIGINT}"
     })
     @Results({
-        @Result(column="id", property="id", jdbcType=JdbcType.INTEGER, id=true),
+        @Result(column="id", property="id", jdbcType=JdbcType.BIGINT, id=true),
         @Result(column="task_id", property="taskId", jdbcType=JdbcType.INTEGER),
         @Result(column="employee_no", property="employeeNo", jdbcType=JdbcType.VARCHAR),
         @Result(column="is_delete", property="isDelete", jdbcType=JdbcType.INTEGER),
@@ -87,7 +87,7 @@ public interface SwCollaborationUserMapper {
         @Result(column="create_time", property="createTime", jdbcType=JdbcType.TIMESTAMP),
         @Result(column="datetime_lastchange", property="datetimeLastchange", jdbcType=JdbcType.TIMESTAMP)
     })
-    SwCollaborationUser selectByPrimaryKey(Integer id);
+    SwCollaborationUser selectByPrimaryKey(Long id);
 
     @UpdateProvider(type=SwCollaborationUserSqlProvider.class, method="updateByExampleSelective")
     int updateByExampleSelective(@Param("record") SwCollaborationUser record, @Param("example") SwCollaborationUserExample example);
@@ -106,7 +106,7 @@ public interface SwCollaborationUserMapper {
           "status = #{status,jdbcType=INTEGER},",
           "create_time = #{createTime,jdbcType=TIMESTAMP},",
           "datetime_lastchange = #{datetimeLastchange,jdbcType=TIMESTAMP}",
-        "where id = #{id,jdbcType=INTEGER}"
+        "where id = #{id,jdbcType=BIGINT}"
     })
     int updateByPrimaryKey(SwCollaborationUser record);
 }

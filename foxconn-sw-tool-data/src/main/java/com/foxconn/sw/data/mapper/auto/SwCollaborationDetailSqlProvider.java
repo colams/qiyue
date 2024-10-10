@@ -29,7 +29,7 @@ public class SwCollaborationDetailSqlProvider {
         sql.INSERT_INTO("sw_collaboration_detail");
         
         if (record.getScuId() != null) {
-            sql.VALUES("scu_id", "#{scuId,jdbcType=INTEGER}");
+            sql.VALUES("scu_id", "#{scuId,jdbcType=BIGINT}");
         }
         
         if (record.getItem() != null) {
@@ -85,7 +85,7 @@ public class SwCollaborationDetailSqlProvider {
         }
         
         if (record.getScuId() != null) {
-            sql.SET("scu_id = #{record.scuId,jdbcType=INTEGER}");
+            sql.SET("scu_id = #{record.scuId,jdbcType=BIGINT}");
         }
         
         if (record.getItem() != null) {
@@ -113,7 +113,7 @@ public class SwCollaborationDetailSqlProvider {
         sql.UPDATE("sw_collaboration_detail");
         
         sql.SET("id = #{record.id,jdbcType=BIGINT}");
-        sql.SET("scu_id = #{record.scuId,jdbcType=INTEGER}");
+        sql.SET("scu_id = #{record.scuId,jdbcType=BIGINT}");
         sql.SET("item = #{record.item,jdbcType=VARCHAR}");
         sql.SET("item_value = #{record.itemValue,jdbcType=VARCHAR}");
         sql.SET("create_time = #{record.createTime,jdbcType=TIMESTAMP}");
@@ -129,7 +129,7 @@ public class SwCollaborationDetailSqlProvider {
         sql.UPDATE("sw_collaboration_detail");
         
         if (record.getScuId() != null) {
-            sql.SET("scu_id = #{scuId,jdbcType=INTEGER}");
+            sql.SET("scu_id = #{scuId,jdbcType=BIGINT}");
         }
         
         if (record.getItem() != null) {

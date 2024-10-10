@@ -175,52 +175,52 @@ public class SwCollaborationDetailExample {
             return (Criteria) this;
         }
 
-        public Criteria andScuIdEqualTo(Integer value) {
+        public Criteria andScuIdEqualTo(Long value) {
             addCriterion("scu_id =", value, "scuId");
             return (Criteria) this;
         }
 
-        public Criteria andScuIdNotEqualTo(Integer value) {
+        public Criteria andScuIdNotEqualTo(Long value) {
             addCriterion("scu_id <>", value, "scuId");
             return (Criteria) this;
         }
 
-        public Criteria andScuIdGreaterThan(Integer value) {
+        public Criteria andScuIdGreaterThan(Long value) {
             addCriterion("scu_id >", value, "scuId");
             return (Criteria) this;
         }
 
-        public Criteria andScuIdGreaterThanOrEqualTo(Integer value) {
+        public Criteria andScuIdGreaterThanOrEqualTo(Long value) {
             addCriterion("scu_id >=", value, "scuId");
             return (Criteria) this;
         }
 
-        public Criteria andScuIdLessThan(Integer value) {
+        public Criteria andScuIdLessThan(Long value) {
             addCriterion("scu_id <", value, "scuId");
             return (Criteria) this;
         }
 
-        public Criteria andScuIdLessThanOrEqualTo(Integer value) {
+        public Criteria andScuIdLessThanOrEqualTo(Long value) {
             addCriterion("scu_id <=", value, "scuId");
             return (Criteria) this;
         }
 
-        public Criteria andScuIdIn(List<Integer> values) {
+        public Criteria andScuIdIn(List<Long> values) {
             addCriterion("scu_id in", values, "scuId");
             return (Criteria) this;
         }
 
-        public Criteria andScuIdNotIn(List<Integer> values) {
+        public Criteria andScuIdNotIn(List<Long> values) {
             addCriterion("scu_id not in", values, "scuId");
             return (Criteria) this;
         }
 
-        public Criteria andScuIdBetween(Integer value1, Integer value2) {
+        public Criteria andScuIdBetween(Long value1, Long value2) {
             addCriterion("scu_id between", value1, value2, "scuId");
             return (Criteria) this;
         }
 
-        public Criteria andScuIdNotBetween(Integer value1, Integer value2) {
+        public Criteria andScuIdNotBetween(Long value1, Long value2) {
             addCriterion("scu_id not between", value1, value2, "scuId");
             return (Criteria) this;
         }

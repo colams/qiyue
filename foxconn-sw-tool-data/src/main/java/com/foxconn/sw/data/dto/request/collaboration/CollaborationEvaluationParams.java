@@ -4,7 +4,7 @@ import java.util.List;
 
 public class CollaborationEvaluationParams {
 
-    private List<Integer> idList;
+    private List<Long> idList;
 
     /**
      * 3-駁回，4-通過
@@ -12,11 +12,11 @@ public class CollaborationEvaluationParams {
     private Integer evaluationType;
 
 
-    public List<Integer> getIdList() {
+    public List<Long> getIdList() {
         return idList;
     }
 
-    public void setIdList(List<Integer> idList) {
+    public void setIdList(List<Long> idList) {
         this.idList = idList;
     }
 

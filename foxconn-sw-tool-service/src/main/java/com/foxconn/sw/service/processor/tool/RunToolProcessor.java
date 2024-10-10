@@ -7,7 +7,7 @@ import com.foxconn.sw.data.constants.enums.FileAttrTypeEnums;
 import com.foxconn.sw.data.dto.Header;
 import com.foxconn.sw.data.dto.entity.tool.RunToolParams;
 import com.foxconn.sw.service.processor.user.CommonUserUtils;
-import com.foxconn.sw.service.utils.FilePathUtils;
+import com.foxconn.sw.common.utils.FilePathUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StopWatch;
