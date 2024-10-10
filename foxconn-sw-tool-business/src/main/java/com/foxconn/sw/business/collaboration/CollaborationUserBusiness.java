@@ -95,7 +95,7 @@ public class CollaborationUserBusiness {
         return result;
     }
 
-    public boolean updateEvalution(SwCollaborationUser user, Integer evaluationType) {
+    public boolean updateEvaluation(SwCollaborationUser user, Integer evaluationType) {
         user.setStatus(evaluationType);
         return collaborationUserMapper.updateByPrimaryKeySelective(user) > 0;
     }

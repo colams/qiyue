@@ -41,7 +41,7 @@ public class CollaborationUpdateProcessor {
     public Boolean evaluation(CollaborationEvaluationParams data) {
         List<SwCollaborationUser> collaborationUsers = collaborationUser.queryCollaborationUser(data.getIdList());
         for (SwCollaborationUser user : collaborationUsers) {
-            collaborationUser.updateEvalution(user, data.getEvaluationType());
+            collaborationUser.updateEvaluation(user, data.getEvaluationType());
         }
         return true;
     }
