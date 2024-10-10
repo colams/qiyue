@@ -1,5 +1,6 @@
 package com.foxconn.sw.service.processor.collaboration;
 
+import com.foxconn.sw.data.dto.entity.acount.EmployeeVo;
 import com.foxconn.sw.data.dto.entity.collaboration.CollaborationVo;
 import com.foxconn.sw.data.dto.request.collaboration.CollaborationDetailParams;
 import com.google.common.collect.Lists;
@@ -39,7 +40,10 @@ public class CollaborationDetailProcessor {
         map.put("id", 1);
         map.put("status", 0);
         map.put("edit", false);
-        map.put("handler", "op");
+        EmployeeVo vo = new EmployeeVo();
+        vo.setName("张三");
+        vo.setEmployeeNo("G123456789");
+        map.put("handler", vo);
         return map;
     }
 }
