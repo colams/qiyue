@@ -41,7 +41,7 @@ public class DocumentController {
     }
 
     @Permission
-    @Operation(summary = "新增文档信息", tags = TagsConstants.OA)
+    @Operation(summary = "更新文档版本", tags = TagsConstants.OA)
     @ApiResponse(responseCode = "0", description = "成功码")
     @PostMapping("/revise")
     public Response revise(@Valid @RequestBody Request<CreateDocParams> request) {
@@ -59,7 +59,7 @@ public class DocumentController {
     }
 
     @Permission
-    @Operation(summary = "删除文档信息", tags = TagsConstants.OA)
+    @Operation(summary = "删除文档版本信息", tags = TagsConstants.OA)
     @ApiResponse(responseCode = "0", description = "成功码")
     @PostMapping("/deleteHistory")
     public Response deleteHistory(@Valid @RequestBody Request<IntegerParams> request) {
