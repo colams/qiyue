@@ -34,12 +34,12 @@ public interface SwDocumentHistoryMapper {
     int deleteByPrimaryKey(Integer id);
 
     @Insert({
-        "insert into sw_document_history (document_id, creator, ",
-        "document_name, create_time, ",
-        "datetime_lastchange)",
-        "values (#{documentId,jdbcType=INTEGER}, #{creator,jdbcType=VARCHAR}, ",
-        "#{documentName,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, ",
-        "#{datetimeLastchange,jdbcType=TIMESTAMP})"
+        "insert into sw_document_history (document_id, document_name, ",
+        "resource_id, create_time, ",
+        "datetime_lastchange, creator)",
+        "values (#{documentId,jdbcType=INTEGER}, #{documentName,jdbcType=VARCHAR}, ",
+        "#{resourceId,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, ",
+        "#{datetimeLastchange,jdbcType=TIMESTAMP}, #{creator,jdbcType=VARCHAR})"
     })
     @SelectKey(statement="SELECT LAST_INSERT_ID()", keyProperty="id", before=false, resultType=Integer.class)
     int insert(SwDocumentHistory record);
@@ -52,10 +52,11 @@ public interface SwDocumentHistoryMapper {
     @Results({
         @Result(column="id", property="id", jdbcType=JdbcType.INTEGER, id=true),
         @Result(column="document_id", property="documentId", jdbcType=JdbcType.INTEGER),
-        @Result(column="creator", property="creator", jdbcType=JdbcType.VARCHAR),
         @Result(column="document_name", property="documentName", jdbcType=JdbcType.VARCHAR),
+        @Result(column="resource_id", property="resourceId", jdbcType=JdbcType.INTEGER),
         @Result(column="create_time", property="createTime", jdbcType=JdbcType.TIMESTAMP),
-        @Result(column="datetime_lastchange", property="datetimeLastchange", jdbcType=JdbcType.TIMESTAMP)
+        @Result(column="datetime_lastchange", property="datetimeLastchange", jdbcType=JdbcType.TIMESTAMP),
+        @Result(column="creator", property="creator", jdbcType=JdbcType.VARCHAR)
     })
     List<SwDocumentHistory> selectByExampleWithRowbounds(SwDocumentHistoryExample example, RowBounds rowBounds);
 
@@ -63,26 +64,29 @@ public interface SwDocumentHistoryMapper {
     @Results({
         @Result(column="id", property="id", jdbcType=JdbcType.INTEGER, id=true),
         @Result(column="document_id", property="documentId", jdbcType=JdbcType.INTEGER),
-        @Result(column="creator", property="creator", jdbcType=JdbcType.VARCHAR),
         @Result(column="document_name", property="documentName", jdbcType=JdbcType.VARCHAR),
+        @Result(column="resource_id", property="resourceId", jdbcType=JdbcType.INTEGER),
         @Result(column="create_time", property="createTime", jdbcType=JdbcType.TIMESTAMP),
-        @Result(column="datetime_lastchange", property="datetimeLastchange", jdbcType=JdbcType.TIMESTAMP)
+        @Result(column="datetime_lastchange", property="datetimeLastchange", jdbcType=JdbcType.TIMESTAMP),
+        @Result(column="creator", property="creator", jdbcType=JdbcType.VARCHAR)
     })
     List<SwDocumentHistory> selectByExample(SwDocumentHistoryExample example);
 
     @Select({
         "select",
-        "id, document_id, creator, document_name, create_time, datetime_lastchange",
+        "id, document_id, document_name, resource_id, create_time, datetime_lastchange, ",
+        "creator",
         "from sw_document_history",
         "where id = #{id,jdbcType=INTEGER}"
     })
     @Results({
         @Result(column="id", property="id", jdbcType=JdbcType.INTEGER, id=true),
         @Result(column="document_id", property="documentId", jdbcType=JdbcType.INTEGER),
-        @Result(column="creator", property="creator", jdbcType=JdbcType.VARCHAR),
         @Result(column="document_name", property="documentName", jdbcType=JdbcType.VARCHAR),
+        @Result(column="resource_id", property="resourceId", jdbcType=JdbcType.INTEGER),
         @Result(column="create_time", property="createTime", jdbcType=JdbcType.TIMESTAMP),
-        @Result(column="datetime_lastchange", property="datetimeLastchange", jdbcType=JdbcType.TIMESTAMP)
+        @Result(column="datetime_lastchange", property="datetimeLastchange", jdbcType=JdbcType.TIMESTAMP),
+        @Result(column="creator", property="creator", jdbcType=JdbcType.VARCHAR)
     })
     SwDocumentHistory selectByPrimaryKey(Integer id);
 
@@ -98,10 +102,11 @@ public interface SwDocumentHistoryMapper {
     @Update({
         "update sw_document_history",
         "set document_id = #{documentId,jdbcType=INTEGER},",
-          "creator = #{creator,jdbcType=VARCHAR},",
           "document_name = #{documentName,jdbcType=VARCHAR},",
+          "resource_id = #{resourceId,jdbcType=INTEGER},",
           "create_time = #{createTime,jdbcType=TIMESTAMP},",
-          "datetime_lastchange = #{datetimeLastchange,jdbcType=TIMESTAMP}",
+          "datetime_lastchange = #{datetimeLastchange,jdbcType=TIMESTAMP},",
+          "creator = #{creator,jdbcType=VARCHAR}",
         "where id = #{id,jdbcType=INTEGER}"
     })
     int updateByPrimaryKey(SwDocumentHistory record);

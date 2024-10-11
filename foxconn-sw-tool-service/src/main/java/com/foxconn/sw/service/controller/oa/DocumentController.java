@@ -8,6 +8,7 @@ import com.foxconn.sw.data.dto.entity.document.HistoryVo;
 import com.foxconn.sw.data.dto.entity.universal.IntegerParams;
 import com.foxconn.sw.data.dto.request.document.CreateDocParams;
 import com.foxconn.sw.data.dto.request.document.DeleteDocParams;
+import com.foxconn.sw.data.dto.request.document.ReviseDocParams;
 import com.foxconn.sw.data.dto.request.document.SearchDocParams;
 import com.foxconn.sw.service.aspects.Permission;
 import com.foxconn.sw.service.processor.document.CreateDocProcessor;
@@ -44,8 +45,8 @@ public class DocumentController {
     @Operation(summary = "更新文档版本", tags = TagsConstants.OA)
     @ApiResponse(responseCode = "0", description = "成功码")
     @PostMapping("/revise")
-    public Response revise(@Valid @RequestBody Request<CreateDocParams> request) {
-        boolean result = createDoc.create(request.getData());
+    public Response revise(@Valid @RequestBody Request<ReviseDocParams> request) {
+        boolean result = createDoc.revise(request.getData());
         return ResponseUtils.success(result, request.getTraceId());
     }
 
@@ -55,7 +56,7 @@ public class DocumentController {
     @PostMapping("/delete")
     public Response delete(@Valid @RequestBody Request<DeleteDocParams> request) {
         boolean result = createDoc.delete(request.getData());
-        return ResponseUtils.success(request.getTraceId());
+        return ResponseUtils.success(result, request.getTraceId());
     }
 
     @Permission
@@ -64,7 +65,7 @@ public class DocumentController {
     @PostMapping("/deleteHistory")
     public Response deleteHistory(@Valid @RequestBody Request<IntegerParams> request) {
         boolean result = createDoc.deleteHistory(request.getData());
-        return ResponseUtils.success(request.getTraceId());
+        return ResponseUtils.success(result, request.getTraceId());
     }
 
     @Permission

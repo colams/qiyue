@@ -32,12 +32,12 @@ public class SwDocumentHistorySqlProvider {
             sql.VALUES("document_id", "#{documentId,jdbcType=INTEGER}");
         }
         
-        if (record.getCreator() != null) {
-            sql.VALUES("creator", "#{creator,jdbcType=VARCHAR}");
-        }
-        
         if (record.getDocumentName() != null) {
             sql.VALUES("document_name", "#{documentName,jdbcType=VARCHAR}");
+        }
+        
+        if (record.getResourceId() != null) {
+            sql.VALUES("resource_id", "#{resourceId,jdbcType=INTEGER}");
         }
         
         if (record.getCreateTime() != null) {
@@ -46,6 +46,10 @@ public class SwDocumentHistorySqlProvider {
         
         if (record.getDatetimeLastchange() != null) {
             sql.VALUES("datetime_lastchange", "#{datetimeLastchange,jdbcType=TIMESTAMP}");
+        }
+        
+        if (record.getCreator() != null) {
+            sql.VALUES("creator", "#{creator,jdbcType=VARCHAR}");
         }
         
         return sql.toString();
@@ -59,10 +63,11 @@ public class SwDocumentHistorySqlProvider {
             sql.SELECT("id");
         }
         sql.SELECT("document_id");
-        sql.SELECT("creator");
         sql.SELECT("document_name");
+        sql.SELECT("resource_id");
         sql.SELECT("create_time");
         sql.SELECT("datetime_lastchange");
+        sql.SELECT("creator");
         sql.FROM("sw_document_history");
         applyWhere(sql, example, false);
         
@@ -88,12 +93,12 @@ public class SwDocumentHistorySqlProvider {
             sql.SET("document_id = #{record.documentId,jdbcType=INTEGER}");
         }
         
-        if (record.getCreator() != null) {
-            sql.SET("creator = #{record.creator,jdbcType=VARCHAR}");
-        }
-        
         if (record.getDocumentName() != null) {
             sql.SET("document_name = #{record.documentName,jdbcType=VARCHAR}");
+        }
+        
+        if (record.getResourceId() != null) {
+            sql.SET("resource_id = #{record.resourceId,jdbcType=INTEGER}");
         }
         
         if (record.getCreateTime() != null) {
@@ -102,6 +107,10 @@ public class SwDocumentHistorySqlProvider {
         
         if (record.getDatetimeLastchange() != null) {
             sql.SET("datetime_lastchange = #{record.datetimeLastchange,jdbcType=TIMESTAMP}");
+        }
+        
+        if (record.getCreator() != null) {
+            sql.SET("creator = #{record.creator,jdbcType=VARCHAR}");
         }
         
         applyWhere(sql, example, true);
@@ -114,10 +123,11 @@ public class SwDocumentHistorySqlProvider {
         
         sql.SET("id = #{record.id,jdbcType=INTEGER}");
         sql.SET("document_id = #{record.documentId,jdbcType=INTEGER}");
-        sql.SET("creator = #{record.creator,jdbcType=VARCHAR}");
         sql.SET("document_name = #{record.documentName,jdbcType=VARCHAR}");
+        sql.SET("resource_id = #{record.resourceId,jdbcType=INTEGER}");
         sql.SET("create_time = #{record.createTime,jdbcType=TIMESTAMP}");
         sql.SET("datetime_lastchange = #{record.datetimeLastchange,jdbcType=TIMESTAMP}");
+        sql.SET("creator = #{record.creator,jdbcType=VARCHAR}");
         
         SwDocumentHistoryExample example = (SwDocumentHistoryExample) parameter.get("example");
         applyWhere(sql, example, true);
@@ -132,12 +142,12 @@ public class SwDocumentHistorySqlProvider {
             sql.SET("document_id = #{documentId,jdbcType=INTEGER}");
         }
         
-        if (record.getCreator() != null) {
-            sql.SET("creator = #{creator,jdbcType=VARCHAR}");
-        }
-        
         if (record.getDocumentName() != null) {
             sql.SET("document_name = #{documentName,jdbcType=VARCHAR}");
+        }
+        
+        if (record.getResourceId() != null) {
+            sql.SET("resource_id = #{resourceId,jdbcType=INTEGER}");
         }
         
         if (record.getCreateTime() != null) {
@@ -146,6 +156,10 @@ public class SwDocumentHistorySqlProvider {
         
         if (record.getDatetimeLastchange() != null) {
             sql.SET("datetime_lastchange = #{datetimeLastchange,jdbcType=TIMESTAMP}");
+        }
+        
+        if (record.getCreator() != null) {
+            sql.SET("creator = #{creator,jdbcType=VARCHAR}");
         }
         
         sql.WHERE("id = #{id,jdbcType=INTEGER}");

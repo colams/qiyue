@@ -6,6 +6,7 @@ public class CreateDocParams {
     private Integer category;
     private String source ;
     private Integer sourceID;
+    private Integer resourceID;
 
     public String getFileName() {
         return fileName;
@@ -37,5 +38,13 @@ public class CreateDocParams {
 
     public void setSourceID(Integer sourceID) {
         this.sourceID = sourceID;
+    }
+
+    public Integer getResourceID() {
+        return resourceID;
+    }
+
+    public void setResourceID(Integer resourceID) {
+        this.resourceID = resourceID;
     }
 }

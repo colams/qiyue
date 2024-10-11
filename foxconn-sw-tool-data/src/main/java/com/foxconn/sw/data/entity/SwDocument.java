@@ -7,7 +7,7 @@ public class SwDocument {
 
     private String documentName;
 
-    private Integer category;
+    private Integer resourceId;
 
     private String creator;
 
@@ -15,9 +15,11 @@ public class SwDocument {
 
     private Integer isDelete;
 
+    private LocalDateTime createTime;
+
     private LocalDateTime datetimeLastchange;
 
-    private LocalDateTime createTime;
+    private Integer category;
 
     public Integer getId() {
         return id;
@@ -45,17 +47,17 @@ public class SwDocument {
         this.documentName = documentName == null ? null : documentName.trim();
     }
 
-    public Integer getCategory() {
-        return category;
+    public Integer getResourceId() {
+        return resourceId;
     }
 
-    public SwDocument withCategory(Integer category) {
-        this.setCategory(category);
+    public SwDocument withResourceId(Integer resourceId) {
+        this.setResourceId(resourceId);
         return this;
     }
 
-    public void setCategory(Integer category) {
-        this.category = category;
+    public void setResourceId(Integer resourceId) {
+        this.resourceId = resourceId;
     }
 
     public String getCreator() {
@@ -97,6 +99,19 @@ public class SwDocument {
         this.isDelete = isDelete;
     }
 
+    public LocalDateTime getCreateTime() {
+        return createTime;
+    }
+
+    public SwDocument withCreateTime(LocalDateTime createTime) {
+        this.setCreateTime(createTime);
+        return this;
+    }
+
+    public void setCreateTime(LocalDateTime createTime) {
+        this.createTime = createTime;
+    }
+
     public LocalDateTime getDatetimeLastchange() {
         return datetimeLastchange;
     }
@@ -110,16 +125,16 @@ public class SwDocument {
         this.datetimeLastchange = datetimeLastchange;
     }
 
-    public LocalDateTime getCreateTime() {
-        return createTime;
+    public Integer getCategory() {
+        return category;
     }
 
-    public SwDocument withCreateTime(LocalDateTime createTime) {
-        this.setCreateTime(createTime);
+    public SwDocument withCategory(Integer category) {
+        this.setCategory(category);
         return this;
     }
 
-    public void setCreateTime(LocalDateTime createTime) {
-        this.createTime = createTime;
+    public void setCategory(Integer category) {
+        this.category = category;
     }
 }

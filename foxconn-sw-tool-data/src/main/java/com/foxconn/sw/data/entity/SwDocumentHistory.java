@@ -7,13 +7,15 @@ public class SwDocumentHistory {
 
     private Integer documentId;
 
-    private String creator;
-
     private String documentName;
+
+    private Integer resourceId;
 
     private LocalDateTime createTime;
 
     private LocalDateTime datetimeLastchange;
+
+    private String creator;
 
     public Integer getId() {
         return id;
@@ -41,19 +43,6 @@ public class SwDocumentHistory {
         this.documentId = documentId;
     }
 
-    public String getCreator() {
-        return creator;
-    }
-
-    public SwDocumentHistory withCreator(String creator) {
-        this.setCreator(creator);
-        return this;
-    }
-
-    public void setCreator(String creator) {
-        this.creator = creator == null ? null : creator.trim();
-    }
-
     public String getDocumentName() {
         return documentName;
     }
@@ -65,6 +54,19 @@ public class SwDocumentHistory {
 
     public void setDocumentName(String documentName) {
         this.documentName = documentName == null ? null : documentName.trim();
+    }
+
+    public Integer getResourceId() {
+        return resourceId;
+    }
+
+    public SwDocumentHistory withResourceId(Integer resourceId) {
+        this.setResourceId(resourceId);
+        return this;
+    }
+
+    public void setResourceId(Integer resourceId) {
+        this.resourceId = resourceId;
     }
 
     public LocalDateTime getCreateTime() {
@@ -91,5 +93,18 @@ public class SwDocumentHistory {
 
     public void setDatetimeLastchange(LocalDateTime datetimeLastchange) {
         this.datetimeLastchange = datetimeLastchange;
+    }
+
+    public String getCreator() {
+        return creator;
+    }
+
+    public SwDocumentHistory withCreator(String creator) {
+        this.setCreator(creator);
+        return this;
+    }
+
+    public void setCreator(String creator) {
+        this.creator = creator == null ? null : creator.trim();
     }
 }
