@@ -2,6 +2,7 @@ package com.foxconn.sw.service.processor.oa.report;
 
 import com.foxconn.sw.business.context.RequestContext;
 import com.foxconn.sw.business.report.SwWorkReportBusiness;
+import com.foxconn.sw.common.utils.JsonUtils;
 import com.foxconn.sw.common.utils.WeekUtils;
 import com.foxconn.sw.data.dto.entity.oa.WorkReportParams;
 import com.foxconn.sw.data.entity.SwWorkReport;
@@ -35,9 +36,6 @@ public class SubmitReportProcessor {
         int year = LocalDate.now().getYear();
 
         int nextWeek = paramsMap.keySet().toArray(new Integer[]{})[1];
-        int currentWeek = paramsMap.keySet().toArray(new Integer[]{})[0];
-        String nextYearWeek = getYearWeek(nextWeek, nextWeek, year);
-
 
         for (Map.Entry<Integer, List<WorkReportParams>> entry : paramsMap.entrySet()) {
             String yearWeek = getYearWeek(entry.getKey(), nextWeek, year);
@@ -111,7 +109,7 @@ public class SubmitReportProcessor {
         report.setEmployeeNo(RequestContext.getEmployeeNo());
         report.setYearWeek(yearWeek);
         report.setWeek(e.getWeek());
-        report.setProject(e.getProject());
+        report.setProject(JsonUtils.serialize(e.getProjectCode()));
         report.setDays(e.getDay());
         report.setTarget(e.getTarget());
         report.setCurrent(e.getCurrent());

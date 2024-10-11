@@ -2,12 +2,13 @@ package com.foxconn.sw.data.dto.entity.oa;
 
 import jakarta.validation.constraints.NotNull;
 
+import java.util.List;
+
 public class WorkReportParams {
 
     private Integer id;
     private Integer week;
-    @NotNull(message = "内容不能为空")
-    private String project;
+    private List<String> projectCode;
     @NotNull(message = "内容不能为空")
     private String description;
     private Double day;
@@ -31,14 +32,13 @@ public class WorkReportParams {
         this.week = week;
     }
 
-    public String getProject() {
-        return project;
+    public List<String> getProjectCode() {
+        return projectCode;
     }
 
-    public void setProject(String project) {
-        this.project = project;
+    public void setProjectCode(List<String> projectCode) {
+        this.projectCode = projectCode;
     }
-
 
     public String getDescription() {
         return description;

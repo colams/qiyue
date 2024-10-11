@@ -26,6 +26,11 @@ public class TaskDetailVo {
     private String category;
 
     /**
+     * 任务分类
+     */
+    private String categoryCode;
+
+    /**
      * 任务标题-任务名称
      */
     private String title;
@@ -143,6 +148,14 @@ public class TaskDetailVo {
 
     public void setCategory(String category) {
         this.category = category;
+    }
+
+    public String getCategoryCode() {
+        return categoryCode;
+    }
+
+    public void setCategoryCode(String categoryCode) {
+        this.categoryCode = categoryCode;
     }
 
     public String getTitle() {

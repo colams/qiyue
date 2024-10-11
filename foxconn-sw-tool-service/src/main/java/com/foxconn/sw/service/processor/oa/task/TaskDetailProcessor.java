@@ -124,6 +124,7 @@ public class TaskDetailProcessor {
         taskDetailVo.setStatusInfoVo(TaskStatusUtils.processStatus(taskDetailVo.getStatus(), taskDetailVo.getRejectStatus()));
         taskDetailVo.setProject(TaskProjectUtils.processProject(taskDetailVo.getProject()));
         taskDetailVo.setCategory(TaskCategoryUtils.processCategory(taskDetailVo.getTopCategory(), taskDetailVo.getCategory()));
+        taskDetailVo.setCategoryCode(task.getCategory());
         taskDetailVo.setOperateList(processOperate(taskDetailVo, employeeNo, relations));
         processEmployee(taskDetailVo, relations);
         return taskDetailVo;

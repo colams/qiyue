@@ -6,6 +6,7 @@ import com.foxconn.sw.business.report.SwWorkReportLockBusiness;
 import com.foxconn.sw.business.report.SwWorkReportScoreBusiness;
 import com.foxconn.sw.business.system.DepartmentBusiness;
 import com.foxconn.sw.business.system.EmployeeBusiness;
+import com.foxconn.sw.common.utils.JsonUtils;
 import com.foxconn.sw.data.dto.entity.acount.EmployeeVo;
 import com.foxconn.sw.data.dto.entity.oa.ReportSearchParams;
 import com.foxconn.sw.data.dto.entity.oa.WorkReportDetail;
@@ -142,6 +143,7 @@ public class ListReportProcessor {
         WorkReportDetail detail = new WorkReportDetail();
         detail.setId(e.getId());
         detail.setProject(e.getProject());
+        detail.setProjectCode(JsonUtils.deserialize(e.getProject(), List.class, String.class));
         detail.setDescription(e.getDescription());
         detail.setDay(e.getDays());
         detail.setTarget(e.getTarget());
