@@ -12,7 +12,6 @@ import com.foxconn.sw.data.entity.SwTask;
 import com.foxconn.sw.data.exception.BizException;
 import com.foxconn.sw.data.mapper.extension.oa.SwCollaborationUserExtensionMapper;
 import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
@@ -84,10 +83,8 @@ public class CollaborationUserBusiness {
              Workbook workbook = new XSSFWorkbook(fis)) {
 
             Sheet sheet = workbook.getSheetAt(0);
-            for (Row row : sheet) {
-                for (Cell cell : row) {
-                    result.add(cell.getStringCellValue());
-                }
+            for (Cell cell : sheet.getRow(0)) {
+                result.add(cell.getStringCellValue());
             }
         } catch (IOException e) {
             e.printStackTrace();

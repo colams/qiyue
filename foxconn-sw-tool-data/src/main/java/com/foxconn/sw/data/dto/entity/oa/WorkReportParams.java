@@ -8,6 +8,8 @@ public class WorkReportParams {
 
     private Integer id;
     private Integer week;
+    private String yearWeek;
+    private String project;
     private List<String> projectCode;
     @NotNull(message = "内容不能为空")
     private String description;
@@ -30,6 +32,22 @@ public class WorkReportParams {
 
     public void setWeek(Integer week) {
         this.week = week;
+    }
+
+    public String getYearWeek() {
+        return yearWeek;
+    }
+
+    public void setYearWeek(String yearWeek) {
+        this.yearWeek = yearWeek;
+    }
+
+    public String getProject() {
+        return project;
+    }
+
+    public void setProject(String project) {
+        this.project = project;
     }
 
     public List<String> getProjectCode() {

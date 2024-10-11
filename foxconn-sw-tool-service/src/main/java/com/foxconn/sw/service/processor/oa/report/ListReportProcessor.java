@@ -17,6 +17,7 @@ import com.foxconn.sw.data.entity.SwWorkReportScore;
 import com.foxconn.sw.data.exception.BizException;
 import com.foxconn.sw.service.processor.config.PositionConfig;
 import com.foxconn.sw.service.processor.oa.utils.ReportSearchParamsUtils;
+import com.foxconn.sw.service.processor.oa.utils.TaskProjectUtils;
 import com.google.common.collect.Lists;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.math.NumberUtils;
@@ -142,8 +143,12 @@ public class ListReportProcessor {
     private WorkReportDetail initDetail(SwWorkReport e) {
         WorkReportDetail detail = new WorkReportDetail();
         detail.setId(e.getId());
-        detail.setProject(e.getProject());
         detail.setProjectCode(JsonUtils.deserialize(e.getProject(), List.class, String.class));
+        if (!CollectionUtils.isEmpty(detail.getProjectCode())) {
+            detail.setProject(TaskProjectUtils.processProject(detail.getProjectCode().get(1)));
+        } else {
+            detail.setProject(e.getProject());
+        }
         detail.setDescription(e.getDescription());
         detail.setDay(e.getDays());
         detail.setTarget(e.getTarget());

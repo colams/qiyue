@@ -53,14 +53,18 @@ public class SubmitReportProcessor {
         return String.format("%s-%02d", year, week);
     }
 
-    private void processReports(List<WorkReportParams> workReportParams, List<SwWorkReport> reports, String yearWeek) {
+    private void processReports(List<WorkReportParams> workReportParams,
+                                List<SwWorkReport> reports,
+                                String yearWeek) {
         List<SwWorkReport> updateReports = workReportParams.stream()
                 .filter(e -> Objects.nonNull(e.getId()) && e.getId() > 0)
-                .map(e -> convertReport(e, yearWeek)).collect(Collectors.toList());
+                .map(e -> convertReport(e, yearWeek))
+                .collect(Collectors.toList());
 
         List<SwWorkReport> insertReports = workReportParams.stream()
                 .filter(e -> Objects.isNull(e.getId()) || e.getId() <= 0)
-                .map(e -> convertReport(e, yearWeek)).collect(Collectors.toList());
+                .map(e -> convertReport(e, yearWeek))
+                .collect(Collectors.toList());
 
         List<SwWorkReport> deleteReports = reports.stream()
                 .filter(e -> updateReports.stream()
@@ -90,7 +94,9 @@ public class SubmitReportProcessor {
         }
     }
 
-    private boolean processReport(List<SwWorkReport> updateReports, List<SwWorkReport> insertReports, List<SwWorkReport> deleteReports) {
+    private boolean processReport(List<SwWorkReport> updateReports,
+                                  List<SwWorkReport> insertReports,
+                                  List<SwWorkReport> deleteReports) {
         if (Objects.nonNull(updateReports)) {
             workReportBusiness.updateBatchReports(updateReports);
         }
@@ -109,7 +115,11 @@ public class SubmitReportProcessor {
         report.setEmployeeNo(RequestContext.getEmployeeNo());
         report.setYearWeek(yearWeek);
         report.setWeek(e.getWeek());
-        report.setProject(JsonUtils.serialize(e.getProjectCode()));
+        if (!CollectionUtils.isEmpty(e.getProjectCode())) {
+            report.setProject(JsonUtils.serialize(e.getProjectCode()));
+        } else {
+            report.setProject(e.getProject());
+        }
         report.setDays(e.getDay());
         report.setTarget(e.getTarget());
         report.setCurrent(e.getCurrent());
