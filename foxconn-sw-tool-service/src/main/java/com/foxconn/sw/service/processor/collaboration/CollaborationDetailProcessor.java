@@ -35,9 +35,15 @@ public class CollaborationDetailProcessor {
     @Autowired
     FilePathUtils filePathUtils;
 
+    /**
+     * int taskID = 75;
+     *
+     * @param params
+     * @return
+     * @throws FileNotFoundException
+     */
     public CollaborationVo detail(CollaborationDetailParams params) throws FileNotFoundException {
         int taskID = params.getTaskID();
-//        int taskID = 75;
         List<String> header = collaborationUser.getTaskHeader(taskID);
         CollaborationVo vo = new CollaborationVo();
         vo.setHeaders(header);
