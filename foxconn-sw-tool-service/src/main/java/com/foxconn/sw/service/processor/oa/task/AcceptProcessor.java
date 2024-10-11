@@ -46,7 +46,7 @@ public class AcceptProcessor {
             taskProgressBusiness.addProcessInfo(progress);
             employeeRelationBusiness.acceptTaskEmployee(taskID);
 
-            if ("collaboration".equalsIgnoreCase(task.getTaskType())) {
+            if ("6-2".equalsIgnoreCase(task.getCategory())) {
                 collaborationUser.acceptTask(task);
             }
         }

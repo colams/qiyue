@@ -17,8 +17,6 @@ public class SwTask {
 
     private String project;
 
-    private String taskType;
-
     private String level;
 
     private Integer progressPercent;
@@ -132,19 +130,6 @@ public class SwTask {
 
     public void setProject(String project) {
         this.project = project == null ? null : project.trim();
-    }
-
-    public String getTaskType() {
-        return taskType;
-    }
-
-    public SwTask withTaskType(String taskType) {
-        this.setTaskType(taskType);
-        return this;
-    }
-
-    public void setTaskType(String taskType) {
-        this.taskType = taskType == null ? null : taskType.trim();
     }
 
     public String getLevel() {

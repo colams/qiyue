@@ -52,10 +52,6 @@ public class SwTaskSqlProvider {
             sql.VALUES("project", "#{project,jdbcType=VARCHAR}");
         }
         
-        if (record.getTaskType() != null) {
-            sql.VALUES("task_type", "#{taskType,jdbcType=VARCHAR}");
-        }
-        
         if (record.getLevel() != null) {
             sql.VALUES("level", "#{level,jdbcType=VARCHAR}");
         }
@@ -120,7 +116,6 @@ public class SwTaskSqlProvider {
         sql.SELECT("category");
         sql.SELECT("top_project");
         sql.SELECT("project");
-        sql.SELECT("task_type");
         sql.SELECT("level");
         sql.SELECT("progress_percent");
         sql.SELECT("status");
@@ -156,7 +151,6 @@ public class SwTaskSqlProvider {
         sql.SELECT("category");
         sql.SELECT("top_project");
         sql.SELECT("project");
-        sql.SELECT("task_type");
         sql.SELECT("level");
         sql.SELECT("progress_percent");
         sql.SELECT("status");
@@ -211,10 +205,6 @@ public class SwTaskSqlProvider {
         
         if (record.getProject() != null) {
             sql.SET("project = #{record.project,jdbcType=VARCHAR}");
-        }
-        
-        if (record.getTaskType() != null) {
-            sql.SET("task_type = #{record.taskType,jdbcType=VARCHAR}");
         }
         
         if (record.getLevel() != null) {
@@ -280,7 +270,6 @@ public class SwTaskSqlProvider {
         sql.SET("category = #{record.category,jdbcType=VARCHAR}");
         sql.SET("top_project = #{record.topProject,jdbcType=VARCHAR}");
         sql.SET("project = #{record.project,jdbcType=VARCHAR}");
-        sql.SET("task_type = #{record.taskType,jdbcType=VARCHAR}");
         sql.SET("level = #{record.level,jdbcType=VARCHAR}");
         sql.SET("progress_percent = #{record.progressPercent,jdbcType=INTEGER}");
         sql.SET("status = #{record.status,jdbcType=INTEGER}");
@@ -310,7 +299,6 @@ public class SwTaskSqlProvider {
         sql.SET("category = #{record.category,jdbcType=VARCHAR}");
         sql.SET("top_project = #{record.topProject,jdbcType=VARCHAR}");
         sql.SET("project = #{record.project,jdbcType=VARCHAR}");
-        sql.SET("task_type = #{record.taskType,jdbcType=VARCHAR}");
         sql.SET("level = #{record.level,jdbcType=VARCHAR}");
         sql.SET("progress_percent = #{record.progressPercent,jdbcType=INTEGER}");
         sql.SET("status = #{record.status,jdbcType=INTEGER}");
@@ -354,10 +342,6 @@ public class SwTaskSqlProvider {
         
         if (record.getProject() != null) {
             sql.SET("project = #{project,jdbcType=VARCHAR}");
-        }
-        
-        if (record.getTaskType() != null) {
-            sql.SET("task_type = #{taskType,jdbcType=VARCHAR}");
         }
         
         if (record.getLevel() != null) {
