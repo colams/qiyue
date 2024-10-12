@@ -1,10 +1,13 @@
 package com.foxconn.sw.data.dto.request.collaboration;
 
+import jakarta.validation.constraints.NotNull;
+
 public class CollaborationDetailParams {
 
+    @NotNull
     private Integer taskID;
 
-    private Long ID;
+    private Long id;
 
     public Integer getTaskID() {
         return taskID;
@@ -14,11 +17,11 @@ public class CollaborationDetailParams {
         this.taskID = taskID;
     }
 
-    public Long getID() {
-        return ID;
+    public Long getId() {
+        return id;
     }
 
-    public void setID(Long ID) {
-        this.ID = ID;
+    public void setId(Long id) {
+        this.id = id;
     }
 }

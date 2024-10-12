@@ -20,10 +20,6 @@ public class MeetingBusiness {
     SwMeetingExtensionMapper meetingMapper;
 
     public Integer createMeeting(EstablishMeetingParams data) {
-        return createMeeting(data, 0);
-    }
-
-    public Integer createMeeting(EstablishMeetingParams data, int cycleType) {
         SwMeeting meeting = new SwMeeting();
         meeting.setRoom(data.getRoom());
         meeting.setTitle(data.getTitle());
@@ -31,11 +27,8 @@ public class MeetingBusiness {
         if (!CollectionUtils.isEmpty(data.getResourceIds())) {
             meeting.setResourceIds(JsonUtils.serialize(data.getResourceIds()));
         }
-        if (cycleType == 1) {
-            CycleUtils.processCycle(meeting, data.getCycleVo());
-        } else {
-            meeting.setMeetingDate(data.getTimeVo().getMeetingDate());
-        }
+        CycleUtils.processCycle(meeting, data.getCycleVo());
+        meeting.setMeetingDate(data.getTimeVo().getMeetingDate());
 
         meeting.setStartTime(data.getTimeVo().getStartTime());
         meeting.setEndTime(data.getTimeVo().getEndTime());

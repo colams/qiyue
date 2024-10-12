@@ -5,9 +5,8 @@ import jakarta.validation.constraints.NotNull;
 import java.util.Map;
 
 public class CollaborationUpdateParams {
-
-    private Integer taskID;
     @NotNull
+    private Integer taskID;
     private Long id;
     private Map<String, String> content;
 

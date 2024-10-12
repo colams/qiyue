@@ -50,6 +50,7 @@ public class CollaborationUserBusiness {
         SwCollaborationUserExample example = new SwCollaborationUserExample();
         SwCollaborationUserExample.Criteria criteria = example.createCriteria();
         criteria.andIdIn(ids);
+        criteria.andEmployeeNoEqualTo(RequestContext.getEmployeeNo());
         return collaborationUserMapper.selectByExample(example);
     }
 
@@ -94,10 +95,16 @@ public class CollaborationUserBusiness {
 
     public boolean updateEvaluation(SwCollaborationUser user, Integer evaluationType) {
         user.setStatus(evaluationType);
+        user.setStatus(evaluationType);
         return collaborationUserMapper.updateByPrimaryKeySelective(user) > 0;
     }
 
     public Boolean updateUser(SwCollaborationUser user) {
         return collaborationUserMapper.updateByPrimaryKeySelective(user) > 0;
+    }
+
+    public Long insertCollaborationUser(SwCollaborationUser collaborationUser) {
+        collaborationUserMapper.insertSelective(collaborationUser);
+        return collaborationUser.getId();
     }
 }

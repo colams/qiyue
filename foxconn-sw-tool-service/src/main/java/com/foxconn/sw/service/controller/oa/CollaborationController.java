@@ -10,11 +10,14 @@ import com.foxconn.sw.data.dto.request.collaboration.CollaborationUpdateParams;
 import com.foxconn.sw.service.aspects.Permission;
 import com.foxconn.sw.service.processor.collaboration.CollaborationDetailProcessor;
 import com.foxconn.sw.service.processor.collaboration.CollaborationUpdateProcessor;
+import com.foxconn.sw.service.utils.ExcelCollaborationUtils;
+import com.foxconn.sw.service.utils.ExcelWorkReportUtils;
 import com.foxconn.sw.service.utils.ResponseUtils;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
+import org.apache.poi.ss.usermodel.Workbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.CollectionUtils;
@@ -22,6 +25,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.OutputStream;
 
 @CrossOrigin
 @RestController
@@ -83,14 +87,14 @@ public class CollaborationController {
             return ResponseEntity.ok().body(null);
         }
         // 使用Apache POI生成Excel文件
-//        Workbook workbook = ExcelWorkReportUtils.generateExcel(vos);
+        Workbook workbook = ExcelCollaborationUtils.generateExcel(collaborationVo);
 
         // 将Excel文件写入响应输出流
-//        OutputStream outputStream = response.getOutputStream();
-//        workbook.write(outputStream);
-//        outputStream.close();
-//
-//        workbook.close();
+        OutputStream outputStream = response.getOutputStream();
+        workbook.write(outputStream);
+        outputStream.close();
+
+        workbook.close();
         return ResponseEntity.ok().body(null);
     }
 
