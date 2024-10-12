@@ -1,10 +1,13 @@
 package com.foxconn.sw.data.dto.request.collaboration;
 
+import jakarta.validation.constraints.NotNull;
+
 import java.util.Map;
 
 public class CollaborationUpdateParams {
 
     private Integer taskID;
+    @NotNull
     private Long id;
     private Map<String, String> content;
 

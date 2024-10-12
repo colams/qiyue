@@ -70,19 +70,16 @@ public class CollaborationDetailProcessor {
         for (SwCollaborationUser collaborationUser : collaborationUsers) {
             List<SwCollaborationDetail> swCollaborationDetails = map.get(collaborationUser.getId());
             if (CollectionUtils.isEmpty(swCollaborationDetails)) {
-                list.add(initMap(collaborationUser, headers));
+                list.add(initDefaultMap(collaborationUser, headers));
             } else {
-                list.add(initMap(collaborationUser, swCollaborationDetails, headers));
+                list.add(initMap(collaborationUser, swCollaborationDetails));
             }
         }
         return list;
     }
 
-    private Map<String, Object> initMap(SwCollaborationUser collaborationUser,
-                                        List<String> headers) {
-
+    private Map<String, Object> initDefaultMap(SwCollaborationUser collaborationUser, List<String> headers) {
         String employeeNo = RequestContext.getEmployeeNo();
-
         SwEmployee employee = employeeBusiness.selectEmployeeByENo(employeeNo);
         EmployeeVo vo = new EmployeeVo();
         vo.setName(employee.getName());
@@ -100,8 +97,7 @@ public class CollaborationDetailProcessor {
     }
 
     private Map<String, Object> initMap(SwCollaborationUser collaborationUser,
-                                        List<SwCollaborationDetail> swCollaborationDetails,
-                                        List<String> headers) {
+                                        List<SwCollaborationDetail> swCollaborationDetails) {
         String employeeNo = RequestContext.getEmployeeNo();
         SwEmployee employee = employeeBusiness.selectEmployeeByENo(employeeNo);
         EmployeeVo vo = new EmployeeVo();

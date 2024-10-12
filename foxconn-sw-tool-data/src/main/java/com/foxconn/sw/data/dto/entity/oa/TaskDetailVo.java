@@ -117,6 +117,8 @@ public class TaskDetailVo {
 
     private Integer rejectStatus;
 
+    private Boolean isCollaboration;
+
 
     public Integer getId() {
         return id;
@@ -300,5 +302,13 @@ public class TaskDetailVo {
 
     public void setWatchers(List<EmployeeVo> watchers) {
         this.watchers = watchers;
+    }
+
+    public Boolean getCollaboration() {
+        return isCollaboration;
+    }
+
+    public void setCollaboration(Boolean collaboration) {
+        isCollaboration = collaboration;
     }
 }

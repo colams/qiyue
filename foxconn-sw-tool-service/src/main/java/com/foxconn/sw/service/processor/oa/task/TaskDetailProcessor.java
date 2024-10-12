@@ -126,6 +126,7 @@ public class TaskDetailProcessor {
         taskDetailVo.setCategory(TaskCategoryUtils.processCategory(taskDetailVo.getTopCategory(), taskDetailVo.getCategory()));
         taskDetailVo.setCategoryCode(task.getCategory());
         taskDetailVo.setOperateList(processOperate(taskDetailVo, employeeNo, relations));
+        taskDetailVo.setCollaboration(task.getCategory().equalsIgnoreCase("6-2"));
         processEmployee(taskDetailVo, relations);
         return taskDetailVo;
     }

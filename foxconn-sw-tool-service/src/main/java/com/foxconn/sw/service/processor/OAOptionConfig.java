@@ -144,8 +144,8 @@ public class OAOptionConfig {
 
         List<OptionsVo> optionsVos6 = new ArrayList<>();
         OptionsVo optionsVo6 = new OptionsVo("6", "其他", optionsVos6);
-        addOptionVo("6-1", "其他", optionsVos6);
         addOptionVo("6-2", "協作任務", optionsVos6);
+        addOptionVo("6-1", "其他", optionsVos6);
 
         optionsVos.add(optionsVo1);
         optionsVos.add(optionsVo2);
