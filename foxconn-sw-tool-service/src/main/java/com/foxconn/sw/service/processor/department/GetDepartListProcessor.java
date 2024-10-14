@@ -1,4 +1,4 @@
-package com.foxconn.sw.service.processor.system;
+package com.foxconn.sw.service.processor.department;
 
 import com.foxconn.sw.business.context.RequestContext;
 import com.foxconn.sw.business.system.DepartmentBusiness;

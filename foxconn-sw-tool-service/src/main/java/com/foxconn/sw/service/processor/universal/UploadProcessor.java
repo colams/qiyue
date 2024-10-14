@@ -1,11 +1,11 @@
 package com.foxconn.sw.service.processor.universal;
 
 import com.foxconn.sw.business.SwAppendResourceBusiness;
+import com.foxconn.sw.common.utils.FilePathUtils;
 import com.foxconn.sw.common.utils.UploadUtils;
 import com.foxconn.sw.data.constants.enums.retcode.RetCode;
 import com.foxconn.sw.data.dto.entity.universal.UploadResult;
 import com.foxconn.sw.data.exception.BizException;
-import com.foxconn.sw.common.utils.FilePathUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -36,7 +36,8 @@ public class UploadProcessor {
 
         List<UploadResult> uploadResults = new ArrayList<>();
         for (MultipartFile file : fileList) {
-            String path = UploadUtils.upload(fileBaseUrl, file);
+            int index = 0;
+            String path = UploadUtils.upload(fileBaseUrl, file, index++);
             int resourceID = 0;
 
             if (StringUtils.isNoneBlank(path)) {

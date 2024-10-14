@@ -4,10 +4,9 @@ import com.foxconn.sw.data.constants.TagsConstants;
 import com.foxconn.sw.data.dto.Request;
 import com.foxconn.sw.data.dto.Response;
 import com.foxconn.sw.data.dto.entity.system.DepartmentVo;
-import com.foxconn.sw.data.dto.entity.universal.OptionsVo;
-import com.foxconn.sw.service.aspects.Permission;
+import com.foxconn.sw.data.dto.request.deparment.DepartmentParams;
 import com.foxconn.sw.service.processor.department.GetDepartListProcessor;
-import com.foxconn.sw.service.processor.system.MeetingRoomProcessor;
+import com.foxconn.sw.service.processor.department.UpdateDepartmentProcessor;
 import com.foxconn.sw.service.utils.ResponseUtils;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -19,14 +18,14 @@ import java.util.List;
 
 @CrossOrigin
 @RestController
-@RequestMapping("api/basic")
-public class BasicController {
+@RequestMapping("api/department")
+public class DepartmentController {
 
-
-    @Autowired
-    MeetingRoomProcessor meetingRoom;
     @Autowired
     GetDepartListProcessor getDepartListProcessor;
+    @Autowired
+    UpdateDepartmentProcessor updateDepartment;
+
 
     @Operation(summary = "所有部门信息树", tags = TagsConstants.SYSTEM)
     @ApiResponse(responseCode = "0", description = "成功码")
@@ -36,21 +35,21 @@ public class BasicController {
         return ResponseUtils.success(departmentVos, request.getTraceId());
     }
 
-    @Permission
-    @Operation(summary = "获取下属部门信息", tags = TagsConstants.SYSTEM)
+
+    @Operation(summary = "更新部门信息", tags = TagsConstants.SYSTEM)
     @ApiResponse(responseCode = "0", description = "成功码")
-    @PostMapping("/subDepts")
-    public Response<List<DepartmentVo>> subDepts(@Valid @RequestBody Request request) {
-        List<DepartmentVo> departmentVos = getDepartListProcessor.subDepts();
-        return ResponseUtils.success(departmentVos, request.getTraceId());
+    @PostMapping("/update")
+    public Response<Boolean> update(@Valid @RequestBody Request<DepartmentParams> request) {
+        boolean result = updateDepartment.updateDepartment(request.getData());
+        return ResponseUtils.success(result, request.getTraceId());
     }
 
-    @Permission
-    @Operation(summary = "获取会议室信息", tags = TagsConstants.SYSTEM)
+    @Operation(summary = "删除部门信息", tags = TagsConstants.SYSTEM)
     @ApiResponse(responseCode = "0", description = "成功码")
-    @PostMapping("/rooms")
-    public Response<List<OptionsVo>> meetRoom(@Valid @RequestBody Request request) {
-        List<OptionsVo> departmentVos = meetingRoom.rooms();
-        return ResponseUtils.success(departmentVos, request.getTraceId());
+    @PostMapping("/delete")
+    public Response<Boolean> delete(@Valid @RequestBody Request<Integer> request) {
+        Boolean result = updateDepartment.deleteDepartment(request.getData());
+        return ResponseUtils.success(result, request.getTraceId());
     }
+
 }

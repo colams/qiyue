@@ -42,6 +42,7 @@ public class UpdateProfileProcessor {
         updateEmployee.setOuterMail(data.getOuterMail());
         updateEmployee.setPhoneNumber(data.getPhoneNumber());
         updateEmployee.setHireDate(data.getHireDate());
+        updateEmployee.setDepartmentId(data.getDepartmentID());
         return employeeBusiness.updateEmployee(updateEmployee);
     }
 

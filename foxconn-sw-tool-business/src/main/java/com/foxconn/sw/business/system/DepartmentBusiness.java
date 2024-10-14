@@ -1,6 +1,7 @@
 package com.foxconn.sw.business.system;
 
 import com.foxconn.sw.data.dto.entity.system.DepartmentVo;
+import com.foxconn.sw.data.dto.request.deparment.DepartmentParams;
 import com.foxconn.sw.data.entity.SwDepartment;
 import com.foxconn.sw.data.entity.SwDepartmentExample;
 import com.foxconn.sw.data.exception.BizException;
@@ -247,5 +248,29 @@ public class DepartmentBusiness {
         temps.addAll(Lists.newArrayList(departmentVo));
         vos.addAll(temps);
         return vos;
+    }
+
+    public boolean delete(Integer departmentID) {
+        SwDepartment department = new SwDepartment();
+        department.setId(departmentID);
+        department.setStatus(0);
+        return departmentExtensionMapper.updateByPrimaryKeySelective(department) > 0;
+    }
+
+    public boolean updateOrInsert(DepartmentParams departmentVo) {
+        SwDepartment department = new SwDepartment();
+        department.setId(departmentVo.getId());
+        department.setLevel(departmentVo.getLevel());
+        department.setName(departmentVo.getName());
+        department.setShortName(departmentVo.getShortName());
+        department.setManagerNo(departmentVo.getManagerNo());
+        department.setDescription(departmentVo.getDescription());
+        department.setParentId(departmentVo.getParentId());
+        department.setStatus(1);
+        if (Objects.nonNull(departmentVo.getId()) && departmentVo.getId() > 0) {
+            return departmentExtensionMapper.updateByPrimaryKeySelective(department) > 0;
+        } else {
+            return departmentExtensionMapper.insertSelective(department) > 0;
+        }
     }
 }

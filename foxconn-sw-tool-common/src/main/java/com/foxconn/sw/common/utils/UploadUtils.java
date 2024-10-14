@@ -11,17 +11,22 @@ public class UploadUtils {
     private static final Logger logger = LoggerFactory.getLogger(UploadUtils.class);
 
 
+    public static String upload(String fileBasepath, MultipartFile multipartFile) {
+        return upload(fileBasepath, multipartFile, 0);
+    }
+
     /**
      * 上傳文件
      *
      * @param fileBasepath
      * @param multipartFile
+     * @param index
      * @return
      */
-    public static String upload(String fileBasepath, MultipartFile multipartFile) {
+    public static String upload(String fileBasepath, MultipartFile multipartFile, int index) {
         try {
             // 构建保存文件的完整路径
-            String fileName = renameFile(multipartFile.getOriginalFilename());
+            String fileName = renameFile(multipartFile.getOriginalFilename(), index);
             String filePath = fileBasepath + fileName;
             // 保存文件
             File file = new File(filePath);
@@ -45,11 +50,12 @@ public class UploadUtils {
      * 规范上传文件命名
      *
      * @param originalName
+     * @param index
      * @return
      */
-    private static String renameFile(String originalName) {
+    private static String renameFile(String originalName, int index) {
         String timeStamp = DateTimeUtils.getFilePrefix();
-        return String.format("%s.%s", timeStamp, getFileExtension(originalName));
+        return String.format("%s_%s.%s", timeStamp, index, getFileExtension(originalName));
     }
 
     private static String getFileExtension(String fileName) {

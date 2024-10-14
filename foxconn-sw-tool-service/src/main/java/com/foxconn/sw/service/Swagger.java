@@ -75,7 +75,7 @@ public class Swagger {
     public GroupedOpenApi systemApi() {
         String[] paths = new String[]{
                 String.format(API_PREFIX, TagsConstants.SYSTEM),
-                String.format(API_PREFIX, "depart"),
+                String.format(API_PREFIX, "department"),
                 String.format(API_PREFIX, "property"),
                 String.format(API_PREFIX, "basic"),
 

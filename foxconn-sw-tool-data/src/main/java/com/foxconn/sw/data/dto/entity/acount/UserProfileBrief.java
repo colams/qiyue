@@ -28,6 +28,8 @@ public class UserProfileBrief {
 
     private String signature;
 
+    private Integer departmentID;
+
     public String getFirstName() {
         return firstName;
     }
@@ -122,5 +124,13 @@ public class UserProfileBrief {
 
     public void setSignature(String signature) {
         this.signature = signature;
+    }
+
+    public Integer getDepartmentID() {
+        return departmentID;
+    }
+
+    public void setDepartmentID(Integer departmentID) {
+        this.departmentID = departmentID;
     }
 }
