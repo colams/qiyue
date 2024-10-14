@@ -2,6 +2,7 @@ package com.foxconn.sw.service.processor.acount;
 
 import com.foxconn.sw.business.context.RequestContext;
 import com.foxconn.sw.business.system.EmployeeBusiness;
+import com.foxconn.sw.common.utils.PinyinUtils;
 import com.foxconn.sw.data.dto.entity.acount.EmployeeVo;
 import com.foxconn.sw.data.dto.request.account.QuerySubEmpParams;
 import com.foxconn.sw.data.entity.SwEmployee;
@@ -10,6 +11,7 @@ import com.google.common.collect.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -19,7 +21,14 @@ public class QueryMemberProcessor {
     @Autowired
     EmployeeBusiness employeeBusiness;
 
+
     public List<EmployeeVo> queryMembers(QuerySubEmpParams params) {
+        List<EmployeeVo> vos = queryMember(params);
+        Collections.sort(vos, (a, b) -> PinyinUtils.toPinyin(a.getName()).compareTo(PinyinUtils.toPinyin(b.getName())));
+        return vos;
+    }
+
+    public List<EmployeeVo> queryMember(QuerySubEmpParams params) {
         String employeeNo = RequestContext.getEmployeeNo();
         List<SwEmployee> employeeVos = employeeBusiness.queryMembers(employeeNo, params.getDepartId());
         List<EmployeeVo> vos = employeeVos.stream().map(e -> {
@@ -37,5 +46,4 @@ public class QueryMemberProcessor {
         return vos.stream().filter(e -> employeeNos.contains(e.getEmployeeNo()))
                 .collect(Collectors.toList());
     }
-
 }
