@@ -1,5 +1,6 @@
 package com.foxconn.sw.business.system;
 
+import com.foxconn.sw.common.utils.PinyinUtils;
 import com.foxconn.sw.data.constants.enums.retcode.AccountExceptionCode;
 import com.foxconn.sw.data.dto.entity.acount.AddressBookParams;
 import com.foxconn.sw.data.dto.entity.acount.EmployeeVo;
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -65,8 +67,12 @@ public class EmployeeBusiness {
     }
 
     public List<EmployeeVo> getEmployeesByLevel() {
-        return swEmployeeExtensionMapper.getEmployeesByLevel();
+        List<EmployeeVo> vos = swEmployeeExtensionMapper.getEmployeesByLevel();
+        Collections.sort(vos, (a, b) -> PinyinUtils.toPinyin(a.getName()).compareTo(PinyinUtils.toPinyin(b.getName())));
+        return vos;
     }
+
+
 
     public List<SwEmployee> selectEmployeeByENos(List<String> employeeNos) {
         List<SwEmployee> swEmployees = getEmployeeList()

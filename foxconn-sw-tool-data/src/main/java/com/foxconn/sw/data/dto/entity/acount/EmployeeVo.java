@@ -1,7 +1,5 @@
 package com.foxconn.sw.data.dto.entity.acount;
 
-import jakarta.validation.constraints.Pattern;
-
 public class EmployeeVo {
 
     private String name;
