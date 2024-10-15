@@ -4,6 +4,7 @@ import com.foxconn.sw.data.constants.TagsConstants;
 import com.foxconn.sw.data.dto.Request;
 import com.foxconn.sw.data.dto.Response;
 import com.foxconn.sw.data.dto.entity.system.DepartmentVo;
+import com.foxconn.sw.data.dto.entity.universal.IntegerParams;
 import com.foxconn.sw.data.dto.request.deparment.DepartmentParams;
 import com.foxconn.sw.service.processor.department.GetDepartListProcessor;
 import com.foxconn.sw.service.processor.department.UpdateDepartmentProcessor;
@@ -47,8 +48,8 @@ public class DepartmentController {
     @Operation(summary = "删除部门信息", tags = TagsConstants.SYSTEM)
     @ApiResponse(responseCode = "0", description = "成功码")
     @PostMapping("/delete")
-    public Response<Boolean> delete(@Valid @RequestBody Request<Integer> request) {
-        Boolean result = updateDepartment.deleteDepartment(request.getData());
+    public Response<Boolean> delete(@Valid @RequestBody Request<IntegerParams> request) {
+        Boolean result = updateDepartment.deleteDepartment(request.getData().getParams());
         return ResponseUtils.success(result, request.getTraceId());
     }
 

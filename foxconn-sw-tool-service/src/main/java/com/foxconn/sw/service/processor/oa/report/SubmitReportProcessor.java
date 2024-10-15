@@ -57,11 +57,18 @@ public class SubmitReportProcessor {
                                 List<SwWorkReport> reports,
                                 String yearWeek) {
         List<SwWorkReport> updateReports = workReportParams.stream()
-                .filter(e -> Objects.nonNull(e.getId()) && e.getId() > 0)
+                .filter(e -> Objects.nonNull(e.getId()) && e.getId() > 0 && reports.stream().anyMatch(f -> f.getId().equals(e.getId())))
                 .map(e -> convertReport(e, yearWeek))
                 .collect(Collectors.toList());
 
         List<SwWorkReport> insertReports = workReportParams.stream()
+                .map(e -> {
+                    boolean hasID = reports.stream().anyMatch(f -> f.getId().equals(e.getId()));
+                    if (Objects.nonNull(e.getId()) && e.getId() > 0 && !hasID) {
+                        e.setId(0);
+                    }
+                    return e;
+                })
                 .filter(e -> Objects.isNull(e.getId()) || e.getId() <= 0)
                 .map(e -> convertReport(e, yearWeek))
                 .collect(Collectors.toList());

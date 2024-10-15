@@ -254,6 +254,9 @@ public class DepartmentBusiness {
         SwDepartment department = new SwDepartment();
         department.setId(departmentID);
         department.setStatus(0);
+        treeDepartmentVos = null;
+        departmentVos = null;
+        departmentList = null;
         return departmentExtensionMapper.updateByPrimaryKeySelective(department) > 0;
     }
 
@@ -267,10 +270,16 @@ public class DepartmentBusiness {
         department.setDescription(departmentVo.getDescription());
         department.setParentId(departmentVo.getParentId());
         department.setStatus(1);
+        int count = 0;
         if (Objects.nonNull(departmentVo.getId()) && departmentVo.getId() > 0) {
-            return departmentExtensionMapper.updateByPrimaryKeySelective(department) > 0;
+            count = departmentExtensionMapper.updateByPrimaryKeySelective(department);
         } else {
-            return departmentExtensionMapper.insertSelective(department) > 0;
+            count = departmentExtensionMapper.insertSelective(department);
         }
+        treeDepartmentVos = null;
+        departmentVos = null;
+        departmentList = null;
+        return count > 0;
+
     }
 }

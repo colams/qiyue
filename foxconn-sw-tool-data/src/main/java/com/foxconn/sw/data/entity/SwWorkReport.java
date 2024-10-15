@@ -29,6 +29,8 @@ public class SwWorkReport {
 
     private LocalDateTime datetimeLastchange;
 
+    private Integer reportType;
+
     public Integer getId() {
         return id;
     }
@@ -196,5 +198,18 @@ public class SwWorkReport {
 
     public void setDatetimeLastchange(LocalDateTime datetimeLastchange) {
         this.datetimeLastchange = datetimeLastchange;
+    }
+
+    public Integer getReportType() {
+        return reportType;
+    }
+
+    public SwWorkReport withReportType(Integer reportType) {
+        this.setReportType(reportType);
+        return this;
+    }
+
+    public void setReportType(Integer reportType) {
+        this.reportType = reportType;
     }
 }

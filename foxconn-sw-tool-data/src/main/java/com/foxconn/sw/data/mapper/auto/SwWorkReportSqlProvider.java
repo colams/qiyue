@@ -76,6 +76,10 @@ public class SwWorkReportSqlProvider {
             sql.VALUES("datetime_lastchange", "#{datetimeLastchange,jdbcType=TIMESTAMP}");
         }
         
+        if (record.getReportType() != null) {
+            sql.VALUES("report_type", "#{reportType,jdbcType=INTEGER}");
+        }
+        
         return sql.toString();
     }
 
@@ -98,6 +102,7 @@ public class SwWorkReportSqlProvider {
         sql.SELECT("remark");
         sql.SELECT("create_time");
         sql.SELECT("datetime_lastchange");
+        sql.SELECT("report_type");
         sql.FROM("sw_work_report");
         applyWhere(sql, example, false);
         
@@ -167,6 +172,10 @@ public class SwWorkReportSqlProvider {
             sql.SET("datetime_lastchange = #{record.datetimeLastchange,jdbcType=TIMESTAMP}");
         }
         
+        if (record.getReportType() != null) {
+            sql.SET("report_type = #{record.reportType,jdbcType=INTEGER}");
+        }
+        
         applyWhere(sql, example, true);
         return sql.toString();
     }
@@ -188,6 +197,7 @@ public class SwWorkReportSqlProvider {
         sql.SET("remark = #{record.remark,jdbcType=VARCHAR}");
         sql.SET("create_time = #{record.createTime,jdbcType=TIMESTAMP}");
         sql.SET("datetime_lastchange = #{record.datetimeLastchange,jdbcType=TIMESTAMP}");
+        sql.SET("report_type = #{record.reportType,jdbcType=INTEGER}");
         
         SwWorkReportExample example = (SwWorkReportExample) parameter.get("example");
         applyWhere(sql, example, true);
@@ -244,6 +254,10 @@ public class SwWorkReportSqlProvider {
         
         if (record.getDatetimeLastchange() != null) {
             sql.SET("datetime_lastchange = #{datetimeLastchange,jdbcType=TIMESTAMP}");
+        }
+        
+        if (record.getReportType() != null) {
+            sql.SET("report_type = #{reportType,jdbcType=INTEGER}");
         }
         
         sql.WHERE("id = #{id,jdbcType=INTEGER}");

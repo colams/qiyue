@@ -99,7 +99,7 @@ public class CollaborationDetailProcessor {
     private Map<String, Object> initMap(SwCollaborationUser collaborationUser,
                                         List<SwCollaborationDetail> swCollaborationDetails) {
         String employeeNo = RequestContext.getEmployeeNo();
-        SwEmployee employee = employeeBusiness.selectEmployeeByENo(employeeNo);
+        SwEmployee employee = employeeBusiness.selectEmployeeByENo(collaborationUser.getEmployeeNo());
         EmployeeVo vo = new EmployeeVo();
         vo.setName(employee.getName());
         vo.setEmployeeNo(employee.getEmployeeNo());

@@ -106,10 +106,23 @@ public class ListReportProcessor {
             e.setScore(score);
             return e;
         }).collect(Collectors.toList());
-        return result.stream()
+
+        List<WorkReportVo> retValue = result.stream()
                 .sorted(Comparator.comparing(WorkReportVo::getEmployeeNo)
                         .thenComparing(WorkReportVo::getYearWeek).reversed())
                 .collect(Collectors.toList());
+
+        if (CollectionUtils.isEmpty(retValue.get(0).getReportDetailList()) && retValue.size() > 3) {
+            List<WorkReportDetail> detailList = retValue.get(2).getReportDetailList()
+                    .stream()
+                    .filter(e -> e.getTarget() < 100)
+                    .collect(Collectors.toList());
+
+            if (!CollectionUtils.isEmpty(detailList)) {
+                retValue.get(1).getReportDetailList().addAll(detailList);
+            }
+        }
+        return retValue;
     }
 
     private Map<String, Integer> queryScore(List<String> yearWeeks) {

@@ -21,7 +21,7 @@ public class SwDocumentBusiness {
     public Boolean createDoc(CreateDocParams data) {
         SwDocument document = new SwDocument();
         document.setDocumentName(data.getFileName());
-        document.setResourceId(data.getSourceID());
+        document.setResourceId(data.getResourceID());
         document.setCreator(RequestContext.getEmployeeNo());
         document.setSource(data.getSource());
         document.setCategory(data.getCategory());
