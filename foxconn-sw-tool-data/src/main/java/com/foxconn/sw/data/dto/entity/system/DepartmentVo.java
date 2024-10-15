@@ -9,6 +9,8 @@ public class DepartmentVo {
     private String name;
     private String managerNo;
     private Integer level;
+    private String shortName;
+    private String description;
     private List<DepartmentVo> children;
 
     public Integer getId() {
@@ -49,6 +51,22 @@ public class DepartmentVo {
 
     public void setLevel(Integer level) {
         this.level = level;
+    }
+
+    public String getShortName() {
+        return shortName;
+    }
+
+    public void setShortName(String shortName) {
+        this.shortName = shortName;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public List<DepartmentVo> getChildren() {

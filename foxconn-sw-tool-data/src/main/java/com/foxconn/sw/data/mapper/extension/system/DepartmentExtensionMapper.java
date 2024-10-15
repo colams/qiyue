@@ -24,6 +24,8 @@ public interface DepartmentExtensionMapper extends SwDepartmentMapper {
             @Result(column="parent_id", property="parentId", jdbcType=JdbcType.INTEGER),
             @Result(column="manager_no", property="managerNo", jdbcType=JdbcType.VARCHAR),
             @Result(column="level", property="level", jdbcType=JdbcType.INTEGER),
+            @Result(column="short_name", property="shortName", jdbcType=JdbcType.VARCHAR),
+            @Result(column="description", property="description", jdbcType=JdbcType.VARCHAR),
     })
     List<DepartmentVo> getDepartList();
 }
