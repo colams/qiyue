@@ -37,7 +37,7 @@ public class OverviewProcessor {
             employees = employeeBusiness.queryMemberNo(RequestContext.getEmployeeNo(), true);
         }
 
-        LocalDateTime localDateTime = LocalDateTime.now().plusDays(1);
+        LocalDateTime localDateTime = LocalDateTime.now();
         String now = DateTimeUtils.formatYMD(localDateTime);
         List<TaskOverviewVo> taskOverviews = Lists.newArrayList();
 

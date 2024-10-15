@@ -143,7 +143,6 @@ public class EmployeeBusiness {
                     .map(e -> e.getEmployeeNo())
                     .findFirst()
                     .orElse("");
-
         }
 
         int deptId = selectEmployeeByENo(partnerEmployeeNo).getDepartmentId();

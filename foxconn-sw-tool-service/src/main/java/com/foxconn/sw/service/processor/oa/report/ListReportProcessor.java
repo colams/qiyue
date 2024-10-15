@@ -188,6 +188,7 @@ public class ListReportProcessor {
         if (CollectionUtils.isEmpty(employees)) {
             return Lists.newArrayList(RequestContext.getEmployeeNo());
         }
+
         employees = employees.stream()
                 .filter(e -> !RequestContext.getEmployeeNo().equalsIgnoreCase(e.getEmployeeNo()))
                 .collect(Collectors.toList());
