@@ -31,11 +31,11 @@ public class UpdateProfileProcessor {
         SwEmployee employee = employeeBusiness.selectEmployeeByENo(employeeNo);
         SwEmployee updateEmployee = new SwEmployee();
         updateEmployee.setId(employee.getId());
-        updateEmployee.setFirstName(data.getFirstName());   // fist name
-        updateEmployee.setLastName(data.getLastName());     // last name
-        updateEmployee.setPostId(data.getPostId());         // 职位
-        updateEmployee.setGender(data.getGender());         // 性别
-        updateEmployee.setLandLine(data.getLandLine());     // 座机
+        updateEmployee.setFirstName(data.getFirstName());
+        updateEmployee.setLastName(data.getLastName());
+        updateEmployee.setPostId(data.getPostId());
+        updateEmployee.setGender(data.getGender());
+        updateEmployee.setLandLine(data.getLandLine());
         updateEmployee.setOuterWorkYears(data.getOuterWorkYears());
         updateEmployee.setOuterAbcYears(data.getOuterAbcYears());
         updateEmployee.setInnerEmail(data.getInnerEmail());
