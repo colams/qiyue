@@ -1,71 +1,59 @@
 package com.foxconn.sw.data.mapper.auto;
 
-import com.foxconn.sw.data.entity.SwWorkReport;
-import com.foxconn.sw.data.entity.SwWorkReportExample.Criteria;
-import com.foxconn.sw.data.entity.SwWorkReportExample.Criterion;
-import com.foxconn.sw.data.entity.SwWorkReportExample;
+import com.foxconn.sw.data.entity.SwSubTask;
+import com.foxconn.sw.data.entity.SwSubTaskExample.Criteria;
+import com.foxconn.sw.data.entity.SwSubTaskExample.Criterion;
+import com.foxconn.sw.data.entity.SwSubTaskExample;
 import java.util.List;
 import java.util.Map;
 import org.apache.ibatis.jdbc.SQL;
 
-public class SwWorkReportSqlProvider {
+public class SwSubTaskSqlProvider {
 
-    public String countByExample(SwWorkReportExample example) {
+    public String countByExample(SwSubTaskExample example) {
         SQL sql = new SQL();
-        sql.SELECT("count(*)").FROM("sw_work_report");
+        sql.SELECT("count(*)").FROM("sw_sub_task");
         applyWhere(sql, example, false);
         return sql.toString();
     }
 
-    public String deleteByExample(SwWorkReportExample example) {
+    public String deleteByExample(SwSubTaskExample example) {
         SQL sql = new SQL();
-        sql.DELETE_FROM("sw_work_report");
+        sql.DELETE_FROM("sw_sub_task");
         applyWhere(sql, example, false);
         return sql.toString();
     }
 
-    public String insertSelective(SwWorkReport record) {
+    public String insertSelective(SwSubTask record) {
         SQL sql = new SQL();
-        sql.INSERT_INTO("sw_work_report");
+        sql.INSERT_INTO("sw_sub_task");
         
-        if (record.getEmployeeNo() != null) {
-            sql.VALUES("employee_no", "#{employeeNo,jdbcType=VARCHAR}");
+        if (record.getTaskId() != null) {
+            sql.VALUES("task_id", "#{taskId,jdbcType=INTEGER}");
         }
         
-        if (record.getYearWeek() != null) {
-            sql.VALUES("year_week", "#{yearWeek,jdbcType=VARCHAR}");
+        if (record.getTaskNo() != null) {
+            sql.VALUES("task_no", "#{taskNo,jdbcType=BIGINT}");
         }
         
-        if (record.getWeek() != null) {
-            sql.VALUES("week", "#{week,jdbcType=INTEGER}");
+        if (record.getTitle() != null) {
+            sql.VALUES("title", "#{title,jdbcType=VARCHAR}");
         }
         
-        if (record.getProject() != null) {
-            sql.VALUES("project", "#{project,jdbcType=VARCHAR}");
-        }
-        
-        if (record.getDays() != null) {
-            sql.VALUES("days", "#{days,jdbcType=DOUBLE}");
-        }
-        
-        if (record.getTarget() != null) {
-            sql.VALUES("target", "#{target,jdbcType=INTEGER}");
-        }
-        
-        if (record.getCurrent() != null) {
-            sql.VALUES("current", "#{current,jdbcType=INTEGER}");
+        if (record.getLevel() != null) {
+            sql.VALUES("level", "#{level,jdbcType=VARCHAR}");
         }
         
         if (record.getStatus() != null) {
             sql.VALUES("status", "#{status,jdbcType=INTEGER}");
         }
         
-        if (record.getDescription() != null) {
-            sql.VALUES("description", "#{description,jdbcType=VARCHAR}");
+        if (record.getHandleNo() != null) {
+            sql.VALUES("handle_no", "#{handleNo,jdbcType=VARCHAR}");
         }
         
-        if (record.getRemark() != null) {
-            sql.VALUES("remark", "#{remark,jdbcType=VARCHAR}");
+        if (record.getDeadLine() != null) {
+            sql.VALUES("dead_line", "#{deadLine,jdbcType=VARCHAR}");
         }
         
         if (record.getCreateTime() != null) {
@@ -79,26 +67,23 @@ public class SwWorkReportSqlProvider {
         return sql.toString();
     }
 
-    public String selectByExample(SwWorkReportExample example) {
+    public String selectByExample(SwSubTaskExample example) {
         SQL sql = new SQL();
         if (example != null && example.isDistinct()) {
             sql.SELECT_DISTINCT("id");
         } else {
             sql.SELECT("id");
         }
-        sql.SELECT("employee_no");
-        sql.SELECT("year_week");
-        sql.SELECT("week");
-        sql.SELECT("project");
-        sql.SELECT("days");
-        sql.SELECT("target");
-        sql.SELECT("current");
+        sql.SELECT("task_id");
+        sql.SELECT("task_no");
+        sql.SELECT("title");
+        sql.SELECT("level");
         sql.SELECT("status");
-        sql.SELECT("description");
-        sql.SELECT("remark");
+        sql.SELECT("handle_no");
+        sql.SELECT("dead_line");
         sql.SELECT("create_time");
         sql.SELECT("datetime_lastchange");
-        sql.FROM("sw_work_report");
+        sql.FROM("sw_sub_task");
         applyWhere(sql, example, false);
         
         if (example != null && example.getOrderByClause() != null) {
@@ -109,54 +94,42 @@ public class SwWorkReportSqlProvider {
     }
 
     public String updateByExampleSelective(Map<String, Object> parameter) {
-        SwWorkReport record = (SwWorkReport) parameter.get("record");
-        SwWorkReportExample example = (SwWorkReportExample) parameter.get("example");
+        SwSubTask record = (SwSubTask) parameter.get("record");
+        SwSubTaskExample example = (SwSubTaskExample) parameter.get("example");
         
         SQL sql = new SQL();
-        sql.UPDATE("sw_work_report");
+        sql.UPDATE("sw_sub_task");
         
         if (record.getId() != null) {
             sql.SET("id = #{record.id,jdbcType=INTEGER}");
         }
         
-        if (record.getEmployeeNo() != null) {
-            sql.SET("employee_no = #{record.employeeNo,jdbcType=VARCHAR}");
+        if (record.getTaskId() != null) {
+            sql.SET("task_id = #{record.taskId,jdbcType=INTEGER}");
         }
         
-        if (record.getYearWeek() != null) {
-            sql.SET("year_week = #{record.yearWeek,jdbcType=VARCHAR}");
+        if (record.getTaskNo() != null) {
+            sql.SET("task_no = #{record.taskNo,jdbcType=BIGINT}");
         }
         
-        if (record.getWeek() != null) {
-            sql.SET("week = #{record.week,jdbcType=INTEGER}");
+        if (record.getTitle() != null) {
+            sql.SET("title = #{record.title,jdbcType=VARCHAR}");
         }
         
-        if (record.getProject() != null) {
-            sql.SET("project = #{record.project,jdbcType=VARCHAR}");
-        }
-        
-        if (record.getDays() != null) {
-            sql.SET("days = #{record.days,jdbcType=DOUBLE}");
-        }
-        
-        if (record.getTarget() != null) {
-            sql.SET("target = #{record.target,jdbcType=INTEGER}");
-        }
-        
-        if (record.getCurrent() != null) {
-            sql.SET("current = #{record.current,jdbcType=INTEGER}");
+        if (record.getLevel() != null) {
+            sql.SET("level = #{record.level,jdbcType=VARCHAR}");
         }
         
         if (record.getStatus() != null) {
             sql.SET("status = #{record.status,jdbcType=INTEGER}");
         }
         
-        if (record.getDescription() != null) {
-            sql.SET("description = #{record.description,jdbcType=VARCHAR}");
+        if (record.getHandleNo() != null) {
+            sql.SET("handle_no = #{record.handleNo,jdbcType=VARCHAR}");
         }
         
-        if (record.getRemark() != null) {
-            sql.SET("remark = #{record.remark,jdbcType=VARCHAR}");
+        if (record.getDeadLine() != null) {
+            sql.SET("dead_line = #{record.deadLine,jdbcType=VARCHAR}");
         }
         
         if (record.getCreateTime() != null) {
@@ -173,69 +146,54 @@ public class SwWorkReportSqlProvider {
 
     public String updateByExample(Map<String, Object> parameter) {
         SQL sql = new SQL();
-        sql.UPDATE("sw_work_report");
+        sql.UPDATE("sw_sub_task");
         
         sql.SET("id = #{record.id,jdbcType=INTEGER}");
-        sql.SET("employee_no = #{record.employeeNo,jdbcType=VARCHAR}");
-        sql.SET("year_week = #{record.yearWeek,jdbcType=VARCHAR}");
-        sql.SET("week = #{record.week,jdbcType=INTEGER}");
-        sql.SET("project = #{record.project,jdbcType=VARCHAR}");
-        sql.SET("days = #{record.days,jdbcType=DOUBLE}");
-        sql.SET("target = #{record.target,jdbcType=INTEGER}");
-        sql.SET("current = #{record.current,jdbcType=INTEGER}");
+        sql.SET("task_id = #{record.taskId,jdbcType=INTEGER}");
+        sql.SET("task_no = #{record.taskNo,jdbcType=BIGINT}");
+        sql.SET("title = #{record.title,jdbcType=VARCHAR}");
+        sql.SET("level = #{record.level,jdbcType=VARCHAR}");
         sql.SET("status = #{record.status,jdbcType=INTEGER}");
-        sql.SET("description = #{record.description,jdbcType=VARCHAR}");
-        sql.SET("remark = #{record.remark,jdbcType=VARCHAR}");
+        sql.SET("handle_no = #{record.handleNo,jdbcType=VARCHAR}");
+        sql.SET("dead_line = #{record.deadLine,jdbcType=VARCHAR}");
         sql.SET("create_time = #{record.createTime,jdbcType=TIMESTAMP}");
         sql.SET("datetime_lastchange = #{record.datetimeLastchange,jdbcType=TIMESTAMP}");
         
-        SwWorkReportExample example = (SwWorkReportExample) parameter.get("example");
+        SwSubTaskExample example = (SwSubTaskExample) parameter.get("example");
         applyWhere(sql, example, true);
         return sql.toString();
     }
 
-    public String updateByPrimaryKeySelective(SwWorkReport record) {
+    public String updateByPrimaryKeySelective(SwSubTask record) {
         SQL sql = new SQL();
-        sql.UPDATE("sw_work_report");
+        sql.UPDATE("sw_sub_task");
         
-        if (record.getEmployeeNo() != null) {
-            sql.SET("employee_no = #{employeeNo,jdbcType=VARCHAR}");
+        if (record.getTaskId() != null) {
+            sql.SET("task_id = #{taskId,jdbcType=INTEGER}");
         }
         
-        if (record.getYearWeek() != null) {
-            sql.SET("year_week = #{yearWeek,jdbcType=VARCHAR}");
+        if (record.getTaskNo() != null) {
+            sql.SET("task_no = #{taskNo,jdbcType=BIGINT}");
         }
         
-        if (record.getWeek() != null) {
-            sql.SET("week = #{week,jdbcType=INTEGER}");
+        if (record.getTitle() != null) {
+            sql.SET("title = #{title,jdbcType=VARCHAR}");
         }
         
-        if (record.getProject() != null) {
-            sql.SET("project = #{project,jdbcType=VARCHAR}");
-        }
-        
-        if (record.getDays() != null) {
-            sql.SET("days = #{days,jdbcType=DOUBLE}");
-        }
-        
-        if (record.getTarget() != null) {
-            sql.SET("target = #{target,jdbcType=INTEGER}");
-        }
-        
-        if (record.getCurrent() != null) {
-            sql.SET("current = #{current,jdbcType=INTEGER}");
+        if (record.getLevel() != null) {
+            sql.SET("level = #{level,jdbcType=VARCHAR}");
         }
         
         if (record.getStatus() != null) {
             sql.SET("status = #{status,jdbcType=INTEGER}");
         }
         
-        if (record.getDescription() != null) {
-            sql.SET("description = #{description,jdbcType=VARCHAR}");
+        if (record.getHandleNo() != null) {
+            sql.SET("handle_no = #{handleNo,jdbcType=VARCHAR}");
         }
         
-        if (record.getRemark() != null) {
-            sql.SET("remark = #{remark,jdbcType=VARCHAR}");
+        if (record.getDeadLine() != null) {
+            sql.SET("dead_line = #{deadLine,jdbcType=VARCHAR}");
         }
         
         if (record.getCreateTime() != null) {
@@ -251,7 +209,7 @@ public class SwWorkReportSqlProvider {
         return sql.toString();
     }
 
-    protected void applyWhere(SQL sql, SwWorkReportExample example, boolean includeExamplePhrase) {
+    protected void applyWhere(SQL sql, SwSubTaskExample example, boolean includeExamplePhrase) {
         if (example == null) {
             return;
         }

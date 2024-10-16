@@ -12,6 +12,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 import static com.foxconn.sw.data.constants.enums.TaskRoleFlagEnums.*;
 
@@ -49,6 +50,14 @@ public class SwTaskEmployeeRelationBusiness {
         }
         return true;
     }
+
+    public boolean deleteTaskRelation(int id) {
+        SwTaskEmployeeRelation relation = new SwTaskEmployeeRelation();
+        relation.setId(id);
+        relation.setIsDelete(1);
+        return employeeRelationExtensionMapper.updateByPrimaryKeySelective(relation) > 0;
+    }
+
 
     private Integer insertRelation(Integer taskID,
                                    SimpleRelation simpleRelation,
@@ -157,13 +166,15 @@ public class SwTaskEmployeeRelationBusiness {
         return Optional.ofNullable(relations).orElse(Lists.newArrayList());
     }
 
-    public List<SwTaskEmployeeRelation> queryEmployeeRelation(List<Integer> taskIDs) {
+    public Map<Integer, List<SwTaskEmployeeRelation>> queryEmployeeRelation(List<Integer> taskIDs) {
         SwTaskEmployeeRelationExample example = new SwTaskEmployeeRelationExample();
         SwTaskEmployeeRelationExample.Criteria criteria = example.createCriteria();
         criteria.andTaskIdIn(taskIDs);
         criteria.andIsDeleteEqualTo(0);
         List<SwTaskEmployeeRelation> relations = employeeRelationExtensionMapper.selectByExample(example);
-        return Optional.ofNullable(relations).orElse(Lists.newArrayList());
+        relations = Optional.ofNullable(relations).orElse(Lists.newArrayList());
+        return relations.stream().collect(Collectors.groupingBy(SwTaskEmployeeRelation::getTaskId));
+
     }
 
     public class SimpleRelation {

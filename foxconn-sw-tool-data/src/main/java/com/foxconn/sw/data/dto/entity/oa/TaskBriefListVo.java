@@ -85,6 +85,9 @@ public class TaskBriefListVo {
      */
     private Integer followStatus;
 
+    /**
+     * 负责人
+     */
     private String supervisor;
 
     public Integer getId() {

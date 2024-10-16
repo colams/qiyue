@@ -8,6 +8,14 @@ public class ReviseDocParams {
     private Integer sourceID;
     private Integer resourceID;
 
+    public Integer getDocumentID() {
+        return documentID;
+    }
+
+    public void setDocumentID(Integer documentID) {
+        this.documentID = documentID;
+    }
+
     public String getFileName() {
         return fileName;
     }

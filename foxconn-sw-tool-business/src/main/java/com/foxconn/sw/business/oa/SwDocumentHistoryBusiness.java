@@ -26,4 +26,8 @@ public class SwDocumentHistoryBusiness {
     public boolean delete(IntegerParams data) {
         return documentHistoryMapper.deleteByPrimaryKey(data.getParams()) > 0;
     }
+
+    public boolean insertHistory(SwDocumentHistory documentHistory) {
+        return documentHistoryMapper.insertSelective(documentHistory) > 0;
+    }
 }

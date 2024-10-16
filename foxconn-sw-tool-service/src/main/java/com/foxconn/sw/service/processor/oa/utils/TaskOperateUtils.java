@@ -7,7 +7,6 @@ import com.foxconn.sw.data.dto.entity.oa.TaskDetailVo;
 import com.foxconn.sw.data.dto.entity.universal.OperateEntity;
 import com.foxconn.sw.data.entity.SwTask;
 import com.foxconn.sw.data.entity.SwTaskEmployeeRelation;
-import org.apache.commons.lang3.StringUtils;
 
 import java.util.List;
 import java.util.Optional;
@@ -82,14 +81,15 @@ public class TaskOperateUtils {
 
     public static OperateEntity processDetailOperate(String employeeNo, TaskDetailVo taskDetailVo,
                                                      OperateTypeEnum op, List<SwTaskEmployeeRelation> relations) {
-        SwTaskEmployeeRelation relation = relations.stream()
+        int roleFlag = relations.stream()
                 .filter(e -> e.getEmployeeNo().equalsIgnoreCase(employeeNo))
                 .findFirst()
-                .orElse(null);
+                .map(e -> e.getRoleFlag())
+                .orElse(0);
 
-        boolean isProposer = Proposer_Flag.test(relation.getRoleFlag());
-        boolean isManger = Manager_Flag.test(relation.getRoleFlag());
-        boolean isHandler = Handler_Flag.test(relation.getRoleFlag());
+        boolean isProposer = Proposer_Flag.test(roleFlag);
+        boolean isManger = Manager_Flag.test(roleFlag);
+        boolean isHandler = Handler_Flag.test(roleFlag);
 
 
         TaskStatusEnums taskStatusEnums = TaskStatusEnums.getStatusByCode(taskDetailVo.getStatus());

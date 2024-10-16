@@ -131,6 +131,9 @@
         <table tableName="sw_role_menu">
             <generatedKey column="id" identity="true" sqlStatement="mysql"/>
         </table>
+        <table tableName="sw_sub_task">
+            <generatedKey column="id" identity="true" sqlStatement="mysql"/>
+        </table>
         <table tableName="sw_task">
             <generatedKey column="id" identity="true" sqlStatement="mysql"/>
         </table>

@@ -69,7 +69,7 @@ public class DocumentController {
     }
 
     @Permission
-    @Operation(summary = "新增文档信息", tags = TagsConstants.OA)
+    @Operation(summary = "文档信息列表", tags = TagsConstants.OA)
     @ApiResponse(responseCode = "0", description = "成功码")
     @PostMapping("/list")
     public Response<List<DocumentVo>> list(@Valid @RequestBody Request<SearchDocParams> request) {
@@ -78,7 +78,7 @@ public class DocumentController {
     }
 
     @Permission
-    @Operation(summary = "新增文档信息", tags = TagsConstants.OA)
+    @Operation(summary = "历史文档信息列表", tags = TagsConstants.OA)
     @ApiResponse(responseCode = "0", description = "成功码")
     @PostMapping("/history")
     public Response<List<HistoryVo>> history(@Valid @RequestBody Request<IntegerParams> request) {

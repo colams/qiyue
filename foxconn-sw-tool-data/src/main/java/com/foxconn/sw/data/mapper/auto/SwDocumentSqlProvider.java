@@ -36,12 +36,20 @@ public class SwDocumentSqlProvider {
             sql.VALUES("resource_id", "#{resourceId,jdbcType=INTEGER}");
         }
         
-        if (record.getCreator() != null) {
-            sql.VALUES("creator", "#{creator,jdbcType=VARCHAR}");
+        if (record.getCategory() != null) {
+            sql.VALUES("category", "#{category,jdbcType=INTEGER}");
         }
         
         if (record.getSource() != null) {
             sql.VALUES("source", "#{source,jdbcType=VARCHAR}");
+        }
+        
+        if (record.getDepartment() != null) {
+            sql.VALUES("department", "#{department,jdbcType=INTEGER}");
+        }
+        
+        if (record.getCreator() != null) {
+            sql.VALUES("creator", "#{creator,jdbcType=VARCHAR}");
         }
         
         if (record.getIsDelete() != null) {
@@ -56,10 +64,6 @@ public class SwDocumentSqlProvider {
             sql.VALUES("datetime_lastchange", "#{datetimeLastchange,jdbcType=TIMESTAMP}");
         }
         
-        if (record.getCategory() != null) {
-            sql.VALUES("category", "#{category,jdbcType=INTEGER}");
-        }
-        
         return sql.toString();
     }
 
@@ -72,12 +76,13 @@ public class SwDocumentSqlProvider {
         }
         sql.SELECT("document_name");
         sql.SELECT("resource_id");
-        sql.SELECT("creator");
+        sql.SELECT("category");
         sql.SELECT("source");
+        sql.SELECT("department");
+        sql.SELECT("creator");
         sql.SELECT("is_delete");
         sql.SELECT("create_time");
         sql.SELECT("datetime_lastchange");
-        sql.SELECT("category");
         sql.FROM("sw_document");
         applyWhere(sql, example, false);
         
@@ -107,12 +112,20 @@ public class SwDocumentSqlProvider {
             sql.SET("resource_id = #{record.resourceId,jdbcType=INTEGER}");
         }
         
-        if (record.getCreator() != null) {
-            sql.SET("creator = #{record.creator,jdbcType=VARCHAR}");
+        if (record.getCategory() != null) {
+            sql.SET("category = #{record.category,jdbcType=INTEGER}");
         }
         
         if (record.getSource() != null) {
             sql.SET("source = #{record.source,jdbcType=VARCHAR}");
+        }
+        
+        if (record.getDepartment() != null) {
+            sql.SET("department = #{record.department,jdbcType=INTEGER}");
+        }
+        
+        if (record.getCreator() != null) {
+            sql.SET("creator = #{record.creator,jdbcType=VARCHAR}");
         }
         
         if (record.getIsDelete() != null) {
@@ -127,10 +140,6 @@ public class SwDocumentSqlProvider {
             sql.SET("datetime_lastchange = #{record.datetimeLastchange,jdbcType=TIMESTAMP}");
         }
         
-        if (record.getCategory() != null) {
-            sql.SET("category = #{record.category,jdbcType=INTEGER}");
-        }
-        
         applyWhere(sql, example, true);
         return sql.toString();
     }
@@ -142,12 +151,13 @@ public class SwDocumentSqlProvider {
         sql.SET("id = #{record.id,jdbcType=INTEGER}");
         sql.SET("document_name = #{record.documentName,jdbcType=VARCHAR}");
         sql.SET("resource_id = #{record.resourceId,jdbcType=INTEGER}");
-        sql.SET("creator = #{record.creator,jdbcType=VARCHAR}");
+        sql.SET("category = #{record.category,jdbcType=INTEGER}");
         sql.SET("source = #{record.source,jdbcType=VARCHAR}");
+        sql.SET("department = #{record.department,jdbcType=INTEGER}");
+        sql.SET("creator = #{record.creator,jdbcType=VARCHAR}");
         sql.SET("is_delete = #{record.isDelete,jdbcType=INTEGER}");
         sql.SET("create_time = #{record.createTime,jdbcType=TIMESTAMP}");
         sql.SET("datetime_lastchange = #{record.datetimeLastchange,jdbcType=TIMESTAMP}");
-        sql.SET("category = #{record.category,jdbcType=INTEGER}");
         
         SwDocumentExample example = (SwDocumentExample) parameter.get("example");
         applyWhere(sql, example, true);
@@ -166,12 +176,20 @@ public class SwDocumentSqlProvider {
             sql.SET("resource_id = #{resourceId,jdbcType=INTEGER}");
         }
         
-        if (record.getCreator() != null) {
-            sql.SET("creator = #{creator,jdbcType=VARCHAR}");
+        if (record.getCategory() != null) {
+            sql.SET("category = #{category,jdbcType=INTEGER}");
         }
         
         if (record.getSource() != null) {
             sql.SET("source = #{source,jdbcType=VARCHAR}");
+        }
+        
+        if (record.getDepartment() != null) {
+            sql.SET("department = #{department,jdbcType=INTEGER}");
+        }
+        
+        if (record.getCreator() != null) {
+            sql.SET("creator = #{creator,jdbcType=VARCHAR}");
         }
         
         if (record.getIsDelete() != null) {
@@ -184,10 +202,6 @@ public class SwDocumentSqlProvider {
         
         if (record.getDatetimeLastchange() != null) {
             sql.SET("datetime_lastchange = #{datetimeLastchange,jdbcType=TIMESTAMP}");
-        }
-        
-        if (record.getCategory() != null) {
-            sql.SET("category = #{category,jdbcType=INTEGER}");
         }
         
         sql.WHERE("id = #{id,jdbcType=INTEGER}");

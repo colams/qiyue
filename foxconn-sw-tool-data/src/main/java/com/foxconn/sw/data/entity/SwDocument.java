@@ -9,17 +9,19 @@ public class SwDocument {
 
     private Integer resourceId;
 
-    private String creator;
+    private Integer category;
 
     private String source;
+
+    private Integer department;
+
+    private String creator;
 
     private Integer isDelete;
 
     private LocalDateTime createTime;
 
     private LocalDateTime datetimeLastchange;
-
-    private Integer category;
 
     public Integer getId() {
         return id;
@@ -60,17 +62,17 @@ public class SwDocument {
         this.resourceId = resourceId;
     }
 
-    public String getCreator() {
-        return creator;
+    public Integer getCategory() {
+        return category;
     }
 
-    public SwDocument withCreator(String creator) {
-        this.setCreator(creator);
+    public SwDocument withCategory(Integer category) {
+        this.setCategory(category);
         return this;
     }
 
-    public void setCreator(String creator) {
-        this.creator = creator == null ? null : creator.trim();
+    public void setCategory(Integer category) {
+        this.category = category;
     }
 
     public String getSource() {
@@ -84,6 +86,32 @@ public class SwDocument {
 
     public void setSource(String source) {
         this.source = source == null ? null : source.trim();
+    }
+
+    public Integer getDepartment() {
+        return department;
+    }
+
+    public SwDocument withDepartment(Integer department) {
+        this.setDepartment(department);
+        return this;
+    }
+
+    public void setDepartment(Integer department) {
+        this.department = department;
+    }
+
+    public String getCreator() {
+        return creator;
+    }
+
+    public SwDocument withCreator(String creator) {
+        this.setCreator(creator);
+        return this;
+    }
+
+    public void setCreator(String creator) {
+        this.creator = creator == null ? null : creator.trim();
     }
 
     public Integer getIsDelete() {
@@ -123,18 +151,5 @@ public class SwDocument {
 
     public void setDatetimeLastchange(LocalDateTime datetimeLastchange) {
         this.datetimeLastchange = datetimeLastchange;
-    }
-
-    public Integer getCategory() {
-        return category;
-    }
-
-    public SwDocument withCategory(Integer category) {
-        this.setCategory(category);
-        return this;
-    }
-
-    public void setCategory(Integer category) {
-        this.category = category;
     }
 }

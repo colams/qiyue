@@ -1,6 +1,7 @@
 package com.foxconn.sw.service.processor.document;
 
 import com.foxconn.sw.business.SwAppendResourceBusiness;
+import com.foxconn.sw.business.account.UserBusiness;
 import com.foxconn.sw.business.oa.SwDocumentBusiness;
 import com.foxconn.sw.business.oa.SwDocumentHistoryBusiness;
 import com.foxconn.sw.common.utils.ConvertUtils;
@@ -27,6 +28,8 @@ public class ListDocProcessor {
     SwDocumentHistoryBusiness documentHistoryBusiness;
     @Autowired
     SwAppendResourceBusiness appendResourceBusiness;
+    @Autowired
+    UserBusiness userBusiness;
 
     public List<DocumentVo> list(SearchDocParams data) {
         List<SwDocument> documents = documentBusiness.queryDocumentList(data);
@@ -63,11 +66,9 @@ public class ListDocProcessor {
             SwAppendResource resource = appendResourceBusiness.getAppendResources(e.getResourceId());
             HistoryVo vo = new HistoryVo();
             vo.setHistoryID(e.getId());
-            vo.setCategory("");
             vo.setDocumentName(e.getDocumentName());
             vo.setUrl(ConvertUtils.urlPreFix(resource.getId(), resource.getFilePath()));
-            vo.setDescription("");
-            vo.setAvatar("");
+            vo.setAvatar(userBusiness.queryUserInfo(e.getCreator()).getAvatar());
             vo.setPublisher(e.getCreator());
             vo.setUpdateTime(StringExtUtils.toString(e.getCreateTime()));
             vos.add(vo);

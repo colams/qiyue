@@ -39,13 +39,13 @@ public interface SwWorkReportMapper {
         "target, current, ",
         "status, description, ",
         "remark, create_time, ",
-        "datetime_lastchange, report_type)",
+        "datetime_lastchange)",
         "values (#{employeeNo,jdbcType=VARCHAR}, #{yearWeek,jdbcType=VARCHAR}, ",
         "#{week,jdbcType=INTEGER}, #{project,jdbcType=VARCHAR}, #{days,jdbcType=DOUBLE}, ",
         "#{target,jdbcType=INTEGER}, #{current,jdbcType=INTEGER}, ",
         "#{status,jdbcType=INTEGER}, #{description,jdbcType=VARCHAR}, ",
         "#{remark,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, ",
-        "#{datetimeLastchange,jdbcType=TIMESTAMP}, #{reportType,jdbcType=INTEGER})"
+        "#{datetimeLastchange,jdbcType=TIMESTAMP})"
     })
     @SelectKey(statement="SELECT LAST_INSERT_ID()", keyProperty="id", before=false, resultType=Integer.class)
     int insert(SwWorkReport record);
@@ -68,8 +68,7 @@ public interface SwWorkReportMapper {
         @Result(column="description", property="description", jdbcType=JdbcType.VARCHAR),
         @Result(column="remark", property="remark", jdbcType=JdbcType.VARCHAR),
         @Result(column="create_time", property="createTime", jdbcType=JdbcType.TIMESTAMP),
-        @Result(column="datetime_lastchange", property="datetimeLastchange", jdbcType=JdbcType.TIMESTAMP),
-        @Result(column="report_type", property="reportType", jdbcType=JdbcType.INTEGER)
+        @Result(column="datetime_lastchange", property="datetimeLastchange", jdbcType=JdbcType.TIMESTAMP)
     })
     List<SwWorkReport> selectByExampleWithRowbounds(SwWorkReportExample example, RowBounds rowBounds);
 
@@ -87,15 +86,14 @@ public interface SwWorkReportMapper {
         @Result(column="description", property="description", jdbcType=JdbcType.VARCHAR),
         @Result(column="remark", property="remark", jdbcType=JdbcType.VARCHAR),
         @Result(column="create_time", property="createTime", jdbcType=JdbcType.TIMESTAMP),
-        @Result(column="datetime_lastchange", property="datetimeLastchange", jdbcType=JdbcType.TIMESTAMP),
-        @Result(column="report_type", property="reportType", jdbcType=JdbcType.INTEGER)
+        @Result(column="datetime_lastchange", property="datetimeLastchange", jdbcType=JdbcType.TIMESTAMP)
     })
     List<SwWorkReport> selectByExample(SwWorkReportExample example);
 
     @Select({
         "select",
         "id, employee_no, year_week, week, project, days, target, current, status, description, ",
-        "remark, create_time, datetime_lastchange, report_type",
+        "remark, create_time, datetime_lastchange",
         "from sw_work_report",
         "where id = #{id,jdbcType=INTEGER}"
     })
@@ -112,8 +110,7 @@ public interface SwWorkReportMapper {
         @Result(column="description", property="description", jdbcType=JdbcType.VARCHAR),
         @Result(column="remark", property="remark", jdbcType=JdbcType.VARCHAR),
         @Result(column="create_time", property="createTime", jdbcType=JdbcType.TIMESTAMP),
-        @Result(column="datetime_lastchange", property="datetimeLastchange", jdbcType=JdbcType.TIMESTAMP),
-        @Result(column="report_type", property="reportType", jdbcType=JdbcType.INTEGER)
+        @Result(column="datetime_lastchange", property="datetimeLastchange", jdbcType=JdbcType.TIMESTAMP)
     })
     SwWorkReport selectByPrimaryKey(Integer id);
 
@@ -139,8 +136,7 @@ public interface SwWorkReportMapper {
           "description = #{description,jdbcType=VARCHAR},",
           "remark = #{remark,jdbcType=VARCHAR},",
           "create_time = #{createTime,jdbcType=TIMESTAMP},",
-          "datetime_lastchange = #{datetimeLastchange,jdbcType=TIMESTAMP},",
-          "report_type = #{reportType,jdbcType=INTEGER}",
+          "datetime_lastchange = #{datetimeLastchange,jdbcType=TIMESTAMP}",
         "where id = #{id,jdbcType=INTEGER}"
     })
     int updateByPrimaryKey(SwWorkReport record);

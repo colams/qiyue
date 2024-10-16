@@ -89,10 +89,10 @@ public class TaskListProcessor {
         List<SwTaskFollow> follows = followBusiness.queryFollow(taskIDs);
         Map<Integer, List<SwTaskFollow>> map = follows.stream().collect(Collectors.groupingBy(SwTaskFollow::getTaskId));
 
-        List<SwTaskEmployeeRelation> relations = relationBusiness.queryEmployeeRelation(taskIDs);
+        Map<Integer, List<SwTaskEmployeeRelation>> relationsMap = relationBusiness.queryEmployeeRelation(taskIDs);
 
         return tasks.stream()
-                .map(e -> mapBrief(e, map, relations))
+                .map(e -> mapBrief(e, map, relationsMap.get(e.getId())))
                 .collect(Collectors.toList());
     }
 
@@ -121,7 +121,7 @@ public class TaskListProcessor {
                 .findFirst();
         if (optional.isPresent()) {
             String supervisorNo = relations.stream()
-                    .filter(r -> r.getPrevId() == optional.get().getId())
+                    .filter(r -> r.getPrevId().equals(optional.get().getId()))
                     .filter(r -> TaskRoleFlagEnums.Manager_Flag.test(r.getRoleFlag()))
                     .map(r -> {
                         SwEmployee ee = employeeBusiness.selectEmployeeByENo(r.getEmployeeNo());
@@ -142,10 +142,6 @@ public class TaskListProcessor {
         vo.setOperateList(processOperate(e, RequestContext.getEmployeeNo(), optional));
 
         return vo;
-    }
-
-    private String mapKey(Integer taskID, String employeeNo) {
-        return String.format("%s_%s", taskID, employeeNo);
     }
 
     private Integer getFollowStatus(Map<Integer, List<SwTaskFollow>> map, Integer taskID) {

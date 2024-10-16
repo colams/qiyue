@@ -18,14 +18,15 @@ public class SwDocumentBusiness {
     @Autowired
     SwDocumentExtensionMapper documentMapper;
 
-    public Boolean createDoc(CreateDocParams data) {
+    public Integer createDoc(CreateDocParams data) {
         SwDocument document = new SwDocument();
         document.setDocumentName(data.getFileName());
         document.setResourceId(data.getResourceID());
         document.setCreator(RequestContext.getEmployeeNo());
         document.setSource(data.getSource());
         document.setCategory(data.getCategory());
-        return documentMapper.insertSelective(document) > 0;
+        documentMapper.insertSelective(document);
+        return document.getId();
     }
 
     public List<SwDocument> queryDocumentList(SearchDocParams data) {
@@ -43,5 +44,9 @@ public class SwDocumentBusiness {
         SwDocumentExample.Criteria criteria = example.createCriteria();
         criteria.andIdIn(data.getDocumentIDs());
         return documentMapper.deleteByExample(example) > 0;
+    }
+
+    public boolean updateDocument(SwDocument document) {
+        return documentMapper.updateByPrimaryKeySelective(document) > 0;
     }
 }
