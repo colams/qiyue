@@ -9,11 +9,23 @@ public class BriefTaskVo extends SwTask {
 
     private List<String> watchers;
 
+
+    private Boolean isCollaboration;
+
     public List<String> getWatchers() {
         return watchers;
     }
 
     public void setWatchers(List<String> watchers) {
         this.watchers = watchers;
+    }
+
+
+    public Boolean getCollaboration() {
+        return isCollaboration;
+    }
+
+    public void setCollaboration(Boolean collaboration) {
+        isCollaboration = collaboration;
     }
 }

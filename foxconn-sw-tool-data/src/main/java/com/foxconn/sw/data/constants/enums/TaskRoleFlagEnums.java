@@ -9,46 +9,46 @@ public enum TaskRoleFlagEnums {
     ;
 
 
-    private int bigFlag;
+    private int flag;
 
-    TaskRoleFlagEnums(Integer bigFlag) {
-        this.bigFlag = bigFlag;
+    TaskRoleFlagEnums(Integer bitFlag) {
+        this.flag = bitFlag;
     }
 
-    public int getBigFlag() {
-        return bigFlag;
+    public int getFlag() {
+        return flag;
     }
 
     public static Integer initFlag(TaskRoleFlagEnums taskRoleFlagEnum) {
-        return 0 | taskRoleFlagEnum.getBigFlag();
+        return 0 | taskRoleFlagEnum.getFlag();
     }
 
 
     public static Integer setFlag(Integer flags, TaskRoleFlagEnums taskRoleFlagEnum) {
-        return flags | taskRoleFlagEnum.getBigFlag();
+        return flags | taskRoleFlagEnum.getFlag();
     }
 
     public static boolean checkFlag(Integer flags, TaskRoleFlagEnums taskRoleFlagEnum) {
-        return (flags & taskRoleFlagEnum.getBigFlag()) != 0;
+        return (flags & taskRoleFlagEnum.getFlag()) != 0;
     }
 
     public boolean test(Integer flags) {
-        return (flags & getBigFlag()) != 0;
+        return (flags & getFlag()) != 0;
     }
 
     public Integer setFlag(Integer flags) {
-        return flags | getBigFlag();
+        return flags | getFlag();
     }
 
     public Integer initFlag() {
-        return 0 | getBigFlag();
+        return 0 | getFlag();
     }
 
     public Integer removeFlag(Integer flags) {
-        return flags & (~getBigFlag());
+        return flags & (~getFlag());
     }
 
     public static Integer removeFlag(Integer flags, TaskRoleFlagEnums taskRoleFlagEnum) {
-        return flags & (~taskRoleFlagEnum.getBigFlag());
+        return flags & (~taskRoleFlagEnum.getFlag());
     }
 }

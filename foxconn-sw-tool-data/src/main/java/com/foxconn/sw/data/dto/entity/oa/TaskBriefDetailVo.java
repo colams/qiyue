@@ -91,6 +91,12 @@ public class TaskBriefDetailVo {
     private String managerEid;
 
     /**
+     * 经办人
+     */
+    @Schema(description = "中间人")
+    private String managerNos;
+
+    /**
      * 关注人
      */
     @Schema(description = "关注人")
@@ -188,6 +194,14 @@ public class TaskBriefDetailVo {
 
     public void setManagerEid(String managerEid) {
         this.managerEid = managerEid;
+    }
+
+    public String getManagerNos() {
+        return managerNos;
+    }
+
+    public void setManagerNos(String managerNos) {
+        this.managerNos = managerNos;
     }
 
     public List<String> getWatchers() {

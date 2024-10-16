@@ -9,13 +9,15 @@ import com.foxconn.sw.business.oa.SwTaskLogBusiness;
 import com.foxconn.sw.business.oa.SwTaskProgressBusiness;
 import com.foxconn.sw.business.system.EmployeeBusiness;
 import com.foxconn.sw.common.utils.ConvertUtils;
+import com.foxconn.sw.common.utils.JsonUtils;
 import com.foxconn.sw.data.constants.enums.oa.RejectStatusEnum;
-import com.foxconn.sw.data.dto.Header;
 import com.foxconn.sw.data.dto.entity.oa.TaskBriefDetailVo;
 import com.foxconn.sw.data.entity.SwEmployee;
 import com.foxconn.sw.data.entity.SwTask;
 import com.foxconn.sw.data.entity.SwTaskProgress;
 import com.foxconn.sw.service.processor.user.CommonUserUtils;
+import com.google.common.collect.Lists;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -46,6 +48,9 @@ public class CreateTaskProcessor {
     public Integer createTask(TaskBriefDetailVo data) {
 
         SwTask task = TaskMapper.INSTANCE.brief2SwTask(data);
+        if (StringUtils.isNotEmpty(data.getManagerNos())) {
+            task.setManagerEid(data.getManagerNos());
+        }
         task.setProposerEid(RequestContext.getEmployeeNo());
 
         boolean result;
@@ -87,9 +92,19 @@ public class CreateTaskProcessor {
 
     private void addProcessInfo(SwTask task, List<Integer> resourceIds, boolean isUpdate) {
         String content = "";
+
+        List<String> managerNos = Lists.newArrayList(task.getManagerEid());
+        if (StringUtils.isNotEmpty(task.getManagerEid()) && task.getManagerEid().startsWith("[")) {
+            managerNos = JsonUtils.deserialize(task.getManagerEid(), List.class, String.class);
+        }
+
         if (task.getStatus() == PENDING.getCode()) {
-            SwEmployee ee = employeeBusiness.selectEmployeeByENo(task.getManagerEid());
-            content = String.format("發起並派送給：%s(%s)", ee.getName(), ee.getEmployeeNo());
+            List<SwEmployee> ee = employeeBusiness.selectEmployeeByENos(managerNos);
+            String name = "";
+            for (SwEmployee employee : ee) {
+                name += String.format("，%s(%s)", employee.getName(), employee.getEmployeeNo());
+            }
+            content = String.format("發起並派送給：%s", name);
         } else if (task.getStatus() == DRAFT.getCode()) {
             if (isUpdate) {
                 content = "修改了草稿";

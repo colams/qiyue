@@ -90,6 +90,9 @@ public class TaskBriefListVo {
      */
     private String supervisor;
 
+
+    private Boolean isCollaboration;
+
     public Integer getId() {
         return id;
     }
@@ -225,5 +228,13 @@ public class TaskBriefListVo {
 
     public void setSupervisor(String supervisor) {
         this.supervisor = supervisor;
+    }
+
+    public Boolean getCollaboration() {
+        return isCollaboration;
+    }
+
+    public void setCollaboration(Boolean collaboration) {
+        isCollaboration = collaboration;
     }
 }

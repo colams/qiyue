@@ -1,6 +1,7 @@
 package com.foxconn.sw.business.oa;
 
 import com.foxconn.sw.business.context.RequestContext;
+import com.foxconn.sw.common.utils.JsonUtils;
 import com.foxconn.sw.data.constants.enums.TaskRoleFlagEnums;
 import com.foxconn.sw.data.entity.SwTaskEmployeeRelation;
 import com.foxconn.sw.data.entity.SwTaskEmployeeRelationExample;
@@ -23,16 +24,16 @@ public class SwTaskEmployeeRelationBusiness {
     SwTaskEmployeeRelationExtensionMapper employeeRelationExtensionMapper;
 
     public boolean addRelationAtCreate(Integer taskID, String managerNo, List<String> watchers) {
+        List<String> managerNos = Lists.newArrayList(managerNo);
+        if (StringUtils.isNotEmpty(managerNo) && managerNo.startsWith("[")) {
+            managerNos = JsonUtils.deserialize(managerNo, List.class, String.class);
+        }
 
-        Map<String, SimpleRelation> roleMap = processEmployeeNo(RequestContext.getEmployeeNo(), managerNo, watchers);
-
+        List<SimpleRelation> simpleRelations = processTaskRole(RequestContext.getEmployeeNo(), managerNos, watchers);
         List<SwTaskEmployeeRelation> relations = employeeRelationExtensionMapper.selectByTaskID(taskID);
-        relations = Optional.ofNullable(relations).orElse(Lists.newArrayList());
-
         int prevID = 0;
-        List<SimpleRelation> values = roleMap.values().stream().sorted(Comparator.comparing(SimpleRelation::getOrderBy)).toList();
-        for (int i = 0; i < values.size(); i++) {
-            SimpleRelation simpleRelation = values.get(i);
+        for (int i = 0; i < simpleRelations.size(); i++) {
+            SimpleRelation simpleRelation = simpleRelations.get(i);
             int relationID = insertRelation(taskID, simpleRelation, relations, prevID);
             if (i == 0) {
                 prevID = relationID;
@@ -41,7 +42,7 @@ public class SwTaskEmployeeRelationBusiness {
 
         List<Integer> deleteIds = new ArrayList<>();
         relations.forEach(e -> {
-            if (!roleMap.containsKey(e.getEmployeeNo())) {
+            if (!simpleRelations.stream().anyMatch(f -> f.getEmployeeNo().equalsIgnoreCase(e.getEmployeeNo()))) {
                 deleteIds.add(e.getId());
             }
         });
@@ -49,6 +50,59 @@ public class SwTaskEmployeeRelationBusiness {
             employeeRelationExtensionMapper.deleteWatchRelation(deleteIds);
         }
         return true;
+    }
+
+    public List<SimpleRelation> processTaskRole(String employeeNo,
+                                                List<String> managerNos,
+                                                List<String> watchers) {
+        Map<String, SimpleRelation> taskRoleMap = new HashMap<>();
+        Set<String> eNoSet = new HashSet<>();
+
+        Lists.newArrayList(employeeNo).forEach(e -> {
+            if (StringUtils.isEmpty(e)) {
+                return;
+            }
+
+            if (eNoSet.contains(e)) {
+                return;
+            }
+            processMap(taskRoleMap, e, Proposer_Flag, 0, 1);
+        });
+
+        Optional.ofNullable(managerNos).orElse(Lists.newArrayList()).forEach(e -> {
+            if (StringUtils.isEmpty(e)) {
+                return;
+            }
+
+            if (eNoSet.contains(e)) {
+                return;
+            }
+            processMap(taskRoleMap, e, Manager_Flag, 1, 2);
+        });
+
+        Optional.ofNullable(watchers).orElse(Lists.newArrayList()).forEach(e -> {
+            if (StringUtils.isEmpty(e)) {
+                return;
+            }
+
+            if (eNoSet.contains(e)) {
+                return;
+            }
+            processMap(taskRoleMap, e, Watcher_Flag, 0, 3);
+        });
+
+        return taskRoleMap.values().stream().sorted(Comparator.comparing(SimpleRelation::getOrderBy)).toList();
+    }
+
+    private void processMap(Map<String, SimpleRelation> map, String eno, TaskRoleFlagEnums taskRoleFlag, int active, int orderBy) {
+        SimpleRelation relation = map.getOrDefault(eno, new SimpleRelation());
+        relation.setActive(active);
+        relation.setRoleFlag(taskRoleFlag.setFlag(relation.getRoleFlag()));
+        relation.setEmployeeNo(eno);
+        if (relation.getOrderBy() == 0) {
+            relation.setOrderBy(orderBy);
+        }
+        map.put(eno, relation);
     }
 
     public boolean deleteTaskRelation(int id) {
@@ -93,42 +147,6 @@ public class SwTaskEmployeeRelationBusiness {
             relationID = insertRelation.getId();
         }
         return relationID;
-    }
-
-    private Map<String, SimpleRelation> processEmployeeNo(String employeeNo, String managerNo, List<String> watchers) {
-        Map<String, SimpleRelation> map = new HashMap<>();
-        boolean isSame = employeeNo.equalsIgnoreCase(managerNo);
-        addRole(map, Lists.newArrayList(employeeNo), Proposer_Flag, isSame ? 1 : 0, 0);
-        addRole(map, Lists.newArrayList(managerNo), Manager_Flag, 1, isSame ? 0 : 1);
-        addRole(map, watchers, Watcher_Flag, 0, 2);
-        return map;
-    }
-
-    private void addRole(Map<String, SimpleRelation> map,
-                         List<String> employeeNos,
-                         TaskRoleFlagEnums roleFlagEnums,
-                         int active,
-                         int orderBy) {
-        if (CollectionUtils.isEmpty(employeeNos)) {
-            return;
-        }
-
-        for (String employeeNo : employeeNos) {
-
-            if (StringUtils.isEmpty(employeeNo)) {
-                continue;
-            }
-
-            boolean hasKey = map.containsKey(employeeNo);
-            SimpleRelation relation = map.getOrDefault(employeeNo, new SimpleRelation());
-            relation.setActive(active);
-            relation.setRoleFlag(roleFlagEnums.setFlag(relation.getRoleFlag()));
-            relation.setEmployeeNo(employeeNo);
-            if (!hasKey) {
-                relation.setOrderBy(orderBy);
-            }
-            map.put(employeeNo, relation);
-        }
     }
 
     public Integer assignTaskEmployee(String employeeNo, int taskID, TaskRoleFlagEnums roleFlagEnum) {
