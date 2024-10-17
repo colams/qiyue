@@ -3,7 +3,6 @@ package com.foxconn.sw.service.processor;
 import com.foxconn.sw.data.constants.enums.oa.TaskLevelEnums;
 import com.foxconn.sw.data.dto.entity.universal.OptionsVo;
 import com.google.common.collect.Lists;
-import org.springframework.util.CollectionUtils;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -223,20 +222,16 @@ public class OAOptionConfig {
                 "NW",
                 "GB",
                 "Prespa"));
-        map.put("Nan-A", Lists.newArrayList());
-        map.put("Others", Lists.newArrayList());
+        map.put("Nan-A", Lists.newArrayList("Nan-A"));
+        map.put("Others", Lists.newArrayList("Others"));
 
         List<OptionsVo> optionsVos = new ArrayList<>();
         for (Map.Entry<String, List<String>> entry : map.entrySet()) {
 
             List<OptionsVo> optionsVos1 = new ArrayList<>();
             optionsVos.add(new OptionsVo(entry.getKey(), entry.getKey(), optionsVos1));
-            if (CollectionUtils.isEmpty(entry.getValue())) {
-                addOptionVo(entry.getKey(), entry.getKey(), optionsVos1);
-            } else {
-                for (String value : entry.getValue()) {
-                    addOptionVo(value, value, optionsVos1);
-                }
+            for (String value : entry.getValue()) {
+                addOptionVo(value, value, optionsVos1);
             }
 
         }
