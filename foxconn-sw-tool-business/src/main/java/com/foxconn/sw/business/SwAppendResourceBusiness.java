@@ -29,6 +29,10 @@ public class SwAppendResourceBusiness {
 
     public String getResourceUrl(Integer resourceId) {
         SwAppendResource resource = getAppendResources(resourceId);
+        return getResourceUrl(resource);
+    }
+
+    public String getResourceUrl(SwAppendResource resource) {
         if (Objects.isNull(resource)) {
             return "";
         }

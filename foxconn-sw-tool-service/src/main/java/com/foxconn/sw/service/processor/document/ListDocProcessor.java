@@ -44,7 +44,8 @@ public class ListDocProcessor {
             vo.setDocumentID(e.getId());
             vo.setCategory("");
             vo.setDocumentName(e.getDocumentName());
-            vo.setUrl(ConvertUtils.urlPreFix(resource.getId(), resource.getFilePath()));
+            vo.setDownloadUrl(ConvertUtils.urlPreFix(resource.getId(), resource.getFilePath()));
+            vo.setViewUrl(appendResourceBusiness.getResourceUrl(resource));
             vo.setDescription(e.getSource());
             vo.setDepartment("");
             vo.setPublisher(e.getCreator());
@@ -67,7 +68,8 @@ public class ListDocProcessor {
             HistoryVo vo = new HistoryVo();
             vo.setHistoryID(e.getId());
             vo.setDocumentName(e.getDocumentName());
-            vo.setUrl(ConvertUtils.urlPreFix(resource.getId(), resource.getFilePath()));
+            vo.setDownloadUrl(ConvertUtils.urlPreFix(resource.getId(), resource.getFilePath()));
+            vo.setViewUrl(appendResourceBusiness.getResourceUrl(resource));
             vo.setAvatar(userBusiness.queryUserInfo(e.getCreator()).getAvatar());
             vo.setPublisher(e.getCreator());
             vo.setUpdateTime(StringExtUtils.toString(e.getCreateTime()));

@@ -167,7 +167,7 @@ public class ListMeetingProcessor {
             }
 
             if (StringUtils.isEmpty(meeting.getCycleExpire())
-                    || meeting.getCycleExpire().compareTo(date) == 1) {
+                    || meeting.getCycleExpire().compareTo(date) > 0) {
                 return true;
             }
 

@@ -5,7 +5,8 @@ public class HistoryVo {
     private Integer historyID;
     private String category;
     private String documentName;
-    private String url;
+    private String downloadUrl;
+    private String viewUrl;
     private String description;
     private String publisher;
     private String avatar;
@@ -35,12 +36,20 @@ public class HistoryVo {
         this.documentName = documentName;
     }
 
-    public String getUrl() {
-        return url;
+    public String getDownloadUrl() {
+        return downloadUrl;
     }
 
-    public void setUrl(String url) {
-        this.url = url;
+    public void setDownloadUrl(String downloadUrl) {
+        this.downloadUrl = downloadUrl;
+    }
+
+    public String getViewUrl() {
+        return viewUrl;
+    }
+
+    public void setViewUrl(String viewUrl) {
+        this.viewUrl = viewUrl;
     }
 
     public String getDescription() {
