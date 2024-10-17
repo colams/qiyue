@@ -2,7 +2,7 @@ package com.foxconn.sw.data.constants.enums;
 
 public enum OperateTypeEnum {
 
-    VIEW("查看", "list"),
+    VIEW("详情", "list"),
     UPDATE("更新", "list"),
     REMINDER("跟催", "list"),
     REVOKE("撤销", "list"),
