@@ -1,11 +1,12 @@
 package com.foxconn.sw.data.dto.request.document;
 
 public class ReviseDocParams {
+
     private Integer documentID;
     private String fileName;
-    private Integer category;
-    private String source ;
-    private Integer sourceID;
+    private String category;
+    private String fileVersion;
+    private String description;
     private Integer resourceID;
 
     public Integer getDocumentID() {
@@ -24,28 +25,28 @@ public class ReviseDocParams {
         this.fileName = fileName;
     }
 
-    public Integer getCategory() {
+    public String getCategory() {
         return category;
     }
 
-    public void setCategory(Integer category) {
+    public void setCategory(String category) {
         this.category = category;
     }
 
-    public String getSource() {
-        return source;
+    public String getFileVersion() {
+        return fileVersion;
     }
 
-    public void setSource(String source) {
-        this.source = source;
+    public void setFileVersion(String fileVersion) {
+        this.fileVersion = fileVersion;
     }
 
-    public Integer getSourceID() {
-        return sourceID;
+    public String getDescription() {
+        return description;
     }
 
-    public void setSourceID(Integer sourceID) {
-        this.sourceID = sourceID;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public Integer getResourceID() {

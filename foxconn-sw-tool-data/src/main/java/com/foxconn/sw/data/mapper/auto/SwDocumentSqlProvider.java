@@ -32,20 +32,32 @@ public class SwDocumentSqlProvider {
             sql.VALUES("document_name", "#{documentName,jdbcType=VARCHAR}");
         }
         
-        if (record.getResourceId() != null) {
-            sql.VALUES("resource_id", "#{resourceId,jdbcType=INTEGER}");
-        }
-        
         if (record.getCategory() != null) {
-            sql.VALUES("category", "#{category,jdbcType=INTEGER}");
+            sql.VALUES("category", "#{category,jdbcType=VARCHAR}");
         }
         
-        if (record.getSource() != null) {
-            sql.VALUES("source", "#{source,jdbcType=VARCHAR}");
+        if (record.getSecretLevel() != null) {
+            sql.VALUES("secret_level", "#{secretLevel,jdbcType=INTEGER}");
+        }
+        
+        if (record.getProject() != null) {
+            sql.VALUES("project", "#{project,jdbcType=VARCHAR}");
         }
         
         if (record.getDepartment() != null) {
             sql.VALUES("department", "#{department,jdbcType=INTEGER}");
+        }
+        
+        if (record.getDescription() != null) {
+            sql.VALUES("description", "#{description,jdbcType=VARCHAR}");
+        }
+        
+        if (record.getFileVersion() != null) {
+            sql.VALUES("file_version", "#{fileVersion,jdbcType=VARCHAR}");
+        }
+        
+        if (record.getExpireDate() != null) {
+            sql.VALUES("expire_date", "#{expireDate,jdbcType=VARCHAR}");
         }
         
         if (record.getCreator() != null) {
@@ -64,6 +76,10 @@ public class SwDocumentSqlProvider {
             sql.VALUES("datetime_lastchange", "#{datetimeLastchange,jdbcType=TIMESTAMP}");
         }
         
+        if (record.getResourceId() != null) {
+            sql.VALUES("resource_id", "#{resourceId,jdbcType=INTEGER}");
+        }
+        
         return sql.toString();
     }
 
@@ -75,14 +91,18 @@ public class SwDocumentSqlProvider {
             sql.SELECT("id");
         }
         sql.SELECT("document_name");
-        sql.SELECT("resource_id");
         sql.SELECT("category");
-        sql.SELECT("source");
+        sql.SELECT("secret_level");
+        sql.SELECT("project");
         sql.SELECT("department");
+        sql.SELECT("description");
+        sql.SELECT("file_version");
+        sql.SELECT("expire_date");
         sql.SELECT("creator");
         sql.SELECT("is_delete");
         sql.SELECT("create_time");
         sql.SELECT("datetime_lastchange");
+        sql.SELECT("resource_id");
         sql.FROM("sw_document");
         applyWhere(sql, example, false);
         
@@ -108,20 +128,32 @@ public class SwDocumentSqlProvider {
             sql.SET("document_name = #{record.documentName,jdbcType=VARCHAR}");
         }
         
-        if (record.getResourceId() != null) {
-            sql.SET("resource_id = #{record.resourceId,jdbcType=INTEGER}");
-        }
-        
         if (record.getCategory() != null) {
-            sql.SET("category = #{record.category,jdbcType=INTEGER}");
+            sql.SET("category = #{record.category,jdbcType=VARCHAR}");
         }
         
-        if (record.getSource() != null) {
-            sql.SET("source = #{record.source,jdbcType=VARCHAR}");
+        if (record.getSecretLevel() != null) {
+            sql.SET("secret_level = #{record.secretLevel,jdbcType=INTEGER}");
+        }
+        
+        if (record.getProject() != null) {
+            sql.SET("project = #{record.project,jdbcType=VARCHAR}");
         }
         
         if (record.getDepartment() != null) {
             sql.SET("department = #{record.department,jdbcType=INTEGER}");
+        }
+        
+        if (record.getDescription() != null) {
+            sql.SET("description = #{record.description,jdbcType=VARCHAR}");
+        }
+        
+        if (record.getFileVersion() != null) {
+            sql.SET("file_version = #{record.fileVersion,jdbcType=VARCHAR}");
+        }
+        
+        if (record.getExpireDate() != null) {
+            sql.SET("expire_date = #{record.expireDate,jdbcType=VARCHAR}");
         }
         
         if (record.getCreator() != null) {
@@ -140,6 +172,10 @@ public class SwDocumentSqlProvider {
             sql.SET("datetime_lastchange = #{record.datetimeLastchange,jdbcType=TIMESTAMP}");
         }
         
+        if (record.getResourceId() != null) {
+            sql.SET("resource_id = #{record.resourceId,jdbcType=INTEGER}");
+        }
+        
         applyWhere(sql, example, true);
         return sql.toString();
     }
@@ -150,14 +186,18 @@ public class SwDocumentSqlProvider {
         
         sql.SET("id = #{record.id,jdbcType=INTEGER}");
         sql.SET("document_name = #{record.documentName,jdbcType=VARCHAR}");
-        sql.SET("resource_id = #{record.resourceId,jdbcType=INTEGER}");
-        sql.SET("category = #{record.category,jdbcType=INTEGER}");
-        sql.SET("source = #{record.source,jdbcType=VARCHAR}");
+        sql.SET("category = #{record.category,jdbcType=VARCHAR}");
+        sql.SET("secret_level = #{record.secretLevel,jdbcType=INTEGER}");
+        sql.SET("project = #{record.project,jdbcType=VARCHAR}");
         sql.SET("department = #{record.department,jdbcType=INTEGER}");
+        sql.SET("description = #{record.description,jdbcType=VARCHAR}");
+        sql.SET("file_version = #{record.fileVersion,jdbcType=VARCHAR}");
+        sql.SET("expire_date = #{record.expireDate,jdbcType=VARCHAR}");
         sql.SET("creator = #{record.creator,jdbcType=VARCHAR}");
         sql.SET("is_delete = #{record.isDelete,jdbcType=INTEGER}");
         sql.SET("create_time = #{record.createTime,jdbcType=TIMESTAMP}");
         sql.SET("datetime_lastchange = #{record.datetimeLastchange,jdbcType=TIMESTAMP}");
+        sql.SET("resource_id = #{record.resourceId,jdbcType=INTEGER}");
         
         SwDocumentExample example = (SwDocumentExample) parameter.get("example");
         applyWhere(sql, example, true);
@@ -172,20 +212,32 @@ public class SwDocumentSqlProvider {
             sql.SET("document_name = #{documentName,jdbcType=VARCHAR}");
         }
         
-        if (record.getResourceId() != null) {
-            sql.SET("resource_id = #{resourceId,jdbcType=INTEGER}");
-        }
-        
         if (record.getCategory() != null) {
-            sql.SET("category = #{category,jdbcType=INTEGER}");
+            sql.SET("category = #{category,jdbcType=VARCHAR}");
         }
         
-        if (record.getSource() != null) {
-            sql.SET("source = #{source,jdbcType=VARCHAR}");
+        if (record.getSecretLevel() != null) {
+            sql.SET("secret_level = #{secretLevel,jdbcType=INTEGER}");
+        }
+        
+        if (record.getProject() != null) {
+            sql.SET("project = #{project,jdbcType=VARCHAR}");
         }
         
         if (record.getDepartment() != null) {
             sql.SET("department = #{department,jdbcType=INTEGER}");
+        }
+        
+        if (record.getDescription() != null) {
+            sql.SET("description = #{description,jdbcType=VARCHAR}");
+        }
+        
+        if (record.getFileVersion() != null) {
+            sql.SET("file_version = #{fileVersion,jdbcType=VARCHAR}");
+        }
+        
+        if (record.getExpireDate() != null) {
+            sql.SET("expire_date = #{expireDate,jdbcType=VARCHAR}");
         }
         
         if (record.getCreator() != null) {
@@ -202,6 +254,10 @@ public class SwDocumentSqlProvider {
         
         if (record.getDatetimeLastchange() != null) {
             sql.SET("datetime_lastchange = #{datetimeLastchange,jdbcType=TIMESTAMP}");
+        }
+        
+        if (record.getResourceId() != null) {
+            sql.SET("resource_id = #{resourceId,jdbcType=INTEGER}");
         }
         
         sql.WHERE("id = #{id,jdbcType=INTEGER}");

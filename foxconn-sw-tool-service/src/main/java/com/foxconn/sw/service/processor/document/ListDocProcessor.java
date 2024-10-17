@@ -46,9 +46,9 @@ public class ListDocProcessor {
             vo.setDocumentName(e.getDocumentName());
             vo.setDownloadUrl(ConvertUtils.urlPreFix(resource.getId(), resource.getFilePath()));
             vo.setViewUrl(appendResourceBusiness.getResourceUrl(resource));
-            vo.setDescription(e.getSource());
+//            vo.setDescription(e.getSource());
             vo.setDepartment("");
-            vo.setPublisher(e.getCreator());
+//            vo.setPublisher(e.getCreator());
             vo.setUpdateTime(StringExtUtils.toString(e.getCreateTime()));
             vos.add(vo);
         });

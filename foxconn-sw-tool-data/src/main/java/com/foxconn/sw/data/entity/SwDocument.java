@@ -7,13 +7,19 @@ public class SwDocument {
 
     private String documentName;
 
-    private Integer resourceId;
+    private String category;
 
-    private Integer category;
+    private Integer secretLevel;
 
-    private String source;
+    private String project;
 
     private Integer department;
+
+    private String description;
+
+    private String fileVersion;
+
+    private String expireDate;
 
     private String creator;
 
@@ -22,6 +28,8 @@ public class SwDocument {
     private LocalDateTime createTime;
 
     private LocalDateTime datetimeLastchange;
+
+    private Integer resourceId;
 
     public Integer getId() {
         return id;
@@ -49,43 +57,43 @@ public class SwDocument {
         this.documentName = documentName == null ? null : documentName.trim();
     }
 
-    public Integer getResourceId() {
-        return resourceId;
-    }
-
-    public SwDocument withResourceId(Integer resourceId) {
-        this.setResourceId(resourceId);
-        return this;
-    }
-
-    public void setResourceId(Integer resourceId) {
-        this.resourceId = resourceId;
-    }
-
-    public Integer getCategory() {
+    public String getCategory() {
         return category;
     }
 
-    public SwDocument withCategory(Integer category) {
+    public SwDocument withCategory(String category) {
         this.setCategory(category);
         return this;
     }
 
-    public void setCategory(Integer category) {
-        this.category = category;
+    public void setCategory(String category) {
+        this.category = category == null ? null : category.trim();
     }
 
-    public String getSource() {
-        return source;
+    public Integer getSecretLevel() {
+        return secretLevel;
     }
 
-    public SwDocument withSource(String source) {
-        this.setSource(source);
+    public SwDocument withSecretLevel(Integer secretLevel) {
+        this.setSecretLevel(secretLevel);
         return this;
     }
 
-    public void setSource(String source) {
-        this.source = source == null ? null : source.trim();
+    public void setSecretLevel(Integer secretLevel) {
+        this.secretLevel = secretLevel;
+    }
+
+    public String getProject() {
+        return project;
+    }
+
+    public SwDocument withProject(String project) {
+        this.setProject(project);
+        return this;
+    }
+
+    public void setProject(String project) {
+        this.project = project == null ? null : project.trim();
     }
 
     public Integer getDepartment() {
@@ -99,6 +107,45 @@ public class SwDocument {
 
     public void setDepartment(Integer department) {
         this.department = department;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public SwDocument withDescription(String description) {
+        this.setDescription(description);
+        return this;
+    }
+
+    public void setDescription(String description) {
+        this.description = description == null ? null : description.trim();
+    }
+
+    public String getFileVersion() {
+        return fileVersion;
+    }
+
+    public SwDocument withFileVersion(String fileVersion) {
+        this.setFileVersion(fileVersion);
+        return this;
+    }
+
+    public void setFileVersion(String fileVersion) {
+        this.fileVersion = fileVersion == null ? null : fileVersion.trim();
+    }
+
+    public String getExpireDate() {
+        return expireDate;
+    }
+
+    public SwDocument withExpireDate(String expireDate) {
+        this.setExpireDate(expireDate);
+        return this;
+    }
+
+    public void setExpireDate(String expireDate) {
+        this.expireDate = expireDate == null ? null : expireDate.trim();
     }
 
     public String getCreator() {
@@ -151,5 +198,18 @@ public class SwDocument {
 
     public void setDatetimeLastchange(LocalDateTime datetimeLastchange) {
         this.datetimeLastchange = datetimeLastchange;
+    }
+
+    public Integer getResourceId() {
+        return resourceId;
+    }
+
+    public SwDocument withResourceId(Integer resourceId) {
+        this.setResourceId(resourceId);
+        return this;
+    }
+
+    public void setResourceId(Integer resourceId) {
+        this.resourceId = resourceId;
     }
 }

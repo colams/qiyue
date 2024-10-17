@@ -5,7 +5,7 @@ public class SearchDocParams {
     private String publisher;
 
 
-    private Integer category;
+    private String category;
     private String source;
 
     public String getDocumentName() {
@@ -16,11 +16,11 @@ public class SearchDocParams {
         this.documentName = documentName;
     }
 
-    public Integer getCategory() {
+    public String getCategory() {
         return category;
     }
 
-    public void setCategory(Integer category) {
+    public void setCategory(String category) {
         this.category = category;
     }
 

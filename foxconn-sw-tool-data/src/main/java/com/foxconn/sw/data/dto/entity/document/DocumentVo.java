@@ -1,5 +1,7 @@
 package com.foxconn.sw.data.dto.entity.document;
 
+import com.foxconn.sw.data.dto.entity.acount.EmployeeVo;
+
 public class DocumentVo {
 
     private Integer documentID;
@@ -7,9 +9,17 @@ public class DocumentVo {
     private String documentName;
     private String downloadUrl;
     private String viewUrl;
+    private secret secretLevel;
+    private String project;
     private String description;
     private String department;
-    private String publisher;
+    private String fileVersion;
+
+    private Boolean canView;
+    private Boolean canDownload;
+
+    private EmployeeVo publisher;
+    private String createTime;
     private String updateTime;
 
     public Integer getDocumentID() {
@@ -52,6 +62,22 @@ public class DocumentVo {
         this.viewUrl = viewUrl;
     }
 
+    public secret getSecretLevel() {
+        return secretLevel;
+    }
+
+    public void setSecretLevel(secret secretLevel) {
+        this.secretLevel = secretLevel;
+    }
+
+    public String getProject() {
+        return project;
+    }
+
+    public void setProject(String project) {
+        this.project = project;
+    }
+
     public String getDescription() {
         return description;
     }
@@ -68,12 +94,44 @@ public class DocumentVo {
         this.department = department;
     }
 
-    public String getPublisher() {
+    public String getFileVersion() {
+        return fileVersion;
+    }
+
+    public void setFileVersion(String fileVersion) {
+        this.fileVersion = fileVersion;
+    }
+
+    public Boolean getCanView() {
+        return canView;
+    }
+
+    public void setCanView(Boolean canView) {
+        this.canView = canView;
+    }
+
+    public Boolean getCanDownload() {
+        return canDownload;
+    }
+
+    public void setCanDownload(Boolean canDownload) {
+        this.canDownload = canDownload;
+    }
+
+    public EmployeeVo getPublisher() {
         return publisher;
     }
 
-    public void setPublisher(String publisher) {
+    public void setPublisher(EmployeeVo publisher) {
         this.publisher = publisher;
+    }
+
+    public String getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(String createTime) {
+        this.createTime = createTime;
     }
 
     public String getUpdateTime() {
@@ -82,5 +140,26 @@ public class DocumentVo {
 
     public void setUpdateTime(String updateTime) {
         this.updateTime = updateTime;
+    }
+
+    public class secret {
+        private String title;
+        private Integer level;
+
+        public String getTitle() {
+            return title;
+        }
+
+        public void setTitle(String title) {
+            this.title = title;
+        }
+
+        public Integer getLevel() {
+            return level;
+        }
+
+        public void setLevel(Integer level) {
+            this.level = level;
+        }
     }
 }

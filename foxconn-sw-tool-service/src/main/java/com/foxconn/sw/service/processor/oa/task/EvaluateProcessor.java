@@ -58,14 +58,14 @@ public class EvaluateProcessor {
     }
 
     private boolean saveEvaluateLog(TaskEvaluateParams data, String employeeName) {
-        return taskLogBusiness.addTaskLog(data.getTaskId(), employeeName, String.format("%s 评价的该任务", employeeName));
+        return taskLogBusiness.addTaskLog(data.getTaskId(), employeeName, String.format("%s 评价的该任務", employeeName));
     }
 
     private boolean saveProgress(TaskEvaluateParams data, String employeeNo, String employeeName) {
         SwTaskProgress progress = new SwTaskProgress();
         progress.setTaskId(data.getTaskId());
         progress.setOperateEid(employeeNo);
-        progress.setContent(String.format("%s 验收的该任务", employeeName));
+        progress.setContent(String.format("%s 验收的该任務", employeeName));
         return taskProgressBusiness.addProcessInfo(progress);
     }
 }

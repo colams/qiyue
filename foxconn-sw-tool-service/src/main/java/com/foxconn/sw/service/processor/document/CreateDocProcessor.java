@@ -26,35 +26,26 @@ public class CreateDocProcessor {
     public boolean create(CreateDocParams params) {
 
         int documentID = documentBusiness.createDoc(params);
-        if (documentID > 0) {
-            SwDocumentHistory documentHistory = new SwDocumentHistory();
-            documentHistory.setDocumentId(documentID);
-            documentHistory.setDocumentName(params.getFileName());
-            documentHistory.setResourceId(params.getResourceID());
-            documentHistory.setCreator(RequestContext.getEmployeeNo());
-            documentHistoryBusiness.insertHistory(documentHistory);
-        }
         return documentID > 0;
     }
 
 
     public boolean revise(ReviseDocParams data) {
-
         SwDocument document = documentBusiness.queryDocumentByID(data.getDocumentID());
-        document.setDocumentName(data.getFileName());
-        document.setResourceId(data.getResourceID());
-        document.setCategory(data.getCategory());
-        document.setSource(data.getSource());
-        document.setCreator(RequestContext.getEmployeeNo());
-        documentBusiness.updateDocument(document);
-
 
         SwDocumentHistory documentHistory = new SwDocumentHistory();
-        documentHistory.setDocumentId(data.getDocumentID());
-        documentHistory.setDocumentName(data.getFileName());
-        documentHistory.setResourceId(data.getResourceID());
+        documentHistory.setDocumentId(document.getId());
+        documentHistory.setDocumentName(document.getDocumentName());
+        documentHistory.setResourceId(document.getResourceId());
         documentHistory.setCreator(RequestContext.getEmployeeNo());
         documentHistoryBusiness.insertHistory(documentHistory);
+
+        document.setDocumentName(data.getFileName());
+        document.setCategory(data.getCategory());
+        document.setDescription(data.getDescription());
+        document.setFileVersion(data.getFileVersion());
+        document.setResourceId(data.getResourceID());
+        documentBusiness.updateDocument(document);
         return true;
     }
 

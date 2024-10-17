@@ -3,9 +3,12 @@ package com.foxconn.sw.data.dto.request.document;
 public class CreateDocParams {
 
     private String fileName;
-    private Integer category;
-    private String source ;
-    private Integer sourceID;
+    private String category;
+    private String fileVersion;
+    private Integer secretLevel;
+    private String project;
+    private String description;
+    private String expireDate;
     private Integer resourceID;
 
     public String getFileName() {
@@ -16,28 +19,52 @@ public class CreateDocParams {
         this.fileName = fileName;
     }
 
-    public Integer getCategory() {
+    public String getCategory() {
         return category;
     }
 
-    public void setCategory(Integer category) {
+    public void setCategory(String category) {
         this.category = category;
     }
 
-    public String getSource() {
-        return source;
+    public String getFileVersion() {
+        return fileVersion;
     }
 
-    public void setSource(String source) {
-        this.source = source;
+    public void setFileVersion(String fileVersion) {
+        this.fileVersion = fileVersion;
     }
 
-    public Integer getSourceID() {
-        return sourceID;
+    public Integer getSecretLevel() {
+        return secretLevel;
     }
 
-    public void setSourceID(Integer sourceID) {
-        this.sourceID = sourceID;
+    public void setSecretLevel(Integer secretLevel) {
+        this.secretLevel = secretLevel;
+    }
+
+    public String getProject() {
+        return project;
+    }
+
+    public void setProject(String project) {
+        this.project = project;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getExpireDate() {
+        return expireDate;
+    }
+
+    public void setExpireDate(String expireDate) {
+        this.expireDate = expireDate;
     }
 
     public Integer getResourceID() {

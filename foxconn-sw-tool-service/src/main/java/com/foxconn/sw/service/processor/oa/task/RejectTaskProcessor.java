@@ -54,7 +54,7 @@ public class RejectTaskProcessor {
     private boolean rejectAchieve(TaskRejectParams data, UserInfo user, int rejectStatus) {
         boolean result = taskBusiness.updateTaskStatus(data.getTaskId(), TaskStatusEnums.PROCESSING, rejectStatus);
         if (result) {
-            taskLogBusiness.addTaskLog(data.getTaskId(), user.getEmployeeName(), "任务 验收驳回:" + data.getContent());
+            taskLogBusiness.addTaskLog(data.getTaskId(), user.getEmployeeName(), "任務 验收驳回:" + data.getContent());
             addProgress(data, user, rejectStatus);
         }
         return result;
@@ -63,7 +63,7 @@ public class RejectTaskProcessor {
     private boolean rejectClose(TaskRejectParams data, UserInfo user, int rejectStatus) {
         boolean result = taskBusiness.updateTaskStatus(data.getTaskId(), TaskStatusEnums.PENDING, rejectStatus);
         if (result) {
-            taskLogBusiness.addTaskLog(data.getTaskId(), user.getEmployeeName(), "任务退回: " + data.getContent());
+            taskLogBusiness.addTaskLog(data.getTaskId(), user.getEmployeeName(), "任務退回: " + data.getContent());
             addProgress(data, user, rejectStatus);
         }
         return result;
