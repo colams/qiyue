@@ -1,10 +1,20 @@
 package com.foxconn.sw.data.dto.request.document;
 
 public class SearchDocParams {
+    private String documentName ;
+    private String publisher;
+
 
     private Integer category;
     private String source;
-    private String publisher;
+
+    public String getDocumentName() {
+        return documentName;
+    }
+
+    public void setDocumentName(String documentName) {
+        this.documentName = documentName;
+    }
 
     public Integer getCategory() {
         return category;

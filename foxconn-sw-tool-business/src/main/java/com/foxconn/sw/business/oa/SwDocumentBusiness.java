@@ -1,22 +1,27 @@
 package com.foxconn.sw.business.oa;
 
 import com.foxconn.sw.business.context.RequestContext;
+import com.foxconn.sw.business.system.EmployeeBusiness;
 import com.foxconn.sw.data.dto.request.document.CreateDocParams;
 import com.foxconn.sw.data.dto.request.document.DeleteDocParams;
 import com.foxconn.sw.data.dto.request.document.SearchDocParams;
 import com.foxconn.sw.data.entity.SwDocument;
 import com.foxconn.sw.data.entity.SwDocumentExample;
 import com.foxconn.sw.data.mapper.extension.oa.SwDocumentExtensionMapper;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.Objects;
 
 @Component
 public class SwDocumentBusiness {
 
     @Autowired
     SwDocumentExtensionMapper documentMapper;
+    @Autowired
+    EmployeeBusiness employeeBusiness;
 
     public Integer createDoc(CreateDocParams data) {
         SwDocument document = new SwDocument();
@@ -25,6 +30,7 @@ public class SwDocumentBusiness {
         document.setCreator(RequestContext.getEmployeeNo());
         document.setSource(data.getSource());
         document.setCategory(data.getCategory());
+        document.setDepartment(employeeBusiness.queryEmployeeByEno(RequestContext.getEmployeeNo()).getDepartmentId());
         documentMapper.insertSelective(document);
         return document.getId();
     }
@@ -32,6 +38,22 @@ public class SwDocumentBusiness {
     public List<SwDocument> queryDocumentList(SearchDocParams data) {
         SwDocumentExample example = new SwDocumentExample();
         SwDocumentExample.Criteria criteria = example.createCriteria();
+
+        if (StringUtils.isNotEmpty(data.getDocumentName())) {
+            criteria.andDocumentNameLike(" %" + data.getDocumentName() + "% ");
+        }
+
+        if (StringUtils.isNotEmpty(data.getPublisher())) {
+            criteria.andCreatorEqualTo(data.getPublisher());
+        }
+
+        if (Objects.nonNull(data.getCategory()) && data.getCategory() > 0) {
+            criteria.andCategoryEqualTo(data.getCategory());
+        }
+
+        if (StringUtils.isNotEmpty(data.getSource())) {
+            criteria.andSourceEqualTo(data.getSource());
+        }
         return documentMapper.selectByExample(example);
     }
 

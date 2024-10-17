@@ -3,6 +3,7 @@ package com.foxconn.sw.service.processor.document;
 import com.foxconn.sw.business.context.RequestContext;
 import com.foxconn.sw.business.oa.SwDocumentBusiness;
 import com.foxconn.sw.business.oa.SwDocumentHistoryBusiness;
+import com.foxconn.sw.business.system.DepartmentBusiness;
 import com.foxconn.sw.data.dto.entity.universal.IntegerParams;
 import com.foxconn.sw.data.dto.request.document.CreateDocParams;
 import com.foxconn.sw.data.dto.request.document.DeleteDocParams;
@@ -19,6 +20,8 @@ public class CreateDocProcessor {
     SwDocumentBusiness documentBusiness;
     @Autowired
     SwDocumentHistoryBusiness documentHistoryBusiness;
+    @Autowired
+    DepartmentBusiness departmentBusiness;
 
     public boolean create(CreateDocParams params) {
 
@@ -42,7 +45,6 @@ public class CreateDocProcessor {
         document.setResourceId(data.getResourceID());
         document.setCategory(data.getCategory());
         document.setSource(data.getSource());
-        document.setDepartment(0);
         document.setCreator(RequestContext.getEmployeeNo());
         documentBusiness.updateDocument(document);
 
