@@ -102,9 +102,9 @@ public class CreateTaskProcessor {
             List<SwEmployee> ee = employeeBusiness.selectEmployeeByENos(managerNos);
             String name = "";
             for (SwEmployee employee : ee) {
-                name += String.format("，%s(%s)", employee.getName(), employee.getEmployeeNo());
+                name += String.format("：%s(%s)", employee.getName(), employee.getEmployeeNo());
             }
-            content = String.format("發起並派送給：%s", name);
+            content = String.format("發起並派送給%s", name);
         } else if (task.getStatus() == DRAFT.getCode()) {
             if (isUpdate) {
                 content = "修改了草稿";

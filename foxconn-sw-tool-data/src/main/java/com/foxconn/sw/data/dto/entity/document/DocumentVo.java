@@ -9,7 +9,6 @@ public class DocumentVo {
     private String documentName;
     private String downloadUrl;
     private String viewUrl;
-    private secret secretLevel;
     private String project;
     private String description;
     private String department;
@@ -60,14 +59,6 @@ public class DocumentVo {
 
     public void setViewUrl(String viewUrl) {
         this.viewUrl = viewUrl;
-    }
-
-    public secret getSecretLevel() {
-        return secretLevel;
-    }
-
-    public void setSecretLevel(secret secretLevel) {
-        this.secretLevel = secretLevel;
     }
 
     public String getProject() {
@@ -142,24 +133,25 @@ public class DocumentVo {
         this.updateTime = updateTime;
     }
 
-    public class secret {
-        private String title;
-        private Integer level;
 
-        public String getTitle() {
-            return title;
-        }
+    private String title;
+    private Integer level;
 
-        public void setTitle(String title) {
-            this.title = title;
-        }
-
-        public Integer getLevel() {
-            return level;
-        }
-
-        public void setLevel(Integer level) {
-            this.level = level;
-        }
+    public String getTitle() {
+        return title;
     }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public Integer getLevel() {
+        return level;
+    }
+
+    public void setLevel(Integer level) {
+        this.level = level;
+    }
+
+
 }

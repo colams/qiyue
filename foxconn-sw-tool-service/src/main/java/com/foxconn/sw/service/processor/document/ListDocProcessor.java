@@ -4,8 +4,11 @@ import com.foxconn.sw.business.SwAppendResourceBusiness;
 import com.foxconn.sw.business.account.UserBusiness;
 import com.foxconn.sw.business.oa.SwDocumentBusiness;
 import com.foxconn.sw.business.oa.SwDocumentHistoryBusiness;
+import com.foxconn.sw.business.system.EmployeeBusiness;
 import com.foxconn.sw.common.utils.ConvertUtils;
+import com.foxconn.sw.common.utils.DateTimeUtils;
 import com.foxconn.sw.common.utils.StringExtUtils;
+import com.foxconn.sw.data.dto.entity.acount.EmployeeVo;
 import com.foxconn.sw.data.dto.entity.document.DocumentVo;
 import com.foxconn.sw.data.dto.entity.document.HistoryVo;
 import com.foxconn.sw.data.dto.entity.universal.IntegerParams;
@@ -13,6 +16,7 @@ import com.foxconn.sw.data.dto.request.document.SearchDocParams;
 import com.foxconn.sw.data.entity.SwAppendResource;
 import com.foxconn.sw.data.entity.SwDocument;
 import com.foxconn.sw.data.entity.SwDocumentHistory;
+import com.foxconn.sw.data.entity.SwEmployee;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -30,6 +34,8 @@ public class ListDocProcessor {
     SwAppendResourceBusiness appendResourceBusiness;
     @Autowired
     UserBusiness userBusiness;
+    @Autowired
+    EmployeeBusiness employeeBusiness;
 
     public List<DocumentVo> list(SearchDocParams data) {
         List<SwDocument> documents = documentBusiness.queryDocumentList(data);
@@ -42,14 +48,25 @@ public class ListDocProcessor {
             SwAppendResource resource = appendResourceBusiness.getAppendResources(e.getResourceId());
             DocumentVo vo = new DocumentVo();
             vo.setDocumentID(e.getId());
-            vo.setCategory("");
+            vo.setCategory(e.getCategory());
             vo.setDocumentName(e.getDocumentName());
             vo.setDownloadUrl(ConvertUtils.urlPreFix(resource.getId(), resource.getFilePath()));
             vo.setViewUrl(appendResourceBusiness.getResourceUrl(resource));
-//            vo.setDescription(e.getSource());
-            vo.setDepartment("");
-//            vo.setPublisher(e.getCreator());
-            vo.setUpdateTime(StringExtUtils.toString(e.getCreateTime()));
+            vo.setTitle("機密");
+            vo.setLevel(e.getSecretLevel());
+            vo.setProject(e.getProject());
+            vo.setDescription(e.getDescription());
+            vo.setFileVersion(e.getFileVersion());
+            vo.setCanView(true);
+            vo.setCanDownload(true);
+            EmployeeVo employeeVo = new EmployeeVo();
+            SwEmployee ee = employeeBusiness.selectEmployeeByENo(e.getCreator());
+            employeeVo.setName(ee.getName());
+            employeeVo.setEmployeeNo(ee.getEmployeeNo());
+            employeeVo.setDepartmentId(ee.getDepartmentId());
+            vo.setPublisher(employeeVo);
+            vo.setCreateTime(DateTimeUtils.format(e.getCreateTime()));
+            vo.setUpdateTime(DateTimeUtils.format(e.getDatetimeLastchange()));
             vos.add(vo);
         });
         return vos;

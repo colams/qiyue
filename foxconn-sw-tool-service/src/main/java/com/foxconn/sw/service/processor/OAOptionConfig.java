@@ -2,9 +2,13 @@ package com.foxconn.sw.service.processor;
 
 import com.foxconn.sw.data.constants.enums.oa.TaskLevelEnums;
 import com.foxconn.sw.data.dto.entity.universal.OptionsVo;
+import com.google.common.collect.Lists;
+import org.springframework.util.CollectionUtils;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class OAOptionConfig {
 
@@ -158,6 +162,86 @@ public class OAOptionConfig {
 
     private static void addOptionVo(String key, String value, List<OptionsVo> optionsVoList) {
         optionsVoList.add(new OptionsVo(key, value));
+    }
+
+
+    public static List<OptionsVo> initProject2() {
+        Map<String, List<String>> map = new HashMap<>();
+        map.put("SS", Lists.newArrayList("MW-E (MW23)",
+                "MW-F (MW23)",
+                "BWI-L (BWI24)",
+                "MW-G (MW24)",
+                "BWI-R (BWI24)",
+                "MW-H (MW24)",
+                "AKC-Z",
+                "JU-M",
+                "BWI-K (BWI25)",
+                "BWI-S (BWI25)",
+                "MW-W (MW25)",
+                "BOI",
+                "ATW"));
+        map.put("FC", Lists.newArrayList("JU",
+                "JU-A",
+                "JU-P",
+                "JU-R",
+                "LI-P",
+                "LI-F",
+                "JU-G",
+                "JU-L",
+                "JU-H",
+                "MD-H",
+                "MD-L",
+                "NH-B",
+                "JU-W",
+                "JU-Z",
+                "JU-Y",
+                "IOWA-B",
+                "MD-Y",
+                "MD-Z",
+                "MD-T",
+                "MD-D",
+                "MD-K",
+                "ML-K",
+                "JU-N",
+                "WI-K",
+                "ML-M",
+                "MD-G",
+                "ML-B",
+                "NH-E",
+                "JU-O",
+                "ML-E",
+                "ML-F",
+                "CHS-S",
+                "CHS-Z",
+                "CHS-K",
+                "CHS-W",
+                "Reno"));
+        map.put("COB", Lists.newArrayList("Stanley",
+                "Dora",
+                "Magen"));
+        map.put("COS", Lists.newArrayList("GA",
+                "NW",
+                "GB",
+                "Prespa"));
+        map.put("Nan-A", Lists.newArrayList());
+        map.put("Others", Lists.newArrayList());
+
+        List<OptionsVo> optionsVos = new ArrayList<>();
+        for (Map.Entry<String, List<String>> entry : map.entrySet()) {
+
+            List<OptionsVo> optionsVos1 = new ArrayList<>();
+            optionsVos.add(new OptionsVo(entry.getKey(), entry.getKey(), optionsVos1));
+            if (CollectionUtils.isEmpty(entry.getValue())) {
+                addOptionVo(entry.getKey(), entry.getKey(), optionsVos1);
+            } else {
+                for (String value : entry.getValue()) {
+                    addOptionVo(value, value, optionsVos1);
+                }
+            }
+
+        }
+        return optionsVos;
+
     }
 
 }

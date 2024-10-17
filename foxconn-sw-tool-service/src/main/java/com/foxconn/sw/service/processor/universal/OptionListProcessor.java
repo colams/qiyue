@@ -9,7 +9,7 @@ public class OptionListProcessor {
 
     public OAOptionVo getOptions() {
         OAOptionVo optionVo = new OAOptionVo();
-        optionVo.setProjectOptions(OAOptionConfig.initProject());
+        optionVo.setProjectOptions(OAOptionConfig.initProject2());
         optionVo.setTaskTypeOptions(OAOptionConfig.initTaskType());
         optionVo.setUrgencyOptions(OAOptionConfig.initUrgency());
         return optionVo;
