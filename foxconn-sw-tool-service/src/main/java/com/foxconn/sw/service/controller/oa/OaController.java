@@ -6,7 +6,7 @@ import com.foxconn.sw.data.dto.Response;
 import com.foxconn.sw.data.dto.entity.acount.EmployeeVo;
 import com.foxconn.sw.data.dto.entity.oa.OAOptionVo;
 import com.foxconn.sw.data.dto.entity.universal.StringParams;
-import com.foxconn.sw.service.processor.oa.AssignEmployeesProcessor;
+import com.foxconn.sw.service.processor.AssignEmployeesProcessor;
 import com.foxconn.sw.service.processor.universal.OptionListProcessor;
 import com.foxconn.sw.service.utils.ResponseUtils;
 import io.swagger.v3.oas.annotations.Operation;

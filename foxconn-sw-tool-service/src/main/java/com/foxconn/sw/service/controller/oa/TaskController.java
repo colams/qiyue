@@ -7,9 +7,10 @@ import com.foxconn.sw.data.dto.Request;
 import com.foxconn.sw.data.dto.Response;
 import com.foxconn.sw.data.dto.entity.oa.*;
 import com.foxconn.sw.data.dto.entity.universal.IntegerParams;
+import com.foxconn.sw.data.dto.request.task.UpdateTaskParams;
 import com.foxconn.sw.data.entity.SwTask;
 import com.foxconn.sw.service.aspects.Permission;
-import com.foxconn.sw.service.processor.oa.task.*;
+import com.foxconn.sw.service.processor.task.*;
 import com.foxconn.sw.service.utils.ResponseUtils;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -65,11 +66,12 @@ public class TaskController {
         return ResponseUtils.success(taskID, request.getTraceId());
     }
 
+    @Permission
     @Operation(summary = "更新任务", tags = TagsConstants.OA)
     @ApiResponse(responseCode = "0", description = "成功码")
     @PostMapping("/update")
-    public Response updateTask(@Valid @RequestBody Request<TaskBriefDetailVo> request) {
-        updateTaskProcessor.updateTask(request.getData(), request.getHead());
+    public Response updateTask(@Valid @RequestBody Request<UpdateTaskParams> request) {
+        updateTaskProcessor.updateTask(request.getData());
         return ResponseUtils.success(request.getTraceId());
     }
 

@@ -29,11 +29,11 @@ public class SwDocumentBusiness {
         document.setSecretLevel(data.getSecretLevel());
         document.setProject(data.getProject());
         document.setDepartment(employeeBusiness.queryEmployeeByEno(RequestContext.getEmployeeNo()).getDepartmentId());
-        document.setDescription(data.getDescription());
         document.setFileVersion(data.getFileVersion());
         document.setExpireDate(data.getExpireDate());
         document.setCreator(RequestContext.getEmployeeNo());
         document.setResourceId(data.getResourceID());
+        document.setDisableDown(data.getDisableDown());
         documentMapper.insertSelective(document);
         return document.getId();
     }

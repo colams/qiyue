@@ -3,7 +3,7 @@ package com.foxconn.sw.service.processor.oa;
 import com.foxconn.sw.data.dto.Header;
 import com.foxconn.sw.data.dto.entity.oa.TaskBriefDetailVo;
 import com.foxconn.sw.service.BaseTest;
-import com.foxconn.sw.service.processor.oa.task.CreateTaskProcessor;
+import com.foxconn.sw.service.processor.task.CreateTaskProcessor;
 import org.assertj.core.util.Lists;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;

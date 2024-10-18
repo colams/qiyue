@@ -3,6 +3,7 @@ package com.foxconn.sw.service.processor.document;
 import com.foxconn.sw.business.context.RequestContext;
 import com.foxconn.sw.business.oa.SwDocumentBusiness;
 import com.foxconn.sw.business.oa.SwDocumentHistoryBusiness;
+import com.foxconn.sw.business.oa.SwDocumentPermissionBusiness;
 import com.foxconn.sw.business.system.DepartmentBusiness;
 import com.foxconn.sw.data.dto.entity.universal.IntegerParams;
 import com.foxconn.sw.data.dto.request.document.CreateDocParams;
@@ -10,8 +11,10 @@ import com.foxconn.sw.data.dto.request.document.DeleteDocParams;
 import com.foxconn.sw.data.dto.request.document.ReviseDocParams;
 import com.foxconn.sw.data.entity.SwDocument;
 import com.foxconn.sw.data.entity.SwDocumentHistory;
+import com.google.common.collect.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.util.CollectionUtils;
 
 @Component
 public class CreateDocProcessor {
@@ -22,10 +25,25 @@ public class CreateDocProcessor {
     SwDocumentHistoryBusiness documentHistoryBusiness;
     @Autowired
     DepartmentBusiness departmentBusiness;
+    @Autowired
+    SwDocumentPermissionBusiness documentPermissionBusiness;
+
 
     public boolean create(CreateDocParams params) {
-
         int documentID = documentBusiness.createDoc(params);
+        if (documentID > 0) {
+            if (CollectionUtils.isEmpty(params.getDepartmentIDs()) && CollectionUtils.isEmpty(params.getEmployeeNos())) {
+                documentPermissionBusiness.insertDocumentPermission(documentID, Lists.newArrayList("0"), 1);
+            }
+
+            if (!CollectionUtils.isEmpty(params.getDepartmentIDs())) {
+                documentPermissionBusiness.insertDocumentPermission(documentID, params.getDepartmentIDs(), 1);
+            }
+
+            if (!CollectionUtils.isEmpty(params.getEmployeeNos())) {
+                documentPermissionBusiness.insertDocumentPermission(documentID, params.getEmployeeNos(), 2);
+            }
+        }
         return documentID > 0;
     }
 
@@ -42,7 +60,6 @@ public class CreateDocProcessor {
 
         document.setDocumentName(data.getFileName());
         document.setCategory(data.getCategory());
-        document.setDescription(data.getDescription());
         document.setFileVersion(data.getFileVersion());
         document.setResourceId(data.getResourceID());
         documentBusiness.updateDocument(document);
@@ -56,5 +73,8 @@ public class CreateDocProcessor {
 
     public boolean deleteHistory(IntegerParams data) {
         return documentHistoryBusiness.delete(data);
+    }
+
+    private class SwWorkReportPermissionBusiness {
     }
 }

@@ -55,7 +55,6 @@ public class ListDocProcessor {
             vo.setTitle("機密");
             vo.setLevel(e.getSecretLevel());
             vo.setProject(e.getProject());
-            vo.setDescription(e.getDescription());
             vo.setFileVersion(e.getFileVersion());
             vo.setCanView(true);
             vo.setCanDownload(true);

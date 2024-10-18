@@ -1,15 +1,19 @@
 package com.foxconn.sw.data.dto.request.document;
 
+import java.util.List;
+
 public class CreateDocParams {
 
     private String fileName;
     private String category;
     private String fileVersion;
-    private Integer secretLevel;
     private String project;
-    private String description;
-    private String expireDate;
+    private Integer secretLevel;
     private Integer resourceID;
+    private String expireDate;
+    private Integer disableDown;
+    private List<String> departmentIDs;
+    private List<String> employeeNos;
 
     public String getFileName() {
         return fileName;
@@ -51,14 +55,6 @@ public class CreateDocParams {
         this.project = project;
     }
 
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
     public String getExpireDate() {
         return expireDate;
     }
@@ -73,5 +69,29 @@ public class CreateDocParams {
 
     public void setResourceID(Integer resourceID) {
         this.resourceID = resourceID;
+    }
+
+    public Integer getDisableDown() {
+        return disableDown;
+    }
+
+    public void setDisableDown(Integer disableDown) {
+        this.disableDown = disableDown;
+    }
+
+    public List<String> getDepartmentIDs() {
+        return departmentIDs;
+    }
+
+    public void setDepartmentIDs(List<String> departmentIDs) {
+        this.departmentIDs = departmentIDs;
+    }
+
+    public List<String> getEmployeeNos() {
+        return employeeNos;
+    }
+
+    public void setEmployeeNos(List<String> employeeNos) {
+        this.employeeNos = employeeNos;
     }
 }

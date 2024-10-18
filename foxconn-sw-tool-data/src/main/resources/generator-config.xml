@@ -101,6 +101,9 @@
         <table tableName="sw_document_history">
             <generatedKey column="id" identity="true" sqlStatement="mysql"/>
         </table>
+        <table tableName="sw_document_permission">
+            <generatedKey column="id" identity="true" sqlStatement="mysql"/>
+        </table>
 
         <table tableName="sw_employee">
             <generatedKey column="id" identity="true" sqlStatement="mysql"/>

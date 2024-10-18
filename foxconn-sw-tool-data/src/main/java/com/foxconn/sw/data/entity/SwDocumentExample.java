@@ -235,6 +235,76 @@ public class SwDocumentExample {
             return (Criteria) this;
         }
 
+        public Criteria andFileVersionIsNull() {
+            addCriterion("file_version is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andFileVersionIsNotNull() {
+            addCriterion("file_version is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andFileVersionEqualTo(String value) {
+            addCriterion("file_version =", value, "fileVersion");
+            return (Criteria) this;
+        }
+
+        public Criteria andFileVersionNotEqualTo(String value) {
+            addCriterion("file_version <>", value, "fileVersion");
+            return (Criteria) this;
+        }
+
+        public Criteria andFileVersionGreaterThan(String value) {
+            addCriterion("file_version >", value, "fileVersion");
+            return (Criteria) this;
+        }
+
+        public Criteria andFileVersionGreaterThanOrEqualTo(String value) {
+            addCriterion("file_version >=", value, "fileVersion");
+            return (Criteria) this;
+        }
+
+        public Criteria andFileVersionLessThan(String value) {
+            addCriterion("file_version <", value, "fileVersion");
+            return (Criteria) this;
+        }
+
+        public Criteria andFileVersionLessThanOrEqualTo(String value) {
+            addCriterion("file_version <=", value, "fileVersion");
+            return (Criteria) this;
+        }
+
+        public Criteria andFileVersionLike(String value) {
+            addCriterion("file_version like", value, "fileVersion");
+            return (Criteria) this;
+        }
+
+        public Criteria andFileVersionNotLike(String value) {
+            addCriterion("file_version not like", value, "fileVersion");
+            return (Criteria) this;
+        }
+
+        public Criteria andFileVersionIn(List<String> values) {
+            addCriterion("file_version in", values, "fileVersion");
+            return (Criteria) this;
+        }
+
+        public Criteria andFileVersionNotIn(List<String> values) {
+            addCriterion("file_version not in", values, "fileVersion");
+            return (Criteria) this;
+        }
+
+        public Criteria andFileVersionBetween(String value1, String value2) {
+            addCriterion("file_version between", value1, value2, "fileVersion");
+            return (Criteria) this;
+        }
+
+        public Criteria andFileVersionNotBetween(String value1, String value2) {
+            addCriterion("file_version not between", value1, value2, "fileVersion");
+            return (Criteria) this;
+        }
+
         public Criteria andCategoryIsNull() {
             addCriterion("category is null");
             return (Criteria) this;
@@ -305,63 +375,63 @@ public class SwDocumentExample {
             return (Criteria) this;
         }
 
-        public Criteria andSecretLevelIsNull() {
-            addCriterion("secret_level is null");
+        public Criteria andDepartmentIsNull() {
+            addCriterion("department is null");
             return (Criteria) this;
         }
 
-        public Criteria andSecretLevelIsNotNull() {
-            addCriterion("secret_level is not null");
+        public Criteria andDepartmentIsNotNull() {
+            addCriterion("department is not null");
             return (Criteria) this;
         }
 
-        public Criteria andSecretLevelEqualTo(Integer value) {
-            addCriterion("secret_level =", value, "secretLevel");
+        public Criteria andDepartmentEqualTo(Integer value) {
+            addCriterion("department =", value, "department");
             return (Criteria) this;
         }
 
-        public Criteria andSecretLevelNotEqualTo(Integer value) {
-            addCriterion("secret_level <>", value, "secretLevel");
+        public Criteria andDepartmentNotEqualTo(Integer value) {
+            addCriterion("department <>", value, "department");
             return (Criteria) this;
         }
 
-        public Criteria andSecretLevelGreaterThan(Integer value) {
-            addCriterion("secret_level >", value, "secretLevel");
+        public Criteria andDepartmentGreaterThan(Integer value) {
+            addCriterion("department >", value, "department");
             return (Criteria) this;
         }
 
-        public Criteria andSecretLevelGreaterThanOrEqualTo(Integer value) {
-            addCriterion("secret_level >=", value, "secretLevel");
+        public Criteria andDepartmentGreaterThanOrEqualTo(Integer value) {
+            addCriterion("department >=", value, "department");
             return (Criteria) this;
         }
 
-        public Criteria andSecretLevelLessThan(Integer value) {
-            addCriterion("secret_level <", value, "secretLevel");
+        public Criteria andDepartmentLessThan(Integer value) {
+            addCriterion("department <", value, "department");
             return (Criteria) this;
         }
 
-        public Criteria andSecretLevelLessThanOrEqualTo(Integer value) {
-            addCriterion("secret_level <=", value, "secretLevel");
+        public Criteria andDepartmentLessThanOrEqualTo(Integer value) {
+            addCriterion("department <=", value, "department");
             return (Criteria) this;
         }
 
-        public Criteria andSecretLevelIn(List<Integer> values) {
-            addCriterion("secret_level in", values, "secretLevel");
+        public Criteria andDepartmentIn(List<Integer> values) {
+            addCriterion("department in", values, "department");
             return (Criteria) this;
         }
 
-        public Criteria andSecretLevelNotIn(List<Integer> values) {
-            addCriterion("secret_level not in", values, "secretLevel");
+        public Criteria andDepartmentNotIn(List<Integer> values) {
+            addCriterion("department not in", values, "department");
             return (Criteria) this;
         }
 
-        public Criteria andSecretLevelBetween(Integer value1, Integer value2) {
-            addCriterion("secret_level between", value1, value2, "secretLevel");
+        public Criteria andDepartmentBetween(Integer value1, Integer value2) {
+            addCriterion("department between", value1, value2, "department");
             return (Criteria) this;
         }
 
-        public Criteria andSecretLevelNotBetween(Integer value1, Integer value2) {
-            addCriterion("secret_level not between", value1, value2, "secretLevel");
+        public Criteria andDepartmentNotBetween(Integer value1, Integer value2) {
+            addCriterion("department not between", value1, value2, "department");
             return (Criteria) this;
         }
 
@@ -435,203 +505,63 @@ public class SwDocumentExample {
             return (Criteria) this;
         }
 
-        public Criteria andDepartmentIsNull() {
-            addCriterion("department is null");
+        public Criteria andSecretLevelIsNull() {
+            addCriterion("secret_level is null");
             return (Criteria) this;
         }
 
-        public Criteria andDepartmentIsNotNull() {
-            addCriterion("department is not null");
+        public Criteria andSecretLevelIsNotNull() {
+            addCriterion("secret_level is not null");
             return (Criteria) this;
         }
 
-        public Criteria andDepartmentEqualTo(Integer value) {
-            addCriterion("department =", value, "department");
+        public Criteria andSecretLevelEqualTo(Integer value) {
+            addCriterion("secret_level =", value, "secretLevel");
             return (Criteria) this;
         }
 
-        public Criteria andDepartmentNotEqualTo(Integer value) {
-            addCriterion("department <>", value, "department");
+        public Criteria andSecretLevelNotEqualTo(Integer value) {
+            addCriterion("secret_level <>", value, "secretLevel");
             return (Criteria) this;
         }
 
-        public Criteria andDepartmentGreaterThan(Integer value) {
-            addCriterion("department >", value, "department");
+        public Criteria andSecretLevelGreaterThan(Integer value) {
+            addCriterion("secret_level >", value, "secretLevel");
             return (Criteria) this;
         }
 
-        public Criteria andDepartmentGreaterThanOrEqualTo(Integer value) {
-            addCriterion("department >=", value, "department");
+        public Criteria andSecretLevelGreaterThanOrEqualTo(Integer value) {
+            addCriterion("secret_level >=", value, "secretLevel");
             return (Criteria) this;
         }
 
-        public Criteria andDepartmentLessThan(Integer value) {
-            addCriterion("department <", value, "department");
+        public Criteria andSecretLevelLessThan(Integer value) {
+            addCriterion("secret_level <", value, "secretLevel");
             return (Criteria) this;
         }
 
-        public Criteria andDepartmentLessThanOrEqualTo(Integer value) {
-            addCriterion("department <=", value, "department");
+        public Criteria andSecretLevelLessThanOrEqualTo(Integer value) {
+            addCriterion("secret_level <=", value, "secretLevel");
             return (Criteria) this;
         }
 
-        public Criteria andDepartmentIn(List<Integer> values) {
-            addCriterion("department in", values, "department");
+        public Criteria andSecretLevelIn(List<Integer> values) {
+            addCriterion("secret_level in", values, "secretLevel");
             return (Criteria) this;
         }
 
-        public Criteria andDepartmentNotIn(List<Integer> values) {
-            addCriterion("department not in", values, "department");
+        public Criteria andSecretLevelNotIn(List<Integer> values) {
+            addCriterion("secret_level not in", values, "secretLevel");
             return (Criteria) this;
         }
 
-        public Criteria andDepartmentBetween(Integer value1, Integer value2) {
-            addCriterion("department between", value1, value2, "department");
+        public Criteria andSecretLevelBetween(Integer value1, Integer value2) {
+            addCriterion("secret_level between", value1, value2, "secretLevel");
             return (Criteria) this;
         }
 
-        public Criteria andDepartmentNotBetween(Integer value1, Integer value2) {
-            addCriterion("department not between", value1, value2, "department");
-            return (Criteria) this;
-        }
-
-        public Criteria andDescriptionIsNull() {
-            addCriterion("description is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andDescriptionIsNotNull() {
-            addCriterion("description is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andDescriptionEqualTo(String value) {
-            addCriterion("description =", value, "description");
-            return (Criteria) this;
-        }
-
-        public Criteria andDescriptionNotEqualTo(String value) {
-            addCriterion("description <>", value, "description");
-            return (Criteria) this;
-        }
-
-        public Criteria andDescriptionGreaterThan(String value) {
-            addCriterion("description >", value, "description");
-            return (Criteria) this;
-        }
-
-        public Criteria andDescriptionGreaterThanOrEqualTo(String value) {
-            addCriterion("description >=", value, "description");
-            return (Criteria) this;
-        }
-
-        public Criteria andDescriptionLessThan(String value) {
-            addCriterion("description <", value, "description");
-            return (Criteria) this;
-        }
-
-        public Criteria andDescriptionLessThanOrEqualTo(String value) {
-            addCriterion("description <=", value, "description");
-            return (Criteria) this;
-        }
-
-        public Criteria andDescriptionLike(String value) {
-            addCriterion("description like", value, "description");
-            return (Criteria) this;
-        }
-
-        public Criteria andDescriptionNotLike(String value) {
-            addCriterion("description not like", value, "description");
-            return (Criteria) this;
-        }
-
-        public Criteria andDescriptionIn(List<String> values) {
-            addCriterion("description in", values, "description");
-            return (Criteria) this;
-        }
-
-        public Criteria andDescriptionNotIn(List<String> values) {
-            addCriterion("description not in", values, "description");
-            return (Criteria) this;
-        }
-
-        public Criteria andDescriptionBetween(String value1, String value2) {
-            addCriterion("description between", value1, value2, "description");
-            return (Criteria) this;
-        }
-
-        public Criteria andDescriptionNotBetween(String value1, String value2) {
-            addCriterion("description not between", value1, value2, "description");
-            return (Criteria) this;
-        }
-
-        public Criteria andFileVersionIsNull() {
-            addCriterion("file_version is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andFileVersionIsNotNull() {
-            addCriterion("file_version is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andFileVersionEqualTo(String value) {
-            addCriterion("file_version =", value, "fileVersion");
-            return (Criteria) this;
-        }
-
-        public Criteria andFileVersionNotEqualTo(String value) {
-            addCriterion("file_version <>", value, "fileVersion");
-            return (Criteria) this;
-        }
-
-        public Criteria andFileVersionGreaterThan(String value) {
-            addCriterion("file_version >", value, "fileVersion");
-            return (Criteria) this;
-        }
-
-        public Criteria andFileVersionGreaterThanOrEqualTo(String value) {
-            addCriterion("file_version >=", value, "fileVersion");
-            return (Criteria) this;
-        }
-
-        public Criteria andFileVersionLessThan(String value) {
-            addCriterion("file_version <", value, "fileVersion");
-            return (Criteria) this;
-        }
-
-        public Criteria andFileVersionLessThanOrEqualTo(String value) {
-            addCriterion("file_version <=", value, "fileVersion");
-            return (Criteria) this;
-        }
-
-        public Criteria andFileVersionLike(String value) {
-            addCriterion("file_version like", value, "fileVersion");
-            return (Criteria) this;
-        }
-
-        public Criteria andFileVersionNotLike(String value) {
-            addCriterion("file_version not like", value, "fileVersion");
-            return (Criteria) this;
-        }
-
-        public Criteria andFileVersionIn(List<String> values) {
-            addCriterion("file_version in", values, "fileVersion");
-            return (Criteria) this;
-        }
-
-        public Criteria andFileVersionNotIn(List<String> values) {
-            addCriterion("file_version not in", values, "fileVersion");
-            return (Criteria) this;
-        }
-
-        public Criteria andFileVersionBetween(String value1, String value2) {
-            addCriterion("file_version between", value1, value2, "fileVersion");
-            return (Criteria) this;
-        }
-
-        public Criteria andFileVersionNotBetween(String value1, String value2) {
-            addCriterion("file_version not between", value1, value2, "fileVersion");
+        public Criteria andSecretLevelNotBetween(Integer value1, Integer value2) {
+            addCriterion("secret_level not between", value1, value2, "secretLevel");
             return (Criteria) this;
         }
 
@@ -702,6 +632,126 @@ public class SwDocumentExample {
 
         public Criteria andExpireDateNotBetween(String value1, String value2) {
             addCriterion("expire_date not between", value1, value2, "expireDate");
+            return (Criteria) this;
+        }
+
+        public Criteria andDisableDownIsNull() {
+            addCriterion("disable_down is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andDisableDownIsNotNull() {
+            addCriterion("disable_down is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andDisableDownEqualTo(Integer value) {
+            addCriterion("disable_down =", value, "disableDown");
+            return (Criteria) this;
+        }
+
+        public Criteria andDisableDownNotEqualTo(Integer value) {
+            addCriterion("disable_down <>", value, "disableDown");
+            return (Criteria) this;
+        }
+
+        public Criteria andDisableDownGreaterThan(Integer value) {
+            addCriterion("disable_down >", value, "disableDown");
+            return (Criteria) this;
+        }
+
+        public Criteria andDisableDownGreaterThanOrEqualTo(Integer value) {
+            addCriterion("disable_down >=", value, "disableDown");
+            return (Criteria) this;
+        }
+
+        public Criteria andDisableDownLessThan(Integer value) {
+            addCriterion("disable_down <", value, "disableDown");
+            return (Criteria) this;
+        }
+
+        public Criteria andDisableDownLessThanOrEqualTo(Integer value) {
+            addCriterion("disable_down <=", value, "disableDown");
+            return (Criteria) this;
+        }
+
+        public Criteria andDisableDownIn(List<Integer> values) {
+            addCriterion("disable_down in", values, "disableDown");
+            return (Criteria) this;
+        }
+
+        public Criteria andDisableDownNotIn(List<Integer> values) {
+            addCriterion("disable_down not in", values, "disableDown");
+            return (Criteria) this;
+        }
+
+        public Criteria andDisableDownBetween(Integer value1, Integer value2) {
+            addCriterion("disable_down between", value1, value2, "disableDown");
+            return (Criteria) this;
+        }
+
+        public Criteria andDisableDownNotBetween(Integer value1, Integer value2) {
+            addCriterion("disable_down not between", value1, value2, "disableDown");
+            return (Criteria) this;
+        }
+
+        public Criteria andResourceIdIsNull() {
+            addCriterion("resource_id is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andResourceIdIsNotNull() {
+            addCriterion("resource_id is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andResourceIdEqualTo(Integer value) {
+            addCriterion("resource_id =", value, "resourceId");
+            return (Criteria) this;
+        }
+
+        public Criteria andResourceIdNotEqualTo(Integer value) {
+            addCriterion("resource_id <>", value, "resourceId");
+            return (Criteria) this;
+        }
+
+        public Criteria andResourceIdGreaterThan(Integer value) {
+            addCriterion("resource_id >", value, "resourceId");
+            return (Criteria) this;
+        }
+
+        public Criteria andResourceIdGreaterThanOrEqualTo(Integer value) {
+            addCriterion("resource_id >=", value, "resourceId");
+            return (Criteria) this;
+        }
+
+        public Criteria andResourceIdLessThan(Integer value) {
+            addCriterion("resource_id <", value, "resourceId");
+            return (Criteria) this;
+        }
+
+        public Criteria andResourceIdLessThanOrEqualTo(Integer value) {
+            addCriterion("resource_id <=", value, "resourceId");
+            return (Criteria) this;
+        }
+
+        public Criteria andResourceIdIn(List<Integer> values) {
+            addCriterion("resource_id in", values, "resourceId");
+            return (Criteria) this;
+        }
+
+        public Criteria andResourceIdNotIn(List<Integer> values) {
+            addCriterion("resource_id not in", values, "resourceId");
+            return (Criteria) this;
+        }
+
+        public Criteria andResourceIdBetween(Integer value1, Integer value2) {
+            addCriterion("resource_id between", value1, value2, "resourceId");
+            return (Criteria) this;
+        }
+
+        public Criteria andResourceIdNotBetween(Integer value1, Integer value2) {
+            addCriterion("resource_id not between", value1, value2, "resourceId");
             return (Criteria) this;
         }
 
@@ -955,68 +1005,13 @@ public class SwDocumentExample {
             return (Criteria) this;
         }
 
-        public Criteria andResourceIdIsNull() {
-            addCriterion("resource_id is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andResourceIdIsNotNull() {
-            addCriterion("resource_id is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andResourceIdEqualTo(Integer value) {
-            addCriterion("resource_id =", value, "resourceId");
-            return (Criteria) this;
-        }
-
-        public Criteria andResourceIdNotEqualTo(Integer value) {
-            addCriterion("resource_id <>", value, "resourceId");
-            return (Criteria) this;
-        }
-
-        public Criteria andResourceIdGreaterThan(Integer value) {
-            addCriterion("resource_id >", value, "resourceId");
-            return (Criteria) this;
-        }
-
-        public Criteria andResourceIdGreaterThanOrEqualTo(Integer value) {
-            addCriterion("resource_id >=", value, "resourceId");
-            return (Criteria) this;
-        }
-
-        public Criteria andResourceIdLessThan(Integer value) {
-            addCriterion("resource_id <", value, "resourceId");
-            return (Criteria) this;
-        }
-
-        public Criteria andResourceIdLessThanOrEqualTo(Integer value) {
-            addCriterion("resource_id <=", value, "resourceId");
-            return (Criteria) this;
-        }
-
-        public Criteria andResourceIdIn(List<Integer> values) {
-            addCriterion("resource_id in", values, "resourceId");
-            return (Criteria) this;
-        }
-
-        public Criteria andResourceIdNotIn(List<Integer> values) {
-            addCriterion("resource_id not in", values, "resourceId");
-            return (Criteria) this;
-        }
-
-        public Criteria andResourceIdBetween(Integer value1, Integer value2) {
-            addCriterion("resource_id between", value1, value2, "resourceId");
-            return (Criteria) this;
-        }
-
-        public Criteria andResourceIdNotBetween(Integer value1, Integer value2) {
-            addCriterion("resource_id not between", value1, value2, "resourceId");
-            return (Criteria) this;
-        }
-
         public Criteria andDocumentNameLikeInsensitive(String value) {
             addCriterion("upper(document_name) like", value.toUpperCase(), "documentName");
+            return (Criteria) this;
+        }
+
+        public Criteria andFileVersionLikeInsensitive(String value) {
+            addCriterion("upper(file_version) like", value.toUpperCase(), "fileVersion");
             return (Criteria) this;
         }
 
@@ -1027,16 +1022,6 @@ public class SwDocumentExample {
 
         public Criteria andProjectLikeInsensitive(String value) {
             addCriterion("upper(project) like", value.toUpperCase(), "project");
-            return (Criteria) this;
-        }
-
-        public Criteria andDescriptionLikeInsensitive(String value) {
-            addCriterion("upper(description) like", value.toUpperCase(), "description");
-            return (Criteria) this;
-        }
-
-        public Criteria andFileVersionLikeInsensitive(String value) {
-            addCriterion("upper(file_version) like", value.toUpperCase(), "fileVersion");
             return (Criteria) this;
         }
 

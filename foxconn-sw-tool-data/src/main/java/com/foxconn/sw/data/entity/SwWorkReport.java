@@ -21,6 +21,8 @@ public class SwWorkReport {
 
     private Integer status;
 
+    private Integer reportType;
+
     private String description;
 
     private String remark;
@@ -144,6 +146,19 @@ public class SwWorkReport {
 
     public void setStatus(Integer status) {
         this.status = status;
+    }
+
+    public Integer getReportType() {
+        return reportType;
+    }
+
+    public SwWorkReport withReportType(Integer reportType) {
+        this.setReportType(reportType);
+        return this;
+    }
+
+    public void setReportType(Integer reportType) {
+        this.reportType = reportType;
     }
 
     public String getDescription() {

@@ -37,15 +37,15 @@ public interface SwWorkReportMapper {
         "insert into sw_work_report (employee_no, year_week, ",
         "week, project, days, ",
         "target, current, ",
-        "status, description, ",
-        "remark, create_time, ",
-        "datetime_lastchange)",
+        "status, report_type, ",
+        "description, remark, ",
+        "create_time, datetime_lastchange)",
         "values (#{employeeNo,jdbcType=VARCHAR}, #{yearWeek,jdbcType=VARCHAR}, ",
         "#{week,jdbcType=INTEGER}, #{project,jdbcType=VARCHAR}, #{days,jdbcType=DOUBLE}, ",
         "#{target,jdbcType=INTEGER}, #{current,jdbcType=INTEGER}, ",
-        "#{status,jdbcType=INTEGER}, #{description,jdbcType=VARCHAR}, ",
-        "#{remark,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, ",
-        "#{datetimeLastchange,jdbcType=TIMESTAMP})"
+        "#{status,jdbcType=INTEGER}, #{reportType,jdbcType=INTEGER}, ",
+        "#{description,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, ",
+        "#{createTime,jdbcType=TIMESTAMP}, #{datetimeLastchange,jdbcType=TIMESTAMP})"
     })
     @SelectKey(statement="SELECT LAST_INSERT_ID()", keyProperty="id", before=false, resultType=Integer.class)
     int insert(SwWorkReport record);
@@ -65,6 +65,7 @@ public interface SwWorkReportMapper {
         @Result(column="target", property="target", jdbcType=JdbcType.INTEGER),
         @Result(column="current", property="current", jdbcType=JdbcType.INTEGER),
         @Result(column="status", property="status", jdbcType=JdbcType.INTEGER),
+        @Result(column="report_type", property="reportType", jdbcType=JdbcType.INTEGER),
         @Result(column="description", property="description", jdbcType=JdbcType.VARCHAR),
         @Result(column="remark", property="remark", jdbcType=JdbcType.VARCHAR),
         @Result(column="create_time", property="createTime", jdbcType=JdbcType.TIMESTAMP),
@@ -83,6 +84,7 @@ public interface SwWorkReportMapper {
         @Result(column="target", property="target", jdbcType=JdbcType.INTEGER),
         @Result(column="current", property="current", jdbcType=JdbcType.INTEGER),
         @Result(column="status", property="status", jdbcType=JdbcType.INTEGER),
+        @Result(column="report_type", property="reportType", jdbcType=JdbcType.INTEGER),
         @Result(column="description", property="description", jdbcType=JdbcType.VARCHAR),
         @Result(column="remark", property="remark", jdbcType=JdbcType.VARCHAR),
         @Result(column="create_time", property="createTime", jdbcType=JdbcType.TIMESTAMP),
@@ -92,8 +94,8 @@ public interface SwWorkReportMapper {
 
     @Select({
         "select",
-        "id, employee_no, year_week, week, project, days, target, current, status, description, ",
-        "remark, create_time, datetime_lastchange",
+        "id, employee_no, year_week, week, project, days, target, current, status, report_type, ",
+        "description, remark, create_time, datetime_lastchange",
         "from sw_work_report",
         "where id = #{id,jdbcType=INTEGER}"
     })
@@ -107,6 +109,7 @@ public interface SwWorkReportMapper {
         @Result(column="target", property="target", jdbcType=JdbcType.INTEGER),
         @Result(column="current", property="current", jdbcType=JdbcType.INTEGER),
         @Result(column="status", property="status", jdbcType=JdbcType.INTEGER),
+        @Result(column="report_type", property="reportType", jdbcType=JdbcType.INTEGER),
         @Result(column="description", property="description", jdbcType=JdbcType.VARCHAR),
         @Result(column="remark", property="remark", jdbcType=JdbcType.VARCHAR),
         @Result(column="create_time", property="createTime", jdbcType=JdbcType.TIMESTAMP),
@@ -133,6 +136,7 @@ public interface SwWorkReportMapper {
           "target = #{target,jdbcType=INTEGER},",
           "current = #{current,jdbcType=INTEGER},",
           "status = #{status,jdbcType=INTEGER},",
+          "report_type = #{reportType,jdbcType=INTEGER},",
           "description = #{description,jdbcType=VARCHAR},",
           "remark = #{remark,jdbcType=VARCHAR},",
           "create_time = #{createTime,jdbcType=TIMESTAMP},",

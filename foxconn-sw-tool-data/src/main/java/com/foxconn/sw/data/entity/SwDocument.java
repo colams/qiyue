@@ -7,19 +7,21 @@ public class SwDocument {
 
     private String documentName;
 
+    private String fileVersion;
+
     private String category;
-
-    private Integer secretLevel;
-
-    private String project;
 
     private Integer department;
 
-    private String description;
+    private String project;
 
-    private String fileVersion;
+    private Integer secretLevel;
 
     private String expireDate;
+
+    private Integer disableDown;
+
+    private Integer resourceId;
 
     private String creator;
 
@@ -28,8 +30,6 @@ public class SwDocument {
     private LocalDateTime createTime;
 
     private LocalDateTime datetimeLastchange;
-
-    private Integer resourceId;
 
     public Integer getId() {
         return id;
@@ -57,6 +57,19 @@ public class SwDocument {
         this.documentName = documentName == null ? null : documentName.trim();
     }
 
+    public String getFileVersion() {
+        return fileVersion;
+    }
+
+    public SwDocument withFileVersion(String fileVersion) {
+        this.setFileVersion(fileVersion);
+        return this;
+    }
+
+    public void setFileVersion(String fileVersion) {
+        this.fileVersion = fileVersion == null ? null : fileVersion.trim();
+    }
+
     public String getCategory() {
         return category;
     }
@@ -68,32 +81,6 @@ public class SwDocument {
 
     public void setCategory(String category) {
         this.category = category == null ? null : category.trim();
-    }
-
-    public Integer getSecretLevel() {
-        return secretLevel;
-    }
-
-    public SwDocument withSecretLevel(Integer secretLevel) {
-        this.setSecretLevel(secretLevel);
-        return this;
-    }
-
-    public void setSecretLevel(Integer secretLevel) {
-        this.secretLevel = secretLevel;
-    }
-
-    public String getProject() {
-        return project;
-    }
-
-    public SwDocument withProject(String project) {
-        this.setProject(project);
-        return this;
-    }
-
-    public void setProject(String project) {
-        this.project = project == null ? null : project.trim();
     }
 
     public Integer getDepartment() {
@@ -109,30 +96,30 @@ public class SwDocument {
         this.department = department;
     }
 
-    public String getDescription() {
-        return description;
+    public String getProject() {
+        return project;
     }
 
-    public SwDocument withDescription(String description) {
-        this.setDescription(description);
+    public SwDocument withProject(String project) {
+        this.setProject(project);
         return this;
     }
 
-    public void setDescription(String description) {
-        this.description = description == null ? null : description.trim();
+    public void setProject(String project) {
+        this.project = project == null ? null : project.trim();
     }
 
-    public String getFileVersion() {
-        return fileVersion;
+    public Integer getSecretLevel() {
+        return secretLevel;
     }
 
-    public SwDocument withFileVersion(String fileVersion) {
-        this.setFileVersion(fileVersion);
+    public SwDocument withSecretLevel(Integer secretLevel) {
+        this.setSecretLevel(secretLevel);
         return this;
     }
 
-    public void setFileVersion(String fileVersion) {
-        this.fileVersion = fileVersion == null ? null : fileVersion.trim();
+    public void setSecretLevel(Integer secretLevel) {
+        this.secretLevel = secretLevel;
     }
 
     public String getExpireDate() {
@@ -146,6 +133,32 @@ public class SwDocument {
 
     public void setExpireDate(String expireDate) {
         this.expireDate = expireDate == null ? null : expireDate.trim();
+    }
+
+    public Integer getDisableDown() {
+        return disableDown;
+    }
+
+    public SwDocument withDisableDown(Integer disableDown) {
+        this.setDisableDown(disableDown);
+        return this;
+    }
+
+    public void setDisableDown(Integer disableDown) {
+        this.disableDown = disableDown;
+    }
+
+    public Integer getResourceId() {
+        return resourceId;
+    }
+
+    public SwDocument withResourceId(Integer resourceId) {
+        this.setResourceId(resourceId);
+        return this;
+    }
+
+    public void setResourceId(Integer resourceId) {
+        this.resourceId = resourceId;
     }
 
     public String getCreator() {
@@ -198,18 +211,5 @@ public class SwDocument {
 
     public void setDatetimeLastchange(LocalDateTime datetimeLastchange) {
         this.datetimeLastchange = datetimeLastchange;
-    }
-
-    public Integer getResourceId() {
-        return resourceId;
-    }
-
-    public SwDocument withResourceId(Integer resourceId) {
-        this.setResourceId(resourceId);
-        return this;
-    }
-
-    public void setResourceId(Integer resourceId) {
-        this.resourceId = resourceId;
     }
 }

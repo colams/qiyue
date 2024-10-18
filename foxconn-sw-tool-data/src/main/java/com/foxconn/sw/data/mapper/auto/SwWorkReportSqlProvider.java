@@ -60,6 +60,10 @@ public class SwWorkReportSqlProvider {
             sql.VALUES("status", "#{status,jdbcType=INTEGER}");
         }
         
+        if (record.getReportType() != null) {
+            sql.VALUES("report_type", "#{reportType,jdbcType=INTEGER}");
+        }
+        
         if (record.getDescription() != null) {
             sql.VALUES("description", "#{description,jdbcType=VARCHAR}");
         }
@@ -94,6 +98,7 @@ public class SwWorkReportSqlProvider {
         sql.SELECT("target");
         sql.SELECT("current");
         sql.SELECT("status");
+        sql.SELECT("report_type");
         sql.SELECT("description");
         sql.SELECT("remark");
         sql.SELECT("create_time");
@@ -151,6 +156,10 @@ public class SwWorkReportSqlProvider {
             sql.SET("status = #{record.status,jdbcType=INTEGER}");
         }
         
+        if (record.getReportType() != null) {
+            sql.SET("report_type = #{record.reportType,jdbcType=INTEGER}");
+        }
+        
         if (record.getDescription() != null) {
             sql.SET("description = #{record.description,jdbcType=VARCHAR}");
         }
@@ -184,6 +193,7 @@ public class SwWorkReportSqlProvider {
         sql.SET("target = #{record.target,jdbcType=INTEGER}");
         sql.SET("current = #{record.current,jdbcType=INTEGER}");
         sql.SET("status = #{record.status,jdbcType=INTEGER}");
+        sql.SET("report_type = #{record.reportType,jdbcType=INTEGER}");
         sql.SET("description = #{record.description,jdbcType=VARCHAR}");
         sql.SET("remark = #{record.remark,jdbcType=VARCHAR}");
         sql.SET("create_time = #{record.createTime,jdbcType=TIMESTAMP}");
@@ -228,6 +238,10 @@ public class SwWorkReportSqlProvider {
         
         if (record.getStatus() != null) {
             sql.SET("status = #{status,jdbcType=INTEGER}");
+        }
+        
+        if (record.getReportType() != null) {
+            sql.SET("report_type = #{reportType,jdbcType=INTEGER}");
         }
         
         if (record.getDescription() != null) {
