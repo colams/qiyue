@@ -32,6 +32,7 @@ public class MeetingBusiness {
 
         meeting.setStartTime(data.getTimeVo().getStartTime());
         meeting.setEndTime(data.getTimeVo().getEndTime());
+        meeting.setWebexUrl(data.getWebexUrl());
 
         meetingMapper.insertSelective(meeting);
         return meeting.getId();

@@ -24,6 +24,8 @@ public class EstablishMeetingParams {
     private MeetingMemberEnoVo memberVo;
     private List<Integer> resourceIds;
 
+    private String webexUrl;
+
     public String getRoom() {
         return room;
     }
@@ -86,5 +88,13 @@ public class EstablishMeetingParams {
 
     public void setResourceIds(List<Integer> resourceIds) {
         this.resourceIds = resourceIds;
+    }
+
+    public String getWebexUrl() {
+        return webexUrl;
+    }
+
+    public void setWebexUrl(String webexUrl) {
+        this.webexUrl = webexUrl;
     }
 }

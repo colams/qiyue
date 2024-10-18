@@ -57,19 +57,31 @@ public class ListReportProcessor {
 
         List<String> searchWeeks = ReportSearchParamsUtils.getYearWeekPair(searchParams, isExport);
         List<SwWorkReport> reports = reportBusiness.queryReport(searchWeeks, employees);
-        boolean sameWeek = ReportSearchParamsUtils.getTimeSpan(searchParams.getStartDate(), searchParams.getEndDate()) < 7;
-        if (isExport && sameWeek) {
-            // 暂时先不锁定
-            // reportLockBusiness.updateLockStatusYearWeek(searchWeeks.get(searchWeeks.size() - 2));
+        List<SwWorkReport> plans = new ArrayList<>();
+        boolean pState = false;
+        if (searchParams.getSearchType() == 2 && searchWeeks.size() == 2) {
+            plans = reports.stream().filter(e -> e.getYearWeek().equalsIgnoreCase(searchWeeks.get(1))).collect(Collectors.toList());
+            reports = reports.stream().filter(e -> e.getYearWeek().equalsIgnoreCase(searchWeeks.get(0))).collect(Collectors.toList());
+            pState = true;
+            searchWeeks.remove(1);
         }
 
+        boolean ppState = pState;
+        List<SwWorkReport> plans1 = plans;
         List<WorkReportVo> vos = new ArrayList<>();
         reports.stream().forEach(e -> {
+            if (ppState && plans1.stream().
+                    filter(f -> e.getEmployeeNo().equalsIgnoreCase(f.getEmployeeNo()))
+                    .collect(Collectors.toList()).size() <= 0) {
+                return;
+            }
+
             WorkReportVo vo = vos.stream()
                     .filter(v -> e.getYearWeek().equalsIgnoreCase(v.getYearWeek())
                             && v.getEmployee().getEmployeeNo().equalsIgnoreCase(e.getEmployeeNo()))
                     .findFirst()
                     .orElse(null);
+
             WorkReportDetail detail = initDetail(e);
             if (Objects.isNull(vo)) {
                 vo = new WorkReportVo();
@@ -123,6 +135,14 @@ public class ListReportProcessor {
             }
         }
         return retValue;
+    }
+
+    private void lockUpdate(ReportSearchParams searchParams, boolean isExport, List<String> searchWeeks) {
+        boolean sameWeek = ReportSearchParamsUtils.getTimeSpan(searchParams.getStartDate(), searchParams.getEndDate()) < 7;
+        if (isExport && sameWeek) {
+            // 暂时先不锁定
+            reportLockBusiness.updateLockStatusYearWeek(searchWeeks.get(searchWeeks.size() - 2));
+        }
     }
 
     private Map<String, Integer> queryScore(List<String> yearWeeks) {

@@ -45,7 +45,7 @@ public class ListMeetingProcessor {
     @Autowired
     EmployeeBusiness employeeBusiness;
 
-    public List[] list(ListMeetingParams params) {
+    public List<MeetingVo>[] list(ListMeetingParams params) {
         LocalDate startDate = LocalDateExtUtils.toLocalDate(params.getSearchDate());
         LocalDate endDate = LocalDateExtUtils.toLocalDate(params.getSearchDate()).plusDays(7);
 
@@ -143,6 +143,7 @@ public class ListMeetingProcessor {
         vo.setChairman(chairman);
         vo.setMaintainers(maintainers);
         vo.setMembers(members);
+        vo.setWebexUrl(meeting.getWebexUrl());
         return vo;
     }
 

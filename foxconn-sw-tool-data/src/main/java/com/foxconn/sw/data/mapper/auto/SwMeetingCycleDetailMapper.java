@@ -38,14 +38,16 @@ public interface SwMeetingCycleDetailMapper {
         "title, description, ",
         "resource_ids, operator, ",
         "meeting_date, start_time, ",
-        "end_time, cancel, ",
-        "create_time, datetime_lastchange)",
+        "end_time, webex_url, ",
+        "cancel, create_time, ",
+        "datetime_lastchange)",
         "values (#{meetingId,jdbcType=INTEGER}, #{room,jdbcType=VARCHAR}, ",
         "#{title,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, ",
         "#{resourceIds,jdbcType=VARCHAR}, #{operator,jdbcType=VARCHAR}, ",
         "#{meetingDate,jdbcType=VARCHAR}, #{startTime,jdbcType=VARCHAR}, ",
-        "#{endTime,jdbcType=VARCHAR}, #{cancel,jdbcType=INTEGER}, ",
-        "#{createTime,jdbcType=TIMESTAMP}, #{datetimeLastchange,jdbcType=TIMESTAMP})"
+        "#{endTime,jdbcType=VARCHAR}, #{webexUrl,jdbcType=VARCHAR}, ",
+        "#{cancel,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, ",
+        "#{datetimeLastchange,jdbcType=TIMESTAMP})"
     })
     @SelectKey(statement="SELECT LAST_INSERT_ID()", keyProperty="id", before=false, resultType=Integer.class)
     int insert(SwMeetingCycleDetail record);
@@ -66,6 +68,7 @@ public interface SwMeetingCycleDetailMapper {
         @Result(column="meeting_date", property="meetingDate", jdbcType=JdbcType.VARCHAR),
         @Result(column="start_time", property="startTime", jdbcType=JdbcType.VARCHAR),
         @Result(column="end_time", property="endTime", jdbcType=JdbcType.VARCHAR),
+        @Result(column="webex_url", property="webexUrl", jdbcType=JdbcType.VARCHAR),
         @Result(column="cancel", property="cancel", jdbcType=JdbcType.INTEGER),
         @Result(column="create_time", property="createTime", jdbcType=JdbcType.TIMESTAMP),
         @Result(column="datetime_lastchange", property="datetimeLastchange", jdbcType=JdbcType.TIMESTAMP)
@@ -84,6 +87,7 @@ public interface SwMeetingCycleDetailMapper {
         @Result(column="meeting_date", property="meetingDate", jdbcType=JdbcType.VARCHAR),
         @Result(column="start_time", property="startTime", jdbcType=JdbcType.VARCHAR),
         @Result(column="end_time", property="endTime", jdbcType=JdbcType.VARCHAR),
+        @Result(column="webex_url", property="webexUrl", jdbcType=JdbcType.VARCHAR),
         @Result(column="cancel", property="cancel", jdbcType=JdbcType.INTEGER),
         @Result(column="create_time", property="createTime", jdbcType=JdbcType.TIMESTAMP),
         @Result(column="datetime_lastchange", property="datetimeLastchange", jdbcType=JdbcType.TIMESTAMP)
@@ -93,7 +97,7 @@ public interface SwMeetingCycleDetailMapper {
     @Select({
         "select",
         "id, meeting_id, room, title, description, resource_ids, operator, meeting_date, ",
-        "start_time, end_time, cancel, create_time, datetime_lastchange",
+        "start_time, end_time, webex_url, cancel, create_time, datetime_lastchange",
         "from sw_meeting_cycle_detail",
         "where id = #{id,jdbcType=INTEGER}"
     })
@@ -108,6 +112,7 @@ public interface SwMeetingCycleDetailMapper {
         @Result(column="meeting_date", property="meetingDate", jdbcType=JdbcType.VARCHAR),
         @Result(column="start_time", property="startTime", jdbcType=JdbcType.VARCHAR),
         @Result(column="end_time", property="endTime", jdbcType=JdbcType.VARCHAR),
+        @Result(column="webex_url", property="webexUrl", jdbcType=JdbcType.VARCHAR),
         @Result(column="cancel", property="cancel", jdbcType=JdbcType.INTEGER),
         @Result(column="create_time", property="createTime", jdbcType=JdbcType.TIMESTAMP),
         @Result(column="datetime_lastchange", property="datetimeLastchange", jdbcType=JdbcType.TIMESTAMP)
@@ -134,6 +139,7 @@ public interface SwMeetingCycleDetailMapper {
           "meeting_date = #{meetingDate,jdbcType=VARCHAR},",
           "start_time = #{startTime,jdbcType=VARCHAR},",
           "end_time = #{endTime,jdbcType=VARCHAR},",
+          "webex_url = #{webexUrl,jdbcType=VARCHAR},",
           "cancel = #{cancel,jdbcType=INTEGER},",
           "create_time = #{createTime,jdbcType=TIMESTAMP},",
           "datetime_lastchange = #{datetimeLastchange,jdbcType=TIMESTAMP}",

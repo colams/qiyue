@@ -97,6 +97,7 @@ public class DetailMeetingProcessor {
         vo.setStartTime(Optional.ofNullable(detail.getStartTime()).orElse(meeting.getStartTime()));
         vo.setEndTime(Optional.ofNullable(detail.getEndTime()).orElse(meeting.getEndTime()));
         vo.setDuration(getMeetingDuration(vo.getStartTime(), vo.getEndTime()));
+        vo.setWebexUrl(meeting.getWebexUrl());
 
         if (StringUtils.isNotEmpty(meeting.getCycle())) {
             CycleMeetingVo cycleMeetingVo = new CycleMeetingVo();

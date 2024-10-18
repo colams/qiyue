@@ -785,6 +785,76 @@ public class SwMeetingCycleDetailExample {
             return (Criteria) this;
         }
 
+        public Criteria andWebexUrlIsNull() {
+            addCriterion("webex_url is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andWebexUrlIsNotNull() {
+            addCriterion("webex_url is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andWebexUrlEqualTo(String value) {
+            addCriterion("webex_url =", value, "webexUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andWebexUrlNotEqualTo(String value) {
+            addCriterion("webex_url <>", value, "webexUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andWebexUrlGreaterThan(String value) {
+            addCriterion("webex_url >", value, "webexUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andWebexUrlGreaterThanOrEqualTo(String value) {
+            addCriterion("webex_url >=", value, "webexUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andWebexUrlLessThan(String value) {
+            addCriterion("webex_url <", value, "webexUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andWebexUrlLessThanOrEqualTo(String value) {
+            addCriterion("webex_url <=", value, "webexUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andWebexUrlLike(String value) {
+            addCriterion("webex_url like", value, "webexUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andWebexUrlNotLike(String value) {
+            addCriterion("webex_url not like", value, "webexUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andWebexUrlIn(List<String> values) {
+            addCriterion("webex_url in", values, "webexUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andWebexUrlNotIn(List<String> values) {
+            addCriterion("webex_url not in", values, "webexUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andWebexUrlBetween(String value1, String value2) {
+            addCriterion("webex_url between", value1, value2, "webexUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andWebexUrlNotBetween(String value1, String value2) {
+            addCriterion("webex_url not between", value1, value2, "webexUrl");
+            return (Criteria) this;
+        }
+
         public Criteria andCancelIsNull() {
             addCriterion("cancel is null");
             return (Criteria) this;
@@ -1002,6 +1072,11 @@ public class SwMeetingCycleDetailExample {
 
         public Criteria andEndTimeLikeInsensitive(String value) {
             addCriterion("upper(end_time) like", value.toUpperCase(), "endTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andWebexUrlLikeInsensitive(String value) {
+            addCriterion("upper(webex_url) like", value.toUpperCase(), "webexUrl");
             return (Criteria) this;
         }
     }

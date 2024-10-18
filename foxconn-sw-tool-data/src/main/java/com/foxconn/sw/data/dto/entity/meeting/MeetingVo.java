@@ -29,6 +29,8 @@ public class MeetingVo {
 
     private List<ResourceVo> resource;
 
+    private String webexUrl;
+
     public Integer getMeetingID() {
         return meetingID;
     }
@@ -147,5 +149,13 @@ public class MeetingVo {
 
     public void setResource(List<ResourceVo> resource) {
         this.resource = resource;
+    }
+
+    public String getWebexUrl() {
+        return webexUrl;
+    }
+
+    public void setWebexUrl(String webexUrl) {
+        this.webexUrl = webexUrl;
     }
 }

@@ -31,6 +31,8 @@ public class SwMeeting {
 
     private Integer status;
 
+    private String webexUrl;
+
     private LocalDateTime createTime;
 
     private LocalDateTime datetimeLastchange;
@@ -215,6 +217,19 @@ public class SwMeeting {
 
     public void setStatus(Integer status) {
         this.status = status;
+    }
+
+    public String getWebexUrl() {
+        return webexUrl;
+    }
+
+    public SwMeeting withWebexUrl(String webexUrl) {
+        this.setWebexUrl(webexUrl);
+        return this;
+    }
+
+    public void setWebexUrl(String webexUrl) {
+        this.webexUrl = webexUrl == null ? null : webexUrl.trim();
     }
 
     public LocalDateTime getCreateTime() {

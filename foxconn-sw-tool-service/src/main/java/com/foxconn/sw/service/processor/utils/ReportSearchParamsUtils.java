@@ -52,6 +52,13 @@ public class ReportSearchParamsUtils {
             result.add(yearWeek);
             startDate = startDate.plusWeeks(1);
         }
+
+        if (Objects.nonNull(searchParams.getSearchType())
+                && searchParams.getSearchType() == 2
+                && lessThanWeek(searchParams.getStartDate(), searchParams.getEndDate())) {
+            String yearWeek = processDate(startDate);
+            result.add(yearWeek);
+        }
         return result;
     }
 
@@ -68,6 +75,13 @@ public class ReportSearchParamsUtils {
         LocalDate date_e = LocalDate.parse(endDate, DateTimeFormatter.ofPattern(yyyyMMdd1));
         long daysBetween = ChronoUnit.DAYS.between(date_s, date_e);
         return (int) daysBetween;
+    }
+
+    public static boolean lessThanWeek(String startDate, String endDate) {
+        LocalDate date_s = LocalDate.parse(startDate, DateTimeFormatter.ofPattern(yyyyMMdd1));
+        LocalDate date_e = LocalDate.parse(endDate, DateTimeFormatter.ofPattern(yyyyMMdd1));
+        long daysBetween = ChronoUnit.DAYS.between(date_s, date_e);
+        return daysBetween < 7;
     }
 
     private static LocalDate getFirstWeekMonday(int year) {

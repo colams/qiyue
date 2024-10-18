@@ -64,6 +64,10 @@ public class SwMeetingCycleDetailSqlProvider {
             sql.VALUES("end_time", "#{endTime,jdbcType=VARCHAR}");
         }
         
+        if (record.getWebexUrl() != null) {
+            sql.VALUES("webex_url", "#{webexUrl,jdbcType=VARCHAR}");
+        }
+        
         if (record.getCancel() != null) {
             sql.VALUES("cancel", "#{cancel,jdbcType=INTEGER}");
         }
@@ -95,6 +99,7 @@ public class SwMeetingCycleDetailSqlProvider {
         sql.SELECT("meeting_date");
         sql.SELECT("start_time");
         sql.SELECT("end_time");
+        sql.SELECT("webex_url");
         sql.SELECT("cancel");
         sql.SELECT("create_time");
         sql.SELECT("datetime_lastchange");
@@ -155,6 +160,10 @@ public class SwMeetingCycleDetailSqlProvider {
             sql.SET("end_time = #{record.endTime,jdbcType=VARCHAR}");
         }
         
+        if (record.getWebexUrl() != null) {
+            sql.SET("webex_url = #{record.webexUrl,jdbcType=VARCHAR}");
+        }
+        
         if (record.getCancel() != null) {
             sql.SET("cancel = #{record.cancel,jdbcType=INTEGER}");
         }
@@ -185,6 +194,7 @@ public class SwMeetingCycleDetailSqlProvider {
         sql.SET("meeting_date = #{record.meetingDate,jdbcType=VARCHAR}");
         sql.SET("start_time = #{record.startTime,jdbcType=VARCHAR}");
         sql.SET("end_time = #{record.endTime,jdbcType=VARCHAR}");
+        sql.SET("webex_url = #{record.webexUrl,jdbcType=VARCHAR}");
         sql.SET("cancel = #{record.cancel,jdbcType=INTEGER}");
         sql.SET("create_time = #{record.createTime,jdbcType=TIMESTAMP}");
         sql.SET("datetime_lastchange = #{record.datetimeLastchange,jdbcType=TIMESTAMP}");
@@ -232,6 +242,10 @@ public class SwMeetingCycleDetailSqlProvider {
         
         if (record.getEndTime() != null) {
             sql.SET("end_time = #{endTime,jdbcType=VARCHAR}");
+        }
+        
+        if (record.getWebexUrl() != null) {
+            sql.SET("webex_url = #{webexUrl,jdbcType=VARCHAR}");
         }
         
         if (record.getCancel() != null) {

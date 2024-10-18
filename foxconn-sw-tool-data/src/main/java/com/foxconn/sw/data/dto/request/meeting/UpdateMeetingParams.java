@@ -23,6 +23,7 @@ public class UpdateMeetingParams {
     private MeetingMemberEnoVo memberVo;
     private List<Integer> resourceIds;
 
+    private String webexUrl;
     /**
      * 1-循环会议修改本次，
      * 2-循环会议修改周期
@@ -107,5 +108,13 @@ public class UpdateMeetingParams {
 
     public void setOperateType(Integer operateType) {
         this.operateType = operateType;
+    }
+
+    public String getWebexUrl() {
+        return webexUrl;
+    }
+
+    public void setWebexUrl(String webexUrl) {
+        this.webexUrl = webexUrl;
     }
 }

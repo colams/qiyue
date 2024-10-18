@@ -56,6 +56,7 @@ public class UpdateMeetingProcessor {
         updateMeeting.setStartTime(data.getTimeVo().getStartTime());
         updateMeeting.setEndTime(data.getTimeVo().getEndTime());
         updateMeeting.setResourceIds(JsonUtils.serialize(data.getResourceIds()));
+        updateMeeting.setWebexUrl(data.getWebexUrl());
         CycleUtils.processCycle(updateMeeting, data.getCycleVo());
         return meetingBusiness.updateMeetingDetail(updateMeeting);
     }

@@ -23,6 +23,8 @@ public class SwMeetingCycleDetail {
 
     private String endTime;
 
+    private String webexUrl;
+
     private Integer cancel;
 
     private LocalDateTime createTime;
@@ -157,6 +159,19 @@ public class SwMeetingCycleDetail {
 
     public void setEndTime(String endTime) {
         this.endTime = endTime == null ? null : endTime.trim();
+    }
+
+    public String getWebexUrl() {
+        return webexUrl;
+    }
+
+    public SwMeetingCycleDetail withWebexUrl(String webexUrl) {
+        this.setWebexUrl(webexUrl);
+        return this;
+    }
+
+    public void setWebexUrl(String webexUrl) {
+        this.webexUrl = webexUrl == null ? null : webexUrl.trim();
     }
 
     public Integer getCancel() {

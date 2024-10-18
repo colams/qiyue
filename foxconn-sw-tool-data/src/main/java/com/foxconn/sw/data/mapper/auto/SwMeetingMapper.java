@@ -40,16 +40,16 @@ public interface SwMeetingMapper {
         "end_time, resource_ids, ",
         "is_repeat, cycle, ",
         "cycle_start, cycle_expire, ",
-        "status, create_time, ",
-        "datetime_lastchange)",
+        "status, webex_url, ",
+        "create_time, datetime_lastchange)",
         "values (#{room,jdbcType=VARCHAR}, #{abcMeeting,jdbcType=INTEGER}, ",
         "#{title,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, ",
         "#{meetingDate,jdbcType=VARCHAR}, #{startTime,jdbcType=VARCHAR}, ",
         "#{endTime,jdbcType=VARCHAR}, #{resourceIds,jdbcType=VARCHAR}, ",
         "#{isRepeat,jdbcType=INTEGER}, #{cycle,jdbcType=VARCHAR}, ",
         "#{cycleStart,jdbcType=VARCHAR}, #{cycleExpire,jdbcType=VARCHAR}, ",
-        "#{status,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, ",
-        "#{datetimeLastchange,jdbcType=TIMESTAMP})"
+        "#{status,jdbcType=INTEGER}, #{webexUrl,jdbcType=VARCHAR}, ",
+        "#{createTime,jdbcType=TIMESTAMP}, #{datetimeLastchange,jdbcType=TIMESTAMP})"
     })
     @SelectKey(statement="SELECT LAST_INSERT_ID()", keyProperty="id", before=false, resultType=Integer.class)
     int insert(SwMeeting record);
@@ -74,6 +74,7 @@ public interface SwMeetingMapper {
         @Result(column="cycle_start", property="cycleStart", jdbcType=JdbcType.VARCHAR),
         @Result(column="cycle_expire", property="cycleExpire", jdbcType=JdbcType.VARCHAR),
         @Result(column="status", property="status", jdbcType=JdbcType.INTEGER),
+        @Result(column="webex_url", property="webexUrl", jdbcType=JdbcType.VARCHAR),
         @Result(column="create_time", property="createTime", jdbcType=JdbcType.TIMESTAMP),
         @Result(column="datetime_lastchange", property="datetimeLastchange", jdbcType=JdbcType.TIMESTAMP)
     })
@@ -95,6 +96,7 @@ public interface SwMeetingMapper {
         @Result(column="cycle_start", property="cycleStart", jdbcType=JdbcType.VARCHAR),
         @Result(column="cycle_expire", property="cycleExpire", jdbcType=JdbcType.VARCHAR),
         @Result(column="status", property="status", jdbcType=JdbcType.INTEGER),
+        @Result(column="webex_url", property="webexUrl", jdbcType=JdbcType.VARCHAR),
         @Result(column="create_time", property="createTime", jdbcType=JdbcType.TIMESTAMP),
         @Result(column="datetime_lastchange", property="datetimeLastchange", jdbcType=JdbcType.TIMESTAMP)
     })
@@ -103,8 +105,8 @@ public interface SwMeetingMapper {
     @Select({
         "select",
         "id, room, abc_meeting, title, description, meeting_date, start_time, end_time, ",
-        "resource_ids, is_repeat, cycle, cycle_start, cycle_expire, status, create_time, ",
-        "datetime_lastchange",
+        "resource_ids, is_repeat, cycle, cycle_start, cycle_expire, status, webex_url, ",
+        "create_time, datetime_lastchange",
         "from sw_meeting",
         "where id = #{id,jdbcType=INTEGER}"
     })
@@ -123,6 +125,7 @@ public interface SwMeetingMapper {
         @Result(column="cycle_start", property="cycleStart", jdbcType=JdbcType.VARCHAR),
         @Result(column="cycle_expire", property="cycleExpire", jdbcType=JdbcType.VARCHAR),
         @Result(column="status", property="status", jdbcType=JdbcType.INTEGER),
+        @Result(column="webex_url", property="webexUrl", jdbcType=JdbcType.VARCHAR),
         @Result(column="create_time", property="createTime", jdbcType=JdbcType.TIMESTAMP),
         @Result(column="datetime_lastchange", property="datetimeLastchange", jdbcType=JdbcType.TIMESTAMP)
     })
@@ -152,6 +155,7 @@ public interface SwMeetingMapper {
           "cycle_start = #{cycleStart,jdbcType=VARCHAR},",
           "cycle_expire = #{cycleExpire,jdbcType=VARCHAR},",
           "status = #{status,jdbcType=INTEGER},",
+          "webex_url = #{webexUrl,jdbcType=VARCHAR},",
           "create_time = #{createTime,jdbcType=TIMESTAMP},",
           "datetime_lastchange = #{datetimeLastchange,jdbcType=TIMESTAMP}",
         "where id = #{id,jdbcType=INTEGER}"

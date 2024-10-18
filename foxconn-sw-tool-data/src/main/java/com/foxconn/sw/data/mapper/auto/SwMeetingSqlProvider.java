@@ -80,6 +80,10 @@ public class SwMeetingSqlProvider {
             sql.VALUES("status", "#{status,jdbcType=INTEGER}");
         }
         
+        if (record.getWebexUrl() != null) {
+            sql.VALUES("webex_url", "#{webexUrl,jdbcType=VARCHAR}");
+        }
+        
         if (record.getCreateTime() != null) {
             sql.VALUES("create_time", "#{createTime,jdbcType=TIMESTAMP}");
         }
@@ -111,6 +115,7 @@ public class SwMeetingSqlProvider {
         sql.SELECT("cycle_start");
         sql.SELECT("cycle_expire");
         sql.SELECT("status");
+        sql.SELECT("webex_url");
         sql.SELECT("create_time");
         sql.SELECT("datetime_lastchange");
         sql.FROM("sw_meeting");
@@ -186,6 +191,10 @@ public class SwMeetingSqlProvider {
             sql.SET("status = #{record.status,jdbcType=INTEGER}");
         }
         
+        if (record.getWebexUrl() != null) {
+            sql.SET("webex_url = #{record.webexUrl,jdbcType=VARCHAR}");
+        }
+        
         if (record.getCreateTime() != null) {
             sql.SET("create_time = #{record.createTime,jdbcType=TIMESTAMP}");
         }
@@ -216,6 +225,7 @@ public class SwMeetingSqlProvider {
         sql.SET("cycle_start = #{record.cycleStart,jdbcType=VARCHAR}");
         sql.SET("cycle_expire = #{record.cycleExpire,jdbcType=VARCHAR}");
         sql.SET("status = #{record.status,jdbcType=INTEGER}");
+        sql.SET("webex_url = #{record.webexUrl,jdbcType=VARCHAR}");
         sql.SET("create_time = #{record.createTime,jdbcType=TIMESTAMP}");
         sql.SET("datetime_lastchange = #{record.datetimeLastchange,jdbcType=TIMESTAMP}");
         
@@ -278,6 +288,10 @@ public class SwMeetingSqlProvider {
         
         if (record.getStatus() != null) {
             sql.SET("status = #{status,jdbcType=INTEGER}");
+        }
+        
+        if (record.getWebexUrl() != null) {
+            sql.SET("webex_url = #{webexUrl,jdbcType=VARCHAR}");
         }
         
         if (record.getCreateTime() != null) {

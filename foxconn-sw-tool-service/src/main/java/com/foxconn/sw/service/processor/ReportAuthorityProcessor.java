@@ -29,7 +29,7 @@ public class ReportAuthorityProcessor {
             SwDepartment department = departmentBusiness.getDepartment(employee.getDepartmentId());
             return department.getManagerNo().equalsIgnoreCase(employeeNo);
         } else {
-            return configRes;
+            return true;
         }
     }
 
