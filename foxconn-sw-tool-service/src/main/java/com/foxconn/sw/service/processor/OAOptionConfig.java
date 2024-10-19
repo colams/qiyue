@@ -223,18 +223,20 @@ public class OAOptionConfig {
                 "GB",
                 "Prespa"));
         map.put("Nan-A", Lists.newArrayList("Nan-A"));
-        map.put("Others", Lists.newArrayList("Others"));
+        map.put("Others", Lists.newArrayList("系統開發", "系統管理", "Others"));
 
         List<OptionsVo> optionsVos = new ArrayList<>();
-        for (Map.Entry<String, List<String>> entry : map.entrySet()) {
 
+        List<String> orders = Lists.newArrayList("SS", "FC", "COS", "COB", "Nan-A", "Others");
+
+        orders.forEach(e -> {
             List<OptionsVo> optionsVos1 = new ArrayList<>();
-            optionsVos.add(new OptionsVo(entry.getKey(), entry.getKey(), optionsVos1));
-            for (String value : entry.getValue()) {
+            optionsVos.add(new OptionsVo(e, e, optionsVos1));
+            for (String value : map.get(e)) {
                 addOptionVo(value, value, optionsVos1);
             }
+        });
 
-        }
         return optionsVos;
 
     }
