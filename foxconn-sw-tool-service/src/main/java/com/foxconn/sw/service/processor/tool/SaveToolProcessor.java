@@ -24,15 +24,14 @@ public class SaveToolProcessor {
 
     public boolean toolSave(SwToolDTO toolDTO, Header head) {
         UserInfo userInfo = commonUserUtils.queryUserInfo(head.getToken());
-        boolean result;
-        if (Objects.nonNull(toolDTO.getToolId()) && toolDTO.getToolId() > 0) {
-            result = createTool(toolDTO);
+        if (Objects.nonNull(toolDTO.getToolId()) && toolDTO.getToolId() <= 0) {
+            createTool(toolDTO);
         } else {
-            result = updateTool(toolDTO);
+            updateTool(toolDTO);
         }
 
         SwTools swTools = toolsBusiness.saveTool(toolDTO);
-        int toolID = 0;
+        int toolID = swTools.getId();
         if (Objects.nonNull(swTools) && swTools.getId() > 0) {
             toolsHistoryBusiness.saveToolHistory(swTools);
         }

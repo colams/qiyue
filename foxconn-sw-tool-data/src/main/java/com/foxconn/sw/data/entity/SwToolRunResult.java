@@ -11,7 +11,7 @@ public class SwToolRunResult {
 
     private String runResult;
 
-    private Long interval;
+    private Long intervals;
 
     private String remark;
 
@@ -69,17 +69,17 @@ public class SwToolRunResult {
         this.runResult = runResult == null ? null : runResult.trim();
     }
 
-    public Long getInterval() {
-        return interval;
+    public Long getIntervals() {
+        return intervals;
     }
 
-    public SwToolRunResult withInterval(Long interval) {
-        this.setInterval(interval);
+    public SwToolRunResult withIntervals(Long intervals) {
+        this.setIntervals(intervals);
         return this;
     }
 
-    public void setInterval(Long interval) {
-        this.interval = interval;
+    public void setIntervals(Long intervals) {
+        this.intervals = intervals;
     }
 
     public String getRemark() {

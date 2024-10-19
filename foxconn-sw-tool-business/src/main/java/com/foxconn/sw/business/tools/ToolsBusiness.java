@@ -63,7 +63,7 @@ public class ToolsBusiness {
         log.setToolName(toolName);
         log.setRunResult(filepath);
         log.setRemark(remark);
-        log.setInterval(interval);
+        log.setIntervals(interval);
         int count = runResultExtensionMapper.insertSelective(log);
         return count > 0;
     }

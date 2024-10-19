@@ -2,6 +2,7 @@ package com.foxconn.sw.service.controller.universal;
 
 import com.foxconn.sw.business.SwAppendResourceBusiness;
 import com.foxconn.sw.common.utils.ExecToolUtils;
+import com.foxconn.sw.common.utils.FilePathUtils;
 import com.foxconn.sw.common.utils.UUIDUtils;
 import com.foxconn.sw.data.constants.TagsConstants;
 import com.foxconn.sw.data.constants.enums.retcode.RetCode;
@@ -12,7 +13,6 @@ import com.foxconn.sw.data.dto.entity.universal.UploadResult;
 import com.foxconn.sw.data.entity.SwAppendResource;
 import com.foxconn.sw.service.processor.universal.UploadProcessor;
 import com.foxconn.sw.service.processor.user.CommonUserUtils;
-import com.foxconn.sw.common.utils.FilePathUtils;
 import com.foxconn.sw.service.utils.ResponseUtils;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -50,6 +50,8 @@ public class CommonController {
     CommonUserUtils userUtils;
     @Autowired
     UploadProcessor uploadProcessor;
+    @Autowired
+    ExecToolUtils execToolUtils;
 
     @Operation(summary = "下载文件", tags = TagsConstants.UNIVERSAL)
     @GetMapping("/down/{id}/{fileName}")
@@ -98,7 +100,7 @@ public class CommonController {
 
         String contextPath = environment.getProperty("server.servlet.context-path");
 
-        String fileName = ExecToolUtils.outputResult(results);
+        String fileName = execToolUtils.outputResult(results);
         return ResponseUtils.response(fileName, RetCode.SUCCESS, UUIDUtils.getUuid());
     }
 

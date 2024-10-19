@@ -375,63 +375,63 @@ public class SwToolRunResultExample {
             return (Criteria) this;
         }
 
-        public Criteria andIntervalIsNull() {
-            addCriterion("interval is null");
+        public Criteria andIntervalsIsNull() {
+            addCriterion("intervals is null");
             return (Criteria) this;
         }
 
-        public Criteria andIntervalIsNotNull() {
-            addCriterion("interval is not null");
+        public Criteria andIntervalsIsNotNull() {
+            addCriterion("intervals is not null");
             return (Criteria) this;
         }
 
-        public Criteria andIntervalEqualTo(Long value) {
-            addCriterion("interval =", value, "interval");
+        public Criteria andIntervalsEqualTo(Long value) {
+            addCriterion("intervals =", value, "intervals");
             return (Criteria) this;
         }
 
-        public Criteria andIntervalNotEqualTo(Long value) {
-            addCriterion("interval <>", value, "interval");
+        public Criteria andIntervalsNotEqualTo(Long value) {
+            addCriterion("intervals <>", value, "intervals");
             return (Criteria) this;
         }
 
-        public Criteria andIntervalGreaterThan(Long value) {
-            addCriterion("interval >", value, "interval");
+        public Criteria andIntervalsGreaterThan(Long value) {
+            addCriterion("intervals >", value, "intervals");
             return (Criteria) this;
         }
 
-        public Criteria andIntervalGreaterThanOrEqualTo(Long value) {
-            addCriterion("interval >=", value, "interval");
+        public Criteria andIntervalsGreaterThanOrEqualTo(Long value) {
+            addCriterion("intervals >=", value, "intervals");
             return (Criteria) this;
         }
 
-        public Criteria andIntervalLessThan(Long value) {
-            addCriterion("interval <", value, "interval");
+        public Criteria andIntervalsLessThan(Long value) {
+            addCriterion("intervals <", value, "intervals");
             return (Criteria) this;
         }
 
-        public Criteria andIntervalLessThanOrEqualTo(Long value) {
-            addCriterion("interval <=", value, "interval");
+        public Criteria andIntervalsLessThanOrEqualTo(Long value) {
+            addCriterion("intervals <=", value, "intervals");
             return (Criteria) this;
         }
 
-        public Criteria andIntervalIn(List<Long> values) {
-            addCriterion("interval in", values, "interval");
+        public Criteria andIntervalsIn(List<Long> values) {
+            addCriterion("intervals in", values, "intervals");
             return (Criteria) this;
         }
 
-        public Criteria andIntervalNotIn(List<Long> values) {
-            addCriterion("interval not in", values, "interval");
+        public Criteria andIntervalsNotIn(List<Long> values) {
+            addCriterion("intervals not in", values, "intervals");
             return (Criteria) this;
         }
 
-        public Criteria andIntervalBetween(Long value1, Long value2) {
-            addCriterion("interval between", value1, value2, "interval");
+        public Criteria andIntervalsBetween(Long value1, Long value2) {
+            addCriterion("intervals between", value1, value2, "intervals");
             return (Criteria) this;
         }
 
-        public Criteria andIntervalNotBetween(Long value1, Long value2) {
-            addCriterion("interval not between", value1, value2, "interval");
+        public Criteria andIntervalsNotBetween(Long value1, Long value2) {
+            addCriterion("intervals not between", value1, value2, "intervals");
             return (Criteria) this;
         }
 

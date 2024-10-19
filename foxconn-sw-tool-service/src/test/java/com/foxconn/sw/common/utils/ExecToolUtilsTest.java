@@ -19,8 +19,8 @@ public class ExecToolUtilsTest extends BaseTest {
         results.add("test 000:");
         results.add("test 001:");
 
-        String fileName = ExecToolUtils.outputResult(results);
-        System.out.println(fileName);
+//        String fileName = ExecToolUtils.outputResult(results);
+        System.out.println("fileName");
     }
 
     public static void main(String[] args) {

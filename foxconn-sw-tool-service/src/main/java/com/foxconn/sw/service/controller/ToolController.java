@@ -29,7 +29,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.script.ScriptException;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -99,7 +101,7 @@ public class ToolController {
     @Operation(summary = "运行文件", tags = TagsConstants.TOOL)
     @ApiResponse(responseCode = "0", description = "成功码")
     @PostMapping("/run")
-    public Response runTool(@Valid @RequestBody Request<RunToolParams> request) throws FileNotFoundException {
+    public Response runTool(@Valid @RequestBody Request<RunToolParams> request) throws IOException, ScriptException {
         String resultPath = runToolProcessor.runTool(request.getData(), request.getHead());
         return ResponseUtils.response(resultPath, RetCode.SUCCESS, request.getTraceId());
     }
