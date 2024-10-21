@@ -19,8 +19,8 @@ import com.foxconn.sw.data.entity.SwEmployee;
 import com.foxconn.sw.data.entity.SwTask;
 import com.foxconn.sw.data.entity.SwTaskEmployeeRelation;
 import com.foxconn.sw.data.entity.SwTaskFollow;
-import com.foxconn.sw.service.processor.utils.*;
 import com.foxconn.sw.service.processor.user.CommonUserUtils;
+import com.foxconn.sw.service.processor.utils.*;
 import com.google.common.collect.Lists;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -118,7 +118,7 @@ public class TaskListProcessor {
         vo.setCollaboration(e.getCategory().equalsIgnoreCase("6-2"));
 
         Optional<SwTaskEmployeeRelation> optional = relations.stream()
-                .filter(r -> r.getTaskId() == e.getId() && r.getEmployeeNo().equalsIgnoreCase(RequestContext.getEmployeeNo()))
+                .filter(r -> r.getTaskId().equals(e.getId()) && r.getEmployeeNo().equalsIgnoreCase(RequestContext.getEmployeeNo()))
                 .findFirst();
         if (optional.isPresent()) {
             String supervisorNo = relations.stream()
