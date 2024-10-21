@@ -61,7 +61,7 @@ public class DepartmentBusiness {
     }
 
 
-    private static List<DepartmentVo> buildDepartmentVoTree(List<DepartmentVo> vos) {
+    private List<DepartmentVo> buildDepartmentVoTree(List<DepartmentVo> vos) {
         Map<Integer, DepartmentVo> departmentVoMap = vos.stream()
                 .collect(Collectors.toMap(DepartmentVo::getId, e -> e));
         // 构建菜单树
@@ -69,7 +69,7 @@ public class DepartmentBusiness {
         return rootMenus;
     }
 
-    private static List<DepartmentVo> buildTree(Map<Integer, DepartmentVo> departmentVoMap) {
+    private List<DepartmentVo> buildTree(Map<Integer, DepartmentVo> departmentVoMap) {
         List<DepartmentVo> rootDeparts = new ArrayList<>();
 
         for (DepartmentVo departmentVo : departmentVoMap.values()) {
@@ -83,7 +83,7 @@ public class DepartmentBusiness {
         return rootDeparts;
     }
 
-    private static void buildSubTree(DepartmentVo parentMenu, Map<Integer, DepartmentVo> menuMap) {
+    private void buildSubTree(DepartmentVo parentMenu, Map<Integer, DepartmentVo> menuMap) {
         if (parentMenu.getChildren() == null) {
             parentMenu.setChildren(new ArrayList<>());
         }

@@ -10,6 +10,7 @@ import com.foxconn.sw.data.entity.SwEmployeeExample;
 import com.foxconn.sw.data.exception.BizException;
 import com.foxconn.sw.data.mapper.extension.system.SwEmployeeExtensionMapper;
 import com.google.common.collect.Lists;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
@@ -26,8 +27,6 @@ public class EmployeeBusiness {
     SwEmployeeExtensionMapper swEmployeeExtensionMapper;
     @Autowired
     DepartmentBusiness departmentBusiness;
-
-    private static final List<String> employeeNos = Lists.newArrayList("G1652984");
 
     private static List<SwEmployee> employeeList = new ArrayList<>();
 
@@ -71,7 +70,6 @@ public class EmployeeBusiness {
         Collections.sort(vos, (a, b) -> PinyinUtils.toPinyin(a.getName()).compareTo(PinyinUtils.toPinyin(b.getName())));
         return vos;
     }
-
 
 
     public List<SwEmployee> selectEmployeeByENos(List<String> employeeNos) {
@@ -160,6 +158,14 @@ public class EmployeeBusiness {
         return list;
     }
 
+    public List<String> getAssistants() {
+        List<String> assistants = getEmployeeList().stream()
+                .filter(e -> StringUtils.isNotEmpty(e.getAssistant()))
+                .map(e -> e.getAssistant())
+                .collect(Collectors.toList());
+        return assistants;
+    }
+
 
     public boolean isDRIHigher(String employeeNo, String higherEno) {
         SwDepartment department = departmentBusiness.getDepartment(selectEmployeeByENo(employeeNo).getDepartmentId());
@@ -167,7 +173,7 @@ public class EmployeeBusiness {
     }
 
     private boolean checkConfig(String employeeNo) {
-        return employeeNos.contains(employeeNo);
+        return getAssistants().contains(employeeNo);
     }
 
     private List<Integer> getDepartIDs(Integer departID, String partnerEmployeeNo) {
