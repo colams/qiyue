@@ -50,7 +50,8 @@ public class OverviewProcessor {
     }
 
     private String formatData(int searchType, List<String> employees, String now) {
-        int count = taskBusiness.getTotalCountByParams(searchType, employees, now);
+        String proposer = RequestContext.getEmployeeNo();
+        int count = taskBusiness.getTotalCountByParams(searchType, employees, now, proposer);
         return String.format("%s個", count);
     }
 

@@ -11,7 +11,6 @@ import com.foxconn.sw.data.constants.enums.TaskRoleFlagEnums;
 import com.foxconn.sw.data.dto.Header;
 import com.foxconn.sw.data.dto.PageEntity;
 import com.foxconn.sw.data.dto.PageParams;
-import com.foxconn.sw.data.dto.entity.acount.UserInfo;
 import com.foxconn.sw.data.dto.entity.oa.TaskBriefListVo;
 import com.foxconn.sw.data.dto.entity.oa.TaskParams;
 import com.foxconn.sw.data.dto.entity.universal.OperateEntity;
@@ -47,12 +46,12 @@ public class TaskListProcessor {
     SwTaskEmployeeRelationBusiness relationBusiness;
 
     public PageEntity<TaskBriefListVo> list(PageParams<TaskParams> taskParams, Header head) {
-        UserInfo userInfo = userUtils.queryUserInfo(head.getToken());
+        String proposer = RequestContext.getEmployeeNo();
         taskParams.getParams().setCreate_e(processDate(taskParams.getParams().getCreate_e()));
-        List<String> employeeNos = getQueryEmployee(userInfo.getEmployeeNo(), taskParams.getParams().getIsTeam());
-        List<SwTask> tasks = taskBusiness.listBriefVos(taskParams, employeeNos);
-        List<TaskBriefListVo> briefListVos = processAfter(tasks, userInfo);
-        int totalCount = taskBusiness.getTotalCountByParams(taskParams.getParams(), employeeNos);
+        List<String> employeeNos = getQueryEmployee(proposer, taskParams.getParams().getIsTeam());
+        List<SwTask> tasks = taskBusiness.listBriefVos(taskParams, employeeNos, proposer);
+        List<TaskBriefListVo> briefListVos = processAfter(tasks);
+        int totalCount = taskBusiness.getTotalCountByParams(taskParams.getParams(), employeeNos, proposer);
         PageEntity<TaskBriefListVo> voPageEntity = new PageEntity<>(totalCount, briefListVos);
         return voPageEntity;
     }
@@ -74,7 +73,7 @@ public class TaskListProcessor {
         }
     }
 
-    private List<TaskBriefListVo> processAfter(List<SwTask> tasks, UserInfo userInfo) {
+    private List<TaskBriefListVo> processAfter(List<SwTask> tasks) {
 
         List<Integer> taskIDs = Optional.ofNullable(tasks)
                 .orElse(Lists.newArrayList())

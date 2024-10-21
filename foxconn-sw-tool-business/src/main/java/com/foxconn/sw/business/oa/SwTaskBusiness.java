@@ -5,7 +5,6 @@ import com.foxconn.sw.data.constants.enums.oa.RejectStatusEnum;
 import com.foxconn.sw.data.constants.enums.oa.TaskStatusEnums;
 import com.foxconn.sw.data.dto.PageParams;
 import com.foxconn.sw.data.dto.entity.oa.BriefTaskVo;
-import com.foxconn.sw.data.dto.entity.oa.TaskBriefListVo;
 import com.foxconn.sw.data.dto.entity.oa.TaskParams;
 import com.foxconn.sw.data.entity.SwTask;
 import com.foxconn.sw.data.mapper.extension.oa.SwTaskExtensionMapper;
@@ -30,24 +29,24 @@ public class SwTaskBusiness {
         return taskExtensionMapper.updateByPrimaryKeySelective(task) > 0;
     }
 
-    public List<SwTask> listBriefVos(PageParams<TaskParams> data, List<String> employeeNos) {
+    public List<SwTask> listBriefVos(PageParams<TaskParams> data, List<String> employeeNos, String proposer) {
         LocalDateTime localDateTime = LocalDateTime.now();
         String now = DateTimeUtils.formatYMD(localDateTime);
         int start = (data.getCurrentPage() - 1) * data.getPageSize();
-        return taskExtensionMapper.listBriefVos(start, data.getPageSize(), data.getParams(), employeeNos, now);
+        return taskExtensionMapper.listBriefVos(start, data.getPageSize(), data.getParams(), employeeNos, now, proposer);
     }
 
-    public int getTotalCountByParams(TaskParams params, List<String> employeeNos) {
+    public int getTotalCountByParams(TaskParams params, List<String> employeeNos, String proposer) {
         LocalDateTime localDateTime = LocalDateTime.now();
         String now = DateTimeUtils.formatYMD(localDateTime);
-        return taskExtensionMapper.getTotalCountByParams(params, employeeNos, now);
+        return taskExtensionMapper.getTotalCountByParams(params, employeeNos, now, proposer);
     }
 
-    public int getTotalCountByParams(int searchType, List<String> employees, String now) {
+    public int getTotalCountByParams(int searchType, List<String> employees, String now, String proposer) {
         TaskParams params = new TaskParams();
         params.setKeyWord("");
         params.setSearchType(searchType);
-        return taskExtensionMapper.getTotalCountByParams(params, employees, now);
+        return taskExtensionMapper.getTotalCountByParams(params, employees, now,proposer);
     }
 
     public BriefTaskVo getTaskById(Integer taskId) {

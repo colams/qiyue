@@ -51,6 +51,9 @@ public interface SwTaskExtensionMapper extends SwTaskMapper {
             "<if test='params.create_e!=null and params.create_e!=\"\"' >",
             " and st.create_time &lt;= #{params.create_e,jdbcType=VARCHAR}",
             "</if> ",
+            "<if test='proposer!=null and proposer!=\"\"' >",
+            " and ((st.proposer_eid = #{proposer,jdbcType=VARCHAR} and st.status in (0,1,2,3,4,6,7)) or st.status in (1,2,3,4,6,7))",
+            "</if> ",
 
             "<if test='params.statusList!=null and params.statusList.size()>0'>",
             "and st.status in",
@@ -101,7 +104,8 @@ public interface SwTaskExtensionMapper extends SwTaskMapper {
                               @Param("end") int end,
                               @Param("params") TaskParams params,
                               @Param("employeeNos") List<String> employeeNos,
-                              @Param("nowDate") String nowDate);
+                              @Param("nowDate") String nowDate,
+                              @Param("proposer") String proposer);
 
     @Select({"<script>",
             "select count(1)",
@@ -138,6 +142,10 @@ public interface SwTaskExtensionMapper extends SwTaskMapper {
             "<if test='params.create_e!=null and params.create_e!=\"\"' >",
             " and st.create_time &lt;= #{params.create_e,jdbcType=VARCHAR}",
             "</if> ",
+            "<if test='proposer!=null and proposer!=\"\"' >",
+            " and ((st.proposer_eid = #{proposer,jdbcType=VARCHAR} and st.status in (0,1,2,3,4,6,7)) or st.status in (1,2,3,4,6,7))",
+            "</if> ",
+
             "<if test='params.statusList!=null and params.statusList.size()>0'>",
             "and st.status in",
             "<foreach collection='params.statusList' item='status' open='(' separator=',' close=')'>",
@@ -160,7 +168,10 @@ public interface SwTaskExtensionMapper extends SwTaskMapper {
             "ORDER BY st.id ",
             "</script>"
     })
-    int getTotalCountByParams(@Param("params") TaskParams params, @Param("employeeNos") List<String> employeeNos, @Param("nowDate") String nowDate);
+    int getTotalCountByParams(@Param("params") TaskParams params,
+                              @Param("employeeNos") List<String> employeeNos,
+                              @Param("nowDate") String nowDate,
+                              @Param("proposer") String proposer);
 
     @Select({
             "select * ",
