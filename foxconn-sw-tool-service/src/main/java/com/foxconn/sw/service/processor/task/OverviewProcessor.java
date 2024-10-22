@@ -37,7 +37,14 @@ public class OverviewProcessor {
         String now = DateTimeUtils.formatYMD(localDateTime);
         List<TaskOverviewVo> taskOverviews = Lists.newArrayList();
 
-        taskOverviews.add(init(0, "total", "全部任務", formatData(0, employees, now, viewType)));
+        String lable = "全部任務";
+        if (viewType == 1) {
+            lable = "我的任務";
+        } else if (viewType == 1) {
+            lable = "我的關注";
+        }
+
+        taskOverviews.add(init(0, "total", lable, formatData(0, employees, now, viewType)));
         taskOverviews.add(init(1, "processing", "待確認", formatData(1, employees, now, viewType)));
         taskOverviews.add(init(2, "processing", "處理中", formatData(2, employees, now, viewType)));
         taskOverviews.add(init(3, "complete", "待驗收", formatData(3, employees, now, viewType)));

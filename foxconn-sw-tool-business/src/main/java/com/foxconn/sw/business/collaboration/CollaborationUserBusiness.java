@@ -15,6 +15,8 @@ import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
@@ -29,6 +31,8 @@ import java.util.Objects;
 
 @Component
 public class CollaborationUserBusiness {
+    private static final Logger logger = LoggerFactory.getLogger(CollaborationUserBusiness.class);
+
     @Autowired
     FilePathUtils filePathUtils;
     @Autowired
@@ -88,7 +92,7 @@ public class CollaborationUserBusiness {
                 result.add(cell.getStringCellValue());
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            logger.error("getTaskHeader", e);
         }
         return result;
     }

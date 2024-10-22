@@ -20,24 +20,7 @@ public class TaskBriefDetailVo {
     @Schema(description = "专案-所属项目")
     @NotNull(message = "专案不能爲空！")
     @Pattern(regexp = "^(?!\\s*$)\\S+.*$", message = "专案不能全部为空格")
-    private String topProject;
-
-
-    /**
-     * 专案-所属项目
-     */
-    @Schema(description = "专案-所属项目")
-    @NotNull(message = "专案不能爲空！")
-    @Pattern(regexp = "^(?!\\s*$)\\S+.*$", message = "专案不能全部为空格")
     private String project;
-
-    /**
-     * 任务分类
-     */
-    @Schema(description = "任务分类")
-    @NotNull(message = "任务分类不能爲空！")
-    @Pattern(regexp = "^(?!\\s*$)\\S+.*$", message = "任务分类不能全部为空格")
-    private String topCategory;
 
     /**
      * 任务分类
@@ -116,28 +99,12 @@ public class TaskBriefDetailVo {
         this.id = id;
     }
 
-    public String getTopProject() {
-        return topProject;
-    }
-
-    public void setTopProject(String topProject) {
-        this.topProject = topProject;
-    }
-
     public String getProject() {
         return project;
     }
 
     public void setProject(String project) {
         this.project = project;
-    }
-
-    public String getTopCategory() {
-        return topCategory;
-    }
-
-    public void setTopCategory(String topCategory) {
-        this.topCategory = topCategory;
     }
 
     public String getCategory() {

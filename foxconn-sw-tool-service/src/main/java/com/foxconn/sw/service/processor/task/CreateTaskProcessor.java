@@ -52,26 +52,18 @@ public class CreateTaskProcessor {
             task.setManagerEid(data.getManagerNos());
         }
         task.setProposerEid(RequestContext.getEmployeeNo());
+        task.setRejectStatus(RejectStatusEnum.DEFAULT.getCode());
 
-        boolean result;
-        int taskID = 0;
-        boolean isUpdate = false;
-        if (Objects.nonNull(task.getId()) && task.getId() > 0) {
-            isUpdate = true;
-            taskID = task.getId();
-            task.setRejectStatus(RejectStatusEnum.UN_REJECT.getCode());
-            result = swTaskBusiness.updateTask(task);
-        } else {
+        boolean isUpdate = true;
+        if (Objects.isNull(task.getId()) || task.getId() == 0) {
+            isUpdate = false;
             task.setTaskNo(taskNoSeedSingleton.getTaskNo());
-            result = swTaskBusiness.createTask(task);
-            taskID = task.getId();
         }
 
-        if (result) {
-            addTaskLog(task, isUpdate);
-            addProcessInfo(task, data.getResourceIds(), isUpdate);
-            taskEmployeeRelation.addRelationAtCreate(taskID, task.getManagerEid(), data.getWatchers());
-        }
+        int taskID = swTaskBusiness.insertOrUpdate(task);
+        addTaskLog(task, isUpdate);
+        addProcessInfo(task, data.getResourceIds(), isUpdate);
+        taskEmployeeRelation.addRelationAtCreate(taskID, task.getManagerEid(), data.getWatchers());
         return taskID;
     }
 

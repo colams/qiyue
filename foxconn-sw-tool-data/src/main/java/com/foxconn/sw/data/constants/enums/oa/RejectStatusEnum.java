@@ -6,7 +6,7 @@ import static com.foxconn.sw.data.constants.enums.retcode.RetCode.ENUM_CONVERT_E
 
 public enum RejectStatusEnum {
 
-    UN_REJECT(0, "草稿"), // 無駁回
+    DEFAULT(0, "默认"), // 無駁回
     RELEASE_REJECT(1, "發佈駁回"),// 發佈駁回
     ACCEPTING_REJECT(2, "驗收駁回"),// 驗收駁回
     ;

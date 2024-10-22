@@ -97,7 +97,7 @@ public class TaskOperateUtils {
         switch (op) {
             case REJECT:
                 boolean pendingAndUnReject = PENDING.equals(taskStatusEnums)
-                        && RejectStatusEnum.UN_REJECT.test(taskDetailVo.getRejectStatus());
+                        && RejectStatusEnum.DEFAULT.test(taskDetailVo.getRejectStatus());
                 enable = (pendingAndUnReject && (isManger || isHandler)) || (ACCEPTING.equals(taskStatusEnums) && isProposer);
                 break;
             case ASSIGN:
