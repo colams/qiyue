@@ -69,6 +69,16 @@ public class WeekUtils {
         return getWeekOfYearAndYear(localDate);
     }
 
+    /**
+     * 根据日期获取对应的周数以及对应的年份
+     *
+     * @param date 日期 如果为null 默认为请求日期
+     * @return Left：week，Right：year
+     */
+    public static String getWeekOfYearAndYearStr(LocalDate date) {
+        Pair<Integer, Integer> pair = WeekUtils.getWeekOfYearAndYear(date);
+        return String.format("%s%02d", pair.getRight(), pair.getLeft());
+    }
 
     /**
      * 根据日期获取对应的周数以及对应的年份
