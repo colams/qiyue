@@ -43,6 +43,14 @@ public class CreateDocProcessor {
             if (!CollectionUtils.isEmpty(params.getEmployeeNos())) {
                 documentPermissionBusiness.insertDocumentPermission(documentID, params.getEmployeeNos(), 2);
             }
+
+
+            SwDocumentHistory documentHistory = new SwDocumentHistory();
+            documentHistory.setDocumentId(documentID);
+            documentHistory.setDocumentName(params.getFileName());
+            documentHistory.setResourceId(params.getResourceID());
+            documentHistory.setCreator(RequestContext.getEmployeeNo());
+            documentHistoryBusiness.insertHistory(documentHistory);
         }
         return documentID > 0;
     }
@@ -50,6 +58,12 @@ public class CreateDocProcessor {
 
     public boolean revise(ReviseDocParams data) {
         SwDocument document = documentBusiness.queryDocumentByID(data.getDocumentID());
+        document.setDocumentName(data.getFileName());
+        document.setCategory(data.getCategory());
+        document.setFileVersion(data.getFileVersion());
+        document.setResourceId(data.getResourceID());
+        documentBusiness.updateDocument(document);
+
 
         SwDocumentHistory documentHistory = new SwDocumentHistory();
         documentHistory.setDocumentId(document.getId());
@@ -57,12 +71,6 @@ public class CreateDocProcessor {
         documentHistory.setResourceId(document.getResourceId());
         documentHistory.setCreator(RequestContext.getEmployeeNo());
         documentHistoryBusiness.insertHistory(documentHistory);
-
-        document.setDocumentName(data.getFileName());
-        document.setCategory(data.getCategory());
-        document.setFileVersion(data.getFileVersion());
-        document.setResourceId(data.getResourceID());
-        documentBusiness.updateDocument(document);
         return true;
     }
 
