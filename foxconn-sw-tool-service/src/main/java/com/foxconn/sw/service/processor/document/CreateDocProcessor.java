@@ -11,10 +11,13 @@ import com.foxconn.sw.data.dto.request.document.DeleteDocParams;
 import com.foxconn.sw.data.dto.request.document.ReviseDocParams;
 import com.foxconn.sw.data.entity.SwDocument;
 import com.foxconn.sw.data.entity.SwDocumentHistory;
+import com.foxconn.sw.data.exception.BizException;
 import com.google.common.collect.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
+
+import java.util.Objects;
 
 @Component
 public class CreateDocProcessor {
@@ -30,6 +33,10 @@ public class CreateDocProcessor {
 
 
     public boolean create(CreateDocParams params) {
+        if (Objects.isNull(params.getResourceID()) || params.getResourceID() < 0) {
+            throw new BizException(4, "参数错误，缺少资源文件");
+        }
+
         int documentID = documentBusiness.createDoc(params);
         if (documentID > 0) {
             if (CollectionUtils.isEmpty(params.getDepartmentIDs()) && CollectionUtils.isEmpty(params.getEmployeeNos())) {
