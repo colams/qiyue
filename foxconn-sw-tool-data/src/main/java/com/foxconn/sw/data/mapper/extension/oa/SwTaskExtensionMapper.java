@@ -62,6 +62,13 @@ public interface SwTaskExtensionMapper extends SwTaskMapper {
             "</foreach>",
             "</if> ",
 
+            "<if test='params.viewType==1'>",
+            " and ste.employee_no=#{proposer,jdbcType=VARCHAR} and ste.role_flag&amp;7> 0",
+            "</if> ",
+            "<if test='params.viewType==2'>",
+            " and ste.employee_no=#{proposer,jdbcType=VARCHAR} and ste.role_flag&amp;1= 0 and ste.role_flag&amp;2= 0 and ste.role_flag&amp;4= 0 AND ste.role_flag&amp;8= 8",
+            "</if> ",
+
             "<if test='params.searchType==1'  >",
             " and st.status=1 ",
             "</if> ",
@@ -152,6 +159,14 @@ public interface SwTaskExtensionMapper extends SwTaskMapper {
             "#{status,jdbcType=INTEGER}",
             "</foreach>",
             "</if> ",
+
+            "<if test='params.viewType==1'>",
+            " and ste.employee_no=#{proposer,jdbcType=VARCHAR} and ste.role_flag&amp;7> 0",
+            "</if> ",
+            "<if test='params.viewType==2'>",
+            " and ste.employee_no=#{proposer,jdbcType=VARCHAR} and ste.role_flag&amp;1= 0 and ste.role_flag&amp;2= 0 and ste.role_flag&amp;4= 0 AND ste.role_flag&amp;8= 8",
+            "</if> ",
+
             "<if test='params.searchType==1'  >",
             " and st.status=1 ",
             "</if> ",

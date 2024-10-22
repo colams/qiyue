@@ -3,6 +3,7 @@ package com.foxconn.sw.service;
 
 import com.foxconn.sw.data.dto.Header;
 import org.apache.commons.lang3.tuple.Pair;
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -12,6 +13,9 @@ import java.time.LocalDate;
 import java.time.temporal.WeekFields;
 import java.util.Calendar;
 import java.util.Locale;
+
+import static com.foxconn.sw.data.constants.enums.TaskRoleFlagEnums.*;
+import static com.foxconn.sw.data.constants.enums.TaskRoleFlagEnums.Watcher_Flag;
 
 
 @SpringBootApplication(scanBasePackages = {
@@ -43,6 +47,7 @@ public class BaseTest {
         int year = date.get(weekFields.weekBasedYear());
         return Pair.of(week, year);
     }
+
 
 
 }

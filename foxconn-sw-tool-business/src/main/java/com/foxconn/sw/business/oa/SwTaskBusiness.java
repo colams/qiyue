@@ -42,11 +42,12 @@ public class SwTaskBusiness {
         return taskExtensionMapper.getTotalCountByParams(params, employeeNos, now, proposer);
     }
 
-    public int getTotalCountByParams(int searchType, List<String> employees, String now, String proposer) {
+    public int getTotalCountByParams(int searchType, List<String> employees, String now, String proposer, Integer viewType) {
         TaskParams params = new TaskParams();
         params.setKeyWord("");
         params.setSearchType(searchType);
-        return taskExtensionMapper.getTotalCountByParams(params, employees, now,proposer);
+        params.setViewType(viewType);
+        return taskExtensionMapper.getTotalCountByParams(params, employees, now, proposer);
     }
 
     public BriefTaskVo getTaskById(Integer taskId) {

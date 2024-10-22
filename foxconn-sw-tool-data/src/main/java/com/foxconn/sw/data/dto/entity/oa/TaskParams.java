@@ -33,7 +33,6 @@ public class TaskParams {
     @Schema(description = "分类")
     private String create_e;
 
-
     @Schema(description = "模糊查询关键词")
     @Pattern(regexp = "^\\S*$", message = "字符串不能全部为空格")
     private String keyWord;
@@ -44,6 +43,10 @@ public class TaskParams {
 
     @Schema(description = "是否请求团队内容")
     private Integer isTeam;
+
+    @Schema(description = "请求分类信息：0-不限，1-我的任务，2-我的关注")
+    @ConstantsValue(intValues = {0, 1, 2}, message = "请求类型不存在！")
+    private Integer viewType;
 
     public String getTaskNo() {
         return taskNo;
@@ -131,5 +134,13 @@ public class TaskParams {
 
     public void setIsTeam(Integer isTeam) {
         this.isTeam = isTeam;
+    }
+
+    public Integer getViewType() {
+        return viewType;
+    }
+
+    public void setViewType(Integer viewType) {
+        this.viewType = viewType;
     }
 }

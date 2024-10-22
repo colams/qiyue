@@ -45,7 +45,7 @@ public class TaskListProcessor {
     @Autowired
     SwTaskEmployeeRelationBusiness relationBusiness;
 
-    public PageEntity<TaskBriefListVo> list(PageParams<TaskParams> taskParams, Header head) {
+    public PageEntity<TaskBriefListVo> list(PageParams<TaskParams> taskParams) {
         String proposer = RequestContext.getEmployeeNo();
         taskParams.getParams().setCreate_e(processDate(taskParams.getParams().getCreate_e()));
         List<String> employeeNos = getQueryEmployee(proposer, taskParams.getParams().getIsTeam());

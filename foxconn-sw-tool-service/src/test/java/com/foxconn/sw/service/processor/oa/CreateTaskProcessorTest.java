@@ -8,6 +8,8 @@ import org.assertj.core.util.Lists;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import static com.foxconn.sw.data.constants.enums.TaskRoleFlagEnums.*;
+
 public class CreateTaskProcessorTest extends BaseTest {
 
     @Autowired
@@ -20,6 +22,14 @@ public class CreateTaskProcessorTest extends BaseTest {
         Header head = initHead();
         var result = createTaskProcessor.createTask(data);
         System.out.println("createTask=================:" + result);
+    }
+
+    @Test
+    public void Proposer_FlagTest() {
+        System.out.println("createTask=================:" + Proposer_Flag.initFlag());
+        System.out.println("createTask=================:" + Manager_Flag.initFlag());
+        System.out.println("createTask=================:" + Handler_Flag.initFlag());
+        System.out.println("createTask=================:" + Watcher_Flag.initFlag());
     }
 
 

@@ -7,6 +7,7 @@ import com.foxconn.sw.data.dto.Request;
 import com.foxconn.sw.data.dto.Response;
 import com.foxconn.sw.data.dto.entity.oa.*;
 import com.foxconn.sw.data.dto.entity.universal.IntegerParams;
+import com.foxconn.sw.data.dto.request.task.OverviewParams;
 import com.foxconn.sw.data.dto.request.task.UpdateTaskParams;
 import com.foxconn.sw.data.entity.SwTask;
 import com.foxconn.sw.service.aspects.Permission;
@@ -80,7 +81,7 @@ public class TaskController {
     @ApiResponse(responseCode = "0", description = "成功码")
     @PostMapping("/list")
     public Response<PageEntity<TaskBriefListVo>> list(@Valid @RequestBody Request<PageParams<TaskParams>> request) {
-        PageEntity<TaskBriefListVo> taskList = taskListProcessor.list(request.getData(), request.getHead());
+        PageEntity<TaskBriefListVo> taskList = taskListProcessor.list(request.getData());
         return ResponseUtils.success(taskList, request.getTraceId());
     }
 
@@ -88,7 +89,7 @@ public class TaskController {
     @Operation(summary = "列表页-任务总览", tags = TagsConstants.OA)
     @ApiResponse(responseCode = "0", description = "成功码")
     @PostMapping("/overview")
-    public Response<List<TaskOverviewVo>> overview(@Valid @RequestBody Request<IntegerParams> request) {
+    public Response<List<TaskOverviewVo>> overview(@Valid @RequestBody Request<OverviewParams> request) {
         List<TaskOverviewVo> taskList = overviewProcessor.overview(request.getData());
         return ResponseUtils.success(taskList, request.getTraceId());
     }
