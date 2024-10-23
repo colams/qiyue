@@ -2,7 +2,7 @@ package com.foxconn.sw.data.entity;
 
 import java.time.LocalDateTime;
 
-public class SwProjectList {
+public class SwProject {
     private Integer id;
 
     private Integer years;
@@ -35,7 +35,7 @@ public class SwProjectList {
         return id;
     }
 
-    public SwProjectList withId(Integer id) {
+    public SwProject withId(Integer id) {
         this.setId(id);
         return this;
     }
@@ -48,7 +48,7 @@ public class SwProjectList {
         return years;
     }
 
-    public SwProjectList withYears(Integer years) {
+    public SwProject withYears(Integer years) {
         this.setYears(years);
         return this;
     }
@@ -61,7 +61,7 @@ public class SwProjectList {
         return projectCode;
     }
 
-    public SwProjectList withProjectCode(String projectCode) {
+    public SwProject withProjectCode(String projectCode) {
         this.setProjectCode(projectCode);
         return this;
     }
@@ -74,7 +74,7 @@ public class SwProjectList {
         return customerName;
     }
 
-    public SwProjectList withCustomerName(String customerName) {
+    public SwProject withCustomerName(String customerName) {
         this.setCustomerName(customerName);
         return this;
     }
@@ -87,7 +87,7 @@ public class SwProjectList {
         return fullName;
     }
 
-    public SwProjectList withFullName(String fullName) {
+    public SwProject withFullName(String fullName) {
         this.setFullName(fullName);
         return this;
     }
@@ -100,7 +100,7 @@ public class SwProjectList {
         return manufacturingModel;
     }
 
-    public SwProjectList withManufacturingModel(String manufacturingModel) {
+    public SwProject withManufacturingModel(String manufacturingModel) {
         this.setManufacturingModel(manufacturingModel);
         return this;
     }
@@ -113,7 +113,7 @@ public class SwProjectList {
         return status;
     }
 
-    public SwProjectList withStatus(String status) {
+    public SwProject withStatus(String status) {
         this.setStatus(status);
         return this;
     }
@@ -126,7 +126,7 @@ public class SwProjectList {
         return rfqTime;
     }
 
-    public SwProjectList withRfqTime(String rfqTime) {
+    public SwProject withRfqTime(String rfqTime) {
         this.setRfqTime(rfqTime);
         return this;
     }
@@ -139,7 +139,7 @@ public class SwProjectList {
         return customer;
     }
 
-    public SwProjectList withCustomer(String customer) {
+    public SwProject withCustomer(String customer) {
         this.setCustomer(customer);
         return this;
     }
@@ -152,7 +152,7 @@ public class SwProjectList {
         return customerPartNo;
     }
 
-    public SwProjectList withCustomerPartNo(String customerPartNo) {
+    public SwProject withCustomerPartNo(String customerPartNo) {
         this.setCustomerPartNo(customerPartNo);
         return this;
     }
@@ -165,7 +165,7 @@ public class SwProjectList {
         return application;
     }
 
-    public SwProjectList withApplication(String application) {
+    public SwProject withApplication(String application) {
         this.setApplication(application);
         return this;
     }
@@ -178,7 +178,7 @@ public class SwProjectList {
         return isDelete;
     }
 
-    public SwProjectList withIsDelete(Integer isDelete) {
+    public SwProject withIsDelete(Integer isDelete) {
         this.setIsDelete(isDelete);
         return this;
     }
@@ -191,7 +191,7 @@ public class SwProjectList {
         return createTime;
     }
 
-    public SwProjectList withCreateTime(LocalDateTime createTime) {
+    public SwProject withCreateTime(LocalDateTime createTime) {
         this.setCreateTime(createTime);
         return this;
     }
@@ -204,7 +204,7 @@ public class SwProjectList {
         return datetimeLastchange;
     }
 
-    public SwProjectList withDatetimeLastchange(LocalDateTime datetimeLastchange) {
+    public SwProject withDatetimeLastchange(LocalDateTime datetimeLastchange) {
         this.setDatetimeLastchange(datetimeLastchange);
         return this;
     }

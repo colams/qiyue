@@ -4,14 +4,14 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SwProjectListExample {
+public class SwProjectExample {
     protected String orderByClause;
 
     protected boolean distinct;
 
     protected List<Criteria> oredCriteria;
 
-    public SwProjectListExample() {
+    public SwProjectExample() {
         oredCriteria = new ArrayList<Criteria>();
     }
 

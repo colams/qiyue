@@ -6,8 +6,8 @@ import com.foxconn.sw.data.dto.entity.KvPairs;
 import com.foxconn.sw.data.dto.entity.project.HeaderVo;
 import com.foxconn.sw.data.dto.entity.project.ProjectItemVo;
 import com.foxconn.sw.data.dto.entity.project.ProjectListVo;
+import com.foxconn.sw.data.entity.SwProject;
 import com.foxconn.sw.data.entity.SwProjectItem;
-import com.foxconn.sw.data.entity.SwProjectList;
 import com.google.common.collect.Lists;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
@@ -202,7 +202,7 @@ public class ProjectListProcessor {
     }
 
     private List<ProjectItemVo> getProjectItems(List<HeaderVo> headerVos) {
-        List<SwProjectList> projectList = projectBusiness.queryProjectList();
+        List<SwProject> projectList = projectBusiness.queryProjectList();
         List<SwProjectItem> projectItems = projectItemBusiness.queryProjectItems();
 
         List<ProjectItemVo> vos = Lists.newArrayList();
@@ -215,7 +215,7 @@ public class ProjectListProcessor {
         return vos;
     }
 
-    private ProjectItemVo initVo(SwProjectList project, List<SwProjectItem> projectItems, List<HeaderVo> headerVos) {
+    private ProjectItemVo initVo(SwProject project, List<SwProjectItem> projectItems, List<HeaderVo> headerVos) {
         List<SwProjectItem> items = projectItems
                 .stream()
                 .filter(e -> e.getProjectId().equals(project.getId()))
@@ -228,7 +228,7 @@ public class ProjectListProcessor {
         return vo;
     }
 
-    private Map<String, KvPairs<String, Boolean>> initPairMap(SwProjectList project, List<SwProjectItem> items, List<HeaderVo> headerVos) {
+    private Map<String, KvPairs<String, Boolean>> initPairMap(SwProject project, List<SwProjectItem> items, List<HeaderVo> headerVos) {
         Map<String, KvPairs<String, Boolean>> kvPairsMap = new HashMap<>();
 
         headerVos.forEach(e -> {

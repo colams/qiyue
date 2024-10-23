@@ -1,7 +1,7 @@
 package com.foxconn.sw.data.mapper.auto;
 
-import com.foxconn.sw.data.entity.SwProjectList;
-import com.foxconn.sw.data.entity.SwProjectListExample;
+import com.foxconn.sw.data.entity.SwProject;
+import com.foxconn.sw.data.entity.SwProjectExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.DeleteProvider;
@@ -20,21 +20,21 @@ import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.type.JdbcType;
 
 @Mapper
-public interface SwProjectListMapper {
-    @SelectProvider(type=SwProjectListSqlProvider.class, method="countByExample")
-    long countByExample(SwProjectListExample example);
+public interface SwProjectMapper {
+    @SelectProvider(type=SwProjectSqlProvider.class, method="countByExample")
+    long countByExample(SwProjectExample example);
 
-    @DeleteProvider(type=SwProjectListSqlProvider.class, method="deleteByExample")
-    int deleteByExample(SwProjectListExample example);
+    @DeleteProvider(type=SwProjectSqlProvider.class, method="deleteByExample")
+    int deleteByExample(SwProjectExample example);
 
     @Delete({
-        "delete from sw_project_list",
+        "delete from sw_project",
         "where id = #{id,jdbcType=INTEGER}"
     })
     int deleteByPrimaryKey(Integer id);
 
     @Insert({
-        "insert into sw_project_list (years, project_code, ",
+        "insert into sw_project (years, project_code, ",
         "customer_name, full_name, ",
         "manufacturing_model, status, ",
         "rfq_time, customer, ",
@@ -50,13 +50,13 @@ public interface SwProjectListMapper {
         "#{datetimeLastchange,jdbcType=TIMESTAMP})"
     })
     @SelectKey(statement="SELECT LAST_INSERT_ID()", keyProperty="id", before=false, resultType=Integer.class)
-    int insert(SwProjectList record);
+    int insert(SwProject record);
 
-    @InsertProvider(type=SwProjectListSqlProvider.class, method="insertSelective")
+    @InsertProvider(type=SwProjectSqlProvider.class, method="insertSelective")
     @SelectKey(statement="SELECT LAST_INSERT_ID()", keyProperty="id", before=false, resultType=Integer.class)
-    int insertSelective(SwProjectList record);
+    int insertSelective(SwProject record);
 
-    @SelectProvider(type=SwProjectListSqlProvider.class, method="selectByExample")
+    @SelectProvider(type=SwProjectSqlProvider.class, method="selectByExample")
     @Results({
         @Result(column="id", property="id", jdbcType=JdbcType.INTEGER, id=true),
         @Result(column="years", property="years", jdbcType=JdbcType.INTEGER),
@@ -73,9 +73,9 @@ public interface SwProjectListMapper {
         @Result(column="create_time", property="createTime", jdbcType=JdbcType.TIMESTAMP),
         @Result(column="datetime_lastchange", property="datetimeLastchange", jdbcType=JdbcType.TIMESTAMP)
     })
-    List<SwProjectList> selectByExampleWithRowbounds(SwProjectListExample example, RowBounds rowBounds);
+    List<SwProject> selectByExampleWithRowbounds(SwProjectExample example, RowBounds rowBounds);
 
-    @SelectProvider(type=SwProjectListSqlProvider.class, method="selectByExample")
+    @SelectProvider(type=SwProjectSqlProvider.class, method="selectByExample")
     @Results({
         @Result(column="id", property="id", jdbcType=JdbcType.INTEGER, id=true),
         @Result(column="years", property="years", jdbcType=JdbcType.INTEGER),
@@ -92,13 +92,13 @@ public interface SwProjectListMapper {
         @Result(column="create_time", property="createTime", jdbcType=JdbcType.TIMESTAMP),
         @Result(column="datetime_lastchange", property="datetimeLastchange", jdbcType=JdbcType.TIMESTAMP)
     })
-    List<SwProjectList> selectByExample(SwProjectListExample example);
+    List<SwProject> selectByExample(SwProjectExample example);
 
     @Select({
         "select",
         "id, years, project_code, customer_name, full_name, manufacturing_model, status, ",
         "rfq_time, customer, customer_part_no, application, is_delete, create_time, datetime_lastchange",
-        "from sw_project_list",
+        "from sw_project",
         "where id = #{id,jdbcType=INTEGER}"
     })
     @Results({
@@ -117,19 +117,19 @@ public interface SwProjectListMapper {
         @Result(column="create_time", property="createTime", jdbcType=JdbcType.TIMESTAMP),
         @Result(column="datetime_lastchange", property="datetimeLastchange", jdbcType=JdbcType.TIMESTAMP)
     })
-    SwProjectList selectByPrimaryKey(Integer id);
+    SwProject selectByPrimaryKey(Integer id);
 
-    @UpdateProvider(type=SwProjectListSqlProvider.class, method="updateByExampleSelective")
-    int updateByExampleSelective(@Param("record") SwProjectList record, @Param("example") SwProjectListExample example);
+    @UpdateProvider(type=SwProjectSqlProvider.class, method="updateByExampleSelective")
+    int updateByExampleSelective(@Param("record") SwProject record, @Param("example") SwProjectExample example);
 
-    @UpdateProvider(type=SwProjectListSqlProvider.class, method="updateByExample")
-    int updateByExample(@Param("record") SwProjectList record, @Param("example") SwProjectListExample example);
+    @UpdateProvider(type=SwProjectSqlProvider.class, method="updateByExample")
+    int updateByExample(@Param("record") SwProject record, @Param("example") SwProjectExample example);
 
-    @UpdateProvider(type=SwProjectListSqlProvider.class, method="updateByPrimaryKeySelective")
-    int updateByPrimaryKeySelective(SwProjectList record);
+    @UpdateProvider(type=SwProjectSqlProvider.class, method="updateByPrimaryKeySelective")
+    int updateByPrimaryKeySelective(SwProject record);
 
     @Update({
-        "update sw_project_list",
+        "update sw_project",
         "set years = #{years,jdbcType=INTEGER},",
           "project_code = #{projectCode,jdbcType=VARCHAR},",
           "customer_name = #{customerName,jdbcType=VARCHAR},",
@@ -145,5 +145,5 @@ public interface SwProjectListMapper {
           "datetime_lastchange = #{datetimeLastchange,jdbcType=TIMESTAMP}",
         "where id = #{id,jdbcType=INTEGER}"
     })
-    int updateByPrimaryKey(SwProjectList record);
+    int updateByPrimaryKey(SwProject record);
 }

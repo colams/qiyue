@@ -1,24 +1,34 @@
 package com.foxconn.sw.business.project;
 
-import com.foxconn.sw.data.entity.SwProjectList;
-import com.foxconn.sw.data.entity.SwProjectListExample;
-import com.foxconn.sw.data.mapper.extension.project.SwProjectListExtMapper;
+import com.foxconn.sw.data.entity.SwProject;
+import com.foxconn.sw.data.entity.SwProjectExample;
+import com.foxconn.sw.data.mapper.extension.project.SwProjectExtMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.Objects;
 
 @Component
 public class ProjectBusiness {
 
     @Autowired
-    SwProjectListExtMapper projectListExtMapper;
+    SwProjectExtMapper projectExtMapper;
 
-    public List<SwProjectList> queryProjectList() {
-        SwProjectListExample example = new SwProjectListExample();
-        SwProjectListExample.Criteria criteria = example.createCriteria();
+    public List<SwProject> queryProjectList() {
+        SwProjectExample example = new SwProjectExample();
+        SwProjectExample.Criteria criteria = example.createCriteria();
 
-        return projectListExtMapper.selectByExample(example);
+        return projectExtMapper.selectByExample(example);
     }
 
+    public Boolean insertOrUpdate(SwProject swProject) {
+        int effectCount = 0;
+        if (Objects.nonNull(swProject.getId()) && swProject.getId() > 0) {
+            effectCount = projectExtMapper.updateByPrimaryKeySelective(swProject);
+        } else {
+            effectCount = projectExtMapper.insertSelective(swProject);
+        }
+        return effectCount > 0;
+    }
 }

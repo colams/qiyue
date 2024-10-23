@@ -1,32 +1,32 @@
 package com.foxconn.sw.data.mapper.auto;
 
-import com.foxconn.sw.data.entity.SwProjectList;
-import com.foxconn.sw.data.entity.SwProjectListExample.Criteria;
-import com.foxconn.sw.data.entity.SwProjectListExample.Criterion;
-import com.foxconn.sw.data.entity.SwProjectListExample;
+import com.foxconn.sw.data.entity.SwProject;
+import com.foxconn.sw.data.entity.SwProjectExample.Criteria;
+import com.foxconn.sw.data.entity.SwProjectExample.Criterion;
+import com.foxconn.sw.data.entity.SwProjectExample;
 import java.util.List;
 import java.util.Map;
 import org.apache.ibatis.jdbc.SQL;
 
-public class SwProjectListSqlProvider {
+public class SwProjectSqlProvider {
 
-    public String countByExample(SwProjectListExample example) {
+    public String countByExample(SwProjectExample example) {
         SQL sql = new SQL();
-        sql.SELECT("count(*)").FROM("sw_project_list");
+        sql.SELECT("count(*)").FROM("sw_project");
         applyWhere(sql, example, false);
         return sql.toString();
     }
 
-    public String deleteByExample(SwProjectListExample example) {
+    public String deleteByExample(SwProjectExample example) {
         SQL sql = new SQL();
-        sql.DELETE_FROM("sw_project_list");
+        sql.DELETE_FROM("sw_project");
         applyWhere(sql, example, false);
         return sql.toString();
     }
 
-    public String insertSelective(SwProjectList record) {
+    public String insertSelective(SwProject record) {
         SQL sql = new SQL();
-        sql.INSERT_INTO("sw_project_list");
+        sql.INSERT_INTO("sw_project");
         
         if (record.getYears() != null) {
             sql.VALUES("years", "#{years,jdbcType=INTEGER}");
@@ -83,7 +83,7 @@ public class SwProjectListSqlProvider {
         return sql.toString();
     }
 
-    public String selectByExample(SwProjectListExample example) {
+    public String selectByExample(SwProjectExample example) {
         SQL sql = new SQL();
         if (example != null && example.isDistinct()) {
             sql.SELECT_DISTINCT("id");
@@ -103,7 +103,7 @@ public class SwProjectListSqlProvider {
         sql.SELECT("is_delete");
         sql.SELECT("create_time");
         sql.SELECT("datetime_lastchange");
-        sql.FROM("sw_project_list");
+        sql.FROM("sw_project");
         applyWhere(sql, example, false);
         
         if (example != null && example.getOrderByClause() != null) {
@@ -114,11 +114,11 @@ public class SwProjectListSqlProvider {
     }
 
     public String updateByExampleSelective(Map<String, Object> parameter) {
-        SwProjectList record = (SwProjectList) parameter.get("record");
-        SwProjectListExample example = (SwProjectListExample) parameter.get("example");
+        SwProject record = (SwProject) parameter.get("record");
+        SwProjectExample example = (SwProjectExample) parameter.get("example");
         
         SQL sql = new SQL();
-        sql.UPDATE("sw_project_list");
+        sql.UPDATE("sw_project");
         
         if (record.getId() != null) {
             sql.SET("id = #{record.id,jdbcType=INTEGER}");
@@ -182,7 +182,7 @@ public class SwProjectListSqlProvider {
 
     public String updateByExample(Map<String, Object> parameter) {
         SQL sql = new SQL();
-        sql.UPDATE("sw_project_list");
+        sql.UPDATE("sw_project");
         
         sql.SET("id = #{record.id,jdbcType=INTEGER}");
         sql.SET("years = #{record.years,jdbcType=INTEGER}");
@@ -199,14 +199,14 @@ public class SwProjectListSqlProvider {
         sql.SET("create_time = #{record.createTime,jdbcType=TIMESTAMP}");
         sql.SET("datetime_lastchange = #{record.datetimeLastchange,jdbcType=TIMESTAMP}");
         
-        SwProjectListExample example = (SwProjectListExample) parameter.get("example");
+        SwProjectExample example = (SwProjectExample) parameter.get("example");
         applyWhere(sql, example, true);
         return sql.toString();
     }
 
-    public String updateByPrimaryKeySelective(SwProjectList record) {
+    public String updateByPrimaryKeySelective(SwProject record) {
         SQL sql = new SQL();
-        sql.UPDATE("sw_project_list");
+        sql.UPDATE("sw_project");
         
         if (record.getYears() != null) {
             sql.SET("years = #{years,jdbcType=INTEGER}");
@@ -265,7 +265,7 @@ public class SwProjectListSqlProvider {
         return sql.toString();
     }
 
-    protected void applyWhere(SQL sql, SwProjectListExample example, boolean includeExamplePhrase) {
+    protected void applyWhere(SQL sql, SwProjectExample example, boolean includeExamplePhrase) {
         if (example == null) {
             return;
         }

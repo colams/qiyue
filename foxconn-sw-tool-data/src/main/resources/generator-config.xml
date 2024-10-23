@@ -125,10 +125,10 @@
         <table tableName="sw_menu">
             <generatedKey column="id" identity="true" sqlStatement="mysql"/>
         </table>
-        <table tableName="sw_project_item">
+        <table tableName="sw_project">
             <generatedKey column="id" identity="true" sqlStatement="mysql"/>
         </table>
-        <table tableName="sw_project_list">
+        <table tableName="sw_project_item">
             <generatedKey column="id" identity="true" sqlStatement="mysql"/>
         </table>
         <table tableName="sw_property">
