@@ -125,6 +125,12 @@
         <table tableName="sw_menu">
             <generatedKey column="id" identity="true" sqlStatement="mysql"/>
         </table>
+        <table tableName="sw_project_item">
+            <generatedKey column="id" identity="true" sqlStatement="mysql"/>
+        </table>
+        <table tableName="sw_project_list">
+            <generatedKey column="id" identity="true" sqlStatement="mysql"/>
+        </table>
         <table tableName="sw_property">
             <generatedKey column="id" identity="true" sqlStatement="mysql"/>
         </table>

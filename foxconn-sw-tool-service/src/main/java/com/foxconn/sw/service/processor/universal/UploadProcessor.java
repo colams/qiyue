@@ -35,8 +35,8 @@ public class UploadProcessor {
         String fileBaseUrl = filePathUtils.getFilePath(uploadType);
 
         List<UploadResult> uploadResults = new ArrayList<>();
+        int index = 0;
         for (MultipartFile file : fileList) {
-            int index = 0;
             String path = UploadUtils.upload(fileBaseUrl, file, index++);
             int resourceID = 0;
 

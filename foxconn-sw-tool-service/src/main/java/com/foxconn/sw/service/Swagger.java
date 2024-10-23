@@ -27,8 +27,8 @@ public class Swagger {
                 "/api/" + TagsConstants.OA + "/**",
                 "/api/meet/**",
                 "/api/collaboration/**",
-                "/api/document/**"
-
+                "/api/document/**",
+                "/api/project/**",
         };
         return createGroupedOpenApi(TagsConstants.OA, paths);
     }
