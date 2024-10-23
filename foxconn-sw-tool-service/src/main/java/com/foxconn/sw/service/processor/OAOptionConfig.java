@@ -130,7 +130,7 @@ public class OAOptionConfig {
         OptionsVo optionsVo3 = new OptionsVo("3", "软件", optionsVos3);
         addOptionVo("3-1", "軟件需求", optionsVos3);
         addOptionVo("3-2", "軟件bug", optionsVos3);
-        addOptionVo("3-3", "系统開發", optionsVos3);
+        // addOptionVo("3-3", "系統開發", optionsVos3);
 
         List<OptionsVo> optionsVos4 = new ArrayList<>();
         OptionsVo optionsVo4 = new OptionsVo("4", "報告", optionsVos4);
@@ -145,9 +145,14 @@ public class OAOptionConfig {
         addOptionVo("5-1", "軟件測試", optionsVos5);
         addOptionVo("5-2", "設備故障", optionsVos5);
 
+        List<OptionsVo> optionsVos8 = new ArrayList<>();
+        OptionsVo optionsVo8 = new OptionsVo("8", "FACA", optionsVos8);
+        addOptionVo("8-1", "FACA", optionsVos8);
+
         List<OptionsVo> optionsVos6 = new ArrayList<>();
         OptionsVo optionsVo6 = new OptionsVo("6", "其他", optionsVos6);
         addOptionVo("6-2", "協作任務", optionsVos6);
+        addOptionVo("6-3", "原型設計", optionsVos6);
         addOptionVo("6-1", "其他", optionsVos6);
 
         optionsVos.add(optionsVo1);
@@ -155,6 +160,7 @@ public class OAOptionConfig {
         optionsVos.add(optionsVo3);
         optionsVos.add(optionsVo4);
         optionsVos.add(optionsVo5);
+        optionsVos.add(optionsVo8);
         optionsVos.add(optionsVo6);
         return optionsVos;
     }
@@ -223,7 +229,7 @@ public class OAOptionConfig {
                 "GB",
                 "Prespa"));
         map.put("Nan-A", Lists.newArrayList("Nan-A"));
-        map.put("Others", Lists.newArrayList("系統開發", "系統管理", "Others"));
+        map.put("Others", Lists.newArrayList("系統開發", "Others"));
 
         List<OptionsVo> optionsVos = new ArrayList<>();
 

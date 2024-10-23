@@ -17,6 +17,7 @@ import com.foxconn.sw.service.utils.ResponseUtils;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import jakarta.validation.Valid;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -61,9 +62,13 @@ public class CommonController {
         File file = new File(filePath);
         // 创建资源对象
         Resource resource = new UrlResource(file.toURI());
+        String filename = file.getName();
+        if (StringUtils.isNotEmpty(appendResource.getOriginName())) {
+            filename = appendResource.getOriginName();
+        }
         // 设置响应头
         HttpHeaders headers = new HttpHeaders();
-        headers.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + file.getName());
+        headers.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + filename);
 
         return ResponseEntity.ok()
                 .headers(headers)
