@@ -18,6 +18,9 @@ public class TaskParams {
     @Schema(description = "任务发起人")
     private String proposer;
 
+    @Schema(description = "任务負責人")
+    private String handler;
+
     @Schema(description = "状态")
     private List<Integer> statusList;
 
@@ -70,6 +73,14 @@ public class TaskParams {
 
     public void setProposer(String proposer) {
         this.proposer = proposer;
+    }
+
+    public String getHandler() {
+        return handler;
+    }
+
+    public void setHandler(String handler) {
+        this.handler = handler;
     }
 
     public List<Integer> getStatusList() {

@@ -55,6 +55,10 @@ public interface SwTaskExtensionMapper extends SwTaskMapper {
             " and ((st.proposer_eid = #{proposer,jdbcType=VARCHAR} and st.status in (0,1,2,3,4,6,7)) or st.status in (1,2,3,4,6,7))",
             "</if> ",
 
+            "<if test='params.handler!=null and params.handler!=\"\"' >",
+            " and ste.employee_no = #{params.handler,jdbcType=VARCHAR} and ste.role_flag&amp;2=2 and ste.role_flag&amp;4=4",
+            "</if> ",
+
             "<if test='params.statusList!=null and params.statusList.size()>0'>",
             "and st.status in",
             "<foreach collection='params.statusList' item='status' open='(' separator=',' close=')'>",
@@ -151,6 +155,10 @@ public interface SwTaskExtensionMapper extends SwTaskMapper {
             "</if> ",
             "<if test='proposer!=null and proposer!=\"\"' >",
             " and ((st.proposer_eid = #{proposer,jdbcType=VARCHAR} and st.status in (0,1,2,3,4,6,7)) or st.status in (1,2,3,4,6,7))",
+            "</if> ",
+
+            "<if test='params.handler!=null and params.handler!=\"\"' >",
+            " and ste.employee_no = #{params.handler,jdbcType=VARCHAR} and ste.role_flag&amp;2=2 and ste.role_flag&amp;4=4",
             "</if> ",
 
             "<if test='params.statusList!=null and params.statusList.size()>0'>",
