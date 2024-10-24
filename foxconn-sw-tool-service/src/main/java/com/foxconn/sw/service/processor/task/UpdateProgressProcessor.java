@@ -3,6 +3,7 @@ package com.foxconn.sw.service.processor.task;
 import com.foxconn.sw.business.context.RequestContext;
 import com.foxconn.sw.business.mapper.TaskProgressMapper;
 import com.foxconn.sw.business.oa.SwTaskBusiness;
+import com.foxconn.sw.business.oa.SwTaskEmployeeRelationBusiness;
 import com.foxconn.sw.business.oa.SwTaskLogBusiness;
 import com.foxconn.sw.business.oa.SwTaskProgressBusiness;
 import com.foxconn.sw.data.dto.entity.oa.TaskProgressBriefParams;
@@ -22,13 +23,20 @@ public class UpdateProgressProcessor {
     private SwTaskLogBusiness taskLogBusiness;
     @Autowired
     private SwTaskProgressBusiness taskProgressBusiness;
+    @Autowired
+    SwTaskEmployeeRelationBusiness employeeRelationBusiness;
+
 
     public boolean updateProgress(TaskProgressBriefParams data) {
 
         if (Objects.nonNull(data.getProgress())) {
             updateTaskProcess(data, data.getProgress());
         }
-        return addProcessInfo(data);
+        boolean result = addProcessInfo(data);
+        if (result) {
+            employeeRelationBusiness.acceptTaskEmployee(data.getTaskId());
+        }
+        return result;
     }
 
     /**

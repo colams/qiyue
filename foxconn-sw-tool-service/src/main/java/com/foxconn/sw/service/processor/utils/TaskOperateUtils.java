@@ -57,7 +57,8 @@ public class TaskOperateUtils {
 
                 if (!enable && isManger) {
                     subType = 1;
-                    enable = taskStatusEnums == PENDING && task.getRejectStatus() != RejectStatusEnum.RELEASE_REJECT.getCode();
+                    enable = (taskStatusEnums == PENDING || taskStatusEnums == PROCESSING)
+                            && task.getRejectStatus() != RejectStatusEnum.RELEASE_REJECT.getCode();
                 }
                 operate = initVo(op.getMsg(), op.name(), enable, subType);
                 break;
@@ -95,20 +96,21 @@ public class TaskOperateUtils {
         TaskStatusEnums taskStatusEnums = TaskStatusEnums.getStatusByCode(taskDetailVo.getStatus());
         boolean enable = false;
         switch (op) {
-            case REJECT:
-                boolean pendingAndUnReject = PENDING.equals(taskStatusEnums)
-                        && RejectStatusEnum.DEFAULT.test(taskDetailVo.getRejectStatus());
-                enable = (pendingAndUnReject && (isManger || isHandler)) || (ACCEPTING.equals(taskStatusEnums) && isProposer);
-                break;
+//            case REJECT:
+//                boolean pendingAndUnReject = PENDING.equals(taskStatusEnums)
+//                        && RejectStatusEnum.DEFAULT.test(taskDetailVo.getRejectStatus());
+//                enable = (pendingAndUnReject && (isManger || isHandler)) || (ACCEPTING.equals(taskStatusEnums) && isProposer);
+//                break;
             case ASSIGN:
-                enable = PENDING.equals(taskStatusEnums) && (isManger || isHandler);
-                break;
-            case ACCEPT:
-                enable = PENDING.equals(taskStatusEnums) && isManger;
-                break;
             case SUBMIT:
-                enable = PROCESSING.equals(taskStatusEnums) && isHandler;
+                enable = (PENDING.equals(taskStatusEnums) || PROCESSING.equals(taskStatusEnums)) && (isManger || isHandler);
                 break;
+//            case ACCEPT:
+//                enable = PENDING.equals(taskStatusEnums) && isManger;
+//                break;
+//            case SUBMIT:
+//                enable = PROCESSING.equals(taskStatusEnums) && (isHandler || isManger);
+//                break;
             case CHECK:
                 enable = ACCEPTING.equals(taskStatusEnums) && isProposer;
                 break;

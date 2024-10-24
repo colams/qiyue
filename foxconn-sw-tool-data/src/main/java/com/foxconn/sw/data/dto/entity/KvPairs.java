@@ -2,23 +2,23 @@ package com.foxconn.sw.data.dto.entity;
 
 public class KvPairs<T,V> {
 
-    private T name;
+    private T text;
     private V attach;
 
     public KvPairs() {
     }
 
-    public KvPairs(T name, V attach) {
-        this.name = name;
+    public KvPairs(T text, V attach) {
+        this.text = text;
         this.attach = attach;
     }
 
-    public T getName() {
-        return name;
+    public T getText() {
+        return text;
     }
 
-    public void setName(T name) {
-        this.name = name;
+    public void setText(T text) {
+        this.text = text;
     }
 
     public V getAttach() {

@@ -20,6 +20,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.stereotype.Component;
+import org.springframework.util.CollectionUtils;
 import org.springframework.util.ResourceUtils;
 
 import java.io.IOException;
@@ -189,7 +190,7 @@ public class ProjectListProcessor {
             List<HeaderVo> result = Lists.newArrayList();
             for (Cell cell : row) {
                 HeaderVo vo = new HeaderVo();
-                vo.setTitle(cell.getStringCellValue());
+                vo.setTitle(cell.getStringCellValue().replace("\n", " ").trim());
                 vo.setColSpan(0);
                 vo.setRowSpan(0);
                 result.add(vo);
@@ -235,8 +236,51 @@ public class ProjectListProcessor {
             if (e.getTitle().equalsIgnoreCase("No.")) {
                 return;
             }
+
             kvPairsMap.put(e.getTitle(), new KvPairs<>(e.getTitle(), true));
         });
+        Map<String, String> map = new HashMap<>();
+        if (CollectionUtils.isEmpty(items)) {
+            map = items.stream()
+                    .collect(Collectors.toMap(SwProjectItem::getProjectItem, SwProjectItem::getProjectValue));
+        }
+
+        for (int i = 2; i < headerVos.size(); i++) {
+            if (i <= 10) {
+                String textValue = getProjectText(project, i);
+                processMap(kvPairsMap, headerVos.get(i), textValue);
+            } else {
+                processMap(kvPairsMap, headerVos.get(i), map.getOrDefault(headerVos.get(i), ""));
+            }
+        }
+
         return kvPairsMap;
+    }
+
+    private String getProjectText(SwProject project, int index) {
+        if (index == 2) {
+            return project.getProjectCode();
+        } else if (index == 3) {
+            return project.getCustomerName();
+        } else if (index == 4) {
+            return project.getFullName();
+        } else if (index == 5) {
+            return project.getManufacturingModel();
+        } else if (index == 6) {
+            return project.getStatus();
+        } else if (index == 7) {
+            return project.getRfqTime();
+        } else if (index == 8) {
+            return project.getCustomer();
+        } else if (index == 9) {
+            return project.getCustomerPartNo();
+        } else if (index == 10) {
+            return project.getApplication();
+        }
+        return "";
+    }
+
+    private void processMap(Map<String, KvPairs<String, Boolean>> kvPairsMap, HeaderVo headerVo, String text) {
+        kvPairsMap.put(headerVo.getTitle(), new KvPairs<>(text, true));
     }
 }

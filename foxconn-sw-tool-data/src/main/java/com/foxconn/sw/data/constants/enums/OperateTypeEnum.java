@@ -7,9 +7,9 @@ public enum OperateTypeEnum {
     REMINDER("跟催", "list"),
     REVOKE("撤销", "list"),
 
-    REJECT("駁回", "detail"),
-    ASSIGN("分派", "detail"),
-    ACCEPT("接受", "detail"),
+//    REJECT("駁回", "detail"),
+    ASSIGN("轉交", "detail"),
+//    ACCEPT("接受", "detail"),
     SUBMIT("提交", "detail"),
     CHECK("驗收", "detail"),
     ;
