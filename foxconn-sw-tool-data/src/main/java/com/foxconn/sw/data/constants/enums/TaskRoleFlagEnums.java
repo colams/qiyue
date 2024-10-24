@@ -2,10 +2,10 @@ package com.foxconn.sw.data.constants.enums;
 
 public enum TaskRoleFlagEnums {
 
-    Proposer_Flag(1 << 0), // 0001 任务发起人
-    Manager_Flag(1 << 1),  // 0010 任务经办人
-    Handler_Flag(1 << 2),  // 0100 任务DRI 处理人
-    Watcher_Flag(1 << 3),  // 1000 任务关注者
+    Proposer_Flag(1 << 0), // 0001 任务发起人    1
+    Manager_Flag(1 << 1),  // 0010 任务经办人    2
+    Handler_Flag(1 << 2),  // 0100 任务DRI 处理人    4
+    Watcher_Flag(1 << 3),  // 1000 任务关注者    8
     ;
 
 

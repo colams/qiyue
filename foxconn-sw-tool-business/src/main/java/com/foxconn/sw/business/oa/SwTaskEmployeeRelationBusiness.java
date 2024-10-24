@@ -192,7 +192,25 @@ public class SwTaskEmployeeRelationBusiness {
         List<SwTaskEmployeeRelation> relations = employeeRelationExtensionMapper.selectByExample(example);
         relations = Optional.ofNullable(relations).orElse(Lists.newArrayList());
         return relations.stream().collect(Collectors.groupingBy(SwTaskEmployeeRelation::getTaskId));
+    }
 
+    public boolean insertOrUpdate(List<SwTaskEmployeeRelation> relationList) {
+        relationList.forEach(e -> {
+            SwTaskEmployeeRelation relation = new SwTaskEmployeeRelation();
+            relation.setId(e.getId());
+            relation.setRoleFlag(e.getRoleFlag());
+            relation.setEmployeeNo(e.getEmployeeNo());
+            relation.setIsDelete(e.getIsDelete());
+            relation.setPrevId(e.getPrevId());
+            relation.setTaskId(e.getTaskId());
+
+            if (Objects.nonNull(e.getId()) && e.getId() > 0) {
+                employeeRelationExtensionMapper.updateByPrimaryKeySelective(relation);
+            } else {
+                employeeRelationExtensionMapper.insertSelective(relation);
+            }
+        });
+        return true;
     }
 
     public class SimpleRelation {
