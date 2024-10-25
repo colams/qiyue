@@ -14,6 +14,10 @@ public class TaskCategoryUtils {
         String result = category;
         String topResult = topCategory;
 
+        if (category.equalsIgnoreCase("3-3")) {
+            return "軟件開發";
+        }
+
         for (OptionsVo optionVo : list) {
             var tempList = optionVo.getOptionsVos()
                     .stream()
