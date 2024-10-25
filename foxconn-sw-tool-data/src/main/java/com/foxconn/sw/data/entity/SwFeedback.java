@@ -7,6 +7,8 @@ public class SwFeedback {
 
     private String employeeNo;
 
+    private String title;
+
     private String contact;
 
     private Integer status;
@@ -41,6 +43,19 @@ public class SwFeedback {
 
     public void setEmployeeNo(String employeeNo) {
         this.employeeNo = employeeNo == null ? null : employeeNo.trim();
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public SwFeedback withTitle(String title) {
+        this.setTitle(title);
+        return this;
+    }
+
+    public void setTitle(String title) {
+        this.title = title == null ? null : title.trim();
     }
 
     public String getContact() {

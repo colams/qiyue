@@ -13,7 +13,7 @@ public class FeedBackSaveProcessor {
     SwFeedbackBusiness feedbackBusiness;
 
     public Boolean save(CreateFeedBackParams data) {
-        return feedbackBusiness.saveFeedBack(data.getEmployeeNo(), data.getContact(), data.getContent());
+        return feedbackBusiness.saveFeedBack(data.getEmployeeNo(), data.getContact(), data.getContent(), data.getTitle());
     }
 
     public Boolean updateFeedBackStatus(FeedBackStatusParams data) {

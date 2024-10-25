@@ -18,15 +18,16 @@ public class SwFeedbackBusiness {
         SwFeedbackExample example = new SwFeedbackExample();
         SwFeedbackExample.Criteria criteria = example.createCriteria();
         criteria.andEmployeeNoEqualTo(employeeNo);
-        return feedbackExtMapper.selectByExample(example);
+        return feedbackExtMapper.selectByExampleWithBLOBs(example);
     }
 
-    public boolean saveFeedBack(String employeeNo, String contact, String content) {
+    public boolean saveFeedBack(String employeeNo, String contact, String content, String title) {
         SwFeedback feedback = new SwFeedback();
         feedback.setEmployeeNo(employeeNo);
         feedback.setContact(contact);
         feedback.setContent(content);
-        return feedbackExtMapper.insert(feedback) > 0;
+        feedback.setTitle(title);
+        return feedbackExtMapper.insertSelective(feedback) > 0;
     }
 
     public boolean updateFeedBackStatus(Integer feedBackID, Integer status) {

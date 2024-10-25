@@ -34,12 +34,14 @@ public interface SwFeedbackMapper {
     int deleteByPrimaryKey(Integer id);
 
     @Insert({
-        "insert into sw_feedback (employee_no, contact, ",
-        "status, create_time, ",
-        "datetime_lastchange, content)",
-        "values (#{employeeNo,jdbcType=VARCHAR}, #{contact,jdbcType=VARCHAR}, ",
-        "#{status,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, ",
-        "#{datetimeLastchange,jdbcType=TIMESTAMP}, #{content,jdbcType=LONGVARCHAR})"
+        "insert into sw_feedback (employee_no, title, ",
+        "contact, status, ",
+        "create_time, datetime_lastchange, ",
+        "content)",
+        "values (#{employeeNo,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, ",
+        "#{contact,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, ",
+        "#{createTime,jdbcType=TIMESTAMP}, #{datetimeLastchange,jdbcType=TIMESTAMP}, ",
+        "#{content,jdbcType=LONGVARCHAR})"
     })
     @SelectKey(statement="SELECT LAST_INSERT_ID()", keyProperty="id", before=false, resultType=Integer.class)
     int insert(SwFeedback record);
@@ -52,6 +54,7 @@ public interface SwFeedbackMapper {
     @Results({
         @Result(column="id", property="id", jdbcType=JdbcType.INTEGER, id=true),
         @Result(column="employee_no", property="employeeNo", jdbcType=JdbcType.VARCHAR),
+        @Result(column="title", property="title", jdbcType=JdbcType.VARCHAR),
         @Result(column="contact", property="contact", jdbcType=JdbcType.VARCHAR),
         @Result(column="status", property="status", jdbcType=JdbcType.INTEGER),
         @Result(column="create_time", property="createTime", jdbcType=JdbcType.TIMESTAMP),
@@ -64,6 +67,7 @@ public interface SwFeedbackMapper {
     @Results({
         @Result(column="id", property="id", jdbcType=JdbcType.INTEGER, id=true),
         @Result(column="employee_no", property="employeeNo", jdbcType=JdbcType.VARCHAR),
+        @Result(column="title", property="title", jdbcType=JdbcType.VARCHAR),
         @Result(column="contact", property="contact", jdbcType=JdbcType.VARCHAR),
         @Result(column="status", property="status", jdbcType=JdbcType.INTEGER),
         @Result(column="create_time", property="createTime", jdbcType=JdbcType.TIMESTAMP),
@@ -76,6 +80,7 @@ public interface SwFeedbackMapper {
     @Results({
         @Result(column="id", property="id", jdbcType=JdbcType.INTEGER, id=true),
         @Result(column="employee_no", property="employeeNo", jdbcType=JdbcType.VARCHAR),
+        @Result(column="title", property="title", jdbcType=JdbcType.VARCHAR),
         @Result(column="contact", property="contact", jdbcType=JdbcType.VARCHAR),
         @Result(column="status", property="status", jdbcType=JdbcType.INTEGER),
         @Result(column="create_time", property="createTime", jdbcType=JdbcType.TIMESTAMP),
@@ -87,6 +92,7 @@ public interface SwFeedbackMapper {
     @Results({
         @Result(column="id", property="id", jdbcType=JdbcType.INTEGER, id=true),
         @Result(column="employee_no", property="employeeNo", jdbcType=JdbcType.VARCHAR),
+        @Result(column="title", property="title", jdbcType=JdbcType.VARCHAR),
         @Result(column="contact", property="contact", jdbcType=JdbcType.VARCHAR),
         @Result(column="status", property="status", jdbcType=JdbcType.INTEGER),
         @Result(column="create_time", property="createTime", jdbcType=JdbcType.TIMESTAMP),
@@ -96,13 +102,14 @@ public interface SwFeedbackMapper {
 
     @Select({
         "select",
-        "id, employee_no, contact, status, create_time, datetime_lastchange, content",
+        "id, employee_no, title, contact, status, create_time, datetime_lastchange, content",
         "from sw_feedback",
         "where id = #{id,jdbcType=INTEGER}"
     })
     @Results({
         @Result(column="id", property="id", jdbcType=JdbcType.INTEGER, id=true),
         @Result(column="employee_no", property="employeeNo", jdbcType=JdbcType.VARCHAR),
+        @Result(column="title", property="title", jdbcType=JdbcType.VARCHAR),
         @Result(column="contact", property="contact", jdbcType=JdbcType.VARCHAR),
         @Result(column="status", property="status", jdbcType=JdbcType.INTEGER),
         @Result(column="create_time", property="createTime", jdbcType=JdbcType.TIMESTAMP),
@@ -126,6 +133,7 @@ public interface SwFeedbackMapper {
     @Update({
         "update sw_feedback",
         "set employee_no = #{employeeNo,jdbcType=VARCHAR},",
+          "title = #{title,jdbcType=VARCHAR},",
           "contact = #{contact,jdbcType=VARCHAR},",
           "status = #{status,jdbcType=INTEGER},",
           "create_time = #{createTime,jdbcType=TIMESTAMP},",
@@ -138,6 +146,7 @@ public interface SwFeedbackMapper {
     @Update({
         "update sw_feedback",
         "set employee_no = #{employeeNo,jdbcType=VARCHAR},",
+          "title = #{title,jdbcType=VARCHAR},",
           "contact = #{contact,jdbcType=VARCHAR},",
           "status = #{status,jdbcType=INTEGER},",
           "create_time = #{createTime,jdbcType=TIMESTAMP},",

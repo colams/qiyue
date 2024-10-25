@@ -32,6 +32,10 @@ public class SwFeedbackSqlProvider {
             sql.VALUES("employee_no", "#{employeeNo,jdbcType=VARCHAR}");
         }
         
+        if (record.getTitle() != null) {
+            sql.VALUES("title", "#{title,jdbcType=VARCHAR}");
+        }
+        
         if (record.getContact() != null) {
             sql.VALUES("contact", "#{contact,jdbcType=VARCHAR}");
         }
@@ -63,6 +67,7 @@ public class SwFeedbackSqlProvider {
             sql.SELECT("id");
         }
         sql.SELECT("employee_no");
+        sql.SELECT("title");
         sql.SELECT("contact");
         sql.SELECT("status");
         sql.SELECT("create_time");
@@ -86,6 +91,7 @@ public class SwFeedbackSqlProvider {
             sql.SELECT("id");
         }
         sql.SELECT("employee_no");
+        sql.SELECT("title");
         sql.SELECT("contact");
         sql.SELECT("status");
         sql.SELECT("create_time");
@@ -113,6 +119,10 @@ public class SwFeedbackSqlProvider {
         
         if (record.getEmployeeNo() != null) {
             sql.SET("employee_no = #{record.employeeNo,jdbcType=VARCHAR}");
+        }
+        
+        if (record.getTitle() != null) {
+            sql.SET("title = #{record.title,jdbcType=VARCHAR}");
         }
         
         if (record.getContact() != null) {
@@ -145,6 +155,7 @@ public class SwFeedbackSqlProvider {
         
         sql.SET("id = #{record.id,jdbcType=INTEGER}");
         sql.SET("employee_no = #{record.employeeNo,jdbcType=VARCHAR}");
+        sql.SET("title = #{record.title,jdbcType=VARCHAR}");
         sql.SET("contact = #{record.contact,jdbcType=VARCHAR}");
         sql.SET("status = #{record.status,jdbcType=INTEGER}");
         sql.SET("create_time = #{record.createTime,jdbcType=TIMESTAMP}");
@@ -162,6 +173,7 @@ public class SwFeedbackSqlProvider {
         
         sql.SET("id = #{record.id,jdbcType=INTEGER}");
         sql.SET("employee_no = #{record.employeeNo,jdbcType=VARCHAR}");
+        sql.SET("title = #{record.title,jdbcType=VARCHAR}");
         sql.SET("contact = #{record.contact,jdbcType=VARCHAR}");
         sql.SET("status = #{record.status,jdbcType=INTEGER}");
         sql.SET("create_time = #{record.createTime,jdbcType=TIMESTAMP}");
@@ -178,6 +190,10 @@ public class SwFeedbackSqlProvider {
         
         if (record.getEmployeeNo() != null) {
             sql.SET("employee_no = #{employeeNo,jdbcType=VARCHAR}");
+        }
+        
+        if (record.getTitle() != null) {
+            sql.SET("title = #{title,jdbcType=VARCHAR}");
         }
         
         if (record.getContact() != null) {
