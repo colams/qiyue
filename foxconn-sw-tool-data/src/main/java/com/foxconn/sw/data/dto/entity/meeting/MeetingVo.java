@@ -16,6 +16,7 @@ public class MeetingVo {
     private String title;
     private String description;
 
+    private Integer week;
     private String meetingDate;
     private String startTime;
     private String endTime;
@@ -77,6 +78,14 @@ public class MeetingVo {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public Integer getWeek() {
+        return week;
+    }
+
+    public void setWeek(Integer week) {
+        this.week = week;
     }
 
     public String getMeetingDate() {

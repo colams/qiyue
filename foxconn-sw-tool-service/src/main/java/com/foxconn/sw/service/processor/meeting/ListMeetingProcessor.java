@@ -144,6 +144,7 @@ public class ListMeetingProcessor {
         vo.setMaintainers(maintainers);
         vo.setMembers(members);
         vo.setWebexUrl(meeting.getWebexUrl());
+        vo.setWeek(LocalDate.parse(vo.getMeetingDate()).getDayOfWeek().getValue());
         return vo;
     }
 
