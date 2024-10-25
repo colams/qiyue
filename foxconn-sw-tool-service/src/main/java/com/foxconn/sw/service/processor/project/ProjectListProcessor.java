@@ -236,7 +236,6 @@ public class ProjectListProcessor {
             if (e.getTitle().equalsIgnoreCase("No.")) {
                 return;
             }
-
             kvPairsMap.put(e.getTitle(), new KvPairs<>(e.getTitle(), true));
         });
         Map<String, String> map = new HashMap<>();
@@ -245,7 +244,7 @@ public class ProjectListProcessor {
                     .collect(Collectors.toMap(SwProjectItem::getProjectItem, SwProjectItem::getProjectValue));
         }
 
-        for (int i = 2; i < headerVos.size(); i++) {
+        for (int i = 1; i < headerVos.size(); i++) {
             if (i <= 10) {
                 String textValue = getProjectText(project, i);
                 processMap(kvPairsMap, headerVos.get(i), textValue);
@@ -258,7 +257,9 @@ public class ProjectListProcessor {
     }
 
     private String getProjectText(SwProject project, int index) {
-        if (index == 2) {
+        if (index == 1) {
+            return project.getYears().toString();
+        } else if (index == 2) {
             return project.getProjectCode();
         } else if (index == 3) {
             return project.getCustomerName();
