@@ -52,7 +52,7 @@ public interface SwTaskExtensionMapper extends SwTaskMapper {
             " and st.create_time &lt;= #{params.create_e,jdbcType=VARCHAR}",
             "</if> ",
             "<if test='proposer!=null and proposer!=\"\"' >",
-            " and ((st.proposer_eid = #{proposer,jdbcType=VARCHAR} and st.status in (0,1,2,3,4,6,7)) or st.status in (1,2,3,4,6,7))",
+            " and ((st.proposer_eid = #{proposer,jdbcType=VARCHAR} and st.status in (0,1,2,3,4,6,7)) or st.status in (1,2,3,4,7))",
             "</if> ",
 
             "<if test='params.handler!=null and params.handler!=\"\"' >",

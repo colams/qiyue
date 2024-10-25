@@ -137,7 +137,7 @@ public class EmployeeBusiness {
         if (checkConfig(employeeNo)) {
             partnerEmployeeNo = getEmployeeList()
                     .stream()
-                    .filter(e -> employeeNo.contains(e.getAssistant()))
+                    .filter(e -> employeeNo.equalsIgnoreCase(e.getAssistant()))
                     .map(e -> e.getEmployeeNo())
                     .findFirst()
                     .orElse("");
