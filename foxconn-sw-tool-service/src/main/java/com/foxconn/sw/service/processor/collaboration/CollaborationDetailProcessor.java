@@ -3,15 +3,17 @@ package com.foxconn.sw.service.processor.collaboration;
 import com.foxconn.sw.business.collaboration.CollaborationDetailBusiness;
 import com.foxconn.sw.business.collaboration.CollaborationUserBusiness;
 import com.foxconn.sw.business.context.RequestContext;
+import com.foxconn.sw.business.oa.SwTaskEmployeeRelationBusiness;
 import com.foxconn.sw.business.system.EmployeeBusiness;
 import com.foxconn.sw.common.utils.FilePathUtils;
+import com.foxconn.sw.data.constants.enums.TaskRoleFlagEnums;
 import com.foxconn.sw.data.dto.entity.acount.EmployeeVo;
 import com.foxconn.sw.data.dto.entity.collaboration.CollaborationVo;
 import com.foxconn.sw.data.dto.request.collaboration.CollaborationDetailParams;
 import com.foxconn.sw.data.entity.SwCollaborationDetail;
 import com.foxconn.sw.data.entity.SwCollaborationUser;
 import com.foxconn.sw.data.entity.SwEmployee;
-import com.google.common.collect.Lists;
+import com.foxconn.sw.data.entity.SwTaskEmployeeRelation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
@@ -34,6 +36,8 @@ public class CollaborationDetailProcessor {
     EmployeeBusiness employeeBusiness;
     @Autowired
     FilePathUtils filePathUtils;
+    @Autowired
+    SwTaskEmployeeRelationBusiness taskEmployeeRelationBusiness;
 
     /**
      * int taskID = 75;
@@ -55,8 +59,15 @@ public class CollaborationDetailProcessor {
     private List<Map<String, Object>> initMapList(List<String> headers, int taskID) {
         List<SwCollaborationUser> collaborationUsers = collaborationUser.queryCollaborationUser(taskID);
 
-        if (CollectionUtils.isEmpty(collaborationUsers)) {
-            return Lists.newArrayList();
+        List<SwTaskEmployeeRelation> relations = taskEmployeeRelationBusiness.getRelationsByTaskId(taskID);
+        boolean has = relations.stream().filter(e -> e.getEmployeeNo().equalsIgnoreCase(RequestContext.getEmployeeNo()))
+                .anyMatch(e -> TaskRoleFlagEnums.Manager_Flag.test(e.getRoleFlag()));
+
+        if ((CollectionUtils.isEmpty(collaborationUsers)
+                || !collaborationUsers.stream().anyMatch(e -> e.getEmployeeNo().equalsIgnoreCase(RequestContext.getEmployeeNo())))
+                && has) {
+            collaborationUser.acceptTask(taskID);
+            return initMapList(headers, taskID);
         }
 
         List<Long> longIds = collaborationUsers.stream()
@@ -80,7 +91,7 @@ public class CollaborationDetailProcessor {
 
     private Map<String, Object> initDefaultMap(SwCollaborationUser collaborationUser, List<String> headers) {
         String employeeNo = RequestContext.getEmployeeNo();
-        SwEmployee employee = employeeBusiness.selectEmployeeByENo(employeeNo);
+        SwEmployee employee = employeeBusiness.selectEmployeeByENo(collaborationUser.getEmployeeNo());
         EmployeeVo vo = new EmployeeVo();
         vo.setName(employee.getName());
         vo.setEmployeeNo(employee.getEmployeeNo());
@@ -110,7 +121,9 @@ public class CollaborationDetailProcessor {
         }
         map.put("id", collaborationUser.getId());
         map.put("status", collaborationUser.getStatus());
-        map.put("edit", collaborationUser.getEmployeeNo().equalsIgnoreCase(employeeNo));
+        map.put("edit", collaborationUser.getEmployeeNo().equalsIgnoreCase(employeeNo) &&
+                (collaborationUser.getStatus() == 0
+                        || collaborationUser.getStatus() == 3));
         map.put("handler", vo);
         return map;
     }

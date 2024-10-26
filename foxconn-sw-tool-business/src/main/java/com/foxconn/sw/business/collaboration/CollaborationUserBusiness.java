@@ -71,6 +71,14 @@ public class CollaborationUserBusiness {
     }
 
 
+    public boolean acceptTask(Integer taskID) {
+        SwCollaborationUser user = new SwCollaborationUser();
+        user.setTaskId(taskID);
+        user.setEmployeeNo(RequestContext.getEmployeeNo());
+        return collaborationUserMapper.insertSelective(user) > 0;
+    }
+
+
     public List<String> getTaskHeader(Integer taskID) throws FileNotFoundException {
         List<TaskProgressVo> progressVos = progressBusiness.selectTaskProcess(taskID);
         TaskProgressVo vo = progressVos.stream()

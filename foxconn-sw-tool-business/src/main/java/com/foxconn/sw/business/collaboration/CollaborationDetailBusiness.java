@@ -3,8 +3,10 @@ package com.foxconn.sw.business.collaboration;
 import com.foxconn.sw.data.entity.SwCollaborationDetail;
 import com.foxconn.sw.data.entity.SwCollaborationDetailExample;
 import com.foxconn.sw.data.mapper.extension.oa.SwCollaborationDetailExtensionMapper;
+import com.google.common.collect.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.util.CollectionUtils;
 
 import java.util.List;
 import java.util.Objects;
@@ -15,6 +17,9 @@ public class CollaborationDetailBusiness {
     SwCollaborationDetailExtensionMapper collaborationDetailMapper;
 
     public List<SwCollaborationDetail> queryCollaborationDetail(List<Long> scuIDs) {
+        if (CollectionUtils.isEmpty(scuIDs)) {
+            return Lists.newArrayList();
+        }
         SwCollaborationDetailExample example = new SwCollaborationDetailExample();
         SwCollaborationDetailExample.Criteria criteria = example.createCriteria();
         criteria.andScuIdIn(scuIDs);

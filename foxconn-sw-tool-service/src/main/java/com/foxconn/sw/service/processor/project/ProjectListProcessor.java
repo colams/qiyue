@@ -239,17 +239,18 @@ public class ProjectListProcessor {
             kvPairsMap.put(e.getTitle(), new KvPairs<>(e.getTitle(), true));
         });
         Map<String, String> map = new HashMap<>();
-        if (CollectionUtils.isEmpty(items)) {
+        if (!CollectionUtils.isEmpty(items)) {
             map = items.stream()
                     .collect(Collectors.toMap(SwProjectItem::getProjectItem, SwProjectItem::getProjectValue));
         }
 
         for (int i = 1; i < headerVos.size(); i++) {
+            HeaderVo header = headerVos.get(i);
             if (i <= 10) {
                 String textValue = getProjectText(project, i);
-                processMap(kvPairsMap, headerVos.get(i), textValue);
+                processMap(kvPairsMap, header.getTitle(), textValue);
             } else {
-                processMap(kvPairsMap, headerVos.get(i), map.getOrDefault(headerVos.get(i), ""));
+                processMap(kvPairsMap, header.getTitle(), map.getOrDefault(header.getTitle(), ""));
             }
         }
 
@@ -281,7 +282,7 @@ public class ProjectListProcessor {
         return "";
     }
 
-    private void processMap(Map<String, KvPairs<String, Boolean>> kvPairsMap, HeaderVo headerVo, String text) {
-        kvPairsMap.put(headerVo.getTitle(), new KvPairs<>(text, true));
+    private void processMap(Map<String, KvPairs<String, Boolean>> kvPairsMap, String title, String text) {
+        kvPairsMap.put(title, new KvPairs<>(text, true));
     }
 }
