@@ -27,6 +27,8 @@ public class SwWorkReport {
 
     private String remark;
 
+    private Integer isDelete;
+
     private LocalDateTime createTime;
 
     private LocalDateTime datetimeLastchange;
@@ -185,6 +187,19 @@ public class SwWorkReport {
 
     public void setRemark(String remark) {
         this.remark = remark == null ? null : remark.trim();
+    }
+
+    public Integer getIsDelete() {
+        return isDelete;
+    }
+
+    public SwWorkReport withIsDelete(Integer isDelete) {
+        this.setIsDelete(isDelete);
+        return this;
+    }
+
+    public void setIsDelete(Integer isDelete) {
+        this.isDelete = isDelete;
     }
 
     public LocalDateTime getCreateTime() {

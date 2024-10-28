@@ -72,6 +72,10 @@ public class SwWorkReportSqlProvider {
             sql.VALUES("remark", "#{remark,jdbcType=VARCHAR}");
         }
         
+        if (record.getIsDelete() != null) {
+            sql.VALUES("is_delete", "#{isDelete,jdbcType=INTEGER}");
+        }
+        
         if (record.getCreateTime() != null) {
             sql.VALUES("create_time", "#{createTime,jdbcType=TIMESTAMP}");
         }
@@ -101,6 +105,7 @@ public class SwWorkReportSqlProvider {
         sql.SELECT("report_type");
         sql.SELECT("description");
         sql.SELECT("remark");
+        sql.SELECT("is_delete");
         sql.SELECT("create_time");
         sql.SELECT("datetime_lastchange");
         sql.FROM("sw_work_report");
@@ -168,6 +173,10 @@ public class SwWorkReportSqlProvider {
             sql.SET("remark = #{record.remark,jdbcType=VARCHAR}");
         }
         
+        if (record.getIsDelete() != null) {
+            sql.SET("is_delete = #{record.isDelete,jdbcType=INTEGER}");
+        }
+        
         if (record.getCreateTime() != null) {
             sql.SET("create_time = #{record.createTime,jdbcType=TIMESTAMP}");
         }
@@ -196,6 +205,7 @@ public class SwWorkReportSqlProvider {
         sql.SET("report_type = #{record.reportType,jdbcType=INTEGER}");
         sql.SET("description = #{record.description,jdbcType=VARCHAR}");
         sql.SET("remark = #{record.remark,jdbcType=VARCHAR}");
+        sql.SET("is_delete = #{record.isDelete,jdbcType=INTEGER}");
         sql.SET("create_time = #{record.createTime,jdbcType=TIMESTAMP}");
         sql.SET("datetime_lastchange = #{record.datetimeLastchange,jdbcType=TIMESTAMP}");
         
@@ -250,6 +260,10 @@ public class SwWorkReportSqlProvider {
         
         if (record.getRemark() != null) {
             sql.SET("remark = #{remark,jdbcType=VARCHAR}");
+        }
+        
+        if (record.getIsDelete() != null) {
+            sql.SET("is_delete = #{isDelete,jdbcType=INTEGER}");
         }
         
         if (record.getCreateTime() != null) {

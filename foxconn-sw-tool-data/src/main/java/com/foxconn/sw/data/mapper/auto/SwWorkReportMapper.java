@@ -39,13 +39,15 @@ public interface SwWorkReportMapper {
         "target, current, ",
         "status, report_type, ",
         "description, remark, ",
-        "create_time, datetime_lastchange)",
+        "is_delete, create_time, ",
+        "datetime_lastchange)",
         "values (#{employeeNo,jdbcType=VARCHAR}, #{yearWeek,jdbcType=VARCHAR}, ",
         "#{week,jdbcType=INTEGER}, #{project,jdbcType=VARCHAR}, #{days,jdbcType=DOUBLE}, ",
         "#{target,jdbcType=INTEGER}, #{current,jdbcType=INTEGER}, ",
         "#{status,jdbcType=INTEGER}, #{reportType,jdbcType=INTEGER}, ",
         "#{description,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, ",
-        "#{createTime,jdbcType=TIMESTAMP}, #{datetimeLastchange,jdbcType=TIMESTAMP})"
+        "#{isDelete,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, ",
+        "#{datetimeLastchange,jdbcType=TIMESTAMP})"
     })
     @SelectKey(statement="SELECT LAST_INSERT_ID()", keyProperty="id", before=false, resultType=Integer.class)
     int insert(SwWorkReport record);
@@ -68,6 +70,7 @@ public interface SwWorkReportMapper {
         @Result(column="report_type", property="reportType", jdbcType=JdbcType.INTEGER),
         @Result(column="description", property="description", jdbcType=JdbcType.VARCHAR),
         @Result(column="remark", property="remark", jdbcType=JdbcType.VARCHAR),
+        @Result(column="is_delete", property="isDelete", jdbcType=JdbcType.INTEGER),
         @Result(column="create_time", property="createTime", jdbcType=JdbcType.TIMESTAMP),
         @Result(column="datetime_lastchange", property="datetimeLastchange", jdbcType=JdbcType.TIMESTAMP)
     })
@@ -87,6 +90,7 @@ public interface SwWorkReportMapper {
         @Result(column="report_type", property="reportType", jdbcType=JdbcType.INTEGER),
         @Result(column="description", property="description", jdbcType=JdbcType.VARCHAR),
         @Result(column="remark", property="remark", jdbcType=JdbcType.VARCHAR),
+        @Result(column="is_delete", property="isDelete", jdbcType=JdbcType.INTEGER),
         @Result(column="create_time", property="createTime", jdbcType=JdbcType.TIMESTAMP),
         @Result(column="datetime_lastchange", property="datetimeLastchange", jdbcType=JdbcType.TIMESTAMP)
     })
@@ -95,7 +99,7 @@ public interface SwWorkReportMapper {
     @Select({
         "select",
         "id, employee_no, year_week, week, project, days, target, current, status, report_type, ",
-        "description, remark, create_time, datetime_lastchange",
+        "description, remark, is_delete, create_time, datetime_lastchange",
         "from sw_work_report",
         "where id = #{id,jdbcType=INTEGER}"
     })
@@ -112,6 +116,7 @@ public interface SwWorkReportMapper {
         @Result(column="report_type", property="reportType", jdbcType=JdbcType.INTEGER),
         @Result(column="description", property="description", jdbcType=JdbcType.VARCHAR),
         @Result(column="remark", property="remark", jdbcType=JdbcType.VARCHAR),
+        @Result(column="is_delete", property="isDelete", jdbcType=JdbcType.INTEGER),
         @Result(column="create_time", property="createTime", jdbcType=JdbcType.TIMESTAMP),
         @Result(column="datetime_lastchange", property="datetimeLastchange", jdbcType=JdbcType.TIMESTAMP)
     })
@@ -139,6 +144,7 @@ public interface SwWorkReportMapper {
           "report_type = #{reportType,jdbcType=INTEGER},",
           "description = #{description,jdbcType=VARCHAR},",
           "remark = #{remark,jdbcType=VARCHAR},",
+          "is_delete = #{isDelete,jdbcType=INTEGER},",
           "create_time = #{createTime,jdbcType=TIMESTAMP},",
           "datetime_lastchange = #{datetimeLastchange,jdbcType=TIMESTAMP}",
         "where id = #{id,jdbcType=INTEGER}"

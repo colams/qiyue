@@ -23,6 +23,7 @@ public class SwWorkReportBusiness {
         criteria.andYearWeekEqualTo(yearWeek);
         criteria.andEmployeeNoEqualTo(employeeNo);
         criteria.andStatusEqualTo(1);
+        criteria.andIsDeleteEqualTo(0);
         List<SwWorkReport> reports = reportExtensionMapper.selectByExample(example);
         return Optional.ofNullable(reports).orElse(Lists.newArrayList());
     }

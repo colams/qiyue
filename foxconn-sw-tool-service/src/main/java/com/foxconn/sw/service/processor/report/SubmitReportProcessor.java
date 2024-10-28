@@ -70,6 +70,7 @@ public class SubmitReportProcessor {
                     SwWorkReport report = new SwWorkReport();
                     report.setId(e.getId());
                     report.setStatus(0);
+                    report.setIsDelete(1);
                     report.setReportType(reportType);
                     return report;
                 })
