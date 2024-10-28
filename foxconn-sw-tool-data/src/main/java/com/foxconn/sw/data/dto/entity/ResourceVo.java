@@ -5,6 +5,7 @@ public class ResourceVo {
     private Integer id;
     private String name;
     private String url;
+    private String filePath;
 
     public Integer getId() {
         return id;
@@ -28,5 +29,13 @@ public class ResourceVo {
 
     public void setUrl(String url) {
         this.url = url;
+    }
+
+    public String getFilePath() {
+        return filePath;
+    }
+
+    public void setFilePath(String filePath) {
+        this.filePath = filePath;
     }
 }

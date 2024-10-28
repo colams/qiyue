@@ -3,7 +3,9 @@ package com.foxconn.sw.business.collaboration;
 import com.foxconn.sw.business.SwAppendResourceBusiness;
 import com.foxconn.sw.business.context.RequestContext;
 import com.foxconn.sw.business.oa.SwTaskProgressBusiness;
+import com.foxconn.sw.common.utils.ConvertUtils;
 import com.foxconn.sw.common.utils.FilePathUtils;
+import com.foxconn.sw.data.dto.entity.ResourceVo;
 import com.foxconn.sw.data.dto.entity.oa.TaskProgressVo;
 import com.foxconn.sw.data.entity.SwAppendResource;
 import com.foxconn.sw.data.entity.SwCollaborationUser;
@@ -78,6 +80,26 @@ public class CollaborationUserBusiness {
         return collaborationUserMapper.insertSelective(user) > 0;
     }
 
+
+    public ResourceVo getResourceVo(Integer taskID) throws FileNotFoundException {
+        List<TaskProgressVo> progressVos = progressBusiness.selectTaskProcess(taskID);
+        TaskProgressVo vo = progressVos.stream()
+                .filter(e -> !CollectionUtils.isEmpty(e.getResourceIds()))
+                .sorted(Comparator.comparing(TaskProgressVo::getCreateTime))
+                .findFirst()
+                .orElse(null);
+        if (Objects.isNull(vo)) {
+            throw new BizException(4, "参数错误");
+        }
+        SwAppendResource appendResource = resourceBusiness.getAppendResources(vo.getResourceIds().get(0));
+
+        ResourceVo resourceVo = new ResourceVo();
+        resourceVo.setId(appendResource.getId());
+        resourceVo.setName(appendResource.getOriginName());
+        resourceVo.setUrl(ConvertUtils.urlPreFix(appendResource.getId(), appendResource.getFilePath()));
+        resourceVo.setFilePath(filePathUtils.getFilePath(appendResource.getUploadType()) + appendResource.getFilePath());
+        return resourceVo;
+    }
 
     public List<String> getTaskHeader(Integer taskID) throws FileNotFoundException {
         List<TaskProgressVo> progressVos = progressBusiness.selectTaskProcess(taskID);

@@ -11,7 +11,6 @@ import com.foxconn.sw.service.aspects.Permission;
 import com.foxconn.sw.service.processor.collaboration.CollaborationDetailProcessor;
 import com.foxconn.sw.service.processor.collaboration.CollaborationUpdateProcessor;
 import com.foxconn.sw.service.utils.ExcelCollaborationUtils;
-import com.foxconn.sw.service.utils.ExcelWorkReportUtils;
 import com.foxconn.sw.service.utils.ResponseUtils;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -78,14 +77,18 @@ public class CollaborationController {
     @Permission
     @Operation(summary = "export-導出本次工作列表", tags = TagsConstants.COLLABORATION)
     @ApiResponse(responseCode = "0", description = "成功码")
+    @CrossOrigin(exposedHeaders = {"Content-Disposition"})
     @PostMapping("/export")
     public ResponseEntity export(@Valid @RequestBody Request<CollaborationDetailParams> request) throws IOException {
         response.setContentType("application/vnd.ms-excel");
-        response.setHeader("Content-Disposition", "attachment; filename=" + "tes.file");
+//        String fileName = collaborationVo.getTaskTitle() + ".xlsx";
+        response.setHeader("Content-Disposition", "attachment; filename=" + "fileName.xlsx");
         CollaborationVo collaborationVo = collaborationDetail.detail(request.getData());
+
         if (CollectionUtils.isEmpty(collaborationVo.getContent())) {
             return ResponseEntity.ok().body(null);
         }
+
         // 使用Apache POI生成Excel文件
         Workbook workbook = ExcelCollaborationUtils.generateExcel(collaborationVo);
 

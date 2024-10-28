@@ -3,17 +3,16 @@ package com.foxconn.sw.service.processor.collaboration;
 import com.foxconn.sw.business.collaboration.CollaborationDetailBusiness;
 import com.foxconn.sw.business.collaboration.CollaborationUserBusiness;
 import com.foxconn.sw.business.context.RequestContext;
+import com.foxconn.sw.business.oa.SwTaskBusiness;
 import com.foxconn.sw.business.oa.SwTaskEmployeeRelationBusiness;
 import com.foxconn.sw.business.system.EmployeeBusiness;
 import com.foxconn.sw.common.utils.FilePathUtils;
 import com.foxconn.sw.data.constants.enums.TaskRoleFlagEnums;
+import com.foxconn.sw.data.dto.entity.ResourceVo;
 import com.foxconn.sw.data.dto.entity.acount.EmployeeVo;
 import com.foxconn.sw.data.dto.entity.collaboration.CollaborationVo;
 import com.foxconn.sw.data.dto.request.collaboration.CollaborationDetailParams;
-import com.foxconn.sw.data.entity.SwCollaborationDetail;
-import com.foxconn.sw.data.entity.SwCollaborationUser;
-import com.foxconn.sw.data.entity.SwEmployee;
-import com.foxconn.sw.data.entity.SwTaskEmployeeRelation;
+import com.foxconn.sw.data.entity.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
@@ -38,6 +37,8 @@ public class CollaborationDetailProcessor {
     FilePathUtils filePathUtils;
     @Autowired
     SwTaskEmployeeRelationBusiness taskEmployeeRelationBusiness;
+    @Autowired
+    SwTaskBusiness taskBusiness;
 
     /**
      * int taskID = 75;
@@ -47,11 +48,15 @@ public class CollaborationDetailProcessor {
      * @throws FileNotFoundException
      */
     public CollaborationVo detail(CollaborationDetailParams params) throws FileNotFoundException {
-        int taskID = params.getTaskID();
-        List<String> header = collaborationUser.getTaskHeader(taskID);
+        SwTask swTask = taskBusiness.getTaskById(params.getTaskID());
+        ResourceVo resourceVo = collaborationUser.getResourceVo(params.getTaskID());
+        List<String> header = collaborationUser.getTaskHeader(params.getTaskID());
         CollaborationVo vo = new CollaborationVo();
         vo.setHeaders(header);
-        vo.setContent(initMapList(header, taskID));
+        vo.setContent(initMapList(header, params.getTaskID()));
+        vo.setResource(resourceVo);
+        vo.setTaskNo(swTask.getTaskNo());
+        vo.setTaskTitle(swTask.getTitle());
         return vo;
     }
 
