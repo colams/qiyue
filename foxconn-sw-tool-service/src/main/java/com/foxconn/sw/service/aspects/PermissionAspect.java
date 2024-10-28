@@ -1,10 +1,12 @@
 package com.foxconn.sw.service.aspects;
 
+import com.foxconn.sw.business.LogBusiness;
 import com.foxconn.sw.business.context.RequestContext;
 import com.foxconn.sw.common.utils.JsonUtils;
 import com.foxconn.sw.data.dto.Request;
 import com.foxconn.sw.data.dto.entity.acount.UserInfo;
 import com.foxconn.sw.service.processor.user.CommonUserUtils;
+import com.foxconn.sw.service.utils.ServletUtils;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -13,6 +15,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.util.StopWatch;
 
 /**
  * 权限验证切面
@@ -24,6 +27,10 @@ public class PermissionAspect {
 
     @Autowired
     CommonUserUtils commonUserUtils;
+    @Autowired
+    LogBusiness logBusiness;
+    @Autowired
+    private ServletUtils servletUtils;
 
     @Pointcut("@annotation(com.foxconn.sw.service.aspects.Permission)")
     private void checkPermission() {
@@ -33,17 +40,18 @@ public class PermissionAspect {
     @Around("checkPermission() && @annotation(permission) && args(request,..)")
     public Object aroundAdvice(ProceedingJoinPoint joinPoint, Permission permission, Object request) throws Throwable {
         Object retValue = null;
-        String result = "fail";
+        StopWatch stopWatch = new StopWatch();
         try {
+            stopWatch.start();
             contextInit(request, joinPoint.getSignature().getName());
             retValue = joinPoint.proceed();
-            result = "success";
+            stopWatch.stop();
         } catch (Throwable throwable) {
             logger.warn("call service throwable", throwable);
             throw throwable;
         } finally {
+            logParam(joinPoint, retValue, stopWatch.getTotalTimeMillis(), servletUtils.getRemoteIp());
             RequestContext.remove();
-            logParam(result, joinPoint, retValue);
         }
         return retValue;
     }
@@ -64,12 +72,14 @@ public class PermissionAspect {
         RequestContext.put(RequestContext.ContextKey.OperateType, signatureName);
     }
 
-    private void logParam(String result, ProceedingJoinPoint joinPoint, Object retValue) {
+    private void logParam(ProceedingJoinPoint joinPoint, Object retValue, long intervals, String ip) {
         try {
-            String message = String.format("logParam ============ class:%s;method:%s;result:%s;param:%s;retValue:%s",
-                    joinPoint.getTarget().getClass().getSimpleName(), joinPoint.getSignature().getName(), result,
-                    JsonUtils.serialize(joinPoint.getArgs()), JsonUtils.serialize(retValue));
+            String message = String.format("logParam ============ retValue:%s;", JsonUtils.serialize(retValue));
             logger.info(message);
+            String operator = RequestContext.getEmployeeNo();
+            String operateType = joinPoint.getTarget().getClass().getSimpleName() + "." + joinPoint.getSignature().getName();
+            String remark = JsonUtils.serialize(joinPoint.getArgs());
+            logBusiness.log(operator, operateType, remark, intervals, ip);
         } catch (Exception e) {
             logger.error(e.getMessage(), e);
         }

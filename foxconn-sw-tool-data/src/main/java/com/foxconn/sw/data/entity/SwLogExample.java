@@ -445,6 +445,66 @@ public class SwLogExample {
             return (Criteria) this;
         }
 
+        public Criteria andIntervalsIsNull() {
+            addCriterion("intervals is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andIntervalsIsNotNull() {
+            addCriterion("intervals is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andIntervalsEqualTo(Long value) {
+            addCriterion("intervals =", value, "intervals");
+            return (Criteria) this;
+        }
+
+        public Criteria andIntervalsNotEqualTo(Long value) {
+            addCriterion("intervals <>", value, "intervals");
+            return (Criteria) this;
+        }
+
+        public Criteria andIntervalsGreaterThan(Long value) {
+            addCriterion("intervals >", value, "intervals");
+            return (Criteria) this;
+        }
+
+        public Criteria andIntervalsGreaterThanOrEqualTo(Long value) {
+            addCriterion("intervals >=", value, "intervals");
+            return (Criteria) this;
+        }
+
+        public Criteria andIntervalsLessThan(Long value) {
+            addCriterion("intervals <", value, "intervals");
+            return (Criteria) this;
+        }
+
+        public Criteria andIntervalsLessThanOrEqualTo(Long value) {
+            addCriterion("intervals <=", value, "intervals");
+            return (Criteria) this;
+        }
+
+        public Criteria andIntervalsIn(List<Long> values) {
+            addCriterion("intervals in", values, "intervals");
+            return (Criteria) this;
+        }
+
+        public Criteria andIntervalsNotIn(List<Long> values) {
+            addCriterion("intervals not in", values, "intervals");
+            return (Criteria) this;
+        }
+
+        public Criteria andIntervalsBetween(Long value1, Long value2) {
+            addCriterion("intervals between", value1, value2, "intervals");
+            return (Criteria) this;
+        }
+
+        public Criteria andIntervalsNotBetween(Long value1, Long value2) {
+            addCriterion("intervals not between", value1, value2, "intervals");
+            return (Criteria) this;
+        }
+
         public Criteria andCreateTimeIsNull() {
             addCriterion("create_time is null");
             return (Criteria) this;

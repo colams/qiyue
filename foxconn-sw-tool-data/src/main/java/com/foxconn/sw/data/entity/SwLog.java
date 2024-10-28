@@ -13,6 +13,8 @@ public class SwLog {
 
     private String remark;
 
+    private Long intervals;
+
     private LocalDateTime createTime;
 
     public Integer getId() {
@@ -78,6 +80,19 @@ public class SwLog {
 
     public void setRemark(String remark) {
         this.remark = remark == null ? null : remark.trim();
+    }
+
+    public Long getIntervals() {
+        return intervals;
+    }
+
+    public SwLog withIntervals(Long intervals) {
+        this.setIntervals(intervals);
+        return this;
+    }
+
+    public void setIntervals(Long intervals) {
+        this.intervals = intervals;
     }
 
     public LocalDateTime getCreateTime() {

@@ -44,6 +44,10 @@ public class SwLogSqlProvider {
             sql.VALUES("remark", "#{remark,jdbcType=VARCHAR}");
         }
         
+        if (record.getIntervals() != null) {
+            sql.VALUES("intervals", "#{intervals,jdbcType=BIGINT}");
+        }
+        
         if (record.getCreateTime() != null) {
             sql.VALUES("create_time", "#{createTime,jdbcType=TIMESTAMP}");
         }
@@ -62,6 +66,7 @@ public class SwLogSqlProvider {
         sql.SELECT("ip");
         sql.SELECT("operateType");
         sql.SELECT("remark");
+        sql.SELECT("intervals");
         sql.SELECT("create_time");
         sql.FROM("sw_log");
         applyWhere(sql, example, false);
@@ -100,6 +105,10 @@ public class SwLogSqlProvider {
             sql.SET("remark = #{record.remark,jdbcType=VARCHAR}");
         }
         
+        if (record.getIntervals() != null) {
+            sql.SET("intervals = #{record.intervals,jdbcType=BIGINT}");
+        }
+        
         if (record.getCreateTime() != null) {
             sql.SET("create_time = #{record.createTime,jdbcType=TIMESTAMP}");
         }
@@ -117,6 +126,7 @@ public class SwLogSqlProvider {
         sql.SET("ip = #{record.ip,jdbcType=VARCHAR}");
         sql.SET("operateType = #{record.operatetype,jdbcType=VARCHAR}");
         sql.SET("remark = #{record.remark,jdbcType=VARCHAR}");
+        sql.SET("intervals = #{record.intervals,jdbcType=BIGINT}");
         sql.SET("create_time = #{record.createTime,jdbcType=TIMESTAMP}");
         
         SwLogExample example = (SwLogExample) parameter.get("example");
@@ -142,6 +152,10 @@ public class SwLogSqlProvider {
         
         if (record.getRemark() != null) {
             sql.SET("remark = #{remark,jdbcType=VARCHAR}");
+        }
+        
+        if (record.getIntervals() != null) {
+            sql.SET("intervals = #{intervals,jdbcType=BIGINT}");
         }
         
         if (record.getCreateTime() != null) {

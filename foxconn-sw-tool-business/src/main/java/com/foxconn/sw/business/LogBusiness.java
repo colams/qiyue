@@ -17,13 +17,17 @@ public class LogBusiness {
      * @param operator
      * @param operateType
      * @param remark
+     * @param intervals
+     * @param ip
      * @return
      */
-    public boolean log(String operator, String operateType, String remark) {
+    public boolean log(String operator, String operateType, String remark, Long intervals, String ip) {
         SwLog log = new SwLog();
         log.setOperator(operator);
         log.setOperatetype(operateType);
         log.setRemark(remark);
+        log.setIntervals(intervals);
+        log.setIp(ip);
         return logExtensionMapper.insertSelective(log) > 1;
     }
 

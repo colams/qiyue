@@ -36,10 +36,10 @@ public interface SwLogMapper {
     @Insert({
         "insert into sw_log (operator, ip, ",
         "operateType, remark, ",
-        "create_time)",
+        "intervals, create_time)",
         "values (#{operator,jdbcType=VARCHAR}, #{ip,jdbcType=VARCHAR}, ",
         "#{operatetype,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, ",
-        "#{createTime,jdbcType=TIMESTAMP})"
+        "#{intervals,jdbcType=BIGINT}, #{createTime,jdbcType=TIMESTAMP})"
     })
     @SelectKey(statement="SELECT LAST_INSERT_ID()", keyProperty="id", before=false, resultType=Integer.class)
     int insert(SwLog record);
@@ -55,6 +55,7 @@ public interface SwLogMapper {
         @Result(column="ip", property="ip", jdbcType=JdbcType.VARCHAR),
         @Result(column="operateType", property="operatetype", jdbcType=JdbcType.VARCHAR),
         @Result(column="remark", property="remark", jdbcType=JdbcType.VARCHAR),
+        @Result(column="intervals", property="intervals", jdbcType=JdbcType.BIGINT),
         @Result(column="create_time", property="createTime", jdbcType=JdbcType.TIMESTAMP)
     })
     List<SwLog> selectByExampleWithRowbounds(SwLogExample example, RowBounds rowBounds);
@@ -66,13 +67,14 @@ public interface SwLogMapper {
         @Result(column="ip", property="ip", jdbcType=JdbcType.VARCHAR),
         @Result(column="operateType", property="operatetype", jdbcType=JdbcType.VARCHAR),
         @Result(column="remark", property="remark", jdbcType=JdbcType.VARCHAR),
+        @Result(column="intervals", property="intervals", jdbcType=JdbcType.BIGINT),
         @Result(column="create_time", property="createTime", jdbcType=JdbcType.TIMESTAMP)
     })
     List<SwLog> selectByExample(SwLogExample example);
 
     @Select({
         "select",
-        "id, operator, ip, operateType, remark, create_time",
+        "id, operator, ip, operateType, remark, intervals, create_time",
         "from sw_log",
         "where id = #{id,jdbcType=INTEGER}"
     })
@@ -82,6 +84,7 @@ public interface SwLogMapper {
         @Result(column="ip", property="ip", jdbcType=JdbcType.VARCHAR),
         @Result(column="operateType", property="operatetype", jdbcType=JdbcType.VARCHAR),
         @Result(column="remark", property="remark", jdbcType=JdbcType.VARCHAR),
+        @Result(column="intervals", property="intervals", jdbcType=JdbcType.BIGINT),
         @Result(column="create_time", property="createTime", jdbcType=JdbcType.TIMESTAMP)
     })
     SwLog selectByPrimaryKey(Integer id);
@@ -101,6 +104,7 @@ public interface SwLogMapper {
           "ip = #{ip,jdbcType=VARCHAR},",
           "operateType = #{operatetype,jdbcType=VARCHAR},",
           "remark = #{remark,jdbcType=VARCHAR},",
+          "intervals = #{intervals,jdbcType=BIGINT},",
           "create_time = #{createTime,jdbcType=TIMESTAMP}",
         "where id = #{id,jdbcType=INTEGER}"
     })
