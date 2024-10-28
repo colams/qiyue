@@ -33,7 +33,7 @@ public class DocumentController {
     ListDocProcessor listDoc;
 
     @Permission
-    @Operation(summary = "新增文档信息", tags = TagsConstants.OA)
+    @Operation(summary = "新增文档信息", tags = TagsConstants.DOCUMENT)
     @ApiResponse(responseCode = "0", description = "成功码")
     @PostMapping("/create")
     public Response create(@Valid @RequestBody Request<CreateDocParams> request) {
@@ -42,7 +42,7 @@ public class DocumentController {
     }
 
     @Permission
-    @Operation(summary = "更新文档版本", tags = TagsConstants.OA)
+    @Operation(summary = "更新文档版本", tags = TagsConstants.DOCUMENT)
     @ApiResponse(responseCode = "0", description = "成功码")
     @PostMapping("/revise")
     public Response revise(@Valid @RequestBody Request<ReviseDocParams> request) {
@@ -51,7 +51,7 @@ public class DocumentController {
     }
 
     @Permission
-    @Operation(summary = "删除文档信息", tags = TagsConstants.OA)
+    @Operation(summary = "删除文档信息", tags = TagsConstants.DOCUMENT)
     @ApiResponse(responseCode = "0", description = "成功码")
     @PostMapping("/delete")
     public Response delete(@Valid @RequestBody Request<DeleteDocParams> request) {
@@ -60,7 +60,7 @@ public class DocumentController {
     }
 
     @Permission
-    @Operation(summary = "删除文档版本信息", tags = TagsConstants.OA)
+    @Operation(summary = "删除文档版本信息", tags = TagsConstants.DOCUMENT)
     @ApiResponse(responseCode = "0", description = "成功码")
     @PostMapping("/deleteHistory")
     public Response deleteHistory(@Valid @RequestBody Request<IntegerParams> request) {
@@ -69,7 +69,7 @@ public class DocumentController {
     }
 
     @Permission
-    @Operation(summary = "文档信息列表", tags = TagsConstants.OA)
+    @Operation(summary = "文档信息列表", tags = TagsConstants.DOCUMENT)
     @ApiResponse(responseCode = "0", description = "成功码")
     @PostMapping("/list")
     public Response<List<DocumentVo>> list(@Valid @RequestBody Request<SearchDocParams> request) {
@@ -78,7 +78,7 @@ public class DocumentController {
     }
 
     @Permission
-    @Operation(summary = "历史文档信息列表", tags = TagsConstants.OA)
+    @Operation(summary = "历史文档信息列表", tags = TagsConstants.DOCUMENT)
     @ApiResponse(responseCode = "0", description = "成功码")
     @PostMapping("/history")
     public Response<List<HistoryVo>> history(@Valid @RequestBody Request<IntegerParams> request) {

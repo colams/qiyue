@@ -59,7 +59,7 @@ public class WorkReportController {
     }
 
     @Permission
-    @Operation(summary = "获取工作汇报", tags = TagsConstants.OA)
+    @Operation(summary = "获取工作汇报", tags = TagsConstants.REPORT)
     @ApiResponse(responseCode = "0", description = "成功码")
     @PostMapping("/list")
     public Response<List<WorkReportVo>> listReport(@Valid @RequestBody Request<ReportSearchParams> request) {
@@ -68,7 +68,7 @@ public class WorkReportController {
     }
 
     @Permission
-    @Operation(summary = "提交工作汇报", tags = TagsConstants.OA)
+    @Operation(summary = "提交工作汇报", tags = TagsConstants.REPORT)
     @ApiResponse(responseCode = "0", description = "成功码")
     @PostMapping("/submit")
     public Response submitReport(@Valid @RequestBody Request<List<WorkReportParams>> request) {
@@ -77,7 +77,7 @@ public class WorkReportController {
     }
 
     @Permission
-    @Operation(summary = "更新导出工作锁定状态", tags = TagsConstants.OA)
+    @Operation(summary = "更新导出工作锁定状态", tags = TagsConstants.REPORT)
     @ApiResponse(responseCode = "0", description = "成功码")
     @PostMapping("/updateExport")
     public Response updateExport(@Valid @RequestBody Request<StringParams> request) {
@@ -86,7 +86,7 @@ public class WorkReportController {
     }
 
     @Permission
-    @Operation(summary = "取消导出工作汇报", tags = TagsConstants.OA)
+    @Operation(summary = "取消导出工作汇报", tags = TagsConstants.REPORT)
     @ApiResponse(responseCode = "0", description = "成功码")
     @PostMapping("/exportStatus")
     public Response<Boolean> exportStatus(@Valid @RequestBody Request<StringParams> request) {
@@ -95,7 +95,7 @@ public class WorkReportController {
     }
 
     @Permission
-    @Operation(summary = "周报打分接口", tags = TagsConstants.OA)
+    @Operation(summary = "周报打分接口", tags = TagsConstants.REPORT)
     @ApiResponse(responseCode = "0", description = "成功码")
     @PostMapping("/score")
     public Response<Boolean> score(@Valid @RequestBody Request<ScoreParams> request) {
@@ -104,7 +104,7 @@ public class WorkReportController {
     }
 
     @Permission
-    @Operation(summary = "導出周报信息", tags = TagsConstants.OA)
+    @Operation(summary = "導出周报信息", tags = TagsConstants.REPORT)
     @ApiResponse(responseCode = "0", description = "成功码")
     @CrossOrigin(exposedHeaders = {"Content-Disposition"})
     @PostMapping("/export")

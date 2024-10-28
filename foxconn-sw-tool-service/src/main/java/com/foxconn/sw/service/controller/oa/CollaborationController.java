@@ -40,7 +40,7 @@ public class CollaborationController {
     HttpServletResponse response;
 
     @Permission
-    @Operation(summary = "协作平台-獲取協作工作內容", tags = TagsConstants.OA)
+    @Operation(summary = "协作平台-獲取協作工作內容", tags = TagsConstants.COLLABORATION)
     @ApiResponse(responseCode = "0", description = "成功码")
     @PostMapping("/detail")
     public Response<CollaborationVo> detail(@Valid @RequestBody Request<CollaborationDetailParams> request) throws FileNotFoundException {
@@ -49,7 +49,7 @@ public class CollaborationController {
     }
 
     @Permission
-    @Operation(summary = "协作平台-更新或者新增協作 工作內容", tags = TagsConstants.OA)
+    @Operation(summary = "协作平台-更新或者新增協作 工作內容", tags = TagsConstants.COLLABORATION)
     @ApiResponse(responseCode = "0", description = "成功码")
     @PostMapping("/update")
     public Response<Boolean> update(@Valid @RequestBody Request<CollaborationUpdateParams> request) {
@@ -58,7 +58,7 @@ public class CollaborationController {
     }
 
     @Permission
-    @Operation(summary = "协作平台-通過或者駁回協作", tags = TagsConstants.OA)
+    @Operation(summary = "协作平台-通過或者駁回協作", tags = TagsConstants.COLLABORATION)
     @ApiResponse(responseCode = "0", description = "成功码")
     @PostMapping("/evaluation")
     public Response<Boolean> evaluation(@Valid @RequestBody Request<CollaborationEvaluationParams> request) {
@@ -67,7 +67,7 @@ public class CollaborationController {
     }
 
     @Permission
-    @Operation(summary = "协作平台-提交工作", tags = TagsConstants.OA)
+    @Operation(summary = "协作平台-提交工作", tags = TagsConstants.COLLABORATION)
     @ApiResponse(responseCode = "0", description = "成功码")
     @PostMapping("/submit")
     public Response<Boolean> submit(@Valid @RequestBody Request<CollaborationDetailParams> request) {
@@ -76,7 +76,7 @@ public class CollaborationController {
     }
 
     @Permission
-    @Operation(summary = "export-導出本次工作列表", tags = TagsConstants.OA)
+    @Operation(summary = "export-導出本次工作列表", tags = TagsConstants.COLLABORATION)
     @ApiResponse(responseCode = "0", description = "成功码")
     @PostMapping("/export")
     public ResponseEntity export(@Valid @RequestBody Request<CollaborationDetailParams> request) throws IOException {

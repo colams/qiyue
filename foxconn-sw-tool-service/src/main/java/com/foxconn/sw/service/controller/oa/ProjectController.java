@@ -27,7 +27,7 @@ public class ProjectController {
 
 
     @Permission
-    @Operation(summary = "获取专案列表", tags = TagsConstants.OA)
+    @Operation(summary = "获取专案列表", tags = TagsConstants.PROJECT)
     @ApiResponse(responseCode = "0", description = "成功码")
     @PostMapping("/list")
     public Response<ProjectListVo> list(@Valid @RequestBody Request request) {
@@ -37,7 +37,7 @@ public class ProjectController {
 
 
     @Permission
-    @Operation(summary = "保存专案信息", tags = TagsConstants.OA)
+    @Operation(summary = "保存专案信息", tags = TagsConstants.PROJECT)
     @ApiResponse(responseCode = "0", description = "成功码")
     @PostMapping("/save")
     public Response<Boolean> save(@Valid @RequestBody Request<ProjectSaveParams> request) {

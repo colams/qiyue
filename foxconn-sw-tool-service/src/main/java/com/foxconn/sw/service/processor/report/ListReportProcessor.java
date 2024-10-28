@@ -56,7 +56,7 @@ public class ListReportProcessor {
         }
 
         List<String> searchWeeks = ReportSearchParamsUtils.getYearWeekPair(searchParams, isExport);
-        List<SwWorkReport> reports = reportBusiness.queryReport(searchWeeks, employees);
+        List<SwWorkReport> reports = reportBusiness.queryReport(searchWeeks, searchParams.getReportType(), employees);
         List<SwWorkReport> plans = new ArrayList<>();
         boolean pState = false;
         if (searchParams.getSearchType() == 2 && searchWeeks.size() == 2) {

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @Component
@@ -50,11 +51,16 @@ public class SwWorkReportBusiness {
         return true;
     }
 
-    public List<SwWorkReport> queryReport(List<String> searchWeeks, List<String> employees) {
+    public List<SwWorkReport> queryReport(List<String> searchWeeks, Integer reportType, List<String> employees) {
         SwWorkReportExample example = new SwWorkReportExample();
         SwWorkReportExample.Criteria criteria = example.createCriteria()
                 .andStatusEqualTo(1)
+                .andIsDeleteEqualTo(0)
                 .andEmployeeNoIn(employees);
+
+        if (Objects.nonNull(reportType) && reportType == 1) {
+            criteria.andReportTypeEqualTo(reportType);
+        }
 
         if (!CollectionUtils.isEmpty(searchWeeks)) {
             criteria.andYearWeekIn(searchWeeks);

@@ -33,7 +33,7 @@ public class MeetingController {
     UpdateMeetingProcessor updateMeetingProcessor;
 
     @Permission
-    @Operation(summary = "会议列表", tags = TagsConstants.OA)
+    @Operation(summary = "会议列表", tags = TagsConstants.MEET)
     @ApiResponse(responseCode = "0", description = "成功码")
     @PostMapping("/list")
     public Response<List<MeetingVo>[]> list(@Valid @RequestBody Request<ListMeetingParams> request) {
@@ -42,7 +42,7 @@ public class MeetingController {
     }
 
     @Permission
-    @Operation(summary = "会议列表", tags = TagsConstants.OA)
+    @Operation(summary = "会议列表", tags = TagsConstants.MEET)
     @ApiResponse(responseCode = "0", description = "成功码")
     @PostMapping("/detail")
     public Response<MeetingVo> detail(@Valid @RequestBody Request<DetailMeetingParams> request) {
@@ -51,7 +51,7 @@ public class MeetingController {
     }
 
     @Permission
-    @Operation(summary = "创建会议", tags = TagsConstants.OA)
+    @Operation(summary = "创建会议", tags = TagsConstants.MEET)
     @ApiResponse(responseCode = "0", description = "成功码")
     @PostMapping("/create")
     public Response create(@Valid @RequestBody Request<EstablishMeetingParams> request) {
@@ -60,7 +60,7 @@ public class MeetingController {
     }
 
     @Permission
-    @Operation(summary = "更新会议", tags = TagsConstants.OA)
+    @Operation(summary = "更新会议", tags = TagsConstants.MEET)
     @ApiResponse(responseCode = "0", description = "成功码")
     @PostMapping("/update")
     public Response<Boolean> update(@Valid @RequestBody Request<UpdateMeetingParams> request) {
@@ -69,7 +69,7 @@ public class MeetingController {
     }
 
     @Permission
-    @Operation(summary = "删除会议", tags = TagsConstants.OA)
+    @Operation(summary = "删除会议", tags = TagsConstants.MEET)
     @ApiResponse(responseCode = "0", description = "成功码")
     @PostMapping("/delete")
     public Response<Boolean> delete(@Valid @RequestBody Request<DeleteParams> request) {

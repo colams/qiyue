@@ -11,7 +11,7 @@ public class ReportSearchParams {
      * 每个周 的 周一
      */
     private String weekOfStart;
-
+    private Integer reportType;
     private String employeeName;
     private Integer departID;
     private Integer levelType;
@@ -24,6 +24,14 @@ public class ReportSearchParams {
 
     public void setSearchType(Integer searchType) {
         this.searchType = searchType;
+    }
+
+    public Integer getReportType() {
+        return reportType;
+    }
+
+    public void setReportType(Integer reportType) {
+        this.reportType = reportType;
     }
 
     public String getEmployeeName() {
