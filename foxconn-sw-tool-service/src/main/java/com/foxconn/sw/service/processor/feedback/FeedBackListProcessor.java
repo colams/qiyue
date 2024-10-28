@@ -16,7 +16,7 @@ public class FeedBackListProcessor {
 
     public List<SwFeedback> list() {
         String employeeNo = RequestContext.getEmployeeNo();
-        return feedbackBusiness.queryFeedBack(employeeNo);
+        return feedbackBusiness.queryFeedBack("", 0);
     }
 
 }

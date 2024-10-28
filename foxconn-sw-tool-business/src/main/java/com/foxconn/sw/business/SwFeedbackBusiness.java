@@ -3,10 +3,12 @@ package com.foxconn.sw.business;
 import com.foxconn.sw.data.entity.SwFeedback;
 import com.foxconn.sw.data.entity.SwFeedbackExample;
 import com.foxconn.sw.data.mapper.extension.SwFeedbackExtMapper;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.Objects;
 
 @Component
 public class SwFeedbackBusiness {
@@ -14,10 +16,17 @@ public class SwFeedbackBusiness {
     @Autowired
     SwFeedbackExtMapper feedbackExtMapper;
 
-    public List<SwFeedback> queryFeedBack(String employeeNo) {
+    public List<SwFeedback> queryFeedBack(String employeeNo, Integer status) {
         SwFeedbackExample example = new SwFeedbackExample();
         SwFeedbackExample.Criteria criteria = example.createCriteria();
-        criteria.andEmployeeNoEqualTo(employeeNo);
+        if (StringUtils.isNotEmpty(employeeNo)) {
+            criteria.andEmployeeNoEqualTo(employeeNo);
+        }
+
+        if (Objects.nonNull(status) && status > 0) {
+            criteria.andStatusEqualTo(status);
+        }
+        example.setOrderByClause(" status,id ");
         return feedbackExtMapper.selectByExampleWithBLOBs(example);
     }
 

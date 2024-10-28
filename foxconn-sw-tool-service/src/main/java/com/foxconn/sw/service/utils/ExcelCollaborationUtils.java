@@ -1,13 +1,11 @@
 package com.foxconn.sw.service.utils;
 
-import com.foxconn.sw.common.utils.StringExtUtils;
 import com.foxconn.sw.data.dto.entity.collaboration.CollaborationVo;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFColor;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.util.CollectionUtils;
 
-import java.time.LocalDate;
 import java.util.Map;
 
 public class ExcelCollaborationUtils {
@@ -16,8 +14,7 @@ public class ExcelCollaborationUtils {
     public static Workbook generateExcel(CollaborationVo collaborationVo) {
         // 创建Excel工作簿
         Workbook workbook = new XSSFWorkbook();
-        Sheet statusSheet = workbook.createSheet("Status");
-        Sheet sheet = workbook.createSheet(StringExtUtils.toString(LocalDate.now()));
+        Sheet sheet = workbook.createSheet("任務");
         processReport(workbook, sheet, collaborationVo);
         return workbook;
     }
