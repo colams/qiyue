@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.*;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.net.URLEncoder;
 
 @CrossOrigin
 @RestController
@@ -80,15 +81,14 @@ public class CollaborationController {
     @CrossOrigin(exposedHeaders = {"Content-Disposition"})
     @PostMapping("/export")
     public ResponseEntity export(@Valid @RequestBody Request<CollaborationDetailParams> request) throws IOException {
-        response.setContentType("application/vnd.ms-excel");
-//        String fileName = collaborationVo.getTaskTitle() + ".xlsx";
-        response.setHeader("Content-Disposition", "attachment; filename=" + "fileName.xlsx");
         CollaborationVo collaborationVo = collaborationDetail.detail(request.getData());
-
-        if (CollectionUtils.isEmpty(collaborationVo.getContent())) {
+        if (!CollectionUtils.isEmpty(collaborationVo.getContent())) {
+            response.setContentType("application/vnd.ms-excel");
+            String fileName = URLEncoder.encode(collaborationVo.getResource().getName(), "UTF8");
+            response.setHeader("Content-Disposition", "attachment; filename=" + fileName);
+        } else {
             return ResponseEntity.ok().body(null);
         }
-
         // 使用Apache POI生成Excel文件
         Workbook workbook = ExcelCollaborationUtils.generateExcel(collaborationVo);
 

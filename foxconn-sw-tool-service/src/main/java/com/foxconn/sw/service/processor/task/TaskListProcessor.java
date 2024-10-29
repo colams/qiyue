@@ -8,7 +8,6 @@ import com.foxconn.sw.business.system.EmployeeBusiness;
 import com.foxconn.sw.common.utils.LocalDateExtUtils;
 import com.foxconn.sw.data.constants.enums.OperateTypeEnum;
 import com.foxconn.sw.data.constants.enums.TaskRoleFlagEnums;
-import com.foxconn.sw.data.dto.Header;
 import com.foxconn.sw.data.dto.PageEntity;
 import com.foxconn.sw.data.dto.PageParams;
 import com.foxconn.sw.data.dto.entity.oa.TaskBriefListVo;
@@ -120,21 +119,49 @@ public class TaskListProcessor {
                 .filter(r -> r.getTaskId().equals(e.getId()) && r.getEmployeeNo().equalsIgnoreCase(RequestContext.getEmployeeNo()))
                 .findFirst();
         if (optional.isPresent()) {
-            String supervisorNo = relations.stream()
-                    .filter(r -> r.getPrevId().equals(optional.get().getId()))
-                    .filter(r -> TaskRoleFlagEnums.Manager_Flag.test(r.getRoleFlag()))
-                    .map(r -> {
-                        SwEmployee ee = employeeBusiness.selectEmployeeByENo(r.getEmployeeNo());
-                        return Objects.nonNull(ee) ? ee.getName() : "";
-                    })
-                    .collect(Collectors.joining(","));
-            if (StringUtils.isEmpty(supervisorNo)
-                    && (TaskRoleFlagEnums.Proposer_Flag.test(optional.get().getRoleFlag())
-                    || TaskRoleFlagEnums.Handler_Flag.test(optional.get().getRoleFlag()))) {
+            String supervisorNo = "";
+
+            if (TaskRoleFlagEnums.Manager_Flag.test(optional.get().getRoleFlag())) {
+                List<SwTaskEmployeeRelation> nexts = relations.stream()
+                        .filter(r -> r.getPrevId().equals(optional.get().getId()))
+                        .collect(Collectors.toList());
+                if (CollectionUtils.isEmpty(nexts)) {
+                    SwEmployee ee = employeeBusiness.selectEmployeeByENo(optional.get().getEmployeeNo());
+                    if (Objects.nonNull(ee)) {
+                        supervisorNo = ee.getName();
+                    }
+                } else {
+                    supervisorNo = nexts.stream().map(r -> {
+                                SwEmployee ee = employeeBusiness.selectEmployeeByENo(r.getEmployeeNo());
+                                return Objects.nonNull(ee) ? ee.getName() : "";
+                            })
+                            .collect(Collectors.joining(","));
+                }
+            } else if (TaskRoleFlagEnums.Handler_Flag.test(optional.get().getRoleFlag())) {
                 SwEmployee ee = employeeBusiness.selectEmployeeByENo(optional.get().getEmployeeNo());
                 if (Objects.nonNull(ee)) {
                     supervisorNo = ee.getName();
                 }
+            } else if (TaskRoleFlagEnums.Proposer_Flag.test(optional.get().getRoleFlag())) {
+                List<SwTaskEmployeeRelation> nexts = relations.stream()
+                        .filter(r -> TaskRoleFlagEnums.Manager_Flag.test(r.getRoleFlag()))
+                        .filter(r -> r.getPrevId().equals(optional.get().getId()))
+                        .collect(Collectors.toList());
+                if (!CollectionUtils.isEmpty(nexts)) {
+                    supervisorNo = nexts.stream().map(r -> {
+                                SwEmployee ee = employeeBusiness.selectEmployeeByENo(r.getEmployeeNo());
+                                return Objects.nonNull(ee) ? ee.getName() : "";
+                            })
+                            .collect(Collectors.joining(","));
+                }
+            } else if (TaskRoleFlagEnums.Watcher_Flag.test(optional.get().getRoleFlag())) {
+                supervisorNo = relations.stream()
+                        .filter(r -> r.getIsActive() == 1)
+                        .map(r -> {
+                            SwEmployee ee = employeeBusiness.selectEmployeeByENo(r.getEmployeeNo());
+                            return Objects.nonNull(ee) ? ee.getName() : "";
+                        })
+                        .collect(Collectors.joining(","));
             }
             vo.setSupervisor(supervisorNo);
         }
