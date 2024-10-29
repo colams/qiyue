@@ -28,7 +28,7 @@ public class ExcelCollaborationUtils {
         for (String header : headers) {
             headerRow.createCell(index++).setCellValue(header);
         }
-        headerRow.createCell(index++).setCellValue("负责人");
+        headerRow.createCell(index++).setCellValue("編輯人");
     }
 
     private static void processReport(Sheet sheet, CollaborationVo collaborationVo) {
