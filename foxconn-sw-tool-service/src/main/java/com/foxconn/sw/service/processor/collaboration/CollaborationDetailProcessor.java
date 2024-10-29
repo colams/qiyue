@@ -68,6 +68,9 @@ public class CollaborationDetailProcessor {
         boolean has = relations.stream().filter(e -> e.getEmployeeNo().equalsIgnoreCase(RequestContext.getEmployeeNo()))
                 .anyMatch(e -> TaskRoleFlagEnums.Manager_Flag.test(e.getRoleFlag()));
 
+        boolean isPropose = relations.stream().anyMatch(e -> e.getEmployeeNo().equalsIgnoreCase(RequestContext.getEmployeeNo())
+                && TaskRoleFlagEnums.Proposer_Flag.test(e.getRoleFlag()));
+
         if ((CollectionUtils.isEmpty(collaborationUsers)
                 || !collaborationUsers.stream().anyMatch(e -> e.getEmployeeNo().equalsIgnoreCase(RequestContext.getEmployeeNo())))
                 && has) {
@@ -86,15 +89,15 @@ public class CollaborationDetailProcessor {
         for (SwCollaborationUser collaborationUser : collaborationUsers) {
             List<SwCollaborationDetail> swCollaborationDetails = map.get(collaborationUser.getId());
             if (CollectionUtils.isEmpty(swCollaborationDetails)) {
-                list.add(initDefaultMap(collaborationUser, headers));
+                list.add(initDefaultMap(collaborationUser, headers, isPropose));
             } else {
-                list.add(initMap(collaborationUser, swCollaborationDetails));
+                list.add(initMap(collaborationUser, swCollaborationDetails, isPropose));
             }
         }
         return list;
     }
 
-    private Map<String, Object> initDefaultMap(SwCollaborationUser collaborationUser, List<String> headers) {
+    private Map<String, Object> initDefaultMap(SwCollaborationUser collaborationUser, List<String> headers, boolean isPropose) {
         String employeeNo = RequestContext.getEmployeeNo();
         SwEmployee employee = employeeBusiness.selectEmployeeByENo(collaborationUser.getEmployeeNo());
         EmployeeVo vo = new EmployeeVo();
@@ -107,13 +110,14 @@ public class CollaborationDetailProcessor {
         }
         map.put("id", collaborationUser.getId());
         map.put("status", collaborationUser.getStatus());
-        map.put("edit", collaborationUser.getEmployeeNo().equalsIgnoreCase(employeeNo));
+        map.put("edit", collaborationUser.getEmployeeNo().equalsIgnoreCase(employeeNo) || isPropose);
         map.put("handler", vo);
         return map;
     }
 
     private Map<String, Object> initMap(SwCollaborationUser collaborationUser,
-                                        List<SwCollaborationDetail> swCollaborationDetails) {
+                                        List<SwCollaborationDetail> swCollaborationDetails,
+                                        boolean isPropose) {
         String employeeNo = RequestContext.getEmployeeNo();
         SwEmployee employee = employeeBusiness.selectEmployeeByENo(collaborationUser.getEmployeeNo());
         EmployeeVo vo = new EmployeeVo();
@@ -126,9 +130,7 @@ public class CollaborationDetailProcessor {
         }
         map.put("id", collaborationUser.getId());
         map.put("status", collaborationUser.getStatus());
-        map.put("edit", collaborationUser.getEmployeeNo().equalsIgnoreCase(employeeNo) &&
-                (collaborationUser.getStatus() == 0
-                        || collaborationUser.getStatus() == 3));
+        map.put("edit", collaborationUser.getEmployeeNo().equalsIgnoreCase(employeeNo) && collaborationUser.getStatus() != 2 || isPropose);
         map.put("handler", vo);
         return map;
     }

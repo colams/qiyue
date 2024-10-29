@@ -49,14 +49,26 @@ public class CollaborationUserBusiness {
         SwCollaborationUserExample example = new SwCollaborationUserExample();
         SwCollaborationUserExample.Criteria criteria = example.createCriteria();
         criteria.andTaskIdEqualTo(taskID);
+        criteria.andIsDeleteEqualTo(0);
         return collaborationUserMapper.selectByExample(example);
     }
+
+    public List<SwCollaborationUser> queryCollaborationUser(Integer taskID, String employeeNo) {
+        SwCollaborationUserExample example = new SwCollaborationUserExample();
+        SwCollaborationUserExample.Criteria criteria = example.createCriteria();
+        criteria.andTaskIdEqualTo(taskID);
+        criteria.andEmployeeNoEqualTo(employeeNo);
+        criteria.andIsDeleteEqualTo(0);
+        return collaborationUserMapper.selectByExample(example);
+    }
+
 
     public List<SwCollaborationUser> queryCollaborationUser(List<Long> ids) {
         SwCollaborationUserExample example = new SwCollaborationUserExample();
         SwCollaborationUserExample.Criteria criteria = example.createCriteria();
         criteria.andIdIn(ids);
         criteria.andEmployeeNoEqualTo(RequestContext.getEmployeeNo());
+        criteria.andIsDeleteEqualTo(0);
         return collaborationUserMapper.selectByExample(example);
     }
 
