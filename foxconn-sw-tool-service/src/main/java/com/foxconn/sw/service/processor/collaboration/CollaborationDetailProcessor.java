@@ -94,6 +94,19 @@ public class CollaborationDetailProcessor {
                 list.add(initMap(collaborationUser, swCollaborationDetails, isPropose));
             }
         }
+
+        list.sort((e1, e2) -> {
+            Integer status1 = (Integer) e1.get("desc");
+            Integer status2 = (Integer) e2.get("desc");
+            int statusComparison = status1.compareTo(status2);
+            if (statusComparison != 0) {
+                return statusComparison;
+            }
+
+            EmployeeVo employeeVo1 = (EmployeeVo) e1.get("handler");
+            EmployeeVo employeeVo2 = (EmployeeVo) e2.get("handler");
+            return employeeVo1.getEmployeeNo().compareTo(employeeVo2.getEmployeeNo());
+        });
         return list;
     }
 
@@ -112,6 +125,7 @@ public class CollaborationDetailProcessor {
         map.put("status", collaborationUser.getStatus());
         map.put("edit", collaborationUser.getEmployeeNo().equalsIgnoreCase(employeeNo) || isPropose);
         map.put("handler", vo);
+        map.put("desc", collaborationUser.getEmployeeNo().equalsIgnoreCase(employeeNo) ? 0 : 1);
         return map;
     }
 
@@ -132,6 +146,7 @@ public class CollaborationDetailProcessor {
         map.put("status", collaborationUser.getStatus());
         map.put("edit", collaborationUser.getEmployeeNo().equalsIgnoreCase(employeeNo) && collaborationUser.getStatus() != 2 || isPropose);
         map.put("handler", vo);
+        map.put("desc", collaborationUser.getEmployeeNo().equalsIgnoreCase(employeeNo) ? 0 : 1);
         return map;
     }
 }
