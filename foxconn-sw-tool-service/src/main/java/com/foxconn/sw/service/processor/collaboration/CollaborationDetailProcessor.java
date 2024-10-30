@@ -100,7 +100,7 @@ public class CollaborationDetailProcessor {
         for (SwTaskEmployeeRelation relation : relations) {
             boolean has = collaborationUsers.stream().anyMatch(e -> e.getEmployeeNo().equalsIgnoreCase(relation.getEmployeeNo()));
             if (!has) {
-                collaborationUser.acceptTask(taskID, RequestContext.getEmployeeNo());
+                collaborationUser.acceptTask(taskID, relation.getEmployeeNo());
             }
         }
     }

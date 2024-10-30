@@ -7,7 +7,7 @@ import jakarta.validation.constraints.Size;
 public class LoginParams {
 
     @NotBlank(message = "工号不能为空！")
-    @Size(min = 6, message = "工号长度最少六个字符！")
+    @Size(min = 4, message = "工号长度最少四个字符！")
     @Pattern(regexp = "^(?!\\s*$)\\S+.*$", message = "工号不能全部为空格")
     private String employeeNo;
 
