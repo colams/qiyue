@@ -13,6 +13,7 @@ import com.foxconn.sw.data.dto.entity.acount.EmployeeVo;
 import com.foxconn.sw.data.dto.entity.collaboration.CollaborationVo;
 import com.foxconn.sw.data.dto.request.collaboration.CollaborationDetailParams;
 import com.foxconn.sw.data.entity.*;
+import com.foxconn.sw.data.exception.BizException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
@@ -62,21 +63,12 @@ public class CollaborationDetailProcessor {
 
 
     private List<Map<String, Object>> initMapList(List<String> headers, int taskID) {
+        processHandle(taskID);
         List<SwCollaborationUser> collaborationUsers = collaborationUser.queryCollaborationUser(taskID);
 
         List<SwTaskEmployeeRelation> relations = taskEmployeeRelationBusiness.getRelationsByTaskId(taskID);
-        boolean has = relations.stream().filter(e -> e.getEmployeeNo().equalsIgnoreCase(RequestContext.getEmployeeNo()))
-                .anyMatch(e -> TaskRoleFlagEnums.Manager_Flag.test(e.getRoleFlag()));
-
         boolean isPropose = relations.stream().anyMatch(e -> e.getEmployeeNo().equalsIgnoreCase(RequestContext.getEmployeeNo())
                 && TaskRoleFlagEnums.Proposer_Flag.test(e.getRoleFlag()));
-
-        if ((CollectionUtils.isEmpty(collaborationUsers)
-                || !collaborationUsers.stream().anyMatch(e -> e.getEmployeeNo().equalsIgnoreCase(RequestContext.getEmployeeNo())))
-                && has) {
-            collaborationUser.acceptTask(taskID);
-            return initMapList(headers, taskID);
-        }
 
         List<Long> longIds = collaborationUsers.stream()
                 .map(SwCollaborationUser::getId)
@@ -94,7 +86,26 @@ public class CollaborationDetailProcessor {
                 list.add(initMap(collaborationUser, swCollaborationDetails, isPropose));
             }
         }
+        return sortList(list);
+    }
 
+    private void processHandle(Integer taskID) {
+        List<SwCollaborationUser> collaborationUsers = collaborationUser.queryCollaborationUser(taskID);
+        List<SwTaskEmployeeRelation> relations = taskEmployeeRelationBusiness.getRelationsByTaskIdAndRole(taskID, TaskRoleFlagEnums.Manager_Flag);
+
+        if (CollectionUtils.isEmpty(relations)) {
+            throw new BizException(4, "任务负责人为空");
+        }
+
+        for (SwTaskEmployeeRelation relation : relations) {
+            boolean has = collaborationUsers.stream().anyMatch(e -> e.getEmployeeNo().equalsIgnoreCase(relation.getEmployeeNo()));
+            if (!has) {
+                collaborationUser.acceptTask(taskID, RequestContext.getEmployeeNo());
+            }
+        }
+    }
+
+    private List<Map<String, Object>> sortList(List<Map<String, Object>> list) {
         list.sort((e1, e2) -> {
             Integer status1 = (Integer) e1.get("desc");
             Integer status2 = (Integer) e2.get("desc");

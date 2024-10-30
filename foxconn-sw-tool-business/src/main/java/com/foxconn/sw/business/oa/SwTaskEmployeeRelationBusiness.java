@@ -184,6 +184,11 @@ public class SwTaskEmployeeRelationBusiness {
         return Optional.ofNullable(relations).orElse(Lists.newArrayList());
     }
 
+    public List<SwTaskEmployeeRelation> getRelationsByTaskIdAndRole(Integer taskID, TaskRoleFlagEnums taskRole) {
+        List<SwTaskEmployeeRelation> relations = getRelationsByTaskId(taskID);
+        return relations.stream().filter(e -> taskRole.test(e.getRoleFlag())).collect(Collectors.toList());
+    }
+
     public Map<Integer, List<SwTaskEmployeeRelation>> queryEmployeeRelation(List<Integer> taskIDs) {
         SwTaskEmployeeRelationExample example = new SwTaskEmployeeRelationExample();
         SwTaskEmployeeRelationExample.Criteria criteria = example.createCriteria();
