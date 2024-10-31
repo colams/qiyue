@@ -10,11 +10,7 @@ import com.foxconn.sw.data.dto.entity.universal.StringParams;
 import com.foxconn.sw.data.dto.request.report.ScoreParams;
 import com.foxconn.sw.service.aspects.Permission;
 import com.foxconn.sw.service.processor.ReportAuthorityProcessor;
-import com.foxconn.sw.service.processor.report.ExportStatusProcessor;
-import com.foxconn.sw.service.processor.report.ListReportProcessor;
-import com.foxconn.sw.service.processor.report.ScoreReportProcessor;
-import com.foxconn.sw.service.processor.report.SubmitReportProcessor;
-import com.foxconn.sw.service.processor.utils.ReportSearchParamsUtils;
+import com.foxconn.sw.service.processor.report.*;
 import com.foxconn.sw.service.utils.ExcelWorkReportUtils;
 import com.foxconn.sw.service.utils.ResponseUtils;
 import io.swagger.v3.oas.annotations.Operation;
@@ -46,6 +42,8 @@ public class WorkReportController {
     ExportStatusProcessor exportStatus;
     @Autowired
     ScoreReportProcessor scoreReport;
+    @Autowired
+    ReportFileNameProcessor fileNameProcessor;
     @Autowired
     HttpServletResponse response;
 
@@ -111,8 +109,7 @@ public class WorkReportController {
     public ResponseEntity export(@Valid @RequestBody Request<ReportSearchParams> request) throws IOException {
         // 设置响应头
         response.setContentType("application/vnd.ms-excel");
-        String weekOfYear = ReportSearchParamsUtils.processDate(request.getData().getStartDate());
-        String fileName = String.format("CMA_RD_SW_Weekly Report _WK%s.xlsx", weekOfYear);
+        String fileName = fileNameProcessor.generatorFileName(request.getData().getStartDate());
         response.setHeader("Content-Disposition", "attachment; filename=" + fileName);
         List<WorkReportVo> vos = listReport.listReport(request.getData(), true);
         if (CollectionUtils.isEmpty(vos)) {

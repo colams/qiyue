@@ -148,7 +148,6 @@ public class DepartmentBusiness {
         return Optional.ofNullable(department).orElse(Lists.newArrayList());
     }
 
-
     public List<SwDepartment> getDepartment() {
         if (!CollectionUtils.isEmpty(departmentList)) {
             return departmentList;

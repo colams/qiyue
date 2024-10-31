@@ -184,4 +184,12 @@ public class EmployeeBusiness {
         return departIds;
     }
 
+    public String convertEmployeeNo(String employeeNo) {
+        return employeeList.stream()
+                .filter(e -> employeeNo.equalsIgnoreCase(e.getAssistant()))
+                .map(e -> e.getEmployeeNo())
+                .findFirst()
+                .orElse(employeeNo);
+    }
+
 }
