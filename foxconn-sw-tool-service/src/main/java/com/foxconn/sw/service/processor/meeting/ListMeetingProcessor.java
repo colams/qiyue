@@ -124,8 +124,16 @@ public class ListMeetingProcessor {
         vo.setMeetingType(getMeetingType(meeting, allMembers));
         vo.setTitle(meeting.getTitle());
         vo.setDescription(meeting.getDescription());
-        vo.setStartTime(meeting.getStartTime());
-        vo.setEndTime(meeting.getEndTime());
+
+
+        if (Objects.nonNull(detail)) {
+            vo.setStartTime(StringUtils.isNotEmpty(detail.getStartTime()) ? detail.getStartTime() : meeting.getStartTime());
+            vo.setEndTime(StringUtils.isNotEmpty(detail.getEndTime()) ? detail.getEndTime() : meeting.getEndTime());
+        } else {
+            vo.setStartTime(meeting.getStartTime());
+            vo.setEndTime(meeting.getEndTime());
+        }
+
         vo.setDuration(getMeetingDuration(meeting.getStartTime(), meeting.getEndTime()));
 
 
