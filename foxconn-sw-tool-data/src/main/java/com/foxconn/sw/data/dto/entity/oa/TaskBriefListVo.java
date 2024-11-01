@@ -1,5 +1,6 @@
 package com.foxconn.sw.data.dto.entity.oa;
 
+import com.foxconn.sw.data.dto.entity.acount.EmployeeVo;
 import com.foxconn.sw.data.dto.entity.universal.OperateEntity;
 
 import java.time.LocalDateTime;
@@ -60,6 +61,12 @@ public class TaskBriefListVo {
      */
     private String proposer;
 
+
+    /**
+     * 任务提出人
+     */
+    private EmployeeVo proposerVo;
+
     /**
      * 任务期限 YYYY-MM-DD
      */
@@ -89,6 +96,11 @@ public class TaskBriefListVo {
      * 负责人
      */
     private String supervisor;
+
+    /**
+     * 负责人
+     */
+    private List<EmployeeVo> supervisorVo;
 
 
     private Boolean isCollaboration;
@@ -182,6 +194,14 @@ public class TaskBriefListVo {
         this.proposer = proposer;
     }
 
+    public EmployeeVo getProposerVo() {
+        return proposerVo;
+    }
+
+    public void setProposerVo(EmployeeVo proposerVo) {
+        this.proposerVo = proposerVo;
+    }
+
     public String getDeadLine() {
         return deadLine;
     }
@@ -228,6 +248,14 @@ public class TaskBriefListVo {
 
     public void setSupervisor(String supervisor) {
         this.supervisor = supervisor;
+    }
+
+    public List<EmployeeVo> getSupervisorVo() {
+        return supervisorVo;
+    }
+
+    public void setSupervisorVo(List<EmployeeVo> supervisorVo) {
+        this.supervisorVo = supervisorVo;
     }
 
     public Boolean getCollaboration() {

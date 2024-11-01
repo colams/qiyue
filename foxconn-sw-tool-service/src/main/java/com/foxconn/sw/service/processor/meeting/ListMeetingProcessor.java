@@ -27,10 +27,7 @@ import org.springframework.util.CollectionUtils;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Component
@@ -63,6 +60,7 @@ public class ListMeetingProcessor {
         while (startDate.compareTo(endDate) < 0) {
             List<MeetingVo> array = processMeetingVo2(meetings, meetingMembers, meetingCycleDetails, startDate);
             startDate = startDate.plusDays(1);
+            array.sort(Comparator.comparing(MeetingVo::getStartTime));
             result[index++] = array;
         }
         return result;
@@ -134,8 +132,7 @@ public class ListMeetingProcessor {
             vo.setEndTime(meeting.getEndTime());
         }
 
-        vo.setDuration(getMeetingDuration(meeting.getStartTime(), meeting.getEndTime()));
-
+        vo.setDuration(getMeetingDuration(vo.getStartTime(), vo.getEndTime()));
 
         vo.setMeetingDate(meeting.getMeetingDate());
         if (StringUtils.isNotEmpty(meeting.getCycle())) {

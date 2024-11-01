@@ -6,11 +6,15 @@ import com.foxconn.sw.business.oa.SwTaskBusiness;
 import com.foxconn.sw.business.oa.SwTaskEmployeeRelationBusiness;
 import com.foxconn.sw.business.oa.SwTaskLogBusiness;
 import com.foxconn.sw.business.oa.SwTaskProgressBusiness;
+import com.foxconn.sw.data.constants.enums.oa.TaskStatusEnums;
 import com.foxconn.sw.data.dto.entity.oa.TaskProgressBriefParams;
+import com.foxconn.sw.data.entity.SwTaskEmployeeRelation;
 import com.foxconn.sw.data.entity.SwTaskProgress;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @Component
@@ -29,14 +33,45 @@ public class UpdateProgressProcessor {
 
     public boolean updateProgress(TaskProgressBriefParams data) {
 
-        if (Objects.nonNull(data.getProgress())) {
-            updateTaskProcess(data, data.getProgress());
-        }
         boolean result = addProcessInfo(data);
         if (result) {
             employeeRelationBusiness.acceptTaskEmployee(data.getTaskId());
         }
+
+        if (Objects.nonNull(data.getProgress())) {
+            TaskStatusEnums taskStatusEnums = TaskStatusEnums.PROCESSING;
+            if (Objects.nonNull(data.getProgress()) && data.getProgress() == 100) {
+                taskStatusEnums = TaskStatusEnums.ACCEPTING;
+            }
+            updateTaskProcess(data, taskStatusEnums);
+
+            if (taskStatusEnums.equals(TaskStatusEnums.ACCEPTING)) {
+                processEmployeeState(data);
+            }
+        }
         return result;
+    }
+
+    private void processEmployeeState(TaskProgressBriefParams data) {
+        SwTaskEmployeeRelation current = employeeRelationBusiness.
+                queryRelationByTaskAndEno(data.getTaskId(), RequestContext.getEmployeeNo());
+        SwTaskEmployeeRelation previous = employeeRelationBusiness.selectByPrimaryKey(current.getPrevId());
+
+        List<SwTaskEmployeeRelation> relations = new ArrayList<>();
+        if (Objects.nonNull(current)) {
+            SwTaskEmployeeRelation relation = new SwTaskEmployeeRelation();
+            relation.setId(current.getId());
+            relation.setIsActive(0);
+            relations.add(relation);
+        }
+        if (Objects.nonNull(previous)) {
+            SwTaskEmployeeRelation relation = new SwTaskEmployeeRelation();
+            relation.setId(previous.getId());
+            relation.setIsActive(1);
+            relation.setIsInspector(1);
+            relations.add(relation);
+        }
+        employeeRelationBusiness.insertOrUpdate(relations);
     }
 
     /**
@@ -56,15 +91,16 @@ public class UpdateProgressProcessor {
      * 更新任务进度，记录日志信息
      *
      * @param data
-     * @param progress
+     * @param taskStatusEnums
      * @return
      */
-    private boolean updateTaskProcess(TaskProgressBriefParams data, Integer progress) {
+    private boolean updateTaskProcess(TaskProgressBriefParams data, TaskStatusEnums taskStatusEnums) {
         String employeeID = RequestContext.getEmployeeNo();
         String nameEmployeeNo = RequestContext.getNameEmployeeNo();
-        boolean result = taskBusiness.updateProgress(data.getTaskId(), progress, data.getContent());
+        boolean result = taskBusiness.updateProgress(data, taskStatusEnums);
         if (result) {
-            taskLogBusiness.addTaskLog(data.getTaskId(), employeeID, String.format("%s 更新任务进度", nameEmployeeNo, progress));
+            String log = String.format("%s 更新任务进度", nameEmployeeNo);
+            taskLogBusiness.addTaskLog(data.getTaskId(), employeeID, log);
         }
         return result;
     }

@@ -475,6 +475,66 @@ public class SwTaskEmployeeRelationExample {
             return (Criteria) this;
         }
 
+        public Criteria andIsInspectorIsNull() {
+            addCriterion("is_inspector is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsInspectorIsNotNull() {
+            addCriterion("is_inspector is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsInspectorEqualTo(Integer value) {
+            addCriterion("is_inspector =", value, "isInspector");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsInspectorNotEqualTo(Integer value) {
+            addCriterion("is_inspector <>", value, "isInspector");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsInspectorGreaterThan(Integer value) {
+            addCriterion("is_inspector >", value, "isInspector");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsInspectorGreaterThanOrEqualTo(Integer value) {
+            addCriterion("is_inspector >=", value, "isInspector");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsInspectorLessThan(Integer value) {
+            addCriterion("is_inspector <", value, "isInspector");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsInspectorLessThanOrEqualTo(Integer value) {
+            addCriterion("is_inspector <=", value, "isInspector");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsInspectorIn(List<Integer> values) {
+            addCriterion("is_inspector in", values, "isInspector");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsInspectorNotIn(List<Integer> values) {
+            addCriterion("is_inspector not in", values, "isInspector");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsInspectorBetween(Integer value1, Integer value2) {
+            addCriterion("is_inspector between", value1, value2, "isInspector");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsInspectorNotBetween(Integer value1, Integer value2) {
+            addCriterion("is_inspector not between", value1, value2, "isInspector");
+            return (Criteria) this;
+        }
+
         public Criteria andIsDeleteIsNull() {
             addCriterion("is_delete is null");
             return (Criteria) this;

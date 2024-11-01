@@ -11,6 +11,8 @@ public class SwFeedback {
 
     private String contact;
 
+    private String ip;
+
     private Integer status;
 
     private LocalDateTime createTime;
@@ -69,6 +71,19 @@ public class SwFeedback {
 
     public void setContact(String contact) {
         this.contact = contact == null ? null : contact.trim();
+    }
+
+    public String getIp() {
+        return ip;
+    }
+
+    public SwFeedback withIp(String ip) {
+        this.setIp(ip);
+        return this;
+    }
+
+    public void setIp(String ip) {
+        this.ip = ip == null ? null : ip.trim();
     }
 
     public Integer getStatus() {

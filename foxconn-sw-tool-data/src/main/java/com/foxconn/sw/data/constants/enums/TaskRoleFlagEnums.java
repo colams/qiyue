@@ -1,5 +1,7 @@
 package com.foxconn.sw.data.constants.enums;
 
+import java.util.Objects;
+
 public enum TaskRoleFlagEnums {
 
     Proposer_Flag(1 << 0), // 0001 任务发起人    1
@@ -25,7 +27,8 @@ public enum TaskRoleFlagEnums {
 
 
     public static Integer setFlag(Integer flags, TaskRoleFlagEnums taskRoleFlagEnum) {
-        return flags | taskRoleFlagEnum.getFlag();
+
+        return (Objects.isNull(flags) ? 0 : flags) | taskRoleFlagEnum.getFlag();
     }
 
     public static boolean checkFlag(Integer flags, TaskRoleFlagEnums taskRoleFlagEnum) {

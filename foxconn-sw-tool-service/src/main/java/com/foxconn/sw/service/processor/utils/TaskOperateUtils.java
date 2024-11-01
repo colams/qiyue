@@ -96,11 +96,12 @@ public class TaskOperateUtils {
         TaskStatusEnums taskStatusEnums = TaskStatusEnums.getStatusByCode(taskDetailVo.getStatus());
         boolean enable = false;
         switch (op) {
-//            case REJECT:
+            case REJECT:
 //                boolean pendingAndUnReject = PENDING.equals(taskStatusEnums)
 //                        && RejectStatusEnum.DEFAULT.test(taskDetailVo.getRejectStatus());
 //                enable = (pendingAndUnReject && (isManger || isHandler)) || (ACCEPTING.equals(taskStatusEnums) && isProposer);
-//                break;
+                enable = ACCEPTING.equals(taskStatusEnums) && isProposer;
+                break;
             case ASSIGN:
             case SUBMIT:
                 enable = (PENDING.equals(taskStatusEnums) || PROCESSING.equals(taskStatusEnums)) && (isManger || isHandler);

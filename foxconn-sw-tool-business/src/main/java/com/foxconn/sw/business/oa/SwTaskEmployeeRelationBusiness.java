@@ -113,6 +113,11 @@ public class SwTaskEmployeeRelationBusiness {
     }
 
 
+    public SwTaskEmployeeRelation selectByPrimaryKey(int id) {
+        return employeeRelationExtensionMapper.selectByPrimaryKey(id);
+    }
+
+
     private Integer insertRelation(Integer taskID,
                                    SimpleRelation simpleRelation,
                                    List<SwTaskEmployeeRelation> relations,
@@ -149,6 +154,10 @@ public class SwTaskEmployeeRelationBusiness {
         return relationID;
     }
 
+    public SwTaskEmployeeRelation queryRelationByTaskAndEno(Integer taskID, String employeeNo) {
+        return employeeRelationExtensionMapper.queryRelation(taskID, employeeNo);
+    }
+
     public Integer assignTaskEmployee(String employeeNo, int taskID, TaskRoleFlagEnums roleFlagEnum) {
 
         SwTaskEmployeeRelation data = employeeRelationExtensionMapper.queryRelation(taskID, employeeNo);
@@ -156,6 +165,7 @@ public class SwTaskEmployeeRelationBusiness {
             SwTaskEmployeeRelation employeeRelation = new SwTaskEmployeeRelation();
             employeeRelation.setId(data.getId());
             employeeRelation.setRoleFlag(TaskRoleFlagEnums.setFlag(data.getRoleFlag(), roleFlagEnum));
+            employeeRelation.setIsActive(1);
             employeeRelationExtensionMapper.updateByPrimaryKeySelective(employeeRelation);
             return data.getId();
         }
@@ -166,6 +176,7 @@ public class SwTaskEmployeeRelationBusiness {
         employeeRelation.setEmployeeNo(employeeNo);
         employeeRelation.setPrevId(current.getId());
         employeeRelation.setTaskId(taskID);
+        employeeRelation.setIsActive(1);
         employeeRelationExtensionMapper.insertSelective(employeeRelation);
         return employeeRelation.getId();
     }
@@ -208,7 +219,8 @@ public class SwTaskEmployeeRelationBusiness {
             relation.setIsDelete(e.getIsDelete());
             relation.setPrevId(e.getPrevId());
             relation.setTaskId(e.getTaskId());
-
+            relation.setIsActive(e.getIsActive());
+            relation.setIsInspector(e.getIsInspector());
             if (Objects.nonNull(e.getId()) && e.getId() > 0) {
                 employeeRelationExtensionMapper.updateByPrimaryKeySelective(relation);
             } else {

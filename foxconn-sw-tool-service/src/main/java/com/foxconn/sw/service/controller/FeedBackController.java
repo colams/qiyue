@@ -38,7 +38,6 @@ public class FeedBackController {
         return ResponseUtils.success(feedbacks, request.getTraceId());
     }
 
-    @Permission
     @Operation(summary = "新增反馈问题", tags = TagsConstants.SYSTEM)
     @ApiResponse(responseCode = "0", description = "成功码")
     @PostMapping("/save")

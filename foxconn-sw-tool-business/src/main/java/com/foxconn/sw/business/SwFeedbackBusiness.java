@@ -30,12 +30,13 @@ public class SwFeedbackBusiness {
         return feedbackExtMapper.selectByExampleWithBLOBs(example);
     }
 
-    public boolean saveFeedBack(String employeeNo, String contact, String content, String title) {
+    public boolean saveFeedBack(String employeeNo, String contact, String content, String title, String ip) {
         SwFeedback feedback = new SwFeedback();
         feedback.setEmployeeNo(employeeNo);
         feedback.setContact(contact);
         feedback.setContent(content);
         feedback.setTitle(title);
+        feedback.setIp(ip);
         return feedbackExtMapper.insertSelective(feedback) > 0;
     }
 

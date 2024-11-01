@@ -8,6 +8,7 @@ import com.foxconn.sw.data.constants.enums.retcode.RetCode;
 import com.foxconn.sw.data.dto.PageParams;
 import com.foxconn.sw.data.dto.entity.oa.BriefTaskVo;
 import com.foxconn.sw.data.dto.entity.oa.TaskParams;
+import com.foxconn.sw.data.dto.entity.oa.TaskProgressBriefParams;
 import com.foxconn.sw.data.entity.SwTask;
 import com.foxconn.sw.data.exception.BizException;
 import com.foxconn.sw.data.mapper.extension.oa.SwTaskExtensionMapper;
@@ -77,15 +78,22 @@ public class SwTaskBusiness {
         return taskExtensionMapper.selectByTaskId(taskId);
     }
 
-    public boolean updateProgress(Integer taskId, Integer progress, String content) {
+    /**
+     * 更新任务进度信息
+     *
+     * @param data
+     * @param taskStatusEnums
+     * @return
+     */
+    public boolean updateProgress(TaskProgressBriefParams data, TaskStatusEnums taskStatusEnums) {
         SwTask task = new SwTask();
-        task.setId(taskId);
-        task.setProgressPercent(progress);
+        task.setId(data.getTaskId());
+        task.setProgressPercent(data.getProgress());
         task.setStatus(TaskStatusEnums.PROCESSING.getCode());
-        if (progress == 100) {
+        if (TaskStatusEnums.ACCEPTING.equals(taskStatusEnums)) {
             task.setStatus(TaskStatusEnums.ACCEPTING.getCode());
             task.setRejectStatus(RejectStatusEnum.DEFAULT.getCode());
-            task.setReflection(content);
+            task.setReflection(data.getContent());
         }
         return taskExtensionMapper.updateByPrimaryKeySelective(task) > 0;
     }

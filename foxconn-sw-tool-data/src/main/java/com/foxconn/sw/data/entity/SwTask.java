@@ -7,11 +7,11 @@ public class SwTask {
 
     private Long taskNo;
 
-    private String title;
-
     private String topCategory;
 
     private String category;
+
+    private String title;
 
     private String topProject;
 
@@ -34,6 +34,12 @@ public class SwTask {
     private String deadLine;
 
     private String reflection;
+
+    private Integer isSub;
+
+    private Integer parentId;
+
+    private String finishTime;
 
     private LocalDateTime createTime;
 
@@ -67,19 +73,6 @@ public class SwTask {
         this.taskNo = taskNo;
     }
 
-    public String getTitle() {
-        return title;
-    }
-
-    public SwTask withTitle(String title) {
-        this.setTitle(title);
-        return this;
-    }
-
-    public void setTitle(String title) {
-        this.title = title == null ? null : title.trim();
-    }
-
     public String getTopCategory() {
         return topCategory;
     }
@@ -104,6 +97,19 @@ public class SwTask {
 
     public void setCategory(String category) {
         this.category = category == null ? null : category.trim();
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public SwTask withTitle(String title) {
+        this.setTitle(title);
+        return this;
+    }
+
+    public void setTitle(String title) {
+        this.title = title == null ? null : title.trim();
     }
 
     public String getTopProject() {
@@ -247,6 +253,45 @@ public class SwTask {
 
     public void setReflection(String reflection) {
         this.reflection = reflection == null ? null : reflection.trim();
+    }
+
+    public Integer getIsSub() {
+        return isSub;
+    }
+
+    public SwTask withIsSub(Integer isSub) {
+        this.setIsSub(isSub);
+        return this;
+    }
+
+    public void setIsSub(Integer isSub) {
+        this.isSub = isSub;
+    }
+
+    public Integer getParentId() {
+        return parentId;
+    }
+
+    public SwTask withParentId(Integer parentId) {
+        this.setParentId(parentId);
+        return this;
+    }
+
+    public void setParentId(Integer parentId) {
+        this.parentId = parentId;
+    }
+
+    public String getFinishTime() {
+        return finishTime;
+    }
+
+    public SwTask withFinishTime(String finishTime) {
+        this.setFinishTime(finishTime);
+        return this;
+    }
+
+    public void setFinishTime(String finishTime) {
+        this.finishTime = finishTime == null ? null : finishTime.trim();
     }
 
     public LocalDateTime getCreateTime() {

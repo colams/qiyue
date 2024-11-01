@@ -34,17 +34,17 @@ public interface SwWorkReportMapper {
     int deleteByPrimaryKey(Integer id);
 
     @Insert({
-        "insert into sw_work_report (employee_no, year_week, ",
-        "week, project, days, ",
-        "target, current, ",
-        "status, report_type, ",
+        "insert into sw_work_report (report_type, employee_no, ",
+        "year_week, week, ",
+        "project, days, target, ",
+        "current, status, ",
         "description, remark, ",
         "is_delete, create_time, ",
         "datetime_lastchange)",
-        "values (#{employeeNo,jdbcType=VARCHAR}, #{yearWeek,jdbcType=VARCHAR}, ",
-        "#{week,jdbcType=INTEGER}, #{project,jdbcType=VARCHAR}, #{days,jdbcType=DOUBLE}, ",
-        "#{target,jdbcType=INTEGER}, #{current,jdbcType=INTEGER}, ",
-        "#{status,jdbcType=INTEGER}, #{reportType,jdbcType=INTEGER}, ",
+        "values (#{reportType,jdbcType=INTEGER}, #{employeeNo,jdbcType=VARCHAR}, ",
+        "#{yearWeek,jdbcType=VARCHAR}, #{week,jdbcType=INTEGER}, ",
+        "#{project,jdbcType=VARCHAR}, #{days,jdbcType=DOUBLE}, #{target,jdbcType=INTEGER}, ",
+        "#{current,jdbcType=INTEGER}, #{status,jdbcType=INTEGER}, ",
         "#{description,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, ",
         "#{isDelete,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, ",
         "#{datetimeLastchange,jdbcType=TIMESTAMP})"
@@ -59,6 +59,7 @@ public interface SwWorkReportMapper {
     @SelectProvider(type=SwWorkReportSqlProvider.class, method="selectByExample")
     @Results({
         @Result(column="id", property="id", jdbcType=JdbcType.INTEGER, id=true),
+        @Result(column="report_type", property="reportType", jdbcType=JdbcType.INTEGER),
         @Result(column="employee_no", property="employeeNo", jdbcType=JdbcType.VARCHAR),
         @Result(column="year_week", property="yearWeek", jdbcType=JdbcType.VARCHAR),
         @Result(column="week", property="week", jdbcType=JdbcType.INTEGER),
@@ -67,7 +68,6 @@ public interface SwWorkReportMapper {
         @Result(column="target", property="target", jdbcType=JdbcType.INTEGER),
         @Result(column="current", property="current", jdbcType=JdbcType.INTEGER),
         @Result(column="status", property="status", jdbcType=JdbcType.INTEGER),
-        @Result(column="report_type", property="reportType", jdbcType=JdbcType.INTEGER),
         @Result(column="description", property="description", jdbcType=JdbcType.VARCHAR),
         @Result(column="remark", property="remark", jdbcType=JdbcType.VARCHAR),
         @Result(column="is_delete", property="isDelete", jdbcType=JdbcType.INTEGER),
@@ -79,6 +79,7 @@ public interface SwWorkReportMapper {
     @SelectProvider(type=SwWorkReportSqlProvider.class, method="selectByExample")
     @Results({
         @Result(column="id", property="id", jdbcType=JdbcType.INTEGER, id=true),
+        @Result(column="report_type", property="reportType", jdbcType=JdbcType.INTEGER),
         @Result(column="employee_no", property="employeeNo", jdbcType=JdbcType.VARCHAR),
         @Result(column="year_week", property="yearWeek", jdbcType=JdbcType.VARCHAR),
         @Result(column="week", property="week", jdbcType=JdbcType.INTEGER),
@@ -87,7 +88,6 @@ public interface SwWorkReportMapper {
         @Result(column="target", property="target", jdbcType=JdbcType.INTEGER),
         @Result(column="current", property="current", jdbcType=JdbcType.INTEGER),
         @Result(column="status", property="status", jdbcType=JdbcType.INTEGER),
-        @Result(column="report_type", property="reportType", jdbcType=JdbcType.INTEGER),
         @Result(column="description", property="description", jdbcType=JdbcType.VARCHAR),
         @Result(column="remark", property="remark", jdbcType=JdbcType.VARCHAR),
         @Result(column="is_delete", property="isDelete", jdbcType=JdbcType.INTEGER),
@@ -98,13 +98,14 @@ public interface SwWorkReportMapper {
 
     @Select({
         "select",
-        "id, employee_no, year_week, week, project, days, target, current, status, report_type, ",
-        "description, remark, is_delete, create_time, datetime_lastchange",
+        "id, report_type, employee_no, year_week, week, project, days, target, current, ",
+        "status, description, remark, is_delete, create_time, datetime_lastchange",
         "from sw_work_report",
         "where id = #{id,jdbcType=INTEGER}"
     })
     @Results({
         @Result(column="id", property="id", jdbcType=JdbcType.INTEGER, id=true),
+        @Result(column="report_type", property="reportType", jdbcType=JdbcType.INTEGER),
         @Result(column="employee_no", property="employeeNo", jdbcType=JdbcType.VARCHAR),
         @Result(column="year_week", property="yearWeek", jdbcType=JdbcType.VARCHAR),
         @Result(column="week", property="week", jdbcType=JdbcType.INTEGER),
@@ -113,7 +114,6 @@ public interface SwWorkReportMapper {
         @Result(column="target", property="target", jdbcType=JdbcType.INTEGER),
         @Result(column="current", property="current", jdbcType=JdbcType.INTEGER),
         @Result(column="status", property="status", jdbcType=JdbcType.INTEGER),
-        @Result(column="report_type", property="reportType", jdbcType=JdbcType.INTEGER),
         @Result(column="description", property="description", jdbcType=JdbcType.VARCHAR),
         @Result(column="remark", property="remark", jdbcType=JdbcType.VARCHAR),
         @Result(column="is_delete", property="isDelete", jdbcType=JdbcType.INTEGER),
@@ -133,7 +133,8 @@ public interface SwWorkReportMapper {
 
     @Update({
         "update sw_work_report",
-        "set employee_no = #{employeeNo,jdbcType=VARCHAR},",
+        "set report_type = #{reportType,jdbcType=INTEGER},",
+          "employee_no = #{employeeNo,jdbcType=VARCHAR},",
           "year_week = #{yearWeek,jdbcType=VARCHAR},",
           "week = #{week,jdbcType=INTEGER},",
           "project = #{project,jdbcType=VARCHAR},",
@@ -141,7 +142,6 @@ public interface SwWorkReportMapper {
           "target = #{target,jdbcType=INTEGER},",
           "current = #{current,jdbcType=INTEGER},",
           "status = #{status,jdbcType=INTEGER},",
-          "report_type = #{reportType,jdbcType=INTEGER},",
           "description = #{description,jdbcType=VARCHAR},",
           "remark = #{remark,jdbcType=VARCHAR},",
           "is_delete = #{isDelete,jdbcType=INTEGER},",

@@ -28,6 +28,10 @@ public class SwWorkReportSqlProvider {
         SQL sql = new SQL();
         sql.INSERT_INTO("sw_work_report");
         
+        if (record.getReportType() != null) {
+            sql.VALUES("report_type", "#{reportType,jdbcType=INTEGER}");
+        }
+        
         if (record.getEmployeeNo() != null) {
             sql.VALUES("employee_no", "#{employeeNo,jdbcType=VARCHAR}");
         }
@@ -60,10 +64,6 @@ public class SwWorkReportSqlProvider {
             sql.VALUES("status", "#{status,jdbcType=INTEGER}");
         }
         
-        if (record.getReportType() != null) {
-            sql.VALUES("report_type", "#{reportType,jdbcType=INTEGER}");
-        }
-        
         if (record.getDescription() != null) {
             sql.VALUES("description", "#{description,jdbcType=VARCHAR}");
         }
@@ -94,6 +94,7 @@ public class SwWorkReportSqlProvider {
         } else {
             sql.SELECT("id");
         }
+        sql.SELECT("report_type");
         sql.SELECT("employee_no");
         sql.SELECT("year_week");
         sql.SELECT("week");
@@ -102,7 +103,6 @@ public class SwWorkReportSqlProvider {
         sql.SELECT("target");
         sql.SELECT("current");
         sql.SELECT("status");
-        sql.SELECT("report_type");
         sql.SELECT("description");
         sql.SELECT("remark");
         sql.SELECT("is_delete");
@@ -127,6 +127,10 @@ public class SwWorkReportSqlProvider {
         
         if (record.getId() != null) {
             sql.SET("id = #{record.id,jdbcType=INTEGER}");
+        }
+        
+        if (record.getReportType() != null) {
+            sql.SET("report_type = #{record.reportType,jdbcType=INTEGER}");
         }
         
         if (record.getEmployeeNo() != null) {
@@ -161,10 +165,6 @@ public class SwWorkReportSqlProvider {
             sql.SET("status = #{record.status,jdbcType=INTEGER}");
         }
         
-        if (record.getReportType() != null) {
-            sql.SET("report_type = #{record.reportType,jdbcType=INTEGER}");
-        }
-        
         if (record.getDescription() != null) {
             sql.SET("description = #{record.description,jdbcType=VARCHAR}");
         }
@@ -194,6 +194,7 @@ public class SwWorkReportSqlProvider {
         sql.UPDATE("sw_work_report");
         
         sql.SET("id = #{record.id,jdbcType=INTEGER}");
+        sql.SET("report_type = #{record.reportType,jdbcType=INTEGER}");
         sql.SET("employee_no = #{record.employeeNo,jdbcType=VARCHAR}");
         sql.SET("year_week = #{record.yearWeek,jdbcType=VARCHAR}");
         sql.SET("week = #{record.week,jdbcType=INTEGER}");
@@ -202,7 +203,6 @@ public class SwWorkReportSqlProvider {
         sql.SET("target = #{record.target,jdbcType=INTEGER}");
         sql.SET("current = #{record.current,jdbcType=INTEGER}");
         sql.SET("status = #{record.status,jdbcType=INTEGER}");
-        sql.SET("report_type = #{record.reportType,jdbcType=INTEGER}");
         sql.SET("description = #{record.description,jdbcType=VARCHAR}");
         sql.SET("remark = #{record.remark,jdbcType=VARCHAR}");
         sql.SET("is_delete = #{record.isDelete,jdbcType=INTEGER}");
@@ -217,6 +217,10 @@ public class SwWorkReportSqlProvider {
     public String updateByPrimaryKeySelective(SwWorkReport record) {
         SQL sql = new SQL();
         sql.UPDATE("sw_work_report");
+        
+        if (record.getReportType() != null) {
+            sql.SET("report_type = #{reportType,jdbcType=INTEGER}");
+        }
         
         if (record.getEmployeeNo() != null) {
             sql.SET("employee_no = #{employeeNo,jdbcType=VARCHAR}");
@@ -248,10 +252,6 @@ public class SwWorkReportSqlProvider {
         
         if (record.getStatus() != null) {
             sql.SET("status = #{status,jdbcType=INTEGER}");
-        }
-        
-        if (record.getReportType() != null) {
-            sql.SET("report_type = #{reportType,jdbcType=INTEGER}");
         }
         
         if (record.getDescription() != null) {

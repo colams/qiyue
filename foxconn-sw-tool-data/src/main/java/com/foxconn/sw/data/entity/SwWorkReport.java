@@ -5,6 +5,8 @@ import java.time.LocalDateTime;
 public class SwWorkReport {
     private Integer id;
 
+    private Integer reportType;
+
     private String employeeNo;
 
     private String yearWeek;
@@ -20,8 +22,6 @@ public class SwWorkReport {
     private Integer current;
 
     private Integer status;
-
-    private Integer reportType;
 
     private String description;
 
@@ -44,6 +44,19 @@ public class SwWorkReport {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public Integer getReportType() {
+        return reportType;
+    }
+
+    public SwWorkReport withReportType(Integer reportType) {
+        this.setReportType(reportType);
+        return this;
+    }
+
+    public void setReportType(Integer reportType) {
+        this.reportType = reportType;
     }
 
     public String getEmployeeNo() {
@@ -148,19 +161,6 @@ public class SwWorkReport {
 
     public void setStatus(Integer status) {
         this.status = status;
-    }
-
-    public Integer getReportType() {
-        return reportType;
-    }
-
-    public SwWorkReport withReportType(Integer reportType) {
-        this.setReportType(reportType);
-        return this;
-    }
-
-    public void setReportType(Integer reportType) {
-        this.reportType = reportType;
     }
 
     public String getDescription() {

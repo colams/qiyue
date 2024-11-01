@@ -112,7 +112,7 @@ public class TaskController {
     }
 
     @Permission
-    @Operation(summary = "分派任务", tags = TagsConstants.OA)
+    @Operation(summary = "分派转交任务", tags = TagsConstants.OA)
     @ApiResponse(responseCode = "0", description = "成功码")
     @PostMapping("/assign")
     public Response<Boolean> assignTask(@Valid @RequestBody Request<TaskAssignParams> request) {

@@ -10,6 +10,7 @@ import com.foxconn.sw.data.constants.enums.OperateTypeEnum;
 import com.foxconn.sw.data.constants.enums.TaskRoleFlagEnums;
 import com.foxconn.sw.data.dto.PageEntity;
 import com.foxconn.sw.data.dto.PageParams;
+import com.foxconn.sw.data.dto.entity.acount.EmployeeVo;
 import com.foxconn.sw.data.dto.entity.oa.TaskBriefListVo;
 import com.foxconn.sw.data.dto.entity.oa.TaskParams;
 import com.foxconn.sw.data.dto.entity.universal.OperateEntity;
@@ -113,6 +114,7 @@ public class TaskListProcessor {
         vo.setRejectStatus(e.getRejectStatus());
         vo.setFollowStatus(getFollowStatus(map, e.getId()));
         vo.setProposer(employeeBusiness.selectEmployeeByENo(e.getProposerEid()).getName());
+        vo.setProposerVo(map(employeeBusiness.selectEmployeeByENo(e.getProposerEid())));
         vo.setCollaboration(e.getCategory().equalsIgnoreCase("6-2"));
 
         Optional<SwTaskEmployeeRelation> optional = relations.stream()
@@ -120,6 +122,7 @@ public class TaskListProcessor {
                 .findFirst();
         if (optional.isPresent()) {
             String supervisorNo = "";
+            List<EmployeeVo> supervisorVos = new ArrayList<>();
 
             if (TaskRoleFlagEnums.Manager_Flag.test(optional.get().getRoleFlag())) {
                 List<SwTaskEmployeeRelation> nexts = relations.stream()
@@ -129,6 +132,7 @@ public class TaskListProcessor {
                     SwEmployee ee = employeeBusiness.selectEmployeeByENo(optional.get().getEmployeeNo());
                     if (Objects.nonNull(ee)) {
                         supervisorNo = ee.getName();
+                        supervisorVos = Lists.newArrayList(map(ee));
                     }
                 } else {
                     supervisorNo = nexts.stream().map(r -> {
@@ -136,11 +140,18 @@ public class TaskListProcessor {
                                 return Objects.nonNull(ee) ? ee.getName() : "";
                             })
                             .collect(Collectors.joining(","));
+                    supervisorVos = nexts.stream().map(r -> {
+                                SwEmployee ee = employeeBusiness.selectEmployeeByENo(r.getEmployeeNo());
+                                return map(ee);
+                            })
+                            .filter(f -> Objects.nonNull(f))
+                            .collect(Collectors.toList());
                 }
             } else if (TaskRoleFlagEnums.Handler_Flag.test(optional.get().getRoleFlag())) {
                 SwEmployee ee = employeeBusiness.selectEmployeeByENo(optional.get().getEmployeeNo());
                 if (Objects.nonNull(ee)) {
                     supervisorNo = ee.getName();
+                    supervisorVos = Lists.newArrayList(map(ee));
                 }
             } else if (TaskRoleFlagEnums.Proposer_Flag.test(optional.get().getRoleFlag())) {
                 List<SwTaskEmployeeRelation> nexts = relations.stream()
@@ -153,6 +164,11 @@ public class TaskListProcessor {
                                 return Objects.nonNull(ee) ? ee.getName() : "";
                             })
                             .collect(Collectors.joining(","));
+                    supervisorVos = nexts.stream().map(r -> {
+                                SwEmployee ee = employeeBusiness.selectEmployeeByENo(r.getEmployeeNo());
+                                return map(ee);
+                            })
+                            .collect(Collectors.toList());
                 }
             } else if (TaskRoleFlagEnums.Watcher_Flag.test(optional.get().getRoleFlag())) {
                 supervisorNo = relations.stream()
@@ -162,12 +178,30 @@ public class TaskListProcessor {
                             return Objects.nonNull(ee) ? ee.getName() : "";
                         })
                         .collect(Collectors.joining(","));
+                supervisorVos = relations.stream()
+                        .filter(r -> r.getIsActive() == 1)
+                        .map(r -> {
+                            SwEmployee ee = employeeBusiness.selectEmployeeByENo(r.getEmployeeNo());
+                            return map(ee);
+                        })
+                        .collect(Collectors.toList());
             }
             vo.setSupervisor(supervisorNo);
+            vo.setSupervisorVo(supervisorVos);
         }
 
         vo.setOperateList(processOperate(e, RequestContext.getEmployeeNo(), optional));
 
+        return vo;
+    }
+
+    private EmployeeVo map(SwEmployee ee) {
+        if (Objects.isNull(ee)) {
+            return null;
+        }
+        EmployeeVo vo = new EmployeeVo();
+        vo.setName(ee.getName());
+        vo.setEmployeeNo(ee.getEmployeeNo());
         return vo;
     }
 

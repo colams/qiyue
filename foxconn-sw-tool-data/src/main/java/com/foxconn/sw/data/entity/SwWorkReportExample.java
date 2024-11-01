@@ -165,6 +165,66 @@ public class SwWorkReportExample {
             return (Criteria) this;
         }
 
+        public Criteria andReportTypeIsNull() {
+            addCriterion("report_type is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andReportTypeIsNotNull() {
+            addCriterion("report_type is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andReportTypeEqualTo(Integer value) {
+            addCriterion("report_type =", value, "reportType");
+            return (Criteria) this;
+        }
+
+        public Criteria andReportTypeNotEqualTo(Integer value) {
+            addCriterion("report_type <>", value, "reportType");
+            return (Criteria) this;
+        }
+
+        public Criteria andReportTypeGreaterThan(Integer value) {
+            addCriterion("report_type >", value, "reportType");
+            return (Criteria) this;
+        }
+
+        public Criteria andReportTypeGreaterThanOrEqualTo(Integer value) {
+            addCriterion("report_type >=", value, "reportType");
+            return (Criteria) this;
+        }
+
+        public Criteria andReportTypeLessThan(Integer value) {
+            addCriterion("report_type <", value, "reportType");
+            return (Criteria) this;
+        }
+
+        public Criteria andReportTypeLessThanOrEqualTo(Integer value) {
+            addCriterion("report_type <=", value, "reportType");
+            return (Criteria) this;
+        }
+
+        public Criteria andReportTypeIn(List<Integer> values) {
+            addCriterion("report_type in", values, "reportType");
+            return (Criteria) this;
+        }
+
+        public Criteria andReportTypeNotIn(List<Integer> values) {
+            addCriterion("report_type not in", values, "reportType");
+            return (Criteria) this;
+        }
+
+        public Criteria andReportTypeBetween(Integer value1, Integer value2) {
+            addCriterion("report_type between", value1, value2, "reportType");
+            return (Criteria) this;
+        }
+
+        public Criteria andReportTypeNotBetween(Integer value1, Integer value2) {
+            addCriterion("report_type not between", value1, value2, "reportType");
+            return (Criteria) this;
+        }
+
         public Criteria andEmployeeNoIsNull() {
             addCriterion("employee_no is null");
             return (Criteria) this;
@@ -672,66 +732,6 @@ public class SwWorkReportExample {
 
         public Criteria andStatusNotBetween(Integer value1, Integer value2) {
             addCriterion("status not between", value1, value2, "status");
-            return (Criteria) this;
-        }
-
-        public Criteria andReportTypeIsNull() {
-            addCriterion("report_type is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andReportTypeIsNotNull() {
-            addCriterion("report_type is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andReportTypeEqualTo(Integer value) {
-            addCriterion("report_type =", value, "reportType");
-            return (Criteria) this;
-        }
-
-        public Criteria andReportTypeNotEqualTo(Integer value) {
-            addCriterion("report_type <>", value, "reportType");
-            return (Criteria) this;
-        }
-
-        public Criteria andReportTypeGreaterThan(Integer value) {
-            addCriterion("report_type >", value, "reportType");
-            return (Criteria) this;
-        }
-
-        public Criteria andReportTypeGreaterThanOrEqualTo(Integer value) {
-            addCriterion("report_type >=", value, "reportType");
-            return (Criteria) this;
-        }
-
-        public Criteria andReportTypeLessThan(Integer value) {
-            addCriterion("report_type <", value, "reportType");
-            return (Criteria) this;
-        }
-
-        public Criteria andReportTypeLessThanOrEqualTo(Integer value) {
-            addCriterion("report_type <=", value, "reportType");
-            return (Criteria) this;
-        }
-
-        public Criteria andReportTypeIn(List<Integer> values) {
-            addCriterion("report_type in", values, "reportType");
-            return (Criteria) this;
-        }
-
-        public Criteria andReportTypeNotIn(List<Integer> values) {
-            addCriterion("report_type not in", values, "reportType");
-            return (Criteria) this;
-        }
-
-        public Criteria andReportTypeBetween(Integer value1, Integer value2) {
-            addCriterion("report_type between", value1, value2, "reportType");
-            return (Criteria) this;
-        }
-
-        public Criteria andReportTypeNotBetween(Integer value1, Integer value2) {
-            addCriterion("report_type not between", value1, value2, "reportType");
             return (Criteria) this;
         }
 
