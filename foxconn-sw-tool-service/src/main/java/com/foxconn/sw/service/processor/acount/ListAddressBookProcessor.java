@@ -57,7 +57,7 @@ public class ListAddressBookProcessor {
 
     public AddressBookVo list(String eNo) {
         SwEmployee employees = employeeBusiness.queryEmployeeByEno(eNo);
-        AddressBookVo vo = toAddressBookVo(employees, true, new HashMap<>(), new HashMap<>());
+        AddressBookVo vo = toAddressBookVo(employees, true, departmentBusiness.getDepartMap(), new HashMap<>());
         return vo;
     }
 
@@ -72,7 +72,7 @@ public class ListAddressBookProcessor {
             List<DepartmentVo> voList = departmentBusiness.getDepartList(voMap, e.getDepartmentId());
 
             vo.setSeniorDepart(voList.stream().filter(departmentVo -> departmentVo.getName().endsWith("處")).map(v -> v.getName()).findFirst().orElse("-"));
-            vo.setDepartment(voList.stream().filter(departmentVo -> departmentVo.getName().contains("部")).map(v -> v.getName()).findFirst().orElse("-"));
+            vo.setDepartment(voMap.get(e.getDepartmentId()).getName());
         }
 
         vo.setEmployeeNo(e.getEmployeeNo());
