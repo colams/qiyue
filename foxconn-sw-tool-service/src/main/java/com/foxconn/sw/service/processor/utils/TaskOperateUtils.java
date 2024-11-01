@@ -9,6 +9,7 @@ import com.foxconn.sw.data.entity.SwTask;
 import com.foxconn.sw.data.entity.SwTaskEmployeeRelation;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 import static com.foxconn.sw.data.constants.enums.TaskRoleFlagEnums.*;
@@ -16,8 +17,7 @@ import static com.foxconn.sw.data.constants.enums.oa.TaskStatusEnums.*;
 
 public class TaskOperateUtils {
 
-    public static OperateEntity processOperate(String employeeNo,
-                                               SwTask task,
+    public static OperateEntity processOperate(SwTask task,
                                                OperateTypeEnum op,
                                                Optional<SwTaskEmployeeRelation> optional) {
         TaskStatusEnums taskStatusEnums = TaskStatusEnums.getStatusByCode(task.getStatus());
@@ -25,12 +25,14 @@ public class TaskOperateUtils {
         boolean isProposer = false;
         boolean isManger = false;
         boolean isHandler = false;
+        boolean isInspector = false;
 
         if (optional.isPresent()) {
             SwTaskEmployeeRelation relation = optional.get();
             isProposer = Proposer_Flag.test(relation.getRoleFlag());
             isManger = Manager_Flag.test(relation.getRoleFlag());
             isHandler = Handler_Flag.test(relation.getRoleFlag());
+            isInspector = relation.getIsInspector() == 1;
         }
 
         OperateEntity operate = null;
@@ -45,13 +47,15 @@ public class TaskOperateUtils {
                     subType = taskStatusEnums == ACCEPTING ? 1 : 0;
                     enable = taskStatusEnums == DRAFT   // 草稿
                             || taskStatusEnums == REVOKE    // 已撤销
-                            || (taskStatusEnums == PENDING && task.getRejectStatus() == RejectStatusEnum.RELEASE_REJECT.getCode()) // 驳回
+                            || (taskStatusEnums == PENDING
+                            && task.getRejectStatus() == RejectStatusEnum.RELEASE_REJECT.getCode()) // 驳回
                             || taskStatusEnums == ACCEPTING;    // 待验收
                 }
 
                 if (!enable && isHandler) {
                     subType = 1;
-                    enable = (taskStatusEnums == PENDING && task.getRejectStatus() != RejectStatusEnum.RELEASE_REJECT.getCode())
+                    enable = (taskStatusEnums == PENDING && task.getRejectStatus()
+                            != RejectStatusEnum.RELEASE_REJECT.getCode())
                             || taskStatusEnums == PROCESSING;
                 }
 
@@ -60,18 +64,24 @@ public class TaskOperateUtils {
                     enable = (taskStatusEnums == PENDING || taskStatusEnums == PROCESSING)
                             && task.getRejectStatus() != RejectStatusEnum.RELEASE_REJECT.getCode();
                 }
+
+                if (isInspector) {
+                    subType = 1;
+                    enable = true;
+                }
                 operate = initVo(op.getMsg(), op.name(), enable, subType);
                 break;
             case REMINDER:
                 if ((taskStatusEnums == PROCESSING
-                        || (taskStatusEnums == PENDING && task.getRejectStatus() != RejectStatusEnum.RELEASE_REJECT.getCode()))
+                        || (taskStatusEnums == PENDING && task.getRejectStatus()
+                        != RejectStatusEnum.RELEASE_REJECT.getCode()))
                         && isProposer) {
                     enable = true;
                 }
                 operate = initVo(op.getMsg(), op.name(), enable);
                 break;
             case REVOKE:
-                if (taskStatusEnums == PENDING && isProposer) {
+                if ((taskStatusEnums == PENDING && isProposer) || isInspector) {
                     enable = true;
                 }
                 operate = initVo(op.getMsg(), op.name(), enable);
@@ -82,15 +92,15 @@ public class TaskOperateUtils {
 
     public static OperateEntity processDetailOperate(String employeeNo, TaskDetailVo taskDetailVo,
                                                      OperateTypeEnum op, List<SwTaskEmployeeRelation> relations) {
-        int roleFlag = relations.stream()
+        SwTaskEmployeeRelation relation = relations.stream()
                 .filter(e -> e.getEmployeeNo().equalsIgnoreCase(employeeNo))
                 .findFirst()
-                .map(e -> e.getRoleFlag())
-                .orElse(0);
-
+                .orElse(new SwTaskEmployeeRelation());
+        int roleFlag = Optional.ofNullable(relation).map(e -> e.getRoleFlag()).orElse(0);
         boolean isProposer = Proposer_Flag.test(roleFlag);
         boolean isManger = Manager_Flag.test(roleFlag);
         boolean isHandler = Handler_Flag.test(roleFlag);
+        boolean isInspector = Objects.nonNull(relation.getIsInspector()) ? relation.getIsInspector() == 1 : false;
 
 
         TaskStatusEnums taskStatusEnums = TaskStatusEnums.getStatusByCode(taskDetailVo.getStatus());
@@ -113,7 +123,7 @@ public class TaskOperateUtils {
 //                enable = PROCESSING.equals(taskStatusEnums) && (isHandler || isManger);
 //                break;
             case CHECK:
-                enable = ACCEPTING.equals(taskStatusEnums) && isProposer;
+                enable = ACCEPTING.equals(taskStatusEnums) && isProposer || isInspector;
                 break;
         }
         return enable ? initVo(op.getMsg(), op.name(), true) : null;

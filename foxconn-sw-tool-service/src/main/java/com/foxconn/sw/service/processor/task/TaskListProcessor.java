@@ -190,7 +190,7 @@ public class TaskListProcessor {
             vo.setSupervisorVo(supervisorVos);
         }
 
-        vo.setOperateList(processOperate(e, RequestContext.getEmployeeNo(), optional));
+        vo.setOperateList(processOperate(e, optional));
 
         return vo;
     }
@@ -209,12 +209,12 @@ public class TaskListProcessor {
         return map.getOrDefault(taskID, Lists.newArrayList()).size();
     }
 
-    private List<OperateEntity> processOperate(SwTask e, String employeeNo, Optional<SwTaskEmployeeRelation> optional) {
+    private List<OperateEntity> processOperate(SwTask e, Optional<SwTaskEmployeeRelation> optional) {
         List<OperateEntity> entityList = new ArrayList<>();
 
         for (OperateTypeEnum op : OperateTypeEnum.values()) {
             if (op.getPage().equalsIgnoreCase("list")) {
-                OperateEntity operate = TaskOperateUtils.processOperate(employeeNo, e, op, optional);
+                OperateEntity operate = TaskOperateUtils.processOperate(e, op, optional);
                 entityList.add(operate);
             }
         }

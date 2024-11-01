@@ -103,6 +103,7 @@ public class TaskController {
         return ResponseUtils.success(taskEntityVo, request.getTraceId());
     }
 
+    @Permission
     @Operation(summary = "任务信息", tags = TagsConstants.OA)
     @ApiResponse(responseCode = "0", description = "成功码")
     @PostMapping("/briefDetail")
@@ -129,6 +130,7 @@ public class TaskController {
         return ResponseUtils.success(result, request.getTraceId());
     }
 
+    @Permission
     @Operation(summary = "完成任务", tags = TagsConstants.OA)
     @ApiResponse(responseCode = "0", description = "成功码")
     @PostMapping("/achieve")
@@ -137,6 +139,7 @@ public class TaskController {
         return ResponseUtils.success(request.getTraceId());
     }
 
+    @Permission
     @Operation(summary = "task任务打分评价", tags = TagsConstants.OA)
     @ApiResponse(responseCode = "0", description = "成功码")
     @PostMapping("/evaluate")
@@ -145,6 +148,7 @@ public class TaskController {
         return ResponseUtils.success(result, request.getTraceId());
     }
 
+    @Permission
     @Operation(summary = "驳回任务", tags = TagsConstants.OA)
     @ApiResponse(responseCode = "0", description = "成功码")
     @PostMapping("/reject")
@@ -153,6 +157,7 @@ public class TaskController {
         return ResponseUtils.success(result, request.getTraceId());
     }
 
+    @Permission
     @Operation(summary = "撤销任务", tags = TagsConstants.OA)
     @ApiResponse(responseCode = "0", description = "成功码")
     @PostMapping("/revoke")
@@ -161,6 +166,7 @@ public class TaskController {
         return ResponseUtils.success(result, request.getTraceId());
     }
 
+    @Permission
     @Operation(summary = "撤销任务", tags = TagsConstants.OA)
     @ApiResponse(responseCode = "0", description = "成功码")
     @PostMapping("/follow")
