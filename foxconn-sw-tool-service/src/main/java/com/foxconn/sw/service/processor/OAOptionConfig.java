@@ -172,7 +172,7 @@ public class OAOptionConfig {
 
     public static List<OptionsVo> initProject2() {
         Map<String, List<String>> map = new HashMap<>();
-        map.put("SS", Lists.newArrayList("MW-E (MW23)",
+        map.put("FC_SS", Lists.newArrayList("MW-E (MW23)",
                 "MW-F (MW23)",
                 "BWI-L (BWI24)",
                 "MW-G (MW24)",
@@ -221,10 +221,10 @@ public class OAOptionConfig {
                 "CHS-K",
                 "CHS-W",
                 "Reno"));
-        map.put("COB", Lists.newArrayList("Stanley",
+        map.put("COB&COS", Lists.newArrayList("Stanley",
                 "Dora",
-                "Magen"));
-        map.put("COS", Lists.newArrayList("GA",
+                "Magen",
+                "GA",
                 "NW",
                 "GB",
                 "Prespa"));
@@ -233,7 +233,7 @@ public class OAOptionConfig {
 
         List<OptionsVo> optionsVos = new ArrayList<>();
 
-        List<String> orders = Lists.newArrayList("SS", "FC", "COS", "COB", "Nan-A", "Others");
+        List<String> orders = Lists.newArrayList("FC_SS", "FC", "COB&COS", "Nan-A", "Others");
 
         orders.forEach(e -> {
             List<OptionsVo> optionsVos1 = new ArrayList<>();
