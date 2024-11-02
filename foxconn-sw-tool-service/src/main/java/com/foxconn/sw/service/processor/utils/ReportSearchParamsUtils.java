@@ -52,13 +52,6 @@ public class ReportSearchParamsUtils {
             result.add(yearWeek);
             startDate = startDate.plusWeeks(1);
         }
-
-        if (Objects.nonNull(searchParams.getSearchType())
-                && searchParams.getSearchType() == 2
-                && lessThanWeek(searchParams.getStartDate(), searchParams.getEndDate())) {
-            String yearWeek = processDate(startDate);
-            result.add(yearWeek);
-        }
         return result;
     }
 

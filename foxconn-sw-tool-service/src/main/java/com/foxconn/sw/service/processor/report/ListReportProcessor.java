@@ -57,25 +57,9 @@ public class ListReportProcessor {
 
         List<String> searchWeeks = ReportSearchParamsUtils.getYearWeekPair(searchParams, isExport);
         List<SwWorkReport> reports = reportBusiness.queryReport(searchWeeks, searchParams.getReportType(), employees);
-        List<SwWorkReport> plans = new ArrayList<>();
-        boolean pState = false;
-        if (searchParams.getSearchType() == 2 && searchWeeks.size() == 2) {
-            plans = reports.stream().filter(e -> e.getYearWeek().equalsIgnoreCase(searchWeeks.get(1))).collect(Collectors.toList());
-            reports = reports.stream().filter(e -> e.getYearWeek().equalsIgnoreCase(searchWeeks.get(0))).collect(Collectors.toList());
-            pState = true;
-            searchWeeks.remove(1);
-        }
 
-        boolean ppState = pState;
-        List<SwWorkReport> plans1 = plans;
         List<WorkReportVo> vos = new ArrayList<>();
         reports.stream().forEach(e -> {
-            if (ppState && plans1.stream().
-                    filter(f -> e.getEmployeeNo().equalsIgnoreCase(f.getEmployeeNo()))
-                    .collect(Collectors.toList()).size() <= 0) {
-                return;
-            }
-
             WorkReportVo vo = vos.stream()
                     .filter(v -> e.getYearWeek().equalsIgnoreCase(v.getYearWeek())
                             && v.getEmployee().getEmployeeNo().equalsIgnoreCase(e.getEmployeeNo()))
@@ -176,12 +160,6 @@ public class ListReportProcessor {
     private WorkReportDetail initDetail(SwWorkReport e) {
         WorkReportDetail detail = new WorkReportDetail();
         detail.setId(e.getId());
-        detail.setProjectCode(JsonUtils.deserialize(e.getProject(), List.class, String.class));
-        if (!CollectionUtils.isEmpty(detail.getProjectCode())) {
-            detail.setProject(TaskProjectUtils.processProject(detail.getProjectCode().get(1)));
-        } else {
-            detail.setProject(e.getProject());
-        }
         detail.setDescription(e.getDescription());
         detail.setDay(e.getDays());
         detail.setTarget(e.getTarget());
