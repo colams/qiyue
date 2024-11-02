@@ -20,4 +20,9 @@ public class ProjectItemBusiness {
         return projectItemExtMapper.selectByExample(example);
     }
 
+    public boolean insertProjectItem(SwProjectItem projectItem) {
+        return projectItemExtMapper.insertSelective(projectItem)>0;
+    }
+
+
 }

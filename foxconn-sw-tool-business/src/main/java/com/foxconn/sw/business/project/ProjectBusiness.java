@@ -31,4 +31,8 @@ public class ProjectBusiness {
         }
         return effectCount > 0;
     }
+
+    public Boolean insert(SwProject swProject) {
+        return projectExtMapper.insertSelective(swProject) > 0;
+    }
 }
