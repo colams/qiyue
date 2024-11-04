@@ -6,7 +6,7 @@ import com.foxconn.sw.business.report.SwWorkReportLockBusiness;
 import com.foxconn.sw.business.report.SwWorkReportScoreBusiness;
 import com.foxconn.sw.business.system.DepartmentBusiness;
 import com.foxconn.sw.business.system.EmployeeBusiness;
-import com.foxconn.sw.common.utils.JsonUtils;
+import com.foxconn.sw.common.utils.PinyinUtils;
 import com.foxconn.sw.data.dto.entity.acount.EmployeeVo;
 import com.foxconn.sw.data.dto.entity.oa.ReportSearchParams;
 import com.foxconn.sw.data.dto.entity.oa.WorkReportDetail;
@@ -17,7 +17,6 @@ import com.foxconn.sw.data.entity.SwWorkReportScore;
 import com.foxconn.sw.data.exception.BizException;
 import com.foxconn.sw.service.processor.config.PositionConfig;
 import com.foxconn.sw.service.processor.utils.ReportSearchParamsUtils;
-import com.foxconn.sw.service.processor.utils.TaskProjectUtils;
 import com.google.common.collect.Lists;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.math.NumberUtils;
@@ -107,17 +106,17 @@ public class ListReportProcessor {
                 .sorted(Comparator.comparing(WorkReportVo::getEmployeeNo)
                         .thenComparing(WorkReportVo::getYearWeek).reversed())
                 .collect(Collectors.toList());
-
-        if (CollectionUtils.isEmpty(retValue.get(0).getReportDetailList()) && retValue.size() > 3) {
-            List<WorkReportDetail> detailList = retValue.get(2).getReportDetailList()
-                    .stream()
-                    .filter(e -> e.getTarget() < 100)
-                    .collect(Collectors.toList());
-
-            if (!CollectionUtils.isEmpty(detailList)) {
-                retValue.get(1).getReportDetailList().addAll(detailList);
-            }
-        }
+        Collections.sort(retValue, (a, b) -> PinyinUtils.toPinyin(a.getEmployee().getName()).compareTo(PinyinUtils.toPinyin(b.getEmployee().getName())));
+//        if (CollectionUtils.isEmpty(retValue.get(0).getReportDetailList()) && retValue.size() > 3) {
+//            List<WorkReportDetail> detailList = retValue.get(2).getReportDetailList()
+//                    .stream()
+//                    .filter(e -> e.getTarget() < 100)
+//                    .collect(Collectors.toList());
+//
+//            if (!CollectionUtils.isEmpty(detailList)) {
+//                retValue.get(1).getReportDetailList().addAll(detailList);
+//            }
+//        }
         return retValue;
     }
 

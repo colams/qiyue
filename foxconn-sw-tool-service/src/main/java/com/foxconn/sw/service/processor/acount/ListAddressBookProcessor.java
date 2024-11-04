@@ -72,7 +72,7 @@ public class ListAddressBookProcessor {
             List<DepartmentVo> voList = departmentBusiness.getDepartList(voMap, e.getDepartmentId());
 
             vo.setSeniorDepart(voList.stream().filter(departmentVo -> departmentVo.getName().endsWith("處")).map(v -> v.getName()).findFirst().orElse("-"));
-            vo.setDepartment(voMap.get(e.getDepartmentId()).getName());
+            vo.setDepartment(voList.stream().map(DepartmentVo::getName).collect(Collectors.joining(" ")));
         }
 
         vo.setEmployeeNo(e.getEmployeeNo());

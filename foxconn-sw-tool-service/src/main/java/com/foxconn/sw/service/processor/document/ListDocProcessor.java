@@ -50,6 +50,7 @@ public class ListDocProcessor {
     private List<DocumentVo> convert2Vo(List<SwDocument> documents) {
         List<DocumentVo> vos = new ArrayList<>();
         documents.forEach(e -> {
+            boolean isCreator = RequestContext.getEmployeeNo().equalsIgnoreCase(e.getCreator());
             SwAppendResource resource = appendResourceBusiness.getAppendResources(e.getResourceId());
             DocumentVo vo = new DocumentVo();
             vo.setDocumentID(e.getId());
@@ -58,7 +59,7 @@ public class ListDocProcessor {
             vo.setDownloadUrl(ConvertUtils.urlPreFix(resource.getId(), resource.getFilePath()));
             vo.setViewUrl(appendResourceBusiness.getResourceUrl(resource));
             if (Integer.valueOf(0).equals(e.getSecretLevel()) || Integer.valueOf(1).equals(e.getSecretLevel())) {
-                vo.setTitle("非機密");
+                vo.setTitle("公開");
             } else if (Integer.valueOf(2).equals(e.getSecretLevel())) {
                 vo.setTitle("一般機密");
             } else if (Integer.valueOf(3).equals(e.getSecretLevel())) {
@@ -67,9 +68,9 @@ public class ListDocProcessor {
             vo.setLevel(e.getSecretLevel());
             vo.setProject(e.getProject());
             vo.setFileVersion(e.getFileVersion());
-            vo.setCanView(documentPermissionBusiness.getViewPermission(RequestContext.getEmployeeNo(), e.getId()));
-            vo.setCanDownload(Objects.nonNull(e.getDisableDown()) && e.getDisableDown() == 0);
-            vo.setCanUpdate(RequestContext.getEmployeeNo().equalsIgnoreCase(e.getCreator()));
+            vo.setCanView(isCreator || documentPermissionBusiness.getViewPermission(RequestContext.getEmployeeNo(), e.getId()));
+            vo.setCanDownload(isCreator || (Objects.nonNull(e.getDisableDown()) && e.getDisableDown() == 0));
+            vo.setCanUpdate(isCreator);
             EmployeeVo employeeVo = new EmployeeVo();
             SwEmployee ee = employeeBusiness.selectEmployeeByENo(e.getCreator());
             employeeVo.setName(ee.getName());
