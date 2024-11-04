@@ -64,14 +64,15 @@ public class ExecToolUtils {
             System.setOut(originalOut);
         }
 
-        // 读取临时文件的内容
-        try (java.util.Scanner scanner = new java.util.Scanner(tempFile)) {
-            if (scanner.hasNextLine()) {
-                String output = scanner.nextLine();
-                System.out.println("Output from Python script: " + output);
-            }
-        }
-        return fileName;
+//        // 读取临时文件的内容
+//        try (java.util.Scanner scanner = new java.util.Scanner(tempFile)) {
+//            if (scanner.hasNextLine()) {
+//                String output = scanner.nextLine();
+//                System.out.println("Output from Python script: " + output);
+//            }
+//        }
+        return  outputResult(Lists.newArrayList("Result function: " + "hello word"));
+        // return fileName;
     }
 
 

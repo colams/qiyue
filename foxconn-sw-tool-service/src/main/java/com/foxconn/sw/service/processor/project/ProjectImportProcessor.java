@@ -66,6 +66,9 @@ public class ProjectImportProcessor {
                 projectItemBusiness.insertProjectItem(projectItem);
             }
 
+            if (Objects.isNull(row.getCell(0))) {
+                continue;
+            }
             SwProject project = new SwProject();
             project.setId((int) row.getCell(0).getNumericCellValue());
             project.setYears((int) row.getCell(1).getNumericCellValue());

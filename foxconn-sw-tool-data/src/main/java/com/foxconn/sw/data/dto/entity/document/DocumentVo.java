@@ -16,10 +16,13 @@ public class DocumentVo {
 
     private Boolean canView;
     private Boolean canDownload;
+    private Boolean canUpdate;
 
     private EmployeeVo publisher;
     private String createTime;
     private String updateTime;
+    private String title;
+    private Integer level;
 
     public Integer getDocumentID() {
         return documentID;
@@ -133,9 +136,13 @@ public class DocumentVo {
         this.updateTime = updateTime;
     }
 
+    public Boolean getCanUpdate() {
+        return canUpdate;
+    }
 
-    private String title;
-    private Integer level;
+    public void setCanUpdate(Boolean canUpdate) {
+        this.canUpdate = canUpdate;
+    }
 
     public String getTitle() {
         return title;

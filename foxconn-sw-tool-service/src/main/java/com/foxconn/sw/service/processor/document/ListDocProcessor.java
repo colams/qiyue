@@ -2,8 +2,10 @@ package com.foxconn.sw.service.processor.document;
 
 import com.foxconn.sw.business.SwAppendResourceBusiness;
 import com.foxconn.sw.business.account.UserBusiness;
+import com.foxconn.sw.business.context.RequestContext;
 import com.foxconn.sw.business.oa.SwDocumentBusiness;
 import com.foxconn.sw.business.oa.SwDocumentHistoryBusiness;
+import com.foxconn.sw.business.oa.SwDocumentPermissionBusiness;
 import com.foxconn.sw.business.system.EmployeeBusiness;
 import com.foxconn.sw.common.utils.ConvertUtils;
 import com.foxconn.sw.common.utils.DateTimeUtils;
@@ -22,12 +24,15 @@ import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Component
 public class ListDocProcessor {
 
     @Autowired
     SwDocumentBusiness documentBusiness;
+    @Autowired
+    SwDocumentPermissionBusiness documentPermissionBusiness;
     @Autowired
     SwDocumentHistoryBusiness documentHistoryBusiness;
     @Autowired
@@ -56,8 +61,9 @@ public class ListDocProcessor {
             vo.setLevel(e.getSecretLevel());
             vo.setProject(e.getProject());
             vo.setFileVersion(e.getFileVersion());
-            vo.setCanView(true);
-            vo.setCanDownload(true);
+            vo.setCanView(documentPermissionBusiness.getViewPermission(RequestContext.getEmployeeNo(), e.getId()));
+            vo.setCanDownload(Objects.nonNull(e.getDisableDown()) && e.getDisableDown() == 0);
+            vo.setCanUpdate(RequestContext.getEmployeeNo().equalsIgnoreCase(e.getCreator()));
             EmployeeVo employeeVo = new EmployeeVo();
             SwEmployee ee = employeeBusiness.selectEmployeeByENo(e.getCreator());
             employeeVo.setName(ee.getName());
