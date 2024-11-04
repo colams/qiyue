@@ -57,7 +57,13 @@ public class ListDocProcessor {
             vo.setDocumentName(e.getDocumentName());
             vo.setDownloadUrl(ConvertUtils.urlPreFix(resource.getId(), resource.getFilePath()));
             vo.setViewUrl(appendResourceBusiness.getResourceUrl(resource));
-            vo.setTitle("機密");
+            if (Integer.valueOf(0).equals(e.getSecretLevel()) || Integer.valueOf(1).equals(e.getSecretLevel())) {
+                vo.setTitle("非機密");
+            } else if (Integer.valueOf(2).equals(e.getSecretLevel())) {
+                vo.setTitle("一般機密");
+            } else if (Integer.valueOf(3).equals(e.getSecretLevel())) {
+                vo.setTitle("絕對機密");
+            }
             vo.setLevel(e.getSecretLevel());
             vo.setProject(e.getProject());
             vo.setFileVersion(e.getFileVersion());
