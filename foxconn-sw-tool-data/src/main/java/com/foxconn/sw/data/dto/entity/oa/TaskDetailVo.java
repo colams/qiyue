@@ -107,6 +107,11 @@ public class TaskDetailVo {
      */
     private Integer progressPercent;
 
+    /**
+     * 任务完成时间 YYYY-MM-DD HH:mm:ss
+     */
+    private String finishTime;
+
 
     /**
      * 支持的操作列表
@@ -310,5 +315,13 @@ public class TaskDetailVo {
 
     public void setCollaboration(Boolean collaboration) {
         isCollaboration = collaboration;
+    }
+
+    public String getFinishTime() {
+        return finishTime;
+    }
+
+    public void setFinishTime(String finishTime) {
+        this.finishTime = finishTime;
     }
 }

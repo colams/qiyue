@@ -23,8 +23,8 @@ import com.foxconn.sw.data.dto.entity.universal.IntegerParams;
 import com.foxconn.sw.data.dto.entity.universal.OperateEntity;
 import com.foxconn.sw.data.entity.*;
 import com.foxconn.sw.data.exception.BizException;
-import com.foxconn.sw.service.processor.utils.*;
 import com.foxconn.sw.service.processor.user.CommonUserUtils;
+import com.foxconn.sw.service.processor.utils.*;
 import com.google.common.collect.Lists;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -127,6 +127,7 @@ public class TaskDetailProcessor {
         taskDetailVo.setCategoryCode(task.getCategory());
         taskDetailVo.setOperateList(processOperate(taskDetailVo, employeeNo, relations));
         taskDetailVo.setCollaboration(task.getCategory().equalsIgnoreCase("6-2"));
+        taskDetailVo.setFinishTime(task.getFinishTime());
         processEmployee(taskDetailVo, relations);
         return taskDetailVo;
     }

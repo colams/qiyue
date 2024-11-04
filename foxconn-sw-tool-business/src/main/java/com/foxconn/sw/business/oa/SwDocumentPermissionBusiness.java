@@ -2,7 +2,6 @@ package com.foxconn.sw.business.oa;
 
 import com.foxconn.sw.business.system.DepartmentBusiness;
 import com.foxconn.sw.business.system.EmployeeBusiness;
-import com.foxconn.sw.data.entity.SwDepartment;
 import com.foxconn.sw.data.entity.SwDocumentPermission;
 import com.foxconn.sw.data.entity.SwDocumentPermissionExample;
 import com.foxconn.sw.data.entity.SwEmployee;
@@ -36,17 +35,26 @@ public class SwDocumentPermissionBusiness {
     }
 
     public boolean getViewPermission(String employeeNo, Integer documentID) {
-        List<SwDepartment> swDepartments = departmentBusiness.getDepartment(employeeNo);
         SwEmployee employee = employeeBusiness.selectEmployeeByENo(employeeNo);
-//        List<String> departmentIDs = swDepartments.stream().map(e -> e.getId().toString()).collect(Collectors.toList());
+
         SwDocumentPermissionExample example = new SwDocumentPermissionExample();
-        SwDocumentPermissionExample.Criteria criteria = example.createCriteria();
-        criteria.andPermissionValueEqualTo(employeeNo);
-        criteria.andDocumentIdEqualTo(documentID);
-        SwDocumentPermissionExample.Criteria orCriteria = example.or();
-        orCriteria.andPermissionValueEqualTo(employee.getDepartmentId().toString());
-        orCriteria.andDocumentIdEqualTo(documentID);
+        SwDocumentPermissionExample.Criteria criteria0 = example.createCriteria();
+        criteria0.andDocumentIdEqualTo(documentID);
+
         List<SwDocumentPermission> permissions = permissionExtMapper.selectByExample(example);
-        return !CollectionUtils.isEmpty(permissions);
+        if (CollectionUtils.isEmpty(permissions)) {
+            return true;
+        }
+
+        boolean hasEno = permissions.stream().anyMatch(e -> e.getPermissionValue().equalsIgnoreCase(employeeNo));
+        if (hasEno) {
+            return hasEno;
+        }
+
+        boolean hasDepart = permissions.stream().anyMatch(e -> e.getPermissionValue().equalsIgnoreCase(employee.getDepartmentId().toString()));
+        if (hasDepart) {
+            return hasDepart;
+        }
+        return false;
     }
 }

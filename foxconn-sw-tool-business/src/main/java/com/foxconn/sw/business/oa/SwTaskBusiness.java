@@ -94,6 +94,7 @@ public class SwTaskBusiness {
             task.setStatus(TaskStatusEnums.ACCEPTING.getCode());
             task.setRejectStatus(RejectStatusEnum.DEFAULT.getCode());
             task.setReflection(data.getContent());
+            task.setFinishTime(DateTimeUtils.format(LocalDateTime.now()));
         }
         return taskExtensionMapper.updateByPrimaryKeySelective(task) > 0;
     }
