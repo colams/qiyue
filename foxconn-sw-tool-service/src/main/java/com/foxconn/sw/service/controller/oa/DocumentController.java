@@ -3,6 +3,7 @@ package com.foxconn.sw.service.controller.oa;
 import com.foxconn.sw.data.constants.TagsConstants;
 import com.foxconn.sw.data.dto.Request;
 import com.foxconn.sw.data.dto.Response;
+import com.foxconn.sw.data.dto.entity.document.DocumentDetailVo;
 import com.foxconn.sw.data.dto.entity.document.DocumentVo;
 import com.foxconn.sw.data.dto.entity.document.HistoryVo;
 import com.foxconn.sw.data.dto.entity.universal.IntegerParams;
@@ -12,6 +13,7 @@ import com.foxconn.sw.data.dto.request.document.ReviseDocParams;
 import com.foxconn.sw.data.dto.request.document.SearchDocParams;
 import com.foxconn.sw.service.aspects.Permission;
 import com.foxconn.sw.service.processor.document.CreateDocProcessor;
+import com.foxconn.sw.service.processor.document.DetailDocProcessor;
 import com.foxconn.sw.service.processor.document.ListDocProcessor;
 import com.foxconn.sw.service.utils.ResponseUtils;
 import io.swagger.v3.oas.annotations.Operation;
@@ -31,6 +33,8 @@ public class DocumentController {
     CreateDocProcessor createDoc;
     @Autowired
     ListDocProcessor listDoc;
+    @Autowired
+    DetailDocProcessor detailDoc;
 
     @Permission
     @Operation(summary = "新增文档信息", tags = TagsConstants.DOCUMENT)
@@ -74,6 +78,16 @@ public class DocumentController {
     @PostMapping("/list")
     public Response<List<DocumentVo>> list(@Valid @RequestBody Request<SearchDocParams> request) {
         List<DocumentVo> result = listDoc.list(request.getData());
+        return ResponseUtils.success(result, request.getTraceId());
+    }
+
+
+    @Permission
+    @Operation(summary = "文档信息列表", tags = TagsConstants.DOCUMENT)
+    @ApiResponse(responseCode = "0", description = "成功码")
+    @PostMapping("/detail")
+    public Response<DocumentDetailVo> detailVoResponse(@Valid @RequestBody Request<IntegerParams> request) {
+        DocumentDetailVo result = detailDoc.detail(request.getData());
         return ResponseUtils.success(result, request.getTraceId());
     }
 

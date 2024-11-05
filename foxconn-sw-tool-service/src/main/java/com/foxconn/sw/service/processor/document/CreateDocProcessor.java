@@ -40,15 +40,15 @@ public class CreateDocProcessor {
         int documentID = documentBusiness.createDoc(params);
         if (documentID > 0) {
             if (CollectionUtils.isEmpty(params.getDepartmentIDs()) && CollectionUtils.isEmpty(params.getEmployeeNos())) {
-                documentPermissionBusiness.insertDocumentPermission(documentID, Lists.newArrayList("0"), 1);
+                documentPermissionBusiness.insertDocumentPermission(documentID, Lists.newArrayList("0"),  params.getExtra(),1);
             }
 
             if (!CollectionUtils.isEmpty(params.getDepartmentIDs())) {
-                documentPermissionBusiness.insertDocumentPermission(documentID, params.getDepartmentIDs(), 1);
+                documentPermissionBusiness.insertDocumentPermission(documentID, params.getDepartmentIDs(), params.getExtra(), 1);
             }
 
             if (!CollectionUtils.isEmpty(params.getEmployeeNos())) {
-                documentPermissionBusiness.insertDocumentPermission(documentID, params.getEmployeeNos(), 2);
+                documentPermissionBusiness.insertDocumentPermission(documentID, params.getEmployeeNos(), params.getExtra(), 2);
             }
 
 
@@ -88,8 +88,5 @@ public class CreateDocProcessor {
 
     public boolean deleteHistory(IntegerParams data) {
         return documentHistoryBusiness.delete(data);
-    }
-
-    private class SwWorkReportPermissionBusiness {
     }
 }

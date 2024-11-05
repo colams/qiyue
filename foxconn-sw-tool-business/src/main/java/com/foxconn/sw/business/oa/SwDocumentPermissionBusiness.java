@@ -11,6 +11,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Component
 public class SwDocumentPermissionBusiness {
@@ -23,15 +24,23 @@ public class SwDocumentPermissionBusiness {
     EmployeeBusiness employeeBusiness;
 
 
-    public boolean insertDocumentPermission(Integer documentID, List<String> departmentIDs, int permissionType) {
+    public boolean insertDocumentPermission(Integer documentID,
+                                            List<String> departmentIDs,
+                                            String extra,
+                                            int permissionType) {
         departmentIDs.forEach(e -> {
             SwDocumentPermission permission = new SwDocumentPermission();
             permission.setDocumentId(documentID);
             permission.setPermissionType(permissionType);
             permission.setPermissionValue(e);
+            permission.setExtra(extra);
             permissionExtMapper.insertSelective(permission);
         });
         return true;
+    }
+
+    public boolean insertDocumentPermission(Integer documentID, List<String> departmentIDs, int permissionType) {
+        return insertDocumentPermission(documentID, departmentIDs, "", permissionType);
     }
 
     public boolean getViewPermission(String employeeNo, Integer documentID) {
@@ -42,19 +51,49 @@ public class SwDocumentPermissionBusiness {
         criteria0.andDocumentIdEqualTo(documentID);
 
         List<SwDocumentPermission> permissions = permissionExtMapper.selectByExample(example);
-        if (CollectionUtils.isEmpty(permissions)) {
+        if (CollectionUtils.isEmpty(permissions) || permissions.stream().anyMatch(e -> e.getPermissionValue().equalsIgnoreCase("0"))) {
             return true;
         }
 
         boolean hasEno = permissions.stream().anyMatch(e -> e.getPermissionValue().equalsIgnoreCase(employeeNo));
         if (hasEno) {
-            return hasEno;
+            return true;
         }
 
         boolean hasDepart = permissions.stream().anyMatch(e -> e.getPermissionValue().equalsIgnoreCase(employee.getDepartmentId().toString()));
         if (hasDepart) {
-            return hasDepart;
+            return true;
         }
         return false;
+    }
+
+    public List<String> getPermissionSet(Integer permissionType, Integer documentID) {
+
+        SwDocumentPermissionExample example = new SwDocumentPermissionExample();
+        SwDocumentPermissionExample.Criteria criteria0 = example.createCriteria();
+        criteria0.andDocumentIdEqualTo(documentID);
+
+        List<SwDocumentPermission> permissions = permissionExtMapper.selectByExample(example);
+
+        List<String> permissionStr = permissions.stream()
+                .filter(e -> !"0".equalsIgnoreCase(e.getPermissionValue()))
+                .filter(e -> permissionType.equals(e.getPermissionType()))
+                .map(e -> e.getPermissionValue())
+                .collect(Collectors.toList());
+        return permissionStr;
+    }
+
+    public String getPermissionExtra(Integer documentID) {
+        SwDocumentPermissionExample example = new SwDocumentPermissionExample();
+        SwDocumentPermissionExample.Criteria criteria0 = example.createCriteria();
+        criteria0.andDocumentIdEqualTo(documentID);
+
+        List<SwDocumentPermission> permissions = permissionExtMapper.selectByExample(example);
+
+        String permissionStr = permissions.stream()
+                .map(e -> e.getExtra())
+                .findFirst()
+                .orElse("");
+        return permissionStr;
     }
 }

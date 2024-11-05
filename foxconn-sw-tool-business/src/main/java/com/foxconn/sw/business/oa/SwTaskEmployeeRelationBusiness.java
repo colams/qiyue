@@ -1,7 +1,6 @@
 package com.foxconn.sw.business.oa;
 
 import com.foxconn.sw.business.context.RequestContext;
-import com.foxconn.sw.common.utils.JsonUtils;
 import com.foxconn.sw.data.constants.enums.TaskRoleFlagEnums;
 import com.foxconn.sw.data.entity.SwTaskEmployeeRelation;
 import com.foxconn.sw.data.entity.SwTaskEmployeeRelationExample;
@@ -23,12 +22,7 @@ public class SwTaskEmployeeRelationBusiness {
     @Autowired
     SwTaskEmployeeRelationExtensionMapper employeeRelationExtensionMapper;
 
-    public boolean addRelationAtCreate(Integer taskID, String managerNo, List<String> watchers) {
-        List<String> managerNos = Lists.newArrayList(managerNo);
-        if (StringUtils.isNotEmpty(managerNo) && managerNo.startsWith("[")) {
-            managerNos = JsonUtils.deserialize(managerNo, List.class, String.class);
-        }
-
+    public boolean addRelationAtCreate(Integer taskID, List<String> managerNos, List<String> watchers) {
         List<SimpleRelation> simpleRelations = processTaskRole(RequestContext.getEmployeeNo(), managerNos, watchers);
         List<SwTaskEmployeeRelation> relations = employeeRelationExtensionMapper.selectByTaskID(taskID);
         int prevID = 0;

@@ -48,9 +48,6 @@ public class CreateTaskProcessor {
     public Integer createTask(TaskBriefDetailVo data) {
 
         SwTask task = TaskMapper.INSTANCE.brief2SwTask(data);
-        if (StringUtils.isNotEmpty(data.getManagerNos())) {
-            task.setManagerEid(data.getManagerNos());
-        }
         task.setProposerEid(RequestContext.getEmployeeNo());
         task.setRejectStatus(RejectStatusEnum.DEFAULT.getCode());
 
@@ -63,7 +60,7 @@ public class CreateTaskProcessor {
         int taskID = swTaskBusiness.insertOrUpdate(task);
         addTaskLog(task, isUpdate);
         addProcessInfo(task, data.getResourceIds(), isUpdate);
-        taskEmployeeRelation.addRelationAtCreate(taskID, task.getManagerEid(), data.getWatchers());
+        taskEmployeeRelation.addRelationAtCreate(taskID, data.getManagers(), data.getWatchers());
         return taskID;
     }
 

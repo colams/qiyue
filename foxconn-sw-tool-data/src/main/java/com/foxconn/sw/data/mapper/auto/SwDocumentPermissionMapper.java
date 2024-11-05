@@ -35,9 +35,9 @@ public interface SwDocumentPermissionMapper {
 
     @Insert({
         "insert into sw_document_permission (document_id, permission_type, ",
-        "permission_value)",
+        "permission_value, extra)",
         "values (#{documentId,jdbcType=INTEGER}, #{permissionType,jdbcType=INTEGER}, ",
-        "#{permissionValue,jdbcType=VARCHAR})"
+        "#{permissionValue,jdbcType=VARCHAR}, #{extra,jdbcType=VARCHAR})"
     })
     @SelectKey(statement="SELECT LAST_INSERT_ID()", keyProperty="id", before=false, resultType=Integer.class)
     int insert(SwDocumentPermission record);
@@ -51,7 +51,8 @@ public interface SwDocumentPermissionMapper {
         @Result(column="id", property="id", jdbcType=JdbcType.INTEGER, id=true),
         @Result(column="document_id", property="documentId", jdbcType=JdbcType.INTEGER),
         @Result(column="permission_type", property="permissionType", jdbcType=JdbcType.INTEGER),
-        @Result(column="permission_value", property="permissionValue", jdbcType=JdbcType.VARCHAR)
+        @Result(column="permission_value", property="permissionValue", jdbcType=JdbcType.VARCHAR),
+        @Result(column="extra", property="extra", jdbcType=JdbcType.VARCHAR)
     })
     List<SwDocumentPermission> selectByExampleWithRowbounds(SwDocumentPermissionExample example, RowBounds rowBounds);
 
@@ -60,13 +61,14 @@ public interface SwDocumentPermissionMapper {
         @Result(column="id", property="id", jdbcType=JdbcType.INTEGER, id=true),
         @Result(column="document_id", property="documentId", jdbcType=JdbcType.INTEGER),
         @Result(column="permission_type", property="permissionType", jdbcType=JdbcType.INTEGER),
-        @Result(column="permission_value", property="permissionValue", jdbcType=JdbcType.VARCHAR)
+        @Result(column="permission_value", property="permissionValue", jdbcType=JdbcType.VARCHAR),
+        @Result(column="extra", property="extra", jdbcType=JdbcType.VARCHAR)
     })
     List<SwDocumentPermission> selectByExample(SwDocumentPermissionExample example);
 
     @Select({
         "select",
-        "id, document_id, permission_type, permission_value",
+        "id, document_id, permission_type, permission_value, extra",
         "from sw_document_permission",
         "where id = #{id,jdbcType=INTEGER}"
     })
@@ -74,7 +76,8 @@ public interface SwDocumentPermissionMapper {
         @Result(column="id", property="id", jdbcType=JdbcType.INTEGER, id=true),
         @Result(column="document_id", property="documentId", jdbcType=JdbcType.INTEGER),
         @Result(column="permission_type", property="permissionType", jdbcType=JdbcType.INTEGER),
-        @Result(column="permission_value", property="permissionValue", jdbcType=JdbcType.VARCHAR)
+        @Result(column="permission_value", property="permissionValue", jdbcType=JdbcType.VARCHAR),
+        @Result(column="extra", property="extra", jdbcType=JdbcType.VARCHAR)
     })
     SwDocumentPermission selectByPrimaryKey(Integer id);
 
@@ -91,7 +94,8 @@ public interface SwDocumentPermissionMapper {
         "update sw_document_permission",
         "set document_id = #{documentId,jdbcType=INTEGER},",
           "permission_type = #{permissionType,jdbcType=INTEGER},",
-          "permission_value = #{permissionValue,jdbcType=VARCHAR}",
+          "permission_value = #{permissionValue,jdbcType=VARCHAR},",
+          "extra = #{extra,jdbcType=VARCHAR}",
         "where id = #{id,jdbcType=INTEGER}"
     })
     int updateByPrimaryKey(SwDocumentPermission record);

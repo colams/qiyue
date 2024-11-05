@@ -9,6 +9,8 @@ public class SwDocumentPermission {
 
     private String permissionValue;
 
+    private String extra;
+
     public Integer getId() {
         return id;
     }
@@ -59,5 +61,18 @@ public class SwDocumentPermission {
 
     public void setPermissionValue(String permissionValue) {
         this.permissionValue = permissionValue == null ? null : permissionValue.trim();
+    }
+
+    public String getExtra() {
+        return extra;
+    }
+
+    public SwDocumentPermission withExtra(String extra) {
+        this.setExtra(extra);
+        return this;
+    }
+
+    public void setExtra(String extra) {
+        this.extra = extra == null ? null : extra.trim();
     }
 }

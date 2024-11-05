@@ -68,22 +68,17 @@ public class TaskBriefDetailVo {
     private List<Integer> resourceIds;
 
     /**
-     * 经办人
+     * 关注人
      */
-    @Schema(description = "中间人")
-    private String managerEid;
+    @Schema(description = "关注人")
+    private List<String> watchers;
 
-    /**
-     * 经办人
-     */
-    @Schema(description = "中间人")
-    private String managerNos;
 
     /**
      * 关注人
      */
     @Schema(description = "关注人")
-    private List<String> watchers;
+    private List<String> managers;
 
     /**
      * 状态
@@ -155,22 +150,6 @@ public class TaskBriefDetailVo {
         this.resourceIds = resourceIds;
     }
 
-    public String getManagerEid() {
-        return managerEid;
-    }
-
-    public void setManagerEid(String managerEid) {
-        this.managerEid = managerEid;
-    }
-
-    public String getManagerNos() {
-        return managerNos;
-    }
-
-    public void setManagerNos(String managerNos) {
-        this.managerNos = managerNos;
-    }
-
     public List<String> getWatchers() {
         return watchers;
     }
@@ -185,5 +164,13 @@ public class TaskBriefDetailVo {
 
     public void setStatus(Integer status) {
         this.status = status;
+    }
+
+    public List<String> getManagers() {
+        return managers;
+    }
+
+    public void setManagers(List<String> managers) {
+        this.managers = managers;
     }
 }

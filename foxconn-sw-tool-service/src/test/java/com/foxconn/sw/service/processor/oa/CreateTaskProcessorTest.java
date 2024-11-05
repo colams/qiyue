@@ -42,7 +42,6 @@ public class CreateTaskProcessorTest extends BaseTest {
         vo.setTitle("任务管理工具在Chrome浏览器打不开");
         vo.setDescription("网页能够兼容市面上的大多数浏览器，网页能够兼容更多的操作系统，网页能够自适应不同显示界面的尺寸");
         vo.setResourceIds(Lists.newArrayList(1, 2, 3, 4));
-        vo.setManagerEid("05147");
         return vo;
     }
 

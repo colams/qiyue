@@ -36,7 +36,6 @@ public class BriefDetailProcessor {
             task.setManagerEid(JsonUtils.serialize(enos));
         }
 
-
         task.setWatchers(relations.stream()
                 .filter(e -> TaskRoleFlagEnums.checkFlag(e.getRoleFlag(), TaskRoleFlagEnums.Watcher_Flag))
                 .map(SwTaskEmployeeRelation::getEmployeeNo)

@@ -14,6 +14,7 @@ public class CreateDocParams {
     private Integer disableDown;
     private List<String> departmentIDs;
     private List<String> employeeNos;
+    private String extra;
 
     public String getFileName() {
         return fileName;
@@ -93,5 +94,13 @@ public class CreateDocParams {
 
     public void setEmployeeNos(List<String> employeeNos) {
         this.employeeNos = employeeNos;
+    }
+
+    public String getExtra() {
+        return extra;
+    }
+
+    public void setExtra(String extra) {
+        this.extra = extra;
     }
 }

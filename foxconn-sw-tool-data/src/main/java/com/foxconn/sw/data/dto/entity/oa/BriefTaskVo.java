@@ -9,6 +9,7 @@ public class BriefTaskVo extends SwTask {
 
     private List<String> watchers;
 
+    private List<String> managers;
 
     private Boolean isCollaboration;
 
@@ -27,5 +28,13 @@ public class BriefTaskVo extends SwTask {
 
     public void setCollaboration(Boolean collaboration) {
         isCollaboration = collaboration;
+    }
+
+    public List<String> getManagers() {
+        return managers;
+    }
+
+    public void setManagers(List<String> managers) {
+        this.managers = managers;
     }
 }
