@@ -101,7 +101,7 @@ public class ListDocProcessor {
             vo.setViewUrl(appendResourceBusiness.getResourceUrl(resource));
             vo.setAvatar(userBusiness.queryUserInfo(e.getCreator()).getAvatar());
             vo.setPublisher(e.getCreator());
-            vo.setUpdateTime(StringExtUtils.toString(e.getCreateTime()));
+            vo.setUpdateTime(DateTimeUtils.format(e.getCreateTime()));
             vos.add(vo);
         });
         return vos;
