@@ -10,6 +10,7 @@ public class DocumentDetailVo {
     private String category;
     private String documentName;
     private String downloadUrl;
+    private Integer fileID;
     private String viewUrl;
     private String project;
     private String description;
@@ -61,6 +62,14 @@ public class DocumentDetailVo {
 
     public void setDownloadUrl(String downloadUrl) {
         this.downloadUrl = downloadUrl;
+    }
+
+    public Integer getFileID() {
+        return fileID;
+    }
+
+    public void setFileID(Integer fileID) {
+        this.fileID = fileID;
     }
 
     public String getViewUrl() {

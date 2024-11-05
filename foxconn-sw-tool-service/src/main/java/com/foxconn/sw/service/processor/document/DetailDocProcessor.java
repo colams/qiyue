@@ -50,6 +50,7 @@ public class DetailDocProcessor {
         vo.setCategory(e.getCategory());
         vo.setDocumentName(e.getDocumentName());
         vo.setDownloadUrl(ConvertUtils.urlPreFix(resource.getId(), resource.getFilePath()));
+        vo.setFileID(resource.getId());
         vo.setViewUrl(appendResourceBusiness.getResourceUrl(resource));
         if (Integer.valueOf(0).equals(e.getSecretLevel()) || Integer.valueOf(1).equals(e.getSecretLevel())) {
             vo.setTitle("公開");

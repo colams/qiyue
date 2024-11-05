@@ -40,7 +40,7 @@ public class CreateDocProcessor {
         int documentID = documentBusiness.createDoc(params);
         if (documentID > 0) {
             if (CollectionUtils.isEmpty(params.getDepartmentIDs()) && CollectionUtils.isEmpty(params.getEmployeeNos())) {
-                documentPermissionBusiness.insertDocumentPermission(documentID, Lists.newArrayList("0"),  params.getExtra(),1);
+                documentPermissionBusiness.insertDocumentPermission(documentID, Lists.newArrayList("0"), params.getExtra(), 1);
             }
 
             if (!CollectionUtils.isEmpty(params.getDepartmentIDs())) {
@@ -65,10 +65,13 @@ public class CreateDocProcessor {
 
     public boolean revise(ReviseDocParams data) {
         SwDocument document = documentBusiness.queryDocumentByID(data.getDocumentID());
-        document.setDocumentName(data.getFileName());
-        document.setCategory(data.getCategory());
-        document.setFileVersion(data.getFileVersion());
-        document.setResourceId(data.getResourceID());
+
+        SwDocument updateDoc = new SwDocument();
+        updateDoc.setId(document.getId());
+        updateDoc.setDocumentName(data.getFileName());
+        updateDoc.setCategory(data.getCategory());
+        updateDoc.setFileVersion(data.getFileVersion());
+        updateDoc.setResourceId(data.getResourceID());
         documentBusiness.updateDocument(document);
 
 
