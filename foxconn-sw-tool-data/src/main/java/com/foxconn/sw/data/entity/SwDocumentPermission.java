@@ -11,6 +11,8 @@ public class SwDocumentPermission {
 
     private String extra;
 
+    private Integer isDelete;
+
     public Integer getId() {
         return id;
     }
@@ -74,5 +76,18 @@ public class SwDocumentPermission {
 
     public void setExtra(String extra) {
         this.extra = extra == null ? null : extra.trim();
+    }
+
+    public Integer getIsDelete() {
+        return isDelete;
+    }
+
+    public SwDocumentPermission withIsDelete(Integer isDelete) {
+        this.setIsDelete(isDelete);
+        return this;
+    }
+
+    public void setIsDelete(Integer isDelete) {
+        this.isDelete = isDelete;
     }
 }

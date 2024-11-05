@@ -7,10 +7,7 @@ import com.foxconn.sw.data.dto.entity.document.DocumentDetailVo;
 import com.foxconn.sw.data.dto.entity.document.DocumentVo;
 import com.foxconn.sw.data.dto.entity.document.HistoryVo;
 import com.foxconn.sw.data.dto.entity.universal.IntegerParams;
-import com.foxconn.sw.data.dto.request.document.CreateDocParams;
-import com.foxconn.sw.data.dto.request.document.DeleteDocParams;
-import com.foxconn.sw.data.dto.request.document.ReviseDocParams;
-import com.foxconn.sw.data.dto.request.document.SearchDocParams;
+import com.foxconn.sw.data.dto.request.document.*;
 import com.foxconn.sw.service.aspects.Permission;
 import com.foxconn.sw.service.processor.document.CreateDocProcessor;
 import com.foxconn.sw.service.processor.document.DetailDocProcessor;
@@ -51,6 +48,15 @@ public class DocumentController {
     @PostMapping("/revise")
     public Response revise(@Valid @RequestBody Request<ReviseDocParams> request) {
         boolean result = createDoc.revise(request.getData());
+        return ResponseUtils.success(result, request.getTraceId());
+    }
+
+    @Permission
+    @Operation(summary = "更新文档版本", tags = TagsConstants.DOCUMENT)
+    @ApiResponse(responseCode = "0", description = "成功码")
+    @PostMapping("/updateInfo")
+    public Response updateInfo(@Valid @RequestBody Request<UpdateDocParams> request) {
+        boolean result = createDoc.update(request.getData());
         return ResponseUtils.success(result, request.getTraceId());
     }
 

@@ -9,6 +9,7 @@ import com.foxconn.sw.data.dto.entity.universal.IntegerParams;
 import com.foxconn.sw.data.dto.request.document.CreateDocParams;
 import com.foxconn.sw.data.dto.request.document.DeleteDocParams;
 import com.foxconn.sw.data.dto.request.document.ReviseDocParams;
+import com.foxconn.sw.data.dto.request.document.UpdateDocParams;
 import com.foxconn.sw.data.entity.SwDocument;
 import com.foxconn.sw.data.entity.SwDocumentHistory;
 import com.foxconn.sw.data.exception.BizException;
@@ -72,7 +73,7 @@ public class CreateDocProcessor {
         updateDoc.setCategory(data.getCategory());
         updateDoc.setFileVersion(data.getFileVersion());
         updateDoc.setResourceId(data.getResourceID());
-        documentBusiness.updateDocument(document);
+        documentBusiness.updateDocument(updateDoc);
 
 
         SwDocumentHistory documentHistory = new SwDocumentHistory();
@@ -81,6 +82,36 @@ public class CreateDocProcessor {
         documentHistory.setResourceId(document.getResourceId());
         documentHistory.setCreator(RequestContext.getEmployeeNo());
         documentHistoryBusiness.insertHistory(documentHistory);
+        return true;
+    }
+
+    public boolean update(UpdateDocParams data) {
+        SwDocument updateDoc = new SwDocument();
+        updateDoc.setId(data.getDocumentID());
+        updateDoc.setDocumentName(data.getFileName());
+        updateDoc.setCategory(data.getCategory());
+        updateDoc.setFileVersion(data.getFileVersion());
+        updateDoc.setProject(data.getProject());
+        updateDoc.setSecretLevel(data.getSecretLevel());
+        updateDoc.setExpireDate(data.getExpireDate());
+        updateDoc.setDisableDown(data.getDisableDown());
+        documentBusiness.updateDocument(updateDoc);
+
+//        int documentID = data.getDocumentID();
+//
+//        if (CollectionUtils.isEmpty(data.getDepartmentIDs()) && CollectionUtils.isEmpty(data.getEmployeeNos())) {
+//            documentPermissionBusiness.insertDocumentPermission(documentID, Lists.newArrayList("0"), data.getExtra(), 1);
+//        }
+//
+//        if (!CollectionUtils.isEmpty(data.getDepartmentIDs())) {
+//            documentPermissionBusiness.insertDocumentPermission(documentID, data.getDepartmentIDs(), data.getExtra(), 1);
+//        }
+//
+//        if (!CollectionUtils.isEmpty(data.getEmployeeNos())) {
+//            documentPermissionBusiness.insertDocumentPermission(documentID, data.getEmployeeNos(), data.getExtra(), 2);
+//        }
+
+
         return true;
     }
 

@@ -44,6 +44,10 @@ public class SwDocumentPermissionSqlProvider {
             sql.VALUES("extra", "#{extra,jdbcType=VARCHAR}");
         }
         
+        if (record.getIsDelete() != null) {
+            sql.VALUES("is_delete", "#{isDelete,jdbcType=INTEGER}");
+        }
+        
         return sql.toString();
     }
 
@@ -58,6 +62,7 @@ public class SwDocumentPermissionSqlProvider {
         sql.SELECT("permission_type");
         sql.SELECT("permission_value");
         sql.SELECT("extra");
+        sql.SELECT("is_delete");
         sql.FROM("sw_document_permission");
         applyWhere(sql, example, false);
         
@@ -95,6 +100,10 @@ public class SwDocumentPermissionSqlProvider {
             sql.SET("extra = #{record.extra,jdbcType=VARCHAR}");
         }
         
+        if (record.getIsDelete() != null) {
+            sql.SET("is_delete = #{record.isDelete,jdbcType=INTEGER}");
+        }
+        
         applyWhere(sql, example, true);
         return sql.toString();
     }
@@ -108,6 +117,7 @@ public class SwDocumentPermissionSqlProvider {
         sql.SET("permission_type = #{record.permissionType,jdbcType=INTEGER}");
         sql.SET("permission_value = #{record.permissionValue,jdbcType=VARCHAR}");
         sql.SET("extra = #{record.extra,jdbcType=VARCHAR}");
+        sql.SET("is_delete = #{record.isDelete,jdbcType=INTEGER}");
         
         SwDocumentPermissionExample example = (SwDocumentPermissionExample) parameter.get("example");
         applyWhere(sql, example, true);
@@ -132,6 +142,10 @@ public class SwDocumentPermissionSqlProvider {
         
         if (record.getExtra() != null) {
             sql.SET("extra = #{extra,jdbcType=VARCHAR}");
+        }
+        
+        if (record.getIsDelete() != null) {
+            sql.SET("is_delete = #{isDelete,jdbcType=INTEGER}");
         }
         
         sql.WHERE("id = #{id,jdbcType=INTEGER}");

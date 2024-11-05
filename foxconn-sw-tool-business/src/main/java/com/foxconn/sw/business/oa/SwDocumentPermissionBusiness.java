@@ -23,6 +23,15 @@ public class SwDocumentPermissionBusiness {
     @Autowired
     EmployeeBusiness employeeBusiness;
 
+    public boolean deleteDocumentPermission(Integer documentID) {
+        SwDocumentPermissionExample example = new SwDocumentPermissionExample();
+        SwDocumentPermissionExample.Criteria criteria = example.createCriteria();
+        criteria.andDocumentIdEqualTo(documentID);
+
+        SwDocumentPermission record = new SwDocumentPermission();
+        record.setIsDelete(1);
+        return permissionExtMapper.updateByExampleSelective(record, example) > 0;
+    }
 
     public boolean insertDocumentPermission(Integer documentID,
                                             List<String> departmentIDs,
@@ -34,13 +43,10 @@ public class SwDocumentPermissionBusiness {
             permission.setPermissionType(permissionType);
             permission.setPermissionValue(e);
             permission.setExtra(extra);
+            permission.setIsDelete(0);
             permissionExtMapper.insertSelective(permission);
         });
         return true;
-    }
-
-    public boolean insertDocumentPermission(Integer documentID, List<String> departmentIDs, int permissionType) {
-        return insertDocumentPermission(documentID, departmentIDs, "", permissionType);
     }
 
     public boolean getViewPermission(String employeeNo, Integer documentID) {

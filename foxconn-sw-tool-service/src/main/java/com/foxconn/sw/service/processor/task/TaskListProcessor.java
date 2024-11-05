@@ -106,7 +106,6 @@ public class TaskListProcessor {
         vo.setProject(TaskProjectUtils.processProject(e.getProject()));
         vo.setLevelInfo(TaskLevelUtils.processLevel(e.getLevel()));
         vo.setProgressPercent(e.getProgressPercent());
-        vo.setStatusInfoVo(TaskStatusUtils.processStatus(e.getStatus(), e.getRejectStatus()));
 
         vo.setDeadLine(e.getDeadLine());
         vo.setCreateTime(e.getCreateTime());
@@ -191,6 +190,7 @@ public class TaskListProcessor {
         }
 
         vo.setOperateList(processOperate(e, optional));
+        vo.setStatusInfoVo(TaskStatusUtils.processStatus(e.getStatus(), e.getRejectStatus(), optional));
 
         return vo;
     }
