@@ -35,7 +35,7 @@ public class ProjectController {
     @Operation(summary = "获取专案列表", tags = TagsConstants.PROJECT)
     @ApiResponse(responseCode = "0", description = "成功码")
     @PostMapping("/list")
-    public Response<ProjectListVo> list(@Valid @RequestBody Request request) {
+    public Response<ProjectListVo> list(@Valid @RequestBody Request request) throws IOException {
         ProjectListVo listVo = projectListProcessor.list();
         return ResponseUtils.success(listVo, request.getTraceId());
     }

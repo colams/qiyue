@@ -67,10 +67,13 @@ public class EmployeeBusiness {
 
     public List<EmployeeVo> getEmployeesByLevel() {
         List<EmployeeVo> vos = swEmployeeExtensionMapper.getEmployeesByLevel();
-        Collections.sort(vos, (a, b) -> PinyinUtils.toPinyin(a.getName()).compareTo(PinyinUtils.toPinyin(b.getName())));
+        Collections.sort(vos, (a, b) -> {
+            a.setFirstLetter(PinyinUtils.firstLetter(a.getName()));
+            b.setFirstLetter(PinyinUtils.firstLetter(b.getName()));
+            return PinyinUtils.toPinyin(a.getName()).compareTo(PinyinUtils.toPinyin(b.getName()));
+        });
         return vos;
     }
-
 
     public List<SwEmployee> selectEmployeeByENos(List<String> employeeNos) {
         List<SwEmployee> swEmployees = getEmployeeList()

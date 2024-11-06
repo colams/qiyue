@@ -10,6 +10,8 @@ public class EmployeeVo {
 
     private String departmentName;
 
+    private String firstLetter;
+
     public String getName() {
         return name;
     }
@@ -40,5 +42,13 @@ public class EmployeeVo {
 
     public void setDepartmentName(String departmentName) {
         this.departmentName = departmentName;
+    }
+
+    public String getFirstLetter() {
+        return firstLetter;
+    }
+
+    public void setFirstLetter(String firstLetter) {
+        this.firstLetter = firstLetter;
     }
 }

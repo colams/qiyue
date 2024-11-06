@@ -33,4 +33,30 @@ public class PinyinUtils {
         }
         return pinyinResult.toString();
     }
+
+    public static String firstLetter(String input) {
+        input = input.toLowerCase();
+        StringBuilder pinyinResult = new StringBuilder();
+        try {
+            HanyuPinyinOutputFormat format = new HanyuPinyinOutputFormat();
+            format.setCaseType(HanyuPinyinCaseType.LOWERCASE);
+            format.setToneType(HanyuPinyinToneType.WITHOUT_TONE);
+
+            for (char c : input.toCharArray()) {
+                if (!Character.isIdeographic(c)) {
+                    pinyinResult.append(c);
+                    continue;
+                }
+                String[] pinyinArray = PinyinHelper.toHanyuPinyinStringArray(c, format);
+                if (pinyinArray != null) {
+                    pinyinResult.append(pinyinArray[0]);
+                } else {
+                    pinyinResult.append(c);
+                }
+            }
+        } catch (BadHanyuPinyinOutputFormatCombination e) {
+            pinyinResult = new StringBuilder(input);
+        }
+        return pinyinResult.substring(0, 1);
+    }
 }

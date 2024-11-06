@@ -8,9 +8,8 @@ import com.foxconn.sw.data.dto.entity.project.ProjectItemVo;
 import com.foxconn.sw.data.dto.entity.project.ProjectListVo;
 import com.foxconn.sw.data.entity.SwProject;
 import com.foxconn.sw.data.entity.SwProjectItem;
+import com.foxconn.sw.service.utils.ExcelProjectUtils;
 import com.google.common.collect.Lists;
-import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
@@ -24,6 +23,7 @@ import org.springframework.util.CollectionUtils;
 import org.springframework.util.ResourceUtils;
 
 import java.io.IOException;
+import java.lang.reflect.Field;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -41,7 +41,7 @@ public class ProjectListProcessor {
     private ResourceLoader resourceLoader;
 
 
-    public ProjectListVo list() {
+    public ProjectListVo list() throws IOException {
         List<List<HeaderVo>> headers = initHeader();
         ProjectListVo vo = new ProjectListVo();
         vo.setHeader(initHeader());
@@ -50,173 +50,34 @@ public class ProjectListProcessor {
     }
 
 
-    private List<List<HeaderVo>> initHeader() {
+    private List<List<HeaderVo>> initHeader() throws IOException {
         Resource resource = resourceLoader.getResource(ResourceUtils.CLASSPATH_URL_PREFIX + "/templates/project_list_template.xlsx");
-
-        HeaderVo row1Cell = new HeaderVo();
-        row1Cell.setRowSpan(0);
-        row1Cell.setColSpan(70);
-        row1Cell.setTitle("Project List");
-        List<HeaderVo> row1 = Lists.newArrayList(row1Cell);
-
-        HeaderVo row2Cell1 = new HeaderVo();
-        row2Cell1.setRowSpan(3);
-        row2Cell1.setColSpan(11);
-        row2Cell1.setTitle("LH Project  Info.");
-
-        HeaderVo row2Cell2 = new HeaderVo();
-        row2Cell2.setRowSpan(0);
-        row2Cell2.setColSpan(11);
-        row2Cell2.setTitle("Module Info.");
-
-        HeaderVo row2Cell3 = new HeaderVo();
-        row2Cell3.setRowSpan(0);
-        row2Cell3.setColSpan(30);
-        row2Cell3.setTitle("Key Materials Spec.");
-
-        HeaderVo row2Cell4 = new HeaderVo();
-        row2Cell4.setRowSpan(0);
-        row2Cell4.setColSpan(9);
-        row2Cell4.setTitle("Process");
-
-        HeaderVo row2Cell5 = new HeaderVo();
-        row2Cell5.setRowSpan(0);
-        row2Cell5.setColSpan(9);
-        row2Cell5.setTitle("Team Roster");
-        List<HeaderVo> row2 = Lists.newArrayList(row2Cell1, row2Cell2, row2Cell3, row2Cell4, row2Cell5);
-
-        HeaderVo row3Cell1 = new HeaderVo();
-        row3Cell1.setRowSpan(0);
-        row3Cell1.setColSpan(11);
-        row3Cell1.setTitle("Update by ME");
-
-        HeaderVo row3Cell2 = new HeaderVo();
-        row3Cell2.setRowSpan(0);
-        row3Cell2.setColSpan(11);
-        row3Cell2.setTitle("Update by EE");
-
-        HeaderVo row3Cell3 = new HeaderVo();
-        row3Cell3.setRowSpan(0);
-        row3Cell3.setColSpan(30);
-        row3Cell3.setTitle("Update by OT");
-
-        HeaderVo row3Cell4 = new HeaderVo();
-        row3Cell4.setRowSpan(0);
-        row3Cell4.setColSpan(9);
-        row3Cell4.setTitle("Update by AA - NPD");
-
-        HeaderVo row3Cell5 = new HeaderVo();
-        row3Cell5.setRowSpan(0);
-        row3Cell5.setColSpan(7);
-        row3Cell5.setTitle("Update by TE");
-
-        HeaderVo row3Cell6 = new HeaderVo();
-        row3Cell6.setRowSpan(0);
-        row3Cell6.setColSpan(9);
-        row3Cell6.setTitle("Update by  All");
-        List<HeaderVo> row3 = Lists.newArrayList(row3Cell1, row3Cell2, row3Cell3, row3Cell4, row3Cell5, row3Cell6);
-
-        HeaderVo row4Cell1 = new HeaderVo();
-        row4Cell1.setRowSpan(0);
-        row4Cell1.setColSpan(10);
-        row4Cell1.setTitle("Module Info.");
-
-        HeaderVo row4Cell2 = new HeaderVo();
-        row4Cell2.setRowSpan(0);
-        row4Cell2.setColSpan(0);
-        row4Cell2.setTitle("LCB concern");
-
-        HeaderVo row4Cell3 = new HeaderVo();
-        row4Cell3.setRowSpan(0);
-        row4Cell3.setColSpan(3);
-        row4Cell3.setTitle("Glass");
-
-        HeaderVo row4Cell4 = new HeaderVo();
-        row4Cell4.setRowSpan(0);
-        row4Cell4.setColSpan(3);
-        row4Cell4.setTitle("Stiffener");
-
-        HeaderVo row4Cell5 = new HeaderVo();
-        row4Cell5.setRowSpan(0);
-        row4Cell5.setColSpan(1);
-        row4Cell5.setTitle("VCM");
-
-        HeaderVo row4Cell6 = new HeaderVo();
-        row4Cell6.setRowSpan(0);
-        row4Cell6.setColSpan(10);
-        row4Cell6.setTitle("Sensor");
-
-        HeaderVo row4Cell7 = new HeaderVo();
-        row4Cell7.setRowSpan(0);
-        row4Cell7.setColSpan(4);
-        row4Cell7.setTitle("Connector");
-
-        HeaderVo row4Cell9 = new HeaderVo();
-        row4Cell9.setRowSpan(0);
-        row4Cell9.setColSpan(3);
-        row4Cell9.setTitle("FPC");
-
-        HeaderVo row4Cell10 = new HeaderVo();
-        row4Cell10.setRowSpan(0);
-        row4Cell10.setColSpan(1);
-        row4Cell10.setTitle("OIS");
-
-        HeaderVo row4Cell12 = new HeaderVo();
-        row4Cell12.setRowSpan(0);
-        row4Cell12.setColSpan(5);
-        row4Cell12.setTitle("Lens");
-
-        HeaderVo row4Cell13 = new HeaderVo();
-        row4Cell13.setRowSpan(0);
-        row4Cell13.setColSpan(2);
-        row4Cell13.setTitle("AA");
-
-        HeaderVo row4Cell14 = new HeaderVo();
-        row4Cell14.setRowSpan(0);
-        row4Cell14.setColSpan(7);
-        row4Cell14.setTitle("Testing");
-
-        HeaderVo row4Cell15 = new HeaderVo();
-        row4Cell15.setRowSpan(0);
-        row4Cell15.setColSpan(9);
-        row4Cell15.setTitle("");
-        List<HeaderVo> row4 = Lists.newArrayList(row4Cell1, row4Cell2, row4Cell3, row4Cell4, row4Cell5, row4Cell6, row4Cell7, row4Cell9, row4Cell10, row4Cell12, row4Cell13, row4Cell14, row4Cell15);
-
-        List<List<HeaderVo>> headerVos = Lists.newArrayList(row1, row2, row3, row4);
-
-        try (Workbook workbook = new XSSFWorkbook(resource.getInputStream())) {
-            Sheet sheet = workbook.getSheetAt(0);
-            Row row = sheet.getRow(4);
-            List<HeaderVo> result = Lists.newArrayList();
-            for (Cell cell : row) {
-                HeaderVo vo = new HeaderVo();
-                vo.setTitle(cell.getStringCellValue().replace("\n", " ").trim());
-                vo.setColSpan(0);
-                vo.setRowSpan(0);
-                result.add(vo);
-            }
-            headerVos.add(result);
-        } catch (IOException e) {
-            logger.error("getTaskHeader", e);
-        }
-        return headerVos;
+        Workbook workbook = new XSSFWorkbook(resource.getInputStream());
+        Sheet sheet = workbook.getSheetAt(0);
+        Map<Integer, List<HeaderVo>> map = ExcelProjectUtils.initHeaderMap(sheet);
+        return Lists.newArrayList(map.get(0), map.get(1), map.get(2), map.get(3), map.get(4));
     }
+
 
     private List<ProjectItemVo> getProjectItems(List<HeaderVo> headerVos) {
         List<SwProject> projectList = projectBusiness.queryProjectList();
         List<SwProjectItem> projectItems = projectItemBusiness.queryProjectItems();
+        boolean hasPower = true;
 
         List<ProjectItemVo> vos = Lists.newArrayList();
 
         projectList.forEach(e -> {
-            ProjectItemVo vo = initVo(e, projectItems, headerVos);
+            ProjectItemVo vo = initVo(e, projectItems, headerVos, hasPower);
             vos.add(vo);
         });
 
         return vos;
     }
 
-    private ProjectItemVo initVo(SwProject project, List<SwProjectItem> projectItems, List<HeaderVo> headerVos) {
+    private ProjectItemVo initVo(SwProject project,
+                                 List<SwProjectItem> projectItems,
+                                 List<HeaderVo> headerVos,
+                                 boolean hasPower) {
         List<SwProjectItem> items = projectItems
                 .stream()
                 .filter(e -> e.getProjectId().equals(project.getId()))
@@ -225,11 +86,14 @@ public class ProjectListProcessor {
         ProjectItemVo vo = new ProjectItemVo();
         vo.setId(project.getId());
         vo.setYear(new KvPairs(project.getYears(), false));
-        vo.setKvPairsMap(initPairMap(project, items, headerVos));
+        vo.setKvPairsMap(initPairMap(project, items, headerVos, hasPower));
         return vo;
     }
 
-    private Map<String, KvPairs<String, Boolean>> initPairMap(SwProject project, List<SwProjectItem> items, List<HeaderVo> headerVos) {
+    private Map<String, KvPairs<String, Boolean>> initPairMap(SwProject project,
+                                                              List<SwProjectItem> items,
+                                                              List<HeaderVo> headerVos,
+                                                              boolean hasPower) {
         Map<String, KvPairs<String, Boolean>> kvPairsMap = new HashMap<>();
 
         headerVos.forEach(e -> {
@@ -246,12 +110,13 @@ public class ProjectListProcessor {
 
         for (int i = 1; i < headerVos.size(); i++) {
             HeaderVo header = headerVos.get(i);
+            String textValue;
             if (i <= 10) {
-                String textValue = getProjectText(project, i);
-                processMap(kvPairsMap, header.getTitle(), textValue);
+                textValue = getProjectText(project, i);
             } else {
-                processMap(kvPairsMap, header.getTitle(), map.getOrDefault(header.getTitle(), ""));
+                textValue = map.getOrDefault(header.getTitle(), "");
             }
+            processMap(kvPairsMap, header.getTitle(), textValue, hasPower);
         }
 
         return kvPairsMap;
@@ -282,7 +147,47 @@ public class ProjectListProcessor {
         return "";
     }
 
-    private void processMap(Map<String, KvPairs<String, Boolean>> kvPairsMap, String title, String text) {
-        kvPairsMap.put(title, new KvPairs<>(text, true));
+    private void processMap(Map<String, KvPairs<String, Boolean>> kvPairsMap,
+                            String title,
+                            String text,
+                            boolean hasPower) {
+        kvPairsMap.put(title, new KvPairs<>(text, hasPower));
+    }
+
+    public static Map<String, Object> convert(SwProject obj) throws IllegalAccessException {
+        Map<String, Object> map = new HashMap<>();
+        for (Field field : SwProject.class.getDeclaredFields()) {
+            field.setAccessible(true);
+            String fieldName = field.getName();
+            map.put(field.getName(), field.get(obj));
+        }
+        return map;
+    }
+
+    private static HashMap<String, String> tableMap = new HashMap<>();
+    private static HashMap<String, String> tableMap2 = new HashMap<>();
+
+    static {
+        tableMap.put("years", "Year");
+        tableMap.put("project_code", "Project Code");
+        tableMap.put("customer_name", "Customer name");
+        tableMap.put("full_name", "Full name");
+        tableMap.put("manufacturing_model", "Manufacturing Model");
+        tableMap.put("status", "Status");
+        tableMap.put("rfq_time", "RFQ時間");
+        tableMap.put("customer", "Customer");
+        tableMap.put("customer_part_no", "Customer Part NO.(Model)");
+        tableMap.put("application", "Application");
+
+        tableMap2.put("Year", "years");
+        tableMap2.put("Project Code", "project_code");
+        tableMap2.put("Customer name", "customer_name");
+        tableMap2.put("Full name", "full_name");
+        tableMap2.put("Manufacturing Model", "manufacturing_model");
+        tableMap2.put("Status", "status");
+        tableMap2.put("RFQ時間", "rfq_time");
+        tableMap2.put("Customer", "customer");
+        tableMap2.put("Customer Part NO.(Model)", "customer_part_no");
+        tableMap2.put("Application", "application");
     }
 }
