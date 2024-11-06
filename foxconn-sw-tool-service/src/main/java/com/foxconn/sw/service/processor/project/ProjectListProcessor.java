@@ -44,7 +44,7 @@ public class ProjectListProcessor {
     public ProjectListVo list() throws IOException {
         List<List<HeaderVo>> headers = initHeader();
         ProjectListVo vo = new ProjectListVo();
-        vo.setHeader(initHeader());
+        vo.setHeader(headers);
         vo.setProjectItems(getProjectItems(headers.get(4)));
         return vo;
     }
