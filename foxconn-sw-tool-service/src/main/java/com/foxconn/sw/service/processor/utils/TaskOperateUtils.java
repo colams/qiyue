@@ -44,12 +44,12 @@ public class TaskOperateUtils {
                 break;
             case UPDATE:
                 if (isProposer) {
-                    subType = taskStatusEnums == ACCEPTING && isInspector ? 1 : 0;
+                    subType = taskStatusEnums == ACCEPTING || isInspector ? 1 : 0;
                     enable = taskStatusEnums == DRAFT   // 草稿
                             || taskStatusEnums == REVOKE    // 已撤销
                             || (taskStatusEnums == PENDING
                             && task.getRejectStatus() == RejectStatusEnum.RELEASE_REJECT.getCode()) // 驳回
-                            || (taskStatusEnums == ACCEPTING && isInspector);    // 待验收
+                            || (taskStatusEnums == ACCEPTING || isInspector);    // 待验收
                 }
 
                 if (!enable && isHandler) {
