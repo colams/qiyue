@@ -22,18 +22,8 @@ public class DepartmentBusiness {
     @Autowired
     private DepartmentExtensionMapper departmentExtensionMapper;
 
-
-    private static List<DepartmentVo> departmentVos = new ArrayList<>();
-
-    private static List<DepartmentVo> treeDepartmentVos = new ArrayList<>();
-
-    private static List<SwDepartment> departmentList = new ArrayList<>();
-
-
     public Map<Integer, DepartmentVo> getDepartMap() {
-        if (CollectionUtils.isEmpty(departmentVos)) {
-            departmentVos = departmentExtensionMapper.getDepartList();
-        }
+        List<DepartmentVo> departmentVos = departmentExtensionMapper.getDepartList();
         return Optional.ofNullable(departmentVos)
                 .orElse(Lists.newArrayList())
                 .stream()
@@ -41,10 +31,7 @@ public class DepartmentBusiness {
     }
 
     public List<DepartmentVo> getDepartList() {
-        if (CollectionUtils.isEmpty(departmentVos)) {
-            departmentVos = departmentExtensionMapper.getDepartList();
-        }
-
+        List<DepartmentVo> departmentVos = departmentExtensionMapper.getDepartList();
         departmentVos.forEach(e -> {
             e.setName(ZhConverterUtil.convertToTraditional(e.getName()));
         });
@@ -52,11 +39,8 @@ public class DepartmentBusiness {
     }
 
     public List<DepartmentVo> getTreeDepartmentVos() {
-        if (!CollectionUtils.isEmpty(treeDepartmentVos)) {
-            return treeDepartmentVos;
-        }
         List<DepartmentVo> vos = getDepartList();
-        treeDepartmentVos = buildDepartmentVoTree(vos);
+        List<DepartmentVo> treeDepartmentVos = buildDepartmentVoTree(vos);
         return treeDepartmentVos;
     }
 
@@ -64,7 +48,6 @@ public class DepartmentBusiness {
     private List<DepartmentVo> buildDepartmentVoTree(List<DepartmentVo> vos) {
         Map<Integer, DepartmentVo> departmentVoMap = vos.stream()
                 .collect(Collectors.toMap(DepartmentVo::getId, e -> e));
-        // 构建菜单树
         List<DepartmentVo> rootMenus = buildTree(departmentVoMap);
         return rootMenus;
     }
@@ -149,13 +132,10 @@ public class DepartmentBusiness {
     }
 
     public List<SwDepartment> getDepartment() {
-        if (!CollectionUtils.isEmpty(departmentList)) {
-            return departmentList;
-        }
         SwDepartmentExample example = new SwDepartmentExample();
         SwDepartmentExample.Criteria criteria = example.createCriteria();
         criteria.andStatusEqualTo(1);
-        departmentList = departmentExtensionMapper.selectByExample(example);
+        List<SwDepartment> departmentList = departmentExtensionMapper.selectByExample(example);
         return departmentList;
     }
 
@@ -253,9 +233,6 @@ public class DepartmentBusiness {
         SwDepartment department = new SwDepartment();
         department.setId(departmentID);
         department.setStatus(0);
-        treeDepartmentVos = null;
-        departmentVos = null;
-        departmentList = null;
         return departmentExtensionMapper.updateByPrimaryKeySelective(department) > 0;
     }
 
@@ -275,9 +252,6 @@ public class DepartmentBusiness {
         } else {
             count = departmentExtensionMapper.insertSelective(department);
         }
-        treeDepartmentVos = null;
-        departmentVos = null;
-        departmentList = null;
         return count > 0;
 
     }
