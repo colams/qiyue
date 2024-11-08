@@ -52,7 +52,7 @@ public interface SwTaskExtensionMapper extends SwTaskMapper {
             " and st.create_time &lt;= #{params.create_e,jdbcType=VARCHAR}",
             "</if> ",
             "<if test='proposer!=null and proposer!=\"\"' >",
-            " and ((st.proposer_eid = #{proposer,jdbcType=VARCHAR} and st.status in (0,1,2,3,4,6,7)) or st.status in (1,2,3,4,7))",
+            " and ((st.proposer_eid = #{proposer,jdbcType=VARCHAR} and st.status in (0,1,2,3,4,7)) or st.status in (1,2,3,4,7))",
             "</if> ",
 
             "<if test='params.handler!=null and params.handler!=\"\"' >",
@@ -85,6 +85,7 @@ public interface SwTaskExtensionMapper extends SwTaskMapper {
             "<if test='params.searchType==4'  >",
             " and st.status in (1,2) and dead_line &lt;#{nowDate,jdbcType=VARCHAR} ",
             "</if> ",
+            " and st.status!=6 ",
             "</where>",
             "ORDER BY st.id desc",
             "LIMIT #{start,jdbcType=INTEGER} , #{end,jdbcType=INTEGER} ",
@@ -154,7 +155,7 @@ public interface SwTaskExtensionMapper extends SwTaskMapper {
             " and st.create_time &lt;= #{params.create_e,jdbcType=VARCHAR}",
             "</if> ",
             "<if test='proposer!=null and proposer!=\"\"' >",
-            " and ((st.proposer_eid = #{proposer,jdbcType=VARCHAR} and st.status in (0,1,2,3,4,6,7)) or st.status in (1,2,3,4,6,7))",
+            " and ((st.proposer_eid = #{proposer,jdbcType=VARCHAR} and st.status in (0,1,2,3,4,7)) or st.status in (1,2,3,4,7))",
             "</if> ",
 
             "<if test='params.handler!=null and params.handler!=\"\"' >",
@@ -187,6 +188,7 @@ public interface SwTaskExtensionMapper extends SwTaskMapper {
             "<if test='params.searchType==4'  >",
             " and st.status in (1,2) and dead_line &lt;#{nowDate,jdbcType=VARCHAR} ",
             "</if> ",
+            " and st.status!=6 ",
             "</where>",
             "ORDER BY st.id ",
             "</script>"
