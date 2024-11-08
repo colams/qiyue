@@ -1,13 +1,9 @@
 package com.foxconn.sw.data.dto.entity.universal;
 
-import io.swagger.v3.oas.annotations.media.Schema;
-
 public class OperateEntity {
 
     private String operateName;
-    private Boolean enable;
-    // @Schema(description = "取值范围：查看(view),更新(update),分派(assign),验收(check),撤销(revoke)", name = "操作类型")
-    @Schema(description = "取值范围：查看(view),更新(update),跟催(going),撤销(revoke)", name = "操作类型")
+    private boolean enable;
     private String operateType;
     private Integer subOperateType;
 
@@ -19,11 +15,11 @@ public class OperateEntity {
         this.operateName = operateName;
     }
 
-    public Boolean getEnable() {
+    public boolean getEnable() {
         return enable;
     }
 
-    public void setEnable(Boolean enable) {
+    public void setEnable(boolean enable) {
         this.enable = enable;
     }
 

@@ -28,6 +28,17 @@ public class ConfigReader {
         return environment.getProperty(ConfigKey.BASE_UPLOAD_PATH);
     }
 
+
+    /**
+     * 读取配置文件
+     *
+     * @return
+     */
+    public String getDevelopConfig() {
+        return environment.getProperty(ConfigKey.FEEDBACK_DEVELOP_CONFIG);
+    }
+
+
     public interface ConfigKey {
         String TOOL_FILE = "tool.file.base.path";
         String TOOL_ICON = "tool.icon.base.path";
@@ -35,5 +46,6 @@ public class ConfigReader {
         String TOOL_RESULT = "tool.result.base.path";
         String OA_RESOURCE = "oa.base.path";
         String BASE_UPLOAD_PATH = "upload.base.path";
+        String FEEDBACK_DEVELOP_CONFIG = "feedback.develop.config";
     }
 }

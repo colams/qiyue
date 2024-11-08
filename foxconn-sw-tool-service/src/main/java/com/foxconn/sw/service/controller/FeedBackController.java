@@ -4,9 +4,10 @@ package com.foxconn.sw.service.controller;
 import com.foxconn.sw.data.constants.TagsConstants;
 import com.foxconn.sw.data.dto.Request;
 import com.foxconn.sw.data.dto.Response;
+import com.foxconn.sw.data.dto.entity.feedback.FeedBackVo;
 import com.foxconn.sw.data.dto.request.feedback.CreateFeedBackParams;
+import com.foxconn.sw.data.dto.request.feedback.FeedBackConditionParams;
 import com.foxconn.sw.data.dto.request.feedback.FeedBackStatusParams;
-import com.foxconn.sw.data.entity.SwFeedback;
 import com.foxconn.sw.service.aspects.Permission;
 import com.foxconn.sw.service.processor.feedback.FeedBackListProcessor;
 import com.foxconn.sw.service.processor.feedback.FeedBackSaveProcessor;
@@ -33,8 +34,8 @@ public class FeedBackController {
     @Operation(summary = "获取反馈问题", tags = TagsConstants.SYSTEM)
     @ApiResponse(responseCode = "0", description = "成功码")
     @PostMapping("/list")
-    public Response<List<SwFeedback>> list(@Valid @RequestBody Request request) {
-        List<SwFeedback> feedbacks = feedBackListProcessor.list();
+    public Response<List<FeedBackVo>> list(@Valid @RequestBody Request<FeedBackConditionParams> request) {
+        List<FeedBackVo> feedbacks = feedBackListProcessor.list(request.getData());
         return ResponseUtils.success(feedbacks, request.getTraceId());
     }
 

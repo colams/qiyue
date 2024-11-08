@@ -16,16 +16,21 @@ public class SwFeedbackBusiness {
     @Autowired
     SwFeedbackExtMapper feedbackExtMapper;
 
-    public List<SwFeedback> queryFeedBack(String employeeNo, Integer status) {
+    public List<SwFeedback> queryFeedBack(String employeeNo, String title, Integer status) {
         SwFeedbackExample example = new SwFeedbackExample();
         SwFeedbackExample.Criteria criteria = example.createCriteria();
         if (StringUtils.isNotEmpty(employeeNo)) {
             criteria.andEmployeeNoEqualTo(employeeNo);
         }
 
-        if (Objects.nonNull(status) && status > 0) {
+        if (StringUtils.isNotEmpty(title)) {
+            criteria.andTitleLike("%" + title + "%");
+        }
+
+        if (Objects.nonNull(status)) {
             criteria.andStatusEqualTo(status);
         }
+
         example.setOrderByClause(" status,id ");
         return feedbackExtMapper.selectByExampleWithBLOBs(example);
     }
