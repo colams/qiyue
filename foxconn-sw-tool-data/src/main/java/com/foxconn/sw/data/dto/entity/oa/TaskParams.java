@@ -30,11 +30,17 @@ public class TaskParams {
     @Schema(description = "分类")
     private String category;
 
-    @Schema(description = "分类")
+    @Schema(description = "創建時間開始")
     private String create_s;
 
-    @Schema(description = "分类")
+    @Schema(description = "創建時間結束")
     private String create_e;
+
+    @Schema(description = "截止時間開始")
+    private String deadline_s;
+
+    @Schema(description = "截止時間結束")
+    private String deadline_e;
 
     @Schema(description = "模糊查询关键词")
     @Pattern(regexp = "^\\S*$", message = "字符串不能全部为空格")
@@ -123,6 +129,22 @@ public class TaskParams {
 
     public void setCreate_e(String create_e) {
         this.create_e = create_e;
+    }
+
+    public String getDeadline_s() {
+        return deadline_s;
+    }
+
+    public void setDeadline_s(String deadline_s) {
+        this.deadline_s = deadline_s;
+    }
+
+    public String getDeadline_e() {
+        return deadline_e;
+    }
+
+    public void setDeadline_e(String deadline_e) {
+        this.deadline_e = deadline_e;
     }
 
     public String getKeyWord() {

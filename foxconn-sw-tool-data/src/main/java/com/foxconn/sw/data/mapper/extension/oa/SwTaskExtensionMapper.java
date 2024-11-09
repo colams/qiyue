@@ -51,6 +51,14 @@ public interface SwTaskExtensionMapper extends SwTaskMapper {
             "<if test='params.create_e!=null and params.create_e!=\"\"' >",
             " and st.create_time &lt;= #{params.create_e,jdbcType=VARCHAR}",
             "</if> ",
+
+            "<if test='params.deadline_s!=null and params.deadline_s!=\"\"' >",
+            " and st.dead_line &gt;= #{params.deadline_s,jdbcType=VARCHAR}",
+            "</if> ",
+            "<if test='params.deadline_e!=null and params.deadline_e!=\"\"' >",
+            " and st.dead_line &lt;= #{params.deadline_e,jdbcType=VARCHAR}",
+            "</if> ",
+
             "<if test='proposer!=null and proposer!=\"\"' >",
             " and ((st.proposer_eid = #{proposer,jdbcType=VARCHAR} and st.status in (0,1,2,3,4,6,7)) or st.status in (1,2,3,4,7))",
             "</if> ",
@@ -165,6 +173,14 @@ public interface SwTaskExtensionMapper extends SwTaskMapper {
             "<if test='params.create_e!=null and params.create_e!=\"\"' >",
             " and st.create_time &lt;= #{params.create_e,jdbcType=VARCHAR}",
             "</if> ",
+
+            "<if test='params.deadline_s!=null and params.deadline_s!=\"\"' >",
+            " and st.dead_line &gt;= #{params.deadline_s,jdbcType=VARCHAR}",
+            "</if> ",
+            "<if test='params.deadline_e!=null and params.deadline_e!=\"\"' >",
+            " and st.dead_line &lt;= #{params.deadline_e,jdbcType=VARCHAR}",
+            "</if> ",
+
             "<if test='proposer!=null and proposer!=\"\"' >",
             " and ((st.proposer_eid = #{proposer,jdbcType=VARCHAR} and st.status in (0,1,2,3,4,6,7)) or st.status in (1,2,3,4,6,7))",
             "</if> ",
