@@ -116,7 +116,7 @@ public class WorkReportController {
             return ResponseEntity.ok().body(null);
         }
         // 使用Apache POI生成Excel文件
-        Workbook workbook = ExcelWorkReportUtils.generateExcel(vos);
+        Workbook workbook = ExcelWorkReportUtils.generateExcel(vos, request.getData().getStartDate(), request.getData().getEndDate());
 
         // 将Excel文件写入响应输出流
         OutputStream outputStream = response.getOutputStream();

@@ -51,6 +51,8 @@ public class TaskParams {
     @ConstantsValue(intValues = {0, 1, 2}, message = "请求类型不存在！")
     private Integer viewType;
 
+    private List<String> orderBys;
+
     public String getTaskNo() {
         return taskNo;
     }
@@ -153,5 +155,13 @@ public class TaskParams {
 
     public void setViewType(Integer viewType) {
         this.viewType = viewType;
+    }
+
+    public List<String> getOrderBys() {
+        return orderBys;
+    }
+
+    public void setOrderBys(List<String> orderBys) {
+        this.orderBys = orderBys;
     }
 }

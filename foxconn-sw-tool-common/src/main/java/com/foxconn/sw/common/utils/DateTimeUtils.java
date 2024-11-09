@@ -1,5 +1,6 @@
 package com.foxconn.sw.common.utils;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -42,6 +43,15 @@ public class DateTimeUtils {
         return localDateTime.format(DateTimeFormatter.ofPattern(pattern));
     }
 
+    /**
+     * 设置时间戳
+     *
+     * @return
+     */
+    public static String format(String inputDate, String pattern) {
+        LocalDate localDate = LocalDate.parse(inputDate);
+        return localDate.format(DateTimeFormatter.ofPattern(pattern));
+    }
 
     /**
      * 设置时间戳

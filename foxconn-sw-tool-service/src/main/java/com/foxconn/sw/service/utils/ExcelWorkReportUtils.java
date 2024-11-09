@@ -1,6 +1,7 @@
 package com.foxconn.sw.service.utils;
 
 import com.foxconn.sw.business.context.RequestContext;
+import com.foxconn.sw.common.utils.DateTimeUtils;
 import com.foxconn.sw.common.utils.WeekUtils;
 import com.foxconn.sw.data.dto.entity.acount.UserInfo;
 import com.foxconn.sw.data.dto.entity.oa.WorkReportDetail;
@@ -17,6 +18,7 @@ import org.springframework.util.CollectionUtils;
 
 import java.awt.Color;
 import java.time.LocalDateTime;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -60,7 +62,7 @@ public class ExcelWorkReportUtils {
     // RGB值 -计划颜色
     private static XSSFColor Gray_Color = new XSSFColor(new Color(192, 192, 192), new DefaultIndexedColorMap());
 
-    public static Workbook generateExcel(List<WorkReportVo> vos) {
+    public static Workbook generateExcel(List<WorkReportVo> vos, String startDate, String endDate) {
         Map<String, List<WorkReportVo>> map = vos.stream()
                 .collect(Collectors.groupingBy(e -> e.getEmployee().getName()));
 
@@ -71,13 +73,13 @@ public class ExcelWorkReportUtils {
 
         for (Map.Entry<String, List<WorkReportVo>> entry : map.entrySet()) {
             Sheet sheet = workbook.createSheet(entry.getKey());
-            processReport(workbook, sheet, entry.getValue());
+            processReport(workbook, sheet, entry.getValue(), startDate, endDate);
         }
 
         return workbook;
     }
 
-    private static void processReport(Workbook workbook, Sheet sheet, List<WorkReportVo> vos) {
+    private static void processReport(Workbook workbook, Sheet sheet, List<WorkReportVo> vos, String startDate, String endDate) {
         int rowNum = 0;
         Row headerRow0 = sheet.createRow(rowNum++);
 
@@ -92,7 +94,7 @@ public class ExcelWorkReportUtils {
         cell1.setCellValue("Weekly Report");
         cell1.setCellStyle(m_style);
         Cell cell2 = headerRow0.createCell(6);
-        cell2.setCellValue("Week: WK33");
+        cell2.setCellValue("Week: WK" + vos.get(0).getWeek());
         cell2.setCellStyle(r_style);
 
         CellRangeAddress cellAddressTitle = new CellRangeAddress(
@@ -104,7 +106,7 @@ public class ExcelWorkReportUtils {
         cell20.setCellStyle(r_style);
 
         Cell cell26 = headerRow1.createCell(6);
-        cell26.setCellValue("Date:8/10~8/16");
+        cell26.setCellValue(String.format("Date:%s~%s", DateTimeUtils.format(startDate, "MM/dd"), DateTimeUtils.format(endDate, "MM/dd")));
         cell26.setCellStyle(r_style);
 
         if (rowNum == 2) {
@@ -285,7 +287,7 @@ public class ExcelWorkReportUtils {
             Row row = sheet.createRow(rowNum + (i++));
 
             boolean isSubmit = entry.getValue().stream()
-                    .anyMatch(e -> e.getWeek() == weekNum && !CollectionUtils.isEmpty(e.getReportDetailList()));
+                    .anyMatch(e -> e.getWeek().equals(weekNum) && !CollectionUtils.isEmpty(e.getReportDetailList()));
             CellStyle style = isSubmit ? style5 : style6;
 
             int reportItems = getReportItems(entry.getValue(), weekNum);
@@ -353,7 +355,7 @@ public class ExcelWorkReportUtils {
         return reportVos.stream()
                 .filter(e -> !CollectionUtils.isEmpty(e.getReportDetailList()))
                 .map(WorkReportVo::getWeek)
-                .sorted(Integer::compare)
+                .sorted(Comparator.comparing(Integer::intValue).reversed())
                 .findFirst()
                 .orElse(0);
     }

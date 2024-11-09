@@ -86,7 +86,19 @@ public interface SwTaskExtensionMapper extends SwTaskMapper {
             " and st.status in (1,2) and dead_line &lt;#{nowDate,jdbcType=VARCHAR} ",
             "</if> ",
             "</where>",
-            "ORDER BY st.id desc",
+
+            "<choose>",
+            "<when test='params.orderBys!=null and params.orderBys.size()>0'>",
+            "ORDER BY ",
+            "<foreach collection='params.orderBys' item='orderBy' separator=',' >",
+            "#{status,jdbcType=VARCHAR} ",
+            "</foreach>",
+            "</when>",
+            "<otherwise>",
+            "ORDER BY id desc",
+            "</otherwise>",
+            "</choose>",
+
             "LIMIT #{start,jdbcType=INTEGER} , #{end,jdbcType=INTEGER} ",
             "</script>"
     })
