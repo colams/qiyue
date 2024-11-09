@@ -125,6 +125,7 @@ public class TaskListProcessor {
 
             if (TaskRoleFlagEnums.Manager_Flag.test(optional.get().getRoleFlag())) {
                 List<SwTaskEmployeeRelation> nexts = relations.stream()
+                        .filter(r -> TaskRoleFlagEnums.Watcher_Flag.getFlag() != r.getRoleFlag())
                         .filter(r -> r.getPrevId().equals(optional.get().getId()))
                         .collect(Collectors.toList());
                 if (CollectionUtils.isEmpty(nexts)) {
