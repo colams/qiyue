@@ -8,6 +8,7 @@ import com.foxconn.sw.data.dto.Response;
 import com.foxconn.sw.data.dto.entity.oa.*;
 import com.foxconn.sw.data.dto.entity.universal.IntegerParams;
 import com.foxconn.sw.data.dto.request.task.OverviewParams;
+import com.foxconn.sw.data.dto.request.task.TaskEmployRelationParams;
 import com.foxconn.sw.data.dto.request.task.UpdateTaskParams;
 import com.foxconn.sw.data.entity.SwTask;
 import com.foxconn.sw.service.aspects.Permission;
@@ -57,6 +58,8 @@ public class TaskController {
     AcceptProcessor acceptProcessor;
     @Autowired
     BriefDetailProcessor briefDetail;
+    @Autowired
+    TaskEmployeeRelationProcessor employeeRelationProcessor;
 
     @Permission
     @Operation(summary = "创建任务", tags = TagsConstants.OA)
@@ -183,4 +186,14 @@ public class TaskController {
         boolean result = acceptProcessor.accept(request.getData().getParams(), request.getHead());
         return ResponseUtils.success(result, request.getTraceId());
     }
+
+    @Permission
+    @Operation(summary = "接受任务", tags = TagsConstants.OA)
+    @ApiResponse(responseCode = "0", description = "成功码")
+    @PostMapping("/taskEmployeeRelation")
+    public Response taskEmployeeRelation(@Valid @RequestBody Request<TaskEmployRelationParams> request) {
+        boolean result = employeeRelationProcessor.updateEmployeeRelation(request.getData());
+        return ResponseUtils.success(result, request.getTraceId());
+    }
+
 }

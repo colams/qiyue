@@ -40,7 +40,8 @@ public enum TaskRoleFlagEnums {
     }
 
     public Integer setFlag(Integer flags) {
-        return flags | getFlag();
+        int flag = Objects.isNull(flags) ? 0 : flags;
+        return flag | getFlag();
     }
 
     public Integer initFlag() {
