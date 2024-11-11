@@ -11,9 +11,11 @@ public class WorkReportVo {
     private String employeeNo;
     private EmployeeVo employee;
     private List<WorkReportDetail> reportDetailList;
+    private Integer reportType;
     private String message;
     private int score;
     private boolean canScore;
+
 
     public Integer getWeek() {
         return week;
@@ -53,6 +55,14 @@ public class WorkReportVo {
 
     public void setReportDetailList(List<WorkReportDetail> reportDetailList) {
         this.reportDetailList = reportDetailList;
+    }
+
+    public Integer getReportType() {
+        return reportType;
+    }
+
+    public void setReportType(Integer reportType) {
+        this.reportType = reportType;
     }
 
     public String getMessage() {

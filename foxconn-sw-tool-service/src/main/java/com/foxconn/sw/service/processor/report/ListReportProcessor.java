@@ -7,6 +7,7 @@ import com.foxconn.sw.business.report.SwWorkReportScoreBusiness;
 import com.foxconn.sw.business.system.DepartmentBusiness;
 import com.foxconn.sw.business.system.EmployeeBusiness;
 import com.foxconn.sw.common.utils.PinyinUtils;
+import com.foxconn.sw.common.utils.constanst.NumberConstants;
 import com.foxconn.sw.data.dto.entity.acount.EmployeeVo;
 import com.foxconn.sw.data.dto.entity.oa.ReportSearchParams;
 import com.foxconn.sw.data.dto.entity.oa.WorkReportDetail;
@@ -76,6 +77,7 @@ public class ListReportProcessor {
                 vo.setEmployee(employeeVo);
                 vo.setEmployeeNo(e.getEmployeeNo());
                 vo.setReportDetailList(Lists.newArrayList(detail));
+                vo.setReportType(detail.getReportType());
                 vos.add(vo);
             } else {
                 vo.getReportDetailList().add(detail);
@@ -97,7 +99,9 @@ public class ListReportProcessor {
         Map<String, Integer> map = queryScore(searchWeeks);
         List<WorkReportVo> result = vos.stream().map(e -> {
             Integer score = map.getOrDefault(yearWeekEno(e.getYearWeek(), e.getEmployeeNo()), 0);
-            e.setCanScore(employeeBusiness.isDRIHigher(e.getEmployeeNo(), RequestContext.getEmployeeNo()));
+            if (NumberConstants.ZERO.equals(e.getReportType())) {
+                e.setCanScore(employeeBusiness.isDRIHigher(e.getEmployeeNo(), RequestContext.getEmployeeNo()));
+            }
             e.setScore(score);
             return e;
         }).collect(Collectors.toList());
@@ -153,6 +157,7 @@ public class ListReportProcessor {
         vo.setReportDetailList(Lists.newArrayList());
         vo.setScore(0);
         vo.setCanScore(false);
+        vo.setReportType(null);
         return vo;
     }
 
@@ -164,6 +169,7 @@ public class ListReportProcessor {
         detail.setTarget(e.getTarget());
         detail.setCurrent(e.getCurrent());
         detail.setRemark(e.getRemark());
+        detail.setReportType(e.getReportType());
         return detail;
     }
 

@@ -12,6 +12,7 @@ public class WorkReportDetail {
     private Integer target;
     private Integer current;
     private String remark;
+    private Integer reportType;
 
     public int getId() {
         return id;
@@ -75,5 +76,13 @@ public class WorkReportDetail {
 
     public void setRemark(String remark) {
         this.remark = remark;
+    }
+
+    public Integer getReportType() {
+        return reportType;
+    }
+
+    public void setReportType(Integer reportType) {
+        this.reportType = reportType;
     }
 }
