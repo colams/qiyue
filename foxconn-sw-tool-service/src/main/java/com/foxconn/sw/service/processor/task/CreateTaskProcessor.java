@@ -1,5 +1,6 @@
 package com.foxconn.sw.service.processor.task;
 
+import com.foxconn.sw.business.SwCapexSetBusiness;
 import com.foxconn.sw.business.TaskNoSeedSingleton;
 import com.foxconn.sw.business.context.RequestContext;
 import com.foxconn.sw.business.mapper.TaskMapper;
@@ -20,6 +21,7 @@ import com.google.common.collect.Lists;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.util.CollectionUtils;
 
 import java.util.List;
 import java.util.Objects;
@@ -44,6 +46,9 @@ public class CreateTaskProcessor {
     TaskNoSeedSingleton taskNoSeedSingleton;
     @Autowired
     SwTaskEmployeeRelationBusiness taskEmployeeRelation;
+    @Autowired
+    SwCapexSetBusiness capexSetBusiness;
+
 
     public Integer createTask(TaskBriefDetailVo data) {
 
@@ -61,6 +66,12 @@ public class CreateTaskProcessor {
         addTaskLog(task, isUpdate);
         addProcessInfo(task, data.getResourceIds(), isUpdate);
         taskEmployeeRelation.addRelationAtCreate(taskID, data.getManagers(), data.getWatchers());
+
+        if (!CollectionUtils.isEmpty(data.getCapexParamsVos())) {
+            // todo process capex params
+            capexSetBusiness.insertSet(taskID, data.getCapexParamsVos());
+        }
+
         return taskID;
     }
 

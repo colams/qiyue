@@ -80,6 +80,8 @@ public class TaskBriefDetailVo {
     @Schema(description = "0-暂存/草稿，1-待确认需求")
     private Integer status;
 
+    private List<CapexParamsVo> capexParamsVos;
+
     public Integer getId() {
         return id;
     }
@@ -166,5 +168,13 @@ public class TaskBriefDetailVo {
 
     public void setManagers(List<String> managers) {
         this.managers = managers;
+    }
+
+    public List<CapexParamsVo> getCapexParamsVos() {
+        return capexParamsVos;
+    }
+
+    public void setCapexParamsVos(List<CapexParamsVo> capexParamsVos) {
+        this.capexParamsVos = capexParamsVos;
     }
 }
