@@ -1,11 +1,16 @@
 package com.foxconn.sw.service.processor.project;
 
+import com.foxconn.sw.business.context.RequestContext;
 import com.foxconn.sw.business.project.ProjectBusiness;
 import com.foxconn.sw.business.project.ProjectItemBusiness;
+import com.foxconn.sw.business.system.DepartmentBusiness;
+import com.foxconn.sw.business.system.EmployeeBusiness;
 import com.foxconn.sw.data.dto.entity.KvPairs;
 import com.foxconn.sw.data.dto.entity.project.HeaderVo;
 import com.foxconn.sw.data.dto.entity.project.ProjectItemVo;
 import com.foxconn.sw.data.dto.entity.project.ProjectListVo;
+import com.foxconn.sw.data.entity.SwDepartment;
+import com.foxconn.sw.data.entity.SwEmployee;
 import com.foxconn.sw.data.entity.SwProject;
 import com.foxconn.sw.data.entity.SwProjectItem;
 import com.foxconn.sw.service.utils.ExcelProjectUtils;
@@ -39,6 +44,10 @@ public class ProjectListProcessor {
     ProjectItemBusiness projectItemBusiness;
     @Autowired
     private ResourceLoader resourceLoader;
+    @Autowired
+    DepartmentBusiness departmentBusiness;
+    @Autowired
+    EmployeeBusiness employeeBusiness;
 
 
     public ProjectListVo list() throws IOException {
@@ -62,8 +71,9 @@ public class ProjectListProcessor {
     private List<ProjectItemVo> getProjectItems(List<HeaderVo> headerVos) {
         List<SwProject> projectList = projectBusiness.queryProjectList();
         List<SwProjectItem> projectItems = projectItemBusiness.queryProjectItems();
-        boolean hasPower = true;
-
+        SwEmployee swEmployee = employeeBusiness.selectEmployeeByENo(RequestContext.getEmployeeNo());
+        SwDepartment department = departmentBusiness.getDepartment(swEmployee.getDepartmentId());
+        boolean hasPower = department.getLevel() <= 3;
         List<ProjectItemVo> vos = Lists.newArrayList();
 
         projectList.forEach(e -> {
@@ -111,12 +121,14 @@ public class ProjectListProcessor {
         for (int i = 1; i < headerVos.size(); i++) {
             HeaderVo header = headerVos.get(i);
             String textValue;
+            boolean power = hasPower;
             if (i <= 10) {
+                power = false;
                 textValue = getProjectText(project, i);
             } else {
                 textValue = map.getOrDefault(header.getTitle(), "");
             }
-            processMap(kvPairsMap, header.getTitle(), textValue, hasPower);
+            processMap(kvPairsMap, header.getTitle(), textValue, power);
         }
 
         return kvPairsMap;
