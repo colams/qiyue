@@ -12,6 +12,8 @@ public class CollaborationVo {
     private ResourceVo resource;
     private Long taskNo;
     private String taskTitle;
+    private Boolean canSubmit;
+    private Boolean canFinish;
 
     public List<String> getHeaders() {
         return headers;
@@ -51,5 +53,21 @@ public class CollaborationVo {
 
     public void setTaskTitle(String taskTitle) {
         this.taskTitle = taskTitle;
+    }
+
+    public Boolean getCanSubmit() {
+        return canSubmit;
+    }
+
+    public void setCanSubmit(Boolean canSubmit) {
+        this.canSubmit = canSubmit;
+    }
+
+    public Boolean getCanFinish() {
+        return canFinish;
+    }
+
+    public void setCanFinish(Boolean canFinish) {
+        this.canFinish = canFinish;
     }
 }

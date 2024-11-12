@@ -49,7 +49,10 @@ public class CollaborationDetailProcessor {
      * @throws FileNotFoundException
      */
     public CollaborationVo detail(CollaborationDetailParams params) throws FileNotFoundException {
+
         SwTask swTask = taskBusiness.getTaskById(params.getTaskID());
+        List<SwTaskEmployeeRelation> relations = taskEmployeeRelationBusiness.getRelationsByTaskIdAndRole(params.getTaskID(), TaskRoleFlagEnums.Manager_Flag);
+
         ResourceVo resourceVo = collaborationUser.getResourceVo(params.getTaskID());
         List<String> header = collaborationUser.getTaskHeader(params.getTaskID());
         CollaborationVo vo = new CollaborationVo();
@@ -58,6 +61,8 @@ public class CollaborationDetailProcessor {
         vo.setResource(resourceVo);
         vo.setTaskNo(swTask.getTaskNo());
         vo.setTaskTitle(swTask.getTitle());
+        vo.setCanFinish(RequestContext.getEmployeeNo().equalsIgnoreCase(swTask.getProposerEid()));
+        vo.setCanSubmit(relations.stream().anyMatch(e -> e.getEmployeeNo().equalsIgnoreCase(RequestContext.getEmployeeNo())));
         return vo;
     }
 
