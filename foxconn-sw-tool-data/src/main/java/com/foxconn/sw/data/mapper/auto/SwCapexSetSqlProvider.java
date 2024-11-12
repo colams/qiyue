@@ -37,7 +37,7 @@ public class SwCapexSetSqlProvider {
         }
         
         if (record.getType() != null) {
-            sql.VALUES("type", "#{type,jdbcType=INTEGER}");
+            sql.VALUES("type", "#{type,jdbcType=VARCHAR}");
         }
         
         if (record.getNumber() != null) {
@@ -108,7 +108,7 @@ public class SwCapexSetSqlProvider {
         }
         
         if (record.getType() != null) {
-            sql.SET("type = #{record.type,jdbcType=INTEGER}");
+            sql.SET("type = #{record.type,jdbcType=VARCHAR}");
         }
         
         if (record.getNumber() != null) {
@@ -142,7 +142,7 @@ public class SwCapexSetSqlProvider {
         sql.SET("id = #{record.id,jdbcType=INTEGER}");
         sql.SET("task_id = #{record.taskId,jdbcType=INTEGER}");
         sql.SET("sheet_name = #{record.sheetName,jdbcType=VARCHAR}");
-        sql.SET("type = #{record.type,jdbcType=INTEGER}");
+        sql.SET("type = #{record.type,jdbcType=VARCHAR}");
         sql.SET("number = #{record.number,jdbcType=INTEGER}");
         sql.SET("set_value = #{record.setValue,jdbcType=VARCHAR}");
         sql.SET("is_delete = #{record.isDelete,jdbcType=INTEGER}");
@@ -167,7 +167,7 @@ public class SwCapexSetSqlProvider {
         }
         
         if (record.getType() != null) {
-            sql.SET("type = #{type,jdbcType=INTEGER}");
+            sql.SET("type = #{type,jdbcType=VARCHAR}");
         }
         
         if (record.getNumber() != null) {

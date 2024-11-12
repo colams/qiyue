@@ -105,6 +105,8 @@ public class TaskBriefListVo {
 
     private Boolean isCollaboration;
 
+    private TaskListFilterVo filterCondition;
+
     public Integer getId() {
         return id;
     }
@@ -264,5 +266,13 @@ public class TaskBriefListVo {
 
     public void setCollaboration(Boolean collaboration) {
         isCollaboration = collaboration;
+    }
+
+    public TaskListFilterVo getFilterCondition() {
+        return filterCondition;
+    }
+
+    public void setFilterCondition(TaskListFilterVo filterCondition) {
+        this.filterCondition = filterCondition;
     }
 }

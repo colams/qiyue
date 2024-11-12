@@ -9,7 +9,7 @@ public class SwCapexSet {
 
     private String sheetName;
 
-    private Integer type;
+    private String type;
 
     private Integer number;
 
@@ -60,17 +60,17 @@ public class SwCapexSet {
         this.sheetName = sheetName == null ? null : sheetName.trim();
     }
 
-    public Integer getType() {
+    public String getType() {
         return type;
     }
 
-    public SwCapexSet withType(Integer type) {
+    public SwCapexSet withType(String type) {
         this.setType(type);
         return this;
     }
 
-    public void setType(Integer type) {
-        this.type = type;
+    public void setType(String type) {
+        this.type = type == null ? null : type.trim();
     }
 
     public Integer getNumber() {

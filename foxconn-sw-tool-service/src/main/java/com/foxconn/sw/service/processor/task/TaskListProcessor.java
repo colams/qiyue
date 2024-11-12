@@ -12,6 +12,7 @@ import com.foxconn.sw.data.dto.PageEntity;
 import com.foxconn.sw.data.dto.PageParams;
 import com.foxconn.sw.data.dto.entity.acount.EmployeeVo;
 import com.foxconn.sw.data.dto.entity.oa.TaskBriefListVo;
+import com.foxconn.sw.data.dto.entity.oa.TaskListFilterVo;
 import com.foxconn.sw.data.dto.entity.oa.TaskParams;
 import com.foxconn.sw.data.dto.entity.universal.OperateEntity;
 import com.foxconn.sw.data.entity.SwEmployee;
@@ -54,6 +55,16 @@ public class TaskListProcessor {
         int totalCount = taskBusiness.getTotalCountByParams(taskParams.getParams(), employeeNos, proposer);
         PageEntity<TaskBriefListVo> voPageEntity = new PageEntity<>(totalCount, briefListVos);
         return voPageEntity;
+    }
+
+    private TaskListFilterVo initCondition(PageParams<TaskParams> taskParams) {
+        TaskListFilterVo filterVo = new TaskListFilterVo();
+        filterVo.setProjectFilter(new ArrayList<>());
+        filterVo.setCategoryFilter(new ArrayList<>());
+        filterVo.setStateFilter(new ArrayList<>());
+        filterVo.setProposeFilter(new ArrayList<>());
+        filterVo.setSupervisorFilter(new ArrayList<>());
+        return filterVo;
     }
 
     private String processDate(String create_e) {
