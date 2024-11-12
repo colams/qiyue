@@ -72,6 +72,17 @@ public class CollaborationUserBusiness {
         return collaborationUserMapper.selectByExample(example);
     }
 
+    public List<SwCollaborationUser> queryCollaborationUser(Integer taskId, List<Long> ids) {
+        SwCollaborationUserExample example = new SwCollaborationUserExample();
+        SwCollaborationUserExample.Criteria criteria = example.createCriteria();
+        if (!CollectionUtils.isEmpty(ids)) {
+            criteria.andIdIn(ids);
+        }
+        criteria.andTaskIdEqualTo(taskId);
+        criteria.andIsDeleteEqualTo(0);
+        return collaborationUserMapper.selectByExample(example);
+    }
+
     public SwCollaborationUser queryCollaborationUserByID(Long id) {
         return collaborationUserMapper.selectByPrimaryKey(id);
     }

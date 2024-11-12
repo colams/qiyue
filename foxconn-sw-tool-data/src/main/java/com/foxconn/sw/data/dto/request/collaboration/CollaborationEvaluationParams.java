@@ -3,6 +3,7 @@ package com.foxconn.sw.data.dto.request.collaboration;
 import java.util.List;
 
 public class CollaborationEvaluationParams {
+    private Integer taskID;
 
     private List<Long> idList;
 
@@ -11,6 +12,13 @@ public class CollaborationEvaluationParams {
      */
     private Integer evaluationType;
 
+    public Integer getTaskID() {
+        return taskID;
+    }
+
+    public void setTaskID(Integer taskID) {
+        this.taskID = taskID;
+    }
 
     public List<Long> getIdList() {
         return idList;

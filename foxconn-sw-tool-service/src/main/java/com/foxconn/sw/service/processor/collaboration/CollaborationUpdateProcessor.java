@@ -63,7 +63,8 @@ public class CollaborationUpdateProcessor {
     }
 
     public Boolean evaluation(CollaborationEvaluationParams data) {
-        List<SwCollaborationUser> collaborationUsers = collaborationUserBusiness.queryCollaborationUser(data.getIdList());
+        List<SwCollaborationUser> collaborationUsers = collaborationUserBusiness
+                .queryCollaborationUser(data.getTaskID(), data.getIdList());
 
         SwTask task = taskBusiness.getTaskById(collaborationUsers.get(0).getTaskId());
         if (!RequestContext.getEmployeeNo().equalsIgnoreCase(task.getProposerEid())) {
