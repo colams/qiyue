@@ -50,6 +50,7 @@ public class CollaborationDetailProcessor {
      */
     public CollaborationVo detail(CollaborationDetailParams params) throws FileNotFoundException {
 
+        List<SwCollaborationUser> collaborationUsers = collaborationUser.queryCollaborationUser(params.getTaskID());
         SwTask swTask = taskBusiness.getTaskById(params.getTaskID());
         List<SwTaskEmployeeRelation> relations = taskEmployeeRelationBusiness.getRelationsByTaskIdAndRole(params.getTaskID(), TaskRoleFlagEnums.Manager_Flag);
 
@@ -62,7 +63,7 @@ public class CollaborationDetailProcessor {
         vo.setTaskNo(swTask.getTaskNo());
         vo.setTaskTitle(swTask.getTitle());
         vo.setCanFinish(RequestContext.getEmployeeNo().equalsIgnoreCase(swTask.getProposerEid()));
-        vo.setCanSubmit(relations.stream().anyMatch(e -> e.getEmployeeNo().equalsIgnoreCase(RequestContext.getEmployeeNo())));
+        vo.setCanSubmit(relations.stream().anyMatch(e -> e.getEmployeeNo().equalsIgnoreCase(RequestContext.getEmployeeNo())) || (!CollectionUtils.isEmpty(collaborationUsers) && collaborationUsers.stream().anyMatch(e -> e.getEmployeeNo().equalsIgnoreCase(RequestContext.getEmployeeNo()))));
         return vo;
     }
 
@@ -121,6 +122,11 @@ public class CollaborationDetailProcessor {
 
             EmployeeVo employeeVo1 = (EmployeeVo) e1.get("handler");
             EmployeeVo employeeVo2 = (EmployeeVo) e2.get("handler");
+            if (employeeVo1.getEmployeeNo().compareTo(employeeVo2.getEmployeeNo()) == 0) {
+                Long e1ID = (Long) e1.get("id");
+                Long e2ID = (Long) e2.get("id");
+                return e2ID.compareTo(e1ID);
+            }
             return employeeVo1.getEmployeeNo().compareTo(employeeVo2.getEmployeeNo());
         });
         return list;
