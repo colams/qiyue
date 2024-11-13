@@ -63,7 +63,7 @@ public class CollaborationDetailProcessor {
         vo.setTaskNo(swTask.getTaskNo());
         vo.setTaskTitle(swTask.getTitle());
         vo.setCanFinish(RequestContext.getEmployeeNo().equalsIgnoreCase(swTask.getProposerEid()));
-        vo.setCanSubmit(relations.stream().anyMatch(e -> e.getEmployeeNo().equalsIgnoreCase(RequestContext.getEmployeeNo())) || (!CollectionUtils.isEmpty(collaborationUsers) && collaborationUsers.stream().anyMatch(e -> e.getEmployeeNo().equalsIgnoreCase(RequestContext.getEmployeeNo()))));
+        vo.setCanSubmit(relations.stream().anyMatch(e -> e.getEmployeeNo().equalsIgnoreCase(RequestContext.getEmployeeNo())) || (!CollectionUtils.isEmpty(collaborationUsers) && collaborationUsers.stream().anyMatch(e -> e.getEmployeeNo().equalsIgnoreCase(RequestContext.getEmployeeNo())) && collaborationUsers.stream().anyMatch(e -> !e.getStatus().equals(2))));
         return vo;
     }
 

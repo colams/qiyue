@@ -3,7 +3,6 @@ package com.foxconn.sw.service.processor.report;
 import com.foxconn.sw.business.context.RequestContext;
 import com.foxconn.sw.business.system.DepartmentBusiness;
 import com.foxconn.sw.business.system.EmployeeBusiness;
-import com.foxconn.sw.common.utils.SecurityUtils;
 import com.foxconn.sw.data.entity.SwDepartment;
 import com.foxconn.sw.service.processor.utils.ReportSearchParamsUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -31,7 +30,7 @@ public class ReportFileNameProcessor {
                 }).findFirst()
                 .orElse("");
         String weekOfYear = ReportSearchParamsUtils.processDate(startDate);
-        return String.format("CMA_RD_%s_Weekly Report _WK%s.xlsx", SecurityUtils.encodeURL(department,"UTF8"), weekOfYear);
+        return String.format("Weekly Report _WK%s.xlsx", weekOfYear);
     }
 
 }

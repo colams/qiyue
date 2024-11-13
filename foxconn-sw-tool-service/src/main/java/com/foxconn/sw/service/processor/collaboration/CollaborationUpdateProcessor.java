@@ -79,6 +79,9 @@ public class CollaborationUpdateProcessor {
 
     public Boolean submit(CollaborationDetailParams data) {
         SwCollaborationUser collaboration = collaborationUserBusiness.queryCollaborationUserByID(data.getId());
+        if (Objects.isNull(collaboration)) {
+            return false;
+        }
         collaboration.setStatus(1);
         return collaborationUserBusiness.updateUser(collaboration);
     }
