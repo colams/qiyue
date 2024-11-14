@@ -30,8 +30,8 @@ public class OaController {
     @Operation(summary = "OA 分类信息", tags = TagsConstants.OA)
     @ApiResponse(responseCode = "0", description = "成功码")
     @PostMapping("/oaOptionList")
-    public Response<OAOptionVo> oaOptionList(@Valid @RequestBody Request request) {
-        OAOptionVo result = optionListProcessor.getOptions();
+    public Response<OAOptionVo> oaOptionList(@Valid @RequestBody Request<StringParams> request) {
+        OAOptionVo result = optionListProcessor.getOptions(request.getData());
         return ResponseUtils.success(result, request.getTraceId());
     }
 

@@ -110,8 +110,14 @@ public class OAOptionConfig {
         return optionsVos;
     }
 
-    public static List<OptionsVo> initTaskType() {
+    public static List<OptionsVo> initTaskType(String params) {
         List<OptionsVo> optionsVos = new ArrayList<>();
+        if (params.equalsIgnoreCase("capex")){
+            addOptionVo("6-2", "協作任務", optionsVos);
+            addOptionVo("Capex", "Capex", optionsVos);
+            return optionsVos;
+        }
+
         List<OptionsVo> optionsVos1 = new ArrayList<>();
         OptionsVo optionsVo1 = new OptionsVo("1", "MIL", optionsVos1);
         optionsVos1.add(new OptionsVo("1-1", "設備"));
@@ -246,5 +252,4 @@ public class OAOptionConfig {
         return optionsVos;
 
     }
-
 }
