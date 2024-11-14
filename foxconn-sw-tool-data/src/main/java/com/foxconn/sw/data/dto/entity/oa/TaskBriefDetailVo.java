@@ -28,6 +28,21 @@ public class TaskBriefDetailVo {
     private String category;
 
     /**
+     * 专案-所属项目
+     */
+    @Schema(description = "专案-所属项目")
+    @NotNull(message = "专案不能爲空！")
+    private String topProject;
+
+    /**
+     * 任务分类
+     */
+    @Schema(description = "任务分类")
+    @NotNull(message = "任务分类不能爲空！")
+    private String topCategory;
+
+
+    /**
      * 优先等级
      */
     @Schema(description = "优先等级")
@@ -104,6 +119,22 @@ public class TaskBriefDetailVo {
 
     public void setCategory(String category) {
         this.category = category;
+    }
+
+    public String getTopProject() {
+        return topProject;
+    }
+
+    public void setTopProject(String topProject) {
+        this.topProject = topProject;
+    }
+
+    public String getTopCategory() {
+        return topCategory;
+    }
+
+    public void setTopCategory(String topCategory) {
+        this.topCategory = topCategory;
     }
 
     public String getLevel() {

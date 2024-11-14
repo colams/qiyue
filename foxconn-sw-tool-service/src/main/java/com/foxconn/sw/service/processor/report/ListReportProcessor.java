@@ -100,7 +100,8 @@ public class ListReportProcessor {
         List<WorkReportVo> result = vos.stream().map(e -> {
             Integer score = map.getOrDefault(yearWeekEno(e.getYearWeek(), e.getEmployeeNo()), 0);
             if (NumberConstants.ZERO.equals(e.getReportType())) {
-                e.setCanScore(employeeBusiness.isDRIHigher(e.getEmployeeNo(), RequestContext.getEmployeeNo()));
+                e.setCanScore(employeeBusiness.isDRIHigher(e.getEmployeeNo(), RequestContext.getEmployeeNo())
+                        && e.getReportType() == 0);
             }
             e.setScore(score);
             return e;
