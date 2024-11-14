@@ -5,7 +5,7 @@ public enum OperateTypeEnum {
     VIEW("详情", "list"),
     UPDATE("更新", "list"),
     REMINDER("跟催", "list"),
-    REVOKE("撤销", "list"),
+    REVOKE("删除", "list"),
 
     REJECT("駁回", "detail"),
     ASSIGN("轉交", "detail"),
