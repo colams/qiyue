@@ -2,7 +2,6 @@ package com.foxconn.sw.service.processor.acount;
 
 import com.foxconn.sw.business.context.RequestContext;
 import com.foxconn.sw.business.system.EmployeeBusiness;
-import com.foxconn.sw.common.utils.PinyinUtils;
 import com.foxconn.sw.data.dto.entity.acount.EmployeeVo;
 import com.foxconn.sw.data.dto.request.account.QuerySubEmpParams;
 import com.foxconn.sw.data.entity.SwEmployee;
@@ -24,7 +23,9 @@ public class QueryMemberProcessor {
 
     public List<EmployeeVo> queryMembers(QuerySubEmpParams params) {
         List<EmployeeVo> vos = queryMember(params);
-        Collections.sort(vos, (a, b) -> PinyinUtils.toPinyin(a.getName()).compareTo(PinyinUtils.toPinyin(b.getName())));
+        Collections.sort(vos, (a, b) -> {
+            return a.getPinyin().compareTo(b.getPinyin());
+        });
         return vos;
     }
 

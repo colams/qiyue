@@ -25,6 +25,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
 
+import java.time.LocalDate;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -57,7 +58,7 @@ public class ListReportProcessor {
 
         List<String> searchWeeks = ReportSearchParamsUtils.getYearWeekPair(searchParams, isExport);
         List<SwWorkReport> reports = reportBusiness.queryReport(searchWeeks, searchParams.getReportType(), employees);
-
+        String currentYearWeek = ReportSearchParamsUtils.processDate(LocalDate.now());
         List<WorkReportVo> vos = new ArrayList<>();
         reports.stream().forEach(e -> {
             WorkReportVo vo = vos.stream()
@@ -65,6 +66,12 @@ public class ListReportProcessor {
                             && v.getEmployee().getEmployeeNo().equalsIgnoreCase(e.getEmployeeNo()))
                     .findFirst()
                     .orElse(null);
+
+            if (!NumberConstants.TWO.equals(searchParams.getSearchType())
+                    && NumberConstants.ONE.equals(e.getReportType())
+                    && currentYearWeek.compareTo(e.getYearWeek()) >= 0) {
+                return;
+            }
 
             WorkReportDetail detail = initDetail(e);
             if (Objects.isNull(vo)) {
@@ -121,16 +128,17 @@ public class ListReportProcessor {
                 }
                 return PinyinUtils.toPinyin(a.getEmployee().getName()).compareTo(PinyinUtils.toPinyin(b.getEmployee().getName()));
             });
+        } else {
+            if (retValue.get(0).getYearWeek().compareTo(currentYearWeek) > 0
+                    && CollectionUtils.isEmpty(retValue.get(0).getReportDetailList())
+            && retValue.size()>=3) {
+                List<WorkReportDetail> unComplete = retValue.get(2).getReportDetailList()
+                        .stream().filter(e -> e.getTarget() != 100)
+                        .collect(Collectors.toList());
+                retValue.get(1).setReportDetailList(unComplete);
+            }
         }
         return retValue;
-    }
-
-    private void lockUpdate(ReportSearchParams searchParams, boolean isExport, List<String> searchWeeks) {
-        boolean sameWeek = ReportSearchParamsUtils.getTimeSpan(searchParams.getStartDate(), searchParams.getEndDate()) < 7;
-        if (isExport && sameWeek) {
-            // 暂时先不锁定
-            reportLockBusiness.updateLockStatusYearWeek(searchWeeks.get(searchWeeks.size() - 2));
-        }
     }
 
     private Map<String, Integer> queryScore(List<String> yearWeeks) {

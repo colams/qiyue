@@ -18,8 +18,6 @@ public class ReportSearchParams {
     private String startDate;
     private String endDate;
 
-    private Boolean showPlan;
-
     public Integer getSearchType() {
         return searchType;
     }
@@ -82,13 +80,5 @@ public class ReportSearchParams {
 
     public void setEndDate(String endDate) {
         this.endDate = endDate;
-    }
-
-    public Boolean getShowPlan() {
-        return showPlan;
-    }
-
-    public void setShowPlan(Boolean showPlan) {
-        this.showPlan = showPlan;
     }
 }

@@ -70,7 +70,10 @@ public class EmployeeBusiness {
         Collections.sort(vos, (a, b) -> {
             a.setFirstLetter(PinyinUtils.firstLetter(a.getName()));
             b.setFirstLetter(PinyinUtils.firstLetter(b.getName()));
-            return PinyinUtils.toPinyin(a.getName()).compareTo(PinyinUtils.toPinyin(b.getName()));
+
+            a.setPinyin(PinyinUtils.toPinyin(a.getName()));
+            b.setPinyin(PinyinUtils.toPinyin(b.getName()));
+            return a.getPinyin().compareTo(b.getPinyin());
         });
         return vos;
     }

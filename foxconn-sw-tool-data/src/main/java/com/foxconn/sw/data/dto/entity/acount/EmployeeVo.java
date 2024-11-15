@@ -12,6 +12,8 @@ public class EmployeeVo {
 
     private String firstLetter;
 
+    private String pinyin;
+
     public String getName() {
         return name;
     }
@@ -50,5 +52,13 @@ public class EmployeeVo {
 
     public void setFirstLetter(String firstLetter) {
         this.firstLetter = firstLetter;
+    }
+
+    public String getPinyin() {
+        return pinyin;
+    }
+
+    public void setPinyin(String pinyin) {
+        this.pinyin = pinyin;
     }
 }
