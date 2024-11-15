@@ -9,6 +9,7 @@ import com.foxconn.sw.data.constants.enums.retcode.RetCode;
 import com.foxconn.sw.data.dto.Request;
 import com.foxconn.sw.data.dto.Response;
 import com.foxconn.sw.data.dto.entity.universal.IntegerParams;
+import com.foxconn.sw.data.dto.entity.universal.StringParams;
 import com.foxconn.sw.data.dto.entity.universal.UploadResult;
 import com.foxconn.sw.data.entity.SwAppendResource;
 import com.foxconn.sw.service.processor.universal.UploadProcessor;
@@ -92,6 +93,13 @@ public class CommonController {
     public Response entrance(@Valid @RequestBody Request<IntegerParams> request) {
         Response response = ResponseUtils.success(request.getTraceId());
         return response;
+    }
+
+    @Operation(summary = "设备管理", tags = TagsConstants.UNIVERSAL)
+    @ApiResponse(responseCode = "0", description = "成功码")
+    @PostMapping("/valid")
+    public Response<String> valid(@Valid @RequestBody Request<StringParams> request) {
+        return ResponseUtils.success(request.getTraceId(), request.getTraceId());
     }
 
     @Operation(summary = "test 接口", tags = TagsConstants.UNIVERSAL)
