@@ -32,8 +32,8 @@ public class TaskStatusUtils {
             desc = "驗收駁回";
         }
         if (taskStatusEnums == TaskStatusEnums.ACCEPTING && isProposer && !isInspector) {
-            desc = taskStatusEnums.getMsg();
             taskStatusEnums = TaskStatusEnums.PROCESSING;
+            desc = taskStatusEnums.getMsg();
         }
 
         InfoColorVo statusInfoVo = initVo(taskStatusEnums, desc);
