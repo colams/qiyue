@@ -68,6 +68,10 @@ public class SwProjectSqlProvider {
             sql.VALUES("application", "#{application,jdbcType=VARCHAR}");
         }
         
+        if (record.getOperator() != null) {
+            sql.VALUES("operator", "#{operator,jdbcType=VARCHAR}");
+        }
+        
         if (record.getIsDelete() != null) {
             sql.VALUES("is_delete", "#{isDelete,jdbcType=INTEGER}");
         }
@@ -100,6 +104,7 @@ public class SwProjectSqlProvider {
         sql.SELECT("customer");
         sql.SELECT("customer_part_no");
         sql.SELECT("application");
+        sql.SELECT("operator");
         sql.SELECT("is_delete");
         sql.SELECT("create_time");
         sql.SELECT("datetime_lastchange");
@@ -164,6 +169,10 @@ public class SwProjectSqlProvider {
             sql.SET("application = #{record.application,jdbcType=VARCHAR}");
         }
         
+        if (record.getOperator() != null) {
+            sql.SET("operator = #{record.operator,jdbcType=VARCHAR}");
+        }
+        
         if (record.getIsDelete() != null) {
             sql.SET("is_delete = #{record.isDelete,jdbcType=INTEGER}");
         }
@@ -195,6 +204,7 @@ public class SwProjectSqlProvider {
         sql.SET("customer = #{record.customer,jdbcType=VARCHAR}");
         sql.SET("customer_part_no = #{record.customerPartNo,jdbcType=VARCHAR}");
         sql.SET("application = #{record.application,jdbcType=VARCHAR}");
+        sql.SET("operator = #{record.operator,jdbcType=VARCHAR}");
         sql.SET("is_delete = #{record.isDelete,jdbcType=INTEGER}");
         sql.SET("create_time = #{record.createTime,jdbcType=TIMESTAMP}");
         sql.SET("datetime_lastchange = #{record.datetimeLastchange,jdbcType=TIMESTAMP}");
@@ -246,6 +256,10 @@ public class SwProjectSqlProvider {
         
         if (record.getApplication() != null) {
             sql.SET("application = #{application,jdbcType=VARCHAR}");
+        }
+        
+        if (record.getOperator() != null) {
+            sql.SET("operator = #{operator,jdbcType=VARCHAR}");
         }
         
         if (record.getIsDelete() != null) {

@@ -25,6 +25,8 @@ public class SwProject {
 
     private String application;
 
+    private String operator;
+
     private Integer isDelete;
 
     private LocalDateTime createTime;
@@ -172,6 +174,19 @@ public class SwProject {
 
     public void setApplication(String application) {
         this.application = application == null ? null : application.trim();
+    }
+
+    public String getOperator() {
+        return operator;
+    }
+
+    public SwProject withOperator(String operator) {
+        this.setOperator(operator);
+        return this;
+    }
+
+    public void setOperator(String operator) {
+        this.operator = operator == null ? null : operator.trim();
     }
 
     public Integer getIsDelete() {

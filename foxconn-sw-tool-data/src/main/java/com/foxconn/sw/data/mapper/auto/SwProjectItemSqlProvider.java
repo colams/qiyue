@@ -52,6 +52,10 @@ public class SwProjectItemSqlProvider {
             sql.VALUES("project_value", "#{projectValue,jdbcType=VARCHAR}");
         }
         
+        if (record.getOperator() != null) {
+            sql.VALUES("operator", "#{operator,jdbcType=VARCHAR}");
+        }
+        
         if (record.getIsDelete() != null) {
             sql.VALUES("is_delete", "#{isDelete,jdbcType=INTEGER}");
         }
@@ -80,6 +84,7 @@ public class SwProjectItemSqlProvider {
         sql.SELECT("detail_type");
         sql.SELECT("project_item");
         sql.SELECT("project_value");
+        sql.SELECT("operator");
         sql.SELECT("is_delete");
         sql.SELECT("create_time");
         sql.SELECT("datetime_lastchange");
@@ -128,6 +133,10 @@ public class SwProjectItemSqlProvider {
             sql.SET("project_value = #{record.projectValue,jdbcType=VARCHAR}");
         }
         
+        if (record.getOperator() != null) {
+            sql.SET("operator = #{record.operator,jdbcType=VARCHAR}");
+        }
+        
         if (record.getIsDelete() != null) {
             sql.SET("is_delete = #{record.isDelete,jdbcType=INTEGER}");
         }
@@ -155,6 +164,7 @@ public class SwProjectItemSqlProvider {
         sql.SET("detail_type = #{record.detailType,jdbcType=VARCHAR}");
         sql.SET("project_item = #{record.projectItem,jdbcType=VARCHAR}");
         sql.SET("project_value = #{record.projectValue,jdbcType=VARCHAR}");
+        sql.SET("operator = #{record.operator,jdbcType=VARCHAR}");
         sql.SET("is_delete = #{record.isDelete,jdbcType=INTEGER}");
         sql.SET("create_time = #{record.createTime,jdbcType=TIMESTAMP}");
         sql.SET("datetime_lastchange = #{record.datetimeLastchange,jdbcType=TIMESTAMP}");
@@ -190,6 +200,10 @@ public class SwProjectItemSqlProvider {
         
         if (record.getProjectValue() != null) {
             sql.SET("project_value = #{projectValue,jdbcType=VARCHAR}");
+        }
+        
+        if (record.getOperator() != null) {
+            sql.SET("operator = #{operator,jdbcType=VARCHAR}");
         }
         
         if (record.getIsDelete() != null) {

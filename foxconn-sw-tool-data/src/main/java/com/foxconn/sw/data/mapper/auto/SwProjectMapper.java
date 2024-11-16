@@ -39,15 +39,15 @@ public interface SwProjectMapper {
         "manufacturing_model, status, ",
         "rfq_time, customer, ",
         "customer_part_no, application, ",
-        "is_delete, create_time, ",
-        "datetime_lastchange)",
+        "operator, is_delete, ",
+        "create_time, datetime_lastchange)",
         "values (#{years,jdbcType=INTEGER}, #{projectCode,jdbcType=VARCHAR}, ",
         "#{customerName,jdbcType=VARCHAR}, #{fullName,jdbcType=VARCHAR}, ",
         "#{manufacturingModel,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, ",
         "#{rfqTime,jdbcType=VARCHAR}, #{customer,jdbcType=VARCHAR}, ",
         "#{customerPartNo,jdbcType=VARCHAR}, #{application,jdbcType=VARCHAR}, ",
-        "#{isDelete,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, ",
-        "#{datetimeLastchange,jdbcType=TIMESTAMP})"
+        "#{operator,jdbcType=VARCHAR}, #{isDelete,jdbcType=INTEGER}, ",
+        "#{createTime,jdbcType=TIMESTAMP}, #{datetimeLastchange,jdbcType=TIMESTAMP})"
     })
     @SelectKey(statement="SELECT LAST_INSERT_ID()", keyProperty="id", before=false, resultType=Integer.class)
     int insert(SwProject record);
@@ -69,6 +69,7 @@ public interface SwProjectMapper {
         @Result(column="customer", property="customer", jdbcType=JdbcType.VARCHAR),
         @Result(column="customer_part_no", property="customerPartNo", jdbcType=JdbcType.VARCHAR),
         @Result(column="application", property="application", jdbcType=JdbcType.VARCHAR),
+        @Result(column="operator", property="operator", jdbcType=JdbcType.VARCHAR),
         @Result(column="is_delete", property="isDelete", jdbcType=JdbcType.INTEGER),
         @Result(column="create_time", property="createTime", jdbcType=JdbcType.TIMESTAMP),
         @Result(column="datetime_lastchange", property="datetimeLastchange", jdbcType=JdbcType.TIMESTAMP)
@@ -88,6 +89,7 @@ public interface SwProjectMapper {
         @Result(column="customer", property="customer", jdbcType=JdbcType.VARCHAR),
         @Result(column="customer_part_no", property="customerPartNo", jdbcType=JdbcType.VARCHAR),
         @Result(column="application", property="application", jdbcType=JdbcType.VARCHAR),
+        @Result(column="operator", property="operator", jdbcType=JdbcType.VARCHAR),
         @Result(column="is_delete", property="isDelete", jdbcType=JdbcType.INTEGER),
         @Result(column="create_time", property="createTime", jdbcType=JdbcType.TIMESTAMP),
         @Result(column="datetime_lastchange", property="datetimeLastchange", jdbcType=JdbcType.TIMESTAMP)
@@ -97,7 +99,8 @@ public interface SwProjectMapper {
     @Select({
         "select",
         "id, years, project_code, customer_name, full_name, manufacturing_model, status, ",
-        "rfq_time, customer, customer_part_no, application, is_delete, create_time, datetime_lastchange",
+        "rfq_time, customer, customer_part_no, application, operator, is_delete, create_time, ",
+        "datetime_lastchange",
         "from sw_project",
         "where id = #{id,jdbcType=INTEGER}"
     })
@@ -113,6 +116,7 @@ public interface SwProjectMapper {
         @Result(column="customer", property="customer", jdbcType=JdbcType.VARCHAR),
         @Result(column="customer_part_no", property="customerPartNo", jdbcType=JdbcType.VARCHAR),
         @Result(column="application", property="application", jdbcType=JdbcType.VARCHAR),
+        @Result(column="operator", property="operator", jdbcType=JdbcType.VARCHAR),
         @Result(column="is_delete", property="isDelete", jdbcType=JdbcType.INTEGER),
         @Result(column="create_time", property="createTime", jdbcType=JdbcType.TIMESTAMP),
         @Result(column="datetime_lastchange", property="datetimeLastchange", jdbcType=JdbcType.TIMESTAMP)
@@ -140,6 +144,7 @@ public interface SwProjectMapper {
           "customer = #{customer,jdbcType=VARCHAR},",
           "customer_part_no = #{customerPartNo,jdbcType=VARCHAR},",
           "application = #{application,jdbcType=VARCHAR},",
+          "operator = #{operator,jdbcType=VARCHAR},",
           "is_delete = #{isDelete,jdbcType=INTEGER},",
           "create_time = #{createTime,jdbcType=TIMESTAMP},",
           "datetime_lastchange = #{datetimeLastchange,jdbcType=TIMESTAMP}",
