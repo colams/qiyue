@@ -13,6 +13,10 @@ public class SwAppendResource {
 
     private String operator;
 
+    private Integer isDelete;
+
+    private LocalDateTime createTime;
+
     private LocalDateTime datetimeLastchange;
 
     public Integer getId() {
@@ -78,6 +82,32 @@ public class SwAppendResource {
 
     public void setOperator(String operator) {
         this.operator = operator == null ? null : operator.trim();
+    }
+
+    public Integer getIsDelete() {
+        return isDelete;
+    }
+
+    public SwAppendResource withIsDelete(Integer isDelete) {
+        this.setIsDelete(isDelete);
+        return this;
+    }
+
+    public void setIsDelete(Integer isDelete) {
+        this.isDelete = isDelete;
+    }
+
+    public LocalDateTime getCreateTime() {
+        return createTime;
+    }
+
+    public SwAppendResource withCreateTime(LocalDateTime createTime) {
+        this.setCreateTime(createTime);
+        return this;
+    }
+
+    public void setCreateTime(LocalDateTime createTime) {
+        this.createTime = createTime;
     }
 
     public LocalDateTime getDatetimeLastchange() {

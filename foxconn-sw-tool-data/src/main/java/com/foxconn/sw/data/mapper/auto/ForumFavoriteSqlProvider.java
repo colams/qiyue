@@ -1,47 +1,39 @@
 package com.foxconn.sw.data.mapper.auto;
 
-import com.foxconn.sw.data.entity.SwAppendResource;
-import com.foxconn.sw.data.entity.SwAppendResourceExample.Criteria;
-import com.foxconn.sw.data.entity.SwAppendResourceExample.Criterion;
-import com.foxconn.sw.data.entity.SwAppendResourceExample;
+import com.foxconn.sw.data.entity.ForumFavorite;
+import com.foxconn.sw.data.entity.ForumFavoriteExample.Criteria;
+import com.foxconn.sw.data.entity.ForumFavoriteExample.Criterion;
+import com.foxconn.sw.data.entity.ForumFavoriteExample;
 import java.util.List;
 import java.util.Map;
 import org.apache.ibatis.jdbc.SQL;
 
-public class SwAppendResourceSqlProvider {
+public class ForumFavoriteSqlProvider {
 
-    public String countByExample(SwAppendResourceExample example) {
+    public String countByExample(ForumFavoriteExample example) {
         SQL sql = new SQL();
-        sql.SELECT("count(*)").FROM("sw_append_resource");
+        sql.SELECT("count(*)").FROM("forum_favorite");
         applyWhere(sql, example, false);
         return sql.toString();
     }
 
-    public String deleteByExample(SwAppendResourceExample example) {
+    public String deleteByExample(ForumFavoriteExample example) {
         SQL sql = new SQL();
-        sql.DELETE_FROM("sw_append_resource");
+        sql.DELETE_FROM("forum_favorite");
         applyWhere(sql, example, false);
         return sql.toString();
     }
 
-    public String insertSelective(SwAppendResource record) {
+    public String insertSelective(ForumFavorite record) {
         SQL sql = new SQL();
-        sql.INSERT_INTO("sw_append_resource");
+        sql.INSERT_INTO("forum_favorite");
         
-        if (record.getOriginName() != null) {
-            sql.VALUES("origin_name", "#{originName,jdbcType=VARCHAR}");
+        if (record.getAuthorNo() != null) {
+            sql.VALUES("author_no", "#{authorNo,jdbcType=VARCHAR}");
         }
         
-        if (record.getFilePath() != null) {
-            sql.VALUES("file_path", "#{filePath,jdbcType=VARCHAR}");
-        }
-        
-        if (record.getUploadType() != null) {
-            sql.VALUES("upload_type", "#{uploadType,jdbcType=VARCHAR}");
-        }
-        
-        if (record.getOperator() != null) {
-            sql.VALUES("operator", "#{operator,jdbcType=VARCHAR}");
+        if (record.getPostsId() != null) {
+            sql.VALUES("posts_id", "#{postsId,jdbcType=INTEGER}");
         }
         
         if (record.getIsDelete() != null) {
@@ -52,28 +44,26 @@ public class SwAppendResourceSqlProvider {
             sql.VALUES("create_time", "#{createTime,jdbcType=TIMESTAMP}");
         }
         
-        if (record.getDatetimeLastchange() != null) {
-            sql.VALUES("datetime_lastchange", "#{datetimeLastchange,jdbcType=TIMESTAMP}");
+        if (record.getDatatimeLastchange() != null) {
+            sql.VALUES("datatime_lastchange", "#{datatimeLastchange,jdbcType=TIMESTAMP}");
         }
         
         return sql.toString();
     }
 
-    public String selectByExample(SwAppendResourceExample example) {
+    public String selectByExample(ForumFavoriteExample example) {
         SQL sql = new SQL();
         if (example != null && example.isDistinct()) {
             sql.SELECT_DISTINCT("id");
         } else {
             sql.SELECT("id");
         }
-        sql.SELECT("origin_name");
-        sql.SELECT("file_path");
-        sql.SELECT("upload_type");
-        sql.SELECT("operator");
+        sql.SELECT("author_no");
+        sql.SELECT("posts_id");
         sql.SELECT("is_delete");
         sql.SELECT("create_time");
-        sql.SELECT("datetime_lastchange");
-        sql.FROM("sw_append_resource");
+        sql.SELECT("datatime_lastchange");
+        sql.FROM("forum_favorite");
         applyWhere(sql, example, false);
         
         if (example != null && example.getOrderByClause() != null) {
@@ -84,30 +74,22 @@ public class SwAppendResourceSqlProvider {
     }
 
     public String updateByExampleSelective(Map<String, Object> parameter) {
-        SwAppendResource record = (SwAppendResource) parameter.get("record");
-        SwAppendResourceExample example = (SwAppendResourceExample) parameter.get("example");
+        ForumFavorite record = (ForumFavorite) parameter.get("record");
+        ForumFavoriteExample example = (ForumFavoriteExample) parameter.get("example");
         
         SQL sql = new SQL();
-        sql.UPDATE("sw_append_resource");
+        sql.UPDATE("forum_favorite");
         
         if (record.getId() != null) {
             sql.SET("id = #{record.id,jdbcType=INTEGER}");
         }
         
-        if (record.getOriginName() != null) {
-            sql.SET("origin_name = #{record.originName,jdbcType=VARCHAR}");
+        if (record.getAuthorNo() != null) {
+            sql.SET("author_no = #{record.authorNo,jdbcType=VARCHAR}");
         }
         
-        if (record.getFilePath() != null) {
-            sql.SET("file_path = #{record.filePath,jdbcType=VARCHAR}");
-        }
-        
-        if (record.getUploadType() != null) {
-            sql.SET("upload_type = #{record.uploadType,jdbcType=VARCHAR}");
-        }
-        
-        if (record.getOperator() != null) {
-            sql.SET("operator = #{record.operator,jdbcType=VARCHAR}");
+        if (record.getPostsId() != null) {
+            sql.SET("posts_id = #{record.postsId,jdbcType=INTEGER}");
         }
         
         if (record.getIsDelete() != null) {
@@ -118,8 +100,8 @@ public class SwAppendResourceSqlProvider {
             sql.SET("create_time = #{record.createTime,jdbcType=TIMESTAMP}");
         }
         
-        if (record.getDatetimeLastchange() != null) {
-            sql.SET("datetime_lastchange = #{record.datetimeLastchange,jdbcType=TIMESTAMP}");
+        if (record.getDatatimeLastchange() != null) {
+            sql.SET("datatime_lastchange = #{record.datatimeLastchange,jdbcType=TIMESTAMP}");
         }
         
         applyWhere(sql, example, true);
@@ -128,40 +110,30 @@ public class SwAppendResourceSqlProvider {
 
     public String updateByExample(Map<String, Object> parameter) {
         SQL sql = new SQL();
-        sql.UPDATE("sw_append_resource");
+        sql.UPDATE("forum_favorite");
         
         sql.SET("id = #{record.id,jdbcType=INTEGER}");
-        sql.SET("origin_name = #{record.originName,jdbcType=VARCHAR}");
-        sql.SET("file_path = #{record.filePath,jdbcType=VARCHAR}");
-        sql.SET("upload_type = #{record.uploadType,jdbcType=VARCHAR}");
-        sql.SET("operator = #{record.operator,jdbcType=VARCHAR}");
+        sql.SET("author_no = #{record.authorNo,jdbcType=VARCHAR}");
+        sql.SET("posts_id = #{record.postsId,jdbcType=INTEGER}");
         sql.SET("is_delete = #{record.isDelete,jdbcType=INTEGER}");
         sql.SET("create_time = #{record.createTime,jdbcType=TIMESTAMP}");
-        sql.SET("datetime_lastchange = #{record.datetimeLastchange,jdbcType=TIMESTAMP}");
+        sql.SET("datatime_lastchange = #{record.datatimeLastchange,jdbcType=TIMESTAMP}");
         
-        SwAppendResourceExample example = (SwAppendResourceExample) parameter.get("example");
+        ForumFavoriteExample example = (ForumFavoriteExample) parameter.get("example");
         applyWhere(sql, example, true);
         return sql.toString();
     }
 
-    public String updateByPrimaryKeySelective(SwAppendResource record) {
+    public String updateByPrimaryKeySelective(ForumFavorite record) {
         SQL sql = new SQL();
-        sql.UPDATE("sw_append_resource");
+        sql.UPDATE("forum_favorite");
         
-        if (record.getOriginName() != null) {
-            sql.SET("origin_name = #{originName,jdbcType=VARCHAR}");
+        if (record.getAuthorNo() != null) {
+            sql.SET("author_no = #{authorNo,jdbcType=VARCHAR}");
         }
         
-        if (record.getFilePath() != null) {
-            sql.SET("file_path = #{filePath,jdbcType=VARCHAR}");
-        }
-        
-        if (record.getUploadType() != null) {
-            sql.SET("upload_type = #{uploadType,jdbcType=VARCHAR}");
-        }
-        
-        if (record.getOperator() != null) {
-            sql.SET("operator = #{operator,jdbcType=VARCHAR}");
+        if (record.getPostsId() != null) {
+            sql.SET("posts_id = #{postsId,jdbcType=INTEGER}");
         }
         
         if (record.getIsDelete() != null) {
@@ -172,8 +144,8 @@ public class SwAppendResourceSqlProvider {
             sql.SET("create_time = #{createTime,jdbcType=TIMESTAMP}");
         }
         
-        if (record.getDatetimeLastchange() != null) {
-            sql.SET("datetime_lastchange = #{datetimeLastchange,jdbcType=TIMESTAMP}");
+        if (record.getDatatimeLastchange() != null) {
+            sql.SET("datatime_lastchange = #{datatimeLastchange,jdbcType=TIMESTAMP}");
         }
         
         sql.WHERE("id = #{id,jdbcType=INTEGER}");
@@ -181,7 +153,7 @@ public class SwAppendResourceSqlProvider {
         return sql.toString();
     }
 
-    protected void applyWhere(SQL sql, SwAppendResourceExample example, boolean includeExamplePhrase) {
+    protected void applyWhere(SQL sql, ForumFavoriteExample example, boolean includeExamplePhrase) {
         if (example == null) {
             return;
         }

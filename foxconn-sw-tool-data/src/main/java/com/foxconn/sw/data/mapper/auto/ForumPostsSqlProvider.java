@@ -1,79 +1,102 @@
 package com.foxconn.sw.data.mapper.auto;
 
-import com.foxconn.sw.data.entity.SwAppendResource;
-import com.foxconn.sw.data.entity.SwAppendResourceExample.Criteria;
-import com.foxconn.sw.data.entity.SwAppendResourceExample.Criterion;
-import com.foxconn.sw.data.entity.SwAppendResourceExample;
+import com.foxconn.sw.data.entity.ForumPosts;
+import com.foxconn.sw.data.entity.ForumPostsExample.Criteria;
+import com.foxconn.sw.data.entity.ForumPostsExample.Criterion;
+import com.foxconn.sw.data.entity.ForumPostsExample;
 import java.util.List;
 import java.util.Map;
 import org.apache.ibatis.jdbc.SQL;
 
-public class SwAppendResourceSqlProvider {
+public class ForumPostsSqlProvider {
 
-    public String countByExample(SwAppendResourceExample example) {
+    public String countByExample(ForumPostsExample example) {
         SQL sql = new SQL();
-        sql.SELECT("count(*)").FROM("sw_append_resource");
+        sql.SELECT("count(*)").FROM("forum_posts");
         applyWhere(sql, example, false);
         return sql.toString();
     }
 
-    public String deleteByExample(SwAppendResourceExample example) {
+    public String deleteByExample(ForumPostsExample example) {
         SQL sql = new SQL();
-        sql.DELETE_FROM("sw_append_resource");
+        sql.DELETE_FROM("forum_posts");
         applyWhere(sql, example, false);
         return sql.toString();
     }
 
-    public String insertSelective(SwAppendResource record) {
+    public String insertSelective(ForumPosts record) {
         SQL sql = new SQL();
-        sql.INSERT_INTO("sw_append_resource");
+        sql.INSERT_INTO("forum_posts");
         
-        if (record.getOriginName() != null) {
-            sql.VALUES("origin_name", "#{originName,jdbcType=VARCHAR}");
+        if (record.getTitle() != null) {
+            sql.VALUES("title", "#{title,jdbcType=VARCHAR}");
         }
         
-        if (record.getFilePath() != null) {
-            sql.VALUES("file_path", "#{filePath,jdbcType=VARCHAR}");
-        }
-        
-        if (record.getUploadType() != null) {
-            sql.VALUES("upload_type", "#{uploadType,jdbcType=VARCHAR}");
-        }
-        
-        if (record.getOperator() != null) {
-            sql.VALUES("operator", "#{operator,jdbcType=VARCHAR}");
+        if (record.getAuthorNo() != null) {
+            sql.VALUES("author_no", "#{authorNo,jdbcType=VARCHAR}");
         }
         
         if (record.getIsDelete() != null) {
             sql.VALUES("is_delete", "#{isDelete,jdbcType=INTEGER}");
         }
         
+        if (record.getPurview() != null) {
+            sql.VALUES("purview", "#{purview,jdbcType=INTEGER}");
+        }
+        
         if (record.getCreateTime() != null) {
             sql.VALUES("create_time", "#{createTime,jdbcType=TIMESTAMP}");
         }
         
-        if (record.getDatetimeLastchange() != null) {
-            sql.VALUES("datetime_lastchange", "#{datetimeLastchange,jdbcType=TIMESTAMP}");
+        if (record.getLastchangeDatetime() != null) {
+            sql.VALUES("lastchange_datetime", "#{lastchangeDatetime,jdbcType=TIMESTAMP}");
+        }
+        
+        if (record.getDescription() != null) {
+            sql.VALUES("description", "#{description,jdbcType=LONGVARCHAR}");
         }
         
         return sql.toString();
     }
 
-    public String selectByExample(SwAppendResourceExample example) {
+    public String selectByExampleWithBLOBs(ForumPostsExample example) {
         SQL sql = new SQL();
         if (example != null && example.isDistinct()) {
             sql.SELECT_DISTINCT("id");
         } else {
             sql.SELECT("id");
         }
-        sql.SELECT("origin_name");
-        sql.SELECT("file_path");
-        sql.SELECT("upload_type");
-        sql.SELECT("operator");
+        sql.SELECT("title");
+        sql.SELECT("author_no");
         sql.SELECT("is_delete");
+        sql.SELECT("purview");
         sql.SELECT("create_time");
-        sql.SELECT("datetime_lastchange");
-        sql.FROM("sw_append_resource");
+        sql.SELECT("lastchange_datetime");
+        sql.SELECT("description");
+        sql.FROM("forum_posts");
+        applyWhere(sql, example, false);
+        
+        if (example != null && example.getOrderByClause() != null) {
+            sql.ORDER_BY(example.getOrderByClause());
+        }
+        
+        return sql.toString();
+    }
+
+    public String selectByExample(ForumPostsExample example) {
+        SQL sql = new SQL();
+        if (example != null && example.isDistinct()) {
+            sql.SELECT_DISTINCT("id");
+        } else {
+            sql.SELECT("id");
+        }
+        sql.SELECT("title");
+        sql.SELECT("author_no");
+        sql.SELECT("is_delete");
+        sql.SELECT("purview");
+        sql.SELECT("create_time");
+        sql.SELECT("lastchange_datetime");
+        sql.FROM("forum_posts");
         applyWhere(sql, example, false);
         
         if (example != null && example.getOrderByClause() != null) {
@@ -84,96 +107,113 @@ public class SwAppendResourceSqlProvider {
     }
 
     public String updateByExampleSelective(Map<String, Object> parameter) {
-        SwAppendResource record = (SwAppendResource) parameter.get("record");
-        SwAppendResourceExample example = (SwAppendResourceExample) parameter.get("example");
+        ForumPosts record = (ForumPosts) parameter.get("record");
+        ForumPostsExample example = (ForumPostsExample) parameter.get("example");
         
         SQL sql = new SQL();
-        sql.UPDATE("sw_append_resource");
+        sql.UPDATE("forum_posts");
         
         if (record.getId() != null) {
             sql.SET("id = #{record.id,jdbcType=INTEGER}");
         }
         
-        if (record.getOriginName() != null) {
-            sql.SET("origin_name = #{record.originName,jdbcType=VARCHAR}");
+        if (record.getTitle() != null) {
+            sql.SET("title = #{record.title,jdbcType=VARCHAR}");
         }
         
-        if (record.getFilePath() != null) {
-            sql.SET("file_path = #{record.filePath,jdbcType=VARCHAR}");
-        }
-        
-        if (record.getUploadType() != null) {
-            sql.SET("upload_type = #{record.uploadType,jdbcType=VARCHAR}");
-        }
-        
-        if (record.getOperator() != null) {
-            sql.SET("operator = #{record.operator,jdbcType=VARCHAR}");
+        if (record.getAuthorNo() != null) {
+            sql.SET("author_no = #{record.authorNo,jdbcType=VARCHAR}");
         }
         
         if (record.getIsDelete() != null) {
             sql.SET("is_delete = #{record.isDelete,jdbcType=INTEGER}");
         }
         
+        if (record.getPurview() != null) {
+            sql.SET("purview = #{record.purview,jdbcType=INTEGER}");
+        }
+        
         if (record.getCreateTime() != null) {
             sql.SET("create_time = #{record.createTime,jdbcType=TIMESTAMP}");
         }
         
-        if (record.getDatetimeLastchange() != null) {
-            sql.SET("datetime_lastchange = #{record.datetimeLastchange,jdbcType=TIMESTAMP}");
+        if (record.getLastchangeDatetime() != null) {
+            sql.SET("lastchange_datetime = #{record.lastchangeDatetime,jdbcType=TIMESTAMP}");
         }
         
+        if (record.getDescription() != null) {
+            sql.SET("description = #{record.description,jdbcType=LONGVARCHAR}");
+        }
+        
+        applyWhere(sql, example, true);
+        return sql.toString();
+    }
+
+    public String updateByExampleWithBLOBs(Map<String, Object> parameter) {
+        SQL sql = new SQL();
+        sql.UPDATE("forum_posts");
+        
+        sql.SET("id = #{record.id,jdbcType=INTEGER}");
+        sql.SET("title = #{record.title,jdbcType=VARCHAR}");
+        sql.SET("author_no = #{record.authorNo,jdbcType=VARCHAR}");
+        sql.SET("is_delete = #{record.isDelete,jdbcType=INTEGER}");
+        sql.SET("purview = #{record.purview,jdbcType=INTEGER}");
+        sql.SET("create_time = #{record.createTime,jdbcType=TIMESTAMP}");
+        sql.SET("lastchange_datetime = #{record.lastchangeDatetime,jdbcType=TIMESTAMP}");
+        sql.SET("description = #{record.description,jdbcType=LONGVARCHAR}");
+        
+        ForumPostsExample example = (ForumPostsExample) parameter.get("example");
         applyWhere(sql, example, true);
         return sql.toString();
     }
 
     public String updateByExample(Map<String, Object> parameter) {
         SQL sql = new SQL();
-        sql.UPDATE("sw_append_resource");
+        sql.UPDATE("forum_posts");
         
         sql.SET("id = #{record.id,jdbcType=INTEGER}");
-        sql.SET("origin_name = #{record.originName,jdbcType=VARCHAR}");
-        sql.SET("file_path = #{record.filePath,jdbcType=VARCHAR}");
-        sql.SET("upload_type = #{record.uploadType,jdbcType=VARCHAR}");
-        sql.SET("operator = #{record.operator,jdbcType=VARCHAR}");
+        sql.SET("title = #{record.title,jdbcType=VARCHAR}");
+        sql.SET("author_no = #{record.authorNo,jdbcType=VARCHAR}");
         sql.SET("is_delete = #{record.isDelete,jdbcType=INTEGER}");
+        sql.SET("purview = #{record.purview,jdbcType=INTEGER}");
         sql.SET("create_time = #{record.createTime,jdbcType=TIMESTAMP}");
-        sql.SET("datetime_lastchange = #{record.datetimeLastchange,jdbcType=TIMESTAMP}");
+        sql.SET("lastchange_datetime = #{record.lastchangeDatetime,jdbcType=TIMESTAMP}");
         
-        SwAppendResourceExample example = (SwAppendResourceExample) parameter.get("example");
+        ForumPostsExample example = (ForumPostsExample) parameter.get("example");
         applyWhere(sql, example, true);
         return sql.toString();
     }
 
-    public String updateByPrimaryKeySelective(SwAppendResource record) {
+    public String updateByPrimaryKeySelective(ForumPosts record) {
         SQL sql = new SQL();
-        sql.UPDATE("sw_append_resource");
+        sql.UPDATE("forum_posts");
         
-        if (record.getOriginName() != null) {
-            sql.SET("origin_name = #{originName,jdbcType=VARCHAR}");
+        if (record.getTitle() != null) {
+            sql.SET("title = #{title,jdbcType=VARCHAR}");
         }
         
-        if (record.getFilePath() != null) {
-            sql.SET("file_path = #{filePath,jdbcType=VARCHAR}");
-        }
-        
-        if (record.getUploadType() != null) {
-            sql.SET("upload_type = #{uploadType,jdbcType=VARCHAR}");
-        }
-        
-        if (record.getOperator() != null) {
-            sql.SET("operator = #{operator,jdbcType=VARCHAR}");
+        if (record.getAuthorNo() != null) {
+            sql.SET("author_no = #{authorNo,jdbcType=VARCHAR}");
         }
         
         if (record.getIsDelete() != null) {
             sql.SET("is_delete = #{isDelete,jdbcType=INTEGER}");
         }
         
+        if (record.getPurview() != null) {
+            sql.SET("purview = #{purview,jdbcType=INTEGER}");
+        }
+        
         if (record.getCreateTime() != null) {
             sql.SET("create_time = #{createTime,jdbcType=TIMESTAMP}");
         }
         
-        if (record.getDatetimeLastchange() != null) {
-            sql.SET("datetime_lastchange = #{datetimeLastchange,jdbcType=TIMESTAMP}");
+        if (record.getLastchangeDatetime() != null) {
+            sql.SET("lastchange_datetime = #{lastchangeDatetime,jdbcType=TIMESTAMP}");
+        }
+        
+        if (record.getDescription() != null) {
+            sql.SET("description = #{description,jdbcType=LONGVARCHAR}");
         }
         
         sql.WHERE("id = #{id,jdbcType=INTEGER}");
@@ -181,7 +221,7 @@ public class SwAppendResourceSqlProvider {
         return sql.toString();
     }
 
-    protected void applyWhere(SQL sql, SwAppendResourceExample example, boolean includeExamplePhrase) {
+    protected void applyWhere(SQL sql, ForumPostsExample example, boolean includeExamplePhrase) {
         if (example == null) {
             return;
         }

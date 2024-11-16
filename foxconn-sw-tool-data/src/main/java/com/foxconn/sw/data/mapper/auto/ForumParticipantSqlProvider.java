@@ -1,51 +1,39 @@
 package com.foxconn.sw.data.mapper.auto;
 
-import com.foxconn.sw.data.entity.SwAppendResource;
-import com.foxconn.sw.data.entity.SwAppendResourceExample.Criteria;
-import com.foxconn.sw.data.entity.SwAppendResourceExample.Criterion;
-import com.foxconn.sw.data.entity.SwAppendResourceExample;
+import com.foxconn.sw.data.entity.ForumParticipant;
+import com.foxconn.sw.data.entity.ForumParticipantExample.Criteria;
+import com.foxconn.sw.data.entity.ForumParticipantExample.Criterion;
+import com.foxconn.sw.data.entity.ForumParticipantExample;
 import java.util.List;
 import java.util.Map;
 import org.apache.ibatis.jdbc.SQL;
 
-public class SwAppendResourceSqlProvider {
+public class ForumParticipantSqlProvider {
 
-    public String countByExample(SwAppendResourceExample example) {
+    public String countByExample(ForumParticipantExample example) {
         SQL sql = new SQL();
-        sql.SELECT("count(*)").FROM("sw_append_resource");
+        sql.SELECT("count(*)").FROM("forum_participant");
         applyWhere(sql, example, false);
         return sql.toString();
     }
 
-    public String deleteByExample(SwAppendResourceExample example) {
+    public String deleteByExample(ForumParticipantExample example) {
         SQL sql = new SQL();
-        sql.DELETE_FROM("sw_append_resource");
+        sql.DELETE_FROM("forum_participant");
         applyWhere(sql, example, false);
         return sql.toString();
     }
 
-    public String insertSelective(SwAppendResource record) {
+    public String insertSelective(ForumParticipant record) {
         SQL sql = new SQL();
-        sql.INSERT_INTO("sw_append_resource");
+        sql.INSERT_INTO("forum_participant");
         
-        if (record.getOriginName() != null) {
-            sql.VALUES("origin_name", "#{originName,jdbcType=VARCHAR}");
+        if (record.getPostsId() != null) {
+            sql.VALUES("posts_id", "#{postsId,jdbcType=INTEGER}");
         }
         
-        if (record.getFilePath() != null) {
-            sql.VALUES("file_path", "#{filePath,jdbcType=VARCHAR}");
-        }
-        
-        if (record.getUploadType() != null) {
-            sql.VALUES("upload_type", "#{uploadType,jdbcType=VARCHAR}");
-        }
-        
-        if (record.getOperator() != null) {
-            sql.VALUES("operator", "#{operator,jdbcType=VARCHAR}");
-        }
-        
-        if (record.getIsDelete() != null) {
-            sql.VALUES("is_delete", "#{isDelete,jdbcType=INTEGER}");
+        if (record.getEmployeeNo() != null) {
+            sql.VALUES("employee_no", "#{employeeNo,jdbcType=VARCHAR}");
         }
         
         if (record.getCreateTime() != null) {
@@ -59,21 +47,18 @@ public class SwAppendResourceSqlProvider {
         return sql.toString();
     }
 
-    public String selectByExample(SwAppendResourceExample example) {
+    public String selectByExample(ForumParticipantExample example) {
         SQL sql = new SQL();
         if (example != null && example.isDistinct()) {
             sql.SELECT_DISTINCT("id");
         } else {
             sql.SELECT("id");
         }
-        sql.SELECT("origin_name");
-        sql.SELECT("file_path");
-        sql.SELECT("upload_type");
-        sql.SELECT("operator");
-        sql.SELECT("is_delete");
+        sql.SELECT("posts_id");
+        sql.SELECT("employee_no");
         sql.SELECT("create_time");
         sql.SELECT("datetime_lastchange");
-        sql.FROM("sw_append_resource");
+        sql.FROM("forum_participant");
         applyWhere(sql, example, false);
         
         if (example != null && example.getOrderByClause() != null) {
@@ -84,34 +69,22 @@ public class SwAppendResourceSqlProvider {
     }
 
     public String updateByExampleSelective(Map<String, Object> parameter) {
-        SwAppendResource record = (SwAppendResource) parameter.get("record");
-        SwAppendResourceExample example = (SwAppendResourceExample) parameter.get("example");
+        ForumParticipant record = (ForumParticipant) parameter.get("record");
+        ForumParticipantExample example = (ForumParticipantExample) parameter.get("example");
         
         SQL sql = new SQL();
-        sql.UPDATE("sw_append_resource");
+        sql.UPDATE("forum_participant");
         
         if (record.getId() != null) {
             sql.SET("id = #{record.id,jdbcType=INTEGER}");
         }
         
-        if (record.getOriginName() != null) {
-            sql.SET("origin_name = #{record.originName,jdbcType=VARCHAR}");
+        if (record.getPostsId() != null) {
+            sql.SET("posts_id = #{record.postsId,jdbcType=INTEGER}");
         }
         
-        if (record.getFilePath() != null) {
-            sql.SET("file_path = #{record.filePath,jdbcType=VARCHAR}");
-        }
-        
-        if (record.getUploadType() != null) {
-            sql.SET("upload_type = #{record.uploadType,jdbcType=VARCHAR}");
-        }
-        
-        if (record.getOperator() != null) {
-            sql.SET("operator = #{record.operator,jdbcType=VARCHAR}");
-        }
-        
-        if (record.getIsDelete() != null) {
-            sql.SET("is_delete = #{record.isDelete,jdbcType=INTEGER}");
+        if (record.getEmployeeNo() != null) {
+            sql.SET("employee_no = #{record.employeeNo,jdbcType=VARCHAR}");
         }
         
         if (record.getCreateTime() != null) {
@@ -128,44 +101,29 @@ public class SwAppendResourceSqlProvider {
 
     public String updateByExample(Map<String, Object> parameter) {
         SQL sql = new SQL();
-        sql.UPDATE("sw_append_resource");
+        sql.UPDATE("forum_participant");
         
         sql.SET("id = #{record.id,jdbcType=INTEGER}");
-        sql.SET("origin_name = #{record.originName,jdbcType=VARCHAR}");
-        sql.SET("file_path = #{record.filePath,jdbcType=VARCHAR}");
-        sql.SET("upload_type = #{record.uploadType,jdbcType=VARCHAR}");
-        sql.SET("operator = #{record.operator,jdbcType=VARCHAR}");
-        sql.SET("is_delete = #{record.isDelete,jdbcType=INTEGER}");
+        sql.SET("posts_id = #{record.postsId,jdbcType=INTEGER}");
+        sql.SET("employee_no = #{record.employeeNo,jdbcType=VARCHAR}");
         sql.SET("create_time = #{record.createTime,jdbcType=TIMESTAMP}");
         sql.SET("datetime_lastchange = #{record.datetimeLastchange,jdbcType=TIMESTAMP}");
         
-        SwAppendResourceExample example = (SwAppendResourceExample) parameter.get("example");
+        ForumParticipantExample example = (ForumParticipantExample) parameter.get("example");
         applyWhere(sql, example, true);
         return sql.toString();
     }
 
-    public String updateByPrimaryKeySelective(SwAppendResource record) {
+    public String updateByPrimaryKeySelective(ForumParticipant record) {
         SQL sql = new SQL();
-        sql.UPDATE("sw_append_resource");
+        sql.UPDATE("forum_participant");
         
-        if (record.getOriginName() != null) {
-            sql.SET("origin_name = #{originName,jdbcType=VARCHAR}");
+        if (record.getPostsId() != null) {
+            sql.SET("posts_id = #{postsId,jdbcType=INTEGER}");
         }
         
-        if (record.getFilePath() != null) {
-            sql.SET("file_path = #{filePath,jdbcType=VARCHAR}");
-        }
-        
-        if (record.getUploadType() != null) {
-            sql.SET("upload_type = #{uploadType,jdbcType=VARCHAR}");
-        }
-        
-        if (record.getOperator() != null) {
-            sql.SET("operator = #{operator,jdbcType=VARCHAR}");
-        }
-        
-        if (record.getIsDelete() != null) {
-            sql.SET("is_delete = #{isDelete,jdbcType=INTEGER}");
+        if (record.getEmployeeNo() != null) {
+            sql.SET("employee_no = #{employeeNo,jdbcType=VARCHAR}");
         }
         
         if (record.getCreateTime() != null) {
@@ -181,7 +139,7 @@ public class SwAppendResourceSqlProvider {
         return sql.toString();
     }
 
-    protected void applyWhere(SQL sql, SwAppendResourceExample example, boolean includeExamplePhrase) {
+    protected void applyWhere(SQL sql, ForumParticipantExample example, boolean includeExamplePhrase) {
         if (example == null) {
             return;
         }

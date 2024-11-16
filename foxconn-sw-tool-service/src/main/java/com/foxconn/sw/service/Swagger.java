@@ -44,6 +44,15 @@ public class Swagger {
     }
 
     @Bean
+    public GroupedOpenApi forumsApi() {
+        String[] paths = new String[]{
+                "/api/" + TagsConstants.FORUMS + "/**",
+                "/api/forums/comments/**",
+        };
+        return createGroupedOpenApi(TagsConstants.FORUMS, paths);
+    }
+
+    @Bean
     public GroupedOpenApi accountApi() {
         String[] paths = new String[]{
                 "/api/" + TagsConstants.ACCOUNT + "/**",

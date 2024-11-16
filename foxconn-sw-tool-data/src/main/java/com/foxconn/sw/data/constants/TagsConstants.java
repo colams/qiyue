@@ -18,8 +18,10 @@ public interface TagsConstants {
     String COLLABORATION = "collaboration";
     String UNIVERSAL = "universal";
     String ANNOUNCEMENT = "announcement";
+    String FORUMS = "forums";
+    String COMMENTS = "Comment";
     String SYSTEM = "system";
 
-    List<String> tagList = Lists.newArrayList(TOOL, ACCOUNT, ROUTE, MENU, OA, UNIVERSAL, ANNOUNCEMENT, SYSTEM);
+    List<String> tagList = Lists.newArrayList(TOOL, ACCOUNT, ROUTE, MENU, OA, UNIVERSAL, ANNOUNCEMENT, SYSTEM, FORUMS,COMMENTS);
 
 }
