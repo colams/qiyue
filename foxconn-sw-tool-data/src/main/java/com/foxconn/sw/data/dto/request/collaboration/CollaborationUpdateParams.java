@@ -10,6 +10,9 @@ public class CollaborationUpdateParams {
     private Long id;
     private Map<String, String> content;
 
+    private String header;
+    private Map<Integer, String> colPair;
+
     public Integer getTaskID() {
         return taskID;
     }
@@ -32,5 +35,21 @@ public class CollaborationUpdateParams {
 
     public void setContent(Map<String, String> content) {
         this.content = content;
+    }
+
+    public String getHeader() {
+        return header;
+    }
+
+    public void setHeader(String header) {
+        this.header = header;
+    }
+
+    public Map<Integer, String> getColPair() {
+        return colPair;
+    }
+
+    public void setColPair(Map<Integer, String> colPair) {
+        this.colPair = colPair;
     }
 }
