@@ -14,6 +14,7 @@ import com.foxconn.sw.data.dto.request.forums.UpdateAttachParams;
 import com.foxconn.sw.service.aspects.Permission;
 import com.foxconn.sw.service.processor.forums.CreatePostsProcessor;
 import com.foxconn.sw.service.processor.forums.ListPostsProcessor;
+import com.foxconn.sw.service.processor.forums.PostsDetailProcessor;
 import com.foxconn.sw.service.utils.ResponseUtils;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -31,6 +32,8 @@ public class ForumController {
     CreatePostsProcessor createPostsProcessor;
     @Autowired
     ListPostsProcessor listPostsProcessor;
+    @Autowired
+    PostsDetailProcessor postsDetailProcessor;
 
     @Permission
     @Operation(summary = "查询帖子信息", tags = TagsConstants.FORUMS)
@@ -47,7 +50,7 @@ public class ForumController {
     @PostMapping("/create")
     public Response<Boolean> create(@Valid @RequestBody Request<PostsParams> request) {
         Boolean result = createPostsProcessor.create(request.getData());
-        return ResponseUtils.success(null, request.getTraceId());
+        return ResponseUtils.success(result, request.getTraceId());
     }
 
 
@@ -56,6 +59,7 @@ public class ForumController {
     @ApiResponse(responseCode = "0", description = "成功码")
     @PostMapping("/detail")
     public Response<PostsDetailVo> detail(@Valid @RequestBody Request<IntegerParams> request) {
+        PostsDetailVo detailVo = postsDetailProcessor.detail(request.getData());
         return ResponseUtils.success(null, request.getTraceId());
     }
 

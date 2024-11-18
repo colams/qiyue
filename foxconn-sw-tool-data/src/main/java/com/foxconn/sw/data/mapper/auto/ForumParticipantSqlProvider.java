@@ -36,6 +36,10 @@ public class ForumParticipantSqlProvider {
             sql.VALUES("employee_no", "#{employeeNo,jdbcType=VARCHAR}");
         }
         
+        if (record.getIsDelete() != null) {
+            sql.VALUES("is_delete", "#{isDelete,jdbcType=INTEGER}");
+        }
+        
         if (record.getCreateTime() != null) {
             sql.VALUES("create_time", "#{createTime,jdbcType=TIMESTAMP}");
         }
@@ -56,6 +60,7 @@ public class ForumParticipantSqlProvider {
         }
         sql.SELECT("posts_id");
         sql.SELECT("employee_no");
+        sql.SELECT("is_delete");
         sql.SELECT("create_time");
         sql.SELECT("datetime_lastchange");
         sql.FROM("forum_participant");
@@ -87,6 +92,10 @@ public class ForumParticipantSqlProvider {
             sql.SET("employee_no = #{record.employeeNo,jdbcType=VARCHAR}");
         }
         
+        if (record.getIsDelete() != null) {
+            sql.SET("is_delete = #{record.isDelete,jdbcType=INTEGER}");
+        }
+        
         if (record.getCreateTime() != null) {
             sql.SET("create_time = #{record.createTime,jdbcType=TIMESTAMP}");
         }
@@ -106,6 +115,7 @@ public class ForumParticipantSqlProvider {
         sql.SET("id = #{record.id,jdbcType=INTEGER}");
         sql.SET("posts_id = #{record.postsId,jdbcType=INTEGER}");
         sql.SET("employee_no = #{record.employeeNo,jdbcType=VARCHAR}");
+        sql.SET("is_delete = #{record.isDelete,jdbcType=INTEGER}");
         sql.SET("create_time = #{record.createTime,jdbcType=TIMESTAMP}");
         sql.SET("datetime_lastchange = #{record.datetimeLastchange,jdbcType=TIMESTAMP}");
         
@@ -124,6 +134,10 @@ public class ForumParticipantSqlProvider {
         
         if (record.getEmployeeNo() != null) {
             sql.SET("employee_no = #{employeeNo,jdbcType=VARCHAR}");
+        }
+        
+        if (record.getIsDelete() != null) {
+            sql.SET("is_delete = #{isDelete,jdbcType=INTEGER}");
         }
         
         if (record.getCreateTime() != null) {

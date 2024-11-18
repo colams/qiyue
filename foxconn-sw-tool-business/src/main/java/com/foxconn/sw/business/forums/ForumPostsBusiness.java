@@ -1,6 +1,7 @@
 package com.foxconn.sw.business.forums;
 
 import com.foxconn.sw.business.context.RequestContext;
+import com.foxconn.sw.common.utils.JsonUtils;
 import com.foxconn.sw.common.utils.constanst.NumberConstants;
 import com.foxconn.sw.data.dto.request.forums.PostsParams;
 import com.foxconn.sw.data.entity.ForumPosts;
@@ -26,6 +27,7 @@ public class ForumPostsBusiness {
         forumPosts.setAuthorNo(RequestContext.getEmployeeNo());
         forumPosts.setPurview(data.getPurview());
         forumPosts.setDescription(data.getContent());
+        forumPosts.setResourceIds(JsonUtils.serialize(data.getResources()));
         forumPostsExtMapper.insertSelective(forumPosts);
         return forumPosts.getId();
     }
@@ -48,5 +50,9 @@ public class ForumPostsBusiness {
         }
 
         return forumPostsExtMapper.selectByExampleWithBLOBs(example);
+    }
+
+    public ForumPosts getForumPosts(Integer params) {
+        return forumPostsExtMapper.selectByPrimaryKey(params);
     }
 }

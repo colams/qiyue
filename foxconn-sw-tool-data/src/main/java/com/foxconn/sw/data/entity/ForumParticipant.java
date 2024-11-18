@@ -9,6 +9,8 @@ public class ForumParticipant {
 
     private String employeeNo;
 
+    private Integer isDelete;
+
     private LocalDateTime createTime;
 
     private LocalDateTime datetimeLastchange;
@@ -50,6 +52,19 @@ public class ForumParticipant {
 
     public void setEmployeeNo(String employeeNo) {
         this.employeeNo = employeeNo == null ? null : employeeNo.trim();
+    }
+
+    public Integer getIsDelete() {
+        return isDelete;
+    }
+
+    public ForumParticipant withIsDelete(Integer isDelete) {
+        this.setIsDelete(isDelete);
+        return this;
+    }
+
+    public void setIsDelete(Integer isDelete) {
+        this.isDelete = isDelete;
     }
 
     public LocalDateTime getCreateTime() {

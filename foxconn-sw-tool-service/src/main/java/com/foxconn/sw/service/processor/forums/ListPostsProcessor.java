@@ -3,10 +3,10 @@ package com.foxconn.sw.service.processor.forums;
 import com.foxconn.sw.business.forums.ForumPostsBusiness;
 import com.foxconn.sw.common.utils.DateTimeUtils;
 import com.foxconn.sw.data.dto.PageParams;
-import com.foxconn.sw.data.dto.entity.acount.EmployeeVo;
 import com.foxconn.sw.data.dto.entity.forums.PostsBriefVo;
 import com.foxconn.sw.data.dto.request.forums.ListPostsParams;
 import com.foxconn.sw.data.entity.ForumPosts;
+import com.foxconn.sw.service.processor.utils.EmployeeUtils;
 import com.google.common.collect.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -19,6 +19,8 @@ import java.util.List;
 public class ListPostsProcessor {
     @Autowired
     ForumPostsBusiness forumPostsBusiness;
+    @Autowired
+    EmployeeUtils employeeUtils;
 
 
     public List<PostsBriefVo> list(PageParams<ListPostsParams> data) {
@@ -28,8 +30,7 @@ public class ListPostsProcessor {
             return Lists.newArrayList();
         }
 
-        List<PostsBriefVo> vos = map(forumPosts);
-        return vos;
+        return map(forumPosts);
     }
 
     private List<PostsBriefVo> map(List<ForumPosts> forumPosts) {
@@ -37,7 +38,7 @@ public class ListPostsProcessor {
         forumPosts.forEach(e -> {
             PostsBriefVo vo = new PostsBriefVo();
             vo.setId(e.getId());
-            vo.setAuthor(mapEmployee(e.getAuthorNo()));
+            vo.setAuthor(employeeUtils.mapEmployee(e.getAuthorNo()));
             vo.setCreateTime(DateTimeUtils.format(e.getCreateTime()));
             vo.setTitle(e.getTitle());
             vo.setContent(e.getDescription());
@@ -48,8 +49,4 @@ public class ListPostsProcessor {
         return vos;
     }
 
-    private EmployeeVo mapEmployee(String authorNo) {
-        EmployeeVo employeeVo = new EmployeeVo();
-        return employeeVo;
-    }
 }

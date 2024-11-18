@@ -305,63 +305,73 @@ public class ForumPostsExample {
             return (Criteria) this;
         }
 
-        public Criteria andIsDeleteIsNull() {
-            addCriterion("is_delete is null");
+        public Criteria andResourceIdsIsNull() {
+            addCriterion("resource_ids is null");
             return (Criteria) this;
         }
 
-        public Criteria andIsDeleteIsNotNull() {
-            addCriterion("is_delete is not null");
+        public Criteria andResourceIdsIsNotNull() {
+            addCriterion("resource_ids is not null");
             return (Criteria) this;
         }
 
-        public Criteria andIsDeleteEqualTo(Integer value) {
-            addCriterion("is_delete =", value, "isDelete");
+        public Criteria andResourceIdsEqualTo(String value) {
+            addCriterion("resource_ids =", value, "resourceIds");
             return (Criteria) this;
         }
 
-        public Criteria andIsDeleteNotEqualTo(Integer value) {
-            addCriterion("is_delete <>", value, "isDelete");
+        public Criteria andResourceIdsNotEqualTo(String value) {
+            addCriterion("resource_ids <>", value, "resourceIds");
             return (Criteria) this;
         }
 
-        public Criteria andIsDeleteGreaterThan(Integer value) {
-            addCriterion("is_delete >", value, "isDelete");
+        public Criteria andResourceIdsGreaterThan(String value) {
+            addCriterion("resource_ids >", value, "resourceIds");
             return (Criteria) this;
         }
 
-        public Criteria andIsDeleteGreaterThanOrEqualTo(Integer value) {
-            addCriterion("is_delete >=", value, "isDelete");
+        public Criteria andResourceIdsGreaterThanOrEqualTo(String value) {
+            addCriterion("resource_ids >=", value, "resourceIds");
             return (Criteria) this;
         }
 
-        public Criteria andIsDeleteLessThan(Integer value) {
-            addCriterion("is_delete <", value, "isDelete");
+        public Criteria andResourceIdsLessThan(String value) {
+            addCriterion("resource_ids <", value, "resourceIds");
             return (Criteria) this;
         }
 
-        public Criteria andIsDeleteLessThanOrEqualTo(Integer value) {
-            addCriterion("is_delete <=", value, "isDelete");
+        public Criteria andResourceIdsLessThanOrEqualTo(String value) {
+            addCriterion("resource_ids <=", value, "resourceIds");
             return (Criteria) this;
         }
 
-        public Criteria andIsDeleteIn(List<Integer> values) {
-            addCriterion("is_delete in", values, "isDelete");
+        public Criteria andResourceIdsLike(String value) {
+            addCriterion("resource_ids like", value, "resourceIds");
             return (Criteria) this;
         }
 
-        public Criteria andIsDeleteNotIn(List<Integer> values) {
-            addCriterion("is_delete not in", values, "isDelete");
+        public Criteria andResourceIdsNotLike(String value) {
+            addCriterion("resource_ids not like", value, "resourceIds");
             return (Criteria) this;
         }
 
-        public Criteria andIsDeleteBetween(Integer value1, Integer value2) {
-            addCriterion("is_delete between", value1, value2, "isDelete");
+        public Criteria andResourceIdsIn(List<String> values) {
+            addCriterion("resource_ids in", values, "resourceIds");
             return (Criteria) this;
         }
 
-        public Criteria andIsDeleteNotBetween(Integer value1, Integer value2) {
-            addCriterion("is_delete not between", value1, value2, "isDelete");
+        public Criteria andResourceIdsNotIn(List<String> values) {
+            addCriterion("resource_ids not in", values, "resourceIds");
+            return (Criteria) this;
+        }
+
+        public Criteria andResourceIdsBetween(String value1, String value2) {
+            addCriterion("resource_ids between", value1, value2, "resourceIds");
+            return (Criteria) this;
+        }
+
+        public Criteria andResourceIdsNotBetween(String value1, String value2) {
+            addCriterion("resource_ids not between", value1, value2, "resourceIds");
             return (Criteria) this;
         }
 
@@ -422,6 +432,66 @@ public class ForumPostsExample {
 
         public Criteria andPurviewNotBetween(Integer value1, Integer value2) {
             addCriterion("purview not between", value1, value2, "purview");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsDeleteIsNull() {
+            addCriterion("is_delete is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsDeleteIsNotNull() {
+            addCriterion("is_delete is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsDeleteEqualTo(Integer value) {
+            addCriterion("is_delete =", value, "isDelete");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsDeleteNotEqualTo(Integer value) {
+            addCriterion("is_delete <>", value, "isDelete");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsDeleteGreaterThan(Integer value) {
+            addCriterion("is_delete >", value, "isDelete");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsDeleteGreaterThanOrEqualTo(Integer value) {
+            addCriterion("is_delete >=", value, "isDelete");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsDeleteLessThan(Integer value) {
+            addCriterion("is_delete <", value, "isDelete");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsDeleteLessThanOrEqualTo(Integer value) {
+            addCriterion("is_delete <=", value, "isDelete");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsDeleteIn(List<Integer> values) {
+            addCriterion("is_delete in", values, "isDelete");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsDeleteNotIn(List<Integer> values) {
+            addCriterion("is_delete not in", values, "isDelete");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsDeleteBetween(Integer value1, Integer value2) {
+            addCriterion("is_delete between", value1, value2, "isDelete");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsDeleteNotBetween(Integer value1, Integer value2) {
+            addCriterion("is_delete not between", value1, value2, "isDelete");
             return (Criteria) this;
         }
 
@@ -552,6 +622,11 @@ public class ForumPostsExample {
 
         public Criteria andAuthorNoLikeInsensitive(String value) {
             addCriterion("upper(author_no) like", value.toUpperCase(), "authorNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andResourceIdsLikeInsensitive(String value) {
+            addCriterion("upper(resource_ids) like", value.toUpperCase(), "resourceIds");
             return (Criteria) this;
         }
     }

@@ -36,12 +36,16 @@ public class ForumPostsSqlProvider {
             sql.VALUES("author_no", "#{authorNo,jdbcType=VARCHAR}");
         }
         
-        if (record.getIsDelete() != null) {
-            sql.VALUES("is_delete", "#{isDelete,jdbcType=INTEGER}");
+        if (record.getResourceIds() != null) {
+            sql.VALUES("resource_ids", "#{resourceIds,jdbcType=VARCHAR}");
         }
         
         if (record.getPurview() != null) {
             sql.VALUES("purview", "#{purview,jdbcType=INTEGER}");
+        }
+        
+        if (record.getIsDelete() != null) {
+            sql.VALUES("is_delete", "#{isDelete,jdbcType=INTEGER}");
         }
         
         if (record.getCreateTime() != null) {
@@ -68,8 +72,9 @@ public class ForumPostsSqlProvider {
         }
         sql.SELECT("title");
         sql.SELECT("author_no");
-        sql.SELECT("is_delete");
+        sql.SELECT("resource_ids");
         sql.SELECT("purview");
+        sql.SELECT("is_delete");
         sql.SELECT("create_time");
         sql.SELECT("lastchange_datetime");
         sql.SELECT("description");
@@ -92,8 +97,9 @@ public class ForumPostsSqlProvider {
         }
         sql.SELECT("title");
         sql.SELECT("author_no");
-        sql.SELECT("is_delete");
+        sql.SELECT("resource_ids");
         sql.SELECT("purview");
+        sql.SELECT("is_delete");
         sql.SELECT("create_time");
         sql.SELECT("lastchange_datetime");
         sql.FROM("forum_posts");
@@ -125,12 +131,16 @@ public class ForumPostsSqlProvider {
             sql.SET("author_no = #{record.authorNo,jdbcType=VARCHAR}");
         }
         
-        if (record.getIsDelete() != null) {
-            sql.SET("is_delete = #{record.isDelete,jdbcType=INTEGER}");
+        if (record.getResourceIds() != null) {
+            sql.SET("resource_ids = #{record.resourceIds,jdbcType=VARCHAR}");
         }
         
         if (record.getPurview() != null) {
             sql.SET("purview = #{record.purview,jdbcType=INTEGER}");
+        }
+        
+        if (record.getIsDelete() != null) {
+            sql.SET("is_delete = #{record.isDelete,jdbcType=INTEGER}");
         }
         
         if (record.getCreateTime() != null) {
@@ -156,8 +166,9 @@ public class ForumPostsSqlProvider {
         sql.SET("id = #{record.id,jdbcType=INTEGER}");
         sql.SET("title = #{record.title,jdbcType=VARCHAR}");
         sql.SET("author_no = #{record.authorNo,jdbcType=VARCHAR}");
-        sql.SET("is_delete = #{record.isDelete,jdbcType=INTEGER}");
+        sql.SET("resource_ids = #{record.resourceIds,jdbcType=VARCHAR}");
         sql.SET("purview = #{record.purview,jdbcType=INTEGER}");
+        sql.SET("is_delete = #{record.isDelete,jdbcType=INTEGER}");
         sql.SET("create_time = #{record.createTime,jdbcType=TIMESTAMP}");
         sql.SET("lastchange_datetime = #{record.lastchangeDatetime,jdbcType=TIMESTAMP}");
         sql.SET("description = #{record.description,jdbcType=LONGVARCHAR}");
@@ -174,8 +185,9 @@ public class ForumPostsSqlProvider {
         sql.SET("id = #{record.id,jdbcType=INTEGER}");
         sql.SET("title = #{record.title,jdbcType=VARCHAR}");
         sql.SET("author_no = #{record.authorNo,jdbcType=VARCHAR}");
-        sql.SET("is_delete = #{record.isDelete,jdbcType=INTEGER}");
+        sql.SET("resource_ids = #{record.resourceIds,jdbcType=VARCHAR}");
         sql.SET("purview = #{record.purview,jdbcType=INTEGER}");
+        sql.SET("is_delete = #{record.isDelete,jdbcType=INTEGER}");
         sql.SET("create_time = #{record.createTime,jdbcType=TIMESTAMP}");
         sql.SET("lastchange_datetime = #{record.lastchangeDatetime,jdbcType=TIMESTAMP}");
         
@@ -196,12 +208,16 @@ public class ForumPostsSqlProvider {
             sql.SET("author_no = #{authorNo,jdbcType=VARCHAR}");
         }
         
-        if (record.getIsDelete() != null) {
-            sql.SET("is_delete = #{isDelete,jdbcType=INTEGER}");
+        if (record.getResourceIds() != null) {
+            sql.SET("resource_ids = #{resourceIds,jdbcType=VARCHAR}");
         }
         
         if (record.getPurview() != null) {
             sql.SET("purview = #{purview,jdbcType=INTEGER}");
+        }
+        
+        if (record.getIsDelete() != null) {
+            sql.SET("is_delete = #{isDelete,jdbcType=INTEGER}");
         }
         
         if (record.getCreateTime() != null) {

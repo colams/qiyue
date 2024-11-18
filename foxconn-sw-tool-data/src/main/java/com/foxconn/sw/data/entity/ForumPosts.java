@@ -9,9 +9,11 @@ public class ForumPosts {
 
     private String authorNo;
 
-    private Integer isDelete;
+    private String resourceIds;
 
     private Integer purview;
+
+    private Integer isDelete;
 
     private LocalDateTime createTime;
 
@@ -58,17 +60,17 @@ public class ForumPosts {
         this.authorNo = authorNo == null ? null : authorNo.trim();
     }
 
-    public Integer getIsDelete() {
-        return isDelete;
+    public String getResourceIds() {
+        return resourceIds;
     }
 
-    public ForumPosts withIsDelete(Integer isDelete) {
-        this.setIsDelete(isDelete);
+    public ForumPosts withResourceIds(String resourceIds) {
+        this.setResourceIds(resourceIds);
         return this;
     }
 
-    public void setIsDelete(Integer isDelete) {
-        this.isDelete = isDelete;
+    public void setResourceIds(String resourceIds) {
+        this.resourceIds = resourceIds == null ? null : resourceIds.trim();
     }
 
     public Integer getPurview() {
@@ -82,6 +84,19 @@ public class ForumPosts {
 
     public void setPurview(Integer purview) {
         this.purview = purview;
+    }
+
+    public Integer getIsDelete() {
+        return isDelete;
+    }
+
+    public ForumPosts withIsDelete(Integer isDelete) {
+        this.setIsDelete(isDelete);
+        return this;
+    }
+
+    public void setIsDelete(Integer isDelete) {
+        this.isDelete = isDelete;
     }
 
     public LocalDateTime getCreateTime() {
