@@ -86,6 +86,12 @@ public class TaskOperateUtils {
                 }
                 operate = initVo(op.getMsg(), op.name(), enable);
                 break;
+            case DELETE:
+                if ((taskStatusEnums == PENDING && isProposer) || isInspector) {
+                    enable = true;
+                }
+                operate = initVo(op.getMsg(), op.name(), enable);
+                break;
         }
         return operate;
     }

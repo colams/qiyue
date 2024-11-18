@@ -6,10 +6,11 @@ public enum OperateTypeEnum {
     UPDATE("更新", "list"),
     REMINDER("跟催", "list"),
     REVOKE("撤銷", "list"),
+    DELETE("删除", "delete"),
 
     REJECT("駁回", "detail"),
     ASSIGN("轉交", "detail"),
-//    ACCEPT("接受", "detail"),
+    // ACCEPT("接受", "detail"),
     SUBMIT("提交", "detail"),
     CHECK("驗收", "detail"),
     ;

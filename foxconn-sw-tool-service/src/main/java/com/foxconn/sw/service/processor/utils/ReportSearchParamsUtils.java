@@ -28,7 +28,7 @@ public class ReportSearchParamsUtils {
             int timeSpan = getTimeSpan(searchParams.getStartDate(), searchParams.getEndDate());
             if (timeSpan < 7) {
                 startDate = getFirstWeekMonday(LocalDate.now().getYear());
-                endDate = getSearchDate(searchParams.getEndDate(), searchType);
+                endDate = getSearchDate(searchParams.getEndDate(), isExport);
             } else {
                 startDate = LocalDateExtUtils.toLocalDate(searchParams.getStartDate());
                 endDate = LocalDateExtUtils.toLocalDate(searchParams.getEndDate());
@@ -58,6 +58,14 @@ public class ReportSearchParamsUtils {
     public static LocalDate getSearchDate(String searchDateStr, int searchType) {
         LocalDate localDate = LocalDateExtUtils.toLocalDate(searchDateStr);
         if (searchType != 2) {
+            localDate = localDate.plusWeeks(1);
+        }
+        return localDate;
+    }
+
+    public static LocalDate getSearchDate(String searchDateStr, boolean isExport) {
+        LocalDate localDate = LocalDateExtUtils.toLocalDate(searchDateStr);
+        if (isExport) {
             localDate = localDate.plusWeeks(1);
         }
         return localDate;

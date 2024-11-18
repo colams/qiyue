@@ -13,6 +13,7 @@ public enum TaskStatusEnums {
     COMPLETED(4, "已完成", "#008000"),   // 负责人&中间人&发布人
     REVOKE(6, "已撤销", "gray"),
     CLOSED(7, "已關閉", "#d05667"),
+    DELETE(8, "删除", "#d05667"),
     ;
 
     TaskStatusEnums(Integer code, String msg, String color) {
