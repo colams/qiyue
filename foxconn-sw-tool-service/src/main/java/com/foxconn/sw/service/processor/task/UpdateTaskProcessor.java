@@ -18,9 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import static com.foxconn.sw.data.constants.enums.TaskRoleFlagEnums.Watcher_Flag;
@@ -39,6 +37,13 @@ public class UpdateTaskProcessor {
     @Autowired
     SwTaskEmployeeRelationBusiness employeeRelationBusiness;
 
+    private static final Map<String, String> hashMap = new HashMap<>();
+
+    static {
+        hashMap.put("deadLine", "任務截止時間");
+        hashMap.put("description", "需求信息");
+    }
+
     public boolean updateTask(UpdateTaskParams taskParams) {
         boolean result;
         SwTask old = swTaskBusiness.getTaskById(taskParams.getBriefTaskVo().getId());
@@ -52,7 +57,7 @@ public class UpdateTaskProcessor {
         if (result) {
             Pair pair = ObjectCompare.compare(taskParams.getBriefTaskVo(), old, SwTask.class, taskParams.getFieldInfo());
 
-            String content = "修改了任务:" + taskParams.getFieldInfo();
+            String content = "修改了任务" + hashMap.getOrDefault(taskParams.getFieldInfo(), taskParams.getFieldInfo());
             if (Objects.nonNull(pair) && !"description".equalsIgnoreCase(taskParams.getFieldInfo())) {
                 content += String.format(" : %s > %s", pair.getRight(), pair.getLeft());
             }
