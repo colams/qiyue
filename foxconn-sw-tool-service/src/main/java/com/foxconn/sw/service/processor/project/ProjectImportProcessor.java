@@ -46,7 +46,12 @@ public class ProjectImportProcessor {
         for (int i = 5; i < sheet.getLastRowNum(); i++) {
             Row row = sheet.getRow(i);
             List<String> values = new ArrayList<>();
+            if (Objects.isNull(row.getCell(0))) {
+                continue;
+            }
 
+            String projectIds = row.getCell(0).toString();
+            System.out.println(projectIds);
             for (int j = 0; j < row.getLastCellNum(); j++) {
                 Cell cell = row.getCell(j);
                 if (Objects.isNull(cell)) {
@@ -67,9 +72,6 @@ public class ProjectImportProcessor {
                 projectItemBusiness.insertProjectItem(projectItem);
             }
 
-            if (Objects.isNull(row.getCell(0))) {
-                continue;
-            }
             SwProject project = new SwProject();
             project.setId((int) row.getCell(0).getNumericCellValue());
             project.setYears((int) row.getCell(1).getNumericCellValue());

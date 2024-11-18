@@ -1,5 +1,6 @@
 package com.foxconn.sw.service.processor.project;
 
+import com.foxconn.sw.business.context.RequestContext;
 import com.foxconn.sw.business.project.ProjectBusiness;
 import com.foxconn.sw.business.project.ProjectItemBusiness;
 import com.foxconn.sw.data.dto.request.project.ProjectSaveParams;
@@ -7,7 +8,6 @@ import com.foxconn.sw.data.entity.SwProject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.ResourceLoader;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -33,7 +33,7 @@ public class ProjectSaveProcessor {
         swProject.setCustomer(params.getCustomer());
         swProject.setCustomerPartNo(params.getCustomerPartNo());
         swProject.setApplication(params.getApplication());
-
+        swProject.setOperator(RequestContext.getEmployeeNo());
         return projectBusiness.insertOrUpdate(swProject);
     }
 
