@@ -42,4 +42,17 @@ public class CollaborationDetailBusiness {
         }
         return i > 0;
     }
+
+    public boolean updateItemValue(Integer key, String item, String value) {
+        SwCollaborationDetail detail = new SwCollaborationDetail();
+        detail.setScuId(key.longValue());
+        detail.setItem(item);
+        detail.setItemValue(value);
+
+        SwCollaborationDetailExample example = new SwCollaborationDetailExample();
+        SwCollaborationDetailExample.Criteria criteria = example.createCriteria();
+        criteria.andScuIdEqualTo(key.longValue());
+        criteria.andItemEqualTo(item);
+        return collaborationDetailMapper.updateByExampleSelective(detail, example) > 0;
+    }
 }

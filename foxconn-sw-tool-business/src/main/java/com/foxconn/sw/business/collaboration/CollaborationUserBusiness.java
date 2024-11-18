@@ -4,6 +4,7 @@ import com.foxconn.sw.business.SwAppendResourceBusiness;
 import com.foxconn.sw.business.context.RequestContext;
 import com.foxconn.sw.business.oa.SwTaskProgressBusiness;
 import com.foxconn.sw.common.utils.ConvertUtils;
+import com.foxconn.sw.common.utils.ExcelUtils;
 import com.foxconn.sw.common.utils.FilePathUtils;
 import com.foxconn.sw.data.dto.entity.ResourceVo;
 import com.foxconn.sw.data.dto.entity.oa.TaskProgressVo;
@@ -142,7 +143,7 @@ public class CollaborationUserBusiness {
 
             Sheet sheet = workbook.getSheetAt(0);
             for (Cell cell : sheet.getRow(0)) {
-                result.add(cell.getStringCellValue());
+                result.add(ExcelUtils.getCellValueAsString(cell));
             }
         } catch (IOException e) {
             logger.error("getTaskHeader", e);

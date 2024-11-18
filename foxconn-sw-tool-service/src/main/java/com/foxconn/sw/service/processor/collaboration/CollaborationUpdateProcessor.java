@@ -31,13 +31,21 @@ public class CollaborationUpdateProcessor {
 
 
     public Boolean update(CollaborationUpdateParams data) {
-        if (Objects.isNull(data.getId())) {
+        if (Objects.isNull(data.getHeader())) {
+            return updateRow(data.getTaskID(), data.getId(), data.getContent());
+        } else {
+            return updateCol(data.getTaskID(), data.getHeader(), data.getColPair());
+        }
+    }
+
+    public Boolean updateRow(Integer taskID, Long id, Map<String, String> content) {
+        if (Objects.isNull(id)) {
             SwCollaborationUser collaborationUser = new SwCollaborationUser();
-            collaborationUser.setTaskId(data.getTaskID());
+            collaborationUser.setTaskId(taskID);
             collaborationUser.setEmployeeNo(RequestContext.getEmployeeNo());
             Long scuID = collaborationUserBusiness.insertCollaborationUser(collaborationUser);
 
-            for (Map.Entry<String, String> entry : data.getContent().entrySet()) {
+            for (Map.Entry<String, String> entry : content.entrySet()) {
                 SwCollaborationDetail detail = new SwCollaborationDetail();
                 detail.setScuId(scuID);
                 detail.setItem(entry.getKey());
@@ -48,19 +56,28 @@ public class CollaborationUpdateProcessor {
             return true;
         }
 
-        List<SwCollaborationDetail> detailList = collaborationDetail.queryCollaborationDetail(data.getId());
-        for (Map.Entry<String, String> entry : data.getContent().entrySet()) {
+        List<SwCollaborationDetail> detailList = collaborationDetail.queryCollaborationDetail(id);
+        for (Map.Entry<String, String> entry : content.entrySet()) {
             SwCollaborationDetail detail = detailList.stream()
                     .filter(e -> e.getItem().equalsIgnoreCase(entry.getKey()))
                     .findFirst()
                     .orElse(new SwCollaborationDetail());
             detail.setItem(entry.getKey());
-            detail.setScuId(data.getId());
+            detail.setScuId(id);
             detail.setItemValue(entry.getValue());
             collaborationDetail.updateOrInsert(detail);
         }
         return true;
     }
+
+
+    public Boolean updateCol(Integer taskID, String header, Map<Integer, String> colPair) {
+        for (Map.Entry<Integer, String> entry : colPair.entrySet()) {
+            collaborationDetail.updateItemValue(entry.getKey(), header, entry.getValue());
+        }
+        return true;
+    }
+
 
     public Boolean evaluation(CollaborationEvaluationParams data) {
         List<SwCollaborationUser> collaborationUsers = collaborationUserBusiness

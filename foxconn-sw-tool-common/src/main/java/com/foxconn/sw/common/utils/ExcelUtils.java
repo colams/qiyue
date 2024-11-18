@@ -1,4 +1,4 @@
-package com.foxconn.sw.service.utils;
+package com.foxconn.sw.common.utils;
 
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Sheet;
@@ -6,7 +6,7 @@ import org.apache.poi.ss.util.CellRangeAddress;
 
 public class ExcelUtils {
 
-    private static String getCellValueAsString(Cell cell) {
+    public static String getCellValueAsString(Cell cell) {
         switch (cell.getCellType()) {
             case STRING:
                 return cell.getStringCellValue();
