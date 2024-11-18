@@ -60,7 +60,7 @@ public class ForumController {
     @PostMapping("/detail")
     public Response<PostsDetailVo> detail(@Valid @RequestBody Request<IntegerParams> request) {
         PostsDetailVo detailVo = postsDetailProcessor.detail(request.getData());
-        return ResponseUtils.success(null, request.getTraceId());
+        return ResponseUtils.success(detailVo, request.getTraceId());
     }
 
     @Permission
