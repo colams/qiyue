@@ -1,5 +1,6 @@
 package com.foxconn.sw.service.processor.collaboration;
 
+import com.foxconn.sw.business.SwCapexSetBusiness;
 import com.foxconn.sw.business.collaboration.CollaborationDetailBusiness;
 import com.foxconn.sw.business.collaboration.CollaborationUserBusiness;
 import com.foxconn.sw.business.context.RequestContext;
@@ -40,6 +41,8 @@ public class CollaborationDetailProcessor {
     SwTaskEmployeeRelationBusiness taskEmployeeRelationBusiness;
     @Autowired
     SwTaskBusiness taskBusiness;
+    @Autowired
+    SwCapexSetBusiness capexSetBusiness;
 
     /**
      * int taskID = 75;
@@ -64,6 +67,7 @@ public class CollaborationDetailProcessor {
         vo.setTaskTitle(swTask.getTitle());
         vo.setCanFinish(RequestContext.getEmployeeNo().equalsIgnoreCase(swTask.getProposerEid()));
         vo.setCanSubmit(relations.stream().anyMatch(e -> e.getEmployeeNo().equalsIgnoreCase(RequestContext.getEmployeeNo())) || (!CollectionUtils.isEmpty(collaborationUsers) && collaborationUsers.stream().anyMatch(e -> e.getEmployeeNo().equalsIgnoreCase(RequestContext.getEmployeeNo())) && collaborationUsers.stream().anyMatch(e -> !e.getStatus().equals(2))));
+        vo.setCapexParamsVos(capexSetBusiness.queryCapexParams(params.getTaskID()));
         return vo;
     }
 

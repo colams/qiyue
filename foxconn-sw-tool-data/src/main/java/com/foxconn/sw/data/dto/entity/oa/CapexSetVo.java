@@ -5,7 +5,7 @@ import java.util.List;
 public class CapexSetVo {
 
     private String type;
-    private List<CapexSetDetailVo> capexSets;
+    private List<CapexSetDetail2Vo> capexSets;
 
     public String getType() {
         return type;
@@ -15,11 +15,11 @@ public class CapexSetVo {
         this.type = type;
     }
 
-    public List<CapexSetDetailVo> getCapexSets() {
+    public List<CapexSetDetail2Vo> getCapexSets() {
         return capexSets;
     }
 
-    public void setCapexSets(List<CapexSetDetailVo> capexSets) {
+    public void setCapexSets(List<CapexSetDetail2Vo> capexSets) {
         this.capexSets = capexSets;
     }
 }

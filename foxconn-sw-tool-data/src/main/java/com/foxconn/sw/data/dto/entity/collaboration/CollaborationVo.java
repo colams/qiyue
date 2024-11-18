@@ -1,6 +1,7 @@
 package com.foxconn.sw.data.dto.entity.collaboration;
 
 import com.foxconn.sw.data.dto.entity.ResourceVo;
+import com.foxconn.sw.data.dto.entity.oa.CapexParamsVo;
 
 import java.util.List;
 import java.util.Map;
@@ -9,6 +10,7 @@ public class CollaborationVo {
 
     private List<String> headers;
     private List<Map<String, Object>> content;
+    private List<CapexParamsVo> capexParamsVos;
     private ResourceVo resource;
     private Long taskNo;
     private String taskTitle;
@@ -29,6 +31,14 @@ public class CollaborationVo {
 
     public void setContent(List<Map<String, Object>> content) {
         this.content = content;
+    }
+
+    public List<CapexParamsVo> getCapexParamsVos() {
+        return capexParamsVos;
+    }
+
+    public void setCapexParamsVos(List<CapexParamsVo> capexParamsVos) {
+        this.capexParamsVos = capexParamsVos;
     }
 
     public ResourceVo getResource() {
