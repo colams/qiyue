@@ -46,7 +46,39 @@ public class ListReportProcessor {
     SwWorkReportScoreBusiness scoreBusiness;
 
     public List<WorkReportVo> listReport(ReportSearchParams searchParams) {
-        return listReport(searchParams, false);
+        List<WorkReportVo> retValue = listReport(searchParams, false);
+        String currentYearWeek = ReportSearchParamsUtils.processDate(LocalDate.now());
+        if (NumberConstants.TWO.equals(searchParams.getSearchType())) {
+            Collections.sort(retValue, (a, b) -> {
+                Integer sSize = Objects.isNull(a.getReportDetailList()) ? 0 : a.getReportDetailList().size();
+                Integer bSize = Objects.isNull(b.getReportDetailList()) ? 0 : b.getReportDetailList().size();
+                int aComparison = sSize.compareTo(bSize);
+                if (aComparison != 0) {
+                    return aComparison;
+                }
+
+                Integer aValue = Objects.isNull(a.getReportType()) ? 0 : a.getReportType();
+                Integer bValue = Objects.isNull(b.getReportType()) ? 0 : b.getReportType();
+                int comparison = bValue.compareTo(aValue);
+                if (comparison != 0) {
+                    return comparison;
+                }
+                return PinyinUtils.toPinyin(a.getEmployee().getName()).compareTo(PinyinUtils.toPinyin(b.getEmployee().getName()));
+            });
+        } else {
+            if (retValue.get(0).getYearWeek().compareTo(currentYearWeek) > 0
+                    && CollectionUtils.isEmpty(retValue.get(0).getReportDetailList())
+                    && retValue.size() >= 3) {
+                List<WorkReportDetail> unComplete = retValue.get(2).getReportDetailList()
+                        .stream().filter(e -> e.getTarget() != 100)
+                        .collect(Collectors.toList());
+                if (Objects.isNull(retValue.get(1).getReportDetailList())) {
+                    retValue.get(1).setReportDetailList(Lists.newArrayList());
+                }
+                retValue.get(1).getReportDetailList().addAll(unComplete);
+            }
+        }
+        return retValue;
     }
 
     public List<WorkReportVo> listReport(ReportSearchParams searchParams, boolean isExport) {
@@ -58,7 +90,6 @@ public class ListReportProcessor {
 
         List<String> searchWeeks = ReportSearchParamsUtils.getYearWeekPair(searchParams, isExport);
         List<SwWorkReport> reports = reportBusiness.queryReport(searchWeeks, searchParams.getReportType(), employees);
-        String currentYearWeek = ReportSearchParamsUtils.processDate(LocalDate.now());
         List<WorkReportVo> vos = new ArrayList<>();
         reports.stream().forEach(e -> {
             WorkReportVo vo = vos.stream()
@@ -112,36 +143,7 @@ public class ListReportProcessor {
                 .sorted(Comparator.comparing(WorkReportVo::getEmployeeNo)
                         .thenComparing(WorkReportVo::getYearWeek).reversed())
                 .collect(Collectors.toList());
-        if (NumberConstants.TWO.equals(searchParams.getSearchType())) {
-            Collections.sort(retValue, (a, b) -> {
-                Integer sSize = Objects.isNull(a.getReportDetailList()) ? 0 : a.getReportDetailList().size();
-                Integer bSize = Objects.isNull(b.getReportDetailList()) ? 0 : b.getReportDetailList().size();
-                int aComparison = sSize.compareTo(bSize);
-                if (aComparison != 0) {
-                    return aComparison;
-                }
 
-                Integer aValue = Objects.isNull(a.getReportType()) ? 0 : a.getReportType();
-                Integer bValue = Objects.isNull(b.getReportType()) ? 0 : b.getReportType();
-                int comparison = bValue.compareTo(aValue);
-                if (comparison != 0) {
-                    return comparison;
-                }
-                return PinyinUtils.toPinyin(a.getEmployee().getName()).compareTo(PinyinUtils.toPinyin(b.getEmployee().getName()));
-            });
-        } else {
-            if (retValue.get(0).getYearWeek().compareTo(currentYearWeek) > 0
-                    && CollectionUtils.isEmpty(retValue.get(0).getReportDetailList())
-                    && retValue.size() >= 3) {
-                List<WorkReportDetail> unComplete = retValue.get(2).getReportDetailList()
-                        .stream().filter(e -> e.getTarget() != 100)
-                        .collect(Collectors.toList());
-                if (Objects.isNull(retValue.get(1).getReportDetailList())) {
-                    retValue.get(1).setReportDetailList(Lists.newArrayList());
-                }
-                retValue.get(1).getReportDetailList().addAll(unComplete);
-            }
-        }
         return retValue;
     }
 
