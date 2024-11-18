@@ -67,12 +67,6 @@ public class ListReportProcessor {
                     .findFirst()
                     .orElse(null);
 
-            if (!NumberConstants.TWO.equals(searchParams.getSearchType())
-                    && NumberConstants.ONE.equals(e.getReportType())
-                    && currentYearWeek.compareTo(e.getYearWeek()) >= 0) {
-                return;
-            }
-
             WorkReportDetail detail = initDetail(e);
             if (Objects.isNull(vo)) {
                 vo = new WorkReportVo();
@@ -142,7 +136,10 @@ public class ListReportProcessor {
                 List<WorkReportDetail> unComplete = retValue.get(2).getReportDetailList()
                         .stream().filter(e -> e.getTarget() != 100)
                         .collect(Collectors.toList());
-                retValue.get(1).setReportDetailList(unComplete);
+                if (Objects.isNull(retValue.get(1).getReportDetailList())) {
+                    retValue.get(1).setReportDetailList(Lists.newArrayList());
+                }
+                retValue.get(1).getReportDetailList().addAll(unComplete);
             }
         }
         return retValue;
