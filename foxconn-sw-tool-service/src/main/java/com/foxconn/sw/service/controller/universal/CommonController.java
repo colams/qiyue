@@ -1,6 +1,7 @@
 package com.foxconn.sw.service.controller.universal;
 
 import com.foxconn.sw.business.SwAppendResourceBusiness;
+import com.foxconn.sw.common.utils.DateTimeUtils;
 import com.foxconn.sw.common.utils.ExecToolUtils;
 import com.foxconn.sw.common.utils.FilePathUtils;
 import com.foxconn.sw.common.utils.UUIDUtils;
@@ -32,6 +33,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -98,8 +100,28 @@ public class CommonController {
     @Operation(summary = "设备管理", tags = TagsConstants.UNIVERSAL)
     @ApiResponse(responseCode = "0", description = "成功码")
     @PostMapping("/valid")
-    public Response<String> valid(@Valid @RequestBody Request<StringParams> request) {
-        return ResponseUtils.success(request.getTraceId(), request.getTraceId());
+    public Response<Short> valid(@Valid @RequestBody Request<StringParams> request) {
+        String dateTime = "CMBU" + DateTimeUtils.format(LocalDateTime.now(), "yyyyMMddHHmm");
+        byte[] data = dateTime.getBytes();
+        int length = data.length;
+        short crc = crc16(data, length);
+        return ResponseUtils.success(crc, request.getTraceId());
+    }
+
+    public static short crc16(byte[] ptr, int len) {
+        short crc = (short) 0xfff;
+        for (int i = 0; i < len; i++) {
+            crc ^= ptr[i];
+            for (int j = 0; j < 8; j++) {
+                if ((crc & 0x0001) != 0) {
+                    crc = (short) ((crc >> 1) ^ 0xA001);
+                } else {
+                    crc = (short) (crc >> 1);
+                }
+            }
+        }
+        crc = (short) ((crc >> 8) | (crc << 8));
+        return crc;
     }
 
     @Operation(summary = "test 接口", tags = TagsConstants.UNIVERSAL)
