@@ -199,13 +199,23 @@ public class ListReportProcessor {
     }
 
     private List<String> getEmployeeNos(ReportSearchParams searchParams) {
-        if (Objects.isNull(searchParams.getSearchType()) || searchParams.getSearchType() < 2) {
+        if (!NumberConstants.TWO.equals(searchParams.getSearchType())) {
             return Lists.newArrayList(RequestContext.getEmployeeNo());
         }
 
         List<SwEmployee> employees = employeeBusiness.queryMembers(RequestContext.getEmployeeNo());
         if (CollectionUtils.isEmpty(employees)) {
             return Lists.newArrayList(RequestContext.getEmployeeNo());
+        }
+
+        if (employeeBusiness.isAssistants(RequestContext.getEmployeeNo())) {
+            employees = employees.stream()
+                    .filter(e -> !RequestContext.getEmployeeNo().equalsIgnoreCase(e.getAssistant()))
+                    .collect(Collectors.toList());
+        } else {
+            employees = employees.stream()
+                    .filter(e -> !RequestContext.getEmployeeNo().equalsIgnoreCase(e.getEmployeeNo()))
+                    .collect(Collectors.toList());
         }
 
         List<Integer> subDeptIds = departmentBusiness.getSubDepartID(searchParams.getDepartID());

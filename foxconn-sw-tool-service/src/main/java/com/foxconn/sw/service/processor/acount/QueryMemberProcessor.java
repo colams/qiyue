@@ -2,6 +2,7 @@ package com.foxconn.sw.service.processor.acount;
 
 import com.foxconn.sw.business.context.RequestContext;
 import com.foxconn.sw.business.system.EmployeeBusiness;
+import com.foxconn.sw.common.utils.PinyinUtils;
 import com.foxconn.sw.data.dto.entity.acount.EmployeeVo;
 import com.foxconn.sw.data.dto.request.account.QuerySubEmpParams;
 import com.foxconn.sw.data.entity.SwEmployee;
@@ -36,6 +37,7 @@ public class QueryMemberProcessor {
             EmployeeVo vo = new EmployeeVo();
             vo.setName(e.getName());
             vo.setEmployeeNo(e.getEmployeeNo());
+            vo.setPinyin(PinyinUtils.toPinyin(e.getName()));
             return vo;
         }).collect(Collectors.toList());
 

@@ -173,6 +173,15 @@ public class EmployeeBusiness {
     }
 
 
+    public boolean isAssistants(String employeeNo) {
+        List<String> assistants = getEmployeeList().stream()
+                .filter(e -> StringUtils.isNotEmpty(e.getAssistant()))
+                .map(e -> e.getAssistant())
+                .collect(Collectors.toList());
+        return assistants.contains(employeeNo);
+    }
+
+
     public boolean isDRIHigher(String employeeNo, String higherEno) {
         SwDepartment department = departmentBusiness.getDepartment(selectEmployeeByENo(employeeNo).getDepartmentId());
         return higherEno.equalsIgnoreCase(department.getManagerNo());
