@@ -1,6 +1,7 @@
 package com.foxconn.sw.service.controller.community;
 
 import com.foxconn.sw.data.constants.TagsConstants;
+import com.foxconn.sw.data.dto.PageParams;
 import com.foxconn.sw.data.dto.Request;
 import com.foxconn.sw.data.dto.Response;
 import com.foxconn.sw.data.dto.entity.forums.PostsBriefVo;
@@ -11,10 +12,13 @@ import com.foxconn.sw.data.dto.request.forums.ListPostsParams;
 import com.foxconn.sw.data.dto.request.forums.PostsParams;
 import com.foxconn.sw.data.dto.request.forums.UpdateAttachParams;
 import com.foxconn.sw.service.aspects.Permission;
+import com.foxconn.sw.service.processor.forums.CreatePostsProcessor;
+import com.foxconn.sw.service.processor.forums.ListPostsProcessor;
 import com.foxconn.sw.service.utils.ResponseUtils;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import jakarta.validation.Valid;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -23,13 +27,18 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/forums")
 public class ForumController {
+    @Autowired
+    CreatePostsProcessor createPostsProcessor;
+    @Autowired
+    ListPostsProcessor listPostsProcessor;
 
     @Permission
     @Operation(summary = "查询帖子信息", tags = TagsConstants.FORUMS)
     @ApiResponse(responseCode = "0", description = "成功码")
     @PostMapping("/list")
-    public Response<List<PostsBriefVo>> list(@Valid @RequestBody Request<ListPostsParams> request) {
-        return ResponseUtils.success(null, request.getTraceId());
+    public Response<List<PostsBriefVo>> list(@Valid @RequestBody Request<PageParams<ListPostsParams>> request) {
+        List<PostsBriefVo> vos = listPostsProcessor.list(request.getData());
+        return ResponseUtils.success(vos, request.getTraceId());
     }
 
     @Permission
@@ -37,6 +46,7 @@ public class ForumController {
     @ApiResponse(responseCode = "0", description = "成功码")
     @PostMapping("/create")
     public Response<Boolean> create(@Valid @RequestBody Request<PostsParams> request) {
+        Boolean result = createPostsProcessor.create(request.getData());
         return ResponseUtils.success(null, request.getTraceId());
     }
 

@@ -14,6 +14,8 @@ public class EmployeeVo {
 
     private String pinyin;
 
+    private String avatar;
+
     public String getName() {
         return name;
     }
@@ -60,5 +62,13 @@ public class EmployeeVo {
 
     public void setPinyin(String pinyin) {
         this.pinyin = pinyin;
+    }
+
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
     }
 }

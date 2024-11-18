@@ -2,6 +2,9 @@ package com.foxconn.sw.data.dto.request.forums;
 
 public class ListPostsParams {
 
+    /**
+     * 0-默认所有，1-我的帖子，2-我的收藏
+     */
     private Integer postsType;
 
     private String words;
