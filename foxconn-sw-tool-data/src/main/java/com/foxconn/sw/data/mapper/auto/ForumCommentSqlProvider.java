@@ -52,6 +52,10 @@ public class ForumCommentSqlProvider {
             sql.VALUES("content", "#{content,jdbcType=VARCHAR}");
         }
         
+        if (record.getIsDelete() != null) {
+            sql.VALUES("is_delete", "#{isDelete,jdbcType=INTEGER}");
+        }
+        
         if (record.getCreateTime() != null) {
             sql.VALUES("create_time", "#{createTime,jdbcType=TIMESTAMP}");
         }
@@ -76,6 +80,7 @@ public class ForumCommentSqlProvider {
         sql.SELECT("author_no");
         sql.SELECT("resources");
         sql.SELECT("content");
+        sql.SELECT("is_delete");
         sql.SELECT("create_time");
         sql.SELECT("datetime_lastchange");
         sql.FROM("forum_comment");
@@ -123,6 +128,10 @@ public class ForumCommentSqlProvider {
             sql.SET("content = #{record.content,jdbcType=VARCHAR}");
         }
         
+        if (record.getIsDelete() != null) {
+            sql.SET("is_delete = #{record.isDelete,jdbcType=INTEGER}");
+        }
+        
         if (record.getCreateTime() != null) {
             sql.SET("create_time = #{record.createTime,jdbcType=TIMESTAMP}");
         }
@@ -146,6 +155,7 @@ public class ForumCommentSqlProvider {
         sql.SET("author_no = #{record.authorNo,jdbcType=VARCHAR}");
         sql.SET("resources = #{record.resources,jdbcType=VARCHAR}");
         sql.SET("content = #{record.content,jdbcType=VARCHAR}");
+        sql.SET("is_delete = #{record.isDelete,jdbcType=INTEGER}");
         sql.SET("create_time = #{record.createTime,jdbcType=TIMESTAMP}");
         sql.SET("datetime_lastchange = #{record.datetimeLastchange,jdbcType=TIMESTAMP}");
         
@@ -180,6 +190,10 @@ public class ForumCommentSqlProvider {
         
         if (record.getContent() != null) {
             sql.SET("content = #{content,jdbcType=VARCHAR}");
+        }
+        
+        if (record.getIsDelete() != null) {
+            sql.SET("is_delete = #{isDelete,jdbcType=INTEGER}");
         }
         
         if (record.getCreateTime() != null) {

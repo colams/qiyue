@@ -11,6 +11,7 @@ import com.google.common.collect.Lists;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.util.CollectionUtils;
 
 import java.util.List;
 
@@ -27,7 +28,9 @@ public class ForumPostsBusiness {
         forumPosts.setAuthorNo(RequestContext.getEmployeeNo());
         forumPosts.setPurview(data.getPurview());
         forumPosts.setDescription(data.getContent());
-        forumPosts.setResourceIds(JsonUtils.serialize(data.getResources()));
+        if (!CollectionUtils.isEmpty(data.getResources())) {
+            forumPosts.setResourceIds(JsonUtils.serialize(data.getResources()));
+        }
         forumPostsExtMapper.insertSelective(forumPosts);
         return forumPosts.getId();
     }

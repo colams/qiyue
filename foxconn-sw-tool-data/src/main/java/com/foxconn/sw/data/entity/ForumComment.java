@@ -17,6 +17,8 @@ public class ForumComment {
 
     private String content;
 
+    private Integer isDelete;
+
     private LocalDateTime createTime;
 
     private LocalDateTime datetimeLastchange;
@@ -110,6 +112,19 @@ public class ForumComment {
 
     public void setContent(String content) {
         this.content = content == null ? null : content.trim();
+    }
+
+    public Integer getIsDelete() {
+        return isDelete;
+    }
+
+    public ForumComment withIsDelete(Integer isDelete) {
+        this.setIsDelete(isDelete);
+        return this;
+    }
+
+    public void setIsDelete(Integer isDelete) {
+        this.isDelete = isDelete;
     }
 
     public LocalDateTime getCreateTime() {
