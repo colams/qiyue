@@ -295,63 +295,63 @@ public class ForumFavoriteExample {
             return (Criteria) this;
         }
 
-        public Criteria andIsDeleteIsNull() {
-            addCriterion("is_delete is null");
+        public Criteria andIsInvalidIsNull() {
+            addCriterion("is_invalid is null");
             return (Criteria) this;
         }
 
-        public Criteria andIsDeleteIsNotNull() {
-            addCriterion("is_delete is not null");
+        public Criteria andIsInvalidIsNotNull() {
+            addCriterion("is_invalid is not null");
             return (Criteria) this;
         }
 
-        public Criteria andIsDeleteEqualTo(Integer value) {
-            addCriterion("is_delete =", value, "isDelete");
+        public Criteria andIsInvalidEqualTo(Integer value) {
+            addCriterion("is_invalid =", value, "isInvalid");
             return (Criteria) this;
         }
 
-        public Criteria andIsDeleteNotEqualTo(Integer value) {
-            addCriterion("is_delete <>", value, "isDelete");
+        public Criteria andIsInvalidNotEqualTo(Integer value) {
+            addCriterion("is_invalid <>", value, "isInvalid");
             return (Criteria) this;
         }
 
-        public Criteria andIsDeleteGreaterThan(Integer value) {
-            addCriterion("is_delete >", value, "isDelete");
+        public Criteria andIsInvalidGreaterThan(Integer value) {
+            addCriterion("is_invalid >", value, "isInvalid");
             return (Criteria) this;
         }
 
-        public Criteria andIsDeleteGreaterThanOrEqualTo(Integer value) {
-            addCriterion("is_delete >=", value, "isDelete");
+        public Criteria andIsInvalidGreaterThanOrEqualTo(Integer value) {
+            addCriterion("is_invalid >=", value, "isInvalid");
             return (Criteria) this;
         }
 
-        public Criteria andIsDeleteLessThan(Integer value) {
-            addCriterion("is_delete <", value, "isDelete");
+        public Criteria andIsInvalidLessThan(Integer value) {
+            addCriterion("is_invalid <", value, "isInvalid");
             return (Criteria) this;
         }
 
-        public Criteria andIsDeleteLessThanOrEqualTo(Integer value) {
-            addCriterion("is_delete <=", value, "isDelete");
+        public Criteria andIsInvalidLessThanOrEqualTo(Integer value) {
+            addCriterion("is_invalid <=", value, "isInvalid");
             return (Criteria) this;
         }
 
-        public Criteria andIsDeleteIn(List<Integer> values) {
-            addCriterion("is_delete in", values, "isDelete");
+        public Criteria andIsInvalidIn(List<Integer> values) {
+            addCriterion("is_invalid in", values, "isInvalid");
             return (Criteria) this;
         }
 
-        public Criteria andIsDeleteNotIn(List<Integer> values) {
-            addCriterion("is_delete not in", values, "isDelete");
+        public Criteria andIsInvalidNotIn(List<Integer> values) {
+            addCriterion("is_invalid not in", values, "isInvalid");
             return (Criteria) this;
         }
 
-        public Criteria andIsDeleteBetween(Integer value1, Integer value2) {
-            addCriterion("is_delete between", value1, value2, "isDelete");
+        public Criteria andIsInvalidBetween(Integer value1, Integer value2) {
+            addCriterion("is_invalid between", value1, value2, "isInvalid");
             return (Criteria) this;
         }
 
-        public Criteria andIsDeleteNotBetween(Integer value1, Integer value2) {
-            addCriterion("is_delete not between", value1, value2, "isDelete");
+        public Criteria andIsInvalidNotBetween(Integer value1, Integer value2) {
+            addCriterion("is_invalid not between", value1, value2, "isInvalid");
             return (Criteria) this;
         }
 

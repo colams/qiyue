@@ -1,6 +1,7 @@
 package com.foxconn.sw.service.processor.forums;
 
 import com.foxconn.sw.business.SwAppendResourceBusiness;
+import com.foxconn.sw.business.forums.ForumParticipantBusiness;
 import com.foxconn.sw.business.forums.ForumPostsBusiness;
 import com.foxconn.sw.common.utils.ConvertUtils;
 import com.foxconn.sw.common.utils.DateTimeUtils;
@@ -25,6 +26,8 @@ public class PostsDetailProcessor {
     @Autowired
     ForumPostsBusiness forumPostsBusiness;
     @Autowired
+    ForumParticipantBusiness forumParticipantBusiness;
+    @Autowired
     EmployeeUtils employeeUtils;
     @Autowired
     SwAppendResourceBusiness appendResourceBusiness;
@@ -41,7 +44,7 @@ public class PostsDetailProcessor {
         detailVo.setCreateTime(DateTimeUtils.format(forumPosts.getCreateTime()));
         detailVo.setTitle(forumPosts.getTitle());
         detailVo.setContent(forumPosts.getDescription());
-        detailVo.setParticipants(Lists.newArrayList());
+        detailVo.setParticipants(forumParticipantBusiness.queryParticipants(forumPosts.getId()));
         detailVo.setResources(mapResource(forumPosts.getResourceIds()));
         detailVo.setViewCount(0);
         detailVo.setCommentCount(0);

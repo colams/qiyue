@@ -55,4 +55,8 @@ public class ForumPostsBusiness {
     public ForumPosts getForumPosts(Integer params) {
         return forumPostsExtMapper.selectByPrimaryKey(params);
     }
+
+    public boolean updatePosts(ForumPosts updatePosts) {
+        return forumPostsExtMapper.updateByPrimaryKeySelective(updatePosts) > 0;
+    }
 }

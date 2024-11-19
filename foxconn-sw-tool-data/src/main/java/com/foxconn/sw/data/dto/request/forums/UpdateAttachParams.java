@@ -1,11 +1,9 @@
 package com.foxconn.sw.data.dto.request.forums;
 
-import java.util.List;
-
 public class UpdateAttachParams {
 
     private Integer id;
-    private List<Integer> resourceIds;
+    private Integer resourceId;
 
     public Integer getId() {
         return id;
@@ -15,11 +13,11 @@ public class UpdateAttachParams {
         this.id = id;
     }
 
-    public List<Integer> getResourceIds() {
-        return resourceIds;
+    public Integer getResourceId() {
+        return resourceId;
     }
 
-    public void setResourceIds(List<Integer> resourceIds) {
-        this.resourceIds = resourceIds;
+    public void setResourceId(Integer resourceId) {
+        this.resourceId = resourceId;
     }
 }

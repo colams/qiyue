@@ -36,8 +36,8 @@ public class ForumFavoriteSqlProvider {
             sql.VALUES("posts_id", "#{postsId,jdbcType=INTEGER}");
         }
         
-        if (record.getIsDelete() != null) {
-            sql.VALUES("is_delete", "#{isDelete,jdbcType=INTEGER}");
+        if (record.getIsInvalid() != null) {
+            sql.VALUES("is_invalid", "#{isInvalid,jdbcType=INTEGER}");
         }
         
         if (record.getCreateTime() != null) {
@@ -60,7 +60,7 @@ public class ForumFavoriteSqlProvider {
         }
         sql.SELECT("author_no");
         sql.SELECT("posts_id");
-        sql.SELECT("is_delete");
+        sql.SELECT("is_invalid");
         sql.SELECT("create_time");
         sql.SELECT("datatime_lastchange");
         sql.FROM("forum_favorite");
@@ -92,8 +92,8 @@ public class ForumFavoriteSqlProvider {
             sql.SET("posts_id = #{record.postsId,jdbcType=INTEGER}");
         }
         
-        if (record.getIsDelete() != null) {
-            sql.SET("is_delete = #{record.isDelete,jdbcType=INTEGER}");
+        if (record.getIsInvalid() != null) {
+            sql.SET("is_invalid = #{record.isInvalid,jdbcType=INTEGER}");
         }
         
         if (record.getCreateTime() != null) {
@@ -115,7 +115,7 @@ public class ForumFavoriteSqlProvider {
         sql.SET("id = #{record.id,jdbcType=INTEGER}");
         sql.SET("author_no = #{record.authorNo,jdbcType=VARCHAR}");
         sql.SET("posts_id = #{record.postsId,jdbcType=INTEGER}");
-        sql.SET("is_delete = #{record.isDelete,jdbcType=INTEGER}");
+        sql.SET("is_invalid = #{record.isInvalid,jdbcType=INTEGER}");
         sql.SET("create_time = #{record.createTime,jdbcType=TIMESTAMP}");
         sql.SET("datatime_lastchange = #{record.datatimeLastchange,jdbcType=TIMESTAMP}");
         
@@ -136,8 +136,8 @@ public class ForumFavoriteSqlProvider {
             sql.SET("posts_id = #{postsId,jdbcType=INTEGER}");
         }
         
-        if (record.getIsDelete() != null) {
-            sql.SET("is_delete = #{isDelete,jdbcType=INTEGER}");
+        if (record.getIsInvalid() != null) {
+            sql.SET("is_invalid = #{isInvalid,jdbcType=INTEGER}");
         }
         
         if (record.getCreateTime() != null) {

@@ -9,7 +9,7 @@ public class ForumFavorite {
 
     private Integer postsId;
 
-    private Integer isDelete;
+    private Integer isInvalid;
 
     private LocalDateTime createTime;
 
@@ -54,17 +54,17 @@ public class ForumFavorite {
         this.postsId = postsId;
     }
 
-    public Integer getIsDelete() {
-        return isDelete;
+    public Integer getIsInvalid() {
+        return isInvalid;
     }
 
-    public ForumFavorite withIsDelete(Integer isDelete) {
-        this.setIsDelete(isDelete);
+    public ForumFavorite withIsInvalid(Integer isInvalid) {
+        this.setIsInvalid(isInvalid);
         return this;
     }
 
-    public void setIsDelete(Integer isDelete) {
-        this.isDelete = isDelete;
+    public void setIsInvalid(Integer isInvalid) {
+        this.isInvalid = isInvalid;
     }
 
     public LocalDateTime getCreateTime() {

@@ -35,10 +35,10 @@ public interface ForumFavoriteMapper {
 
     @Insert({
         "insert into forum_favorite (author_no, posts_id, ",
-        "is_delete, create_time, ",
+        "is_invalid, create_time, ",
         "datatime_lastchange)",
         "values (#{authorNo,jdbcType=VARCHAR}, #{postsId,jdbcType=INTEGER}, ",
-        "#{isDelete,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, ",
+        "#{isInvalid,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, ",
         "#{datatimeLastchange,jdbcType=TIMESTAMP})"
     })
     @SelectKey(statement="SELECT LAST_INSERT_ID()", keyProperty="id", before=false, resultType=Integer.class)
@@ -53,7 +53,7 @@ public interface ForumFavoriteMapper {
         @Result(column="id", property="id", jdbcType=JdbcType.INTEGER, id=true),
         @Result(column="author_no", property="authorNo", jdbcType=JdbcType.VARCHAR),
         @Result(column="posts_id", property="postsId", jdbcType=JdbcType.INTEGER),
-        @Result(column="is_delete", property="isDelete", jdbcType=JdbcType.INTEGER),
+        @Result(column="is_invalid", property="isInvalid", jdbcType=JdbcType.INTEGER),
         @Result(column="create_time", property="createTime", jdbcType=JdbcType.TIMESTAMP),
         @Result(column="datatime_lastchange", property="datatimeLastchange", jdbcType=JdbcType.TIMESTAMP)
     })
@@ -64,7 +64,7 @@ public interface ForumFavoriteMapper {
         @Result(column="id", property="id", jdbcType=JdbcType.INTEGER, id=true),
         @Result(column="author_no", property="authorNo", jdbcType=JdbcType.VARCHAR),
         @Result(column="posts_id", property="postsId", jdbcType=JdbcType.INTEGER),
-        @Result(column="is_delete", property="isDelete", jdbcType=JdbcType.INTEGER),
+        @Result(column="is_invalid", property="isInvalid", jdbcType=JdbcType.INTEGER),
         @Result(column="create_time", property="createTime", jdbcType=JdbcType.TIMESTAMP),
         @Result(column="datatime_lastchange", property="datatimeLastchange", jdbcType=JdbcType.TIMESTAMP)
     })
@@ -72,7 +72,7 @@ public interface ForumFavoriteMapper {
 
     @Select({
         "select",
-        "id, author_no, posts_id, is_delete, create_time, datatime_lastchange",
+        "id, author_no, posts_id, is_invalid, create_time, datatime_lastchange",
         "from forum_favorite",
         "where id = #{id,jdbcType=INTEGER}"
     })
@@ -80,7 +80,7 @@ public interface ForumFavoriteMapper {
         @Result(column="id", property="id", jdbcType=JdbcType.INTEGER, id=true),
         @Result(column="author_no", property="authorNo", jdbcType=JdbcType.VARCHAR),
         @Result(column="posts_id", property="postsId", jdbcType=JdbcType.INTEGER),
-        @Result(column="is_delete", property="isDelete", jdbcType=JdbcType.INTEGER),
+        @Result(column="is_invalid", property="isInvalid", jdbcType=JdbcType.INTEGER),
         @Result(column="create_time", property="createTime", jdbcType=JdbcType.TIMESTAMP),
         @Result(column="datatime_lastchange", property="datatimeLastchange", jdbcType=JdbcType.TIMESTAMP)
     })
@@ -99,7 +99,7 @@ public interface ForumFavoriteMapper {
         "update forum_favorite",
         "set author_no = #{authorNo,jdbcType=VARCHAR},",
           "posts_id = #{postsId,jdbcType=INTEGER},",
-          "is_delete = #{isDelete,jdbcType=INTEGER},",
+          "is_invalid = #{isInvalid,jdbcType=INTEGER},",
           "create_time = #{createTime,jdbcType=TIMESTAMP},",
           "datatime_lastchange = #{datatimeLastchange,jdbcType=TIMESTAMP}",
         "where id = #{id,jdbcType=INTEGER}"
