@@ -41,7 +41,7 @@ public class UpdateTaskProcessor {
 
     static {
         hashMap.put("deadLine", "任務截止時間");
-        hashMap.put("description", "需求信息");
+        hashMap.put("description", "需求描述");
         hashMap.put("watcher", "關注人");
     }
 
@@ -58,7 +58,7 @@ public class UpdateTaskProcessor {
         if (result) {
             Pair pair = ObjectCompare.compare(taskParams.getBriefTaskVo(), old, SwTask.class, taskParams.getFieldInfo());
 
-            String content = "修改了任务" + hashMap.getOrDefault(taskParams.getFieldInfo(), taskParams.getFieldInfo());
+            String content = "修改了" + hashMap.getOrDefault(taskParams.getFieldInfo(), taskParams.getFieldInfo());
             if (Objects.nonNull(pair) && !"description".equalsIgnoreCase(taskParams.getFieldInfo())) {
                 content += String.format(" : %s > %s", pair.getRight(), pair.getLeft());
             }

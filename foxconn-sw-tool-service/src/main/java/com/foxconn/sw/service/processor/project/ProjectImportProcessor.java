@@ -78,7 +78,7 @@ public class ProjectImportProcessor {
             project.setProjectCode(values.get(2));
             project.setCustomerName(values.get(3));
             project.setFullName(values.get(4));
-            project.setManufacturingModel(values.get(4));
+            project.setManufacturingModel(values.get(5));
             project.setStatus(values.get(6));
             project.setRfqTime(values.get(7));
             project.setCustomer(values.get(8));
