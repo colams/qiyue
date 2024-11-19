@@ -10,7 +10,6 @@ import com.foxconn.sw.data.constants.enums.retcode.RetCode;
 import com.foxconn.sw.data.dto.Request;
 import com.foxconn.sw.data.dto.Response;
 import com.foxconn.sw.data.dto.entity.universal.IntegerParams;
-import com.foxconn.sw.data.dto.entity.universal.StringParams;
 import com.foxconn.sw.data.dto.entity.universal.UploadResult;
 import com.foxconn.sw.data.entity.SwAppendResource;
 import com.foxconn.sw.service.processor.universal.UploadProcessor;
@@ -100,12 +99,13 @@ public class CommonController {
     @Operation(summary = "设备管理", tags = TagsConstants.UNIVERSAL)
     @ApiResponse(responseCode = "0", description = "成功码")
     @PostMapping("/valid")
-    public Response<Short> valid(@Valid @RequestBody Request<StringParams> request) {
+    public Response<String> valid(@Valid @RequestBody Request request) {
+        String ms = DateTimeUtils.format(LocalDateTime.now(), "yyyyMMddHHmm");
         String dateTime = "CMBU" + DateTimeUtils.format(LocalDateTime.now(), "yyyyMMddHHmm");
         byte[] data = dateTime.getBytes();
         int length = data.length;
         short crc = crc16(data, length);
-        return ResponseUtils.success(crc, request.getTraceId());
+        return ResponseUtils.success(ms + crc, request.getTraceId());
     }
 
     public static short crc16(byte[] ptr, int len) {
