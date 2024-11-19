@@ -16,6 +16,7 @@ import com.google.common.collect.Lists;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.util.CollectionUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -57,6 +58,9 @@ public class PostsDetailProcessor {
         }
 
         List<Integer> resourceIDsInt = JsonUtils.deserialize(resourceIDs, List.class, Integer.class);
+        if (CollectionUtils.isEmpty(resourceIDsInt)) {
+            return Lists.newArrayList();
+        }
 
         List<SwAppendResource> resources = appendResourceBusiness.getAppendResources(resourceIDsInt);
         List<ResourceVo> resourceVos = new ArrayList<>();
