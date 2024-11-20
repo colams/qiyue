@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -41,11 +42,16 @@ public class ForumParticipantBusiness {
         return Optional.ofNullable(forumParticipants).orElse(Lists.newArrayList())
                 .stream()
                 .map(e -> convert2Employee(e))
+                .filter(e -> Objects.nonNull(e))
                 .collect(Collectors.toList());
     }
 
     private ForumsParticipantVo convert2Employee(ForumParticipant e) {
         UserInfo userInfo = userBusiness.queryUserInfo(e.getEmployeeNo());
+        if (Objects.isNull(userInfo)) {
+            return null;
+        }
+
         ForumsParticipantVo participantVo = new ForumsParticipantVo();
         participantVo.setName(userInfo.getEmployeeName());
         participantVo.setEmployeeNo(e.getEmployeeNo());

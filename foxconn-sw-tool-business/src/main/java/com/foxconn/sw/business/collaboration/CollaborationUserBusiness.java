@@ -151,6 +151,32 @@ public class CollaborationUserBusiness {
         return result;
     }
 
+    public List<String> getExcelContent(Integer taskID) throws FileNotFoundException {
+        List<TaskProgressVo> progressVos = progressBusiness.selectTaskProcess(taskID);
+        TaskProgressVo vo = progressVos.stream()
+                .filter(e -> !CollectionUtils.isEmpty(e.getResourceIds()))
+                .sorted(Comparator.comparing(TaskProgressVo::getCreateTime))
+                .findFirst()
+                .orElse(null);
+        if (Objects.isNull(vo)) {
+            throw new BizException(4, "参数错误");
+        }
+        SwAppendResource appendResource = resourceBusiness.getAppendResources(vo.getResourceIds().get(0));
+        String filePath = filePathUtils.getFilePath(appendResource.getUploadType()) + appendResource.getFilePath();
+        List<String> result = new ArrayList<>();
+        try (FileInputStream fis = new FileInputStream(filePath);
+             Workbook workbook = new XSSFWorkbook(fis)) {
+
+            Sheet sheet = workbook.getSheetAt(0);
+            for (Cell cell : sheet.getRow(0)) {
+                result.add(ExcelUtils.getCellValueAsString(cell));
+            }
+        } catch (IOException e) {
+            logger.error("getTaskHeader", e);
+        }
+        return result;
+    }
+
     public boolean updateEvaluation(SwCollaborationUser user, Integer evaluationType) {
         user.setStatus(evaluationType);
         user.setStatus(evaluationType);

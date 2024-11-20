@@ -2,6 +2,7 @@ package com.foxconn.sw.service.processor.task;
 
 import com.foxconn.sw.business.SwCapexSetBusiness;
 import com.foxconn.sw.business.TaskNoSeedSingleton;
+import com.foxconn.sw.business.collaboration.CollaborationUserBusiness;
 import com.foxconn.sw.business.context.RequestContext;
 import com.foxconn.sw.business.mapper.TaskMapper;
 import com.foxconn.sw.business.oa.SwTaskBusiness;
@@ -11,11 +12,11 @@ import com.foxconn.sw.business.oa.SwTaskProgressBusiness;
 import com.foxconn.sw.business.system.EmployeeBusiness;
 import com.foxconn.sw.common.utils.ConvertUtils;
 import com.foxconn.sw.common.utils.JsonUtils;
+import com.foxconn.sw.data.constants.enums.TaskRoleFlagEnums;
 import com.foxconn.sw.data.constants.enums.oa.RejectStatusEnum;
 import com.foxconn.sw.data.dto.entity.oa.TaskBriefDetailVo;
-import com.foxconn.sw.data.entity.SwEmployee;
-import com.foxconn.sw.data.entity.SwTask;
-import com.foxconn.sw.data.entity.SwTaskProgress;
+import com.foxconn.sw.data.entity.*;
+import com.foxconn.sw.data.exception.BizException;
 import com.foxconn.sw.service.processor.user.CommonUserUtils;
 import com.google.common.collect.Lists;
 import org.apache.commons.lang3.StringUtils;
@@ -48,6 +49,10 @@ public class CreateTaskProcessor {
     SwTaskEmployeeRelationBusiness taskEmployeeRelation;
     @Autowired
     SwCapexSetBusiness capexSetBusiness;
+    @Autowired
+    CollaborationUserBusiness collaborationUser;
+    @Autowired
+    SwTaskEmployeeRelationBusiness taskEmployeeRelationBusiness;
 
 
     public Integer createTask(TaskBriefDetailVo data) {
@@ -67,12 +72,27 @@ public class CreateTaskProcessor {
         addProcessInfo(task, data.getResourceIds(), isUpdate);
         taskEmployeeRelation.addRelationAtCreate(taskID, data.getManagers(), data.getWatchers());
 
-        if (!CollectionUtils.isEmpty(data.getCapexParamsVos())) {
-            // todo process capex params
-            capexSetBusiness.insertSet(taskID, data.getCapexParamsVos());
+        if ("6-2".equalsIgnoreCase(data.getCategory()) || "capex".equalsIgnoreCase(data.getCategory())) {
+            processHandle(taskID);
+            if (!CollectionUtils.isEmpty(data.getCapexParamsVos())) {
+                capexSetBusiness.insertSet(taskID, data.getCapexParamsVos());
+            }
         }
 
         return taskID;
+    }
+
+
+    private void processHandle(Integer taskID) {
+        List<SwCollaborationUser> collaborationUsers = collaborationUser.queryCollaborationUser(taskID);
+        List<SwTaskEmployeeRelation> relations = taskEmployeeRelationBusiness.getRelationsByTaskIdAndRole(taskID, TaskRoleFlagEnums.Manager_Flag);
+
+        for (SwTaskEmployeeRelation relation : relations) {
+            boolean has = collaborationUsers.stream().anyMatch(e -> e.getEmployeeNo().equalsIgnoreCase(relation.getEmployeeNo()));
+            if (!has) {
+                collaborationUser.acceptTask(taskID, relation.getEmployeeNo());
+            }
+        }
     }
 
     private void addTaskLog(SwTask task, boolean isUpdate) {

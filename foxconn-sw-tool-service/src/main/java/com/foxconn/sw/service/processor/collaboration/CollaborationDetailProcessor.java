@@ -73,7 +73,6 @@ public class CollaborationDetailProcessor {
 
 
     private List<Map<String, Object>> initMapList(List<String> headers, int taskID) {
-        processHandle(taskID);
         List<SwCollaborationUser> collaborationUsers = collaborationUser.queryCollaborationUser(taskID);
 
         List<SwTaskEmployeeRelation> relations = taskEmployeeRelationBusiness.getRelationsByTaskId(taskID);
@@ -99,21 +98,6 @@ public class CollaborationDetailProcessor {
         return sortList(list);
     }
 
-    private void processHandle(Integer taskID) {
-        List<SwCollaborationUser> collaborationUsers = collaborationUser.queryCollaborationUser(taskID);
-        List<SwTaskEmployeeRelation> relations = taskEmployeeRelationBusiness.getRelationsByTaskIdAndRole(taskID, TaskRoleFlagEnums.Manager_Flag);
-
-        if (CollectionUtils.isEmpty(relations)) {
-            throw new BizException(4, "任务负责人为空");
-        }
-
-        for (SwTaskEmployeeRelation relation : relations) {
-            boolean has = collaborationUsers.stream().anyMatch(e -> e.getEmployeeNo().equalsIgnoreCase(relation.getEmployeeNo()));
-            if (!has) {
-                collaborationUser.acceptTask(taskID, relation.getEmployeeNo());
-            }
-        }
-    }
 
     private List<Map<String, Object>> sortList(List<Map<String, Object>> list) {
         list.sort((e1, e2) -> {

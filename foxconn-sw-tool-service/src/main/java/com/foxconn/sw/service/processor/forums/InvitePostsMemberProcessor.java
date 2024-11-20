@@ -21,6 +21,5 @@ public class InvitePostsMemberProcessor {
         }
 
         return forumParticipantBusiness.addForumParticipant(data.getId(), data.getEmployeeNos());
-
     }
 }
