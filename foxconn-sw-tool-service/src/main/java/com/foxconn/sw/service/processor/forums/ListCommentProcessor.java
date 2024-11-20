@@ -13,6 +13,8 @@ import org.springframework.util.CollectionUtils;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 @Component
 public class ListCommentProcessor {
@@ -28,7 +30,18 @@ public class ListCommentProcessor {
         if (CollectionUtils.isEmpty(comments)) {
             return Lists.newArrayList();
         }
-        return mapComments(comments);
+        List<CommentsVo> vos = mapComments(comments);
+        return buildTree(vos);
+    }
+
+    private List<CommentsVo> buildTree(List<CommentsVo> vos) {
+        List<CommentsVo> comments = vos.stream()
+                .filter(e -> Objects.isNull(e.getParentId()) || e.getParentId() <= 0)
+                .collect(Collectors.toList());
+        comments.forEach(e -> {
+            e.setReplies(vos.stream().filter(f -> e.getId().equals(f.getParentId())).collect(Collectors.toList()));
+        });
+        return comments;
     }
 
     private List<CommentsVo> mapComments(List<ForumComment> comments) {
