@@ -51,7 +51,7 @@ public class WeekUtils {
     /**
      * @return
      */
-    public static int getWeekNumberOfYear(LocalDateTime date) {
+    public static int getWeekNumberOfYear(LocalDate date) {
         LocalDate startOfYear = LocalDate.of(date.getYear(), 1, 1);
         int daysSinceStart = date.getDayOfYear() - startOfYear.getDayOfYear();
         int adjustedDaysSinceStart = daysSinceStart + ((startOfYear.getDayOfWeek().getValue() == 7) ? 1 : (startOfYear.getDayOfWeek().getValue() >= 2 ? 8 - startOfYear.getDayOfWeek().getValue() : 1 - startOfYear.getDayOfWeek().getValue()));

@@ -103,4 +103,5 @@ public class ReportSearchParamsUtils {
         Pair<Integer, Integer> pair = WeekUtils.getWeekOfYearAndYear(searchDate);
         return String.format("%s%02d", pair.getRight(), pair.getLeft());
     }
+
 }

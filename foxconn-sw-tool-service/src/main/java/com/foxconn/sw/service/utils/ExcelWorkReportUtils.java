@@ -17,7 +17,7 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.util.CollectionUtils;
 
 import java.awt.Color;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
@@ -94,7 +94,7 @@ public class ExcelWorkReportUtils {
         cell1.setCellValue("Weekly Report");
         cell1.setCellStyle(m_style);
         Cell cell2 = headerRow0.createCell(6);
-        cell2.setCellValue("Week: WK" + vos.get(0).getWeek());
+        cell2.setCellValue("Week: WK" + WeekUtils.getWeekNumberOfYear(LocalDate.now()));
         cell2.setCellStyle(r_style);
 
         CellRangeAddress cellAddressTitle = new CellRangeAddress(
@@ -221,7 +221,7 @@ public class ExcelWorkReportUtils {
 
 
     private static void processStatusSheet(Workbook workbook, Sheet sheet, Map<String, List<WorkReportVo>> map) {
-        Integer weekNum = WeekUtils.getWeekNumberOfYear(LocalDateTime.now());
+        Integer weekNum = WeekUtils.getWeekNumberOfYear(LocalDate.now());
         UserInfo userInfo = RequestContext.getUserInfo();
         // 创建标题行
         CellStyle style1 = style(workbook, HorizontalAlignment.CENTER, VerticalAlignment.CENTER, Font_Arial, FontSize_16, true, Title_Color);
@@ -295,7 +295,7 @@ public class ExcelWorkReportUtils {
 
             createCell(row, 0, i, style);
             createCell(row, 1, entry.getKey(), style);
-            createCell(row, 2, entry.getValue().size(), style);
+            createCell(row, 2, entry.getValue().size() - 1, style);
             createCell(row, 3, getLastWeekNumber(entry.getValue()), style);
             createCell(row, 4, getReportDays(entry.getValue(), weekNum), style);
             createCell(row, 5, reportItems, style);

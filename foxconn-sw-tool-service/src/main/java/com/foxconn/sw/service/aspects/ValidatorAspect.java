@@ -1,6 +1,8 @@
 package com.foxconn.sw.service.aspects;
 
+import com.foxconn.sw.business.LogBusiness;
 import com.foxconn.sw.common.utils.DateTimeUtils;
+import com.foxconn.sw.common.utils.JsonUtils;
 import com.foxconn.sw.data.dto.Request;
 import com.foxconn.sw.service.utils.ServletUtils;
 import jakarta.annotation.Resource;
@@ -29,15 +31,15 @@ public class ValidatorAspect {
     @Autowired
     private ServletUtils servletUtils;
 
+    @Autowired
+    LogBusiness logBusiness;
 
     @Before("parameterPointcut() && args(request,..)")
     public void before(JoinPoint joinPoint, Request request) {
         Set<ConstraintViolation<Request>> validatorErrors = this.localValidatorFactoryBean.validate(request, new Class[]{Default.class});
-        // 处理校验结果
         // todo 权限校验
         LocalDateTime localDateTime = LocalDateTime.now();
-        logger.info("時間戳：" + DateTimeUtils.format(localDateTime) + "   =====," + servletUtils.getRemoteIp() + "====," + request.getTraceId());
-        logger.info("before signature=========================:" + joinPoint.getTarget().getClass().getSimpleName() + "." + joinPoint.getSignature().getName());
+        logParam(joinPoint, request, servletUtils.getRemoteIp());
     }
 
     @Around("parameterPointcut() && args(request,..)")
@@ -62,4 +64,14 @@ public class ValidatorAspect {
 
     }
 
+    private void logParam(JoinPoint joinPoint, Request request, String ip) {
+        try {
+            String operator = ip;
+            String operateType = joinPoint.getTarget().getClass().getSimpleName() + "." + joinPoint.getSignature().getName();
+            String remark = JsonUtils.serialize(request);
+            logBusiness.log(operator, operateType, remark, 0L, ip);
+        } catch (Exception e) {
+            logger.error(e.getMessage(), e);
+        }
+    }
 }
