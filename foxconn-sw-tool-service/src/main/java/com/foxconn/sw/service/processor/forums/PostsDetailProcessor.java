@@ -69,6 +69,7 @@ public class PostsDetailProcessor {
             resourceVo.setId(e.getId());
             resourceVo.setName(e.getOriginName());
             resourceVo.setUrl(ConvertUtils.urlPreFix(e.getId(), e.getFilePath()));
+            resourceVo.setOperator(employeeUtils.mapEmployee(e.getOperator()));
             resourceVos.add(resourceVo);
         });
         return resourceVos;

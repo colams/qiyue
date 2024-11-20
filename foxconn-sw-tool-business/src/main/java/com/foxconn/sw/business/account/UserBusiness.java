@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
 import java.util.List;
+import java.util.Objects;
 
 @Service
 public class UserBusiness {
@@ -47,11 +48,20 @@ public class UserBusiness {
 
     public UserInfo queryUserInfo(String employeeID) {
         UserInfo userInfo = sysUserExtensionMapper.queryUserInfo(employeeID);
+        if (Objects.isNull(userInfo)) {
+            return null;
+        }
         userInfo.setDepartName(ZhConverterUtil.convertToTraditional(userInfo.getDepartName()));
         userInfo.setAvatar(resourceBusiness.getResourceUrl(userInfo.getAvatarID()));
         userInfo.setManagerLevel(userInfo.getManagerLevel());
         return userInfo;
     }
+
+    public String getUserAvatar(String employeeID) {
+        UserInfo userInfo = sysUserExtensionMapper.queryUserInfo(employeeID);
+        return resourceBusiness.getResourceUrl(userInfo.getAvatarID());
+    }
+
 
     public List<EmployeeVo> queryEmployees(EmployeeParams employeeParams) {
         return sysUserExtensionMapper.queryEmployees(employeeParams);

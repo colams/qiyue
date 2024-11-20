@@ -83,8 +83,9 @@ public class CommonController {
     @ApiResponse(responseCode = "0", description = "成功码")
     @PostMapping("/upload")
     public Response<List<UploadResult>> upload(@RequestParam("file") MultipartFile[] file,
-                                               @RequestParam("uploadType") String uploadType) throws FileNotFoundException {
-        List<UploadResult> results = uploadProcessor.uploadFiles(file, uploadType);
+                                               @RequestParam("uploadType") String uploadType,
+                                               @RequestParam("request") String reqJson) throws FileNotFoundException {
+        List<UploadResult> results = uploadProcessor.uploadFiles(file, uploadType, reqJson);
         return ResponseUtils.response(results, RetCode.SUCCESS, UUIDUtils.getUuid());
     }
 

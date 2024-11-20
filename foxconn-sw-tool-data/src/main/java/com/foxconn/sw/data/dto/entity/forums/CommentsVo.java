@@ -9,6 +9,7 @@ public class CommentsVo {
     private Integer postsId;
     private Integer id;
     private Integer targetId;
+    private Integer parentId;
     private String content;
     private EmployeeVo employee;
 
@@ -36,6 +37,14 @@ public class CommentsVo {
 
     public void setTargetId(Integer targetId) {
         this.targetId = targetId;
+    }
+
+    public Integer getParentId() {
+        return parentId;
+    }
+
+    public void setParentId(Integer parentId) {
+        this.parentId = parentId;
     }
 
     public String getContent() {

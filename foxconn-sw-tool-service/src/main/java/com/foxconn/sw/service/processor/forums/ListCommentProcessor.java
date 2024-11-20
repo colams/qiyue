@@ -38,6 +38,7 @@ public class ListCommentProcessor {
             vo.setPostsId(e.getPostsId());
             vo.setId(e.getId());
             vo.setTargetId(e.getTargetId());
+            vo.setParentId(e.getParentId());
             vo.setContent(e.getContent());
             vo.setEmployee(employeeUtils.mapEmployee(e.getAuthorNo()));
             vo.setReplies(Lists.newArrayList());

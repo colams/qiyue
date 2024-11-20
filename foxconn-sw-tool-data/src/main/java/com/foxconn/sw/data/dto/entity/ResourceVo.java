@@ -1,11 +1,14 @@
 package com.foxconn.sw.data.dto.entity;
 
+import com.foxconn.sw.data.dto.entity.acount.EmployeeVo;
+
 public class ResourceVo {
 
     private Integer id;
     private String name;
     private String url;
     private String filePath;
+    private EmployeeVo operator;
 
     public Integer getId() {
         return id;
@@ -37,5 +40,13 @@ public class ResourceVo {
 
     public void setFilePath(String filePath) {
         this.filePath = filePath;
+    }
+
+    public EmployeeVo getOperator() {
+        return operator;
+    }
+
+    public void setOperator(EmployeeVo operator) {
+        this.operator = operator;
     }
 }

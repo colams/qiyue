@@ -6,6 +6,7 @@ import com.foxconn.sw.data.dto.request.forums.UpdateAttachParams;
 import com.foxconn.sw.data.entity.ForumPosts;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.util.CollectionUtils;
 
 import java.util.List;
 import java.util.Objects;
@@ -17,6 +18,10 @@ public class UpdatePostsProcessor {
     ForumPostsBusiness forumPostsBusiness;
 
     public boolean updateAttach(UpdateAttachParams data) {
+        if (CollectionUtils.isEmpty(data.getResourceIds())) {
+            return false;
+        }
+
         ForumPosts forumPosts = forumPostsBusiness.getForumPosts(data.getId());
         if (Objects.isNull(forumPosts)) {
             return false;
@@ -24,9 +29,21 @@ public class UpdatePostsProcessor {
 
         List<Integer> resourceIds = JsonUtils.deserialize(forumPosts.getResourceIds(), List.class, Integer.class);
 
+        if (CollectionUtils.isEmpty(resourceIds)) {
+            return false;
+        }
+
+        data.getResourceIds().forEach(e -> resourceIds.remove(e));
+
+
         ForumPosts updatePosts = new ForumPosts();
         updatePosts.setId(forumPosts.getId());
-        updatePosts.setResourceIds(JsonUtils.serialize(resourceIds.remove(data.getResourceId())));
+        if (!CollectionUtils.isEmpty(resourceIds)) {
+            updatePosts.setResourceIds(JsonUtils.serialize(resourceIds));
+        } else {
+            updatePosts.setResourceIds("");
+        }
+
         return forumPostsBusiness.updatePosts(updatePosts);
     }
 }

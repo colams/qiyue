@@ -3,10 +3,10 @@ package com.foxconn.sw.service.processor.acount;
 import com.foxconn.sw.business.SwAppendResourceBusiness;
 import com.foxconn.sw.business.account.UserBusiness;
 import com.foxconn.sw.business.context.RequestContext;
+import com.foxconn.sw.common.utils.FilePathUtils;
 import com.foxconn.sw.common.utils.UploadUtils;
 import com.foxconn.sw.data.constants.enums.retcode.RetCode;
 import com.foxconn.sw.data.exception.BizException;
-import com.foxconn.sw.common.utils.FilePathUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -33,7 +33,10 @@ public class AvatarUploadProcessor {
 
         String path = UploadUtils.upload(fileBaseUrl, avatar);
         if (StringUtils.isNoneBlank(path)) {
-            Integer resourceID = resourceBusiness.saveResource(path, avatar.getOriginalFilename(), uploadType);
+            Integer resourceID = resourceBusiness.saveResource(path,
+                    avatar.getOriginalFilename(),
+                    uploadType,
+                    RequestContext.getEmployeeNo());
             updateUserAvatar(resourceID);
             return resourceBusiness.getResourceUrl(resourceID);
         }

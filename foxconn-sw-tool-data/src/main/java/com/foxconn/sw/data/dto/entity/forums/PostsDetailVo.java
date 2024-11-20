@@ -12,7 +12,7 @@ public class PostsDetailVo {
     private String createTime;
     private String title;
     private String content;
-    private List<EmployeeVo> participants;
+    private List<ForumsParticipantVo> participants;
 
     private List<ResourceVo> resources;
 
@@ -59,11 +59,11 @@ public class PostsDetailVo {
         this.content = content;
     }
 
-    public List<EmployeeVo> getParticipants() {
+    public List<ForumsParticipantVo> getParticipants() {
         return participants;
     }
 
-    public void setParticipants(List<EmployeeVo> participants) {
+    public void setParticipants(List<ForumsParticipantVo> participants) {
         this.participants = participants;
     }
 
