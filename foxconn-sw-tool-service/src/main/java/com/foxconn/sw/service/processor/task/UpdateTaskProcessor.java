@@ -7,6 +7,7 @@ import com.foxconn.sw.business.oa.SwTaskLogBusiness;
 import com.foxconn.sw.business.oa.SwTaskProgressBusiness;
 import com.foxconn.sw.common.utils.ObjectCompare;
 import com.foxconn.sw.data.constants.enums.TaskRoleFlagEnums;
+import com.foxconn.sw.data.constants.enums.oa.TaskStatusEnums;
 import com.foxconn.sw.data.dto.request.task.UpdateTaskParams;
 import com.foxconn.sw.data.entity.SwTask;
 import com.foxconn.sw.data.entity.SwTaskEmployeeRelation;
@@ -149,5 +150,18 @@ public class UpdateTaskProcessor {
         relation.setPrevId(primaryId);
         relation.setRoleFlag(Watcher_Flag.initFlag());
         return relation;
+    }
+
+    public boolean delete(Integer taskID) {
+        boolean result = swTaskBusiness.updateTaskStatus(taskID, TaskStatusEnums.DELETE);
+        if (result) {
+            taskLogBusiness.addTaskLog(taskID, RequestContext.getEmployeeNo(), "刪除任務");
+            SwTaskProgress progress = new SwTaskProgress();
+            progress.setTaskId(taskID);
+            progress.setOperateEid(RequestContext.getEmployeeNo());
+            progress.setContent("刪除任務");
+            progressBusiness.addProcessInfo(progress);
+        }
+        return result;
     }
 }

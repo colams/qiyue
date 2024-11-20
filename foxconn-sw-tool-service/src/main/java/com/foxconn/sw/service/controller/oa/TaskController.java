@@ -188,6 +188,15 @@ public class TaskController {
     }
 
     @Permission
+    @Operation(summary = "刪除任务", tags = TagsConstants.OA)
+    @ApiResponse(responseCode = "0", description = "成功码")
+    @PostMapping("/delete")
+    public Response delete(@Valid @RequestBody Request<IntegerParams> request) {
+        boolean result = updateTaskProcessor.delete(request.getData().getParams());
+        return ResponseUtils.success(result, request.getTraceId());
+    }
+
+    @Permission
     @Operation(summary = "接受任务", tags = TagsConstants.OA)
     @ApiResponse(responseCode = "0", description = "成功码")
     @PostMapping("/taskEmployeeRelation")

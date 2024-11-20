@@ -81,9 +81,15 @@ public class TaskOperateUtils {
                 operate = initVo(op.getMsg(), op.name(), enable);
                 break;
             case REVOKE:
-                if ((taskStatusEnums == PENDING && isProposer) || isInspector) {
+                if (taskStatusEnums == DRAFT || taskStatusEnums == REVOKE) {
                     enable = true;
+                    op = OperateTypeEnum.DELETE;
+                } else {
+                    if ((taskStatusEnums == PENDING && isProposer) || isInspector) {
+                        enable = true;
+                    }
                 }
+
                 operate = initVo(op.getMsg(), op.name(), enable);
                 break;
             case DELETE:

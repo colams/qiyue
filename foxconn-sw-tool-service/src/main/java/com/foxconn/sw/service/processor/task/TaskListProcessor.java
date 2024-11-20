@@ -227,7 +227,9 @@ public class TaskListProcessor {
         for (OperateTypeEnum op : OperateTypeEnum.values()) {
             if (op.getPage().equalsIgnoreCase("list")) {
                 OperateEntity operate = TaskOperateUtils.processOperate(e, op, optional);
-                entityList.add(operate);
+                if (Objects.nonNull(operate)) {
+                    entityList.add(operate);
+                }
             }
         }
         return entityList;
