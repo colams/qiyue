@@ -7,7 +7,6 @@ import com.foxconn.sw.data.dto.request.forums.PostsParams;
 import com.foxconn.sw.data.entity.ForumPosts;
 import com.foxconn.sw.data.entity.ForumPostsExample;
 import com.foxconn.sw.data.mapper.extension.forums.ForumPostsExtMapper;
-import com.google.common.collect.Lists;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -38,8 +37,7 @@ public class ForumPostsBusiness {
 
     public List<ForumPosts> queryPosts(Integer postsType, String words) {
         if (NumberConstants.TWO.equals(postsType)) {
-            // todo
-            return Lists.newArrayList();
+            return forumPostsExtMapper.favoritePosts(words);
         }
         ForumPostsExample example = new ForumPostsExample();
         ForumPostsExample.Criteria criteria = example.createCriteria();

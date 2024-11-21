@@ -1,6 +1,7 @@
 package com.foxconn.sw.service.processor.forums;
 
 import com.foxconn.sw.business.forums.ForumCommentBusiness;
+import com.foxconn.sw.common.utils.DateTimeUtils;
 import com.foxconn.sw.data.dto.PageParams;
 import com.foxconn.sw.data.dto.entity.forums.CommentsVo;
 import com.foxconn.sw.data.dto.entity.universal.IntegerParams;
@@ -54,6 +55,7 @@ public class ListCommentProcessor {
             vo.setParentId(e.getParentId());
             vo.setContent(e.getContent());
             vo.setEmployee(employeeUtils.mapEmployee(e.getAuthorNo()));
+            vo.setCreateTime(DateTimeUtils.format(e.getCreateTime()));
             vo.setReplies(Lists.newArrayList());
             vos.add(vo);
         });

@@ -12,6 +12,7 @@ public class CommentsVo {
     private Integer parentId;
     private String content;
     private EmployeeVo employee;
+    private String createTime;
 
     private List<CommentsVo> replies;
 
@@ -61,6 +62,14 @@ public class CommentsVo {
 
     public void setEmployee(EmployeeVo employee) {
         this.employee = employee;
+    }
+
+    public String getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(String createTime) {
+        this.createTime = createTime;
     }
 
     public List<CommentsVo> getReplies() {
