@@ -10,7 +10,7 @@ public class PostsBriefVo {
     private String title;
     private String content;
 
-    private Integer viewCount;
+    private Integer memberCount;
     private Integer commentCount;
 
     public Integer getId() {
@@ -53,12 +53,12 @@ public class PostsBriefVo {
         this.content = content;
     }
 
-    public Integer getViewCount() {
-        return viewCount;
+    public Integer getMemberCount() {
+        return memberCount;
     }
 
-    public void setViewCount(Integer viewCount) {
-        this.viewCount = viewCount;
+    public void setMemberCount(Integer memberCount) {
+        this.memberCount = memberCount;
     }
 
     public Integer getCommentCount() {

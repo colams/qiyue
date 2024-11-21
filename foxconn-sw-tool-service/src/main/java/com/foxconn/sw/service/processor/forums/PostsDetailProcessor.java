@@ -47,7 +47,7 @@ public class PostsDetailProcessor {
         detailVo.setContent(forumPosts.getDescription());
         detailVo.setParticipants(forumParticipantBusiness.queryParticipants(forumPosts.getId()));
         detailVo.setResources(mapResource(forumPosts.getResourceIds()));
-        detailVo.setViewCount(0);
+        detailVo.setMemberCount(detailVo.getParticipants().size());
         detailVo.setCommentCount(0);
         return detailVo;
     }

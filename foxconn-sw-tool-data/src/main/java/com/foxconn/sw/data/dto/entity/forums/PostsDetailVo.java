@@ -16,7 +16,7 @@ public class PostsDetailVo {
 
     private List<ResourceVo> resources;
 
-    private Integer viewCount;
+    private Integer memberCount;
     private Integer commentCount;
 
     public Integer getId() {
@@ -75,12 +75,12 @@ public class PostsDetailVo {
         this.resources = resources;
     }
 
-    public Integer getViewCount() {
-        return viewCount;
+    public Integer getMemberCount() {
+        return memberCount;
     }
 
-    public void setViewCount(Integer viewCount) {
-        this.viewCount = viewCount;
+    public void setMemberCount(Integer memberCount) {
+        this.memberCount = memberCount;
     }
 
     public Integer getCommentCount() {

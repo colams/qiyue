@@ -42,7 +42,7 @@ public class ListPostsProcessor {
             vo.setCreateTime(DateTimeUtils.format(e.getCreateTime()));
             vo.setTitle(e.getTitle());
             vo.setContent(e.getDescription());
-            vo.setViewCount(0);
+            vo.setMemberCount(0);
             vo.setCommentCount(0);
             vos.add(vo);
         });
