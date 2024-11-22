@@ -25,13 +25,25 @@ public class ForumParticipantBusiness {
     UserBusiness userBusiness;
 
     public boolean addForumParticipant(int postsID, List<String> participants) {
+        List<ForumParticipant> participantList = selectParticipants(postsID);
         participants.forEach(e -> {
+            boolean hasEmployee = participantList.stream().anyMatch(p -> p.getEmployeeNo().equalsIgnoreCase(e));
+            if (hasEmployee) {
+                return;
+            }
             ForumParticipant participant = new ForumParticipant();
             participant.setPostsId(postsID);
             participant.setEmployeeNo(e);
             forumParticipantExtMapper.insertSelective(participant);
         });
         return true;
+    }
+
+    public List<ForumParticipant> selectParticipants(Integer id) {
+        ForumParticipantExample example = new ForumParticipantExample();
+        ForumParticipantExample.Criteria criteria = example.createCriteria();
+        criteria.andPostsIdEqualTo(id);
+        return forumParticipantExtMapper.selectByExample(example);
     }
 
     public List<ForumsParticipantVo> queryParticipants(Integer id) {
