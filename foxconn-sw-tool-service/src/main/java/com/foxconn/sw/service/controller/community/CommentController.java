@@ -46,8 +46,8 @@ public class CommentController {
     @ApiResponse(responseCode = "0", description = "成功码")
     @PostMapping("/create")
     public Response<Boolean> create(@Valid @RequestBody Request<CommentsParams> request) {
-        boolean result = createCommentProcessor.createComments(request.getData());
-        return ResponseUtils.success(result, request.getTraceId());
+        Integer result = createCommentProcessor.createComments(request.getData());
+        return ResponseUtils.success(result > 0, request.getTraceId());
     }
 
 

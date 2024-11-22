@@ -24,6 +24,17 @@ public class ForumPostsAttachmentBusiness {
         return true;
     }
 
+    public boolean insertPostsAttachment(Integer postsID, Integer commentId, List<Integer> resourceIDs) {
+        resourceIDs.forEach(e -> {
+            ForumPostsAttachment postsAttachment = new ForumPostsAttachment();
+            postsAttachment.setPostsId(postsID);
+            postsAttachment.setCommentId(commentId);
+            postsAttachment.setResourceId(e);
+            postsAttachmentExtMapper.insertSelective(postsAttachment);
+        });
+        return true;
+    }
+
     public List<ForumPostsAttachment> selectPostsAttachment(Integer postsID) {
         ForumPostsAttachmentExample example = new ForumPostsAttachmentExample();
         ForumPostsAttachmentExample.Criteria criteria = example.createCriteria();

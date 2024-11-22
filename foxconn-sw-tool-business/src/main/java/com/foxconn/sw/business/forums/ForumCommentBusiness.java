@@ -20,7 +20,8 @@ public class ForumCommentBusiness {
         return forumCommentExtMapper.selectByExample(example);
     }
 
-    public boolean addComment(ForumComment comment) {
-        return forumCommentExtMapper.insertSelective(comment) > 0;
+    public Integer addComment(ForumComment comment) {
+        forumCommentExtMapper.insertSelective(comment);
+        return comment.getId();
     }
 }

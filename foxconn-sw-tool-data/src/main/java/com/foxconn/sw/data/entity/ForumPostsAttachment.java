@@ -7,6 +7,8 @@ public class ForumPostsAttachment {
 
     private Integer postsId;
 
+    private Integer commentId;
+
     private Integer resourceId;
 
     private Integer isDelete;
@@ -39,6 +41,19 @@ public class ForumPostsAttachment {
 
     public void setPostsId(Integer postsId) {
         this.postsId = postsId;
+    }
+
+    public Integer getCommentId() {
+        return commentId;
+    }
+
+    public ForumPostsAttachment withCommentId(Integer commentId) {
+        this.setCommentId(commentId);
+        return this;
+    }
+
+    public void setCommentId(Integer commentId) {
+        this.commentId = commentId;
     }
 
     public Integer getResourceId() {

@@ -34,12 +34,12 @@ public interface ForumPostsAttachmentMapper {
     int deleteByPrimaryKey(Integer id);
 
     @Insert({
-        "insert into forum_posts_attachment (posts_id, resource_id, ",
-        "is_delete, create_time, ",
-        "datatime_lastchange)",
-        "values (#{postsId,jdbcType=INTEGER}, #{resourceId,jdbcType=INTEGER}, ",
-        "#{isDelete,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, ",
-        "#{datatimeLastchange,jdbcType=TIMESTAMP})"
+        "insert into forum_posts_attachment (posts_id, comment_id, ",
+        "resource_id, is_delete, ",
+        "create_time, datatime_lastchange)",
+        "values (#{postsId,jdbcType=INTEGER}, #{commentId,jdbcType=INTEGER}, ",
+        "#{resourceId,jdbcType=INTEGER}, #{isDelete,jdbcType=INTEGER}, ",
+        "#{createTime,jdbcType=TIMESTAMP}, #{datatimeLastchange,jdbcType=TIMESTAMP})"
     })
     @SelectKey(statement="SELECT LAST_INSERT_ID()", keyProperty="id", before=false, resultType=Integer.class)
     int insert(ForumPostsAttachment record);
@@ -52,6 +52,7 @@ public interface ForumPostsAttachmentMapper {
     @Results({
         @Result(column="id", property="id", jdbcType=JdbcType.INTEGER, id=true),
         @Result(column="posts_id", property="postsId", jdbcType=JdbcType.INTEGER),
+        @Result(column="comment_id", property="commentId", jdbcType=JdbcType.INTEGER),
         @Result(column="resource_id", property="resourceId", jdbcType=JdbcType.INTEGER),
         @Result(column="is_delete", property="isDelete", jdbcType=JdbcType.INTEGER),
         @Result(column="create_time", property="createTime", jdbcType=JdbcType.TIMESTAMP),
@@ -63,6 +64,7 @@ public interface ForumPostsAttachmentMapper {
     @Results({
         @Result(column="id", property="id", jdbcType=JdbcType.INTEGER, id=true),
         @Result(column="posts_id", property="postsId", jdbcType=JdbcType.INTEGER),
+        @Result(column="comment_id", property="commentId", jdbcType=JdbcType.INTEGER),
         @Result(column="resource_id", property="resourceId", jdbcType=JdbcType.INTEGER),
         @Result(column="is_delete", property="isDelete", jdbcType=JdbcType.INTEGER),
         @Result(column="create_time", property="createTime", jdbcType=JdbcType.TIMESTAMP),
@@ -72,13 +74,14 @@ public interface ForumPostsAttachmentMapper {
 
     @Select({
         "select",
-        "id, posts_id, resource_id, is_delete, create_time, datatime_lastchange",
+        "id, posts_id, comment_id, resource_id, is_delete, create_time, datatime_lastchange",
         "from forum_posts_attachment",
         "where id = #{id,jdbcType=INTEGER}"
     })
     @Results({
         @Result(column="id", property="id", jdbcType=JdbcType.INTEGER, id=true),
         @Result(column="posts_id", property="postsId", jdbcType=JdbcType.INTEGER),
+        @Result(column="comment_id", property="commentId", jdbcType=JdbcType.INTEGER),
         @Result(column="resource_id", property="resourceId", jdbcType=JdbcType.INTEGER),
         @Result(column="is_delete", property="isDelete", jdbcType=JdbcType.INTEGER),
         @Result(column="create_time", property="createTime", jdbcType=JdbcType.TIMESTAMP),
@@ -98,6 +101,7 @@ public interface ForumPostsAttachmentMapper {
     @Update({
         "update forum_posts_attachment",
         "set posts_id = #{postsId,jdbcType=INTEGER},",
+          "comment_id = #{commentId,jdbcType=INTEGER},",
           "resource_id = #{resourceId,jdbcType=INTEGER},",
           "is_delete = #{isDelete,jdbcType=INTEGER},",
           "create_time = #{createTime,jdbcType=TIMESTAMP},",

@@ -32,6 +32,10 @@ public class ForumPostsAttachmentSqlProvider {
             sql.VALUES("posts_id", "#{postsId,jdbcType=INTEGER}");
         }
         
+        if (record.getCommentId() != null) {
+            sql.VALUES("comment_id", "#{commentId,jdbcType=INTEGER}");
+        }
+        
         if (record.getResourceId() != null) {
             sql.VALUES("resource_id", "#{resourceId,jdbcType=INTEGER}");
         }
@@ -59,6 +63,7 @@ public class ForumPostsAttachmentSqlProvider {
             sql.SELECT("id");
         }
         sql.SELECT("posts_id");
+        sql.SELECT("comment_id");
         sql.SELECT("resource_id");
         sql.SELECT("is_delete");
         sql.SELECT("create_time");
@@ -88,6 +93,10 @@ public class ForumPostsAttachmentSqlProvider {
             sql.SET("posts_id = #{record.postsId,jdbcType=INTEGER}");
         }
         
+        if (record.getCommentId() != null) {
+            sql.SET("comment_id = #{record.commentId,jdbcType=INTEGER}");
+        }
+        
         if (record.getResourceId() != null) {
             sql.SET("resource_id = #{record.resourceId,jdbcType=INTEGER}");
         }
@@ -114,6 +123,7 @@ public class ForumPostsAttachmentSqlProvider {
         
         sql.SET("id = #{record.id,jdbcType=INTEGER}");
         sql.SET("posts_id = #{record.postsId,jdbcType=INTEGER}");
+        sql.SET("comment_id = #{record.commentId,jdbcType=INTEGER}");
         sql.SET("resource_id = #{record.resourceId,jdbcType=INTEGER}");
         sql.SET("is_delete = #{record.isDelete,jdbcType=INTEGER}");
         sql.SET("create_time = #{record.createTime,jdbcType=TIMESTAMP}");
@@ -130,6 +140,10 @@ public class ForumPostsAttachmentSqlProvider {
         
         if (record.getPostsId() != null) {
             sql.SET("posts_id = #{postsId,jdbcType=INTEGER}");
+        }
+        
+        if (record.getCommentId() != null) {
+            sql.SET("comment_id = #{commentId,jdbcType=INTEGER}");
         }
         
         if (record.getResourceId() != null) {
