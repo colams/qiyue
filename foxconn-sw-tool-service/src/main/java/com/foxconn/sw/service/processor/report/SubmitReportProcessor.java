@@ -31,7 +31,7 @@ public class SubmitReportProcessor {
 
         String employeeNo = RequestContext.getEmployeeNo();
 
-        String firstYearWeek = paramsMap.keySet().toArray(new String[]{})[0];
+        String firstYearWeek = paramsMap.keySet().stream().sorted().collect(Collectors.toList()).get(0);
 
         for (Map.Entry<String, List<WorkReportParams>> entry : paramsMap.entrySet()) {
             int reportType = firstYearWeek.compareToIgnoreCase(entry.getKey()) < 0 ? 1 : 0;

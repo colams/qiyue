@@ -3,6 +3,7 @@ package com.foxconn.sw.service.utils;
 import com.foxconn.sw.business.context.RequestContext;
 import com.foxconn.sw.common.utils.DateTimeUtils;
 import com.foxconn.sw.common.utils.WeekUtils;
+import com.foxconn.sw.common.utils.constanst.NumberConstants;
 import com.foxconn.sw.data.dto.entity.acount.UserInfo;
 import com.foxconn.sw.data.dto.entity.oa.WorkReportDetail;
 import com.foxconn.sw.data.dto.entity.oa.WorkReportVo;
@@ -301,7 +302,7 @@ public class ExcelWorkReportUtils {
             Row row = sheet.createRow(rowNum + (i++));
 
             boolean isSubmit = entry.getValue().stream()
-                    .anyMatch(e -> e.getWeek().equals(weekNum) && !CollectionUtils.isEmpty(e.getReportDetailList()));
+                    .anyMatch(e -> e.getWeek().equals(weekNum) && NumberConstants.ZERO.equals(e.getReportType()));
             CellStyle style = isSubmit ? style5 : style6;
 
             int reportItems = getReportItems(entry.getValue(), weekNum);
@@ -309,7 +310,7 @@ public class ExcelWorkReportUtils {
 
             createCell(row, 0, i, style);
             createCell(row, 1, entry.getValue().get(0).getEmployee().getName(), style);
-            createCell(row, 2, entry.getValue().size() - 1, style);
+            createCell(row, 2, entry.getValue().stream().filter(e -> NumberConstants.ZERO.equals(e.getReportType())).collect(Collectors.toList()).size(), style);
             createCell(row, 3, getLastWeekNumber(entry.getValue()), style);
             createCell(row, 4, getReportDays(entry.getValue(), weekNum), style);
             createCell(row, 5, reportItems, style);
@@ -367,7 +368,7 @@ public class ExcelWorkReportUtils {
 
     private static Integer getLastWeekNumber(List<WorkReportVo> reportVos) {
         return reportVos.stream()
-                .filter(e -> !CollectionUtils.isEmpty(e.getReportDetailList()))
+                .filter(e -> NumberConstants.ZERO.equals(e.getReportType()))
                 .map(WorkReportVo::getWeek)
                 .sorted(Comparator.comparing(Integer::intValue).reversed())
                 .findFirst()
