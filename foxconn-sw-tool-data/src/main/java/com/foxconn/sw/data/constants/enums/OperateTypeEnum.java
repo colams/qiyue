@@ -11,7 +11,7 @@ public enum OperateTypeEnum {
     REJECT("駁回", "detail"),
     ASSIGN("轉交", "detail"),
     // ACCEPT("接受", "detail"),
-    SUBMIT("提交", "detail"),
+    SUBMIT("编辑", "detail"),
     CHECK("驗收", "detail"),
     ;
 
