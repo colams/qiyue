@@ -18,10 +18,8 @@ import org.springframework.util.CollectionUtils;
 
 import java.awt.Color;
 import java.time.LocalDate;
-import java.util.Comparator;
 import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class ExcelWorkReportUtils {
@@ -64,7 +62,7 @@ public class ExcelWorkReportUtils {
 
     public static Workbook generateExcel(List<WorkReportVo> vos, String startDate, String endDate) {
         Map<String, List<WorkReportVo>> map = vos.stream()
-                .collect(Collectors.groupingBy(e -> e.getEmployee().getName()));
+                .collect(Collectors.groupingBy(e -> e.getEmployeeNo()));
 
         // 创建Excel工作簿
         Workbook workbook = new XSSFWorkbook();
@@ -72,7 +70,7 @@ public class ExcelWorkReportUtils {
         processStatusSheet(workbook, statusSheet, map);
 
         for (Map.Entry<String, List<WorkReportVo>> entry : map.entrySet()) {
-            Sheet sheet = workbook.createSheet(entry.getKey());
+            Sheet sheet = workbook.createSheet(entry.getValue().get(0).getEmployee().getName() + "(" + entry.getKey() + ")");
             processReport(workbook, sheet, entry.getValue(), startDate, endDate);
         }
 
@@ -141,9 +139,7 @@ public class ExcelWorkReportUtils {
         int colorFlag = 0;
         for (int index = 0; index < vos.size(); index++) {
             WorkReportVo vo = vos.get(index);
-            if (CollectionUtils.isEmpty(vo.getReportDetailList())) {
-                continue;
-            }
+
             XSSFColor baseColor = Gray_Color;
             if (colorFlag == 0) {
                 baseColor = Plan_Color;
@@ -153,6 +149,7 @@ public class ExcelWorkReportUtils {
 
             CellStyle baseCellStyle = contentStyle(workbook, baseColor, HorizontalAlignment.CENTER, VerticalAlignment.CENTER);
             CellStyle baseContentCellStyle = contentStyle(workbook, baseColor, HorizontalAlignment.LEFT, VerticalAlignment.TOP);
+            CellStyle redFontCellStyle = contentFontStyle(workbook, Red_Color, baseColor, HorizontalAlignment.LEFT, VerticalAlignment.TOP);
 
             CellStyle redStyle = contentStyle(workbook, Red_Color);
             CellStyle reachStyle = contentStyle(workbook, Reach_Color);
@@ -169,41 +166,58 @@ public class ExcelWorkReportUtils {
             contentCell1.setCellValue(vo.getEmployee().getName());
             contentCell1.setCellStyle(baseCellStyle);
 
-            for (int i = 0; i < vo.getReportDetailList().size(); i++) {
-                Row currentRow = i == 0 ? row : sheet.createRow(rowNum++);
-                if (i > 0) {
-                    Cell contentCell00 = currentRow.createCell(0);
-                    contentCell00.setCellStyle(baseCellStyle);
-                    Cell contentCell01 = currentRow.createCell(1);
-                    contentCell01.setCellStyle(baseCellStyle);
-                }
-                boolean isFinish = vo.getReportDetailList().get(i).getCurrent() == 100;
-                boolean isReach = vo.getReportDetailList().get(i).getCurrent() == vo.getReportDetailList().get(i).getTarget();
-
-
-                Cell contentCell2 = currentRow.createCell(2);
-                contentCell2.setCellValue(vo.getReportDetailList().get(i).getDescription());
+            if (CollectionUtils.isEmpty(vo.getReportDetailList())) {
+                Cell contentCell2 = row.createCell(2);
                 contentCell2.setCellStyle(baseContentCellStyle);
-                Cell contentCell3 = currentRow.createCell(3);
-                contentCell3.setCellValue(vo.getReportDetailList().get(i).getDay());
+                Cell contentCell3 = row.createCell(3);
                 contentCell3.setCellStyle(baseCellStyle);
 
-                Cell contentCell4 = currentRow.createCell(4);
-                contentCell4.setCellValue(vo.getReportDetailList().get(i).getTarget());
+                Cell contentCell4 = row.createCell(4);
                 contentCell4.setCellStyle(baseCellStyle);
-                Cell contentCell5 = currentRow.createCell(5);
-                contentCell5.setCellValue(vo.getReportDetailList().get(i).getCurrent());
+                Cell contentCell5 = row.createCell(5);
+                contentCell5.setCellStyle(baseCellStyle);
 
-                CellStyle curStyle = baseCellStyle;
-                if (colorFlag > 0) {
-                    curStyle = isFinish ? baseCellStyle : isReach ? reachStyle : redStyle;
+                Cell contentCell6 = row.createCell(6);
+                contentCell6.setCellValue(vo.getMessage());
+                contentCell6.setCellStyle(redFontCellStyle);
+            } else {
+                for (int i = 0; i < vo.getReportDetailList().size(); i++) {
+                    Row currentRow = i == 0 ? row : sheet.createRow(rowNum++);
+                    if (i > 0) {
+                        Cell contentCell00 = currentRow.createCell(0);
+                        contentCell00.setCellStyle(baseCellStyle);
+                        Cell contentCell01 = currentRow.createCell(1);
+                        contentCell01.setCellStyle(baseCellStyle);
+                    }
+                    boolean isFinish = vo.getReportDetailList().get(i).getCurrent() == 100;
+                    boolean isReach = vo.getReportDetailList().get(i).getCurrent() == vo.getReportDetailList().get(i).getTarget();
+
+
+                    Cell contentCell2 = currentRow.createCell(2);
+                    contentCell2.setCellValue(vo.getReportDetailList().get(i).getDescription());
+                    contentCell2.setCellStyle(baseContentCellStyle);
+                    Cell contentCell3 = currentRow.createCell(3);
+                    contentCell3.setCellValue(vo.getReportDetailList().get(i).getDay());
+                    contentCell3.setCellStyle(baseCellStyle);
+
+                    Cell contentCell4 = currentRow.createCell(4);
+                    contentCell4.setCellValue(vo.getReportDetailList().get(i).getTarget());
+                    contentCell4.setCellStyle(baseCellStyle);
+                    Cell contentCell5 = currentRow.createCell(5);
+                    contentCell5.setCellValue(vo.getReportDetailList().get(i).getCurrent());
+
+                    CellStyle curStyle = baseCellStyle;
+                    if (colorFlag > 0) {
+                        curStyle = isFinish ? baseCellStyle : isReach ? reachStyle : redStyle;
+                    }
+                    contentCell5.setCellStyle(curStyle);
+
+                    Cell contentCell6 = currentRow.createCell(6);
+                    contentCell6.setCellValue(vo.getReportDetailList().get(i).getRemark());
+                    contentCell6.setCellStyle(baseContentCellStyle);
                 }
-                contentCell5.setCellStyle(curStyle);
-
-                Cell contentCell6 = currentRow.createCell(6);
-                contentCell6.setCellValue(vo.getReportDetailList().get(i).getRemark());
-                contentCell6.setCellStyle(baseContentCellStyle);
             }
+
             lastRow += vo.getReportDetailList().size() - 1;
             colorFlag++;
 
@@ -294,7 +308,7 @@ public class ExcelWorkReportUtils {
             int finishItems = getFinishReportItems(entry.getValue(), weekNum);
 
             createCell(row, 0, i, style);
-            createCell(row, 1, entry.getKey(), style);
+            createCell(row, 1, entry.getValue().get(0).getEmployee().getName(), style);
             createCell(row, 2, entry.getValue().size() - 1, style);
             createCell(row, 3, getLastWeekNumber(entry.getValue()), style);
             createCell(row, 4, getReportDays(entry.getValue(), weekNum), style);
@@ -406,19 +420,31 @@ public class ExcelWorkReportUtils {
         return style(workbook, hAlignment, vAlignment, true, Font_ArialUnicodeMS, FontSize_10, false, color);
     }
 
+    private static CellStyle contentFontStyle(Workbook workbook,
+                                              XSSFColor fontColor,
+                                              XSSFColor color,
+                                              HorizontalAlignment hAlignment,
+                                              VerticalAlignment vAlignment) {
+        return style(workbook, hAlignment, vAlignment, true, Font_ArialUnicodeMS, FontSize_10, false, fontColor, color);
+    }
+
     /**
      * @param workbook
      * @param fontName Arial
      * @param fontSize 6
      * @param fontSize isBold
+     * @param fontSize fontColor
      * @return
      */
-    private static Font font(Workbook workbook, String fontName, Integer fontSize, boolean isBold) {
+    private static Font font(Workbook workbook, String fontName, Integer fontSize, boolean isBold, XSSFColor color) {
         // 创建字体
         Font font = workbook.createFont();
         font.setFontName(fontName); // 设置字体名称
         font.setFontHeightInPoints(fontSize.shortValue()); // 设置字体大小
         font.setBold(isBold);
+        if (Objects.nonNull(color)) {
+            font.setColor(Font.COLOR_RED);
+        }
         return font;
     }
 
@@ -504,7 +530,7 @@ public class ExcelWorkReportUtils {
                                    boolean isBold,
                                    XSSFColor color,
                                    boolean hasBorder) {
-        return style(workbook, hAlignment, vAlignment, false, fontName, fontSize, isBold, color, hasBorder);
+        return style(workbook, hAlignment, vAlignment, false, fontName, fontSize, isBold, null, color, hasBorder);
     }
 
     /**
@@ -523,7 +549,7 @@ public class ExcelWorkReportUtils {
                                    Integer fontSize,
                                    boolean isBold,
                                    XSSFColor color) {
-        return style(workbook, hAlignment, vAlignment, false, fontName, fontSize, isBold, color, false);
+        return style(workbook, hAlignment, vAlignment, false, fontName, fontSize, isBold, null, color, false);
     }
 
 
@@ -544,7 +570,7 @@ public class ExcelWorkReportUtils {
                                    Integer fontSize,
                                    XSSFColor color,
                                    boolean hasBorder) {
-        return style(workbook, hAlignment, vAlignment, false, fontName, fontSize, isBold, color, hasBorder);
+        return style(workbook, hAlignment, vAlignment, false, fontName, fontSize, isBold, null, color, hasBorder);
     }
 
     /**
@@ -565,7 +591,7 @@ public class ExcelWorkReportUtils {
                                    Integer fontSize,
                                    boolean isBold,
                                    XSSFColor color) {
-        return style(workbook, hAlignment, vAlignment, isWrap, fontName, fontSize, isBold, color, true);
+        return style(workbook, hAlignment, vAlignment, isWrap, fontName, fontSize, isBold, null, color, true);
     }
 
     /**
@@ -585,6 +611,29 @@ public class ExcelWorkReportUtils {
                                    String fontName,
                                    Integer fontSize,
                                    boolean isBold,
+                                   XSSFColor fontColor,
+                                   XSSFColor color) {
+        return style(workbook, hAlignment, vAlignment, isWrap, fontName, fontSize, isBold, fontColor, color, true);
+    }
+
+    /**
+     * 工作
+     *
+     * @param workbook
+     * @param hAlignment
+     * @param vAlignment
+     * @param isWrap
+     * @param color
+     * @return
+     */
+    private static CellStyle style(Workbook workbook,
+                                   HorizontalAlignment hAlignment,
+                                   VerticalAlignment vAlignment,
+                                   boolean isWrap,
+                                   String fontName,
+                                   Integer fontSize,
+                                   boolean isBold,
+                                   XSSFColor fontColor,
                                    XSSFColor color,
                                    boolean hasBorder) {
         CellStyle style = workbook.createCellStyle();
@@ -595,7 +644,7 @@ public class ExcelWorkReportUtils {
         // 设置自动换行
         style.setWrapText(isWrap);
         // 设置文字样式大小
-        style.setFont(font(workbook, fontName, fontSize, isBold));
+        style.setFont(font(workbook, fontName, fontSize, isBold, fontColor));
 
         // 填充背景色
         style.setFillPattern(FillPatternType.SOLID_FOREGROUND);
