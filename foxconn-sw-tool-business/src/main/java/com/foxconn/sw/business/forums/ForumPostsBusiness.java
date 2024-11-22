@@ -1,7 +1,6 @@
 package com.foxconn.sw.business.forums;
 
 import com.foxconn.sw.business.context.RequestContext;
-import com.foxconn.sw.common.utils.JsonUtils;
 import com.foxconn.sw.common.utils.constanst.NumberConstants;
 import com.foxconn.sw.data.dto.request.forums.PostsParams;
 import com.foxconn.sw.data.entity.ForumPosts;
@@ -10,7 +9,6 @@ import com.foxconn.sw.data.mapper.extension.forums.ForumPostsExtMapper;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.util.CollectionUtils;
 
 import java.util.List;
 
@@ -27,9 +25,6 @@ public class ForumPostsBusiness {
         forumPosts.setAuthorNo(RequestContext.getEmployeeNo());
         forumPosts.setPurview(data.getPurview());
         forumPosts.setDescription(data.getContent());
-        if (!CollectionUtils.isEmpty(data.getResources())) {
-            forumPosts.setResourceIds(JsonUtils.serialize(data.getResources()));
-        }
         forumPostsExtMapper.insertSelective(forumPosts);
         return forumPosts.getId();
     }

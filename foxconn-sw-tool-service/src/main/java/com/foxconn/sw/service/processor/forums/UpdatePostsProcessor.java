@@ -1,9 +1,9 @@
 package com.foxconn.sw.service.processor.forums;
 
+import com.foxconn.sw.business.forums.ForumPostsAttachmentBusiness;
 import com.foxconn.sw.business.forums.ForumPostsBusiness;
-import com.foxconn.sw.common.utils.JsonUtils;
 import com.foxconn.sw.data.dto.request.forums.UpdateAttachParams;
-import com.foxconn.sw.data.entity.ForumPosts;
+import com.foxconn.sw.data.entity.ForumPostsAttachment;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
@@ -16,34 +16,26 @@ public class UpdatePostsProcessor {
 
     @Autowired
     ForumPostsBusiness forumPostsBusiness;
+    @Autowired
+    ForumPostsAttachmentBusiness postsAttachmentBusiness;
 
     public boolean updateAttach(UpdateAttachParams data) {
-        if (CollectionUtils.isEmpty(data.getResourceIds())) {
+        if (Objects.isNull(data.getId()) || CollectionUtils.isEmpty(data.getResourceIds())) {
             return false;
         }
 
-        ForumPosts forumPosts = forumPostsBusiness.getForumPosts(data.getId());
-        if (Objects.isNull(forumPosts)) {
+        List<ForumPostsAttachment> attachments = postsAttachmentBusiness.selectPostsAttachment(data.getId());
+
+        if (CollectionUtils.isEmpty(attachments)) {
             return false;
         }
 
-        List<Integer> resourceIds = JsonUtils.deserialize(forumPosts.getResourceIds(), List.class, Integer.class);
-
-        if (CollectionUtils.isEmpty(resourceIds)) {
-            return false;
-        }
-
-        data.getResourceIds().forEach(e -> resourceIds.remove(e));
-
-
-        ForumPosts updatePosts = new ForumPosts();
-        updatePosts.setId(forumPosts.getId());
-        if (!CollectionUtils.isEmpty(resourceIds)) {
-            updatePosts.setResourceIds(JsonUtils.serialize(resourceIds));
-        } else {
-            updatePosts.setResourceIds("");
-        }
-
-        return forumPostsBusiness.updatePosts(updatePosts);
+        attachments.forEach(e -> {
+            boolean hasAttach = data.getResourceIds().stream().anyMatch(f -> f.equals(e.getResourceId()));
+            if (hasAttach) {
+                postsAttachmentBusiness.deletePostsAttachment(e.getId());
+            }
+        });
+        return true;
     }
 }

@@ -9,8 +9,6 @@ public class ForumPosts {
 
     private String authorNo;
 
-    private String resourceIds;
-
     private Integer purview;
 
     private Integer isDelete;
@@ -58,19 +56,6 @@ public class ForumPosts {
 
     public void setAuthorNo(String authorNo) {
         this.authorNo = authorNo == null ? null : authorNo.trim();
-    }
-
-    public String getResourceIds() {
-        return resourceIds;
-    }
-
-    public ForumPosts withResourceIds(String resourceIds) {
-        this.setResourceIds(resourceIds);
-        return this;
-    }
-
-    public void setResourceIds(String resourceIds) {
-        this.resourceIds = resourceIds == null ? null : resourceIds.trim();
     }
 
     public Integer getPurview() {

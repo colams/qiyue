@@ -84,7 +84,9 @@
         <table tableName="forum_posts">
             <generatedKey column="id" identity="true" sqlStatement="mysql"/>
         </table>
-
+        <table tableName="forum_posts_attachment">
+            <generatedKey column="id" identity="true" sqlStatement="mysql"/>
+        </table>
 
         <table tableName="sw_announcement">
             <generatedKey column="id" identity="true" sqlStatement="mysql"/>

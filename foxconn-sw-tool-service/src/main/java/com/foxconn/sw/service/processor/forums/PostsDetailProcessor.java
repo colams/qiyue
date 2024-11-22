@@ -2,25 +2,27 @@ package com.foxconn.sw.service.processor.forums;
 
 import com.foxconn.sw.business.SwAppendResourceBusiness;
 import com.foxconn.sw.business.forums.ForumParticipantBusiness;
+import com.foxconn.sw.business.forums.ForumPostsAttachmentBusiness;
 import com.foxconn.sw.business.forums.ForumPostsBusiness;
 import com.foxconn.sw.common.utils.ConvertUtils;
 import com.foxconn.sw.common.utils.DateTimeUtils;
-import com.foxconn.sw.common.utils.JsonUtils;
 import com.foxconn.sw.data.dto.entity.ResourceVo;
 import com.foxconn.sw.data.dto.entity.forums.PostsDetailVo;
 import com.foxconn.sw.data.dto.entity.universal.IntegerParams;
 import com.foxconn.sw.data.entity.ForumPosts;
+import com.foxconn.sw.data.entity.ForumPostsAttachment;
 import com.foxconn.sw.data.entity.SwAppendResource;
 import com.foxconn.sw.service.processor.utils.EmployeeUtils;
 import com.google.common.collect.Lists;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Component
 public class PostsDetailProcessor {
@@ -32,6 +34,8 @@ public class PostsDetailProcessor {
     EmployeeUtils employeeUtils;
     @Autowired
     SwAppendResourceBusiness appendResourceBusiness;
+    @Autowired
+    ForumPostsAttachmentBusiness postsAttachmentBusiness;
 
     public PostsDetailVo detail(IntegerParams data) {
         ForumPosts forumPosts = forumPostsBusiness.getForumPosts(data.getParams());
@@ -46,21 +50,23 @@ public class PostsDetailProcessor {
         detailVo.setTitle(forumPosts.getTitle());
         detailVo.setContent(forumPosts.getDescription());
         detailVo.setParticipants(forumParticipantBusiness.queryParticipants(forumPosts.getId()));
-        detailVo.setResources(mapResource(forumPosts.getResourceIds()));
+        detailVo.setResources(mapResource(forumPosts.getId()));
         detailVo.setMemberCount(detailVo.getParticipants().size());
         detailVo.setCommentCount(0);
         return detailVo;
     }
 
-    private List<ResourceVo> mapResource(String resourceIDs) {
-        if (StringUtils.isEmpty(resourceIDs)) {
+    private List<ResourceVo> mapResource(Integer postsID) {
+        if (Objects.isNull(postsID)) {
             return Lists.newArrayList();
         }
 
-        List<Integer> resourceIDsInt = JsonUtils.deserialize(resourceIDs, List.class, Integer.class);
-        if (CollectionUtils.isEmpty(resourceIDsInt)) {
+        List<ForumPostsAttachment> attachments = postsAttachmentBusiness.selectPostsAttachment(postsID);
+
+        if (CollectionUtils.isEmpty(attachments)) {
             return Lists.newArrayList();
         }
+        List<Integer> resourceIDsInt = attachments.stream().map(e -> e.getResourceId()).collect(Collectors.toList());
 
         List<SwAppendResource> resources = appendResourceBusiness.getAppendResources(resourceIDsInt);
         List<ResourceVo> resourceVos = new ArrayList<>();
