@@ -82,7 +82,6 @@ public class TaskBriefDetailVo {
     @Schema(description = "关注人")
     private List<String> watchers;
 
-
     /**
      * 关注人
      */
@@ -96,6 +95,8 @@ public class TaskBriefDetailVo {
     private Integer status;
 
     private List<CapexParamsVo> capexParamsVos;
+
+    private Integer type;
 
     public Integer getId() {
         return id;

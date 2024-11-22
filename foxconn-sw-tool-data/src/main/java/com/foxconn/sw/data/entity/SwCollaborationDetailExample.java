@@ -225,6 +225,126 @@ public class SwCollaborationDetailExample {
             return (Criteria) this;
         }
 
+        public Criteria andRowIndexIsNull() {
+            addCriterion("row_index is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andRowIndexIsNotNull() {
+            addCriterion("row_index is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andRowIndexEqualTo(Integer value) {
+            addCriterion("row_index =", value, "rowIndex");
+            return (Criteria) this;
+        }
+
+        public Criteria andRowIndexNotEqualTo(Integer value) {
+            addCriterion("row_index <>", value, "rowIndex");
+            return (Criteria) this;
+        }
+
+        public Criteria andRowIndexGreaterThan(Integer value) {
+            addCriterion("row_index >", value, "rowIndex");
+            return (Criteria) this;
+        }
+
+        public Criteria andRowIndexGreaterThanOrEqualTo(Integer value) {
+            addCriterion("row_index >=", value, "rowIndex");
+            return (Criteria) this;
+        }
+
+        public Criteria andRowIndexLessThan(Integer value) {
+            addCriterion("row_index <", value, "rowIndex");
+            return (Criteria) this;
+        }
+
+        public Criteria andRowIndexLessThanOrEqualTo(Integer value) {
+            addCriterion("row_index <=", value, "rowIndex");
+            return (Criteria) this;
+        }
+
+        public Criteria andRowIndexIn(List<Integer> values) {
+            addCriterion("row_index in", values, "rowIndex");
+            return (Criteria) this;
+        }
+
+        public Criteria andRowIndexNotIn(List<Integer> values) {
+            addCriterion("row_index not in", values, "rowIndex");
+            return (Criteria) this;
+        }
+
+        public Criteria andRowIndexBetween(Integer value1, Integer value2) {
+            addCriterion("row_index between", value1, value2, "rowIndex");
+            return (Criteria) this;
+        }
+
+        public Criteria andRowIndexNotBetween(Integer value1, Integer value2) {
+            addCriterion("row_index not between", value1, value2, "rowIndex");
+            return (Criteria) this;
+        }
+
+        public Criteria andColIndexIsNull() {
+            addCriterion("col_index is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andColIndexIsNotNull() {
+            addCriterion("col_index is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andColIndexEqualTo(Integer value) {
+            addCriterion("col_index =", value, "colIndex");
+            return (Criteria) this;
+        }
+
+        public Criteria andColIndexNotEqualTo(Integer value) {
+            addCriterion("col_index <>", value, "colIndex");
+            return (Criteria) this;
+        }
+
+        public Criteria andColIndexGreaterThan(Integer value) {
+            addCriterion("col_index >", value, "colIndex");
+            return (Criteria) this;
+        }
+
+        public Criteria andColIndexGreaterThanOrEqualTo(Integer value) {
+            addCriterion("col_index >=", value, "colIndex");
+            return (Criteria) this;
+        }
+
+        public Criteria andColIndexLessThan(Integer value) {
+            addCriterion("col_index <", value, "colIndex");
+            return (Criteria) this;
+        }
+
+        public Criteria andColIndexLessThanOrEqualTo(Integer value) {
+            addCriterion("col_index <=", value, "colIndex");
+            return (Criteria) this;
+        }
+
+        public Criteria andColIndexIn(List<Integer> values) {
+            addCriterion("col_index in", values, "colIndex");
+            return (Criteria) this;
+        }
+
+        public Criteria andColIndexNotIn(List<Integer> values) {
+            addCriterion("col_index not in", values, "colIndex");
+            return (Criteria) this;
+        }
+
+        public Criteria andColIndexBetween(Integer value1, Integer value2) {
+            addCriterion("col_index between", value1, value2, "colIndex");
+            return (Criteria) this;
+        }
+
+        public Criteria andColIndexNotBetween(Integer value1, Integer value2) {
+            addCriterion("col_index not between", value1, value2, "colIndex");
+            return (Criteria) this;
+        }
+
         public Criteria andItemIsNull() {
             addCriterion("item is null");
             return (Criteria) this;

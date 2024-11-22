@@ -32,6 +32,14 @@ public class SwCollaborationDetailSqlProvider {
             sql.VALUES("scu_id", "#{scuId,jdbcType=BIGINT}");
         }
         
+        if (record.getRowIndex() != null) {
+            sql.VALUES("row_index", "#{rowIndex,jdbcType=INTEGER}");
+        }
+        
+        if (record.getColIndex() != null) {
+            sql.VALUES("col_index", "#{colIndex,jdbcType=INTEGER}");
+        }
+        
         if (record.getItem() != null) {
             sql.VALUES("item", "#{item,jdbcType=VARCHAR}");
         }
@@ -59,6 +67,8 @@ public class SwCollaborationDetailSqlProvider {
             sql.SELECT("id");
         }
         sql.SELECT("scu_id");
+        sql.SELECT("row_index");
+        sql.SELECT("col_index");
         sql.SELECT("item");
         sql.SELECT("item_value");
         sql.SELECT("create_time");
@@ -88,6 +98,14 @@ public class SwCollaborationDetailSqlProvider {
             sql.SET("scu_id = #{record.scuId,jdbcType=BIGINT}");
         }
         
+        if (record.getRowIndex() != null) {
+            sql.SET("row_index = #{record.rowIndex,jdbcType=INTEGER}");
+        }
+        
+        if (record.getColIndex() != null) {
+            sql.SET("col_index = #{record.colIndex,jdbcType=INTEGER}");
+        }
+        
         if (record.getItem() != null) {
             sql.SET("item = #{record.item,jdbcType=VARCHAR}");
         }
@@ -114,6 +132,8 @@ public class SwCollaborationDetailSqlProvider {
         
         sql.SET("id = #{record.id,jdbcType=BIGINT}");
         sql.SET("scu_id = #{record.scuId,jdbcType=BIGINT}");
+        sql.SET("row_index = #{record.rowIndex,jdbcType=INTEGER}");
+        sql.SET("col_index = #{record.colIndex,jdbcType=INTEGER}");
         sql.SET("item = #{record.item,jdbcType=VARCHAR}");
         sql.SET("item_value = #{record.itemValue,jdbcType=VARCHAR}");
         sql.SET("create_time = #{record.createTime,jdbcType=TIMESTAMP}");
@@ -130,6 +150,14 @@ public class SwCollaborationDetailSqlProvider {
         
         if (record.getScuId() != null) {
             sql.SET("scu_id = #{scuId,jdbcType=BIGINT}");
+        }
+        
+        if (record.getRowIndex() != null) {
+            sql.SET("row_index = #{rowIndex,jdbcType=INTEGER}");
+        }
+        
+        if (record.getColIndex() != null) {
+            sql.SET("col_index = #{colIndex,jdbcType=INTEGER}");
         }
         
         if (record.getItem() != null) {

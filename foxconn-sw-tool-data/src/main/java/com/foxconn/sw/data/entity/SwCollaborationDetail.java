@@ -7,6 +7,10 @@ public class SwCollaborationDetail {
 
     private Long scuId;
 
+    private Integer rowIndex;
+
+    private Integer colIndex;
+
     private String item;
 
     private String itemValue;
@@ -39,6 +43,32 @@ public class SwCollaborationDetail {
 
     public void setScuId(Long scuId) {
         this.scuId = scuId;
+    }
+
+    public Integer getRowIndex() {
+        return rowIndex;
+    }
+
+    public SwCollaborationDetail withRowIndex(Integer rowIndex) {
+        this.setRowIndex(rowIndex);
+        return this;
+    }
+
+    public void setRowIndex(Integer rowIndex) {
+        this.rowIndex = rowIndex;
+    }
+
+    public Integer getColIndex() {
+        return colIndex;
+    }
+
+    public SwCollaborationDetail withColIndex(Integer colIndex) {
+        this.setColIndex(colIndex);
+        return this;
+    }
+
+    public void setColIndex(Integer colIndex) {
+        this.colIndex = colIndex;
     }
 
     public String getItem() {

@@ -2,6 +2,7 @@ package com.foxconn.sw.service.processor.task;
 
 import com.foxconn.sw.business.SwCapexSetBusiness;
 import com.foxconn.sw.business.TaskNoSeedSingleton;
+import com.foxconn.sw.business.collaboration.CollaborationDetailBusiness;
 import com.foxconn.sw.business.collaboration.CollaborationUserBusiness;
 import com.foxconn.sw.business.context.RequestContext;
 import com.foxconn.sw.business.mapper.TaskMapper;
@@ -16,7 +17,6 @@ import com.foxconn.sw.data.constants.enums.TaskRoleFlagEnums;
 import com.foxconn.sw.data.constants.enums.oa.RejectStatusEnum;
 import com.foxconn.sw.data.dto.entity.oa.TaskBriefDetailVo;
 import com.foxconn.sw.data.entity.*;
-import com.foxconn.sw.data.exception.BizException;
 import com.foxconn.sw.service.processor.user.CommonUserUtils;
 import com.google.common.collect.Lists;
 import org.apache.commons.lang3.StringUtils;
@@ -24,6 +24,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
 
+import java.io.FileNotFoundException;
 import java.util.List;
 import java.util.Objects;
 
@@ -53,6 +54,10 @@ public class CreateTaskProcessor {
     CollaborationUserBusiness collaborationUser;
     @Autowired
     SwTaskEmployeeRelationBusiness taskEmployeeRelationBusiness;
+    @Autowired
+    CollaborationDetailBusiness collaborationDetailBusiness;
+    @Autowired
+    TaskEmployeeRelationProcessor employeeRelationProcessor;
 
 
     public Integer createTask(TaskBriefDetailVo data) {
@@ -73,24 +78,39 @@ public class CreateTaskProcessor {
         taskEmployeeRelation.addRelationAtCreate(taskID, data.getManagers(), data.getWatchers());
 
         if ("6-2".equalsIgnoreCase(data.getCategory()) || "capex".equalsIgnoreCase(data.getCategory())) {
-            processHandle(taskID);
-            if (!CollectionUtils.isEmpty(data.getCapexParamsVos())) {
+
+            boolean hasSet = !CollectionUtils.isEmpty(data.getCapexParamsVos())
+                    && data.getCapexParamsVos().stream().anyMatch(e -> Objects.nonNull(e.getCapexSet()));
+            if (hasSet) {
                 capexSetBusiness.insertSet(taskID, data.getCapexParamsVos());
             }
+            processHandle(taskID, hasSet, data.getResourceIds().get(0));
+
         }
 
         return taskID;
     }
 
 
-    private void processHandle(Integer taskID) {
-        List<SwCollaborationUser> collaborationUsers = collaborationUser.queryCollaborationUser(taskID);
-        List<SwTaskEmployeeRelation> relations = taskEmployeeRelationBusiness.getRelationsByTaskIdAndRole(taskID, TaskRoleFlagEnums.Manager_Flag);
+    private void processHandle(Integer taskID, boolean hasSet, Integer resourceId) {
+        if (!hasSet) {
+            List<SwCollaborationUser> collaborationUsers = collaborationUser.queryCollaborationUser(taskID);
+            List<SwTaskEmployeeRelation> relations = taskEmployeeRelationBusiness.getRelationsByTaskIdAndRole(taskID,
+                    TaskRoleFlagEnums.Manager_Flag);
 
-        for (SwTaskEmployeeRelation relation : relations) {
-            boolean has = collaborationUsers.stream().anyMatch(e -> e.getEmployeeNo().equalsIgnoreCase(relation.getEmployeeNo()));
-            if (!has) {
-                collaborationUser.acceptTask(taskID, relation.getEmployeeNo());
+            for (SwTaskEmployeeRelation relation : relations) {
+                boolean has = collaborationUsers.stream()
+                        .anyMatch(e -> e.getEmployeeNo().equalsIgnoreCase(relation.getEmployeeNo()));
+                if (!has) {
+                    collaborationUser.acceptTask(taskID, relation.getEmployeeNo());
+                }
+            }
+        } else {
+            Long cuId = collaborationUser.acceptTask(taskID, RequestContext.getEmployeeNo());
+            try {
+                collaborationDetailBusiness.readExcelContent(cuId, resourceId);
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
             }
         }
     }

@@ -1,20 +1,38 @@
 package com.foxconn.sw.business.collaboration;
 
+import com.foxconn.sw.business.SwAppendResourceBusiness;
+import com.foxconn.sw.common.utils.ExcelUtils;
+import com.foxconn.sw.common.utils.FilePathUtils;
+import com.foxconn.sw.data.entity.SwAppendResource;
 import com.foxconn.sw.data.entity.SwCollaborationDetail;
 import com.foxconn.sw.data.entity.SwCollaborationDetailExample;
 import com.foxconn.sw.data.mapper.extension.oa.SwCollaborationDetailExtensionMapper;
 import com.google.common.collect.Lists;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.List;
 import java.util.Objects;
 
 @Component
 public class CollaborationDetailBusiness {
+    private static final Logger logger = LoggerFactory.getLogger(CollaborationUserBusiness.class);
     @Autowired
     SwCollaborationDetailExtensionMapper collaborationDetailMapper;
+    @Autowired
+    SwAppendResourceBusiness resourceBusiness;
+    @Autowired
+    FilePathUtils filePathUtils;
 
     public List<SwCollaborationDetail> queryCollaborationDetail(List<Long> scuIDs) {
         if (CollectionUtils.isEmpty(scuIDs)) {
@@ -69,5 +87,33 @@ public class CollaborationDetailBusiness {
         criteria.andScuIdEqualTo(key.longValue());
         criteria.andItemEqualTo(item);
         return collaborationDetailMapper.updateByExampleSelective(detail, example) > 0;
+    }
+
+    public boolean readExcelContent(Long scuId, Integer resourceId) throws FileNotFoundException {
+
+        SwAppendResource appendResource = resourceBusiness.getAppendResources(resourceId);
+        String filePath = filePathUtils.getFilePath(appendResource.getUploadType()) + appendResource.getFilePath();
+        try (FileInputStream fis = new FileInputStream(filePath);
+             Workbook workbook = new XSSFWorkbook(fis)) {
+            Sheet sheet = workbook.getSheetAt(0);
+            for (int i = 0; i < sheet.getLastRowNum(); i++) {
+                for (int j = 0; j < sheet.getRow(i).getLastCellNum(); j++) {
+                    Cell cell = sheet.getRow(i).getCell(j);
+                    insert(i, scuId, j, ExcelUtils.getCellValueAsString(cell));
+                }
+            }
+        } catch (IOException e) {
+            logger.error("getTaskHeader", e);
+        }
+        return true;
+    }
+
+    public boolean insert(Integer rowNum, Long scuId, Integer colNum, String value) {
+        SwCollaborationDetail detail = new SwCollaborationDetail();
+        detail.setScuId(scuId);
+        detail.setColIndex(colNum);
+        detail.setItemValue(value);
+        detail.setRowIndex(rowNum);
+        return collaborationDetailMapper.insertSelective(detail) > 0;
     }
 }

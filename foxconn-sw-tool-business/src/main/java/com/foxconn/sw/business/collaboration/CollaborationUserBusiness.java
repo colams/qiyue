@@ -97,11 +97,12 @@ public class CollaborationUserBusiness {
     }
 
 
-    public boolean acceptTask(Integer taskID, String employeeNo) {
+    public Long acceptTask(Integer taskID, String employeeNo) {
         SwCollaborationUser user = new SwCollaborationUser();
         user.setTaskId(taskID);
         user.setEmployeeNo(employeeNo);
-        return collaborationUserMapper.insertSelective(user) > 0;
+        collaborationUserMapper.insertSelective(user);
+        return user.getId();
     }
 
 
