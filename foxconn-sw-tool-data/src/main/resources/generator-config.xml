@@ -103,6 +103,9 @@
         <table tableName="sw_collaboration_user">
             <generatedKey column="id" identity="true" sqlStatement="mysql"/>
         </table>
+        <table tableName="sw_config_dic">
+            <generatedKey column="id" identity="true" sqlStatement="mysql"/>
+        </table>
         <table tableName="sw_contact_gather">
             <generatedKey column="id" identity="true" sqlStatement="mysql"/>
         </table>
