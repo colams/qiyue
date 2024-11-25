@@ -27,8 +27,8 @@ public class MetricAspect {
     }
 
 
-    @Around("log() && @annotation(metric)")
-    public Object aroundAdvice(ProceedingJoinPoint joinPoint, Metric metric) throws Throwable {
+    @Around("log()")
+    public Object aroundAdvice(ProceedingJoinPoint joinPoint) throws Throwable {
         Object retValue;
         StopWatch stopWatch = new StopWatch();
         try {

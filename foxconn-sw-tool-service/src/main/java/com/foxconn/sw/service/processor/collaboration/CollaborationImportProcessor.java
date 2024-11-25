@@ -95,7 +95,8 @@ public class CollaborationImportProcessor {
         return mapList;
     }
 
-    private Map<Integer, String> getFileHeader(Sheet sheet, List<String> header) {
+    @Metric
+    public Map<Integer, String> getFileHeader(Sheet sheet, List<String> header) {
         Map<Integer, String> map = new HashMap<>();
         int i = 0;
         for (Cell cell : sheet.getRow(0)) {
