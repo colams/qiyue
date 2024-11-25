@@ -98,7 +98,7 @@ public class CollaborationController {
     @CrossOrigin(exposedHeaders = {"Content-Disposition"})
     @PostMapping("/export")
     public ResponseEntity export(@Valid @RequestBody Request<CollaborationDetailParams> request) throws IOException {
-        CollaborationVo collaborationVo = collaborationDetail.detail(request.getData());
+        CollaborationVo collaborationVo = collaborationDetail.detail(request.getData(), true);
         if (!CollectionUtils.isEmpty(collaborationVo.getContent())) {
             response.setContentType("application/vnd.ms-excel");
             String fileName = URLEncoder.encode(collaborationVo.getResource().getName(), "UTF8");

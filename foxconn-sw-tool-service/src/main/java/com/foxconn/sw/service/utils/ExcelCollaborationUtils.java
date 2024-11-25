@@ -36,10 +36,12 @@ public class ExcelCollaborationUtils {
         for (Map<String, Object> map : collaborationVo.getContent()) {
             Row row = sheet.createRow(rowIndex++);
             int colIndex = 0;
+
+            EmployeeVo opEmployee = ((EmployeeVo) map.get("handler"));
             for (String header : collaborationVo.getHeaders()) {
                 row.createCell(colIndex++).setCellValue(map.get(header).toString());
             }
-            row.createCell(colIndex++).setCellValue(((EmployeeVo) map.get("handler")).getName());
+            row.createCell(colIndex++).setCellValue(opEmployee.getName());
         }
     }
 }

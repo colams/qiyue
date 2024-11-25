@@ -14,7 +14,6 @@ import com.foxconn.sw.data.dto.entity.acount.EmployeeVo;
 import com.foxconn.sw.data.dto.entity.collaboration.CollaborationVo;
 import com.foxconn.sw.data.dto.request.collaboration.CollaborationDetailParams;
 import com.foxconn.sw.data.entity.*;
-import com.foxconn.sw.data.exception.BizException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
@@ -52,6 +51,18 @@ public class CollaborationDetailProcessor {
      * @throws FileNotFoundException
      */
     public CollaborationVo detail(CollaborationDetailParams params) throws FileNotFoundException {
+        return detail(params, false);
+    }
+
+
+    /**
+     * int taskID = 75;
+     *
+     * @param params
+     * @return
+     * @throws FileNotFoundException
+     */
+    public CollaborationVo detail(CollaborationDetailParams params, boolean isExport) throws FileNotFoundException {
 
         List<SwCollaborationUser> collaborationUsers = collaborationUser.queryCollaborationUser(params.getTaskID());
         SwTask swTask = taskBusiness.getTaskById(params.getTaskID());
@@ -61,7 +72,7 @@ public class CollaborationDetailProcessor {
         List<String> header = collaborationUser.getTaskHeader(params.getTaskID());
         CollaborationVo vo = new CollaborationVo();
         vo.setHeaders(header);
-        vo.setContent(initMapList(header, params.getTaskID()));
+        vo.setContent(initMapList(header, params.getTaskID(), swTask.getProposerEid(), isExport));
         vo.setResource(resourceVo);
         vo.setTaskNo(swTask.getTaskNo());
         vo.setTaskTitle(swTask.getTitle());
@@ -72,7 +83,7 @@ public class CollaborationDetailProcessor {
     }
 
 
-    private List<Map<String, Object>> initMapList(List<String> headers, int taskID) {
+    private List<Map<String, Object>> initMapList(List<String> headers, int taskID, String proposerEid, boolean isExport) {
         List<SwCollaborationUser> collaborationUsers = collaborationUser.queryCollaborationUser(taskID);
 
         List<SwTaskEmployeeRelation> relations = taskEmployeeRelationBusiness.getRelationsByTaskId(taskID);
@@ -88,6 +99,12 @@ public class CollaborationDetailProcessor {
 
         List<Map<String, Object>> list = new ArrayList<>();
         for (SwCollaborationUser collaborationUser : collaborationUsers) {
+            if (isExport
+                    && !RequestContext.getEmployeeNo().equalsIgnoreCase(proposerEid)
+                    && !RequestContext.getEmployeeNo().equalsIgnoreCase(collaborationUser.getEmployeeNo())) {
+                continue;
+            }
+
             List<SwCollaborationDetail> swCollaborationDetails = map.get(collaborationUser.getId());
             if (CollectionUtils.isEmpty(swCollaborationDetails)) {
                 list.add(initDefaultMap(collaborationUser, headers, isPropose));
