@@ -4,9 +4,15 @@ import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.util.CellRangeAddress;
 
+import java.util.Objects;
+
 public class ExcelUtils {
 
     public static String getCellValueAsString(Cell cell) {
+        if (Objects.isNull(cell)) {
+            return "";
+        }
+
         switch (cell.getCellType()) {
             case STRING:
                 return cell.getStringCellValue();

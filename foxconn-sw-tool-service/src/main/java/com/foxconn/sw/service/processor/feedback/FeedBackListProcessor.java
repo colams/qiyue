@@ -1,7 +1,7 @@
 package com.foxconn.sw.service.processor.feedback;
 
 import com.foxconn.sw.business.SwFeedbackBusiness;
-import com.foxconn.sw.business.context.RequestContext;
+import com.foxconn.sw.common.context.RequestContext;
 import com.foxconn.sw.common.utils.ConfigReader;
 import com.foxconn.sw.data.dto.entity.feedback.FeedBackVo;
 import com.foxconn.sw.data.dto.entity.universal.OperateEntity;

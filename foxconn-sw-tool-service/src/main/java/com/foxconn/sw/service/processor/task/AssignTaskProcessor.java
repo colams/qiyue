@@ -1,6 +1,6 @@
 package com.foxconn.sw.service.processor.task;
 
-import com.foxconn.sw.business.context.RequestContext;
+import com.foxconn.sw.common.context.RequestContext;
 import com.foxconn.sw.business.oa.SwTaskBusiness;
 import com.foxconn.sw.business.oa.SwTaskEmployeeRelationBusiness;
 import com.foxconn.sw.business.oa.SwTaskLogBusiness;

@@ -4,7 +4,7 @@ import com.foxconn.sw.business.LogBusiness;
 import com.foxconn.sw.common.utils.DateTimeUtils;
 import com.foxconn.sw.common.utils.JsonUtils;
 import com.foxconn.sw.data.dto.Request;
-import com.foxconn.sw.service.utils.ServletUtils;
+import com.foxconn.sw.common.utils.ServletUtils;
 import jakarta.annotation.Resource;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.groups.Default;

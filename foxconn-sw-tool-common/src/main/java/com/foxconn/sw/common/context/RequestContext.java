@@ -1,6 +1,4 @@
-package com.foxconn.sw.business.context;
-
-import com.foxconn.sw.data.dto.entity.acount.UserInfo;
+package com.foxconn.sw.common.context;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -18,8 +16,8 @@ public class RequestContext {
         context.put(key, value);
     }
 
-    public static UserInfo getUserInfo() {
-        return (UserInfo) get(ContextKey.USER_INFO);
+    public static Object getUserInfo() {
+        return get(ContextKey.USER_INFO);
     }
 
     public static String getNameEmployeeNo() {

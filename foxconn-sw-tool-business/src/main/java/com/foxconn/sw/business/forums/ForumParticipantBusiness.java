@@ -58,6 +58,14 @@ public class ForumParticipantBusiness {
                 .collect(Collectors.toList());
     }
 
+    public Integer queryParticipantCount(Integer id) {
+        ForumParticipantExample example = new ForumParticipantExample();
+        ForumParticipantExample.Criteria criteria = example.createCriteria();
+        criteria.andPostsIdEqualTo(id);
+        List<ForumParticipant> forumParticipants = forumParticipantExtMapper.selectByExample(example);
+        return Optional.ofNullable(forumParticipants).orElse(Lists.newArrayList()).size();
+    }
+
     private ForumsParticipantVo convert2Employee(ForumParticipant e) {
         UserInfo userInfo = userBusiness.queryUserInfo(e.getEmployeeNo());
         if (Objects.isNull(userInfo)) {

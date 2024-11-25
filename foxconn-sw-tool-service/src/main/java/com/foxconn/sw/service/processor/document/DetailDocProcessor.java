@@ -2,7 +2,7 @@ package com.foxconn.sw.service.processor.document;
 
 import com.foxconn.sw.business.SwAppendResourceBusiness;
 import com.foxconn.sw.business.account.UserBusiness;
-import com.foxconn.sw.business.context.RequestContext;
+import com.foxconn.sw.common.context.RequestContext;
 import com.foxconn.sw.business.oa.SwDocumentBusiness;
 import com.foxconn.sw.business.oa.SwDocumentHistoryBusiness;
 import com.foxconn.sw.business.oa.SwDocumentPermissionBusiness;

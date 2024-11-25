@@ -1,6 +1,6 @@
 package com.foxconn.sw.business.oa;
 
-import com.foxconn.sw.business.context.RequestContext;
+import com.foxconn.sw.common.context.RequestContext;
 import com.foxconn.sw.data.constants.enums.TaskRoleFlagEnums;
 import com.foxconn.sw.data.entity.SwTaskEmployeeRelation;
 import com.foxconn.sw.data.entity.SwTaskEmployeeRelationExample;

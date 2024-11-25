@@ -1,6 +1,6 @@
 package com.foxconn.sw.business.meeting;
 
-import com.foxconn.sw.business.context.RequestContext;
+import com.foxconn.sw.common.context.RequestContext;
 import com.foxconn.sw.business.meeting.utils.CycleUtils;
 import com.foxconn.sw.common.utils.JsonUtils;
 import com.foxconn.sw.data.dto.request.meeting.EstablishMeetingParams;

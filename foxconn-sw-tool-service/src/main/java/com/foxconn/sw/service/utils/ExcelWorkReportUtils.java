@@ -1,6 +1,6 @@
 package com.foxconn.sw.service.utils;
 
-import com.foxconn.sw.business.context.RequestContext;
+import com.foxconn.sw.common.context.RequestContext;
 import com.foxconn.sw.common.utils.DateTimeUtils;
 import com.foxconn.sw.common.utils.WeekUtils;
 import com.foxconn.sw.common.utils.constanst.NumberConstants;
@@ -237,7 +237,7 @@ public class ExcelWorkReportUtils {
 
     private static void processStatusSheet(Workbook workbook, Sheet sheet, Map<String, List<WorkReportVo>> map) {
         Integer weekNum = WeekUtils.getWeekNumberOfYear(LocalDate.now());
-        UserInfo userInfo = RequestContext.getUserInfo();
+        UserInfo userInfo = (UserInfo) RequestContext.getUserInfo();
         // 创建标题行
         CellStyle style1 = style(workbook, HorizontalAlignment.CENTER, VerticalAlignment.CENTER, Font_Arial, FontSize_16, true, Title_Color);
         CellStyle style2 = style(workbook, HorizontalAlignment.RIGHT, VerticalAlignment.CENTER, Font_Arial, FontSize_9, true, Title_Color);

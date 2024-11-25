@@ -2,8 +2,10 @@ package com.foxconn.sw.service.processor.collaboration;
 
 import com.foxconn.sw.business.collaboration.CollaborationDetailBusiness;
 import com.foxconn.sw.business.collaboration.CollaborationUserBusiness;
-import com.foxconn.sw.business.context.RequestContext;
 import com.foxconn.sw.business.oa.SwTaskBusiness;
+import com.foxconn.sw.common.aspects.Intervals;
+import com.foxconn.sw.common.context.RequestContext;
+import com.foxconn.sw.common.utils.ExcelUtils;
 import com.foxconn.sw.data.dto.entity.universal.IntegerParams;
 import com.foxconn.sw.data.entity.SwCollaborationDetail;
 import com.foxconn.sw.data.entity.SwCollaborationUser;
@@ -39,6 +41,7 @@ public class CollaborationImportProcessor {
     @Autowired
     SwTaskBusiness taskBusiness;
 
+    @Intervals
     public Boolean importExcel(IntegerParams data, MultipartFile multipartFile) throws IOException {
         List<Map<String, String>> maps = explainExcel(data.getParams(), multipartFile);
         List<SwCollaborationUser> users = collaborationUser.queryCollaborationUser(data.getParams(), RequestContext.getEmployeeNo());
@@ -69,10 +72,10 @@ public class CollaborationImportProcessor {
         return true;
     }
 
+    @Intervals
     private List<Map<String, String>> explainExcel(Integer taskID, MultipartFile multipartFile) throws IOException {
         List<String> header = collaborationUser.getTaskHeader(taskID);
 
-        List<String> result = new ArrayList<>();
         Workbook workbook = new XSSFWorkbook(multipartFile.getInputStream());
         Sheet sheet = workbook.getSheetAt(0);
         Map<Integer, String> headMap = getFileHeader(sheet, header);
@@ -86,7 +89,7 @@ public class CollaborationImportProcessor {
             Map<String, String> map = new HashMap<>();
             Row row = sheet.getRow(rowNo);
             for (Map.Entry<Integer, String> entry : headMap.entrySet()) {
-                map.put(entry.getValue(), row.getCell(entry.getKey()).toString());
+                map.put(entry.getValue(), ExcelUtils.getCellValueAsString(row.getCell(entry.getKey())));
             }
             mapList.add(map);
         }

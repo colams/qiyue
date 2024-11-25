@@ -1,12 +1,12 @@
 package com.foxconn.sw.service.aspects;
 
 import com.foxconn.sw.business.LogBusiness;
-import com.foxconn.sw.business.context.RequestContext;
+import com.foxconn.sw.common.context.RequestContext;
 import com.foxconn.sw.common.utils.JsonUtils;
+import com.foxconn.sw.common.utils.ServletUtils;
 import com.foxconn.sw.data.dto.Request;
 import com.foxconn.sw.data.dto.entity.acount.UserInfo;
 import com.foxconn.sw.service.processor.user.CommonUserUtils;
-import com.foxconn.sw.service.utils.ServletUtils;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -36,7 +36,6 @@ public class PermissionAspect {
     private void checkPermission() {
     }
 
-
     @Around("checkPermission() && @annotation(permission) && args(request,..)")
     public Object aroundAdvice(ProceedingJoinPoint joinPoint, Permission permission, Object request) throws Throwable {
         Object retValue = null;
@@ -50,7 +49,7 @@ public class PermissionAspect {
             logger.warn("call service throwable", throwable);
             throw throwable;
         } finally {
-            logParam(joinPoint, retValue, stopWatch.getTotalTimeMillis(), servletUtils.getRemoteIp());
+            logParam(joinPoint, retValue, stopWatch.getTotalTimeMillis(), servletUtils.getRemoteIp(), request);
             RequestContext.remove();
         }
         return retValue;
@@ -72,18 +71,16 @@ public class PermissionAspect {
         RequestContext.put(RequestContext.ContextKey.OperateType, signatureName);
     }
 
-    private void logParam(ProceedingJoinPoint joinPoint, Object retValue, long intervals, String ip) {
+    private void logParam(ProceedingJoinPoint joinPoint, Object retValue, long intervals, String ip, Object request) {
         try {
             String message = String.format("logParam ============ retValue:%s;", JsonUtils.serialize(retValue));
             logger.info(message);
             String operator = RequestContext.getEmployeeNo();
             String operateType = joinPoint.getTarget().getClass().getSimpleName() + "." + joinPoint.getSignature().getName();
-            String remark = JsonUtils.serialize(joinPoint.getArgs());
+            String remark = JsonUtils.serialize(request);
             logBusiness.log(operator, operateType, remark, intervals, ip);
         } catch (Exception e) {
             logger.error(e.getMessage(), e);
         }
     }
-
-
 }

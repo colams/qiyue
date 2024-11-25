@@ -1,5 +1,7 @@
 package com.foxconn.sw.service.processor.forums;
 
+import com.foxconn.sw.business.forums.ForumCommentBusiness;
+import com.foxconn.sw.business.forums.ForumParticipantBusiness;
 import com.foxconn.sw.business.forums.ForumPostsBusiness;
 import com.foxconn.sw.common.utils.DateTimeUtils;
 import com.foxconn.sw.data.dto.PageParams;
@@ -21,6 +23,10 @@ public class ListPostsProcessor {
     ForumPostsBusiness forumPostsBusiness;
     @Autowired
     EmployeeUtils employeeUtils;
+    @Autowired
+    ForumParticipantBusiness participantBusiness;
+    @Autowired
+    ForumCommentBusiness forumCommentBusiness;
 
 
     public List<PostsBriefVo> list(PageParams<ListPostsParams> data) {
@@ -42,8 +48,8 @@ public class ListPostsProcessor {
             vo.setCreateTime(DateTimeUtils.format(e.getCreateTime()));
             vo.setTitle(e.getTitle());
             vo.setContent(e.getDescription());
-            vo.setMemberCount(0);
-            vo.setCommentCount(0);
+            vo.setMemberCount(participantBusiness.queryParticipantCount(e.getId()));
+            vo.setCommentCount(forumCommentBusiness.queryCommentCountByPostsID(e.getId()));
             vos.add(vo);
         });
         return vos;

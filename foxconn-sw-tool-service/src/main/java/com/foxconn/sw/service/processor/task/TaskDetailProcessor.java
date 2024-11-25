@@ -1,7 +1,7 @@
 package com.foxconn.sw.service.processor.task;
 
 import com.foxconn.sw.business.SwAppendResourceBusiness;
-import com.foxconn.sw.business.context.RequestContext;
+import com.foxconn.sw.common.context.RequestContext;
 import com.foxconn.sw.business.mapper.AppendResourceMapper;
 import com.foxconn.sw.business.mapper.SwTaskLogMapper;
 import com.foxconn.sw.business.mapper.TaskMapper;

@@ -2,7 +2,6 @@ package com.foxconn.sw.service.processor.user;
 
 import com.foxconn.sw.business.account.UserBusiness;
 import com.foxconn.sw.business.account.UserLoginBusiness;
-import com.foxconn.sw.business.context.RequestContext;
 import com.foxconn.sw.data.constants.enums.retcode.AccountExceptionCode;
 import com.foxconn.sw.data.dto.entity.acount.UserInfo;
 import com.foxconn.sw.data.entity.SwUserLogin;

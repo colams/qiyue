@@ -1,6 +1,6 @@
 package com.foxconn.sw.service.processor.forums;
 
-import com.foxconn.sw.business.context.RequestContext;
+import com.foxconn.sw.common.context.RequestContext;
 import com.foxconn.sw.business.forums.ForumCommentBusiness;
 import com.foxconn.sw.business.forums.ForumPostsAttachmentBusiness;
 import com.foxconn.sw.data.dto.request.forums.CommentsParams;

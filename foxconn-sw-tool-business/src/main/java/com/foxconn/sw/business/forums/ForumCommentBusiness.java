@@ -3,10 +3,12 @@ package com.foxconn.sw.business.forums;
 import com.foxconn.sw.data.entity.ForumComment;
 import com.foxconn.sw.data.entity.ForumCommentExample;
 import com.foxconn.sw.data.mapper.extension.forums.ForumCommentExtMapper;
+import com.google.common.collect.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.Optional;
 
 @Component
 public class ForumCommentBusiness {
@@ -23,5 +25,16 @@ public class ForumCommentBusiness {
     public Integer addComment(ForumComment comment) {
         forumCommentExtMapper.insertSelective(comment);
         return comment.getId();
+    }
+
+    public Integer queryCommentCountByPostsID(Integer id) {
+        ForumCommentExample example = new ForumCommentExample();
+        ForumCommentExample.Criteria criteria = example.createCriteria();
+        criteria.andPostsIdEqualTo(id);
+        criteria.andParentIdEqualTo(0);
+        List<ForumComment> comments = forumCommentExtMapper.selectByExample(example);
+        return Optional.ofNullable(comments)
+                .orElse(Lists.newArrayList())
+                .size();
     }
 }
