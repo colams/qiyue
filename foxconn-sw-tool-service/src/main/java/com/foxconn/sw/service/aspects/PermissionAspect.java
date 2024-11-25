@@ -5,6 +5,7 @@ import com.foxconn.sw.common.context.RequestContext;
 import com.foxconn.sw.common.utils.JsonUtils;
 import com.foxconn.sw.common.utils.ServletUtils;
 import com.foxconn.sw.data.dto.Request;
+import com.foxconn.sw.data.dto.Response;
 import com.foxconn.sw.data.dto.entity.acount.UserInfo;
 import com.foxconn.sw.service.processor.user.CommonUserUtils;
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -73,7 +74,13 @@ public class PermissionAspect {
 
     private void logParam(ProceedingJoinPoint joinPoint, Object retValue, long intervals, String ip, Object request) {
         try {
-            String message = String.format("logParam ============ retValue:%s;", JsonUtils.serialize(retValue));
+            String message = "logParam ============ retValue:";
+            if (retValue instanceof Response && ((Response) retValue).getCode() != 0) {
+                message += JsonUtils.serialize(retValue);
+            } else {
+                message += "----------";
+            }
+
             logger.info(message);
             String operator = RequestContext.getEmployeeNo();
             String operateType = joinPoint.getTarget().getClass().getSimpleName() + "." + joinPoint.getSignature().getName();
