@@ -30,4 +30,20 @@ public class ExcelUtils {
         return false;
     }
 
+    public static boolean isInArea(Cell cell, Integer rowStart, Integer rowEnd, Integer colStart, Integer colEnd) {
+        return isGreaterOrEqual(cell.getRowIndex(), rowStart)
+                || isGreaterOrEqual(cell.getColumnIndex(), colStart)
+                || isLessOrEqual(cell.getRowIndex(), rowEnd)
+                || isLessOrEqual(cell.getColumnIndex(), colEnd);
+    }
+
+    private static boolean isGreaterOrEqual(Integer number1, Integer number2) {
+        return number1.compareTo(number2) >= 0;
+    }
+
+    private static boolean isLessOrEqual(Integer number1, Integer number2) {
+        return number1.compareTo(number2) >= 0;
+    }
+
+
 }

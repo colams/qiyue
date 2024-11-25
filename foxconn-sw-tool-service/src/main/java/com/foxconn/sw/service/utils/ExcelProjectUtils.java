@@ -1,9 +1,11 @@
 package com.foxconn.sw.service.utils;
 
 import com.foxconn.sw.common.utils.ExcelUtils;
+import com.foxconn.sw.data.dto.entity.project.Header2Vo;
 import com.foxconn.sw.data.dto.entity.project.HeaderVo;
 import com.foxconn.sw.data.dto.entity.project.ProjectItemVo;
 import com.foxconn.sw.data.dto.entity.project.ProjectListVo;
+import com.google.common.collect.Lists;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
@@ -18,10 +20,7 @@ import org.springframework.util.CollectionUtils;
 import org.springframework.util.ResourceUtils;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Component
@@ -101,6 +100,83 @@ public class ExcelProjectUtils {
                 .collect(Collectors.groupingBy(HeaderVo::getRowIndex));
         map.put(4, vo4);
         return map;
+    }
+
+    public static List<Header2Vo> initHeaderMap2(Sheet sheet) {
+        List<Header2Vo> header2Vos = new ArrayList<>();
+        Header2Vo header2Vo = new Header2Vo();
+        header2Vos.add(header2Vo);
+
+        header2Vo.setTitle("Project List");
+        header2Vo.setHeader2Vos(initHeaderVos());
+        return header2Vos;
+    }
+
+    private static List<Header2Vo> initHeaderVos() {
+        List<Header2Vo> header2Vos = new ArrayList<>();
+        Header2Vo header2Vo1 = new Header2Vo();
+        header2Vo1.setTitle("LH Project Info.");
+        header2Vo1.setHeader2Vos(initHeaderVos1());
+
+        Header2Vo header2Vo2 = new Header2Vo();
+        header2Vo2.setTitle("Module Info.");
+        header2Vo2.setHeader2Vos(initHeaderVos2());
+
+        Header2Vo header2Vo3 = new Header2Vo();
+        header2Vo3.setTitle("Key Materials Spec.");
+        header2Vo3.setHeader2Vos(initHeaderVos2());
+
+//        Header2Vo header2Vo3 = new Header2Vo();
+//        header2Vo3.setTitle("Key Materials Spec.");
+//        header2Vo3.setHeader2Vos(initHeaderVos2());
+
+
+        header2Vos.add(header2Vo1);
+        header2Vos.add(header2Vo2);
+        return header2Vos;
+    }
+
+    private static List<Header2Vo> initHeaderVos1() {
+        return Lists.newArrayList();
+    }
+
+    private static List<Header2Vo> initHeaderVos2() {
+        return Lists.newArrayList();
+    }
+
+    private static void processHeaders(List<Header2Vo> header2Vos, Header2Vo header2Vo) {
+        header2Vos.add(header2Vo);
+    }
+
+    public List<Header2Vo> test(Integer rowIndex, Row row, List<Header2Vo> header2Vos) {
+        List<Header2Vo> tempHeaderVos = new ArrayList<>();
+        for (Cell cell : row) {
+            Header2Vo header2Vo = new Header2Vo();
+            tempHeaderVos.add(header2Vo);
+
+            if (Objects.isNull(cell)) {
+
+            }
+
+            header2Vo.setTitle(cell.toString().replace("\n", " ").trim());
+            header2Vo.setRowIndexStart(cell.getRowIndex());
+            header2Vo.setColIndexStart(cell.getColumnIndex());
+            header2Vo.setRowIndexEnd(cell.getRowIndex());
+            header2Vo.setColIndexEnd(cell.getColumnIndex());
+
+            Header2Vo tempHeader2Vo = header2Vos.stream()
+                    .filter(e -> ExcelUtils.isInArea(cell, e.getRowIndexStart(), e.getRowIndexEnd(), e.getColIndexStart(), e.getColIndexEnd()))
+                    .findFirst()
+                    .orElse(null);
+
+            if (Objects.isNull(tempHeader2Vo)) {
+                break;
+            }
+            tempHeader2Vo.getHeader2Vos().add(header2Vo);
+        }
+
+        List<Header2Vo> vos = new ArrayList<>();
+        return vos;
     }
 
 

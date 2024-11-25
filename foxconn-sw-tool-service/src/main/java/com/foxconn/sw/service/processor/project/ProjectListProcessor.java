@@ -6,6 +6,7 @@ import com.foxconn.sw.business.project.ProjectItemBusiness;
 import com.foxconn.sw.business.system.DepartmentBusiness;
 import com.foxconn.sw.business.system.EmployeeBusiness;
 import com.foxconn.sw.data.dto.entity.KvPairs;
+import com.foxconn.sw.data.dto.entity.project.Header2Vo;
 import com.foxconn.sw.data.dto.entity.project.HeaderVo;
 import com.foxconn.sw.data.dto.entity.project.ProjectItemVo;
 import com.foxconn.sw.data.dto.entity.project.ProjectListVo;
@@ -52,8 +53,10 @@ public class ProjectListProcessor {
 
     public ProjectListVo list() throws IOException {
         List<List<HeaderVo>> headers = initHeader();
+        List<Header2Vo> headers2 = initHeader2();
         ProjectListVo vo = new ProjectListVo();
         vo.setHeader(headers);
+        vo.setHeader2(headers2);
         vo.setProjectItems(getProjectItems(headers.get(4)));
         return vo;
     }
@@ -65,6 +68,14 @@ public class ProjectListProcessor {
         Sheet sheet = workbook.getSheetAt(0);
         Map<Integer, List<HeaderVo>> map = ExcelProjectUtils.initHeaderMap(sheet);
         return Lists.newArrayList(map.get(0), map.get(1), map.get(2), map.get(3), map.get(4));
+    }
+
+    private List<Header2Vo> initHeader2() throws IOException {
+        Resource resource = resourceLoader.getResource(ResourceUtils.CLASSPATH_URL_PREFIX + "/templates/project_list_template.xlsx");
+        Workbook workbook = new XSSFWorkbook(resource.getInputStream());
+        Sheet sheet = workbook.getSheetAt(0);
+        List<Header2Vo> header2Vos = ExcelProjectUtils.initHeaderMap2(sheet);
+        return header2Vos;
     }
 
 
