@@ -16,19 +16,19 @@ import org.springframework.util.StopWatch;
  */
 @Component
 @Aspect
-public class IntervalsAspect {
-    private static final Logger logger = LoggerFactory.getLogger(IntervalsAspect.class);
+public class MetricAspect {
+    private static final Logger logger = LoggerFactory.getLogger(MetricAspect.class);
 
     @Autowired
     private ServletUtils servletUtils;
 
-    @Pointcut("@annotation(com.foxconn.sw.common.aspects.Intervals)")
-    private void logIntervals() {
+    @Pointcut("@annotation(com.foxconn.sw.common.aspects.Metric)")
+    private void log() {
     }
 
 
-    @Around("logIntervals() ")
-    public Object aroundAdvice(ProceedingJoinPoint joinPoint) throws Throwable {
+    @Around("log() && @annotation(metric)")
+    public Object aroundAdvice(ProceedingJoinPoint joinPoint, Metric metric) throws Throwable {
         Object retValue;
         StopWatch stopWatch = new StopWatch();
         try {
@@ -39,16 +39,15 @@ public class IntervalsAspect {
             logger.warn("call service throwable", throwable);
             throw throwable;
         } finally {
-            logParam(joinPoint, stopWatch.getTotalTimeMillis(), servletUtils.getRemoteIp());
+            metric(joinPoint, stopWatch.getTotalTimeMillis(), servletUtils.getRemoteIp());
         }
         return retValue;
     }
 
-    private void logParam(ProceedingJoinPoint joinPoint, long intervals, String ip) {
+    private void metric(ProceedingJoinPoint joinPoint, long intervals, String ip) {
         try {
             String operateType = joinPoint.getTarget().getClass().getSimpleName() + "." + joinPoint.getSignature().getName();
-            String message = String.format("logIntervals ============ %s,%s intervals: %s", operateType, ip, intervals);
-            logger.info(message);
+            logger.info(String.format("metric ============ %s,%s intervals: %s", operateType, ip, intervals));
         } catch (Exception e) {
             logger.error(e.getMessage(), e);
         }

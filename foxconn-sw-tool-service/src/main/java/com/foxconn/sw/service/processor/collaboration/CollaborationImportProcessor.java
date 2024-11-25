@@ -3,7 +3,7 @@ package com.foxconn.sw.service.processor.collaboration;
 import com.foxconn.sw.business.collaboration.CollaborationDetailBusiness;
 import com.foxconn.sw.business.collaboration.CollaborationUserBusiness;
 import com.foxconn.sw.business.oa.SwTaskBusiness;
-import com.foxconn.sw.common.aspects.Intervals;
+import com.foxconn.sw.common.aspects.Metric;
 import com.foxconn.sw.common.context.RequestContext;
 import com.foxconn.sw.common.utils.ExcelUtils;
 import com.foxconn.sw.data.dto.entity.universal.IntegerParams;
@@ -41,10 +41,9 @@ public class CollaborationImportProcessor {
     @Autowired
     SwTaskBusiness taskBusiness;
 
-    @Intervals
     public Boolean importExcel(IntegerParams data, MultipartFile multipartFile) throws IOException {
-        List<Map<String, String>> maps = explainExcel(data.getParams(), multipartFile);
         List<SwCollaborationUser> users = collaborationUser.queryCollaborationUser(data.getParams(), RequestContext.getEmployeeNo());
+        List<Map<String, String>> maps = explainExcel(data.getParams(), multipartFile);
 
         if (!CollectionUtils.isEmpty(users)) {
             users.forEach(e -> {
@@ -72,8 +71,8 @@ public class CollaborationImportProcessor {
         return true;
     }
 
-    @Intervals
-    private List<Map<String, String>> explainExcel(Integer taskID, MultipartFile multipartFile) throws IOException {
+    @Metric
+    public List<Map<String, String>> explainExcel(Integer taskID, MultipartFile multipartFile) throws IOException {
         List<String> header = collaborationUser.getTaskHeader(taskID);
 
         Workbook workbook = new XSSFWorkbook(multipartFile.getInputStream());
