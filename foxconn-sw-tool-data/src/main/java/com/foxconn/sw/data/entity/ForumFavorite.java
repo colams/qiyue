@@ -5,11 +5,11 @@ import java.time.LocalDateTime;
 public class ForumFavorite {
     private Integer id;
 
-    private String authorNo;
+    private String operator;
 
     private Integer postsId;
 
-    private Integer isInvalid;
+    private Integer isValid;
 
     private LocalDateTime createTime;
 
@@ -28,17 +28,17 @@ public class ForumFavorite {
         this.id = id;
     }
 
-    public String getAuthorNo() {
-        return authorNo;
+    public String getOperator() {
+        return operator;
     }
 
-    public ForumFavorite withAuthorNo(String authorNo) {
-        this.setAuthorNo(authorNo);
+    public ForumFavorite withOperator(String operator) {
+        this.setOperator(operator);
         return this;
     }
 
-    public void setAuthorNo(String authorNo) {
-        this.authorNo = authorNo == null ? null : authorNo.trim();
+    public void setOperator(String operator) {
+        this.operator = operator == null ? null : operator.trim();
     }
 
     public Integer getPostsId() {
@@ -54,17 +54,17 @@ public class ForumFavorite {
         this.postsId = postsId;
     }
 
-    public Integer getIsInvalid() {
-        return isInvalid;
+    public Integer getIsValid() {
+        return isValid;
     }
 
-    public ForumFavorite withIsInvalid(Integer isInvalid) {
-        this.setIsInvalid(isInvalid);
+    public ForumFavorite withIsValid(Integer isValid) {
+        this.setIsValid(isValid);
         return this;
     }
 
-    public void setIsInvalid(Integer isInvalid) {
-        this.isInvalid = isInvalid;
+    public void setIsValid(Integer isValid) {
+        this.isValid = isValid;
     }
 
     public LocalDateTime getCreateTime() {

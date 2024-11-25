@@ -28,16 +28,16 @@ public class ForumFavoriteSqlProvider {
         SQL sql = new SQL();
         sql.INSERT_INTO("forum_favorite");
         
-        if (record.getAuthorNo() != null) {
-            sql.VALUES("author_no", "#{authorNo,jdbcType=VARCHAR}");
+        if (record.getOperator() != null) {
+            sql.VALUES("operator", "#{operator,jdbcType=VARCHAR}");
         }
         
         if (record.getPostsId() != null) {
             sql.VALUES("posts_id", "#{postsId,jdbcType=INTEGER}");
         }
         
-        if (record.getIsInvalid() != null) {
-            sql.VALUES("is_invalid", "#{isInvalid,jdbcType=INTEGER}");
+        if (record.getIsValid() != null) {
+            sql.VALUES("is_valid", "#{isValid,jdbcType=INTEGER}");
         }
         
         if (record.getCreateTime() != null) {
@@ -58,9 +58,9 @@ public class ForumFavoriteSqlProvider {
         } else {
             sql.SELECT("id");
         }
-        sql.SELECT("author_no");
+        sql.SELECT("operator");
         sql.SELECT("posts_id");
-        sql.SELECT("is_invalid");
+        sql.SELECT("is_valid");
         sql.SELECT("create_time");
         sql.SELECT("datatime_lastchange");
         sql.FROM("forum_favorite");
@@ -84,16 +84,16 @@ public class ForumFavoriteSqlProvider {
             sql.SET("id = #{record.id,jdbcType=INTEGER}");
         }
         
-        if (record.getAuthorNo() != null) {
-            sql.SET("author_no = #{record.authorNo,jdbcType=VARCHAR}");
+        if (record.getOperator() != null) {
+            sql.SET("operator = #{record.operator,jdbcType=VARCHAR}");
         }
         
         if (record.getPostsId() != null) {
             sql.SET("posts_id = #{record.postsId,jdbcType=INTEGER}");
         }
         
-        if (record.getIsInvalid() != null) {
-            sql.SET("is_invalid = #{record.isInvalid,jdbcType=INTEGER}");
+        if (record.getIsValid() != null) {
+            sql.SET("is_valid = #{record.isValid,jdbcType=INTEGER}");
         }
         
         if (record.getCreateTime() != null) {
@@ -113,9 +113,9 @@ public class ForumFavoriteSqlProvider {
         sql.UPDATE("forum_favorite");
         
         sql.SET("id = #{record.id,jdbcType=INTEGER}");
-        sql.SET("author_no = #{record.authorNo,jdbcType=VARCHAR}");
+        sql.SET("operator = #{record.operator,jdbcType=VARCHAR}");
         sql.SET("posts_id = #{record.postsId,jdbcType=INTEGER}");
-        sql.SET("is_invalid = #{record.isInvalid,jdbcType=INTEGER}");
+        sql.SET("is_valid = #{record.isValid,jdbcType=INTEGER}");
         sql.SET("create_time = #{record.createTime,jdbcType=TIMESTAMP}");
         sql.SET("datatime_lastchange = #{record.datatimeLastchange,jdbcType=TIMESTAMP}");
         
@@ -128,16 +128,16 @@ public class ForumFavoriteSqlProvider {
         SQL sql = new SQL();
         sql.UPDATE("forum_favorite");
         
-        if (record.getAuthorNo() != null) {
-            sql.SET("author_no = #{authorNo,jdbcType=VARCHAR}");
+        if (record.getOperator() != null) {
+            sql.SET("operator = #{operator,jdbcType=VARCHAR}");
         }
         
         if (record.getPostsId() != null) {
             sql.SET("posts_id = #{postsId,jdbcType=INTEGER}");
         }
         
-        if (record.getIsInvalid() != null) {
-            sql.SET("is_invalid = #{isInvalid,jdbcType=INTEGER}");
+        if (record.getIsValid() != null) {
+            sql.SET("is_valid = #{isValid,jdbcType=INTEGER}");
         }
         
         if (record.getCreateTime() != null) {

@@ -34,11 +34,11 @@ public interface ForumFavoriteMapper {
     int deleteByPrimaryKey(Integer id);
 
     @Insert({
-        "insert into forum_favorite (author_no, posts_id, ",
-        "is_invalid, create_time, ",
+        "insert into forum_favorite (operator, posts_id, ",
+        "is_valid, create_time, ",
         "datatime_lastchange)",
-        "values (#{authorNo,jdbcType=VARCHAR}, #{postsId,jdbcType=INTEGER}, ",
-        "#{isInvalid,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, ",
+        "values (#{operator,jdbcType=VARCHAR}, #{postsId,jdbcType=INTEGER}, ",
+        "#{isValid,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, ",
         "#{datatimeLastchange,jdbcType=TIMESTAMP})"
     })
     @SelectKey(statement="SELECT LAST_INSERT_ID()", keyProperty="id", before=false, resultType=Integer.class)
@@ -51,9 +51,9 @@ public interface ForumFavoriteMapper {
     @SelectProvider(type=ForumFavoriteSqlProvider.class, method="selectByExample")
     @Results({
         @Result(column="id", property="id", jdbcType=JdbcType.INTEGER, id=true),
-        @Result(column="author_no", property="authorNo", jdbcType=JdbcType.VARCHAR),
+        @Result(column="operator", property="operator", jdbcType=JdbcType.VARCHAR),
         @Result(column="posts_id", property="postsId", jdbcType=JdbcType.INTEGER),
-        @Result(column="is_invalid", property="isInvalid", jdbcType=JdbcType.INTEGER),
+        @Result(column="is_valid", property="isValid", jdbcType=JdbcType.INTEGER),
         @Result(column="create_time", property="createTime", jdbcType=JdbcType.TIMESTAMP),
         @Result(column="datatime_lastchange", property="datatimeLastchange", jdbcType=JdbcType.TIMESTAMP)
     })
@@ -62,9 +62,9 @@ public interface ForumFavoriteMapper {
     @SelectProvider(type=ForumFavoriteSqlProvider.class, method="selectByExample")
     @Results({
         @Result(column="id", property="id", jdbcType=JdbcType.INTEGER, id=true),
-        @Result(column="author_no", property="authorNo", jdbcType=JdbcType.VARCHAR),
+        @Result(column="operator", property="operator", jdbcType=JdbcType.VARCHAR),
         @Result(column="posts_id", property="postsId", jdbcType=JdbcType.INTEGER),
-        @Result(column="is_invalid", property="isInvalid", jdbcType=JdbcType.INTEGER),
+        @Result(column="is_valid", property="isValid", jdbcType=JdbcType.INTEGER),
         @Result(column="create_time", property="createTime", jdbcType=JdbcType.TIMESTAMP),
         @Result(column="datatime_lastchange", property="datatimeLastchange", jdbcType=JdbcType.TIMESTAMP)
     })
@@ -72,15 +72,15 @@ public interface ForumFavoriteMapper {
 
     @Select({
         "select",
-        "id, author_no, posts_id, is_invalid, create_time, datatime_lastchange",
+        "id, operator, posts_id, is_valid, create_time, datatime_lastchange",
         "from forum_favorite",
         "where id = #{id,jdbcType=INTEGER}"
     })
     @Results({
         @Result(column="id", property="id", jdbcType=JdbcType.INTEGER, id=true),
-        @Result(column="author_no", property="authorNo", jdbcType=JdbcType.VARCHAR),
+        @Result(column="operator", property="operator", jdbcType=JdbcType.VARCHAR),
         @Result(column="posts_id", property="postsId", jdbcType=JdbcType.INTEGER),
-        @Result(column="is_invalid", property="isInvalid", jdbcType=JdbcType.INTEGER),
+        @Result(column="is_valid", property="isValid", jdbcType=JdbcType.INTEGER),
         @Result(column="create_time", property="createTime", jdbcType=JdbcType.TIMESTAMP),
         @Result(column="datatime_lastchange", property="datatimeLastchange", jdbcType=JdbcType.TIMESTAMP)
     })
@@ -97,9 +97,9 @@ public interface ForumFavoriteMapper {
 
     @Update({
         "update forum_favorite",
-        "set author_no = #{authorNo,jdbcType=VARCHAR},",
+        "set operator = #{operator,jdbcType=VARCHAR},",
           "posts_id = #{postsId,jdbcType=INTEGER},",
-          "is_invalid = #{isInvalid,jdbcType=INTEGER},",
+          "is_valid = #{isValid,jdbcType=INTEGER},",
           "create_time = #{createTime,jdbcType=TIMESTAMP},",
           "datatime_lastchange = #{datatimeLastchange,jdbcType=TIMESTAMP}",
         "where id = #{id,jdbcType=INTEGER}"

@@ -18,6 +18,7 @@ public class PostsDetailVo {
 
     private Integer memberCount;
     private Integer commentCount;
+    private Integer collectionStatus;
 
     public Integer getId() {
         return id;
@@ -89,5 +90,13 @@ public class PostsDetailVo {
 
     public void setCommentCount(Integer commentCount) {
         this.commentCount = commentCount;
+    }
+
+    public Integer getCollectionStatus() {
+        return collectionStatus;
+    }
+
+    public void setCollectionStatus(Integer collectionStatus) {
+        this.collectionStatus = collectionStatus;
     }
 }

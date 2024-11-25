@@ -23,7 +23,7 @@ public class ForumFavoriteBusiness {
     public boolean collect(Integer id) {
         ForumFavoriteExample example = new ForumFavoriteExample();
         ForumFavoriteExample.Criteria criteria = example.createCriteria();
-        criteria.andAuthorNoEqualTo(RequestContext.getEmployeeNo());
+        criteria.andOperatorEqualTo(RequestContext.getEmployeeNo());
         criteria.andPostsIdEqualTo(id);
         List<ForumFavorite> favorites = forumFavoriteExtMapper.selectByExample(example);
 
@@ -33,17 +33,31 @@ public class ForumFavoriteBusiness {
                 .findFirst()
                 .orElse(new ForumFavorite());
 
-        favorite.setAuthorNo(RequestContext.getEmployeeNo());
+        favorite.setOperator(RequestContext.getEmployeeNo());
         favorite.setPostsId(id);
-        favorite.setIsInvalid(NumberConstants.ONE.equals(favorite.getIsInvalid()) ? 0 : 1);
+        favorite.setIsValid(NumberConstants.ZERO.equals(favorite.getIsValid()) ? 0 : 1);
 
         if (Objects.nonNull(favorite.getId()) && favorite.getId() > 0) {
             ForumFavorite updateFavorite = new ForumFavorite();
             updateFavorite.setId(favorite.getId());
-            updateFavorite.setIsInvalid(favorite.getIsInvalid());
+            updateFavorite.setIsValid(favorite.getIsValid());
             return forumFavoriteExtMapper.updateByPrimaryKeySelective(favorite) > 0;
         } else {
             return forumFavoriteExtMapper.insertSelective(favorite) > 0;
         }
+    }
+
+    public Integer queryCollectionStatus(Integer postsID) {
+        ForumFavoriteExample example = new ForumFavoriteExample();
+        ForumFavoriteExample.Criteria criteria = example.createCriteria();
+        criteria.andPostsIdEqualTo(postsID);
+        criteria.andOperatorEqualTo(RequestContext.getEmployeeNo());
+        List<ForumFavorite> favorites = forumFavoriteExtMapper.selectByExample(example);
+        return Optional.ofNullable(favorites)
+                .orElse(Lists.newArrayList())
+                .stream()
+                .map(e -> e.getIsValid())
+                .findFirst()
+                .orElse(0);
     }
 }

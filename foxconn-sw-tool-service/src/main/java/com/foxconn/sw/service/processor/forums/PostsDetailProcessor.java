@@ -1,6 +1,7 @@
 package com.foxconn.sw.service.processor.forums;
 
 import com.foxconn.sw.business.SwAppendResourceBusiness;
+import com.foxconn.sw.business.forums.ForumFavoriteBusiness;
 import com.foxconn.sw.business.forums.ForumParticipantBusiness;
 import com.foxconn.sw.business.forums.ForumPostsAttachmentBusiness;
 import com.foxconn.sw.business.forums.ForumPostsBusiness;
@@ -36,6 +37,9 @@ public class PostsDetailProcessor {
     SwAppendResourceBusiness appendResourceBusiness;
     @Autowired
     ForumPostsAttachmentBusiness postsAttachmentBusiness;
+    @Autowired
+    ForumFavoriteBusiness favoriteBusiness;
+
 
     public PostsDetailVo detail(IntegerParams data) {
         ForumPosts forumPosts = forumPostsBusiness.getForumPosts(data.getParams());
@@ -53,6 +57,7 @@ public class PostsDetailProcessor {
         detailVo.setResources(mapResource(forumPosts.getId()));
         detailVo.setMemberCount(detailVo.getParticipants().size());
         detailVo.setCommentCount(0);
+        detailVo.setCollectionStatus(favoriteBusiness.queryCollectionStatus(forumPosts.getId()));
         return detailVo;
     }
 

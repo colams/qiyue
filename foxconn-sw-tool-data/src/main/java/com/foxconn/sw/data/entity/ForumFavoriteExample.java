@@ -165,73 +165,73 @@ public class ForumFavoriteExample {
             return (Criteria) this;
         }
 
-        public Criteria andAuthorNoIsNull() {
-            addCriterion("author_no is null");
+        public Criteria andOperatorIsNull() {
+            addCriterion("operator is null");
             return (Criteria) this;
         }
 
-        public Criteria andAuthorNoIsNotNull() {
-            addCriterion("author_no is not null");
+        public Criteria andOperatorIsNotNull() {
+            addCriterion("operator is not null");
             return (Criteria) this;
         }
 
-        public Criteria andAuthorNoEqualTo(String value) {
-            addCriterion("author_no =", value, "authorNo");
+        public Criteria andOperatorEqualTo(String value) {
+            addCriterion("operator =", value, "operator");
             return (Criteria) this;
         }
 
-        public Criteria andAuthorNoNotEqualTo(String value) {
-            addCriterion("author_no <>", value, "authorNo");
+        public Criteria andOperatorNotEqualTo(String value) {
+            addCriterion("operator <>", value, "operator");
             return (Criteria) this;
         }
 
-        public Criteria andAuthorNoGreaterThan(String value) {
-            addCriterion("author_no >", value, "authorNo");
+        public Criteria andOperatorGreaterThan(String value) {
+            addCriterion("operator >", value, "operator");
             return (Criteria) this;
         }
 
-        public Criteria andAuthorNoGreaterThanOrEqualTo(String value) {
-            addCriterion("author_no >=", value, "authorNo");
+        public Criteria andOperatorGreaterThanOrEqualTo(String value) {
+            addCriterion("operator >=", value, "operator");
             return (Criteria) this;
         }
 
-        public Criteria andAuthorNoLessThan(String value) {
-            addCriterion("author_no <", value, "authorNo");
+        public Criteria andOperatorLessThan(String value) {
+            addCriterion("operator <", value, "operator");
             return (Criteria) this;
         }
 
-        public Criteria andAuthorNoLessThanOrEqualTo(String value) {
-            addCriterion("author_no <=", value, "authorNo");
+        public Criteria andOperatorLessThanOrEqualTo(String value) {
+            addCriterion("operator <=", value, "operator");
             return (Criteria) this;
         }
 
-        public Criteria andAuthorNoLike(String value) {
-            addCriterion("author_no like", value, "authorNo");
+        public Criteria andOperatorLike(String value) {
+            addCriterion("operator like", value, "operator");
             return (Criteria) this;
         }
 
-        public Criteria andAuthorNoNotLike(String value) {
-            addCriterion("author_no not like", value, "authorNo");
+        public Criteria andOperatorNotLike(String value) {
+            addCriterion("operator not like", value, "operator");
             return (Criteria) this;
         }
 
-        public Criteria andAuthorNoIn(List<String> values) {
-            addCriterion("author_no in", values, "authorNo");
+        public Criteria andOperatorIn(List<String> values) {
+            addCriterion("operator in", values, "operator");
             return (Criteria) this;
         }
 
-        public Criteria andAuthorNoNotIn(List<String> values) {
-            addCriterion("author_no not in", values, "authorNo");
+        public Criteria andOperatorNotIn(List<String> values) {
+            addCriterion("operator not in", values, "operator");
             return (Criteria) this;
         }
 
-        public Criteria andAuthorNoBetween(String value1, String value2) {
-            addCriterion("author_no between", value1, value2, "authorNo");
+        public Criteria andOperatorBetween(String value1, String value2) {
+            addCriterion("operator between", value1, value2, "operator");
             return (Criteria) this;
         }
 
-        public Criteria andAuthorNoNotBetween(String value1, String value2) {
-            addCriterion("author_no not between", value1, value2, "authorNo");
+        public Criteria andOperatorNotBetween(String value1, String value2) {
+            addCriterion("operator not between", value1, value2, "operator");
             return (Criteria) this;
         }
 
@@ -295,63 +295,63 @@ public class ForumFavoriteExample {
             return (Criteria) this;
         }
 
-        public Criteria andIsInvalidIsNull() {
-            addCriterion("is_invalid is null");
+        public Criteria andIsValidIsNull() {
+            addCriterion("is_valid is null");
             return (Criteria) this;
         }
 
-        public Criteria andIsInvalidIsNotNull() {
-            addCriterion("is_invalid is not null");
+        public Criteria andIsValidIsNotNull() {
+            addCriterion("is_valid is not null");
             return (Criteria) this;
         }
 
-        public Criteria andIsInvalidEqualTo(Integer value) {
-            addCriterion("is_invalid =", value, "isInvalid");
+        public Criteria andIsValidEqualTo(Integer value) {
+            addCriterion("is_valid =", value, "isValid");
             return (Criteria) this;
         }
 
-        public Criteria andIsInvalidNotEqualTo(Integer value) {
-            addCriterion("is_invalid <>", value, "isInvalid");
+        public Criteria andIsValidNotEqualTo(Integer value) {
+            addCriterion("is_valid <>", value, "isValid");
             return (Criteria) this;
         }
 
-        public Criteria andIsInvalidGreaterThan(Integer value) {
-            addCriterion("is_invalid >", value, "isInvalid");
+        public Criteria andIsValidGreaterThan(Integer value) {
+            addCriterion("is_valid >", value, "isValid");
             return (Criteria) this;
         }
 
-        public Criteria andIsInvalidGreaterThanOrEqualTo(Integer value) {
-            addCriterion("is_invalid >=", value, "isInvalid");
+        public Criteria andIsValidGreaterThanOrEqualTo(Integer value) {
+            addCriterion("is_valid >=", value, "isValid");
             return (Criteria) this;
         }
 
-        public Criteria andIsInvalidLessThan(Integer value) {
-            addCriterion("is_invalid <", value, "isInvalid");
+        public Criteria andIsValidLessThan(Integer value) {
+            addCriterion("is_valid <", value, "isValid");
             return (Criteria) this;
         }
 
-        public Criteria andIsInvalidLessThanOrEqualTo(Integer value) {
-            addCriterion("is_invalid <=", value, "isInvalid");
+        public Criteria andIsValidLessThanOrEqualTo(Integer value) {
+            addCriterion("is_valid <=", value, "isValid");
             return (Criteria) this;
         }
 
-        public Criteria andIsInvalidIn(List<Integer> values) {
-            addCriterion("is_invalid in", values, "isInvalid");
+        public Criteria andIsValidIn(List<Integer> values) {
+            addCriterion("is_valid in", values, "isValid");
             return (Criteria) this;
         }
 
-        public Criteria andIsInvalidNotIn(List<Integer> values) {
-            addCriterion("is_invalid not in", values, "isInvalid");
+        public Criteria andIsValidNotIn(List<Integer> values) {
+            addCriterion("is_valid not in", values, "isValid");
             return (Criteria) this;
         }
 
-        public Criteria andIsInvalidBetween(Integer value1, Integer value2) {
-            addCriterion("is_invalid between", value1, value2, "isInvalid");
+        public Criteria andIsValidBetween(Integer value1, Integer value2) {
+            addCriterion("is_valid between", value1, value2, "isValid");
             return (Criteria) this;
         }
 
-        public Criteria andIsInvalidNotBetween(Integer value1, Integer value2) {
-            addCriterion("is_invalid not between", value1, value2, "isInvalid");
+        public Criteria andIsValidNotBetween(Integer value1, Integer value2) {
+            addCriterion("is_valid not between", value1, value2, "isValid");
             return (Criteria) this;
         }
 
@@ -475,8 +475,8 @@ public class ForumFavoriteExample {
             return (Criteria) this;
         }
 
-        public Criteria andAuthorNoLikeInsensitive(String value) {
-            addCriterion("upper(author_no) like", value.toUpperCase(), "authorNo");
+        public Criteria andOperatorLikeInsensitive(String value) {
+            addCriterion("upper(operator) like", value.toUpperCase(), "operator");
             return (Criteria) this;
         }
     }
