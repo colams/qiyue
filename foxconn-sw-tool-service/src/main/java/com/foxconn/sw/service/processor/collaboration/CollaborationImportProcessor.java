@@ -17,6 +17,7 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.python.google.common.collect.Lists;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,20 +55,29 @@ public class CollaborationImportProcessor {
             List<Long> ids = users.stream().map(e -> e.getId()).collect(Collectors.toList());
             collaborationUser.deleteCollaborationUser(ids);
         }
-        logger.info("metric === 插入分割线 0");
+
         StopWatch stopWatch = new StopWatch();
         stopWatch.start();
-
-        collaborationUser.insertBatchCollaborationUser(maps, data.getParams());
+        List<SwCollaborationUser> collaborationUsers = new ArrayList<>();
+        maps.stream().forEach(e -> {
+            SwCollaborationUser user = new SwCollaborationUser();
+            user.setTaskId(data.getParams());
+            user.setEmployeeNo(RequestContext.getEmployeeNo());
+            collaborationUsers.add(user);
+        });
+        List<List<SwCollaborationUser>> listList = Lists.partition(collaborationUsers, 100);
+        listList.parallelStream().forEach(e -> {
+            collaborationUser.insertBatchCollaborationUser(e);
+        });
         stopWatch.stop();
-        logger.info(maps.size() + " metric === 插入分割线1:" + stopWatch.getTime());
+        logger.info(maps.size() + "-insertBatchCollaborationUser-:" + stopWatch.getTime());
         stopWatch.reset();
         stopWatch.start();
 
         List<Long> userIds = collaborationUser.queryCollaborationUserIds(data.getParams());
 
         stopWatch.stop();
-        logger.info("metric === 插入分割线4:" + stopWatch.getTime());
+        logger.info("-queryCollaborationUserIds-:" + stopWatch.getTime());
         stopWatch.reset();
         stopWatch.start();
 
@@ -86,13 +96,17 @@ public class CollaborationImportProcessor {
         }
 
         stopWatch.stop();
-        logger.info(collaborationDetails.size() + " metric === 插入分割线5:" + stopWatch.getTime());
+        logger.info(collaborationDetails.size() + "-collaborationDetails-:" + stopWatch.getTime());
         stopWatch.reset();
         stopWatch.start();
 
-        collaborationDetail.insertBatchCollaborationUserDetail(collaborationDetails);
+        List<List<SwCollaborationDetail>> lists = Lists.partition(collaborationDetails, 100);
+        lists.parallelStream().forEach(e -> {
+            collaborationDetail.insertBatchCollaborationUserDetail(e);
+        });
+
         stopWatch.stop();
-        logger.info("metric === 插入分割线2:" + stopWatch.getTime());
+        logger.info("-insertBatchCollaborationUserDetail-:" + stopWatch.getTime());
         return true;
     }
 

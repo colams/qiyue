@@ -13,6 +13,7 @@ import com.foxconn.sw.data.entity.SwCollaborationUser;
 import com.foxconn.sw.data.entity.SwCollaborationUserExample;
 import com.foxconn.sw.data.entity.SwTask;
 import com.foxconn.sw.data.exception.BizException;
+import com.foxconn.sw.data.mapper.auto.SwCollaborationUserMapper;
 import com.foxconn.sw.data.mapper.extension.oa.SwCollaborationUserExtensionMapper;
 import com.google.common.collect.Lists;
 import org.apache.ibatis.session.ExecutorType;
@@ -230,6 +231,18 @@ public class CollaborationUserBusiness {
             user.setEmployeeNo(RequestContext.getEmployeeNo());
             collaborationUserMapper.insertSelective(user);
         });
+        sqlSession.commit();
+        sqlSession.close();
+        return true;
+    }
+
+
+    public boolean insertBatchCollaborationUser(List<SwCollaborationUser> collaborationUsers) {
+        SqlSession sqlSession = sqlSessionFactory.openSession(ExecutorType.BATCH, false);
+        SwCollaborationUserMapper mapper = sqlSession.getMapper(SwCollaborationUserMapper.class);
+        for (SwCollaborationUser collaborationUser : collaborationUsers) {
+            mapper.insertSelective(collaborationUser);
+        }
         sqlSession.commit();
         sqlSession.close();
         return true;
