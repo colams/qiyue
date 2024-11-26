@@ -7,6 +7,7 @@ import com.foxconn.sw.common.utils.FilePathUtils;
 import com.foxconn.sw.data.entity.SwAppendResource;
 import com.foxconn.sw.data.entity.SwCollaborationDetail;
 import com.foxconn.sw.data.entity.SwCollaborationDetailExample;
+import com.foxconn.sw.data.mapper.auto.SwCollaborationDetailMapper;
 import com.foxconn.sw.data.mapper.extension.oa.SwCollaborationDetailExtensionMapper;
 import com.google.common.collect.Lists;
 import org.apache.ibatis.session.ExecutorType;
@@ -26,7 +27,6 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.List;
-import java.util.Map;
 import java.util.Objects;
 
 @Component
@@ -124,24 +124,17 @@ public class CollaborationDetailBusiness {
         return collaborationDetailMapper.insertSelective(detail) > 0;
     }
 
-    @Metric
-    public boolean insertBatchCollaborationUserDetail(List<Map<String, String>> maps, List<Long> userIds) {
 
+    @Metric
+    public boolean insertBatchCollaborationUserDetail(List<SwCollaborationDetail> collaborationDetails) {
         SqlSession sqlSession = sqlSessionFactory.openSession(ExecutorType.BATCH, false);
-        int i = 0;
-        for (Map<String, String> map : maps) {
-            Long scuId = userIds.get(i++);
-            for (Map.Entry<String, String> entry : map.entrySet()) {
-                SwCollaborationDetail detail = new SwCollaborationDetail();
-                detail.setScuId(scuId);
-                detail.setItem(entry.getKey());
-                detail.setItemValue(entry.getValue());
-                collaborationDetailMapper.insertSelective(detail);
-            }
+        SwCollaborationDetailMapper mapper = sqlSession.getMapper(SwCollaborationDetailMapper.class);
+
+        for (SwCollaborationDetail detail : collaborationDetails) {
+            mapper.insertSelective(detail);
         }
         sqlSession.commit();
         sqlSession.close();
         return true;
-
     }
 }

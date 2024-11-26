@@ -229,7 +229,6 @@ public class CollaborationUserBusiness {
             user.setTaskId(taskId);
             user.setEmployeeNo(RequestContext.getEmployeeNo());
             collaborationUserMapper.insertSelective(user);
-            logger.info("-------", user.getId());
         });
         sqlSession.commit();
         sqlSession.close();
