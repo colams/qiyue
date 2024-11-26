@@ -18,6 +18,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StopWatch;
 
+import java.util.Objects;
+
 /**
  * 权限验证切面
  */
@@ -64,12 +66,15 @@ public class PermissionAspect {
         } else {
             request = JsonUtils.deserialize((String) obj, Request.class);
         }
-        UserInfo userInfo = commonUserUtils.queryUserInfo(request.getHead().getToken());
-        String nameEmployeeNo = String.format("%s(%s)", userInfo.getEmployeeName(), userInfo.getEmployeeNo());
-        RequestContext.put(RequestContext.ContextKey.USER_INFO, userInfo);
-        RequestContext.put(RequestContext.ContextKey.NameEmployeeNo, nameEmployeeNo);
-        RequestContext.put(RequestContext.ContextKey.EmployeeNo, userInfo.getEmployeeNo());
-        RequestContext.put(RequestContext.ContextKey.OperateType, signatureName);
+        if (Objects.nonNull(request.getHead()) && Objects.nonNull(request.getHead())) {
+            UserInfo userInfo = commonUserUtils.queryUserInfo(request.getHead().getToken());
+            String nameEmployeeNo = String.format("%s(%s)", userInfo.getEmployeeName(), userInfo.getEmployeeNo());
+            RequestContext.put(RequestContext.ContextKey.USER_INFO, userInfo);
+            RequestContext.put(RequestContext.ContextKey.NameEmployeeNo, nameEmployeeNo);
+            RequestContext.put(RequestContext.ContextKey.EmployeeNo, userInfo.getEmployeeNo());
+            RequestContext.put(RequestContext.ContextKey.OperateType, signatureName);
+            RequestContext.put(RequestContext.ContextKey.TraceID, request.getTraceId());
+        }
     }
 
     private void logParam(ProceedingJoinPoint joinPoint, Object retValue, long intervals, String ip, Object request) {

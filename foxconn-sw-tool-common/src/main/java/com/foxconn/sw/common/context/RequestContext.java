@@ -28,6 +28,10 @@ public class RequestContext {
         return (String) get(ContextKey.EmployeeNo);
     }
 
+    public static String getTraceID() {
+        return (String) get(ContextKey.TraceID);
+    }
+
 
     private static Object get(String key) {
         Map<String, Object> context = contextHolder.get();
@@ -43,6 +47,6 @@ public class RequestContext {
         String NameEmployeeNo = "nameEmployeeNo";
         String EmployeeNo = "employeeNo";
         String OperateType = "operateType";
-
+        String TraceID = "traceId";
     }
 }
