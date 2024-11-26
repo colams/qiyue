@@ -14,7 +14,7 @@ public class PostsDetailVo {
     private String content;
     private List<ForumsParticipantVo> participants;
 
-    private List<ResourceVo> resources;
+    private List<PostsResourceVo> resources;
 
     private Integer memberCount;
     private Integer commentCount;
@@ -68,11 +68,11 @@ public class PostsDetailVo {
         this.participants = participants;
     }
 
-    public List<ResourceVo> getResources() {
+    public List<PostsResourceVo> getResources() {
         return resources;
     }
 
-    public void setResources(List<ResourceVo> resources) {
+    public void setResources(List<PostsResourceVo> resources) {
         this.resources = resources;
     }
 

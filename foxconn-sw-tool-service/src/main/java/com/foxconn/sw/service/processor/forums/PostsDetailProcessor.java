@@ -4,8 +4,8 @@ import com.foxconn.sw.business.SwAppendResourceBusiness;
 import com.foxconn.sw.business.forums.*;
 import com.foxconn.sw.common.utils.ConvertUtils;
 import com.foxconn.sw.common.utils.DateTimeUtils;
-import com.foxconn.sw.data.dto.entity.ResourceVo;
 import com.foxconn.sw.data.dto.entity.forums.PostsDetailVo;
+import com.foxconn.sw.data.dto.entity.forums.PostsResourceVo;
 import com.foxconn.sw.data.dto.entity.universal.IntegerParams;
 import com.foxconn.sw.data.entity.ForumPosts;
 import com.foxconn.sw.data.entity.ForumPostsAttachment;
@@ -16,10 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Component
@@ -60,7 +57,7 @@ public class PostsDetailProcessor {
         return detailVo;
     }
 
-    private List<ResourceVo> mapResource(Integer postsID) {
+    private List<PostsResourceVo> mapResource(Integer postsID) {
         if (Objects.isNull(postsID)) {
             return Lists.newArrayList();
         }
@@ -71,11 +68,15 @@ public class PostsDetailProcessor {
             return Lists.newArrayList();
         }
         List<Integer> resourceIDsInt = attachments.stream().map(e -> e.getResourceId()).collect(Collectors.toList());
+        Map<Integer, ForumPostsAttachment> attachmentMap = attachments.stream()
+                .collect(Collectors.toMap(ForumPostsAttachment::getResourceId, e -> e));
 
-        List<SwAppendResource> resources = appendResourceBusiness.getAppendResources(resourceIDsInt);
-        List<ResourceVo> resourceVos = new ArrayList<>();
+        List<SwAppendResource> resources = appendResourceBusiness.getAppendResources(attachmentMap.keySet().stream().toList());
+        List<PostsResourceVo> resourceVos = new ArrayList<>();
         Optional.ofNullable(resources).orElse(Lists.newArrayList()).forEach(e -> {
-            ResourceVo resourceVo = new ResourceVo();
+            PostsResourceVo resourceVo = new PostsResourceVo();
+            resourceVo.setPostsId(postsID);
+            resourceVo.setCommentId(attachmentMap.get(e.getId()).getCommentId());
             resourceVo.setId(e.getId());
             resourceVo.setName(e.getOriginName());
             resourceVo.setUrl(ConvertUtils.urlPreFix(e.getId(), e.getFilePath()));
