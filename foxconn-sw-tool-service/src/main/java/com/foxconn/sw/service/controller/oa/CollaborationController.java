@@ -30,6 +30,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.net.URLEncoder;
+import java.util.concurrent.ExecutionException;
 
 @CrossOrigin
 @RestController
@@ -86,7 +87,7 @@ public class CollaborationController {
     @ApiResponse(responseCode = "0", description = "成功码")
     @PostMapping("/import")
     public Response<Boolean> importExcel(@Valid @RequestParam("request") String reqJson,
-                                         @RequestParam("multipartFile") MultipartFile multipartFile) throws IOException {
+                                         @RequestParam("multipartFile") MultipartFile multipartFile) throws IOException, ExecutionException, InterruptedException {
         Request<IntegerParams> request = JsonUtils.deserialize(reqJson, Request.class, IntegerParams.class);
         Boolean result = collaborationImport.importExcel(request.getData(), multipartFile);
         return ResponseUtils.success(result, request.getTraceId());

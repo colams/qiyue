@@ -1,7 +1,6 @@
 package com.foxconn.sw.business.collaboration;
 
 import com.foxconn.sw.business.SwAppendResourceBusiness;
-import com.foxconn.sw.common.aspects.Metric;
 import com.foxconn.sw.common.utils.ExcelUtils;
 import com.foxconn.sw.common.utils.FilePathUtils;
 import com.foxconn.sw.data.entity.SwAppendResource;
@@ -125,7 +124,6 @@ public class CollaborationDetailBusiness {
     }
 
 
-    @Metric
     public boolean insertBatchCollaborationUserDetail(List<SwCollaborationDetail> collaborationDetails) {
         SqlSession sqlSession = sqlSessionFactory.openSession(ExecutorType.BATCH, false);
         SwCollaborationDetailMapper mapper = sqlSession.getMapper(SwCollaborationDetailMapper.class);

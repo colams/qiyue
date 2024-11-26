@@ -17,6 +17,7 @@ import com.foxconn.sw.data.exception.BizException;
 import com.foxconn.sw.data.mapper.auto.SwCollaborationUserMapper;
 import com.foxconn.sw.data.mapper.extension.oa.SwCollaborationUserExtensionMapper;
 import com.google.common.collect.Lists;
+import org.apache.commons.lang3.time.StopWatch;
 import org.apache.ibatis.session.ExecutorType;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -237,7 +238,6 @@ public class CollaborationUserBusiness {
         return true;
     }
 
-    @Metric
     public boolean insertBatchCollaborationUser(List<SwCollaborationUser> collaborationUsers) {
         SqlSession sqlSession = sqlSessionFactory.openSession(ExecutorType.BATCH, false);
         SwCollaborationUserMapper mapper = sqlSession.getMapper(SwCollaborationUserMapper.class);

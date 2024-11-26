@@ -11,7 +11,6 @@ import com.foxconn.sw.data.dto.entity.universal.IntegerParams;
 import com.foxconn.sw.data.entity.SwCollaborationDetail;
 import com.foxconn.sw.data.entity.SwCollaborationUser;
 import com.foxconn.sw.data.exception.BizException;
-import org.apache.commons.lang3.time.StopWatch;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
@@ -30,6 +29,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Executor;
 import java.util.stream.Collectors;
 
 @Component
@@ -44,9 +45,12 @@ public class CollaborationImportProcessor {
     CollaborationUserBusiness collaborationUser;
     @Autowired
     SwTaskBusiness taskBusiness;
+    @Autowired
+    Executor taskExecutor;
+
 
     @Metric
-    public Boolean importExcel(IntegerParams data, MultipartFile multipartFile) throws IOException {
+    public Boolean importExcel(IntegerParams data, MultipartFile multipartFile) throws IOException, ExecutionException, InterruptedException {
         List<SwCollaborationUser> users = collaborationUser.queryCollaborationUser(data.getParams(), RequestContext.getEmployeeNo());
         List<Map<String, String>> maps = SpringUtils.getBean(CollaborationImportProcessor.class)
                 .explainExcel(data.getParams(), multipartFile);
@@ -56,8 +60,6 @@ public class CollaborationImportProcessor {
             collaborationUser.deleteCollaborationUser(ids);
         }
 
-        StopWatch stopWatch = new StopWatch();
-        stopWatch.start();
         List<SwCollaborationUser> collaborationUsers = new ArrayList<>();
         maps.stream().forEach(e -> {
             SwCollaborationUser user = new SwCollaborationUser();
@@ -65,21 +67,12 @@ public class CollaborationImportProcessor {
             user.setEmployeeNo(RequestContext.getEmployeeNo());
             collaborationUsers.add(user);
         });
-        List<List<SwCollaborationUser>> listList = Lists.partition(collaborationUsers, 50);
+        List<List<SwCollaborationUser>> listList = Lists.partition(collaborationUsers, 100);
         listList.parallelStream().forEach(e -> {
             collaborationUser.insertBatchCollaborationUser(e);
         });
-        stopWatch.stop();
-        logger.info(maps.size() + "-insertBatchCollaborationUser-:" + stopWatch.getTime());
-        stopWatch.reset();
-        stopWatch.start();
 
         List<Long> userIds = collaborationUser.queryCollaborationUserIds(data.getParams());
-
-        stopWatch.stop();
-        logger.info("-queryCollaborationUserIds-:" + stopWatch.getTime());
-        stopWatch.reset();
-        stopWatch.start();
 
         List<SwCollaborationDetail> collaborationDetails = new ArrayList<>();
 
@@ -95,18 +88,10 @@ public class CollaborationImportProcessor {
             }
         }
 
-        stopWatch.stop();
-        logger.info(collaborationDetails.size() + "-collaborationDetails-:" + stopWatch.getTime());
-        stopWatch.reset();
-        stopWatch.start();
-
-        List<List<SwCollaborationDetail>> lists = Lists.partition(collaborationDetails, 50);
+        List<List<SwCollaborationDetail>> lists = Lists.partition(collaborationDetails, 100);
         lists.parallelStream().forEach(e -> {
             collaborationDetail.insertBatchCollaborationUserDetail(e);
         });
-
-        stopWatch.stop();
-        logger.info("-insertBatchCollaborationUserDetail-:" + stopWatch.getTime());
         return true;
     }
 
