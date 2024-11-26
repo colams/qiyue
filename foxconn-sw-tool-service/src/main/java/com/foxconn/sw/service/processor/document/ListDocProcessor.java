@@ -2,11 +2,11 @@ package com.foxconn.sw.service.processor.document;
 
 import com.foxconn.sw.business.SwAppendResourceBusiness;
 import com.foxconn.sw.business.account.UserBusiness;
-import com.foxconn.sw.common.context.RequestContext;
 import com.foxconn.sw.business.oa.SwDocumentBusiness;
 import com.foxconn.sw.business.oa.SwDocumentHistoryBusiness;
 import com.foxconn.sw.business.oa.SwDocumentPermissionBusiness;
 import com.foxconn.sw.business.system.EmployeeBusiness;
+import com.foxconn.sw.common.context.RequestContext;
 import com.foxconn.sw.common.utils.ConvertUtils;
 import com.foxconn.sw.common.utils.DateTimeUtils;
 import com.foxconn.sw.data.dto.entity.acount.EmployeeVo;
@@ -55,8 +55,10 @@ public class ListDocProcessor {
             vo.setDocumentID(e.getId());
             vo.setCategory(e.getCategory());
             vo.setDocumentName(e.getDocumentName());
-            vo.setDownloadUrl(ConvertUtils.urlPreFix(resource.getId(), resource.getFilePath()));
-            vo.setViewUrl(appendResourceBusiness.getResourceUrl(resource));
+            if (Objects.nonNull(resource)) {
+                vo.setDownloadUrl(ConvertUtils.urlPreFix(resource.getId(), resource.getFilePath()));
+                vo.setViewUrl(appendResourceBusiness.getResourceUrl(resource));
+            }
             if (Integer.valueOf(0).equals(e.getSecretLevel()) || Integer.valueOf(1).equals(e.getSecretLevel())) {
                 vo.setTitle("公開");
             } else if (Integer.valueOf(2).equals(e.getSecretLevel())) {
