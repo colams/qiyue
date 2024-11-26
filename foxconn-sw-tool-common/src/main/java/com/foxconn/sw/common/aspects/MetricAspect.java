@@ -35,10 +35,10 @@ public class MetricAspect {
         try {
             stopWatch.start();
             retValue = joinPoint.proceed();
-            stopWatch.stop();
         } catch (Throwable throwable) {
             throw throwable;
         } finally {
+            stopWatch.stop();
             metric(joinPoint, stopWatch.getTotalTimeMillis(), servletUtils.getRemoteIp());
         }
         return retValue;

@@ -65,7 +65,7 @@ public class CollaborationImportProcessor {
             user.setEmployeeNo(RequestContext.getEmployeeNo());
             collaborationUsers.add(user);
         });
-        List<List<SwCollaborationUser>> listList = Lists.partition(collaborationUsers, 100);
+        List<List<SwCollaborationUser>> listList = Lists.partition(collaborationUsers, 50);
         listList.parallelStream().forEach(e -> {
             collaborationUser.insertBatchCollaborationUser(e);
         });
@@ -100,7 +100,7 @@ public class CollaborationImportProcessor {
         stopWatch.reset();
         stopWatch.start();
 
-        List<List<SwCollaborationDetail>> lists = Lists.partition(collaborationDetails, 100);
+        List<List<SwCollaborationDetail>> lists = Lists.partition(collaborationDetails, 50);
         lists.parallelStream().forEach(e -> {
             collaborationDetail.insertBatchCollaborationUserDetail(e);
         });

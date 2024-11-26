@@ -2,6 +2,7 @@ package com.foxconn.sw.business.collaboration;
 
 import com.foxconn.sw.business.SwAppendResourceBusiness;
 import com.foxconn.sw.business.oa.SwTaskProgressBusiness;
+import com.foxconn.sw.common.aspects.Metric;
 import com.foxconn.sw.common.context.RequestContext;
 import com.foxconn.sw.common.utils.ConvertUtils;
 import com.foxconn.sw.common.utils.ExcelUtils;
@@ -236,7 +237,7 @@ public class CollaborationUserBusiness {
         return true;
     }
 
-
+    @Metric
     public boolean insertBatchCollaborationUser(List<SwCollaborationUser> collaborationUsers) {
         SqlSession sqlSession = sqlSessionFactory.openSession(ExecutorType.BATCH, false);
         SwCollaborationUserMapper mapper = sqlSession.getMapper(SwCollaborationUserMapper.class);
