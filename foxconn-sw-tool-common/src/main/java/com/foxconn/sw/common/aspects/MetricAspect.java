@@ -46,8 +46,8 @@ public class MetricAspect {
 
     private void metric(ProceedingJoinPoint joinPoint, long intervals, String ip) {
         try {
-            String operateType = joinPoint.getTarget().getClass().getSimpleName() + "." + joinPoint.getSignature().getName();
-            logger.info(String.format("%s metric ============ %s,%s intervals: %s", RequestContext.getTraceID(), operateType, ip, intervals));
+            String operateName = joinPoint.getSignature().getName();
+            logger.info(String.format("%s metric intervals ===  %s : %s", RequestContext.getTraceID(), operateName, intervals));
         } catch (Exception e) {
             logger.error(e.getMessage(), e);
         }

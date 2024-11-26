@@ -1,8 +1,8 @@
 package com.foxconn.sw.business.collaboration;
 
 import com.foxconn.sw.business.SwAppendResourceBusiness;
-import com.foxconn.sw.common.context.RequestContext;
 import com.foxconn.sw.business.oa.SwTaskProgressBusiness;
+import com.foxconn.sw.common.context.RequestContext;
 import com.foxconn.sw.common.utils.ConvertUtils;
 import com.foxconn.sw.common.utils.ExcelUtils;
 import com.foxconn.sw.common.utils.FilePathUtils;
@@ -14,6 +14,10 @@ import com.foxconn.sw.data.entity.SwCollaborationUserExample;
 import com.foxconn.sw.data.entity.SwTask;
 import com.foxconn.sw.data.exception.BizException;
 import com.foxconn.sw.data.mapper.extension.oa.SwCollaborationUserExtensionMapper;
+import com.google.common.collect.Lists;
+import org.apache.ibatis.session.ExecutorType;
+import org.apache.ibatis.session.SqlSession;
+import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
@@ -27,10 +31,8 @@ import org.springframework.util.CollectionUtils;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Component
 public class CollaborationUserBusiness {
@@ -45,6 +47,8 @@ public class CollaborationUserBusiness {
     SwTaskProgressBusiness progressBusiness;
     @Autowired
     SwAppendResourceBusiness resourceBusiness;
+    @Autowired
+    SqlSessionFactory sqlSessionFactory;
 
     public List<SwCollaborationUser> queryCollaborationUser(Integer taskID) {
         SwCollaborationUserExample example = new SwCollaborationUserExample();
@@ -188,8 +192,47 @@ public class CollaborationUserBusiness {
         return collaborationUserMapper.updateByPrimaryKeySelective(user) > 0;
     }
 
+    public Boolean deleteCollaborationUser(List<Long> ids) {
+        SwCollaborationUser record = new SwCollaborationUser();
+        record.setIsDelete(1);
+
+        SwCollaborationUserExample example = new SwCollaborationUserExample();
+        SwCollaborationUserExample.Criteria criteria = example.createCriteria();
+        criteria.andIdIn(ids);
+        return collaborationUserMapper.updateByExampleSelective(record, example) > 0;
+    }
+
     public Long insertCollaborationUser(SwCollaborationUser collaborationUser) {
         collaborationUserMapper.insertSelective(collaborationUser);
         return collaborationUser.getId();
+    }
+
+    public List<Long> queryCollaborationUserIds(Integer taskId) {
+        SwCollaborationUserExample example = new SwCollaborationUserExample();
+        SwCollaborationUserExample.Criteria criteria = example.createCriteria();
+        criteria.andTaskIdEqualTo(taskId);
+        criteria.andEmployeeNoEqualTo(RequestContext.getEmployeeNo());
+        criteria.andIsDeleteEqualTo(0);
+        List<SwCollaborationUser> users = collaborationUserMapper.selectByExample(example);
+        return Optional.ofNullable(users)
+                .orElse(Lists.newArrayList())
+                .stream()
+                .map(e -> e.getId())
+                .collect(Collectors.toList());
+    }
+
+
+    public boolean insertBatchCollaborationUser(List<Map<String, String>> maps, Integer taskId) {
+        SqlSession sqlSession = sqlSessionFactory.openSession(ExecutorType.BATCH, false);
+        maps.stream().forEach(e -> {
+            SwCollaborationUser user = new SwCollaborationUser();
+            user.setTaskId(taskId);
+            user.setEmployeeNo(RequestContext.getEmployeeNo());
+            collaborationUserMapper.insertSelective(user);
+            logger.info("-------", user.getId());
+        });
+        sqlSession.commit();
+        sqlSession.close();
+        return true;
     }
 }

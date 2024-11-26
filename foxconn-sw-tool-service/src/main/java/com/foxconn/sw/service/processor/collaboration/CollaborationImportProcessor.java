@@ -8,7 +8,6 @@ import com.foxconn.sw.common.context.RequestContext;
 import com.foxconn.sw.common.utils.ExcelUtils;
 import com.foxconn.sw.common.utils.SpringUtils;
 import com.foxconn.sw.data.dto.entity.universal.IntegerParams;
-import com.foxconn.sw.data.entity.SwCollaborationDetail;
 import com.foxconn.sw.data.entity.SwCollaborationUser;
 import com.foxconn.sw.data.exception.BizException;
 import org.apache.poi.ss.usermodel.Cell;
@@ -21,6 +20,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
+import org.springframework.util.StopWatch;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
@@ -28,6 +28,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @Component
 public class CollaborationImportProcessor {
@@ -49,28 +50,23 @@ public class CollaborationImportProcessor {
                 .explainExcel(data.getParams(), multipartFile);
 
         if (!CollectionUtils.isEmpty(users)) {
-            users.forEach(e -> {
-                SwCollaborationUser user = new SwCollaborationUser();
-                user.setId(e.getId());
-                user.setIsDelete(1);
-                collaborationUser.updateUser(user);
-            });
+            List<Long> ids = users.stream().map(e -> e.getId()).collect(Collectors.toList());
+            collaborationUser.deleteCollaborationUser(ids);
         }
+        logger.info("metric === 插入分割线");
+        StopWatch stopWatch = new StopWatch();
+        stopWatch.start();
 
-        maps.forEach(e -> {
-            SwCollaborationUser user = new SwCollaborationUser();
-            user.setTaskId(data.getParams());
-            user.setEmployeeNo(RequestContext.getEmployeeNo());
-            collaborationUser.insertCollaborationUser(user);
+        collaborationUser.insertBatchCollaborationUser(maps, data.getParams());
+        stopWatch.stop();
+        logger.info("metric === 插入分割线1:" + stopWatch.getTotalTimeMillis());
+        stopWatch.start();
 
-            for (Map.Entry<String, String> entry : e.entrySet()) {
-                SwCollaborationDetail detail = new SwCollaborationDetail();
-                detail.setScuId(user.getId());
-                detail.setItem(entry.getKey());
-                detail.setItemValue(entry.getValue());
-                collaborationDetail.updateOrInsert(detail);
-            }
-        });
+        List<Long> userIds = collaborationUser.queryCollaborationUserIds(data.getParams());
+
+        collaborationDetail.insertBatchCollaborationUserDetail(maps, userIds);
+        stopWatch.stop();
+        logger.info("metric === 插入分割线2:" + stopWatch.getTotalTimeMillis());
         return true;
     }
 

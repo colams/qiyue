@@ -1,6 +1,7 @@
 package com.foxconn.sw.business.collaboration;
 
 import com.foxconn.sw.business.SwAppendResourceBusiness;
+import com.foxconn.sw.common.aspects.Metric;
 import com.foxconn.sw.common.utils.ExcelUtils;
 import com.foxconn.sw.common.utils.FilePathUtils;
 import com.foxconn.sw.data.entity.SwAppendResource;
@@ -8,6 +9,9 @@ import com.foxconn.sw.data.entity.SwCollaborationDetail;
 import com.foxconn.sw.data.entity.SwCollaborationDetailExample;
 import com.foxconn.sw.data.mapper.extension.oa.SwCollaborationDetailExtensionMapper;
 import com.google.common.collect.Lists;
+import org.apache.ibatis.session.ExecutorType;
+import org.apache.ibatis.session.SqlSession;
+import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
@@ -22,6 +26,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 @Component
@@ -33,6 +38,8 @@ public class CollaborationDetailBusiness {
     SwAppendResourceBusiness resourceBusiness;
     @Autowired
     FilePathUtils filePathUtils;
+    @Autowired
+    SqlSessionFactory sqlSessionFactory;
 
     public List<SwCollaborationDetail> queryCollaborationDetail(List<Long> scuIDs) {
         if (CollectionUtils.isEmpty(scuIDs)) {
@@ -115,5 +122,26 @@ public class CollaborationDetailBusiness {
         detail.setItemValue(value);
         detail.setRowIndex(rowNum);
         return collaborationDetailMapper.insertSelective(detail) > 0;
+    }
+
+    @Metric
+    public boolean insertBatchCollaborationUserDetail(List<Map<String, String>> maps, List<Long> userIds) {
+
+        SqlSession sqlSession = sqlSessionFactory.openSession(ExecutorType.BATCH, false);
+        int i = 0;
+        for (Map<String, String> map : maps) {
+            Long scuId = userIds.get(i++);
+            for (Map.Entry<String, String> entry : map.entrySet()) {
+                SwCollaborationDetail detail = new SwCollaborationDetail();
+                detail.setScuId(scuId);
+                detail.setItem(entry.getKey());
+                detail.setItemValue(entry.getValue());
+                collaborationDetailMapper.insertSelective(detail);
+            }
+        }
+        sqlSession.commit();
+        sqlSession.close();
+        return true;
+
     }
 }
