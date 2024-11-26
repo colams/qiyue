@@ -36,7 +36,6 @@ public class MetricAspect {
             retValue = joinPoint.proceed();
             stopWatch.stop();
         } catch (Throwable throwable) {
-            logger.warn("call service throwable", throwable);
             throw throwable;
         } finally {
             metric(joinPoint, stopWatch.getTotalTimeMillis(), servletUtils.getRemoteIp());
