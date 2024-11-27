@@ -2,6 +2,7 @@ package com.foxconn.sw.data.mapper.extension.forums;
 
 import com.foxconn.sw.data.entity.ForumPosts;
 import com.foxconn.sw.data.mapper.auto.ForumPostsMapper;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Result;
 import org.apache.ibatis.annotations.Results;
 import org.apache.ibatis.annotations.Select;
@@ -16,7 +17,7 @@ public interface ForumPostsExtMapper extends ForumPostsMapper {
     @Select({"<script> " +
             "select p.* from forum_posts p inner join forum_favorite f on " +
             "p.id=f.posts_id " +
-            "where f.is_valid=1" +
+            "where f.is_valid=1 and f.operator=#{operator,jdbcType=VARCHAR}" +
             "<if test='words!=null and words!=\"\"' >",
             " and p.title like CONCAT('%', #{words,jdbcType=VARCHAR}, '%') ",
             "</if> ",
@@ -33,7 +34,7 @@ public interface ForumPostsExtMapper extends ForumPostsMapper {
             @Result(column = "lastchange_datetime", property = "lastchangeDatetime", jdbcType = JdbcType.TIMESTAMP),
             @Result(column = "description", property = "description", jdbcType = JdbcType.LONGVARCHAR)
     })
-    List<ForumPosts> favoritePosts(String words);
+    List<ForumPosts> favoritePosts(@Param("words") String words,@Param("operator") String operator);
 
 
 }

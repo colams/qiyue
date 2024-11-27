@@ -32,7 +32,7 @@ public class ForumPostsBusiness {
 
     public List<ForumPosts> queryPosts(Integer postsType, String words) {
         if (NumberConstants.TWO.equals(postsType)) {
-            return forumPostsExtMapper.favoritePosts(words);
+            return forumPostsExtMapper.favoritePosts(words, RequestContext.getEmployeeNo());
         }
         ForumPostsExample example = new ForumPostsExample();
         ForumPostsExample.Criteria criteria = example.createCriteria();

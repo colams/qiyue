@@ -231,7 +231,7 @@ public class ExcelWorkReportUtils {
                 sheet.addMergedRegion(cellAddressName);
             }
         }
-        autoSizeColumn(sheet, 7);
+        autoSizeColumn(sheet, 7, false);
     }
 
 
@@ -319,7 +319,7 @@ public class ExcelWorkReportUtils {
             defaultCell(row, 8, style);
         }
 
-        autoSizeColumn(sheet, 9);
+        autoSizeColumn(sheet, 9, true);
 
         // 设置区域的边框，例如：第一行的A1:J1单元格区域
         int firstRow = 0;
@@ -402,10 +402,13 @@ public class ExcelWorkReportUtils {
         cell.setCellStyle(cellStyle);
     }
 
-    private static void autoSizeColumn(Sheet sheet, int length) {
+    private static void autoSizeColumn(Sheet sheet, int length, boolean stateSheet) {
         for (int columnIndex = 0; columnIndex < length; columnIndex++) {
             if (columnIndex > 0) {
                 sheet.autoSizeColumn(columnIndex);
+                if (stateSheet) {
+                    sheet.setColumnWidth(columnIndex, sheet.getColumnWidth(columnIndex) * 14 / 10);
+                }
             }
         }
     }
