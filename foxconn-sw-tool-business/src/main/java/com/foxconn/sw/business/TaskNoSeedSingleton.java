@@ -23,8 +23,6 @@ public class TaskNoSeedSingleton {
     @Autowired
     private TaskNoSeedExtensionMapper taskNoSeedExtensionMapper;
 
-    private static Long number = null;
-
     private TaskNoSeedSingleton() {
     }
 
@@ -33,17 +31,12 @@ public class TaskNoSeedSingleton {
         lock.lock();
         try {
             String date = DateTimeUtils.formatYMD();
-            if (Objects.isNull(number)) {
-                number = getLastSeed();
-            }
+            taskNumber = getLastSeed();
 
-            if (number.toString().startsWith(date)) {
-                taskNumber = ++number;
-            } else {
-                number = Long.valueOf(String.format("%s0001", date));
-                taskNumber = number;
+            if (!taskNumber.toString().startsWith(date)) {
+                taskNumber = Long.valueOf(String.format("%s0000", date));
             }
-            insertSeed(taskNumber);
+            insertSeed(++taskNumber);
         } catch (Exception e) {
             System.out.println(e);
             throw new BizException(SYSTEM_ERROR);

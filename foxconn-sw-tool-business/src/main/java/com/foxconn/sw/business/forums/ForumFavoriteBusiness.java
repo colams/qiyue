@@ -35,7 +35,7 @@ public class ForumFavoriteBusiness {
 
         favorite.setOperator(RequestContext.getEmployeeNo());
         favorite.setPostsId(id);
-        favorite.setIsValid(NumberConstants.ZERO.equals(favorite.getIsValid()) ? 0 : 1);
+        favorite.setIsValid(NumberConstants.ONE.equals(favorite.getIsValid()) ? 0 : 1);
 
         if (Objects.nonNull(favorite.getId()) && favorite.getId() > 0) {
             ForumFavorite updateFavorite = new ForumFavorite();
