@@ -9,6 +9,8 @@ public class SwFeedback {
 
     private String title;
 
+    private String remark;
+
     private String contact;
 
     private String ip;
@@ -58,6 +60,19 @@ public class SwFeedback {
 
     public void setTitle(String title) {
         this.title = title == null ? null : title.trim();
+    }
+
+    public String getRemark() {
+        return remark;
+    }
+
+    public SwFeedback withRemark(String remark) {
+        this.setRemark(remark);
+        return this;
+    }
+
+    public void setRemark(String remark) {
+        this.remark = remark == null ? null : remark.trim();
     }
 
     public String getContact() {

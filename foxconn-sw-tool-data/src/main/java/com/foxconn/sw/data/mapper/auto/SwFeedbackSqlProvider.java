@@ -36,6 +36,10 @@ public class SwFeedbackSqlProvider {
             sql.VALUES("title", "#{title,jdbcType=VARCHAR}");
         }
         
+        if (record.getRemark() != null) {
+            sql.VALUES("remark", "#{remark,jdbcType=VARCHAR}");
+        }
+        
         if (record.getContact() != null) {
             sql.VALUES("contact", "#{contact,jdbcType=VARCHAR}");
         }
@@ -72,6 +76,7 @@ public class SwFeedbackSqlProvider {
         }
         sql.SELECT("employee_no");
         sql.SELECT("title");
+        sql.SELECT("remark");
         sql.SELECT("contact");
         sql.SELECT("ip");
         sql.SELECT("status");
@@ -97,6 +102,7 @@ public class SwFeedbackSqlProvider {
         }
         sql.SELECT("employee_no");
         sql.SELECT("title");
+        sql.SELECT("remark");
         sql.SELECT("contact");
         sql.SELECT("ip");
         sql.SELECT("status");
@@ -129,6 +135,10 @@ public class SwFeedbackSqlProvider {
         
         if (record.getTitle() != null) {
             sql.SET("title = #{record.title,jdbcType=VARCHAR}");
+        }
+        
+        if (record.getRemark() != null) {
+            sql.SET("remark = #{record.remark,jdbcType=VARCHAR}");
         }
         
         if (record.getContact() != null) {
@@ -166,6 +176,7 @@ public class SwFeedbackSqlProvider {
         sql.SET("id = #{record.id,jdbcType=INTEGER}");
         sql.SET("employee_no = #{record.employeeNo,jdbcType=VARCHAR}");
         sql.SET("title = #{record.title,jdbcType=VARCHAR}");
+        sql.SET("remark = #{record.remark,jdbcType=VARCHAR}");
         sql.SET("contact = #{record.contact,jdbcType=VARCHAR}");
         sql.SET("ip = #{record.ip,jdbcType=VARCHAR}");
         sql.SET("status = #{record.status,jdbcType=INTEGER}");
@@ -185,6 +196,7 @@ public class SwFeedbackSqlProvider {
         sql.SET("id = #{record.id,jdbcType=INTEGER}");
         sql.SET("employee_no = #{record.employeeNo,jdbcType=VARCHAR}");
         sql.SET("title = #{record.title,jdbcType=VARCHAR}");
+        sql.SET("remark = #{record.remark,jdbcType=VARCHAR}");
         sql.SET("contact = #{record.contact,jdbcType=VARCHAR}");
         sql.SET("ip = #{record.ip,jdbcType=VARCHAR}");
         sql.SET("status = #{record.status,jdbcType=INTEGER}");
@@ -206,6 +218,10 @@ public class SwFeedbackSqlProvider {
         
         if (record.getTitle() != null) {
             sql.SET("title = #{title,jdbcType=VARCHAR}");
+        }
+        
+        if (record.getRemark() != null) {
+            sql.SET("remark = #{remark,jdbcType=VARCHAR}");
         }
         
         if (record.getContact() != null) {

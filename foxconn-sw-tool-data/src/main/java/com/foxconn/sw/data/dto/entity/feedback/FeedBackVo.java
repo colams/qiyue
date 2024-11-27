@@ -21,6 +21,8 @@ public class FeedBackVo {
 
     private String content;
 
+    private String remark;
+
     private Integer status;
 
     private List<OperateEntity> operates;
@@ -79,6 +81,14 @@ public class FeedBackVo {
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    public String getRemark() {
+        return remark;
+    }
+
+    public void setRemark(String remark) {
+        this.remark = remark;
     }
 
     public Integer getStatus() {

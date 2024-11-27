@@ -53,6 +53,7 @@ public class FeedBackListProcessor {
             vo.setIp(e.getIp());
             vo.setCreateTime(e.getCreateTime());
             vo.setContent(e.getContent());
+            vo.setRemark(e.getRemark());
             vo.setStatus(e.getStatus());
             boolean canClose = RequestContext.getEmployeeNo().equalsIgnoreCase(e.getEmployeeNo());
             List<OperateEntity> ops = Lists.newArrayList(initCompleteOp(e.getStatus(), hasPower), initCloseOp(e.getStatus(), canClose));
