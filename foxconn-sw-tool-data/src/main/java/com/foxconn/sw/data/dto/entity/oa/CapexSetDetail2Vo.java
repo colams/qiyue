@@ -5,6 +5,7 @@ public class CapexSetDetail2Vo {
     private Integer index;
     private String type;
     private String setValue;
+    private String extra;
 
     public Integer getIndex() {
         return index;
@@ -28,5 +29,13 @@ public class CapexSetDetail2Vo {
 
     public void setSetValue(String setValue) {
         this.setValue = setValue;
+    }
+
+    public String getExtra() {
+        return extra;
+    }
+
+    public void setExtra(String extra) {
+        this.extra = extra;
     }
 }

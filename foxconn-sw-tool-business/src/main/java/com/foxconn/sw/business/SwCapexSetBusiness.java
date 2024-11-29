@@ -1,10 +1,12 @@
 package com.foxconn.sw.business;
 
+import com.foxconn.sw.business.system.EmployeeBusiness;
+import com.foxconn.sw.common.utils.constanst.CapexSetConstants;
 import com.foxconn.sw.data.dto.entity.oa.CapexParamsVo;
 import com.foxconn.sw.data.dto.entity.oa.CapexSetDetail2Vo;
-import com.foxconn.sw.data.dto.entity.oa.CapexSetDetailVo;
 import com.foxconn.sw.data.entity.SwCapexSet;
 import com.foxconn.sw.data.entity.SwCapexSetExample;
+import com.foxconn.sw.data.entity.SwEmployee;
 import com.foxconn.sw.data.mapper.extension.SwCapexSetExtMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -12,6 +14,7 @@ import org.springframework.stereotype.Component;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Component
@@ -20,6 +23,8 @@ public class SwCapexSetBusiness {
 
     @Autowired
     SwCapexSetExtMapper capexSetExtMapper;
+    @Autowired
+    EmployeeBusiness employeeBusiness;
 
 
     public boolean insertSet(int taskID, List<CapexParamsVo> capexParamsVos) {
@@ -64,6 +69,11 @@ public class SwCapexSetBusiness {
                 capexSetDetail2Vo.setIndex(e.getNumber());
                 capexSetDetail2Vo.setType(e.getType());
                 capexSetDetail2Vo.setSetValue(e.getSetValue());
+                if (!CapexSetConstants.EMPTY.equalsIgnoreCase(e.getSetValue())
+                        && !CapexSetConstants.FIXED.equalsIgnoreCase(e.getSetValue())) {
+                    SwEmployee ee = employeeBusiness.queryEmployeeByEno(e.getSetValue());
+                    capexSetDetail2Vo.setExtra(Optional.ofNullable(ee).map(f -> f.getName()).orElse(e.getSetValue()));
+                }
                 capexSetVos.add(capexSetDetail2Vo);
             });
             capexParamsVos.add(vo);
