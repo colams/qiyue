@@ -3,11 +3,20 @@ package com.foxconn.sw.data.dto.request.forums;
 import java.util.List;
 
 public class PostsParams {
+    private List<String> project;
     private String title;
     private String content;
     private Integer purview;
     private List<String> participants;
     private List<Integer> resources;
+
+    public List<String> getProject() {
+        return project;
+    }
+
+    public void setProject(List<String> project) {
+        this.project = project;
+    }
 
     public String getTitle() {
         return title;

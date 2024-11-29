@@ -28,6 +28,10 @@ public class ForumPostsSqlProvider {
         SQL sql = new SQL();
         sql.INSERT_INTO("forum_posts");
         
+        if (record.getProject() != null) {
+            sql.VALUES("project", "#{project,jdbcType=VARCHAR}");
+        }
+        
         if (record.getTitle() != null) {
             sql.VALUES("title", "#{title,jdbcType=VARCHAR}");
         }
@@ -66,6 +70,7 @@ public class ForumPostsSqlProvider {
         } else {
             sql.SELECT("id");
         }
+        sql.SELECT("project");
         sql.SELECT("title");
         sql.SELECT("author_no");
         sql.SELECT("purview");
@@ -90,6 +95,7 @@ public class ForumPostsSqlProvider {
         } else {
             sql.SELECT("id");
         }
+        sql.SELECT("project");
         sql.SELECT("title");
         sql.SELECT("author_no");
         sql.SELECT("purview");
@@ -115,6 +121,10 @@ public class ForumPostsSqlProvider {
         
         if (record.getId() != null) {
             sql.SET("id = #{record.id,jdbcType=INTEGER}");
+        }
+        
+        if (record.getProject() != null) {
+            sql.SET("project = #{record.project,jdbcType=VARCHAR}");
         }
         
         if (record.getTitle() != null) {
@@ -154,6 +164,7 @@ public class ForumPostsSqlProvider {
         sql.UPDATE("forum_posts");
         
         sql.SET("id = #{record.id,jdbcType=INTEGER}");
+        sql.SET("project = #{record.project,jdbcType=VARCHAR}");
         sql.SET("title = #{record.title,jdbcType=VARCHAR}");
         sql.SET("author_no = #{record.authorNo,jdbcType=VARCHAR}");
         sql.SET("purview = #{record.purview,jdbcType=INTEGER}");
@@ -172,6 +183,7 @@ public class ForumPostsSqlProvider {
         sql.UPDATE("forum_posts");
         
         sql.SET("id = #{record.id,jdbcType=INTEGER}");
+        sql.SET("project = #{record.project,jdbcType=VARCHAR}");
         sql.SET("title = #{record.title,jdbcType=VARCHAR}");
         sql.SET("author_no = #{record.authorNo,jdbcType=VARCHAR}");
         sql.SET("purview = #{record.purview,jdbcType=INTEGER}");
@@ -187,6 +199,10 @@ public class ForumPostsSqlProvider {
     public String updateByPrimaryKeySelective(ForumPosts record) {
         SQL sql = new SQL();
         sql.UPDATE("forum_posts");
+        
+        if (record.getProject() != null) {
+            sql.SET("project = #{project,jdbcType=VARCHAR}");
+        }
         
         if (record.getTitle() != null) {
             sql.SET("title = #{title,jdbcType=VARCHAR}");

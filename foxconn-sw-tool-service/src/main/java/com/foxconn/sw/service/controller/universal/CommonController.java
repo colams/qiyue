@@ -102,18 +102,22 @@ public class CommonController {
     @ApiResponse(responseCode = "0", description = "成功码")
     @PostMapping("/valid")
     public Response<String> valid(@Valid @RequestBody Request request) {
-        String ms = DateTimeUtils.format(LocalDateTime.now(), "yyyyMMddHHmm");
         String dateTime = "CMBU" + DateTimeUtils.format(LocalDateTime.now(), "yyyyMMddHHmm");
-        byte[] data = dateTime.getBytes();
-        int length = data.length;
-        short crc = crc16(data, length);
-        return ResponseUtils.success(ms + crc, request.getTraceId());
+        int length = dateTime.length();
+        // String crc = crc16(dateTime, length);
+        String crc = crc16("CMBU202411271759", length);
+        if (crc.equalsIgnoreCase("361D")) {
+            System.out.println("123456");
+        }
+        return ResponseUtils.success(dateTime + crc, request.getTraceId());
     }
 
-    public static short crc16(byte[] ptr, int len) {
-        short crc = (short) 0xfff;
+    public static String crc16(String ptr, int len) {
+        short crc =(short) 0xffff;
+        char[] arrays = ptr.toCharArray();
         for (int i = 0; i < len; i++) {
-            crc ^= ptr[i];
+            int ascii = arrays[i];
+            crc ^= ascii;
             for (int j = 0; j < 8; j++) {
                 if ((crc & 0x0001) != 0) {
                     crc = (short) ((crc >> 1) ^ 0xA001);
@@ -123,7 +127,7 @@ public class CommonController {
             }
         }
         crc = (short) ((crc >> 8) | (crc << 8));
-        return crc;
+        return String.valueOf(String.format("%04X", crc));
     }
 
     @Operation(summary = "test 接口", tags = TagsConstants.UNIVERSAL)

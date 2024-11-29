@@ -34,14 +34,14 @@ public interface ForumPostsMapper {
     int deleteByPrimaryKey(Integer id);
 
     @Insert({
-        "insert into forum_posts (title, author_no, ",
-        "purview, is_delete, ",
-        "create_time, lastchange_datetime, ",
-        "description)",
-        "values (#{title,jdbcType=VARCHAR}, #{authorNo,jdbcType=VARCHAR}, ",
-        "#{purview,jdbcType=INTEGER}, #{isDelete,jdbcType=INTEGER}, ",
-        "#{createTime,jdbcType=TIMESTAMP}, #{lastchangeDatetime,jdbcType=TIMESTAMP}, ",
-        "#{description,jdbcType=LONGVARCHAR})"
+        "insert into forum_posts (project, title, ",
+        "author_no, purview, ",
+        "is_delete, create_time, ",
+        "lastchange_datetime, description)",
+        "values (#{project,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, ",
+        "#{authorNo,jdbcType=VARCHAR}, #{purview,jdbcType=INTEGER}, ",
+        "#{isDelete,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, ",
+        "#{lastchangeDatetime,jdbcType=TIMESTAMP}, #{description,jdbcType=LONGVARCHAR})"
     })
     @SelectKey(statement="SELECT LAST_INSERT_ID()", keyProperty="id", before=false, resultType=Integer.class)
     int insert(ForumPosts record);
@@ -53,6 +53,7 @@ public interface ForumPostsMapper {
     @SelectProvider(type=ForumPostsSqlProvider.class, method="selectByExampleWithBLOBs")
     @Results({
         @Result(column="id", property="id", jdbcType=JdbcType.INTEGER, id=true),
+        @Result(column="project", property="project", jdbcType=JdbcType.VARCHAR),
         @Result(column="title", property="title", jdbcType=JdbcType.VARCHAR),
         @Result(column="author_no", property="authorNo", jdbcType=JdbcType.VARCHAR),
         @Result(column="purview", property="purview", jdbcType=JdbcType.INTEGER),
@@ -66,6 +67,7 @@ public interface ForumPostsMapper {
     @SelectProvider(type=ForumPostsSqlProvider.class, method="selectByExampleWithBLOBs")
     @Results({
         @Result(column="id", property="id", jdbcType=JdbcType.INTEGER, id=true),
+        @Result(column="project", property="project", jdbcType=JdbcType.VARCHAR),
         @Result(column="title", property="title", jdbcType=JdbcType.VARCHAR),
         @Result(column="author_no", property="authorNo", jdbcType=JdbcType.VARCHAR),
         @Result(column="purview", property="purview", jdbcType=JdbcType.INTEGER),
@@ -79,6 +81,7 @@ public interface ForumPostsMapper {
     @SelectProvider(type=ForumPostsSqlProvider.class, method="selectByExample")
     @Results({
         @Result(column="id", property="id", jdbcType=JdbcType.INTEGER, id=true),
+        @Result(column="project", property="project", jdbcType=JdbcType.VARCHAR),
         @Result(column="title", property="title", jdbcType=JdbcType.VARCHAR),
         @Result(column="author_no", property="authorNo", jdbcType=JdbcType.VARCHAR),
         @Result(column="purview", property="purview", jdbcType=JdbcType.INTEGER),
@@ -91,6 +94,7 @@ public interface ForumPostsMapper {
     @SelectProvider(type=ForumPostsSqlProvider.class, method="selectByExample")
     @Results({
         @Result(column="id", property="id", jdbcType=JdbcType.INTEGER, id=true),
+        @Result(column="project", property="project", jdbcType=JdbcType.VARCHAR),
         @Result(column="title", property="title", jdbcType=JdbcType.VARCHAR),
         @Result(column="author_no", property="authorNo", jdbcType=JdbcType.VARCHAR),
         @Result(column="purview", property="purview", jdbcType=JdbcType.INTEGER),
@@ -102,13 +106,14 @@ public interface ForumPostsMapper {
 
     @Select({
         "select",
-        "id, title, author_no, purview, is_delete, create_time, lastchange_datetime, ",
+        "id, project, title, author_no, purview, is_delete, create_time, lastchange_datetime, ",
         "description",
         "from forum_posts",
         "where id = #{id,jdbcType=INTEGER}"
     })
     @Results({
         @Result(column="id", property="id", jdbcType=JdbcType.INTEGER, id=true),
+        @Result(column="project", property="project", jdbcType=JdbcType.VARCHAR),
         @Result(column="title", property="title", jdbcType=JdbcType.VARCHAR),
         @Result(column="author_no", property="authorNo", jdbcType=JdbcType.VARCHAR),
         @Result(column="purview", property="purview", jdbcType=JdbcType.INTEGER),
@@ -133,7 +138,8 @@ public interface ForumPostsMapper {
 
     @Update({
         "update forum_posts",
-        "set title = #{title,jdbcType=VARCHAR},",
+        "set project = #{project,jdbcType=VARCHAR},",
+          "title = #{title,jdbcType=VARCHAR},",
           "author_no = #{authorNo,jdbcType=VARCHAR},",
           "purview = #{purview,jdbcType=INTEGER},",
           "is_delete = #{isDelete,jdbcType=INTEGER},",
@@ -146,7 +152,8 @@ public interface ForumPostsMapper {
 
     @Update({
         "update forum_posts",
-        "set title = #{title,jdbcType=VARCHAR},",
+        "set project = #{project,jdbcType=VARCHAR},",
+          "title = #{title,jdbcType=VARCHAR},",
           "author_no = #{authorNo,jdbcType=VARCHAR},",
           "purview = #{purview,jdbcType=INTEGER},",
           "is_delete = #{isDelete,jdbcType=INTEGER},",

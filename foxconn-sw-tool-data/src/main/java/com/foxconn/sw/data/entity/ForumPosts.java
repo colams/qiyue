@@ -5,6 +5,8 @@ import java.time.LocalDateTime;
 public class ForumPosts {
     private Integer id;
 
+    private String project;
+
     private String title;
 
     private String authorNo;
@@ -30,6 +32,19 @@ public class ForumPosts {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public String getProject() {
+        return project;
+    }
+
+    public ForumPosts withProject(String project) {
+        this.setProject(project);
+        return this;
+    }
+
+    public void setProject(String project) {
+        this.project = project == null ? null : project.trim();
     }
 
     public String getTitle() {

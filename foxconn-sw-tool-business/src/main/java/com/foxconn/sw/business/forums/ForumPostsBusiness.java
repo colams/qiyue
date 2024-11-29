@@ -21,6 +21,7 @@ public class ForumPostsBusiness {
 
     public int createPosts(PostsParams data) {
         ForumPosts forumPosts = new ForumPosts();
+        forumPosts.setProject(data.getProject().get(1));
         forumPosts.setTitle(data.getTitle());
         forumPosts.setAuthorNo(RequestContext.getEmployeeNo());
         forumPosts.setPurview(data.getPurview());
