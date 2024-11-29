@@ -10,6 +10,7 @@ import com.foxconn.sw.data.dto.request.forums.ListPostsParams;
 import com.foxconn.sw.data.entity.ForumPosts;
 import com.foxconn.sw.service.processor.utils.EmployeeUtils;
 import com.google.common.collect.Lists;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
@@ -46,7 +47,11 @@ public class ListPostsProcessor {
             vo.setId(e.getId());
             vo.setAuthor(employeeUtils.mapEmployee(e.getAuthorNo()));
             vo.setCreateTime(DateTimeUtils.format(e.getCreateTime()));
-            vo.setTitle(e.getTitle());
+            if (StringUtils.isNotEmpty(e.getProject())) {
+                vo.setTitle(String.format("【%s】%s", e.getProject(), e.getTitle()));
+            } else {
+                vo.setTitle(e.getTitle());
+            }
             vo.setContent(e.getDescription());
             vo.setMemberCount(participantBusiness.queryParticipantCount(e.getId()));
             vo.setCommentCount(forumCommentBusiness.queryCommentCountByPostsID(e.getId()));
