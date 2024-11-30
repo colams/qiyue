@@ -40,9 +40,6 @@ import java.util.List;
 @RequestMapping("/api/universal")
 public class CommonController {
 
-    private final Logger LOGGER = LoggerFactory.getLogger(CommonController.class);
-
-
     @Autowired
     Environment environment;
     @Autowired

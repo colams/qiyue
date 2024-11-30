@@ -1,5 +1,6 @@
 package com.foxconn.sw.data.dto.entity.feedback;
 
+import com.foxconn.sw.data.dto.entity.acount.EmployeeVo;
 import com.foxconn.sw.data.dto.entity.universal.OperateEntity;
 
 import java.time.LocalDateTime;
@@ -10,6 +11,8 @@ public class FeedBackVo {
     private Integer id;
 
     private String employeeNo;
+
+    private EmployeeVo employeeVo;
 
     private String title;
 
@@ -41,6 +44,14 @@ public class FeedBackVo {
 
     public void setEmployeeNo(String employeeNo) {
         this.employeeNo = employeeNo;
+    }
+
+    public EmployeeVo getEmployeeVo() {
+        return employeeVo;
+    }
+
+    public void setEmployeeVo(EmployeeVo employeeVo) {
+        this.employeeVo = employeeVo;
     }
 
     public String getTitle() {

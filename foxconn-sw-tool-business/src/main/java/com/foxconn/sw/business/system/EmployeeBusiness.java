@@ -15,10 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Component
@@ -118,6 +115,26 @@ public class EmployeeBusiness {
         example.setOrderByClause(" department_id ,post_id,employee_no ");
         List<SwEmployee> employees = swEmployeeExtensionMapper.selectByExample(example);
         return employees.get(0);
+    }
+
+    public EmployeeVo queryEmployeeVoByEno(String eNo) {
+        SwEmployeeExample example = new SwEmployeeExample();
+        SwEmployeeExample.Criteria criteria = example.createCriteria();
+        criteria.andEmployeeNoEqualTo(eNo);
+        example.setOrderByClause(" department_id ,post_id,employee_no ");
+        List<SwEmployee> employees = swEmployeeExtensionMapper.selectByExample(example);
+        return Optional.ofNullable(employees)
+                .orElse(Lists.newArrayList())
+                .stream()
+                .map(e -> {
+                    EmployeeVo vo = new EmployeeVo();
+                    vo.setName(e.getName());
+                    vo.setEmployeeNo(e.getEmployeeNo());
+                    vo.setPinyin(PinyinUtils.toPinyin(e.getName()));
+                    return vo;
+                })
+                .findFirst()
+                .orElse(null);
     }
 
 

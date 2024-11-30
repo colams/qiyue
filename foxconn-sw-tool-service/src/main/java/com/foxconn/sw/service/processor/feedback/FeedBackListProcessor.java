@@ -1,6 +1,7 @@
 package com.foxconn.sw.service.processor.feedback;
 
 import com.foxconn.sw.business.SwFeedbackBusiness;
+import com.foxconn.sw.business.system.EmployeeBusiness;
 import com.foxconn.sw.common.context.RequestContext;
 import com.foxconn.sw.common.utils.ConfigReader;
 import com.foxconn.sw.data.dto.entity.feedback.FeedBackVo;
@@ -23,6 +24,8 @@ public class FeedBackListProcessor {
     ConfigReader configReader;
     @Autowired
     SwFeedbackBusiness feedbackBusiness;
+    @Autowired
+    EmployeeBusiness employeeBusiness;
 
     public List<FeedBackVo> list(FeedBackConditionParams params) {
         String employeeNo = RequestContext.getEmployeeNo();
@@ -55,6 +58,7 @@ public class FeedBackListProcessor {
             vo.setContent(e.getContent());
             vo.setRemark(e.getRemark());
             vo.setStatus(e.getStatus());
+            vo.setEmployeeVo(employeeBusiness.queryEmployeeVoByEno(e.getEmployeeNo()));
             boolean canClose = RequestContext.getEmployeeNo().equalsIgnoreCase(e.getEmployeeNo());
             List<OperateEntity> ops = Lists.newArrayList(initCompleteOp(e.getStatus(), hasPower), initCloseOp(e.getStatus(), canClose));
             vo.setOperates(ops);
