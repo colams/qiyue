@@ -42,7 +42,7 @@ public class RevokeProcessor {
         boolean result = taskBusiness.updateTaskStatus(idParams.getParams(), TaskStatusEnums.REVOKE);
         if (result) {
             addProcessInfo(idParams, employeeID, employeeName);
-            revokeRelation(idParams.getParams(), employeeID);
+            // revokeRelation(idParams.getParams(), employeeID);
             taskLogBusiness.addTaskLog(idParams.getParams(), employeeID, "任务关闭");
         }
         return result;

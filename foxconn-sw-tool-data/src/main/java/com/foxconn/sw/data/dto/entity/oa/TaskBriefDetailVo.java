@@ -96,8 +96,6 @@ public class TaskBriefDetailVo {
 
     private List<CapexParamsVo> capexParamsVos;
 
-    private Integer type;
-
     public Integer getId() {
         return id;
     }
