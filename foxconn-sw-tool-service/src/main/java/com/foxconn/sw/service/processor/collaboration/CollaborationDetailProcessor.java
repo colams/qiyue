@@ -94,12 +94,12 @@ public class CollaborationDetailProcessor {
 
         List<SwCollaborationDetail> detailList = collaborationDetail.queryCollaborationDetail(Lists.newArrayList(scuId));
 
-        Map<Integer, List<SwCollaborationDetail>> mapslist = detailList.stream()
+        Map<Integer, List<SwCollaborationDetail>> mapsList = detailList.stream()
                 .filter(e -> e.getRowIndex() > 0)
                 .collect(Collectors.groupingBy(SwCollaborationDetail::getRowIndex));
 
         List<Map<String, Object>> list = new ArrayList<>();
-        for (Map.Entry<Integer, List<SwCollaborationDetail>> entry : mapslist.entrySet()) {
+        for (Map.Entry<Integer, List<SwCollaborationDetail>> entry : mapsList.entrySet()) {
             Map<String, Object> objectMap = new HashMap<>();
             list.add(objectMap);
             int index = 0;

@@ -4,13 +4,13 @@ import com.foxconn.sw.business.SwCapexSetBusiness;
 import com.foxconn.sw.business.TaskNoSeedSingleton;
 import com.foxconn.sw.business.collaboration.CollaborationDetailBusiness;
 import com.foxconn.sw.business.collaboration.CollaborationUserBusiness;
-import com.foxconn.sw.common.context.RequestContext;
 import com.foxconn.sw.business.mapper.TaskMapper;
 import com.foxconn.sw.business.oa.SwTaskBusiness;
 import com.foxconn.sw.business.oa.SwTaskEmployeeRelationBusiness;
 import com.foxconn.sw.business.oa.SwTaskLogBusiness;
 import com.foxconn.sw.business.oa.SwTaskProgressBusiness;
 import com.foxconn.sw.business.system.EmployeeBusiness;
+import com.foxconn.sw.common.context.RequestContext;
 import com.foxconn.sw.common.utils.ConvertUtils;
 import com.foxconn.sw.common.utils.JsonUtils;
 import com.foxconn.sw.data.constants.enums.TaskRoleFlagEnums;
@@ -20,6 +20,8 @@ import com.foxconn.sw.data.entity.*;
 import com.foxconn.sw.service.processor.user.CommonUserUtils;
 import com.google.common.collect.Lists;
 import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
@@ -33,6 +35,8 @@ import static com.foxconn.sw.data.constants.enums.oa.TaskStatusEnums.PENDING;
 
 @Component
 public class CreateTaskProcessor {
+
+    private static final Logger logger = LoggerFactory.getLogger(CreateTaskProcessor.class);
 
     @Autowired
     CommonUserUtils userUtils;
@@ -110,7 +114,7 @@ public class CreateTaskProcessor {
             try {
                 collaborationDetailBusiness.readExcelContent(cuId, resourceId);
             } catch (FileNotFoundException e) {
-                e.printStackTrace();
+                logger.error("processHandle", e);
             }
         }
     }
