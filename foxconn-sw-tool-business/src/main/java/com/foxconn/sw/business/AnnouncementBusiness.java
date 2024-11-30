@@ -23,7 +23,7 @@ public class AnnouncementBusiness {
         SwAnnouncementExample example = new SwAnnouncementExample();
         SwAnnouncementExample.Criteria criteria = example.createCriteria();
         criteria.andStatusEqualTo(announcementParams.getStatus());
-        example.setOrderByClause(" order by create_time desc ");
+        example.setOrderByClause(" create_time desc ");
         List<SwAnnouncement> swAnnouncements = announcementExtensionMapper.selectByExample(example);
         return AnnouncementMapper.INSTANCE.toAnnouncementDtos(swAnnouncements);
     }

@@ -2,7 +2,6 @@ package com.foxconn.sw.business.collaboration;
 
 import com.foxconn.sw.business.SwAppendResourceBusiness;
 import com.foxconn.sw.business.oa.SwTaskProgressBusiness;
-import com.foxconn.sw.common.aspects.Metric;
 import com.foxconn.sw.common.context.RequestContext;
 import com.foxconn.sw.common.utils.ConvertUtils;
 import com.foxconn.sw.common.utils.ExcelUtils;
@@ -17,7 +16,6 @@ import com.foxconn.sw.data.exception.BizException;
 import com.foxconn.sw.data.mapper.auto.SwCollaborationUserMapper;
 import com.foxconn.sw.data.mapper.extension.oa.SwCollaborationUserExtensionMapper;
 import com.google.common.collect.Lists;
-import org.apache.commons.lang3.time.StopWatch;
 import org.apache.ibatis.session.ExecutorType;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -222,20 +220,6 @@ public class CollaborationUserBusiness {
                 .stream()
                 .map(e -> e.getId())
                 .collect(Collectors.toList());
-    }
-
-
-    public boolean insertBatchCollaborationUser(List<Map<String, String>> maps, Integer taskId) {
-        SqlSession sqlSession = sqlSessionFactory.openSession(ExecutorType.BATCH, false);
-        maps.stream().forEach(e -> {
-            SwCollaborationUser user = new SwCollaborationUser();
-            user.setTaskId(taskId);
-            user.setEmployeeNo(RequestContext.getEmployeeNo());
-            collaborationUserMapper.insertSelective(user);
-        });
-        sqlSession.commit();
-        sqlSession.close();
-        return true;
     }
 
     public boolean insertBatchCollaborationUser(List<SwCollaborationUser> collaborationUsers) {

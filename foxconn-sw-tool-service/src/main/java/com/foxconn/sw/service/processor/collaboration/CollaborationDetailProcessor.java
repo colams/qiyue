@@ -3,17 +3,19 @@ package com.foxconn.sw.service.processor.collaboration;
 import com.foxconn.sw.business.SwCapexSetBusiness;
 import com.foxconn.sw.business.collaboration.CollaborationDetailBusiness;
 import com.foxconn.sw.business.collaboration.CollaborationUserBusiness;
-import com.foxconn.sw.common.context.RequestContext;
 import com.foxconn.sw.business.oa.SwTaskBusiness;
 import com.foxconn.sw.business.oa.SwTaskEmployeeRelationBusiness;
 import com.foxconn.sw.business.system.EmployeeBusiness;
+import com.foxconn.sw.common.context.RequestContext;
 import com.foxconn.sw.common.utils.FilePathUtils;
 import com.foxconn.sw.data.constants.enums.TaskRoleFlagEnums;
 import com.foxconn.sw.data.dto.entity.ResourceVo;
 import com.foxconn.sw.data.dto.entity.acount.EmployeeVo;
 import com.foxconn.sw.data.dto.entity.collaboration.CollaborationVo;
+import com.foxconn.sw.data.dto.entity.oa.CapexParamsVo;
 import com.foxconn.sw.data.dto.request.collaboration.CollaborationDetailParams;
 import com.foxconn.sw.data.entity.*;
+import com.google.common.collect.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
@@ -67,21 +69,47 @@ public class CollaborationDetailProcessor {
         List<SwCollaborationUser> collaborationUsers = collaborationUser.queryCollaborationUser(params.getTaskID());
         SwTask swTask = taskBusiness.getTaskById(params.getTaskID());
         List<SwTaskEmployeeRelation> relations = taskEmployeeRelationBusiness.getRelationsByTaskIdAndRole(params.getTaskID(), TaskRoleFlagEnums.Manager_Flag);
+        List<CapexParamsVo> capexParamsVos = capexSetBusiness.queryCapexParams(params.getTaskID());
 
         ResourceVo resourceVo = collaborationUser.getResourceVo(params.getTaskID());
         List<String> header = collaborationUser.getTaskHeader(params.getTaskID());
         CollaborationVo vo = new CollaborationVo();
         vo.setHeaders(header);
-        vo.setContent(initMapList(header, params.getTaskID(), swTask.getProposerEid(), isExport));
         vo.setResource(resourceVo);
         vo.setTaskNo(swTask.getTaskNo());
         vo.setTaskTitle(swTask.getTitle());
         vo.setCanFinish(RequestContext.getEmployeeNo().equalsIgnoreCase(swTask.getProposerEid()));
         vo.setCanSubmit(relations.stream().anyMatch(e -> e.getEmployeeNo().equalsIgnoreCase(RequestContext.getEmployeeNo())) || (!CollectionUtils.isEmpty(collaborationUsers) && collaborationUsers.stream().anyMatch(e -> e.getEmployeeNo().equalsIgnoreCase(RequestContext.getEmployeeNo())) && collaborationUsers.stream().anyMatch(e -> !e.getStatus().equals(2))));
-        vo.setCapexParamsVos(capexSetBusiness.queryCapexParams(params.getTaskID()));
+        vo.setCapexParamsVos(capexParamsVos);
+        vo.setPropose(swTask.getProposerEid().equalsIgnoreCase(RequestContext.getEmployeeNo()));
+        if (!CollectionUtils.isEmpty(capexParamsVos)) {
+            vo.setContent(initMapList2(collaborationUsers.get(0).getId(), header));
+        } else {
+            vo.setContent(initMapList(header, params.getTaskID(), swTask.getProposerEid(), isExport));
+        }
         return vo;
     }
 
+    private List<Map<String, Object>> initMapList2(Long scuId, List<String> header) {
+
+        List<SwCollaborationDetail> detailList = collaborationDetail.queryCollaborationDetail(Lists.newArrayList(scuId));
+
+        Map<Integer, List<SwCollaborationDetail>> mapslist = detailList.stream()
+                .filter(e -> e.getRowIndex() > 0)
+                .collect(Collectors.groupingBy(SwCollaborationDetail::getRowIndex));
+
+        List<Map<String, Object>> list = new ArrayList<>();
+        for (Map.Entry<Integer, List<SwCollaborationDetail>> entry : mapslist.entrySet()) {
+            Map<String, Object> objectMap = new HashMap<>();
+            list.add(objectMap);
+            int index = 0;
+            objectMap.put("rowIndex", entry.getKey());
+            for (SwCollaborationDetail collaborationDetail : entry.getValue()) {
+                objectMap.put(header.get(index++), collaborationDetail.getItemValue());
+            }
+        }
+        return list;
+    }
 
     private List<Map<String, Object>> initMapList(List<String> headers, int taskID, String proposerEid, boolean isExport) {
         List<SwCollaborationUser> collaborationUsers = collaborationUser.queryCollaborationUser(taskID);

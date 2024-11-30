@@ -46,6 +46,8 @@ public class ForumPostsBusiness {
             criteria.andTitleLike("%" + words + "%");
         }
 
+        example.setOrderByClause(" create_time desc ");
+
         return forumPostsExtMapper.selectByExampleWithBLOBs(example);
     }
 

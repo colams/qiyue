@@ -16,6 +16,7 @@ public class CollaborationVo {
     private String taskTitle;
     private Boolean canSubmit;
     private Boolean canFinish;
+    private Boolean isPropose;
 
     public List<String> getHeaders() {
         return headers;
@@ -79,5 +80,13 @@ public class CollaborationVo {
 
     public void setCanFinish(Boolean canFinish) {
         this.canFinish = canFinish;
+    }
+
+    public Boolean getPropose() {
+        return isPropose;
+    }
+
+    public void setPropose(Boolean propose) {
+        isPropose = propose;
     }
 }
