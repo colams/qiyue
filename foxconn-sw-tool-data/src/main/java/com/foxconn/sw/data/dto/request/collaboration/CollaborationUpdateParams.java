@@ -11,6 +11,10 @@ public class CollaborationUpdateParams {
     private Map<String, String> content;
 
     private String header;
+    /**
+     * key：rowIndex
+     * value：内容
+     */
     private Map<Integer, String> colPair;
 
     public Integer getTaskID() {

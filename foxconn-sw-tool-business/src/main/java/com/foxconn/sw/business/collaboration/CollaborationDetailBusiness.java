@@ -70,28 +70,12 @@ public class CollaborationDetailBusiness {
 
     public boolean updateItemValue(Integer key, String item, String value) {
 
-        SwCollaborationDetailExample exampleSearch = new SwCollaborationDetailExample();
-        SwCollaborationDetailExample.Criteria criteriaSearch = exampleSearch.createCriteria();
-        criteriaSearch.andScuIdEqualTo(key.longValue());
-        criteriaSearch.andItemEqualTo(item);
-        List<SwCollaborationDetail> detailList = collaborationDetailMapper.selectByExample(exampleSearch);
-        if (CollectionUtils.isEmpty(detailList)) {
-            SwCollaborationDetail detail = new SwCollaborationDetail();
-            detail.setScuId(key.longValue());
-            detail.setItem(item);
-            detail.setItemValue(value);
-            collaborationDetailMapper.insertSelective(detail);
-            return true;
-        }
-
         SwCollaborationDetail detail = new SwCollaborationDetail();
-        detail.setScuId(key.longValue());
-        detail.setItem(item);
         detail.setItemValue(value);
 
         SwCollaborationDetailExample example = new SwCollaborationDetailExample();
         SwCollaborationDetailExample.Criteria criteria = example.createCriteria();
-        criteria.andScuIdEqualTo(key.longValue());
+        criteria.andRowIndexEqualTo(key);
         criteria.andItemEqualTo(item);
         return collaborationDetailMapper.updateByExampleSelective(detail, example) > 0;
     }

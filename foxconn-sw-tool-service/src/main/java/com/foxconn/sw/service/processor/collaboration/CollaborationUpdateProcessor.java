@@ -35,7 +35,7 @@ public class CollaborationUpdateProcessor {
         if (Objects.isNull(data.getHeader())) {
             return updateRow(data.getTaskID(), data.getId(), data.getContent());
         } else {
-            return updateCol(data.getTaskID(), data.getHeader(), data.getColPair());
+            return updateCol(data.getHeader(), data.getColPair());
         }
     }
 
@@ -87,7 +87,7 @@ public class CollaborationUpdateProcessor {
     }
 
 
-    public Boolean updateCol(Integer taskID, String header, Map<Integer, String> colPair) {
+    public Boolean updateCol(String header, Map<Integer, String> colPair) {
         for (Map.Entry<Integer, String> entry : colPair.entrySet()) {
             collaborationDetail.updateItemValue(entry.getKey(), header, entry.getValue());
         }
