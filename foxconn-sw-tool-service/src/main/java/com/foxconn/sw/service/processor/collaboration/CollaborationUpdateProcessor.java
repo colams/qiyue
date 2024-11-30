@@ -2,8 +2,8 @@ package com.foxconn.sw.service.processor.collaboration;
 
 import com.foxconn.sw.business.collaboration.CollaborationDetailBusiness;
 import com.foxconn.sw.business.collaboration.CollaborationUserBusiness;
-import com.foxconn.sw.common.context.RequestContext;
 import com.foxconn.sw.business.oa.SwTaskBusiness;
+import com.foxconn.sw.common.context.RequestContext;
 import com.foxconn.sw.data.constants.enums.retcode.OAExceptionCode;
 import com.foxconn.sw.data.dto.request.collaboration.CollaborationDetailParams;
 import com.foxconn.sw.data.dto.request.collaboration.CollaborationEvaluationParams;
@@ -15,6 +15,7 @@ import com.foxconn.sw.data.exception.BizException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -39,33 +40,48 @@ public class CollaborationUpdateProcessor {
     }
 
     public Boolean updateRow(Integer taskID, Long id, Map<String, String> content) {
-        if (Objects.isNull(id)) {
-            SwCollaborationUser collaborationUser = new SwCollaborationUser();
-            collaborationUser.setTaskId(taskID);
-            collaborationUser.setEmployeeNo(RequestContext.getEmployeeNo());
-            Long scuID = collaborationUserBusiness.insertCollaborationUser(collaborationUser);
+        Integer rowIndex = Integer.valueOf(content.get("rowIndex"));
 
-            for (Map.Entry<String, String> entry : content.entrySet()) {
+        if (Objects.nonNull(rowIndex) && rowIndex > 0) {
+            List<SwCollaborationUser> collaborationUsers = collaborationUserBusiness.queryCollaborationUser(taskID);
+            List<SwCollaborationDetail> detailList = collaborationDetail.queryCollaborationDetail(collaborationUsers.get(0).getId(), rowIndex);
+            List<SwCollaborationDetail> updateDetails = new ArrayList<>();
+            detailList.forEach(e -> {
                 SwCollaborationDetail detail = new SwCollaborationDetail();
-                detail.setScuId(scuID);
+                detail.setId(e.getId());
+                detail.setItemValue(content.getOrDefault(e.getItem(), ""));
+                updateDetails.add(detail);
+            });
+            collaborationDetail.batchUpdate(updateDetails);
+        } else {
+            if (Objects.isNull(id)) {
+                SwCollaborationUser collaborationUser = new SwCollaborationUser();
+                collaborationUser.setTaskId(taskID);
+                collaborationUser.setEmployeeNo(RequestContext.getEmployeeNo());
+                Long scuID = collaborationUserBusiness.insertCollaborationUser(collaborationUser);
+
+                for (Map.Entry<String, String> entry : content.entrySet()) {
+                    SwCollaborationDetail detail = new SwCollaborationDetail();
+                    detail.setScuId(scuID);
+                    detail.setItem(entry.getKey());
+                    detail.setItemValue(entry.getValue());
+                    collaborationDetail.updateOrInsert(detail);
+                }
+
+                return true;
+            }
+
+            List<SwCollaborationDetail> detailList = collaborationDetail.queryCollaborationDetail(id);
+            for (Map.Entry<String, String> entry : content.entrySet()) {
+                SwCollaborationDetail detail = detailList.stream()
+                        .filter(e -> e.getItem().equalsIgnoreCase(entry.getKey()))
+                        .findFirst()
+                        .orElse(new SwCollaborationDetail());
                 detail.setItem(entry.getKey());
+                detail.setScuId(id);
                 detail.setItemValue(entry.getValue());
                 collaborationDetail.updateOrInsert(detail);
             }
-
-            return true;
-        }
-
-        List<SwCollaborationDetail> detailList = collaborationDetail.queryCollaborationDetail(id);
-        for (Map.Entry<String, String> entry : content.entrySet()) {
-            SwCollaborationDetail detail = detailList.stream()
-                    .filter(e -> e.getItem().equalsIgnoreCase(entry.getKey()))
-                    .findFirst()
-                    .orElse(new SwCollaborationDetail());
-            detail.setItem(entry.getKey());
-            detail.setScuId(id);
-            detail.setItemValue(entry.getValue());
-            collaborationDetail.updateOrInsert(detail);
         }
         return true;
     }

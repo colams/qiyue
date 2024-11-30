@@ -8,10 +8,7 @@ import com.foxconn.sw.common.utils.ExcelUtils;
 import com.foxconn.sw.common.utils.FilePathUtils;
 import com.foxconn.sw.data.dto.entity.ResourceVo;
 import com.foxconn.sw.data.dto.entity.oa.TaskProgressVo;
-import com.foxconn.sw.data.entity.SwAppendResource;
-import com.foxconn.sw.data.entity.SwCollaborationUser;
-import com.foxconn.sw.data.entity.SwCollaborationUserExample;
-import com.foxconn.sw.data.entity.SwTask;
+import com.foxconn.sw.data.entity.*;
 import com.foxconn.sw.data.exception.BizException;
 import com.foxconn.sw.data.mapper.auto.SwCollaborationUserMapper;
 import com.foxconn.sw.data.mapper.extension.oa.SwCollaborationUserExtensionMapper;
@@ -64,16 +61,6 @@ public class CollaborationUserBusiness {
         SwCollaborationUserExample.Criteria criteria = example.createCriteria();
         criteria.andTaskIdEqualTo(taskID);
         criteria.andEmployeeNoEqualTo(employeeNo);
-        criteria.andIsDeleteEqualTo(0);
-        return collaborationUserMapper.selectByExample(example);
-    }
-
-
-    public List<SwCollaborationUser> queryCollaborationUser(List<Long> ids) {
-        SwCollaborationUserExample example = new SwCollaborationUserExample();
-        SwCollaborationUserExample.Criteria criteria = example.createCriteria();
-        criteria.andIdIn(ids);
-        criteria.andEmployeeNoEqualTo(RequestContext.getEmployeeNo());
         criteria.andIsDeleteEqualTo(0);
         return collaborationUserMapper.selectByExample(example);
     }
@@ -157,34 +144,7 @@ public class CollaborationUserBusiness {
         return result;
     }
 
-    public List<String> getExcelContent(Integer taskID) throws FileNotFoundException {
-        List<TaskProgressVo> progressVos = progressBusiness.selectTaskProcess(taskID);
-        TaskProgressVo vo = progressVos.stream()
-                .filter(e -> !CollectionUtils.isEmpty(e.getResourceIds()))
-                .sorted(Comparator.comparing(TaskProgressVo::getCreateTime))
-                .findFirst()
-                .orElse(null);
-        if (Objects.isNull(vo)) {
-            throw new BizException(4, "参数错误");
-        }
-        SwAppendResource appendResource = resourceBusiness.getAppendResources(vo.getResourceIds().get(0));
-        String filePath = filePathUtils.getFilePath(appendResource.getUploadType()) + appendResource.getFilePath();
-        List<String> result = new ArrayList<>();
-        try (FileInputStream fis = new FileInputStream(filePath);
-             Workbook workbook = new XSSFWorkbook(fis)) {
-
-            Sheet sheet = workbook.getSheetAt(0);
-            for (Cell cell : sheet.getRow(0)) {
-                result.add(ExcelUtils.getCellValueAsString(cell));
-            }
-        } catch (IOException e) {
-            logger.error("getTaskHeader", e);
-        }
-        return result;
-    }
-
     public boolean updateEvaluation(SwCollaborationUser user, Integer evaluationType) {
-        user.setStatus(evaluationType);
         user.setStatus(evaluationType);
         return collaborationUserMapper.updateByPrimaryKeySelective(user) > 0;
     }

@@ -25,6 +25,7 @@ import org.springframework.util.CollectionUtils;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -102,10 +103,16 @@ public class CollaborationDetailBusiness {
         try (FileInputStream fis = new FileInputStream(filePath);
              Workbook workbook = new XSSFWorkbook(fis)) {
             Sheet sheet = workbook.getSheetAt(0);
+            List<String> headers = new ArrayList<>();
             for (int i = 0; i < sheet.getLastRowNum(); i++) {
                 for (int j = 0; j < sheet.getRow(i).getLastCellNum(); j++) {
                     Cell cell = sheet.getRow(i).getCell(j);
-                    insert(i, scuId, j, ExcelUtils.getCellValueAsString(cell));
+                    String text = ExcelUtils.getCellValueAsString(cell);
+                    if (i == 0) {
+                        headers.add(text);
+                    } else {
+                        insert(i, scuId, j, headers.get(j), text);
+                    }
                 }
             }
         } catch (IOException e) {
@@ -114,12 +121,13 @@ public class CollaborationDetailBusiness {
         return true;
     }
 
-    public boolean insert(Integer rowNum, Long scuId, Integer colNum, String value) {
+    public boolean insert(Integer rowNum, Long scuId, Integer colNum, String header, String value) {
         SwCollaborationDetail detail = new SwCollaborationDetail();
         detail.setScuId(scuId);
-        detail.setColIndex(colNum);
-        detail.setItemValue(value);
         detail.setRowIndex(rowNum);
+        detail.setColIndex(colNum);
+        detail.setItem(header);
+        detail.setItemValue(value);
         return collaborationDetailMapper.insertSelective(detail) > 0;
     }
 
@@ -130,6 +138,26 @@ public class CollaborationDetailBusiness {
 
         for (SwCollaborationDetail detail : collaborationDetails) {
             mapper.insertSelective(detail);
+        }
+        sqlSession.commit();
+        sqlSession.close();
+        return true;
+    }
+
+    public List<SwCollaborationDetail> queryCollaborationDetail(Long scuID, Integer rowIndex) {
+        SwCollaborationDetailExample example = new SwCollaborationDetailExample();
+        SwCollaborationDetailExample.Criteria criteria = example.createCriteria();
+        criteria.andScuIdEqualTo(scuID);
+        criteria.andRowIndexEqualTo(rowIndex);
+        return collaborationDetailMapper.selectByExample(example);
+    }
+
+    public boolean batchUpdate(List<SwCollaborationDetail> updateDetails) {
+        SqlSession sqlSession = sqlSessionFactory.openSession(ExecutorType.BATCH, false);
+        SwCollaborationDetailMapper mapper = sqlSession.getMapper(SwCollaborationDetailMapper.class);
+
+        for (SwCollaborationDetail detail : updateDetails) {
+            mapper.updateByPrimaryKeySelective(detail);
         }
         sqlSession.commit();
         sqlSession.close();
