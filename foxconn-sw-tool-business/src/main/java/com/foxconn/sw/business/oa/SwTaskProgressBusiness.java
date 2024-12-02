@@ -1,6 +1,6 @@
 package com.foxconn.sw.business.oa;
 
-import com.foxconn.sw.data.dto.entity.oa.TaskProgressVo;
+import com.foxconn.sw.data.dto.entity.task.TaskProgressVo;
 import com.foxconn.sw.data.entity.SwTaskProgress;
 import com.foxconn.sw.data.entity.extension.SwTaskProgressExtension;
 import com.foxconn.sw.data.mapper.extension.oa.SwTaskProgressExtensionMapper;

@@ -1,5 +1,6 @@
-package com.foxconn.sw.data.dto.entity.oa;
+package com.foxconn.sw.data.dto.entity.task;
 
+import com.foxconn.sw.data.dto.entity.oa.CapexParamsVo;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotNull;
 

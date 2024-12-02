@@ -1,6 +1,6 @@
 package com.foxconn.sw.business.mapper;
 
-import com.foxconn.sw.data.dto.entity.oa.TaskLogVo;
+import com.foxconn.sw.data.dto.entity.task.TaskLogVo;
 import com.foxconn.sw.data.entity.SwTaskLog;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;

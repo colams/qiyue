@@ -7,7 +7,7 @@ import com.foxconn.sw.common.utils.ConvertUtils;
 import com.foxconn.sw.common.utils.ExcelUtils;
 import com.foxconn.sw.common.utils.FilePathUtils;
 import com.foxconn.sw.data.dto.entity.ResourceVo;
-import com.foxconn.sw.data.dto.entity.oa.TaskProgressVo;
+import com.foxconn.sw.data.dto.entity.task.TaskProgressVo;
 import com.foxconn.sw.data.entity.*;
 import com.foxconn.sw.data.exception.BizException;
 import com.foxconn.sw.data.mapper.auto.SwCollaborationUserMapper;

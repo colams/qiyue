@@ -1,7 +1,7 @@
 package com.foxconn.sw.service.processor.oa;
 
 import com.foxconn.sw.data.dto.Header;
-import com.foxconn.sw.data.dto.entity.oa.TaskAssignParams;
+import com.foxconn.sw.data.dto.entity.task.TaskAssignParams;
 import com.foxconn.sw.service.BaseTest;
 import com.foxconn.sw.service.processor.task.AssignTaskProcessor;
 import org.junit.Test;

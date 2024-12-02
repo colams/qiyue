@@ -2,7 +2,7 @@ package com.foxconn.sw.service.processor.oa;
 
 import com.foxconn.sw.common.utils.JsonUtils;
 import com.foxconn.sw.data.dto.PageParams;
-import com.foxconn.sw.data.dto.entity.oa.TaskParams;
+import com.foxconn.sw.data.dto.entity.task.TaskParams;
 import com.foxconn.sw.service.BaseTest;
 import com.foxconn.sw.service.processor.task.TaskListProcessor;
 import org.junit.Test;

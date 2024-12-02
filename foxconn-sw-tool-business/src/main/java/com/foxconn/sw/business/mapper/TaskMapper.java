@@ -1,8 +1,8 @@
 package com.foxconn.sw.business.mapper;
 
 
-import com.foxconn.sw.data.dto.entity.oa.TaskBriefDetailVo;
-import com.foxconn.sw.data.dto.entity.oa.TaskDetailVo;
+import com.foxconn.sw.data.dto.entity.task.TaskBriefDetailVo;
+import com.foxconn.sw.data.dto.entity.task.TaskDetailVo;
 import com.foxconn.sw.data.dto.request.task.UpdateTaskParams;
 import com.foxconn.sw.data.entity.SwTask;
 import org.mapstruct.Mapper;

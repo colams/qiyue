@@ -4,7 +4,7 @@ import com.foxconn.sw.common.context.RequestContext;
 import com.foxconn.sw.business.oa.SwTaskBusiness;
 import com.foxconn.sw.business.system.EmployeeBusiness;
 import com.foxconn.sw.common.utils.DateTimeUtils;
-import com.foxconn.sw.data.dto.entity.oa.TaskOverviewVo;
+import com.foxconn.sw.data.dto.entity.task.TaskOverviewVo;
 import com.foxconn.sw.data.dto.request.task.OverviewParams;
 import com.foxconn.sw.service.processor.user.CommonUserUtils;
 import com.google.common.collect.Lists;

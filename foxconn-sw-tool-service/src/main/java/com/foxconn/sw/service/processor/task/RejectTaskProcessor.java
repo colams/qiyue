@@ -7,7 +7,7 @@ import com.foxconn.sw.data.constants.enums.oa.RejectStatusEnum;
 import com.foxconn.sw.data.constants.enums.oa.TaskStatusEnums;
 import com.foxconn.sw.data.dto.Header;
 import com.foxconn.sw.data.dto.entity.acount.UserInfo;
-import com.foxconn.sw.data.dto.entity.oa.TaskRejectParams;
+import com.foxconn.sw.data.dto.entity.task.TaskRejectParams;
 import com.foxconn.sw.data.entity.SwTask;
 import com.foxconn.sw.data.entity.SwTaskProgress;
 import com.foxconn.sw.data.exception.BizException;

@@ -15,7 +15,7 @@ import com.foxconn.sw.common.utils.ConvertUtils;
 import com.foxconn.sw.common.utils.JsonUtils;
 import com.foxconn.sw.data.constants.enums.TaskRoleFlagEnums;
 import com.foxconn.sw.data.constants.enums.oa.RejectStatusEnum;
-import com.foxconn.sw.data.dto.entity.oa.TaskBriefDetailVo;
+import com.foxconn.sw.data.dto.entity.task.TaskBriefDetailVo;
 import com.foxconn.sw.data.entity.*;
 import com.foxconn.sw.service.processor.user.CommonUserUtils;
 import com.google.common.collect.Lists;

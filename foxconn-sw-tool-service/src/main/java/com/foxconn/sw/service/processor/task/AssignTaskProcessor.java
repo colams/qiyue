@@ -9,7 +9,7 @@ import com.foxconn.sw.business.system.EmployeeBusiness;
 import com.foxconn.sw.data.constants.enums.TaskRoleFlagEnums;
 import com.foxconn.sw.data.dto.Header;
 import com.foxconn.sw.data.dto.entity.acount.UserInfo;
-import com.foxconn.sw.data.dto.entity.oa.TaskAssignParams;
+import com.foxconn.sw.data.dto.entity.task.TaskAssignParams;
 import com.foxconn.sw.data.entity.SwEmployee;
 import com.foxconn.sw.data.entity.SwTaskEmployeeRelation;
 import com.foxconn.sw.data.entity.SwTaskProgress;

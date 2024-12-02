@@ -1,6 +1,7 @@
-package com.foxconn.sw.data.dto.entity.oa;
+package com.foxconn.sw.data.dto.entity.task;
 
 import com.foxconn.sw.data.dto.entity.acount.EmployeeVo;
+import com.foxconn.sw.data.dto.entity.oa.InfoColorVo;
 import com.foxconn.sw.data.dto.entity.universal.OperateEntity;
 
 import java.time.LocalDateTime;

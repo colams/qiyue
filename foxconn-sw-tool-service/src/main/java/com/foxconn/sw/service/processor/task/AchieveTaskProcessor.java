@@ -6,7 +6,7 @@ import com.foxconn.sw.business.oa.SwTaskProgressBusiness;
 import com.foxconn.sw.common.utils.ConvertUtils;
 import com.foxconn.sw.data.dto.Header;
 import com.foxconn.sw.data.dto.entity.acount.UserInfo;
-import com.foxconn.sw.data.dto.entity.oa.TaskProgressBriefParams;
+import com.foxconn.sw.data.dto.entity.task.TaskProgressBriefParams;
 import com.foxconn.sw.data.entity.SwTaskProgress;
 import com.foxconn.sw.service.processor.user.CommonUserUtils;
 import org.springframework.beans.factory.annotation.Autowired;

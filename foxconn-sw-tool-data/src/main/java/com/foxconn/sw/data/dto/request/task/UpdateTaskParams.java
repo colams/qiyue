@@ -1,6 +1,6 @@
 package com.foxconn.sw.data.dto.request.task;
 
-import com.foxconn.sw.data.dto.entity.oa.BriefTaskVo;
+import com.foxconn.sw.data.dto.entity.task.BriefTaskVo;
 import io.swagger.v3.oas.annotations.media.Schema;
 
 public class UpdateTaskParams {

@@ -4,7 +4,7 @@ import com.foxconn.sw.business.oa.SwTaskBusiness;
 import com.foxconn.sw.business.oa.SwTaskEmployeeRelationBusiness;
 import com.foxconn.sw.common.utils.JsonUtils;
 import com.foxconn.sw.data.constants.enums.TaskRoleFlagEnums;
-import com.foxconn.sw.data.dto.entity.oa.BriefTaskVo;
+import com.foxconn.sw.data.dto.entity.task.BriefTaskVo;
 import com.foxconn.sw.data.entity.SwTaskEmployeeRelation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

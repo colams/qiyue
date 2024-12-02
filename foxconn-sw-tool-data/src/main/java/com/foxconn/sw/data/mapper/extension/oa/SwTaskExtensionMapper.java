@@ -1,7 +1,7 @@
 package com.foxconn.sw.data.mapper.extension.oa;
 
-import com.foxconn.sw.data.dto.entity.oa.BriefTaskVo;
-import com.foxconn.sw.data.dto.entity.oa.TaskParams;
+import com.foxconn.sw.data.dto.entity.task.BriefTaskVo;
+import com.foxconn.sw.data.dto.entity.task.TaskParams;
 import com.foxconn.sw.data.entity.SwTask;
 import com.foxconn.sw.data.mapper.auto.SwTaskMapper;
 import org.apache.ibatis.annotations.Param;

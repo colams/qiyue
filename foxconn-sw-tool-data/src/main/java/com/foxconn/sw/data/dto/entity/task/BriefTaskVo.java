@@ -1,4 +1,4 @@
-package com.foxconn.sw.data.dto.entity.oa;
+package com.foxconn.sw.data.dto.entity.task;
 
 
 import com.foxconn.sw.data.entity.SwTask;

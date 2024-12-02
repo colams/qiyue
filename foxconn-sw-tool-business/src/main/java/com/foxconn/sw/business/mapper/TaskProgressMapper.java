@@ -1,7 +1,7 @@
 package com.foxconn.sw.business.mapper;
 
 import com.foxconn.sw.common.utils.ConvertUtils;
-import com.foxconn.sw.data.dto.entity.oa.TaskProgressBriefParams;
+import com.foxconn.sw.data.dto.entity.task.TaskProgressBriefParams;
 import com.foxconn.sw.data.entity.SwTaskProgress;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;

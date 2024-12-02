@@ -7,7 +7,7 @@ import com.foxconn.sw.business.oa.SwTaskEmployeeRelationBusiness;
 import com.foxconn.sw.business.oa.SwTaskLogBusiness;
 import com.foxconn.sw.business.oa.SwTaskProgressBusiness;
 import com.foxconn.sw.data.constants.enums.oa.TaskStatusEnums;
-import com.foxconn.sw.data.dto.entity.oa.TaskProgressBriefParams;
+import com.foxconn.sw.data.dto.entity.task.TaskProgressBriefParams;
 import com.foxconn.sw.data.entity.SwTaskEmployeeRelation;
 import com.foxconn.sw.data.entity.SwTaskProgress;
 import org.springframework.beans.factory.annotation.Autowired;

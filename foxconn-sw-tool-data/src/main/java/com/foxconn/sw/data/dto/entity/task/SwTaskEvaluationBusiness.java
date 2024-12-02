@@ -1,5 +1,6 @@
-package com.foxconn.sw.data.dto.entity.oa;
+package com.foxconn.sw.data.dto.entity.task;
 
+import com.foxconn.sw.data.dto.entity.task.TaskEvaluateParams;
 import com.foxconn.sw.data.entity.SwTaskEvaluation;
 import com.foxconn.sw.data.mapper.extension.oa.SwTaskEvaluationExtensionMapper;
 import org.springframework.beans.factory.annotation.Autowired;

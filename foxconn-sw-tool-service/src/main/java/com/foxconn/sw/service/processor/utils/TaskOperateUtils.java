@@ -3,7 +3,7 @@ package com.foxconn.sw.service.processor.utils;
 import com.foxconn.sw.data.constants.enums.OperateTypeEnum;
 import com.foxconn.sw.data.constants.enums.oa.RejectStatusEnum;
 import com.foxconn.sw.data.constants.enums.oa.TaskStatusEnums;
-import com.foxconn.sw.data.dto.entity.oa.TaskDetailVo;
+import com.foxconn.sw.data.dto.entity.task.TaskDetailVo;
 import com.foxconn.sw.data.dto.entity.universal.OperateEntity;
 import com.foxconn.sw.data.entity.SwTask;
 import com.foxconn.sw.data.entity.SwTaskEmployeeRelation;

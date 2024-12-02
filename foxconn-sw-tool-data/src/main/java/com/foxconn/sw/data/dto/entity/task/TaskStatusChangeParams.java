@@ -1,4 +1,4 @@
-package com.foxconn.sw.data.dto.entity.oa;
+package com.foxconn.sw.data.dto.entity.task;
 
 public class TaskStatusChangeParams {
 
