@@ -34,12 +34,14 @@ public interface SwTaskProgressMapper {
     int deleteByPrimaryKey(Integer id);
 
     @Insert({
-        "insert into sw_task_progress (task_id, operate_eid, ",
-        "resource_ids, progress, ",
-        "content, datetime_lastchange)",
-        "values (#{taskId,jdbcType=INTEGER}, #{operateEid,jdbcType=VARCHAR}, ",
-        "#{resourceIds,jdbcType=VARCHAR}, #{progress,jdbcType=INTEGER}, ",
-        "#{content,jdbcType=VARCHAR}, #{datetimeLastchange,jdbcType=TIMESTAMP})"
+        "insert into sw_task_progress (operate_type, task_id, ",
+        "operate_eid, resource_ids, ",
+        "progress, content, ",
+        "datetime_lastchange)",
+        "values (#{operateType,jdbcType=VARCHAR}, #{taskId,jdbcType=INTEGER}, ",
+        "#{operateEid,jdbcType=VARCHAR}, #{resourceIds,jdbcType=VARCHAR}, ",
+        "#{progress,jdbcType=INTEGER}, #{content,jdbcType=VARCHAR}, ",
+        "#{datetimeLastchange,jdbcType=TIMESTAMP})"
     })
     @SelectKey(statement="SELECT LAST_INSERT_ID()", keyProperty="id", before=false, resultType=Integer.class)
     int insert(SwTaskProgress record);
@@ -51,6 +53,7 @@ public interface SwTaskProgressMapper {
     @SelectProvider(type=SwTaskProgressSqlProvider.class, method="selectByExample")
     @Results({
         @Result(column="id", property="id", jdbcType=JdbcType.INTEGER, id=true),
+        @Result(column="operate_type", property="operateType", jdbcType=JdbcType.VARCHAR),
         @Result(column="task_id", property="taskId", jdbcType=JdbcType.INTEGER),
         @Result(column="operate_eid", property="operateEid", jdbcType=JdbcType.VARCHAR),
         @Result(column="resource_ids", property="resourceIds", jdbcType=JdbcType.VARCHAR),
@@ -63,6 +66,7 @@ public interface SwTaskProgressMapper {
     @SelectProvider(type=SwTaskProgressSqlProvider.class, method="selectByExample")
     @Results({
         @Result(column="id", property="id", jdbcType=JdbcType.INTEGER, id=true),
+        @Result(column="operate_type", property="operateType", jdbcType=JdbcType.VARCHAR),
         @Result(column="task_id", property="taskId", jdbcType=JdbcType.INTEGER),
         @Result(column="operate_eid", property="operateEid", jdbcType=JdbcType.VARCHAR),
         @Result(column="resource_ids", property="resourceIds", jdbcType=JdbcType.VARCHAR),
@@ -74,12 +78,13 @@ public interface SwTaskProgressMapper {
 
     @Select({
         "select",
-        "id, task_id, operate_eid, resource_ids, progress, content, datetime_lastchange",
+        "id, operate_type, task_id, operate_eid, resource_ids, progress, content, datetime_lastchange",
         "from sw_task_progress",
         "where id = #{id,jdbcType=INTEGER}"
     })
     @Results({
         @Result(column="id", property="id", jdbcType=JdbcType.INTEGER, id=true),
+        @Result(column="operate_type", property="operateType", jdbcType=JdbcType.VARCHAR),
         @Result(column="task_id", property="taskId", jdbcType=JdbcType.INTEGER),
         @Result(column="operate_eid", property="operateEid", jdbcType=JdbcType.VARCHAR),
         @Result(column="resource_ids", property="resourceIds", jdbcType=JdbcType.VARCHAR),
@@ -100,7 +105,8 @@ public interface SwTaskProgressMapper {
 
     @Update({
         "update sw_task_progress",
-        "set task_id = #{taskId,jdbcType=INTEGER},",
+        "set operate_type = #{operateType,jdbcType=VARCHAR},",
+          "task_id = #{taskId,jdbcType=INTEGER},",
           "operate_eid = #{operateEid,jdbcType=VARCHAR},",
           "resource_ids = #{resourceIds,jdbcType=VARCHAR},",
           "progress = #{progress,jdbcType=INTEGER},",

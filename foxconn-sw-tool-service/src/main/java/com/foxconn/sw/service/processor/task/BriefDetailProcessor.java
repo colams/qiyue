@@ -2,6 +2,7 @@ package com.foxconn.sw.service.processor.task;
 
 import com.foxconn.sw.business.oa.SwTaskBusiness;
 import com.foxconn.sw.business.oa.SwTaskEmployeeRelationBusiness;
+import com.foxconn.sw.business.oa.SwTaskProgressBusiness;
 import com.foxconn.sw.common.utils.JsonUtils;
 import com.foxconn.sw.data.constants.enums.TaskRoleFlagEnums;
 import com.foxconn.sw.data.dto.entity.task.BriefTaskVo;
@@ -21,6 +22,8 @@ public class BriefDetailProcessor {
     SwTaskBusiness swTaskBusiness;
     @Autowired
     SwTaskEmployeeRelationBusiness employeeRelation;
+    @Autowired
+    SwTaskProgressBusiness progressBusiness;
 
     public BriefTaskVo getTaskById(Integer params) {
         BriefTaskVo task = swTaskBusiness.getTaskById(params);
@@ -42,7 +45,7 @@ public class BriefDetailProcessor {
                 .collect(Collectors.toList()));
 
         task.setCollaboration(task.getCategory().equalsIgnoreCase("6-2"));
-
+        // task.setResourceVos();
         return task;
     }
 }

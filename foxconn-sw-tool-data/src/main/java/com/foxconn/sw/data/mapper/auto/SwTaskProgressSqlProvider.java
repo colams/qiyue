@@ -28,6 +28,10 @@ public class SwTaskProgressSqlProvider {
         SQL sql = new SQL();
         sql.INSERT_INTO("sw_task_progress");
         
+        if (record.getOperateType() != null) {
+            sql.VALUES("operate_type", "#{operateType,jdbcType=VARCHAR}");
+        }
+        
         if (record.getTaskId() != null) {
             sql.VALUES("task_id", "#{taskId,jdbcType=INTEGER}");
         }
@@ -62,6 +66,7 @@ public class SwTaskProgressSqlProvider {
         } else {
             sql.SELECT("id");
         }
+        sql.SELECT("operate_type");
         sql.SELECT("task_id");
         sql.SELECT("operate_eid");
         sql.SELECT("resource_ids");
@@ -87,6 +92,10 @@ public class SwTaskProgressSqlProvider {
         
         if (record.getId() != null) {
             sql.SET("id = #{record.id,jdbcType=INTEGER}");
+        }
+        
+        if (record.getOperateType() != null) {
+            sql.SET("operate_type = #{record.operateType,jdbcType=VARCHAR}");
         }
         
         if (record.getTaskId() != null) {
@@ -122,6 +131,7 @@ public class SwTaskProgressSqlProvider {
         sql.UPDATE("sw_task_progress");
         
         sql.SET("id = #{record.id,jdbcType=INTEGER}");
+        sql.SET("operate_type = #{record.operateType,jdbcType=VARCHAR}");
         sql.SET("task_id = #{record.taskId,jdbcType=INTEGER}");
         sql.SET("operate_eid = #{record.operateEid,jdbcType=VARCHAR}");
         sql.SET("resource_ids = #{record.resourceIds,jdbcType=VARCHAR}");
@@ -137,6 +147,10 @@ public class SwTaskProgressSqlProvider {
     public String updateByPrimaryKeySelective(SwTaskProgress record) {
         SQL sql = new SQL();
         sql.UPDATE("sw_task_progress");
+        
+        if (record.getOperateType() != null) {
+            sql.SET("operate_type = #{operateType,jdbcType=VARCHAR}");
+        }
         
         if (record.getTaskId() != null) {
             sql.SET("task_id = #{taskId,jdbcType=INTEGER}");

@@ -68,7 +68,7 @@ public class CollaborationDetailBusiness {
         return i > 0;
     }
 
-    public boolean updateItemValue(Integer key, String item, String value) {
+    public boolean updateItemValue(Long scuID, Integer key, String item, String value) {
 
         SwCollaborationDetail detail = new SwCollaborationDetail();
         detail.setItemValue(value);
@@ -77,6 +77,7 @@ public class CollaborationDetailBusiness {
         SwCollaborationDetailExample.Criteria criteria = example.createCriteria();
         criteria.andRowIndexEqualTo(key);
         criteria.andItemEqualTo(item);
+        criteria.andScuIdEqualTo(scuID);
         return collaborationDetailMapper.updateByExampleSelective(detail, example) > 0;
     }
 

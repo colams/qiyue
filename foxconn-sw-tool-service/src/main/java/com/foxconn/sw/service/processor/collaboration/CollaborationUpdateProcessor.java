@@ -32,18 +32,18 @@ public class CollaborationUpdateProcessor {
 
 
     public Boolean update(CollaborationUpdateParams data) {
+        List<SwCollaborationUser> collaborationUsers = collaborationUserBusiness.queryCollaborationUser(data.getTaskID());
         if (Objects.isNull(data.getHeader())) {
-            return updateRow(data.getTaskID(), data.getId(), data.getContent());
+            return updateRow(collaborationUsers, data.getTaskID(), data.getId(), data.getContent());
         } else {
-            return updateCol(data.getHeader(), data.getColPair());
+            return updateCol(collaborationUsers, data.getHeader(), data.getColPair());
         }
     }
 
-    public Boolean updateRow(Integer taskID, Long id, Map<String, String> content) {
+    public Boolean updateRow(List<SwCollaborationUser> collaborationUsers, Integer taskID, Long id, Map<String, String> content) {
         Integer rowIndex = Integer.valueOf(content.get("rowIndex"));
 
         if (Objects.nonNull(rowIndex) && rowIndex > 0) {
-            List<SwCollaborationUser> collaborationUsers = collaborationUserBusiness.queryCollaborationUser(taskID);
             List<SwCollaborationDetail> detailList = collaborationDetail.queryCollaborationDetail(collaborationUsers.get(0).getId(), rowIndex);
             List<SwCollaborationDetail> updateDetails = new ArrayList<>();
             detailList.forEach(e -> {
@@ -87,9 +87,9 @@ public class CollaborationUpdateProcessor {
     }
 
 
-    public Boolean updateCol(String header, Map<Integer, String> colPair) {
+    public Boolean updateCol(List<SwCollaborationUser> collaborationUsers, String header, Map<Integer, String> colPair) {
         for (Map.Entry<Integer, String> entry : colPair.entrySet()) {
-            collaborationDetail.updateItemValue(entry.getKey(), header, entry.getValue());
+            collaborationDetail.updateItemValue(collaborationUsers.get(0).getId(), entry.getKey(), header, entry.getValue());
         }
         return true;
     }

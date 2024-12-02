@@ -165,6 +165,76 @@ public class SwTaskProgressExample {
             return (Criteria) this;
         }
 
+        public Criteria andOperateTypeIsNull() {
+            addCriterion("operate_type is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andOperateTypeIsNotNull() {
+            addCriterion("operate_type is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andOperateTypeEqualTo(String value) {
+            addCriterion("operate_type =", value, "operateType");
+            return (Criteria) this;
+        }
+
+        public Criteria andOperateTypeNotEqualTo(String value) {
+            addCriterion("operate_type <>", value, "operateType");
+            return (Criteria) this;
+        }
+
+        public Criteria andOperateTypeGreaterThan(String value) {
+            addCriterion("operate_type >", value, "operateType");
+            return (Criteria) this;
+        }
+
+        public Criteria andOperateTypeGreaterThanOrEqualTo(String value) {
+            addCriterion("operate_type >=", value, "operateType");
+            return (Criteria) this;
+        }
+
+        public Criteria andOperateTypeLessThan(String value) {
+            addCriterion("operate_type <", value, "operateType");
+            return (Criteria) this;
+        }
+
+        public Criteria andOperateTypeLessThanOrEqualTo(String value) {
+            addCriterion("operate_type <=", value, "operateType");
+            return (Criteria) this;
+        }
+
+        public Criteria andOperateTypeLike(String value) {
+            addCriterion("operate_type like", value, "operateType");
+            return (Criteria) this;
+        }
+
+        public Criteria andOperateTypeNotLike(String value) {
+            addCriterion("operate_type not like", value, "operateType");
+            return (Criteria) this;
+        }
+
+        public Criteria andOperateTypeIn(List<String> values) {
+            addCriterion("operate_type in", values, "operateType");
+            return (Criteria) this;
+        }
+
+        public Criteria andOperateTypeNotIn(List<String> values) {
+            addCriterion("operate_type not in", values, "operateType");
+            return (Criteria) this;
+        }
+
+        public Criteria andOperateTypeBetween(String value1, String value2) {
+            addCriterion("operate_type between", value1, value2, "operateType");
+            return (Criteria) this;
+        }
+
+        public Criteria andOperateTypeNotBetween(String value1, String value2) {
+            addCriterion("operate_type not between", value1, value2, "operateType");
+            return (Criteria) this;
+        }
+
         public Criteria andTaskIdIsNull() {
             addCriterion("task_id is null");
             return (Criteria) this;
@@ -552,6 +622,11 @@ public class SwTaskProgressExample {
 
         public Criteria andDatetimeLastchangeNotBetween(LocalDateTime value1, LocalDateTime value2) {
             addCriterion("datetime_lastchange not between", value1, value2, "datetimeLastchange");
+            return (Criteria) this;
+        }
+
+        public Criteria andOperateTypeLikeInsensitive(String value) {
+            addCriterion("upper(operate_type) like", value.toUpperCase(), "operateType");
             return (Criteria) this;
         }
 

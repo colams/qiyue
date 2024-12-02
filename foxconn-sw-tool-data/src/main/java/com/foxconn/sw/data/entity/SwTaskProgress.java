@@ -5,6 +5,8 @@ import java.time.LocalDateTime;
 public class SwTaskProgress {
     private Integer id;
 
+    private String operateType;
+
     private Integer taskId;
 
     private String operateEid;
@@ -28,6 +30,19 @@ public class SwTaskProgress {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public String getOperateType() {
+        return operateType;
+    }
+
+    public SwTaskProgress withOperateType(String operateType) {
+        this.setOperateType(operateType);
+        return this;
+    }
+
+    public void setOperateType(String operateType) {
+        this.operateType = operateType == null ? null : operateType.trim();
     }
 
     public Integer getTaskId() {
