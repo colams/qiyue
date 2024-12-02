@@ -8,7 +8,7 @@ public class CollaborationEvaluationParams {
     private List<Long> idList;
 
     /**
-     * 3-駁回，4-通過
+     * 0-未提交，1-已提交，2-已通過，3-重新开放
      */
     private Integer evaluationType;
 

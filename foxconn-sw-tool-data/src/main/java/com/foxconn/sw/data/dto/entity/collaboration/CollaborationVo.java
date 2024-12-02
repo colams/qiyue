@@ -17,6 +17,7 @@ public class CollaborationVo {
     private Boolean canSubmit;
     private Boolean canFinish;
     private Boolean isPropose;
+    private Boolean isFinish;
 
     public List<String> getHeaders() {
         return headers;
@@ -88,5 +89,13 @@ public class CollaborationVo {
 
     public void setPropose(Boolean propose) {
         isPropose = propose;
+    }
+
+    public Boolean getFinish() {
+        return isFinish;
+    }
+
+    public void setFinish(Boolean finish) {
+        isFinish = finish;
     }
 }

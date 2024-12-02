@@ -3,7 +3,9 @@ package com.foxconn.sw.service.processor.collaboration;
 import com.foxconn.sw.business.collaboration.CollaborationDetailBusiness;
 import com.foxconn.sw.business.collaboration.CollaborationUserBusiness;
 import com.foxconn.sw.business.oa.SwTaskBusiness;
+import com.foxconn.sw.business.oa.SwTaskProgressBusiness;
 import com.foxconn.sw.common.context.RequestContext;
+import com.foxconn.sw.data.constants.enums.oa.TaskStatusEnums;
 import com.foxconn.sw.data.constants.enums.retcode.OAExceptionCode;
 import com.foxconn.sw.data.dto.request.collaboration.CollaborationDetailParams;
 import com.foxconn.sw.data.dto.request.collaboration.CollaborationEvaluationParams;
@@ -29,6 +31,8 @@ public class CollaborationUpdateProcessor {
     CollaborationUserBusiness collaborationUserBusiness;
     @Autowired
     SwTaskBusiness taskBusiness;
+    @Autowired
+    SwTaskProgressBusiness taskProgressBusiness;
 
 
     public Boolean update(CollaborationUpdateParams data) {
@@ -106,6 +110,16 @@ public class CollaborationUpdateProcessor {
 
         for (SwCollaborationUser user : collaborationUsers) {
             collaborationUserBusiness.updateEvaluation(user, data.getEvaluationType());
+        }
+
+        if (data.getEvaluationType().equals(2)) {
+            taskBusiness.updateTaskStatus(data.getTaskID(), TaskStatusEnums.COMPLETED);
+            taskProgressBusiness.addProcessInfo(data.getTaskID(), "完成了協作任務");
+        }
+
+        if (data.getEvaluationType().equals(3)) {
+            taskBusiness.updateTaskStatus(data.getTaskID(), TaskStatusEnums.PROCESSING);
+            taskProgressBusiness.addProcessInfo(data.getTaskID(), "重新開啟了協作任務");
         }
         return true;
     }

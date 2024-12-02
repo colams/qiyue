@@ -9,6 +9,7 @@ import com.foxconn.sw.business.system.EmployeeBusiness;
 import com.foxconn.sw.common.context.RequestContext;
 import com.foxconn.sw.common.utils.FilePathUtils;
 import com.foxconn.sw.data.constants.enums.TaskRoleFlagEnums;
+import com.foxconn.sw.data.constants.enums.oa.TaskStatusEnums;
 import com.foxconn.sw.data.dto.entity.ResourceVo;
 import com.foxconn.sw.data.dto.entity.acount.EmployeeVo;
 import com.foxconn.sw.data.dto.entity.collaboration.CollaborationVo;
@@ -82,6 +83,7 @@ public class CollaborationDetailProcessor {
         vo.setCanSubmit(relations.stream().anyMatch(e -> e.getEmployeeNo().equalsIgnoreCase(RequestContext.getEmployeeNo())) || (!CollectionUtils.isEmpty(collaborationUsers) && collaborationUsers.stream().anyMatch(e -> e.getEmployeeNo().equalsIgnoreCase(RequestContext.getEmployeeNo())) && collaborationUsers.stream().anyMatch(e -> !e.getStatus().equals(2))));
         vo.setCapexParamsVos(capexParamsVos);
         vo.setPropose(swTask.getProposerEid().equalsIgnoreCase(RequestContext.getEmployeeNo()));
+        vo.setFinish(swTask.getStatus().equals(TaskStatusEnums.COMPLETED.getCode()));
         if (!CollectionUtils.isEmpty(capexParamsVos)) {
             vo.setContent(initMapList2(collaborationUsers.get(0).getId(), header));
         } else {

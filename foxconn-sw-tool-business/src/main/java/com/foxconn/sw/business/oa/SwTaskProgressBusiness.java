@@ -1,6 +1,7 @@
 package com.foxconn.sw.business.oa;
 
 import com.foxconn.sw.business.SwAppendResourceBusiness;
+import com.foxconn.sw.common.context.RequestContext;
 import com.foxconn.sw.common.utils.ConvertUtils;
 import com.foxconn.sw.data.constants.enums.TaskOperateType;
 import com.foxconn.sw.data.dto.entity.ResourceVo;
@@ -52,6 +53,16 @@ public class SwTaskProgressBusiness {
     }
 
     public boolean addProcessInfo(SwTaskProgress progress) {
+        return progressExtensionMapper.insertSelective(progress) > 0;
+    }
+
+
+    public boolean addProcessInfo(Integer taskId, String content) {
+        SwTaskProgress progress = new SwTaskProgress();
+        progress.setTaskId(taskId);
+        progress.setOperateEid(RequestContext.getEmployeeNo());
+        progress.setProgress(100);
+        progress.setContent(content);
         return progressExtensionMapper.insertSelective(progress) > 0;
     }
 
