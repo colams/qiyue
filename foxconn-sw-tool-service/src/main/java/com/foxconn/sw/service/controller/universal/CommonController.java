@@ -19,8 +19,6 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import jakarta.validation.Valid;
 import org.apache.commons.lang3.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.core.io.Resource;
@@ -101,16 +99,12 @@ public class CommonController {
     public Response<String> valid(@Valid @RequestBody Request request) {
         String dateTime = "CMBU" + DateTimeUtils.format(LocalDateTime.now(), "yyyyMMddHHmm");
         int length = dateTime.length();
-        // String crc = crc16(dateTime, length);
-        String crc = crc16("CMBU202411271759", length);
-        if (crc.equalsIgnoreCase("361D")) {
-            System.out.println("123456");
-        }
+        String crc = crc16(dateTime, length);
         return ResponseUtils.success(dateTime + crc, request.getTraceId());
     }
 
     public static String crc16(String ptr, int len) {
-        short crc =(short) 0xffff;
+        int crc = (int) 0xffff;
         char[] arrays = ptr.toCharArray();
         for (int i = 0; i < len; i++) {
             int ascii = arrays[i];
@@ -121,9 +115,12 @@ public class CommonController {
                 } else {
                     crc = (short) (crc >> 1);
                 }
+                crc = crc & 0xFFFF;
             }
         }
-        crc = (short) ((crc >> 8) | (crc << 8));
+        int crc1 = (crc >> 8) & 0xFFFF;
+        int crc2 = (crc << 8) & 0xFFFF;
+        crc = crc1 | crc2;
         return String.valueOf(String.format("%04X", crc));
     }
 
