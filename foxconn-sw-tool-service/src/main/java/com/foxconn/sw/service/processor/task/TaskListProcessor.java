@@ -31,7 +31,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.stream.Collectors;
 
-import static com.foxconn.sw.common.utils.constanst.DateTimePattern.yyyyMMdd;
+import static com.foxconn.sw.common.constanst.DateTimePattern.yyyyMMdd;
 
 @Component
 public class TaskListProcessor {

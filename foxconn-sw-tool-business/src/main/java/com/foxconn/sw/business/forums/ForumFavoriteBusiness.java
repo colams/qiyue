@@ -1,7 +1,7 @@
 package com.foxconn.sw.business.forums;
 
 import com.foxconn.sw.common.context.RequestContext;
-import com.foxconn.sw.common.utils.constanst.NumberConstants;
+import com.foxconn.sw.common.constanst.NumberConstants;
 import com.foxconn.sw.data.entity.ForumFavorite;
 import com.foxconn.sw.data.entity.ForumFavoriteExample;
 import com.foxconn.sw.data.mapper.extension.forums.ForumFavoriteExtMapper;

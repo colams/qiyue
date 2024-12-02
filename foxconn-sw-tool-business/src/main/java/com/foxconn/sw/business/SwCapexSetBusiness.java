@@ -1,7 +1,7 @@
 package com.foxconn.sw.business;
 
 import com.foxconn.sw.business.system.EmployeeBusiness;
-import com.foxconn.sw.common.utils.constanst.CapexSetConstants;
+import com.foxconn.sw.common.constanst.CapexSetConstants;
 import com.foxconn.sw.data.dto.entity.oa.CapexParamsVo;
 import com.foxconn.sw.data.dto.entity.oa.CapexSetDetail2Vo;
 import com.foxconn.sw.data.entity.SwCapexSet;

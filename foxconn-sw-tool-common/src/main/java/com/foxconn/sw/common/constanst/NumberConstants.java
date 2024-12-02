@@ -1,4 +1,4 @@
-package com.foxconn.sw.common.utils.constanst;
+package com.foxconn.sw.common.constanst;
 
 public interface NumberConstants {
 

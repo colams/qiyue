@@ -1,7 +1,12 @@
 package com.foxconn.sw.business.oa;
 
+import com.foxconn.sw.business.SwAppendResourceBusiness;
+import com.foxconn.sw.common.utils.ConvertUtils;
+import com.foxconn.sw.data.constants.enums.TaskOperateType;
+import com.foxconn.sw.data.dto.entity.ResourceVo;
 import com.foxconn.sw.data.dto.entity.task.TaskProgressVo;
 import com.foxconn.sw.data.entity.SwTaskProgress;
+import com.foxconn.sw.data.entity.SwTaskProgressExample;
 import com.foxconn.sw.data.entity.extension.SwTaskProgressExtension;
 import com.foxconn.sw.data.mapper.extension.oa.SwTaskProgressExtensionMapper;
 import org.apache.commons.lang3.StringUtils;
@@ -19,6 +24,8 @@ public class SwTaskProgressBusiness {
 
     @Autowired
     SwTaskProgressExtensionMapper progressExtensionMapper;
+    @Autowired
+    SwAppendResourceBusiness appendResourceBusiness;
 
     public List<TaskProgressVo> selectTaskProcess(Integer taskId) {
         List<SwTaskProgressExtension> taskProgresses = progressExtensionMapper.selectTaskProgressVo(taskId);
@@ -46,5 +53,20 @@ public class SwTaskProgressBusiness {
 
     public boolean addProcessInfo(SwTaskProgress progress) {
         return progressExtensionMapper.insertSelective(progress) > 0;
+    }
+
+    public List<ResourceVo> getTaskResourceVo(Integer taskId) {
+        SwTaskProgressExample example = new SwTaskProgressExample();
+        SwTaskProgressExample.Criteria criteria = example.createCriteria();
+        criteria.andTaskIdEqualTo(taskId);
+        criteria.andOperateTypeEqualTo(TaskOperateType.RELEASE.getOperateType());
+        List<SwTaskProgress> progresses = progressExtensionMapper.selectByExample(example);
+        String resources = progresses.stream()
+                .filter(e -> StringUtils.isNotEmpty(e.getResourceIds()))
+                .map(e -> e.getResourceIds())
+                .findAny()
+                .orElse("");
+        List<Integer> resourceIds = ConvertUtils.stringToListInt(resources);
+        return appendResourceBusiness.getAppendResourcesVo(resourceIds);
     }
 }

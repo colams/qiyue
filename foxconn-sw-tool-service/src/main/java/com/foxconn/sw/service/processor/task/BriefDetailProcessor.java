@@ -45,7 +45,7 @@ public class BriefDetailProcessor {
                 .collect(Collectors.toList()));
 
         task.setCollaboration(task.getCategory().equalsIgnoreCase("6-2"));
-        // task.setResourceVos();
+        task.setResourceVos(progressBusiness.getTaskResourceVo(task.getId()));
         return task;
     }
 }

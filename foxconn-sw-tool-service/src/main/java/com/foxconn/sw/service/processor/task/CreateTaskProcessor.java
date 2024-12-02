@@ -13,6 +13,7 @@ import com.foxconn.sw.business.system.EmployeeBusiness;
 import com.foxconn.sw.common.context.RequestContext;
 import com.foxconn.sw.common.utils.ConvertUtils;
 import com.foxconn.sw.common.utils.JsonUtils;
+import com.foxconn.sw.data.constants.enums.TaskOperateType;
 import com.foxconn.sw.data.constants.enums.TaskRoleFlagEnums;
 import com.foxconn.sw.data.constants.enums.oa.RejectStatusEnum;
 import com.foxconn.sw.data.dto.entity.task.TaskBriefDetailVo;
@@ -163,6 +164,7 @@ public class CreateTaskProcessor {
         progress.setResourceIds(ConvertUtils.listIntegerToString(resourceIds));
         progress.setProgress(0);
         progress.setContent(content);
+        progress.setOperateType(TaskOperateType.RELEASE.getOperateType());
         progressBusiness.addProcessInfo(progress);
     }
 }

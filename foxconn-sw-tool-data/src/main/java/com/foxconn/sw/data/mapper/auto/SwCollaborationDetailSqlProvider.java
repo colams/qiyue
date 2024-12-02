@@ -48,6 +48,10 @@ public class SwCollaborationDetailSqlProvider {
             sql.VALUES("item_value", "#{itemValue,jdbcType=VARCHAR}");
         }
         
+        if (record.getSpareValue() != null) {
+            sql.VALUES("spare_value", "#{spareValue,jdbcType=VARCHAR}");
+        }
+        
         if (record.getCreateTime() != null) {
             sql.VALUES("create_time", "#{createTime,jdbcType=TIMESTAMP}");
         }
@@ -71,6 +75,7 @@ public class SwCollaborationDetailSqlProvider {
         sql.SELECT("col_index");
         sql.SELECT("item");
         sql.SELECT("item_value");
+        sql.SELECT("spare_value");
         sql.SELECT("create_time");
         sql.SELECT("datetime_lastchange");
         sql.FROM("sw_collaboration_detail");
@@ -114,6 +119,10 @@ public class SwCollaborationDetailSqlProvider {
             sql.SET("item_value = #{record.itemValue,jdbcType=VARCHAR}");
         }
         
+        if (record.getSpareValue() != null) {
+            sql.SET("spare_value = #{record.spareValue,jdbcType=VARCHAR}");
+        }
+        
         if (record.getCreateTime() != null) {
             sql.SET("create_time = #{record.createTime,jdbcType=TIMESTAMP}");
         }
@@ -136,6 +145,7 @@ public class SwCollaborationDetailSqlProvider {
         sql.SET("col_index = #{record.colIndex,jdbcType=INTEGER}");
         sql.SET("item = #{record.item,jdbcType=VARCHAR}");
         sql.SET("item_value = #{record.itemValue,jdbcType=VARCHAR}");
+        sql.SET("spare_value = #{record.spareValue,jdbcType=VARCHAR}");
         sql.SET("create_time = #{record.createTime,jdbcType=TIMESTAMP}");
         sql.SET("datetime_lastchange = #{record.datetimeLastchange,jdbcType=TIMESTAMP}");
         
@@ -166,6 +176,10 @@ public class SwCollaborationDetailSqlProvider {
         
         if (record.getItemValue() != null) {
             sql.SET("item_value = #{itemValue,jdbcType=VARCHAR}");
+        }
+        
+        if (record.getSpareValue() != null) {
+            sql.SET("spare_value = #{spareValue,jdbcType=VARCHAR}");
         }
         
         if (record.getCreateTime() != null) {
