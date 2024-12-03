@@ -7,10 +7,7 @@ import com.foxconn.sw.data.dto.Response;
 import com.foxconn.sw.data.dto.entity.forums.PostsBriefVo;
 import com.foxconn.sw.data.dto.entity.forums.PostsDetailVo;
 import com.foxconn.sw.data.dto.entity.universal.IntegerParams;
-import com.foxconn.sw.data.dto.request.forums.InvitePostsMemberParams;
-import com.foxconn.sw.data.dto.request.forums.ListPostsParams;
-import com.foxconn.sw.data.dto.request.forums.PostsParams;
-import com.foxconn.sw.data.dto.request.forums.UpdateAttachParams;
+import com.foxconn.sw.data.dto.request.forums.*;
 import com.foxconn.sw.service.aspects.Permission;
 import com.foxconn.sw.service.processor.forums.*;
 import com.foxconn.sw.service.utils.ResponseUtils;
@@ -91,6 +88,16 @@ public class ForumController {
     @PostMapping("/updateAttach")
     public Response<Boolean> updateAttach(@Valid @RequestBody Request<UpdateAttachParams> request) {
         boolean result = updatePostsProcessor.updateAttach(request.getData());
+        return ResponseUtils.success(result, request.getTraceId());
+    }
+
+
+    @Permission
+    @Operation(summary = "更新附件资源", tags = TagsConstants.FORUMS)
+    @ApiResponse(responseCode = "0", description = "成功码")
+    @PostMapping("/delete")
+    public Response<Boolean> delete(@Valid @RequestBody Request<DeletePostsParams> request) {
+        boolean result = updatePostsProcessor.delete(request.getData());
         return ResponseUtils.success(result, request.getTraceId());
     }
 

@@ -20,6 +20,8 @@ public class PostsDetailVo {
     private Integer commentCount;
     private Integer collectionStatus;
 
+    private Boolean canDel;
+
     public Integer getId() {
         return id;
     }
@@ -98,5 +100,13 @@ public class PostsDetailVo {
 
     public void setCollectionStatus(Integer collectionStatus) {
         this.collectionStatus = collectionStatus;
+    }
+
+    public Boolean getCanDel() {
+        return canDel;
+    }
+
+    public void setCanDel(Boolean canDel) {
+        this.canDel = canDel;
     }
 }

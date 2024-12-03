@@ -1,7 +1,7 @@
 package com.foxconn.sw.business.forums;
 
-import com.foxconn.sw.common.context.RequestContext;
 import com.foxconn.sw.common.constanst.NumberConstants;
+import com.foxconn.sw.common.context.RequestContext;
 import com.foxconn.sw.data.dto.request.forums.PostsParams;
 import com.foxconn.sw.data.entity.ForumPosts;
 import com.foxconn.sw.data.entity.ForumPostsExample;
@@ -57,5 +57,15 @@ public class ForumPostsBusiness {
 
     public boolean updatePosts(ForumPosts updatePosts) {
         return forumPostsExtMapper.updateByPrimaryKeySelective(updatePosts) > 0;
+    }
+
+    public boolean delete(Integer id) {
+        ForumPosts forumPosts = new ForumPosts();
+        forumPosts.setIsDelete(1);
+
+        ForumPostsExample example = new ForumPostsExample();
+        ForumPostsExample.Criteria criteria = example.createCriteria();
+        criteria.andIdEqualTo(id);
+        return forumPostsExtMapper.updateByExampleSelective(forumPosts, example) > 0;
     }
 }

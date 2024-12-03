@@ -2,6 +2,7 @@ package com.foxconn.sw.service.processor.forums;
 
 import com.foxconn.sw.business.SwAppendResourceBusiness;
 import com.foxconn.sw.business.forums.*;
+import com.foxconn.sw.common.context.RequestContext;
 import com.foxconn.sw.common.utils.ConvertUtils;
 import com.foxconn.sw.common.utils.DateTimeUtils;
 import com.foxconn.sw.data.dto.entity.forums.PostsDetailVo;
@@ -54,6 +55,7 @@ public class PostsDetailProcessor {
         detailVo.setMemberCount(detailVo.getParticipants().size());
         detailVo.setCommentCount(forumCommentBusiness.queryCommentCountByPostsID(forumPosts.getId()));
         detailVo.setCollectionStatus(favoriteBusiness.queryCollectionStatus(forumPosts.getId()));
+        detailVo.setCanDel(RequestContext.getEmployeeNo().equalsIgnoreCase(forumPosts.getAuthorNo()));
         return detailVo;
     }
 

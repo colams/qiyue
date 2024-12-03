@@ -13,6 +13,7 @@ public class CommentsVo {
     private String content;
     private EmployeeVo employee;
     private String createTime;
+    private Boolean canDel;
 
     private List<CommentsVo> replies;
 
@@ -70,6 +71,14 @@ public class CommentsVo {
 
     public void setCreateTime(String createTime) {
         this.createTime = createTime;
+    }
+
+    public Boolean getCanDel() {
+        return canDel;
+    }
+
+    public void setCanDel(Boolean canDel) {
+        this.canDel = canDel;
     }
 
     public List<CommentsVo> getReplies() {

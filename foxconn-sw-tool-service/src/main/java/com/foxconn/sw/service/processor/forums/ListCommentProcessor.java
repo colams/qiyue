@@ -1,11 +1,14 @@
 package com.foxconn.sw.service.processor.forums;
 
 import com.foxconn.sw.business.forums.ForumCommentBusiness;
+import com.foxconn.sw.business.forums.ForumPostsBusiness;
+import com.foxconn.sw.common.context.RequestContext;
 import com.foxconn.sw.common.utils.DateTimeUtils;
 import com.foxconn.sw.data.dto.PageParams;
 import com.foxconn.sw.data.dto.entity.forums.CommentsVo;
 import com.foxconn.sw.data.dto.entity.universal.IntegerParams;
 import com.foxconn.sw.data.entity.ForumComment;
+import com.foxconn.sw.data.entity.ForumPosts;
 import com.foxconn.sw.service.processor.utils.EmployeeUtils;
 import com.google.common.collect.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,15 +26,18 @@ public class ListCommentProcessor {
     @Autowired
     ForumCommentBusiness forumCommentBusiness;
     @Autowired
+    ForumPostsBusiness forumPostsBusiness;
+    @Autowired
     EmployeeUtils employeeUtils;
 
 
     public List<CommentsVo> list(PageParams<IntegerParams> data) {
         List<ForumComment> comments = forumCommentBusiness.queryCommentByPostsID(data.getParams().getParams());
+        ForumPosts forumPosts = forumPostsBusiness.getForumPosts(data.getParams().getParams());
         if (CollectionUtils.isEmpty(comments)) {
             return Lists.newArrayList();
         }
-        List<CommentsVo> vos = mapComments(comments);
+        List<CommentsVo> vos = mapComments(comments, forumPosts.getAuthorNo());
         return buildTree(vos);
     }
 
@@ -45,7 +51,7 @@ public class ListCommentProcessor {
         return comments;
     }
 
-    private List<CommentsVo> mapComments(List<ForumComment> comments) {
+    private List<CommentsVo> mapComments(List<ForumComment> comments, String postAuthNo) {
         List<CommentsVo> vos = new ArrayList<>();
         comments.forEach(e -> {
             CommentsVo vo = new CommentsVo();
@@ -56,6 +62,8 @@ public class ListCommentProcessor {
             vo.setContent(e.getContent());
             vo.setEmployee(employeeUtils.mapEmployee(e.getAuthorNo()));
             vo.setCreateTime(DateTimeUtils.format(e.getCreateTime()));
+            vo.setCanDel(RequestContext.getEmployeeNo().equalsIgnoreCase(e.getAuthorNo())
+                    || RequestContext.getEmployeeNo().equalsIgnoreCase(postAuthNo));
             vo.setReplies(Lists.newArrayList());
             vos.add(vo);
         });
