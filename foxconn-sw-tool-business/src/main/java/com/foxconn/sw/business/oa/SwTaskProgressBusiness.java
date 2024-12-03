@@ -56,7 +56,6 @@ public class SwTaskProgressBusiness {
         return progressExtensionMapper.insertSelective(progress) > 0;
     }
 
-
     public boolean addProcessInfo(Integer taskId, String content) {
         SwTaskProgress progress = new SwTaskProgress();
         progress.setTaskId(taskId);

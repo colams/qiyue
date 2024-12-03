@@ -9,6 +9,7 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 public class ExcelCollaborationUtils {
 
@@ -37,11 +38,14 @@ public class ExcelCollaborationUtils {
             Row row = sheet.createRow(rowIndex++);
             int colIndex = 0;
 
-            EmployeeVo opEmployee = ((EmployeeVo) map.get("handler"));
             for (String header : collaborationVo.getHeaders()) {
                 row.createCell(colIndex++).setCellValue(map.get(header).toString());
             }
-            row.createCell(colIndex++).setCellValue(opEmployee.getName());
+
+            EmployeeVo opEmployee = ((EmployeeVo) map.get("handler"));
+            if (Objects.nonNull(opEmployee)) {
+                row.createCell(colIndex++).setCellValue(opEmployee.getName());
+            }
         }
     }
 }

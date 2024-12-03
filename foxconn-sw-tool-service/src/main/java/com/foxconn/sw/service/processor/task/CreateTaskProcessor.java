@@ -89,8 +89,10 @@ public class CreateTaskProcessor {
             if (hasSet) {
                 capexSetBusiness.insertSet(taskID, data.getCapexParamsVos());
             }
-            processHandle(taskID, hasSet, data.getResourceIds().get(0));
 
+            if (!data.getStatus().equals(DRAFT.getCode())) {
+                processHandle(taskID, hasSet, data.getResourceIds().get(0));
+            }
         }
 
         return taskID;
