@@ -47,7 +47,7 @@ public class CollaborationUpdateProcessor {
     public Boolean updateRow(List<SwCollaborationUser> collaborationUsers, Integer taskID, Long id, Map<String, String> content) {
         Integer rowIndex = Integer.valueOf(content.get("rowIndex"));
 
-        if (Objects.nonNull(rowIndex) && rowIndex > 0) {
+        if (Objects.nonNull(rowIndex) && rowIndex > 0 && id <= 0) {
             List<SwCollaborationDetail> detailList = collaborationDetail.queryCollaborationDetail(collaborationUsers.get(0).getId(), rowIndex);
             List<SwCollaborationDetail> updateDetails = new ArrayList<>();
             detailList.forEach(e -> {
@@ -78,7 +78,7 @@ public class CollaborationUpdateProcessor {
             List<SwCollaborationDetail> detailList = collaborationDetail.queryCollaborationDetail(id);
             for (Map.Entry<String, String> entry : content.entrySet()) {
                 SwCollaborationDetail detail = detailList.stream()
-                        .filter(e -> e.getItem().equalsIgnoreCase(entry.getKey()))
+                        .filter(e -> e.getItem().equalsIgnoreCase(entry.getKey()) && e.getRowIndex().equals(rowIndex))
                         .findFirst()
                         .orElse(new SwCollaborationDetail());
                 detail.setItem(entry.getKey());

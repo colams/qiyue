@@ -88,6 +88,7 @@ public class Swagger {
                 String.format(API_PREFIX, "department"),
                 String.format(API_PREFIX, "property"),
                 String.format(API_PREFIX, "basic"),
+                String.format(API_PREFIX, "sse"),
 
         };
         return createGroupedOpenApi(TagsConstants.SYSTEM, paths);

@@ -196,8 +196,9 @@ public class CollaborationDetailProcessor {
         vo.setEmployeeNo(employee.getEmployeeNo());
 
         Map<String, Object> map = new HashMap<>();
-        for (SwCollaborationDetail detail : swCollaborationDetails) {
+        for (SwCollaborationDetail detail : swCollaborationDetails.stream().filter(e -> e.getRowIndex() <= 1).collect(Collectors.toList())) {
             map.put(detail.getItem(), detail.getItemValue());
+            map.put("rowIndex", detail.getRowIndex());
         }
         map.put("id", collaborationUser.getId());
         map.put("status", collaborationUser.getStatus());
