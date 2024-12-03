@@ -2,8 +2,6 @@ package com.foxconn.sw.business.forums;
 
 import com.foxconn.sw.data.entity.ForumComment;
 import com.foxconn.sw.data.entity.ForumCommentExample;
-import com.foxconn.sw.data.entity.ForumPosts;
-import com.foxconn.sw.data.entity.ForumPostsExample;
 import com.foxconn.sw.data.mapper.extension.forums.ForumCommentExtMapper;
 import com.google.common.collect.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +19,7 @@ public class ForumCommentBusiness {
         ForumCommentExample example = new ForumCommentExample();
         ForumCommentExample.Criteria criteria = example.createCriteria();
         criteria.andPostsIdEqualTo(postID);
+        criteria.andIsDeleteEqualTo(0);
         return forumCommentExtMapper.selectByExample(example);
     }
 

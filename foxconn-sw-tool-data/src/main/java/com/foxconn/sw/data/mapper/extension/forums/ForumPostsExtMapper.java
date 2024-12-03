@@ -17,7 +17,7 @@ public interface ForumPostsExtMapper extends ForumPostsMapper {
     @Select({"<script> " +
             "select p.* from forum_posts p inner join forum_favorite f on " +
             "p.id=f.posts_id " +
-            "where f.is_valid=1 and f.operator=#{operator,jdbcType=VARCHAR}" +
+            "where f.is_valid=1 and p.is_delete=0 and f.operator=#{operator,jdbcType=VARCHAR}" +
             "<if test='words!=null and words!=\"\"' >",
             " and p.title like CONCAT('%', #{words,jdbcType=VARCHAR}, '%') ",
             "</if> ",

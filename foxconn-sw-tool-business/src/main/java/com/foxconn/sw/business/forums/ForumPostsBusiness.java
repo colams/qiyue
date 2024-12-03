@@ -37,6 +37,7 @@ public class ForumPostsBusiness {
         }
         ForumPostsExample example = new ForumPostsExample();
         ForumPostsExample.Criteria criteria = example.createCriteria();
+        criteria.andIsDeleteEqualTo(0);
 
         if (NumberConstants.ONE.equals(postsType)) {
             criteria.andAuthorNoEqualTo(RequestContext.getEmployeeNo());
