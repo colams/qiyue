@@ -2,10 +2,12 @@ package com.foxconn.sw.service.utils;
 
 import com.foxconn.sw.data.dto.entity.acount.EmployeeVo;
 import com.foxconn.sw.data.dto.entity.collaboration.CollaborationVo;
+import com.foxconn.sw.data.dto.entity.oa.CapexParamsVo;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.springframework.util.CollectionUtils;
 
 import java.util.List;
 import java.util.Map;
@@ -18,18 +20,20 @@ public class ExcelCollaborationUtils {
         // 创建Excel工作簿
         Workbook workbook = new XSSFWorkbook();
         Sheet sheet = workbook.createSheet(collaborationVo.getTaskTitle());
-        processReportHeaders(sheet, collaborationVo.getHeaders());
+        processReportHeaders(sheet, collaborationVo.getCapexParamsVos(), collaborationVo.getHeaders());
         processReport(sheet, collaborationVo);
         return workbook;
     }
 
-    private static void processReportHeaders(Sheet sheet, List<String> headers) {
+    private static void processReportHeaders(Sheet sheet, List<CapexParamsVo> capexParamsVos, List<String> headers) {
         Row headerRow = sheet.createRow(0);
         int index = 0;
         for (String header : headers) {
             headerRow.createCell(index++).setCellValue(header);
         }
-        headerRow.createCell(index++).setCellValue("編輯人");
+        if (CollectionUtils.isEmpty(capexParamsVos)) {
+            headerRow.createCell(index++).setCellValue("編輯人");
+        }
     }
 
     private static void processReport(Sheet sheet, CollaborationVo collaborationVo) {
