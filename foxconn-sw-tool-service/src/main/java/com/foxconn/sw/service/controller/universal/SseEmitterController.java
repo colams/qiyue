@@ -6,15 +6,31 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+
 @RestController
 @RequestMapping("api/sse")
 public class SseEmitterController {
 
+    private static Map<String, SseEmitter> sseEmitterMap = new ConcurrentHashMap<>();
+
     @CrossOrigin
     @GetMapping("/createConnect")
     public SseEmitter createConnect(@Valid @RequestBody Request request) {
+        SseEmitter sseEmitter = new SseEmitter(0L);
 
-        return null;
+        sseEmitter.onCompletion(() -> {
+
+        });
+
+        sseEmitter.onTimeout(() -> {
+
+        });
+
+        sseEmitterMap.put("", sseEmitter);
+
+        return sseEmitter;
     }
 
     @GetMapping(path = "/stream-sse", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
