@@ -1,10 +1,10 @@
 package com.foxconn.sw.service.processor.task;
 
-import com.foxconn.sw.common.context.RequestContext;
 import com.foxconn.sw.business.oa.SwTaskBusiness;
 import com.foxconn.sw.business.oa.SwTaskEmployeeRelationBusiness;
 import com.foxconn.sw.business.oa.SwTaskFollowBusiness;
 import com.foxconn.sw.business.system.EmployeeBusiness;
+import com.foxconn.sw.common.context.RequestContext;
 import com.foxconn.sw.common.utils.LocalDateExtUtils;
 import com.foxconn.sw.data.constants.enums.OperateTypeEnum;
 import com.foxconn.sw.data.constants.enums.TaskRoleFlagEnums;
@@ -13,6 +13,7 @@ import com.foxconn.sw.data.dto.PageParams;
 import com.foxconn.sw.data.dto.entity.acount.EmployeeVo;
 import com.foxconn.sw.data.dto.entity.task.TaskBriefListVo;
 import com.foxconn.sw.data.dto.entity.task.TaskListFilterVo;
+import com.foxconn.sw.data.dto.entity.task.TaskListPageVo;
 import com.foxconn.sw.data.dto.entity.task.TaskParams;
 import com.foxconn.sw.data.dto.entity.universal.OperateEntity;
 import com.foxconn.sw.data.entity.SwEmployee;
@@ -57,10 +58,26 @@ public class TaskListProcessor {
         return voPageEntity;
     }
 
+    public TaskListPageVo list2(PageParams<TaskParams> taskParams) {
+        TaskListPageVo vo = new TaskListPageVo();
+        vo.setPageVo(list(taskParams));
+        vo.setFilterVo(initCondition(taskParams));
+        return vo;
+    }
+
     private TaskListFilterVo initCondition(PageParams<TaskParams> taskParams) {
+
+        String proposer = RequestContext.getEmployeeNo();
+        taskParams.getParams().setCreate_e(processDate(taskParams.getParams().getCreate_e()));
+        List<String> employeeNos = getQueryEmployee(proposer, taskParams.getParams().getIsTeam());
+        List<SwTask> tasks = taskBusiness.listProjectFilter(taskParams, employeeNos, proposer);
+        if (CollectionUtils.isEmpty(tasks)) {
+            return null;
+        }
+
         TaskListFilterVo filterVo = new TaskListFilterVo();
-        filterVo.setProjectFilter(new ArrayList<>());
-        filterVo.setCategoryFilter(new ArrayList<>());
+        filterVo.setProjectFilter(TaskProjectUtils.processProject(tasks.stream().map(e -> e.getProject()).collect(Collectors.toList())));
+        filterVo.setCategoryFilter(TaskCategoryUtils.processCategory(tasks.stream().map(e -> e.getCategory()).collect(Collectors.toList())));
         filterVo.setStateFilter(new ArrayList<>());
         filterVo.setProposeFilter(new ArrayList<>());
         filterVo.setSupervisorFilter(new ArrayList<>());

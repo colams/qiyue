@@ -5,7 +5,7 @@ import com.foxconn.sw.data.dto.PageEntity;
 import com.foxconn.sw.data.dto.PageParams;
 import com.foxconn.sw.data.dto.Request;
 import com.foxconn.sw.data.dto.Response;
-import com.foxconn.sw.data.dto.entity.oa.*;
+import com.foxconn.sw.data.dto.entity.oa.FollowParams;
 import com.foxconn.sw.data.dto.entity.task.*;
 import com.foxconn.sw.data.dto.entity.universal.IntegerParams;
 import com.foxconn.sw.data.dto.request.task.OverviewParams;
@@ -93,9 +93,9 @@ public class TaskController {
     @Operation(summary = "任务列表", tags = TagsConstants.OA)
     @ApiResponse(responseCode = "0", description = "成功码")
     @PostMapping("/list2")
-    public Response<PageEntity<TaskBriefListVo>> list2(@Valid @RequestBody Request<PageParams<TaskParams>> request) {
-        PageEntity<TaskBriefListVo> taskList = taskListProcessor.list(request.getData());
-        return ResponseUtils.success(taskList, request.getTraceId());
+    public Response<TaskListPageVo> list2(@Valid @RequestBody Request<PageParams<TaskParams>> request) {
+        TaskListPageVo vo = taskListProcessor.list2(request.getData());
+        return ResponseUtils.success(vo, request.getTraceId());
     }
 
 

@@ -60,6 +60,13 @@ public class SwTaskBusiness {
         return taskExtensionMapper.listBriefVos(start, data.getPageSize(), data.getParams(), employeeNos, now, proposer);
     }
 
+    public List<SwTask> listProjectFilter(PageParams<TaskParams> data, List<String> employeeNos, String proposer) {
+        LocalDateTime localDateTime = LocalDateTime.now();
+        String now = DateTimeUtils.formatYMD(localDateTime);
+        return taskExtensionMapper.listProjectFilter(data.getParams(), employeeNos, now, proposer);
+    }
+
+
     public int getTotalCountByParams(TaskParams params, List<String> employeeNos, String proposer) {
         LocalDateTime localDateTime = LocalDateTime.now();
         String now = DateTimeUtils.formatYMD(localDateTime);

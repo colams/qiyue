@@ -5,6 +5,7 @@ import com.foxconn.sw.service.processor.OAOptionConfig;
 import org.springframework.util.CollectionUtils;
 
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.stream.Collectors;
 
 public class TaskCategoryUtils {
@@ -31,6 +32,22 @@ public class TaskCategoryUtils {
         if ("MIL".equalsIgnoreCase(topResult)) {
             return String.format("%s-%s", topResult, result);
         }
+        return result;
+    }
+
+
+    public static List<OptionsVo> processCategory(List<String> categorys) {
+        List<OptionsVo> list = OAOptionConfig.initTaskType("");
+        List<OptionsVo> result = new CopyOnWriteArrayList<>();
+
+        List<String> projectlist = categorys.stream().distinct().collect(Collectors.toList());
+        list.stream().forEach(e -> {
+            e.getOptionsVos().stream().forEach(v -> {
+                if (projectlist.contains(v.getText()) || projectlist.contains(v.getKey())) {
+                    result.add(v);
+                }
+            });
+        });
         return result;
     }
 
