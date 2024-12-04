@@ -48,7 +48,11 @@ public class UpdatePostsProcessor {
         if (NumberConstants.ONE.equals(data.getDelType())) {
             return forumPostsBusiness.delete(data.getId());
         } else if (NumberConstants.TWO.equals(data.getDelType())) {
-            return commentBusiness.delete(data.getId());
+            boolean result = commentBusiness.delete(data.getId());
+            if (result) {
+                postsAttachmentBusiness.deletePostsAttachmentByCId(data.getId());
+            }
+            return result;
         }
         return false;
     }

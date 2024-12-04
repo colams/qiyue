@@ -53,4 +53,14 @@ public class ForumPostsAttachmentBusiness {
         return postsAttachmentExtMapper.updateByExampleSelective(postsAttachment, example) > 0;
     }
 
+    public boolean deletePostsAttachmentByCId(Integer commentID) {
+        ForumPostsAttachment postsAttachment = new ForumPostsAttachment();
+        postsAttachment.setIsDelete(1);
+
+        ForumPostsAttachmentExample example = new ForumPostsAttachmentExample();
+        ForumPostsAttachmentExample.Criteria criteria = example.createCriteria();
+        criteria.andCommentIdEqualTo(commentID);
+        return postsAttachmentExtMapper.updateByExampleSelective(postsAttachment, example) > 0;
+    }
+
 }
