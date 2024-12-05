@@ -4,6 +4,7 @@ import com.foxconn.sw.business.system.EmployeeBusiness;
 import com.foxconn.sw.common.constanst.CapexSetConstants;
 import com.foxconn.sw.data.dto.entity.oa.CapexParamsVo;
 import com.foxconn.sw.data.dto.entity.oa.CapexSetDetail2Vo;
+import com.foxconn.sw.data.dto.entity.oa.CapexSetVo;
 import com.foxconn.sw.data.entity.SwCapexSet;
 import com.foxconn.sw.data.entity.SwCapexSetExample;
 import com.foxconn.sw.data.entity.SwEmployee;
@@ -76,6 +77,38 @@ public class SwCapexSetBusiness {
                 }
                 capexSetVos.add(capexSetDetail2Vo);
             });
+            capexParamsVos.add(vo);
+        }
+        return capexParamsVos;
+    }
+
+    public List<CapexParamsVo> queryCapexParamsOrigin(Integer taskID) {
+        List<CapexParamsVo> capexParamsVos = new ArrayList<>();
+        List<SwCapexSet> capexSets = queryCapexSet(taskID);
+        Map<String, List<SwCapexSet>> maps = capexSets.stream().collect(Collectors.groupingBy(SwCapexSet::getSheetName));
+        for (Map.Entry<String, List<SwCapexSet>> entry : maps.entrySet()) {
+            List<CapexSetVo> capexSetVos = new ArrayList<>();
+            CapexParamsVo vo = new CapexParamsVo();
+
+            vo.setSheetName(entry.getKey());
+            vo.setCapexSet(capexSetVos);
+            Map<String, List<SwCapexSet>> typeMaps = capexSets.stream().collect(Collectors.groupingBy(SwCapexSet::getType));
+            for (Map.Entry<String, List<SwCapexSet>> tEntry : typeMaps.entrySet()) {
+                CapexSetVo capexSetVo = new CapexSetVo();
+                List<CapexSetDetail2Vo> capexSetDetail2Vos = new ArrayList<>();
+                capexSetVo.setType(tEntry.getKey());
+                capexSetVo.setCapexSets(capexSetDetail2Vos);
+                capexSetVos.add(capexSetVo);
+
+                tEntry.getValue().forEach(e -> {
+                    CapexSetDetail2Vo capexSetDetail2Vo = new CapexSetDetail2Vo();
+                    capexSetDetail2Vo.setIndex(e.getNumber());
+                    capexSetDetail2Vo.setType(tEntry.getKey());
+                    capexSetDetail2Vo.setSetValue(e.getSetValue());
+                    capexSetDetail2Vos.add(capexSetDetail2Vo);
+                });
+
+            }
             capexParamsVos.add(vo);
         }
         return capexParamsVos;

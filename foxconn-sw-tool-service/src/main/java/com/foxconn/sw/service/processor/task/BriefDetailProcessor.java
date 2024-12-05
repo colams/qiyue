@@ -1,10 +1,12 @@
 package com.foxconn.sw.service.processor.task;
 
+import com.foxconn.sw.business.SwCapexSetBusiness;
 import com.foxconn.sw.business.oa.SwTaskBusiness;
 import com.foxconn.sw.business.oa.SwTaskEmployeeRelationBusiness;
 import com.foxconn.sw.business.oa.SwTaskProgressBusiness;
 import com.foxconn.sw.common.utils.JsonUtils;
 import com.foxconn.sw.data.constants.enums.TaskRoleFlagEnums;
+import com.foxconn.sw.data.dto.entity.oa.CapexParamsVo;
 import com.foxconn.sw.data.dto.entity.task.BriefTaskVo;
 import com.foxconn.sw.data.entity.SwTaskEmployeeRelation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +26,8 @@ public class BriefDetailProcessor {
     SwTaskEmployeeRelationBusiness employeeRelation;
     @Autowired
     SwTaskProgressBusiness progressBusiness;
+    @Autowired
+    SwCapexSetBusiness capexSetBusiness;
 
     public BriefTaskVo getTaskById(Integer params) {
         BriefTaskVo task = swTaskBusiness.getTaskById(params);
@@ -46,6 +50,10 @@ public class BriefDetailProcessor {
 
         task.setCollaboration(task.getCategory().equalsIgnoreCase("6-2"));
         task.setResourceVos(progressBusiness.getTaskResourceVo(task.getId()));
+        if (task.getCollaboration()) {
+            List<CapexParamsVo> capexParamsVos = capexSetBusiness.queryCapexParamsOrigin(params);
+            task.setCapexParamsVos(capexParamsVos);
+        }
         return task;
     }
 }

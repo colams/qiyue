@@ -9,6 +9,7 @@ import com.foxconn.sw.data.mapper.extension.SwAppendResourceExtensionMapper;
 import com.google.common.collect.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.util.CollectionUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,6 +30,10 @@ public class SwAppendResourceBusiness {
     }
 
     public List<ResourceVo> getAppendResourcesVo(List<Integer> resourceIds) {
+        if (CollectionUtils.isEmpty(resourceIds)) {
+            return Lists.newArrayList();
+        }
+
         SwAppendResourceExample example = new SwAppendResourceExample();
         var criteria = example.createCriteria();
         criteria.andIdIn(resourceIds);

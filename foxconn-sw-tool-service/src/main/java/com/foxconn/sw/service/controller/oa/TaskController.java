@@ -121,8 +121,8 @@ public class TaskController {
     @Operation(summary = "任务信息", tags = TagsConstants.OA)
     @ApiResponse(responseCode = "0", description = "成功码")
     @PostMapping("/briefDetail")
-    public Response<SwTask> briefDetail(@Valid @RequestBody Request<IntegerParams> request) {
-        SwTask task = briefDetail.getTaskById(request.getData().getParams());
+    public Response<BriefTaskVo> briefDetail(@Valid @RequestBody Request<IntegerParams> request) {
+        BriefTaskVo task = briefDetail.getTaskById(request.getData().getParams());
         return ResponseUtils.success(task, request.getTraceId());
     }
 

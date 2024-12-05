@@ -2,6 +2,7 @@ package com.foxconn.sw.data.dto.entity.task;
 
 
 import com.foxconn.sw.data.dto.entity.ResourceVo;
+import com.foxconn.sw.data.dto.entity.oa.CapexParamsVo;
 import com.foxconn.sw.data.entity.SwTask;
 
 import java.util.List;
@@ -15,6 +16,8 @@ public class BriefTaskVo extends SwTask {
     private Boolean isCollaboration;
 
     private List<ResourceVo> resourceVos;
+
+    private List<CapexParamsVo> capexParamsVos;
 
     public List<String> getWatchers() {
         return watchers;
@@ -47,5 +50,13 @@ public class BriefTaskVo extends SwTask {
 
     public void setResourceVos(List<ResourceVo> resourceVos) {
         this.resourceVos = resourceVos;
+    }
+
+    public List<CapexParamsVo> getCapexParamsVos() {
+        return capexParamsVos;
+    }
+
+    public void setCapexParamsVos(List<CapexParamsVo> capexParamsVo) {
+        this.capexParamsVos = capexParamsVo;
     }
 }
