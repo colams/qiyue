@@ -135,7 +135,7 @@ public class TaskOperateUtils {
 //                enable = PROCESSING.equals(taskStatusEnums) && (isHandler || isManger);
 //                break;
             case CHECK:
-                enable = ACCEPTING.equals(taskStatusEnums) && isProposer || isInspector;
+                enable = ACCEPTING.equals(taskStatusEnums) && (isProposer || isInspector);
                 break;
         }
         return enable ? initVo(op.getMsg(), op.name(), true) : null;

@@ -10,7 +10,6 @@ public class DocumentVo {
     private String downloadUrl;
     private String viewUrl;
     private String project;
-    private String description;
     private String department;
     private String fileVersion;
 
@@ -70,14 +69,6 @@ public class DocumentVo {
 
     public void setProject(String project) {
         this.project = project;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
     }
 
     public String getDepartment() {
