@@ -45,7 +45,8 @@ public class CollaborationUpdateProcessor {
     }
 
     public Boolean updateRow(List<SwCollaborationUser> collaborationUsers, Integer taskID, Long id, Map<String, String> content) {
-        Integer rowIndex = Integer.valueOf(content.get("rowIndex"));
+        String rowIndexStr = content.get("rowIndex");
+        Integer rowIndex = Objects.isNull(rowIndexStr) ? null : Integer.valueOf(rowIndexStr);
 
         if (Objects.nonNull(rowIndex) && rowIndex > 0 && (Objects.isNull(id) || id <= 0)) {
             List<SwCollaborationDetail> detailList = collaborationDetail.queryCollaborationDetail(collaborationUsers.get(0).getId(), rowIndex);
