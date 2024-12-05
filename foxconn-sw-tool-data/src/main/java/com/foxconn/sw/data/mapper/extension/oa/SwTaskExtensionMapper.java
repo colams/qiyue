@@ -39,6 +39,9 @@ public interface SwTaskExtensionMapper extends SwTaskMapper {
             "<if test='params.proposer!=null and params.proposer!=\"\"' >",
             " and proposer_eid=#{params.proposer,jdbcType=VARCHAR}",
             "</if> ",
+            "<if test='params.hasCollaborate==null || !params.hasCollaborate' >",
+            " and category!='6-2'",
+            "</if> ",
             "<if test='params.project!=null and params.project!=\"\"' >",
             " and project=#{params.project,jdbcType=VARCHAR}",
             "</if> ",
@@ -96,11 +99,11 @@ public interface SwTaskExtensionMapper extends SwTaskMapper {
             "</where>",
 
             "<choose>",
-            "<when test='params.orderBys!=null and params.orderBys.size()>0'>",
-            "ORDER BY ",
-            "<foreach collection='params.orderBys' item='orderBy' separator=',' >",
-            "#{status,jdbcType=VARCHAR} ",
-            "</foreach>",
+            "<when test='params.orderBy!=null'>",
+            "ORDER BY #{params.orderBy.field,jdbcType=VARCHAR} ",
+            "<if test='params.orderBy.order==\"descend\"'  >",
+            " desc ",
+            "</if> ",
             "</when>",
             "<otherwise>",
             "ORDER BY id desc",
@@ -187,6 +190,9 @@ public interface SwTaskExtensionMapper extends SwTaskMapper {
             "<if test='params.handler!=null and params.handler!=\"\"' >",
             " and ste.employee_no = #{params.handler,jdbcType=VARCHAR} and ste.role_flag&amp;2=2 and ste.role_flag&amp;4=4",
             "</if> ",
+            "<if test='params.hasCollaborate==null || !params.hasCollaborate' >",
+            " and category!='6-2'",
+            "</if> ",
 
             "<if test='params.statusList!=null and params.statusList.size()>0'>",
             "and st.status in",
@@ -215,15 +221,6 @@ public interface SwTaskExtensionMapper extends SwTaskMapper {
             " and st.status in (1,2) and dead_line &lt;#{nowDate,jdbcType=VARCHAR} ",
             "</if> ",
             "</where>",
-
-            "<choose>",
-            "<when test='params.orderBys!=null and params.orderBys.size()>0'>",
-            "ORDER BY ",
-            "<foreach collection='params.orderBys' item='orderBy' separator=',' >",
-            "#{status,jdbcType=VARCHAR} ",
-            "</foreach>",
-            "</when>",
-            "</choose>",
             "</script>"
     })
     @Results({
@@ -296,7 +293,9 @@ public interface SwTaskExtensionMapper extends SwTaskMapper {
             "#{status,jdbcType=INTEGER}",
             "</foreach>",
             "</if> ",
-
+            "<if test='params.hasCollaborate==null || !params.hasCollaborate' >",
+            " and category!='6-2'",
+            "</if> ",
             "<if test='params.viewType==1'>",
             " and ste.employee_no=#{proposer,jdbcType=VARCHAR} and ste.role_flag&amp;7> 0",
             "</if> ",

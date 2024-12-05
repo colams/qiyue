@@ -1,5 +1,6 @@
 package com.foxconn.sw.data.dto.entity.task;
 
+import com.foxconn.sw.data.dto.entity.OrderByVo;
 import com.foxconn.sw.data.validate.ConstantsValue;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.Pattern;
@@ -57,7 +58,9 @@ public class TaskParams {
     @ConstantsValue(intValues = {0, 1, 2}, message = "请求类型不存在！")
     private Integer viewType;
 
-    private List<String> orderBys;
+    private OrderByVo orderBy;
+
+    private Boolean hasCollaborate;
 
     public String getTaskNo() {
         return taskNo;
@@ -179,11 +182,19 @@ public class TaskParams {
         this.viewType = viewType;
     }
 
-    public List<String> getOrderBys() {
-        return orderBys;
+    public OrderByVo getOrderBy() {
+        return orderBy;
     }
 
-    public void setOrderBys(List<String> orderBys) {
-        this.orderBys = orderBys;
+    public void setOrderBy(OrderByVo orderBy) {
+        this.orderBy = orderBy;
+    }
+
+    public Boolean getHasCollaborate() {
+        return hasCollaborate;
+    }
+
+    public void setHasCollaborate(Boolean hasCollaborate) {
+        this.hasCollaborate = hasCollaborate;
     }
 }
