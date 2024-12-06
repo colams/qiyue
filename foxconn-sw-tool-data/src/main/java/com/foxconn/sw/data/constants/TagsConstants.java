@@ -11,6 +11,7 @@ public interface TagsConstants {
     String ROUTE = "route";
     String MENU = "menu";
     String OA = "oa";
+    String TASK = "task";
     String REPORT = "report";
     String DOCUMENT = "document";
     String MEET = "meet";

@@ -18,6 +18,7 @@ import com.foxconn.sw.data.entity.SwAppendResource;
 import com.foxconn.sw.data.entity.SwDocument;
 import com.foxconn.sw.data.entity.SwDocumentHistory;
 import com.foxconn.sw.data.entity.SwEmployee;
+import com.foxconn.sw.service.processor.utils.EmployeeUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -40,6 +41,8 @@ public class ListDocProcessor {
     UserBusiness userBusiness;
     @Autowired
     EmployeeBusiness employeeBusiness;
+    @Autowired
+    EmployeeUtils employeeUtils;
 
     public List<DocumentVo> list(SearchDocParams data) {
         List<SwDocument> documents = documentBusiness.queryDocumentList(data);
@@ -77,6 +80,7 @@ public class ListDocProcessor {
             employeeVo.setName(ee.getName());
             employeeVo.setEmployeeNo(ee.getEmployeeNo());
             employeeVo.setDepartmentId(ee.getDepartmentId());
+            vo.setAuthor(employeeUtils.mapEmployee(e.getAuthor()));
             vo.setPublisher(employeeVo);
             vo.setCreateTime(DateTimeUtils.format(e.getCreateTime()));
             vo.setUpdateTime(DateTimeUtils.format(e.getDatetimeLastchange()));

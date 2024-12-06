@@ -64,6 +64,10 @@ public class SwDocumentSqlProvider {
             sql.VALUES("resource_id", "#{resourceId,jdbcType=INTEGER}");
         }
         
+        if (record.getAuthor() != null) {
+            sql.VALUES("author", "#{author,jdbcType=VARCHAR}");
+        }
+        
         if (record.getCreator() != null) {
             sql.VALUES("creator", "#{creator,jdbcType=VARCHAR}");
         }
@@ -99,6 +103,7 @@ public class SwDocumentSqlProvider {
         sql.SELECT("expire_date");
         sql.SELECT("disable_down");
         sql.SELECT("resource_id");
+        sql.SELECT("author");
         sql.SELECT("creator");
         sql.SELECT("is_delete");
         sql.SELECT("create_time");
@@ -160,6 +165,10 @@ public class SwDocumentSqlProvider {
             sql.SET("resource_id = #{record.resourceId,jdbcType=INTEGER}");
         }
         
+        if (record.getAuthor() != null) {
+            sql.SET("author = #{record.author,jdbcType=VARCHAR}");
+        }
+        
         if (record.getCreator() != null) {
             sql.SET("creator = #{record.creator,jdbcType=VARCHAR}");
         }
@@ -194,6 +203,7 @@ public class SwDocumentSqlProvider {
         sql.SET("expire_date = #{record.expireDate,jdbcType=VARCHAR}");
         sql.SET("disable_down = #{record.disableDown,jdbcType=INTEGER}");
         sql.SET("resource_id = #{record.resourceId,jdbcType=INTEGER}");
+        sql.SET("author = #{record.author,jdbcType=VARCHAR}");
         sql.SET("creator = #{record.creator,jdbcType=VARCHAR}");
         sql.SET("is_delete = #{record.isDelete,jdbcType=INTEGER}");
         sql.SET("create_time = #{record.createTime,jdbcType=TIMESTAMP}");
@@ -242,6 +252,10 @@ public class SwDocumentSqlProvider {
         
         if (record.getResourceId() != null) {
             sql.SET("resource_id = #{resourceId,jdbcType=INTEGER}");
+        }
+        
+        if (record.getAuthor() != null) {
+            sql.SET("author = #{author,jdbcType=VARCHAR}");
         }
         
         if (record.getCreator() != null) {

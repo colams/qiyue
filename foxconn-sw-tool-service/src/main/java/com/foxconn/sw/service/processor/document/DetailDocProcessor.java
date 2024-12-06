@@ -2,11 +2,11 @@ package com.foxconn.sw.service.processor.document;
 
 import com.foxconn.sw.business.SwAppendResourceBusiness;
 import com.foxconn.sw.business.account.UserBusiness;
-import com.foxconn.sw.common.context.RequestContext;
 import com.foxconn.sw.business.oa.SwDocumentBusiness;
 import com.foxconn.sw.business.oa.SwDocumentHistoryBusiness;
 import com.foxconn.sw.business.oa.SwDocumentPermissionBusiness;
 import com.foxconn.sw.business.system.EmployeeBusiness;
+import com.foxconn.sw.common.context.RequestContext;
 import com.foxconn.sw.common.utils.ConvertUtils;
 import com.foxconn.sw.common.utils.DateTimeUtils;
 import com.foxconn.sw.data.dto.entity.acount.EmployeeVo;
@@ -15,6 +15,7 @@ import com.foxconn.sw.data.dto.entity.universal.IntegerParams;
 import com.foxconn.sw.data.entity.SwAppendResource;
 import com.foxconn.sw.data.entity.SwDocument;
 import com.foxconn.sw.data.entity.SwEmployee;
+import com.foxconn.sw.service.processor.utils.EmployeeUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -33,6 +34,8 @@ public class DetailDocProcessor {
     UserBusiness userBusiness;
     @Autowired
     EmployeeBusiness employeeBusiness;
+    @Autowired
+    EmployeeUtils employeeUtils;
 
 
     public DocumentDetailVo detail(IntegerParams data) {
@@ -71,6 +74,7 @@ public class DetailDocProcessor {
         employeeVo.setEmployeeNo(ee.getEmployeeNo());
         employeeVo.setDepartmentId(ee.getDepartmentId());
         vo.setPublisher(employeeVo);
+        vo.setAuthor(employeeUtils.mapEmployee(e.getAuthor()));
         vo.setCreateTime(DateTimeUtils.format(e.getCreateTime()));
         vo.setUpdateTime(DateTimeUtils.format(e.getDatetimeLastchange()));
 

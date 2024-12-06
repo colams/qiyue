@@ -21,6 +21,7 @@ public class DocumentDetailVo {
     private Integer disableDown;
     private Boolean canUpdate;
 
+    private EmployeeVo author;
     private EmployeeVo publisher;
     private String createTime;
     private String updateTime;
@@ -126,6 +127,14 @@ public class DocumentDetailVo {
 
     public void setDisableDown(Integer disableDown) {
         this.disableDown = disableDown;
+    }
+
+    public EmployeeVo getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(EmployeeVo author) {
+        this.author = author;
     }
 
     public EmployeeVo getPublisher() {

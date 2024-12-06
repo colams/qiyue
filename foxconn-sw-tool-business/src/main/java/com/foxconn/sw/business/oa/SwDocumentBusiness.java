@@ -1,7 +1,7 @@
 package com.foxconn.sw.business.oa;
 
-import com.foxconn.sw.common.context.RequestContext;
 import com.foxconn.sw.business.system.EmployeeBusiness;
+import com.foxconn.sw.common.context.RequestContext;
 import com.foxconn.sw.data.dto.request.document.CreateDocParams;
 import com.foxconn.sw.data.dto.request.document.DeleteDocParams;
 import com.foxconn.sw.data.dto.request.document.SearchDocParams;
@@ -34,6 +34,7 @@ public class SwDocumentBusiness {
         document.setCreator(RequestContext.getEmployeeNo());
         document.setResourceId(data.getResourceID());
         document.setDisableDown(data.getDisableDown());
+        document.setAuthor(data.getAuthor());
         documentMapper.insertSelective(document);
         return document.getId();
     }

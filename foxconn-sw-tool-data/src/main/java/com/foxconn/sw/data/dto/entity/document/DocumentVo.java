@@ -17,6 +17,7 @@ public class DocumentVo {
     private Boolean canDownload;
     private Boolean canUpdate;
 
+    private EmployeeVo author;
     private EmployeeVo publisher;
     private String createTime;
     private String updateTime;
@@ -101,6 +102,14 @@ public class DocumentVo {
 
     public void setCanDownload(Boolean canDownload) {
         this.canDownload = canDownload;
+    }
+
+    public EmployeeVo getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(EmployeeVo author) {
+        this.author = author;
     }
 
     public EmployeeVo getPublisher() {

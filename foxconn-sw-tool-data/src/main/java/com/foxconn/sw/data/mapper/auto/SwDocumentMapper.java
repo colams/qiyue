@@ -38,16 +38,16 @@ public interface SwDocumentMapper {
         "category, department, ",
         "project, secret_level, ",
         "expire_date, disable_down, ",
-        "resource_id, creator, ",
-        "is_delete, create_time, ",
-        "datetime_lastchange)",
+        "resource_id, author, ",
+        "creator, is_delete, ",
+        "create_time, datetime_lastchange)",
         "values (#{documentName,jdbcType=VARCHAR}, #{fileVersion,jdbcType=VARCHAR}, ",
         "#{category,jdbcType=VARCHAR}, #{department,jdbcType=INTEGER}, ",
         "#{project,jdbcType=VARCHAR}, #{secretLevel,jdbcType=INTEGER}, ",
         "#{expireDate,jdbcType=VARCHAR}, #{disableDown,jdbcType=INTEGER}, ",
-        "#{resourceId,jdbcType=INTEGER}, #{creator,jdbcType=VARCHAR}, ",
-        "#{isDelete,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, ",
-        "#{datetimeLastchange,jdbcType=TIMESTAMP})"
+        "#{resourceId,jdbcType=INTEGER}, #{author,jdbcType=VARCHAR}, ",
+        "#{creator,jdbcType=VARCHAR}, #{isDelete,jdbcType=INTEGER}, ",
+        "#{createTime,jdbcType=TIMESTAMP}, #{datetimeLastchange,jdbcType=TIMESTAMP})"
     })
     @SelectKey(statement="SELECT LAST_INSERT_ID()", keyProperty="id", before=false, resultType=Integer.class)
     int insert(SwDocument record);
@@ -68,6 +68,7 @@ public interface SwDocumentMapper {
         @Result(column="expire_date", property="expireDate", jdbcType=JdbcType.VARCHAR),
         @Result(column="disable_down", property="disableDown", jdbcType=JdbcType.INTEGER),
         @Result(column="resource_id", property="resourceId", jdbcType=JdbcType.INTEGER),
+        @Result(column="author", property="author", jdbcType=JdbcType.VARCHAR),
         @Result(column="creator", property="creator", jdbcType=JdbcType.VARCHAR),
         @Result(column="is_delete", property="isDelete", jdbcType=JdbcType.INTEGER),
         @Result(column="create_time", property="createTime", jdbcType=JdbcType.TIMESTAMP),
@@ -87,6 +88,7 @@ public interface SwDocumentMapper {
         @Result(column="expire_date", property="expireDate", jdbcType=JdbcType.VARCHAR),
         @Result(column="disable_down", property="disableDown", jdbcType=JdbcType.INTEGER),
         @Result(column="resource_id", property="resourceId", jdbcType=JdbcType.INTEGER),
+        @Result(column="author", property="author", jdbcType=JdbcType.VARCHAR),
         @Result(column="creator", property="creator", jdbcType=JdbcType.VARCHAR),
         @Result(column="is_delete", property="isDelete", jdbcType=JdbcType.INTEGER),
         @Result(column="create_time", property="createTime", jdbcType=JdbcType.TIMESTAMP),
@@ -97,7 +99,8 @@ public interface SwDocumentMapper {
     @Select({
         "select",
         "id, document_name, file_version, category, department, project, secret_level, ",
-        "expire_date, disable_down, resource_id, creator, is_delete, create_time, datetime_lastchange",
+        "expire_date, disable_down, resource_id, author, creator, is_delete, create_time, ",
+        "datetime_lastchange",
         "from sw_document",
         "where id = #{id,jdbcType=INTEGER}"
     })
@@ -112,6 +115,7 @@ public interface SwDocumentMapper {
         @Result(column="expire_date", property="expireDate", jdbcType=JdbcType.VARCHAR),
         @Result(column="disable_down", property="disableDown", jdbcType=JdbcType.INTEGER),
         @Result(column="resource_id", property="resourceId", jdbcType=JdbcType.INTEGER),
+        @Result(column="author", property="author", jdbcType=JdbcType.VARCHAR),
         @Result(column="creator", property="creator", jdbcType=JdbcType.VARCHAR),
         @Result(column="is_delete", property="isDelete", jdbcType=JdbcType.INTEGER),
         @Result(column="create_time", property="createTime", jdbcType=JdbcType.TIMESTAMP),
@@ -139,6 +143,7 @@ public interface SwDocumentMapper {
           "expire_date = #{expireDate,jdbcType=VARCHAR},",
           "disable_down = #{disableDown,jdbcType=INTEGER},",
           "resource_id = #{resourceId,jdbcType=INTEGER},",
+          "author = #{author,jdbcType=VARCHAR},",
           "creator = #{creator,jdbcType=VARCHAR},",
           "is_delete = #{isDelete,jdbcType=INTEGER},",
           "create_time = #{createTime,jdbcType=TIMESTAMP},",

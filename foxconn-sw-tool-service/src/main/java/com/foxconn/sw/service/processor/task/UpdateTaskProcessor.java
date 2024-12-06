@@ -65,6 +65,7 @@ public class UpdateTaskProcessor {
             }
             taskLogBusiness.addTaskLog(old.getId(), RequestContext.getEmployeeNo(), content);
 
+
             SwTaskProgress progress = new SwTaskProgress();
             progress.setTaskId(old.getId());
             progress.setOperateEid(RequestContext.getEmployeeNo());

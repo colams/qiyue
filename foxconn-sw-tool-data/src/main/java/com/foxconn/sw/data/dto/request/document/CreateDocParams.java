@@ -12,6 +12,7 @@ public class CreateDocParams {
     private Integer resourceID;
     private String expireDate;
     private Integer disableDown;
+    private String author;
     private List<String> departmentIDs;
     private List<String> employeeNos;
     private String extra;
@@ -78,6 +79,14 @@ public class CreateDocParams {
 
     public void setDisableDown(Integer disableDown) {
         this.disableDown = disableDown;
+    }
+
+    public String getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
     }
 
     public List<String> getDepartmentIDs() {

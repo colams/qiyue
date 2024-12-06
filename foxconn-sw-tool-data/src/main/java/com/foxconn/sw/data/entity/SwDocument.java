@@ -23,6 +23,8 @@ public class SwDocument {
 
     private Integer resourceId;
 
+    private String author;
+
     private String creator;
 
     private Integer isDelete;
@@ -159,6 +161,19 @@ public class SwDocument {
 
     public void setResourceId(Integer resourceId) {
         this.resourceId = resourceId;
+    }
+
+    public String getAuthor() {
+        return author;
+    }
+
+    public SwDocument withAuthor(String author) {
+        this.setAuthor(author);
+        return this;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author == null ? null : author.trim();
     }
 
     public String getCreator() {
