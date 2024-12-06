@@ -1,55 +1,43 @@
 package com.foxconn.sw.data.mapper.auto;
 
-import com.foxconn.sw.data.entity.SwCustomGroup;
-import com.foxconn.sw.data.entity.SwCustomGroupExample.Criteria;
-import com.foxconn.sw.data.entity.SwCustomGroupExample.Criterion;
-import com.foxconn.sw.data.entity.SwCustomGroupExample;
+import com.foxconn.sw.data.entity.SwNotification;
+import com.foxconn.sw.data.entity.SwNotificationExample.Criteria;
+import com.foxconn.sw.data.entity.SwNotificationExample.Criterion;
+import com.foxconn.sw.data.entity.SwNotificationExample;
 import java.util.List;
 import java.util.Map;
 import org.apache.ibatis.jdbc.SQL;
 
-public class SwCustomGroupSqlProvider {
+public class SwNotificationSqlProvider {
 
-    public String countByExample(SwCustomGroupExample example) {
+    public String countByExample(SwNotificationExample example) {
         SQL sql = new SQL();
-        sql.SELECT("count(*)").FROM("sw_custom_group");
+        sql.SELECT("count(*)").FROM("sw_notification");
         applyWhere(sql, example, false);
         return sql.toString();
     }
 
-    public String deleteByExample(SwCustomGroupExample example) {
+    public String deleteByExample(SwNotificationExample example) {
         SQL sql = new SQL();
-        sql.DELETE_FROM("sw_custom_group");
+        sql.DELETE_FROM("sw_notification");
         applyWhere(sql, example, false);
         return sql.toString();
     }
 
-    public String insertSelective(SwCustomGroup record) {
+    public String insertSelective(SwNotification record) {
         SQL sql = new SQL();
-        sql.INSERT_INTO("sw_custom_group");
+        sql.INSERT_INTO("sw_notification");
         
-        if (record.getName() != null) {
-            sql.VALUES("name", "#{name,jdbcType=VARCHAR}");
+        if (record.getContent() != null) {
+            sql.VALUES("content", "#{content,jdbcType=VARCHAR}");
         }
         
-        if (record.getOwner() != null) {
-            sql.VALUES("owner", "#{owner,jdbcType=VARCHAR}");
+        if (record.getConsumer() != null) {
+            sql.VALUES("consumer", "#{consumer,jdbcType=VARCHAR}");
         }
         
-        if (record.getGroupType() != null) {
-            sql.VALUES("group_type", "#{groupType,jdbcType=INTEGER}");
-        }
-        
-        if (record.getIsPrivate() != null) {
-            sql.VALUES("is_private", "#{isPrivate,jdbcType=INTEGER}");
-        }
-        
-        if (record.getDescription() != null) {
-            sql.VALUES("description", "#{description,jdbcType=VARCHAR}");
-        }
-        
-        if (record.getIsDelete() != null) {
-            sql.VALUES("is_delete", "#{isDelete,jdbcType=INTEGER}");
+        if (record.getStatus() != null) {
+            sql.VALUES("status", "#{status,jdbcType=INTEGER}");
         }
         
         if (record.getCreateTime() != null) {
@@ -63,22 +51,19 @@ public class SwCustomGroupSqlProvider {
         return sql.toString();
     }
 
-    public String selectByExample(SwCustomGroupExample example) {
+    public String selectByExample(SwNotificationExample example) {
         SQL sql = new SQL();
         if (example != null && example.isDistinct()) {
             sql.SELECT_DISTINCT("id");
         } else {
             sql.SELECT("id");
         }
-        sql.SELECT("name");
-        sql.SELECT("owner");
-        sql.SELECT("group_type");
-        sql.SELECT("is_private");
-        sql.SELECT("description");
-        sql.SELECT("is_delete");
+        sql.SELECT("content");
+        sql.SELECT("consumer");
+        sql.SELECT("status");
         sql.SELECT("create_time");
         sql.SELECT("datetime_lastchange");
-        sql.FROM("sw_custom_group");
+        sql.FROM("sw_notification");
         applyWhere(sql, example, false);
         
         if (example != null && example.getOrderByClause() != null) {
@@ -89,38 +74,26 @@ public class SwCustomGroupSqlProvider {
     }
 
     public String updateByExampleSelective(Map<String, Object> parameter) {
-        SwCustomGroup record = (SwCustomGroup) parameter.get("record");
-        SwCustomGroupExample example = (SwCustomGroupExample) parameter.get("example");
+        SwNotification record = (SwNotification) parameter.get("record");
+        SwNotificationExample example = (SwNotificationExample) parameter.get("example");
         
         SQL sql = new SQL();
-        sql.UPDATE("sw_custom_group");
+        sql.UPDATE("sw_notification");
         
         if (record.getId() != null) {
             sql.SET("id = #{record.id,jdbcType=INTEGER}");
         }
         
-        if (record.getName() != null) {
-            sql.SET("name = #{record.name,jdbcType=VARCHAR}");
+        if (record.getContent() != null) {
+            sql.SET("content = #{record.content,jdbcType=VARCHAR}");
         }
         
-        if (record.getOwner() != null) {
-            sql.SET("owner = #{record.owner,jdbcType=VARCHAR}");
+        if (record.getConsumer() != null) {
+            sql.SET("consumer = #{record.consumer,jdbcType=VARCHAR}");
         }
         
-        if (record.getGroupType() != null) {
-            sql.SET("group_type = #{record.groupType,jdbcType=INTEGER}");
-        }
-        
-        if (record.getIsPrivate() != null) {
-            sql.SET("is_private = #{record.isPrivate,jdbcType=INTEGER}");
-        }
-        
-        if (record.getDescription() != null) {
-            sql.SET("description = #{record.description,jdbcType=VARCHAR}");
-        }
-        
-        if (record.getIsDelete() != null) {
-            sql.SET("is_delete = #{record.isDelete,jdbcType=INTEGER}");
+        if (record.getStatus() != null) {
+            sql.SET("status = #{record.status,jdbcType=INTEGER}");
         }
         
         if (record.getCreateTime() != null) {
@@ -137,49 +110,34 @@ public class SwCustomGroupSqlProvider {
 
     public String updateByExample(Map<String, Object> parameter) {
         SQL sql = new SQL();
-        sql.UPDATE("sw_custom_group");
+        sql.UPDATE("sw_notification");
         
         sql.SET("id = #{record.id,jdbcType=INTEGER}");
-        sql.SET("name = #{record.name,jdbcType=VARCHAR}");
-        sql.SET("owner = #{record.owner,jdbcType=VARCHAR}");
-        sql.SET("group_type = #{record.groupType,jdbcType=INTEGER}");
-        sql.SET("is_private = #{record.isPrivate,jdbcType=INTEGER}");
-        sql.SET("description = #{record.description,jdbcType=VARCHAR}");
-        sql.SET("is_delete = #{record.isDelete,jdbcType=INTEGER}");
+        sql.SET("content = #{record.content,jdbcType=VARCHAR}");
+        sql.SET("consumer = #{record.consumer,jdbcType=VARCHAR}");
+        sql.SET("status = #{record.status,jdbcType=INTEGER}");
         sql.SET("create_time = #{record.createTime,jdbcType=TIMESTAMP}");
         sql.SET("datetime_lastchange = #{record.datetimeLastchange,jdbcType=TIMESTAMP}");
         
-        SwCustomGroupExample example = (SwCustomGroupExample) parameter.get("example");
+        SwNotificationExample example = (SwNotificationExample) parameter.get("example");
         applyWhere(sql, example, true);
         return sql.toString();
     }
 
-    public String updateByPrimaryKeySelective(SwCustomGroup record) {
+    public String updateByPrimaryKeySelective(SwNotification record) {
         SQL sql = new SQL();
-        sql.UPDATE("sw_custom_group");
+        sql.UPDATE("sw_notification");
         
-        if (record.getName() != null) {
-            sql.SET("name = #{name,jdbcType=VARCHAR}");
+        if (record.getContent() != null) {
+            sql.SET("content = #{content,jdbcType=VARCHAR}");
         }
         
-        if (record.getOwner() != null) {
-            sql.SET("owner = #{owner,jdbcType=VARCHAR}");
+        if (record.getConsumer() != null) {
+            sql.SET("consumer = #{consumer,jdbcType=VARCHAR}");
         }
         
-        if (record.getGroupType() != null) {
-            sql.SET("group_type = #{groupType,jdbcType=INTEGER}");
-        }
-        
-        if (record.getIsPrivate() != null) {
-            sql.SET("is_private = #{isPrivate,jdbcType=INTEGER}");
-        }
-        
-        if (record.getDescription() != null) {
-            sql.SET("description = #{description,jdbcType=VARCHAR}");
-        }
-        
-        if (record.getIsDelete() != null) {
-            sql.SET("is_delete = #{isDelete,jdbcType=INTEGER}");
+        if (record.getStatus() != null) {
+            sql.SET("status = #{status,jdbcType=INTEGER}");
         }
         
         if (record.getCreateTime() != null) {
@@ -195,7 +153,7 @@ public class SwCustomGroupSqlProvider {
         return sql.toString();
     }
 
-    protected void applyWhere(SQL sql, SwCustomGroupExample example, boolean includeExamplePhrase) {
+    protected void applyWhere(SQL sql, SwNotificationExample example, boolean includeExamplePhrase) {
         if (example == null) {
             return;
         }

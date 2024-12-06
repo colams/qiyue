@@ -1,51 +1,39 @@
 package com.foxconn.sw.data.mapper.auto;
 
-import com.foxconn.sw.data.entity.SwCustomGroup;
-import com.foxconn.sw.data.entity.SwCustomGroupExample.Criteria;
-import com.foxconn.sw.data.entity.SwCustomGroupExample.Criterion;
-import com.foxconn.sw.data.entity.SwCustomGroupExample;
+import com.foxconn.sw.data.entity.SwCustomGroupFavorite;
+import com.foxconn.sw.data.entity.SwCustomGroupFavoriteExample.Criteria;
+import com.foxconn.sw.data.entity.SwCustomGroupFavoriteExample.Criterion;
+import com.foxconn.sw.data.entity.SwCustomGroupFavoriteExample;
 import java.util.List;
 import java.util.Map;
 import org.apache.ibatis.jdbc.SQL;
 
-public class SwCustomGroupSqlProvider {
+public class SwCustomGroupFavoriteSqlProvider {
 
-    public String countByExample(SwCustomGroupExample example) {
+    public String countByExample(SwCustomGroupFavoriteExample example) {
         SQL sql = new SQL();
-        sql.SELECT("count(*)").FROM("sw_custom_group");
+        sql.SELECT("count(*)").FROM("sw_custom_group_favorite");
         applyWhere(sql, example, false);
         return sql.toString();
     }
 
-    public String deleteByExample(SwCustomGroupExample example) {
+    public String deleteByExample(SwCustomGroupFavoriteExample example) {
         SQL sql = new SQL();
-        sql.DELETE_FROM("sw_custom_group");
+        sql.DELETE_FROM("sw_custom_group_favorite");
         applyWhere(sql, example, false);
         return sql.toString();
     }
 
-    public String insertSelective(SwCustomGroup record) {
+    public String insertSelective(SwCustomGroupFavorite record) {
         SQL sql = new SQL();
-        sql.INSERT_INTO("sw_custom_group");
+        sql.INSERT_INTO("sw_custom_group_favorite");
         
-        if (record.getName() != null) {
-            sql.VALUES("name", "#{name,jdbcType=VARCHAR}");
+        if (record.getCustomGroupId() != null) {
+            sql.VALUES("custom_group_id", "#{customGroupId,jdbcType=INTEGER}");
         }
         
-        if (record.getOwner() != null) {
-            sql.VALUES("owner", "#{owner,jdbcType=VARCHAR}");
-        }
-        
-        if (record.getGroupType() != null) {
-            sql.VALUES("group_type", "#{groupType,jdbcType=INTEGER}");
-        }
-        
-        if (record.getIsPrivate() != null) {
-            sql.VALUES("is_private", "#{isPrivate,jdbcType=INTEGER}");
-        }
-        
-        if (record.getDescription() != null) {
-            sql.VALUES("description", "#{description,jdbcType=VARCHAR}");
+        if (record.getOperator() != null) {
+            sql.VALUES("operator", "#{operator,jdbcType=VARCHAR}");
         }
         
         if (record.getIsDelete() != null) {
@@ -63,22 +51,19 @@ public class SwCustomGroupSqlProvider {
         return sql.toString();
     }
 
-    public String selectByExample(SwCustomGroupExample example) {
+    public String selectByExample(SwCustomGroupFavoriteExample example) {
         SQL sql = new SQL();
         if (example != null && example.isDistinct()) {
             sql.SELECT_DISTINCT("id");
         } else {
             sql.SELECT("id");
         }
-        sql.SELECT("name");
-        sql.SELECT("owner");
-        sql.SELECT("group_type");
-        sql.SELECT("is_private");
-        sql.SELECT("description");
+        sql.SELECT("custom_group_id");
+        sql.SELECT("operator");
         sql.SELECT("is_delete");
         sql.SELECT("create_time");
         sql.SELECT("datetime_lastchange");
-        sql.FROM("sw_custom_group");
+        sql.FROM("sw_custom_group_favorite");
         applyWhere(sql, example, false);
         
         if (example != null && example.getOrderByClause() != null) {
@@ -89,34 +74,22 @@ public class SwCustomGroupSqlProvider {
     }
 
     public String updateByExampleSelective(Map<String, Object> parameter) {
-        SwCustomGroup record = (SwCustomGroup) parameter.get("record");
-        SwCustomGroupExample example = (SwCustomGroupExample) parameter.get("example");
+        SwCustomGroupFavorite record = (SwCustomGroupFavorite) parameter.get("record");
+        SwCustomGroupFavoriteExample example = (SwCustomGroupFavoriteExample) parameter.get("example");
         
         SQL sql = new SQL();
-        sql.UPDATE("sw_custom_group");
+        sql.UPDATE("sw_custom_group_favorite");
         
         if (record.getId() != null) {
             sql.SET("id = #{record.id,jdbcType=INTEGER}");
         }
         
-        if (record.getName() != null) {
-            sql.SET("name = #{record.name,jdbcType=VARCHAR}");
+        if (record.getCustomGroupId() != null) {
+            sql.SET("custom_group_id = #{record.customGroupId,jdbcType=INTEGER}");
         }
         
-        if (record.getOwner() != null) {
-            sql.SET("owner = #{record.owner,jdbcType=VARCHAR}");
-        }
-        
-        if (record.getGroupType() != null) {
-            sql.SET("group_type = #{record.groupType,jdbcType=INTEGER}");
-        }
-        
-        if (record.getIsPrivate() != null) {
-            sql.SET("is_private = #{record.isPrivate,jdbcType=INTEGER}");
-        }
-        
-        if (record.getDescription() != null) {
-            sql.SET("description = #{record.description,jdbcType=VARCHAR}");
+        if (record.getOperator() != null) {
+            sql.SET("operator = #{record.operator,jdbcType=VARCHAR}");
         }
         
         if (record.getIsDelete() != null) {
@@ -137,45 +110,30 @@ public class SwCustomGroupSqlProvider {
 
     public String updateByExample(Map<String, Object> parameter) {
         SQL sql = new SQL();
-        sql.UPDATE("sw_custom_group");
+        sql.UPDATE("sw_custom_group_favorite");
         
         sql.SET("id = #{record.id,jdbcType=INTEGER}");
-        sql.SET("name = #{record.name,jdbcType=VARCHAR}");
-        sql.SET("owner = #{record.owner,jdbcType=VARCHAR}");
-        sql.SET("group_type = #{record.groupType,jdbcType=INTEGER}");
-        sql.SET("is_private = #{record.isPrivate,jdbcType=INTEGER}");
-        sql.SET("description = #{record.description,jdbcType=VARCHAR}");
+        sql.SET("custom_group_id = #{record.customGroupId,jdbcType=INTEGER}");
+        sql.SET("operator = #{record.operator,jdbcType=VARCHAR}");
         sql.SET("is_delete = #{record.isDelete,jdbcType=INTEGER}");
         sql.SET("create_time = #{record.createTime,jdbcType=TIMESTAMP}");
         sql.SET("datetime_lastchange = #{record.datetimeLastchange,jdbcType=TIMESTAMP}");
         
-        SwCustomGroupExample example = (SwCustomGroupExample) parameter.get("example");
+        SwCustomGroupFavoriteExample example = (SwCustomGroupFavoriteExample) parameter.get("example");
         applyWhere(sql, example, true);
         return sql.toString();
     }
 
-    public String updateByPrimaryKeySelective(SwCustomGroup record) {
+    public String updateByPrimaryKeySelective(SwCustomGroupFavorite record) {
         SQL sql = new SQL();
-        sql.UPDATE("sw_custom_group");
+        sql.UPDATE("sw_custom_group_favorite");
         
-        if (record.getName() != null) {
-            sql.SET("name = #{name,jdbcType=VARCHAR}");
+        if (record.getCustomGroupId() != null) {
+            sql.SET("custom_group_id = #{customGroupId,jdbcType=INTEGER}");
         }
         
-        if (record.getOwner() != null) {
-            sql.SET("owner = #{owner,jdbcType=VARCHAR}");
-        }
-        
-        if (record.getGroupType() != null) {
-            sql.SET("group_type = #{groupType,jdbcType=INTEGER}");
-        }
-        
-        if (record.getIsPrivate() != null) {
-            sql.SET("is_private = #{isPrivate,jdbcType=INTEGER}");
-        }
-        
-        if (record.getDescription() != null) {
-            sql.SET("description = #{description,jdbcType=VARCHAR}");
+        if (record.getOperator() != null) {
+            sql.SET("operator = #{operator,jdbcType=VARCHAR}");
         }
         
         if (record.getIsDelete() != null) {
@@ -195,7 +153,7 @@ public class SwCustomGroupSqlProvider {
         return sql.toString();
     }
 
-    protected void applyWhere(SQL sql, SwCustomGroupExample example, boolean includeExamplePhrase) {
+    protected void applyWhere(SQL sql, SwCustomGroupFavoriteExample example, boolean includeExamplePhrase) {
         if (example == null) {
             return;
         }

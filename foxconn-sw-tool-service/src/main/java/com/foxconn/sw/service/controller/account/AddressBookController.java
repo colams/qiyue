@@ -9,7 +9,6 @@ import com.foxconn.sw.data.dto.entity.acount.AddressBookVo;
 import com.foxconn.sw.data.dto.entity.acount.AddressGatherParams;
 import com.foxconn.sw.data.dto.entity.universal.StringParams;
 import com.foxconn.sw.service.aspects.Permission;
-import com.foxconn.sw.service.processor.acount.CreateGroupProcessor;
 import com.foxconn.sw.service.processor.acount.GatherAddressBookProcessor;
 import com.foxconn.sw.service.processor.acount.ListAddressBookProcessor;
 import com.foxconn.sw.service.utils.ExcelAddresskBookUtils;
@@ -65,46 +64,6 @@ public class AddressBookController {
     @PostMapping("/gather")
     public Response gather(@Valid @RequestBody Request<AddressGatherParams> request) {
         gatherAddressBookProcessor.gather(request.getHead(), request.getData());
-        return ResponseUtils.success(null, request.getTraceId());
-    }
-
-    @Operation(summary = "创建自定义群组", tags = TagsConstants.ACCOUNT)
-    @ApiResponse(responseCode = "0", description = "成功码")
-    @PostMapping("/createGroup")
-    public Response createGroup(@Valid @RequestBody Request<StringParams> request) {
-        createGroup.createGroup(request.getHead(), request.getData());
-        return ResponseUtils.success(null, request.getTraceId());
-    }
-
-    @Operation(summary = "删除自定义群组", tags = TagsConstants.ACCOUNT)
-    @ApiResponse(responseCode = "0", description = "成功码")
-    @PostMapping("/deleteGroup")
-    public Response deleteGroup(@Valid @RequestBody Request<StringParams> request) {
-        createGroup.createGroup(request.getHead(), request.getData());
-        return ResponseUtils.success(null, request.getTraceId());
-    }
-
-    @Operation(summary = "自定义群组成员更新", tags = TagsConstants.ACCOUNT)
-    @ApiResponse(responseCode = "0", description = "成功码")
-    @PostMapping("/updateMember")
-    public Response updateMember(@Valid @RequestBody Request<StringParams> request) {
-        createGroup.createGroup(request.getHead(), request.getData());
-        return ResponseUtils.success(null, request.getTraceId());
-    }
-
-    @Operation(summary = "群组查找", tags = TagsConstants.ACCOUNT)
-    @ApiResponse(responseCode = "0", description = "成功码")
-    @PostMapping("/listGroup")
-    public Response listGroup(@Valid @RequestBody Request<StringParams> request) {
-        createGroup.createGroup(request.getHead(), request.getData());
-        return ResponseUtils.success(null, request.getTraceId());
-    }
-
-    @Operation(summary = "群组成员查找", tags = TagsConstants.ACCOUNT)
-    @ApiResponse(responseCode = "0", description = "成功码")
-    @PostMapping("/listGroupMember")
-    public Response listGroupMember(@Valid @RequestBody Request<StringParams> request) {
-        createGroup.createGroup(request.getHead(), request.getData());
         return ResponseUtils.success(null, request.getTraceId());
     }
 

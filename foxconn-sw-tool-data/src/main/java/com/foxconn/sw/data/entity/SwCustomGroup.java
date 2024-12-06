@@ -9,6 +9,12 @@ public class SwCustomGroup {
 
     private String owner;
 
+    private Integer groupType;
+
+    private Integer isPrivate;
+
+    private String description;
+
     private Integer isDelete;
 
     private LocalDateTime createTime;
@@ -52,6 +58,45 @@ public class SwCustomGroup {
 
     public void setOwner(String owner) {
         this.owner = owner == null ? null : owner.trim();
+    }
+
+    public Integer getGroupType() {
+        return groupType;
+    }
+
+    public SwCustomGroup withGroupType(Integer groupType) {
+        this.setGroupType(groupType);
+        return this;
+    }
+
+    public void setGroupType(Integer groupType) {
+        this.groupType = groupType;
+    }
+
+    public Integer getIsPrivate() {
+        return isPrivate;
+    }
+
+    public SwCustomGroup withIsPrivate(Integer isPrivate) {
+        this.setIsPrivate(isPrivate);
+        return this;
+    }
+
+    public void setIsPrivate(Integer isPrivate) {
+        this.isPrivate = isPrivate;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public SwCustomGroup withDescription(String description) {
+        this.setDescription(description);
+        return this;
+    }
+
+    public void setDescription(String description) {
+        this.description = description == null ? null : description.trim();
     }
 
     public Integer getIsDelete() {

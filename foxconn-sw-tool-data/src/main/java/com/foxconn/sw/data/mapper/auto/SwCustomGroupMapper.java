@@ -35,11 +35,13 @@ public interface SwCustomGroupMapper {
 
     @Insert({
         "insert into sw_custom_group (name, owner, ",
-        "is_delete, create_time, ",
-        "datetime_lastchange)",
+        "group_type, is_private, ",
+        "description, is_delete, ",
+        "create_time, datetime_lastchange)",
         "values (#{name,jdbcType=VARCHAR}, #{owner,jdbcType=VARCHAR}, ",
-        "#{isDelete,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, ",
-        "#{datetimeLastchange,jdbcType=TIMESTAMP})"
+        "#{groupType,jdbcType=INTEGER}, #{isPrivate,jdbcType=INTEGER}, ",
+        "#{description,jdbcType=VARCHAR}, #{isDelete,jdbcType=INTEGER}, ",
+        "#{createTime,jdbcType=TIMESTAMP}, #{datetimeLastchange,jdbcType=TIMESTAMP})"
     })
     @SelectKey(statement="SELECT LAST_INSERT_ID()", keyProperty="id", before=false, resultType=Integer.class)
     int insert(SwCustomGroup record);
@@ -53,6 +55,9 @@ public interface SwCustomGroupMapper {
         @Result(column="id", property="id", jdbcType=JdbcType.INTEGER, id=true),
         @Result(column="name", property="name", jdbcType=JdbcType.VARCHAR),
         @Result(column="owner", property="owner", jdbcType=JdbcType.VARCHAR),
+        @Result(column="group_type", property="groupType", jdbcType=JdbcType.INTEGER),
+        @Result(column="is_private", property="isPrivate", jdbcType=JdbcType.INTEGER),
+        @Result(column="description", property="description", jdbcType=JdbcType.VARCHAR),
         @Result(column="is_delete", property="isDelete", jdbcType=JdbcType.INTEGER),
         @Result(column="create_time", property="createTime", jdbcType=JdbcType.TIMESTAMP),
         @Result(column="datetime_lastchange", property="datetimeLastchange", jdbcType=JdbcType.TIMESTAMP)
@@ -64,6 +69,9 @@ public interface SwCustomGroupMapper {
         @Result(column="id", property="id", jdbcType=JdbcType.INTEGER, id=true),
         @Result(column="name", property="name", jdbcType=JdbcType.VARCHAR),
         @Result(column="owner", property="owner", jdbcType=JdbcType.VARCHAR),
+        @Result(column="group_type", property="groupType", jdbcType=JdbcType.INTEGER),
+        @Result(column="is_private", property="isPrivate", jdbcType=JdbcType.INTEGER),
+        @Result(column="description", property="description", jdbcType=JdbcType.VARCHAR),
         @Result(column="is_delete", property="isDelete", jdbcType=JdbcType.INTEGER),
         @Result(column="create_time", property="createTime", jdbcType=JdbcType.TIMESTAMP),
         @Result(column="datetime_lastchange", property="datetimeLastchange", jdbcType=JdbcType.TIMESTAMP)
@@ -72,7 +80,8 @@ public interface SwCustomGroupMapper {
 
     @Select({
         "select",
-        "id, name, owner, is_delete, create_time, datetime_lastchange",
+        "id, name, owner, group_type, is_private, description, is_delete, create_time, ",
+        "datetime_lastchange",
         "from sw_custom_group",
         "where id = #{id,jdbcType=INTEGER}"
     })
@@ -80,6 +89,9 @@ public interface SwCustomGroupMapper {
         @Result(column="id", property="id", jdbcType=JdbcType.INTEGER, id=true),
         @Result(column="name", property="name", jdbcType=JdbcType.VARCHAR),
         @Result(column="owner", property="owner", jdbcType=JdbcType.VARCHAR),
+        @Result(column="group_type", property="groupType", jdbcType=JdbcType.INTEGER),
+        @Result(column="is_private", property="isPrivate", jdbcType=JdbcType.INTEGER),
+        @Result(column="description", property="description", jdbcType=JdbcType.VARCHAR),
         @Result(column="is_delete", property="isDelete", jdbcType=JdbcType.INTEGER),
         @Result(column="create_time", property="createTime", jdbcType=JdbcType.TIMESTAMP),
         @Result(column="datetime_lastchange", property="datetimeLastchange", jdbcType=JdbcType.TIMESTAMP)
@@ -99,6 +111,9 @@ public interface SwCustomGroupMapper {
         "update sw_custom_group",
         "set name = #{name,jdbcType=VARCHAR},",
           "owner = #{owner,jdbcType=VARCHAR},",
+          "group_type = #{groupType,jdbcType=INTEGER},",
+          "is_private = #{isPrivate,jdbcType=INTEGER},",
+          "description = #{description,jdbcType=VARCHAR},",
           "is_delete = #{isDelete,jdbcType=INTEGER},",
           "create_time = #{createTime,jdbcType=TIMESTAMP},",
           "datetime_lastchange = #{datetimeLastchange,jdbcType=TIMESTAMP}",

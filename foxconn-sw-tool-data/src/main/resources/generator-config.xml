@@ -112,6 +112,15 @@
         <table tableName="sw_custom_group">
             <generatedKey column="id" identity="true" sqlStatement="mysql"/>
         </table>
+        <table tableName="sw_custom_group_apply">
+            <generatedKey column="id" identity="true" sqlStatement="mysql"/>
+        </table>
+        <table tableName="sw_custom_group_favorite">
+            <generatedKey column="id" identity="true" sqlStatement="mysql"/>
+        </table>
+        <table tableName="sw_custom_group_member">
+            <generatedKey column="id" identity="true" sqlStatement="mysql"/>
+        </table>
         <table tableName="sw_custom_member">
             <generatedKey column="id" identity="true" sqlStatement="mysql"/>
         </table>
@@ -149,6 +158,9 @@
         </table>
 
         <table tableName="sw_menu">
+            <generatedKey column="id" identity="true" sqlStatement="mysql"/>
+        </table>
+        <table tableName="sw_notification">
             <generatedKey column="id" identity="true" sqlStatement="mysql"/>
         </table>
         <table tableName="sw_project">
