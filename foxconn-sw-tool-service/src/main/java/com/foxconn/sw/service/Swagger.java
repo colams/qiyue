@@ -56,7 +56,8 @@ public class Swagger {
     public GroupedOpenApi accountApi() {
         String[] paths = new String[]{
                 "/api/" + TagsConstants.ACCOUNT + "/**",
-                "/api/profile/**"
+                "/api/profile/**",
+                "/api/group/**"
         };
         return createGroupedOpenApi(TagsConstants.ACCOUNT, paths);
     }

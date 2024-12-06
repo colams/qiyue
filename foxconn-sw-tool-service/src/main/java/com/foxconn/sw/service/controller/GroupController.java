@@ -33,7 +33,7 @@ public class GroupController {
     GroupListProcessor groupListProcessor;
 
     @Permission
-    @Operation(summary = "创建群组", tags = TagsConstants.SYSTEM)
+    @Operation(summary = "创建群组", tags = TagsConstants.GROUP)
     @ApiResponse(responseCode = "0", description = "成功码")
     @PostMapping("/create")
     public Response<GroupBriefVo> create(@Valid @RequestBody Request<CreateGroupParams> request) {
@@ -42,7 +42,7 @@ public class GroupController {
     }
 
     @Permission
-    @Operation(summary = "维护群组信息", tags = TagsConstants.SYSTEM)
+    @Operation(summary = "维护群组信息", tags = TagsConstants.GROUP)
     @ApiResponse(responseCode = "0", description = "成功码")
     @PostMapping("/update")
     public Response<GroupBriefVo> update(@Valid @RequestBody Request<CreateGroupParams> request) {
@@ -51,7 +51,7 @@ public class GroupController {
     }
 
     @Permission
-    @Operation(summary = "获取群组", tags = TagsConstants.SYSTEM)
+    @Operation(summary = "获取群组", tags = TagsConstants.GROUP)
     @ApiResponse(responseCode = "0", description = "成功码")
     @PostMapping("/list")
     public Response<PageEntity> list(@Valid @RequestBody Request<PageParams<SearchGroupParams>> request) {
@@ -61,7 +61,7 @@ public class GroupController {
 
 
     @Permission
-    @Operation(summary = "申请加入群组", tags = TagsConstants.SYSTEM)
+    @Operation(summary = "申请加入群组", tags = TagsConstants.GROUP)
     @ApiResponse(responseCode = "0", description = "成功码")
     @PostMapping("/applyJoin")
     public Response<Boolean> applyJoin(@Valid @RequestBody Request<ApplyJoinGroupParams> request) {
@@ -70,7 +70,7 @@ public class GroupController {
 
 
     @Permission
-    @Operation(summary = "處理申請加群操作", tags = TagsConstants.SYSTEM)
+    @Operation(summary = "處理申請加群操作", tags = TagsConstants.GROUP)
     @ApiResponse(responseCode = "0", description = "成功码")
     @PostMapping("/process")
     public Response<Boolean> processApply(@Valid @RequestBody Request<ProcessApplyParams> request) {
@@ -78,7 +78,7 @@ public class GroupController {
     }
 
     @Permission
-    @Operation(summary = "获取待处理加群操作", tags = TagsConstants.SYSTEM)
+    @Operation(summary = "获取待处理加群操作", tags = TagsConstants.GROUP)
     @ApiResponse(responseCode = "0", description = "成功码")
     @PostMapping("/applyList")
     public Response<Boolean> applyList(@Valid @RequestBody Request<ProcessApplyParams> request) {
@@ -87,7 +87,7 @@ public class GroupController {
 
 
     @Permission
-    @Operation(summary = "解散群组操作", tags = TagsConstants.SYSTEM)
+    @Operation(summary = "解散群组操作", tags = TagsConstants.GROUP)
     @ApiResponse(responseCode = "0", description = "成功码")
     @PostMapping("/disband")
     public Response<Boolean> disband(@Valid @RequestBody Request<IntegerParams> request) {
@@ -95,7 +95,7 @@ public class GroupController {
     }
 
     @Permission
-    @Operation(summary = "收藏群组操作", tags = TagsConstants.SYSTEM)
+    @Operation(summary = "收藏群组操作", tags = TagsConstants.GROUP)
     @ApiResponse(responseCode = "0", description = "成功码")
     @PostMapping("/collect")
     public Response<Boolean> collect(@Valid @RequestBody Request<IntegerParams> request) {
@@ -103,7 +103,7 @@ public class GroupController {
     }
 
     @Permission
-    @Operation(summary = "查看群组成员操作", tags = TagsConstants.SYSTEM)
+    @Operation(summary = "查看群组成员操作", tags = TagsConstants.GROUP)
     @ApiResponse(responseCode = "0", description = "成功码")
     @PostMapping("/members")
     public Response<Boolean> members(@Valid @RequestBody Request<IntegerParams> request) {

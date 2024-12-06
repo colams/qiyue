@@ -21,6 +21,9 @@ public interface TagsConstants {
     String FORUMS = "forums";
     String COMMENTS = "Comment";
     String SYSTEM = "system";
+    String GROUP = "group";
+
+
 
     List<String> tagList = Lists.newArrayList(TOOL, ACCOUNT, ROUTE, MENU, OA, UNIVERSAL, ANNOUNCEMENT, SYSTEM, FORUMS,COMMENTS);
 
