@@ -1,10 +1,10 @@
 package com.foxconn.sw.data.dto.request.group;
 
-public class ApplyJoinGroupParams {
+public class ProcessApplyParams {
 
     private Integer groupId;
 
-    private String remark;
+    private Integer status;
 
     public Integer getGroupId() {
         return groupId;
@@ -14,11 +14,11 @@ public class ApplyJoinGroupParams {
         this.groupId = groupId;
     }
 
-    public String getRemark() {
-        return remark;
+    public Integer getStatus() {
+        return status;
     }
 
-    public void setRemark(String remark) {
-        this.remark = remark;
+    public void setStatus(Integer status) {
+        this.status = status;
     }
 }

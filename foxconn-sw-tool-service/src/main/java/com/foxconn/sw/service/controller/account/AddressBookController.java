@@ -37,8 +37,6 @@ public class AddressBookController {
     @Autowired
     GatherAddressBookProcessor gatherAddressBookProcessor;
     @Autowired
-    CreateGroupProcessor createGroup;
-    @Autowired
     HttpServletResponse response;
 
     @Permission

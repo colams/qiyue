@@ -1,25 +1,23 @@
 package com.foxconn.sw.data.dto.entity.group;
 
 import com.foxconn.sw.data.dto.entity.acount.EmployeeVo;
+import com.foxconn.sw.data.dto.entity.oa.InfoColorVo;
 
-public class GroupDetailVo {
+public class GroupBriefVo {
 
     private Integer id;
     private String name;
     private EmployeeVo owner;
-    private GroupType groupType;
+    private InfoColorVo groupType;
     private String createTime;
     private String description;
 
     /**
-     * true -已收藏，0- 未收藏
+     * true -已收藏，false- 未收藏
      */
     private boolean collectStatus;
 
-    /**
-     *
-     */
-    private boolean canJoin;
+    private ApplyJoinVo joinVo;
 
     public Integer getId() {
         return id;
@@ -45,11 +43,11 @@ public class GroupDetailVo {
         this.owner = owner;
     }
 
-    public GroupType getGroupType() {
+    public InfoColorVo getGroupType() {
         return groupType;
     }
 
-    public void setGroupType(GroupType groupType) {
+    public void setGroupType(InfoColorVo groupType) {
         this.groupType = groupType;
     }
 
@@ -77,11 +75,11 @@ public class GroupDetailVo {
         this.collectStatus = collectStatus;
     }
 
-    public boolean isCanJoin() {
-        return canJoin;
+    public ApplyJoinVo getJoinVo() {
+        return joinVo;
     }
 
-    public void setCanJoin(boolean canJoin) {
-        this.canJoin = canJoin;
+    public void setJoinVo(ApplyJoinVo joinVo) {
+        this.joinVo = joinVo;
     }
 }
