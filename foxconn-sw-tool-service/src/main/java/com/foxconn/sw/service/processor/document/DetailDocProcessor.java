@@ -6,6 +6,7 @@ import com.foxconn.sw.business.oa.SwDocumentBusiness;
 import com.foxconn.sw.business.oa.SwDocumentHistoryBusiness;
 import com.foxconn.sw.business.oa.SwDocumentPermissionBusiness;
 import com.foxconn.sw.business.system.EmployeeBusiness;
+import com.foxconn.sw.common.constanst.NumberConstants;
 import com.foxconn.sw.common.context.RequestContext;
 import com.foxconn.sw.common.utils.ConvertUtils;
 import com.foxconn.sw.common.utils.DateTimeUtils;
@@ -55,12 +56,12 @@ public class DetailDocProcessor {
         vo.setDownloadUrl(ConvertUtils.urlPreFix(resource.getId(), resource.getFilePath()));
         vo.setFileID(resource.getId());
         vo.setViewUrl(appendResourceBusiness.getResourceUrl(resource));
-        if (Integer.valueOf(0).equals(e.getSecretLevel()) || Integer.valueOf(1).equals(e.getSecretLevel())) {
-            vo.setTitle("公開");
-        } else if (Integer.valueOf(2).equals(e.getSecretLevel())) {
+        if (NumberConstants.TWO.equals(e.getSecretLevel())) {
             vo.setTitle("一般機密");
-        } else if (Integer.valueOf(3).equals(e.getSecretLevel())) {
+        } else if (NumberConstants.THREE.equals(e.getSecretLevel())) {
             vo.setTitle("絕對機密");
+        } else {
+            vo.setTitle("公開");
         }
         vo.setLevel(e.getSecretLevel());
         vo.setProject(e.getProject());
