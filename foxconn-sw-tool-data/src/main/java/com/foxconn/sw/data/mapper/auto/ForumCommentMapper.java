@@ -36,14 +36,14 @@ public interface ForumCommentMapper {
     @Insert({
         "insert into forum_comment (posts_id, parent_id, ",
         "target_id, author_no, ",
-        "resources, content, ",
-        "is_delete, create_time, ",
-        "datetime_lastchange)",
+        "resources, is_delete, ",
+        "create_time, datetime_lastchange, ",
+        "content)",
         "values (#{postsId,jdbcType=INTEGER}, #{parentId,jdbcType=INTEGER}, ",
         "#{targetId,jdbcType=INTEGER}, #{authorNo,jdbcType=VARCHAR}, ",
-        "#{resources,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR}, ",
-        "#{isDelete,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, ",
-        "#{datetimeLastchange,jdbcType=TIMESTAMP})"
+        "#{resources,jdbcType=VARCHAR}, #{isDelete,jdbcType=INTEGER}, ",
+        "#{createTime,jdbcType=TIMESTAMP}, #{datetimeLastchange,jdbcType=TIMESTAMP}, ",
+        "#{content,jdbcType=LONGVARCHAR})"
     })
     @SelectKey(statement="SELECT LAST_INSERT_ID()", keyProperty="id", before=false, resultType=Integer.class)
     int insert(ForumComment record);
@@ -51,6 +51,36 @@ public interface ForumCommentMapper {
     @InsertProvider(type=ForumCommentSqlProvider.class, method="insertSelective")
     @SelectKey(statement="SELECT LAST_INSERT_ID()", keyProperty="id", before=false, resultType=Integer.class)
     int insertSelective(ForumComment record);
+
+    @SelectProvider(type=ForumCommentSqlProvider.class, method="selectByExampleWithBLOBs")
+    @Results({
+        @Result(column="id", property="id", jdbcType=JdbcType.INTEGER, id=true),
+        @Result(column="posts_id", property="postsId", jdbcType=JdbcType.INTEGER),
+        @Result(column="parent_id", property="parentId", jdbcType=JdbcType.INTEGER),
+        @Result(column="target_id", property="targetId", jdbcType=JdbcType.INTEGER),
+        @Result(column="author_no", property="authorNo", jdbcType=JdbcType.VARCHAR),
+        @Result(column="resources", property="resources", jdbcType=JdbcType.VARCHAR),
+        @Result(column="is_delete", property="isDelete", jdbcType=JdbcType.INTEGER),
+        @Result(column="create_time", property="createTime", jdbcType=JdbcType.TIMESTAMP),
+        @Result(column="datetime_lastchange", property="datetimeLastchange", jdbcType=JdbcType.TIMESTAMP),
+        @Result(column="content", property="content", jdbcType=JdbcType.LONGVARCHAR)
+    })
+    List<ForumComment> selectByExampleWithBLOBsWithRowbounds(ForumCommentExample example, RowBounds rowBounds);
+
+    @SelectProvider(type=ForumCommentSqlProvider.class, method="selectByExampleWithBLOBs")
+    @Results({
+        @Result(column="id", property="id", jdbcType=JdbcType.INTEGER, id=true),
+        @Result(column="posts_id", property="postsId", jdbcType=JdbcType.INTEGER),
+        @Result(column="parent_id", property="parentId", jdbcType=JdbcType.INTEGER),
+        @Result(column="target_id", property="targetId", jdbcType=JdbcType.INTEGER),
+        @Result(column="author_no", property="authorNo", jdbcType=JdbcType.VARCHAR),
+        @Result(column="resources", property="resources", jdbcType=JdbcType.VARCHAR),
+        @Result(column="is_delete", property="isDelete", jdbcType=JdbcType.INTEGER),
+        @Result(column="create_time", property="createTime", jdbcType=JdbcType.TIMESTAMP),
+        @Result(column="datetime_lastchange", property="datetimeLastchange", jdbcType=JdbcType.TIMESTAMP),
+        @Result(column="content", property="content", jdbcType=JdbcType.LONGVARCHAR)
+    })
+    List<ForumComment> selectByExampleWithBLOBs(ForumCommentExample example);
 
     @SelectProvider(type=ForumCommentSqlProvider.class, method="selectByExample")
     @Results({
@@ -60,7 +90,6 @@ public interface ForumCommentMapper {
         @Result(column="target_id", property="targetId", jdbcType=JdbcType.INTEGER),
         @Result(column="author_no", property="authorNo", jdbcType=JdbcType.VARCHAR),
         @Result(column="resources", property="resources", jdbcType=JdbcType.VARCHAR),
-        @Result(column="content", property="content", jdbcType=JdbcType.VARCHAR),
         @Result(column="is_delete", property="isDelete", jdbcType=JdbcType.INTEGER),
         @Result(column="create_time", property="createTime", jdbcType=JdbcType.TIMESTAMP),
         @Result(column="datetime_lastchange", property="datetimeLastchange", jdbcType=JdbcType.TIMESTAMP)
@@ -75,7 +104,6 @@ public interface ForumCommentMapper {
         @Result(column="target_id", property="targetId", jdbcType=JdbcType.INTEGER),
         @Result(column="author_no", property="authorNo", jdbcType=JdbcType.VARCHAR),
         @Result(column="resources", property="resources", jdbcType=JdbcType.VARCHAR),
-        @Result(column="content", property="content", jdbcType=JdbcType.VARCHAR),
         @Result(column="is_delete", property="isDelete", jdbcType=JdbcType.INTEGER),
         @Result(column="create_time", property="createTime", jdbcType=JdbcType.TIMESTAMP),
         @Result(column="datetime_lastchange", property="datetimeLastchange", jdbcType=JdbcType.TIMESTAMP)
@@ -84,8 +112,8 @@ public interface ForumCommentMapper {
 
     @Select({
         "select",
-        "id, posts_id, parent_id, target_id, author_no, resources, content, is_delete, ",
-        "create_time, datetime_lastchange",
+        "id, posts_id, parent_id, target_id, author_no, resources, is_delete, create_time, ",
+        "datetime_lastchange, content",
         "from forum_comment",
         "where id = #{id,jdbcType=INTEGER}"
     })
@@ -96,15 +124,18 @@ public interface ForumCommentMapper {
         @Result(column="target_id", property="targetId", jdbcType=JdbcType.INTEGER),
         @Result(column="author_no", property="authorNo", jdbcType=JdbcType.VARCHAR),
         @Result(column="resources", property="resources", jdbcType=JdbcType.VARCHAR),
-        @Result(column="content", property="content", jdbcType=JdbcType.VARCHAR),
         @Result(column="is_delete", property="isDelete", jdbcType=JdbcType.INTEGER),
         @Result(column="create_time", property="createTime", jdbcType=JdbcType.TIMESTAMP),
-        @Result(column="datetime_lastchange", property="datetimeLastchange", jdbcType=JdbcType.TIMESTAMP)
+        @Result(column="datetime_lastchange", property="datetimeLastchange", jdbcType=JdbcType.TIMESTAMP),
+        @Result(column="content", property="content", jdbcType=JdbcType.LONGVARCHAR)
     })
     ForumComment selectByPrimaryKey(Integer id);
 
     @UpdateProvider(type=ForumCommentSqlProvider.class, method="updateByExampleSelective")
     int updateByExampleSelective(@Param("record") ForumComment record, @Param("example") ForumCommentExample example);
+
+    @UpdateProvider(type=ForumCommentSqlProvider.class, method="updateByExampleWithBLOBs")
+    int updateByExampleWithBLOBs(@Param("record") ForumComment record, @Param("example") ForumCommentExample example);
 
     @UpdateProvider(type=ForumCommentSqlProvider.class, method="updateByExample")
     int updateByExample(@Param("record") ForumComment record, @Param("example") ForumCommentExample example);
@@ -119,7 +150,21 @@ public interface ForumCommentMapper {
           "target_id = #{targetId,jdbcType=INTEGER},",
           "author_no = #{authorNo,jdbcType=VARCHAR},",
           "resources = #{resources,jdbcType=VARCHAR},",
-          "content = #{content,jdbcType=VARCHAR},",
+          "is_delete = #{isDelete,jdbcType=INTEGER},",
+          "create_time = #{createTime,jdbcType=TIMESTAMP},",
+          "datetime_lastchange = #{datetimeLastchange,jdbcType=TIMESTAMP},",
+          "content = #{content,jdbcType=LONGVARCHAR}",
+        "where id = #{id,jdbcType=INTEGER}"
+    })
+    int updateByPrimaryKeyWithBLOBs(ForumComment record);
+
+    @Update({
+        "update forum_comment",
+        "set posts_id = #{postsId,jdbcType=INTEGER},",
+          "parent_id = #{parentId,jdbcType=INTEGER},",
+          "target_id = #{targetId,jdbcType=INTEGER},",
+          "author_no = #{authorNo,jdbcType=VARCHAR},",
+          "resources = #{resources,jdbcType=VARCHAR},",
           "is_delete = #{isDelete,jdbcType=INTEGER},",
           "create_time = #{createTime,jdbcType=TIMESTAMP},",
           "datetime_lastchange = #{datetimeLastchange,jdbcType=TIMESTAMP}",

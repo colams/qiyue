@@ -15,13 +15,13 @@ public class ForumComment {
 
     private String resources;
 
-    private String content;
-
     private Integer isDelete;
 
     private LocalDateTime createTime;
 
     private LocalDateTime datetimeLastchange;
+
+    private String content;
 
     public Integer getId() {
         return id;
@@ -101,19 +101,6 @@ public class ForumComment {
         this.resources = resources == null ? null : resources.trim();
     }
 
-    public String getContent() {
-        return content;
-    }
-
-    public ForumComment withContent(String content) {
-        this.setContent(content);
-        return this;
-    }
-
-    public void setContent(String content) {
-        this.content = content == null ? null : content.trim();
-    }
-
     public Integer getIsDelete() {
         return isDelete;
     }
@@ -151,5 +138,18 @@ public class ForumComment {
 
     public void setDatetimeLastchange(LocalDateTime datetimeLastchange) {
         this.datetimeLastchange = datetimeLastchange;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public ForumComment withContent(String content) {
+        this.setContent(content);
+        return this;
+    }
+
+    public void setContent(String content) {
+        this.content = content == null ? null : content.trim();
     }
 }

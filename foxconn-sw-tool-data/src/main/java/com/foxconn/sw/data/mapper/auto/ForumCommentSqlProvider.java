@@ -48,10 +48,6 @@ public class ForumCommentSqlProvider {
             sql.VALUES("resources", "#{resources,jdbcType=VARCHAR}");
         }
         
-        if (record.getContent() != null) {
-            sql.VALUES("content", "#{content,jdbcType=VARCHAR}");
-        }
-        
         if (record.getIsDelete() != null) {
             sql.VALUES("is_delete", "#{isDelete,jdbcType=INTEGER}");
         }
@@ -62,6 +58,36 @@ public class ForumCommentSqlProvider {
         
         if (record.getDatetimeLastchange() != null) {
             sql.VALUES("datetime_lastchange", "#{datetimeLastchange,jdbcType=TIMESTAMP}");
+        }
+        
+        if (record.getContent() != null) {
+            sql.VALUES("content", "#{content,jdbcType=LONGVARCHAR}");
+        }
+        
+        return sql.toString();
+    }
+
+    public String selectByExampleWithBLOBs(ForumCommentExample example) {
+        SQL sql = new SQL();
+        if (example != null && example.isDistinct()) {
+            sql.SELECT_DISTINCT("id");
+        } else {
+            sql.SELECT("id");
+        }
+        sql.SELECT("posts_id");
+        sql.SELECT("parent_id");
+        sql.SELECT("target_id");
+        sql.SELECT("author_no");
+        sql.SELECT("resources");
+        sql.SELECT("is_delete");
+        sql.SELECT("create_time");
+        sql.SELECT("datetime_lastchange");
+        sql.SELECT("content");
+        sql.FROM("forum_comment");
+        applyWhere(sql, example, false);
+        
+        if (example != null && example.getOrderByClause() != null) {
+            sql.ORDER_BY(example.getOrderByClause());
         }
         
         return sql.toString();
@@ -79,7 +105,6 @@ public class ForumCommentSqlProvider {
         sql.SELECT("target_id");
         sql.SELECT("author_no");
         sql.SELECT("resources");
-        sql.SELECT("content");
         sql.SELECT("is_delete");
         sql.SELECT("create_time");
         sql.SELECT("datetime_lastchange");
@@ -124,10 +149,6 @@ public class ForumCommentSqlProvider {
             sql.SET("resources = #{record.resources,jdbcType=VARCHAR}");
         }
         
-        if (record.getContent() != null) {
-            sql.SET("content = #{record.content,jdbcType=VARCHAR}");
-        }
-        
         if (record.getIsDelete() != null) {
             sql.SET("is_delete = #{record.isDelete,jdbcType=INTEGER}");
         }
@@ -140,6 +161,30 @@ public class ForumCommentSqlProvider {
             sql.SET("datetime_lastchange = #{record.datetimeLastchange,jdbcType=TIMESTAMP}");
         }
         
+        if (record.getContent() != null) {
+            sql.SET("content = #{record.content,jdbcType=LONGVARCHAR}");
+        }
+        
+        applyWhere(sql, example, true);
+        return sql.toString();
+    }
+
+    public String updateByExampleWithBLOBs(Map<String, Object> parameter) {
+        SQL sql = new SQL();
+        sql.UPDATE("forum_comment");
+        
+        sql.SET("id = #{record.id,jdbcType=INTEGER}");
+        sql.SET("posts_id = #{record.postsId,jdbcType=INTEGER}");
+        sql.SET("parent_id = #{record.parentId,jdbcType=INTEGER}");
+        sql.SET("target_id = #{record.targetId,jdbcType=INTEGER}");
+        sql.SET("author_no = #{record.authorNo,jdbcType=VARCHAR}");
+        sql.SET("resources = #{record.resources,jdbcType=VARCHAR}");
+        sql.SET("is_delete = #{record.isDelete,jdbcType=INTEGER}");
+        sql.SET("create_time = #{record.createTime,jdbcType=TIMESTAMP}");
+        sql.SET("datetime_lastchange = #{record.datetimeLastchange,jdbcType=TIMESTAMP}");
+        sql.SET("content = #{record.content,jdbcType=LONGVARCHAR}");
+        
+        ForumCommentExample example = (ForumCommentExample) parameter.get("example");
         applyWhere(sql, example, true);
         return sql.toString();
     }
@@ -154,7 +199,6 @@ public class ForumCommentSqlProvider {
         sql.SET("target_id = #{record.targetId,jdbcType=INTEGER}");
         sql.SET("author_no = #{record.authorNo,jdbcType=VARCHAR}");
         sql.SET("resources = #{record.resources,jdbcType=VARCHAR}");
-        sql.SET("content = #{record.content,jdbcType=VARCHAR}");
         sql.SET("is_delete = #{record.isDelete,jdbcType=INTEGER}");
         sql.SET("create_time = #{record.createTime,jdbcType=TIMESTAMP}");
         sql.SET("datetime_lastchange = #{record.datetimeLastchange,jdbcType=TIMESTAMP}");
@@ -188,10 +232,6 @@ public class ForumCommentSqlProvider {
             sql.SET("resources = #{resources,jdbcType=VARCHAR}");
         }
         
-        if (record.getContent() != null) {
-            sql.SET("content = #{content,jdbcType=VARCHAR}");
-        }
-        
         if (record.getIsDelete() != null) {
             sql.SET("is_delete = #{isDelete,jdbcType=INTEGER}");
         }
@@ -202,6 +242,10 @@ public class ForumCommentSqlProvider {
         
         if (record.getDatetimeLastchange() != null) {
             sql.SET("datetime_lastchange = #{datetimeLastchange,jdbcType=TIMESTAMP}");
+        }
+        
+        if (record.getContent() != null) {
+            sql.SET("content = #{content,jdbcType=LONGVARCHAR}");
         }
         
         sql.WHERE("id = #{id,jdbcType=INTEGER}");
