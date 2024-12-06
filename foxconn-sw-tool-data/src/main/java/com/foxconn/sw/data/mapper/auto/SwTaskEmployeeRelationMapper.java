@@ -37,13 +37,13 @@ public interface SwTaskEmployeeRelationMapper {
         "insert into sw_task_employee_relation (task_id, employee_no, ",
         "prev_id, role_flag, ",
         "is_active, is_inspector, ",
-        "is_delete, create_time, ",
-        "datetime_lastchange)",
+        "is_read, is_delete, ",
+        "create_time, datetime_lastchange)",
         "values (#{taskId,jdbcType=INTEGER}, #{employeeNo,jdbcType=VARCHAR}, ",
         "#{prevId,jdbcType=INTEGER}, #{roleFlag,jdbcType=INTEGER}, ",
         "#{isActive,jdbcType=INTEGER}, #{isInspector,jdbcType=INTEGER}, ",
-        "#{isDelete,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, ",
-        "#{datetimeLastchange,jdbcType=TIMESTAMP})"
+        "#{isRead,jdbcType=INTEGER}, #{isDelete,jdbcType=INTEGER}, ",
+        "#{createTime,jdbcType=TIMESTAMP}, #{datetimeLastchange,jdbcType=TIMESTAMP})"
     })
     @SelectKey(statement="SELECT LAST_INSERT_ID()", keyProperty="id", before=false, resultType=Integer.class)
     int insert(SwTaskEmployeeRelation record);
@@ -61,6 +61,7 @@ public interface SwTaskEmployeeRelationMapper {
         @Result(column="role_flag", property="roleFlag", jdbcType=JdbcType.INTEGER),
         @Result(column="is_active", property="isActive", jdbcType=JdbcType.INTEGER),
         @Result(column="is_inspector", property="isInspector", jdbcType=JdbcType.INTEGER),
+        @Result(column="is_read", property="isRead", jdbcType=JdbcType.INTEGER),
         @Result(column="is_delete", property="isDelete", jdbcType=JdbcType.INTEGER),
         @Result(column="create_time", property="createTime", jdbcType=JdbcType.TIMESTAMP),
         @Result(column="datetime_lastchange", property="datetimeLastchange", jdbcType=JdbcType.TIMESTAMP)
@@ -76,6 +77,7 @@ public interface SwTaskEmployeeRelationMapper {
         @Result(column="role_flag", property="roleFlag", jdbcType=JdbcType.INTEGER),
         @Result(column="is_active", property="isActive", jdbcType=JdbcType.INTEGER),
         @Result(column="is_inspector", property="isInspector", jdbcType=JdbcType.INTEGER),
+        @Result(column="is_read", property="isRead", jdbcType=JdbcType.INTEGER),
         @Result(column="is_delete", property="isDelete", jdbcType=JdbcType.INTEGER),
         @Result(column="create_time", property="createTime", jdbcType=JdbcType.TIMESTAMP),
         @Result(column="datetime_lastchange", property="datetimeLastchange", jdbcType=JdbcType.TIMESTAMP)
@@ -84,8 +86,8 @@ public interface SwTaskEmployeeRelationMapper {
 
     @Select({
         "select",
-        "id, task_id, employee_no, prev_id, role_flag, is_active, is_inspector, is_delete, ",
-        "create_time, datetime_lastchange",
+        "id, task_id, employee_no, prev_id, role_flag, is_active, is_inspector, is_read, ",
+        "is_delete, create_time, datetime_lastchange",
         "from sw_task_employee_relation",
         "where id = #{id,jdbcType=INTEGER}"
     })
@@ -97,6 +99,7 @@ public interface SwTaskEmployeeRelationMapper {
         @Result(column="role_flag", property="roleFlag", jdbcType=JdbcType.INTEGER),
         @Result(column="is_active", property="isActive", jdbcType=JdbcType.INTEGER),
         @Result(column="is_inspector", property="isInspector", jdbcType=JdbcType.INTEGER),
+        @Result(column="is_read", property="isRead", jdbcType=JdbcType.INTEGER),
         @Result(column="is_delete", property="isDelete", jdbcType=JdbcType.INTEGER),
         @Result(column="create_time", property="createTime", jdbcType=JdbcType.TIMESTAMP),
         @Result(column="datetime_lastchange", property="datetimeLastchange", jdbcType=JdbcType.TIMESTAMP)
@@ -120,6 +123,7 @@ public interface SwTaskEmployeeRelationMapper {
           "role_flag = #{roleFlag,jdbcType=INTEGER},",
           "is_active = #{isActive,jdbcType=INTEGER},",
           "is_inspector = #{isInspector,jdbcType=INTEGER},",
+          "is_read = #{isRead,jdbcType=INTEGER},",
           "is_delete = #{isDelete,jdbcType=INTEGER},",
           "create_time = #{createTime,jdbcType=TIMESTAMP},",
           "datetime_lastchange = #{datetimeLastchange,jdbcType=TIMESTAMP}",

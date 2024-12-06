@@ -44,7 +44,6 @@ public class DetailDocProcessor {
         return convert2Vo(document);
     }
 
-
     private DocumentDetailVo convert2Vo(SwDocument e) {
         boolean isCreator = RequestContext.getEmployeeNo().equalsIgnoreCase(e.getCreator());
         SwAppendResource resource = appendResourceBusiness.getAppendResources(e.getResourceId());

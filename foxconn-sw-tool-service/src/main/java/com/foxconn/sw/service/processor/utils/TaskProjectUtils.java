@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
 public class TaskProjectUtils {
 
     public static String processProject(String project) {
-        List<OptionsVo> list = OAOptionConfig.initProject2();
+        List<OptionsVo> list = OAOptionConfig.initProject();
         String result = project;
         for (OptionsVo optionVo : list) {
             var tempList = optionVo.getOptionsVos()

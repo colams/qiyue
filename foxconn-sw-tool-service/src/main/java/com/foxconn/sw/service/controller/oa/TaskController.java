@@ -60,6 +60,8 @@ public class TaskController {
     BriefDetailProcessor briefDetail;
     @Autowired
     TaskEmployeeRelationProcessor employeeRelationProcessor;
+    @Autowired
+    TaskHistoryProcessor taskHistoryProcessor;
 
     @Permission
     @Operation(summary = "创建任务", tags = TagsConstants.TASK)
@@ -213,6 +215,15 @@ public class TaskController {
     public Response taskEmployeeRelation(@Valid @RequestBody Request<TaskEmployRelationParams> request) {
         boolean result = employeeRelationProcessor.updateEmployeeRelation(request.getData());
         return ResponseUtils.success(result, request.getTraceId());
+    }
+
+    @Permission
+    @Operation(summary = "接受任务", tags = TagsConstants.TASK)
+    @ApiResponse(responseCode = "0", description = "成功码")
+    @PostMapping("/historyContent")
+    public Response<String> historyContent(@Valid @RequestBody Request<IntegerParams> request) {
+        String originData = taskHistoryProcessor.getHistoryContent(request.getData().getParams());
+        return ResponseUtils.success(originData, request.getTraceId());
     }
 
 }

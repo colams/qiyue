@@ -17,6 +17,8 @@ public class SwTaskEmployeeRelation {
 
     private Integer isInspector;
 
+    private Integer isRead;
+
     private Integer isDelete;
 
     private LocalDateTime createTime;
@@ -112,6 +114,19 @@ public class SwTaskEmployeeRelation {
 
     public void setIsInspector(Integer isInspector) {
         this.isInspector = isInspector;
+    }
+
+    public Integer getIsRead() {
+        return isRead;
+    }
+
+    public SwTaskEmployeeRelation withIsRead(Integer isRead) {
+        this.setIsRead(isRead);
+        return this;
+    }
+
+    public void setIsRead(Integer isRead) {
+        this.isRead = isRead;
     }
 
     public Integer getIsDelete() {

@@ -1,10 +1,7 @@
 package com.foxconn.sw.service.processor.task;
 
+import com.foxconn.sw.business.oa.*;
 import com.foxconn.sw.common.context.RequestContext;
-import com.foxconn.sw.business.oa.SwTaskBusiness;
-import com.foxconn.sw.business.oa.SwTaskEmployeeRelationBusiness;
-import com.foxconn.sw.business.oa.SwTaskLogBusiness;
-import com.foxconn.sw.business.oa.SwTaskProgressBusiness;
 import com.foxconn.sw.common.utils.ObjectCompare;
 import com.foxconn.sw.data.constants.enums.TaskRoleFlagEnums;
 import com.foxconn.sw.data.constants.enums.oa.TaskStatusEnums;
@@ -37,6 +34,8 @@ public class UpdateTaskProcessor {
     SwTaskProgressBusiness progressBusiness;
     @Autowired
     SwTaskEmployeeRelationBusiness employeeRelationBusiness;
+    @Autowired
+    SwTaskContentHistoryBusiness taskContentHistoryBusiness;
 
     private static final Map<String, String> hashMap = new HashMap<>();
 
@@ -71,7 +70,10 @@ public class UpdateTaskProcessor {
             progress.setOperateEid(RequestContext.getEmployeeNo());
             progress.setProgress(0);
             progress.setContent(content);
-            progressBusiness.addProcessInfo(progress);
+            progressBusiness.addProcessInfo2(progress);
+            if (Objects.nonNull(progress) && "description".equalsIgnoreCase(taskParams.getFieldInfo())) {
+                taskContentHistoryBusiness.insertHistory(progress.getId(), taskParams);
+            }
         }
 
         return result;

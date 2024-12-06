@@ -47,9 +47,15 @@ public class SwTaskProgressBusiness {
             taskProgressVo.setContent(e.getContent());
             taskProgressVo.setCreateTime(e.getDatetimeLastchange());
             taskProgressVo.setProgress(e.getProgress());
+            taskProgressVo.setContentHistoryId(e.getContentHistoryId());
             taskProgressVos.add(taskProgressVo);
         });
         return taskProgressVos;
+    }
+
+    public SwTaskProgress addProcessInfo2(SwTaskProgress progress) {
+        progressExtensionMapper.insertSelective(progress);
+        return progress.getId() > 0 ? progress : null;
     }
 
     public boolean addProcessInfo(SwTaskProgress progress) {

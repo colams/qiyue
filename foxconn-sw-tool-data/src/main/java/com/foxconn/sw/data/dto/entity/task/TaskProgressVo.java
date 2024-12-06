@@ -23,6 +23,8 @@ public class TaskProgressVo {
 
     private LocalDateTime createTime;
 
+    private Integer contentHistoryId;
+
     public Integer getId() {
         return id;
     }
@@ -63,6 +65,14 @@ public class TaskProgressVo {
         this.resourceIds = resourceIds;
     }
 
+    public List<ResourceVo> getResources() {
+        return resources;
+    }
+
+    public void setResources(List<ResourceVo> resources) {
+        this.resources = resources;
+    }
+
     public String getContent() {
         return content;
     }
@@ -79,11 +89,11 @@ public class TaskProgressVo {
         this.createTime = createTime;
     }
 
-    public List<ResourceVo> getResources() {
-        return resources;
+    public Integer getContentHistoryId() {
+        return contentHistoryId;
     }
 
-    public void setResources(List<ResourceVo> resources) {
-        this.resources = resources;
+    public void setContentHistoryId(Integer contentHistoryId) {
+        this.contentHistoryId = contentHistoryId;
     }
 }

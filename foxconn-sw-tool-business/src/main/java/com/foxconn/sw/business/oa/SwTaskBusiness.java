@@ -27,11 +27,6 @@ public class SwTaskBusiness {
     @Autowired
     TaskNoSeedSingleton taskNoSeedSingleton;
 
-    public boolean createTask(SwTask task) {
-        return taskExtensionMapper.insertSelective(task) > 0;
-    }
-
-
     public boolean updateTask(SwTask task) {
         return taskExtensionMapper.updateByPrimaryKeySelective(task) > 0;
     }
