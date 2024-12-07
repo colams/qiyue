@@ -1,10 +1,9 @@
 package com.foxconn.sw.service.aspects;
 
 import com.foxconn.sw.business.LogBusiness;
-import com.foxconn.sw.common.utils.DateTimeUtils;
 import com.foxconn.sw.common.utils.JsonUtils;
-import com.foxconn.sw.data.dto.Request;
 import com.foxconn.sw.common.utils.ServletUtils;
+import com.foxconn.sw.data.dto.Request;
 import jakarta.annotation.Resource;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.groups.Default;
@@ -44,19 +43,13 @@ public class ValidatorAspect {
 
     @Around("parameterPointcut() && args(request,..)")
     public Object around(ProceedingJoinPoint joinPoint, Request request) throws Throwable {
-        LocalDateTime localDateTime = LocalDateTime.now();
-        logger.info("時間戳：" + DateTimeUtils.format(localDateTime) + "   =====," + servletUtils.getRemoteIp() + "====," + request.getTraceId());
-        logger.info("around signature=========================:" + joinPoint.getTarget().getClass().getSimpleName() + "." + joinPoint.getSignature().getName());
         Object object = joinPoint.proceed();
-        logger.info("return：" + DateTimeUtils.format(localDateTime) + "   =====," + servletUtils.getRemoteIp() + "====," + request.getTraceId());
+        logger.info(joinPoint.getTarget().getClass().getSimpleName() + "." + joinPoint.getSignature().getName() + "   =====," + servletUtils.getRemoteIp() + ",====," + request.getTraceId());
         return object;
     }
 
     @After("parameterPointcut() && args(request,..)")
     public void after(JoinPoint joinPoint, Request request) {
-        LocalDateTime localDateTime = LocalDateTime.now();
-        logger.info("after 時間戳：" + DateTimeUtils.format(localDateTime) + "   =====," + servletUtils.getRemoteIp() + "====," + request.getTraceId());
-        logger.info("after signature=========================:" + joinPoint.getTarget().getClass().getSimpleName() + "." + joinPoint.getSignature().getName());
     }
 
     @Pointcut("@annotation(org.springframework.web.bind.annotation.PostMapping)")
