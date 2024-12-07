@@ -52,6 +52,10 @@ public class SwProjectItemSqlProvider {
             sql.VALUES("project_value", "#{projectValue,jdbcType=VARCHAR}");
         }
         
+        if (record.getSpareValue() != null) {
+            sql.VALUES("spare_value", "#{spareValue,jdbcType=VARCHAR}");
+        }
+        
         if (record.getOperator() != null) {
             sql.VALUES("operator", "#{operator,jdbcType=VARCHAR}");
         }
@@ -84,6 +88,7 @@ public class SwProjectItemSqlProvider {
         sql.SELECT("detail_type");
         sql.SELECT("project_item");
         sql.SELECT("project_value");
+        sql.SELECT("spare_value");
         sql.SELECT("operator");
         sql.SELECT("is_delete");
         sql.SELECT("create_time");
@@ -133,6 +138,10 @@ public class SwProjectItemSqlProvider {
             sql.SET("project_value = #{record.projectValue,jdbcType=VARCHAR}");
         }
         
+        if (record.getSpareValue() != null) {
+            sql.SET("spare_value = #{record.spareValue,jdbcType=VARCHAR}");
+        }
+        
         if (record.getOperator() != null) {
             sql.SET("operator = #{record.operator,jdbcType=VARCHAR}");
         }
@@ -164,6 +173,7 @@ public class SwProjectItemSqlProvider {
         sql.SET("detail_type = #{record.detailType,jdbcType=VARCHAR}");
         sql.SET("project_item = #{record.projectItem,jdbcType=VARCHAR}");
         sql.SET("project_value = #{record.projectValue,jdbcType=VARCHAR}");
+        sql.SET("spare_value = #{record.spareValue,jdbcType=VARCHAR}");
         sql.SET("operator = #{record.operator,jdbcType=VARCHAR}");
         sql.SET("is_delete = #{record.isDelete,jdbcType=INTEGER}");
         sql.SET("create_time = #{record.createTime,jdbcType=TIMESTAMP}");
@@ -200,6 +210,10 @@ public class SwProjectItemSqlProvider {
         
         if (record.getProjectValue() != null) {
             sql.SET("project_value = #{projectValue,jdbcType=VARCHAR}");
+        }
+        
+        if (record.getSpareValue() != null) {
+            sql.SET("spare_value = #{spareValue,jdbcType=VARCHAR}");
         }
         
         if (record.getOperator() != null) {

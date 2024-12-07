@@ -6,4 +6,5 @@ public interface NumberConstants {
     Integer ONE = 1;
     Integer TWO = 2;
     Integer THREE = 3;
+    Integer FOUR = 4;
 }

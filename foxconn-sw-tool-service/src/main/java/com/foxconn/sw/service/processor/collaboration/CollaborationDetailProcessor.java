@@ -11,6 +11,7 @@ import com.foxconn.sw.common.utils.FilePathUtils;
 import com.foxconn.sw.data.constants.enums.TaskRoleFlagEnums;
 import com.foxconn.sw.data.constants.enums.oa.TaskStatusEnums;
 import com.foxconn.sw.data.dto.entity.ResourceVo;
+import com.foxconn.sw.data.dto.entity.TupleValue;
 import com.foxconn.sw.data.dto.entity.acount.EmployeeVo;
 import com.foxconn.sw.data.dto.entity.collaboration.CollaborationVo;
 import com.foxconn.sw.data.dto.entity.oa.CapexParamsVo;
@@ -108,6 +109,8 @@ public class CollaborationDetailProcessor {
             objectMap.put("rowIndex", entry.getKey());
             for (SwCollaborationDetail collaborationDetail : entry.getValue()) {
                 objectMap.put(header.get(index++), collaborationDetail.getItemValue());
+                var value = new TupleValue(collaborationDetail.getItemValue(), collaborationDetail.getSpareValue());
+                objectMap.put(header.get(index++), value);
             }
         }
         return list;

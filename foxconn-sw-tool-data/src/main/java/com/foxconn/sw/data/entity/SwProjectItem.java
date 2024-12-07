@@ -17,6 +17,8 @@ public class SwProjectItem {
 
     private String projectValue;
 
+    private String spareValue;
+
     private String operator;
 
     private Integer isDelete;
@@ -114,6 +116,19 @@ public class SwProjectItem {
 
     public void setProjectValue(String projectValue) {
         this.projectValue = projectValue == null ? null : projectValue.trim();
+    }
+
+    public String getSpareValue() {
+        return spareValue;
+    }
+
+    public SwProjectItem withSpareValue(String spareValue) {
+        this.setSpareValue(spareValue);
+        return this;
+    }
+
+    public void setSpareValue(String spareValue) {
+        this.spareValue = spareValue == null ? null : spareValue.trim();
     }
 
     public String getOperator() {

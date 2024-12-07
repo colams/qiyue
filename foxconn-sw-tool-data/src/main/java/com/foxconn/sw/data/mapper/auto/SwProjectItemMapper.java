@@ -37,13 +37,15 @@ public interface SwProjectItemMapper {
         "insert into sw_project_item (project_id, module_type, ",
         "update_by, detail_type, ",
         "project_item, project_value, ",
-        "operator, is_delete, ",
-        "create_time, datetime_lastchange)",
+        "spare_value, operator, ",
+        "is_delete, create_time, ",
+        "datetime_lastchange)",
         "values (#{projectId,jdbcType=INTEGER}, #{moduleType,jdbcType=VARCHAR}, ",
         "#{updateBy,jdbcType=VARCHAR}, #{detailType,jdbcType=VARCHAR}, ",
         "#{projectItem,jdbcType=VARCHAR}, #{projectValue,jdbcType=VARCHAR}, ",
-        "#{operator,jdbcType=VARCHAR}, #{isDelete,jdbcType=INTEGER}, ",
-        "#{createTime,jdbcType=TIMESTAMP}, #{datetimeLastchange,jdbcType=TIMESTAMP})"
+        "#{spareValue,jdbcType=VARCHAR}, #{operator,jdbcType=VARCHAR}, ",
+        "#{isDelete,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, ",
+        "#{datetimeLastchange,jdbcType=TIMESTAMP})"
     })
     @SelectKey(statement="SELECT LAST_INSERT_ID()", keyProperty="id", before=false, resultType=Integer.class)
     int insert(SwProjectItem record);
@@ -61,6 +63,7 @@ public interface SwProjectItemMapper {
         @Result(column="detail_type", property="detailType", jdbcType=JdbcType.VARCHAR),
         @Result(column="project_item", property="projectItem", jdbcType=JdbcType.VARCHAR),
         @Result(column="project_value", property="projectValue", jdbcType=JdbcType.VARCHAR),
+        @Result(column="spare_value", property="spareValue", jdbcType=JdbcType.VARCHAR),
         @Result(column="operator", property="operator", jdbcType=JdbcType.VARCHAR),
         @Result(column="is_delete", property="isDelete", jdbcType=JdbcType.INTEGER),
         @Result(column="create_time", property="createTime", jdbcType=JdbcType.TIMESTAMP),
@@ -77,6 +80,7 @@ public interface SwProjectItemMapper {
         @Result(column="detail_type", property="detailType", jdbcType=JdbcType.VARCHAR),
         @Result(column="project_item", property="projectItem", jdbcType=JdbcType.VARCHAR),
         @Result(column="project_value", property="projectValue", jdbcType=JdbcType.VARCHAR),
+        @Result(column="spare_value", property="spareValue", jdbcType=JdbcType.VARCHAR),
         @Result(column="operator", property="operator", jdbcType=JdbcType.VARCHAR),
         @Result(column="is_delete", property="isDelete", jdbcType=JdbcType.INTEGER),
         @Result(column="create_time", property="createTime", jdbcType=JdbcType.TIMESTAMP),
@@ -87,7 +91,7 @@ public interface SwProjectItemMapper {
     @Select({
         "select",
         "id, project_id, module_type, update_by, detail_type, project_item, project_value, ",
-        "operator, is_delete, create_time, datetime_lastchange",
+        "spare_value, operator, is_delete, create_time, datetime_lastchange",
         "from sw_project_item",
         "where id = #{id,jdbcType=INTEGER}"
     })
@@ -99,6 +103,7 @@ public interface SwProjectItemMapper {
         @Result(column="detail_type", property="detailType", jdbcType=JdbcType.VARCHAR),
         @Result(column="project_item", property="projectItem", jdbcType=JdbcType.VARCHAR),
         @Result(column="project_value", property="projectValue", jdbcType=JdbcType.VARCHAR),
+        @Result(column="spare_value", property="spareValue", jdbcType=JdbcType.VARCHAR),
         @Result(column="operator", property="operator", jdbcType=JdbcType.VARCHAR),
         @Result(column="is_delete", property="isDelete", jdbcType=JdbcType.INTEGER),
         @Result(column="create_time", property="createTime", jdbcType=JdbcType.TIMESTAMP),
@@ -123,6 +128,7 @@ public interface SwProjectItemMapper {
           "detail_type = #{detailType,jdbcType=VARCHAR},",
           "project_item = #{projectItem,jdbcType=VARCHAR},",
           "project_value = #{projectValue,jdbcType=VARCHAR},",
+          "spare_value = #{spareValue,jdbcType=VARCHAR},",
           "operator = #{operator,jdbcType=VARCHAR},",
           "is_delete = #{isDelete,jdbcType=INTEGER},",
           "create_time = #{createTime,jdbcType=TIMESTAMP},",
