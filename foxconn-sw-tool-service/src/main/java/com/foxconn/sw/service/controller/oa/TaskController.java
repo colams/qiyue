@@ -62,6 +62,8 @@ public class TaskController {
     TaskEmployeeRelationProcessor employeeRelationProcessor;
     @Autowired
     TaskHistoryProcessor taskHistoryProcessor;
+    @Autowired
+    ReadTaskProcessor readTaskProcessor;
 
     @Permission
     @Operation(summary = "创建任务", tags = TagsConstants.TASK)
@@ -99,6 +101,14 @@ public class TaskController {
         return ResponseUtils.success(vo, request.getTraceId());
     }
 
+    @Permission
+    @Operation(summary = "任务列表", tags = TagsConstants.TASK)
+    @ApiResponse(responseCode = "0", description = "成功码")
+    @PostMapping("/read")
+    public Response<Boolean> read(@Valid @RequestBody Request<IntegerParams> request) {
+        Boolean result = readTaskProcessor.setRead(request.getData());
+        return ResponseUtils.success(result, request.getTraceId());
+    }
 
     @Permission
     @Operation(summary = "列表页-任务总览", tags = TagsConstants.TASK)

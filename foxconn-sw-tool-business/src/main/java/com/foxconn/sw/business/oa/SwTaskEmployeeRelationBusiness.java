@@ -224,6 +224,17 @@ public class SwTaskEmployeeRelationBusiness {
         return true;
     }
 
+    public Boolean updateReadStatus(Integer taskID, Integer one) {
+        SwTaskEmployeeRelation relation = new SwTaskEmployeeRelation();
+        relation.setIsRead(one);
+
+        SwTaskEmployeeRelationExample example = new SwTaskEmployeeRelationExample();
+        SwTaskEmployeeRelationExample.Criteria criteria = example.createCriteria();
+        criteria.andTaskIdEqualTo(taskID);
+        criteria.andEmployeeNoEqualTo(RequestContext.getEmployeeNo());
+        return employeeRelationExtensionMapper.updateByExample(relation, example) > 0;
+    }
+
     public class SimpleRelation {
         private String employeeNo;
         private int roleFlag;

@@ -72,8 +72,13 @@ public class UpdateTaskProcessor {
             progress.setContent(content);
             progressBusiness.addProcessInfo2(progress);
             if (Objects.nonNull(progress) && "description".equalsIgnoreCase(taskParams.getFieldInfo())) {
-                taskContentHistoryBusiness.insertHistory(progress.getId(), taskParams);
+                taskContentHistoryBusiness.insertHistory(progress.getId(), old);
             }
+
+            if ("description".equalsIgnoreCase(taskParams.getFieldInfo())) {
+                employeeRelationBusiness.updateReadStatus(taskParams)
+            }
+
         }
 
         return result;
