@@ -220,7 +220,8 @@ public class TaskListProcessor {
 
         vo.setOperateList(processOperate(e, optional));
         vo.setStatusInfoVo(TaskStatusUtils.processStatus(e.getStatus(), e.getRejectStatus(), optional));
-        vo.setRead(false);
+        int readStatus = optional.map(o -> o.getIsRead()).orElse(0);
+        vo.setRead(readStatus == 0 ? false : true);
         return vo;
     }
 

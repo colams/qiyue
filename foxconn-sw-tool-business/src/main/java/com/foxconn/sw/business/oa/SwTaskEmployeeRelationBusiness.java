@@ -224,16 +224,28 @@ public class SwTaskEmployeeRelationBusiness {
         return true;
     }
 
-    public Boolean updateReadStatus(Integer taskID, Integer one) {
+    public Boolean updateReadStatus(Integer taskID, Integer readStatus) {
         SwTaskEmployeeRelation relation = new SwTaskEmployeeRelation();
-        relation.setIsRead(one);
+        relation.setIsRead(readStatus);
 
         SwTaskEmployeeRelationExample example = new SwTaskEmployeeRelationExample();
         SwTaskEmployeeRelationExample.Criteria criteria = example.createCriteria();
         criteria.andTaskIdEqualTo(taskID);
         criteria.andEmployeeNoEqualTo(RequestContext.getEmployeeNo());
-        return employeeRelationExtensionMapper.updateByExample(relation, example) > 0;
+        return employeeRelationExtensionMapper.updateByExampleSelective(relation, example) > 0;
     }
+
+    public Boolean updateUnReadStatus(Integer taskID, Integer readStatus) {
+        SwTaskEmployeeRelation relation = new SwTaskEmployeeRelation();
+        relation.setIsRead(readStatus);
+
+        SwTaskEmployeeRelationExample example = new SwTaskEmployeeRelationExample();
+        SwTaskEmployeeRelationExample.Criteria criteria = example.createCriteria();
+        criteria.andTaskIdEqualTo(taskID);
+        criteria.andEmployeeNoEqualTo(RequestContext.getEmployeeNo());
+        return employeeRelationExtensionMapper.updateByExampleSelective(relation, example) > 0;
+    }
+
 
     public class SimpleRelation {
         private String employeeNo;
