@@ -56,6 +56,10 @@ public class SwTaskEmployeeRelationSqlProvider {
             sql.VALUES("is_read", "#{isRead,jdbcType=INTEGER}");
         }
         
+        if (record.getProcessStatus() != null) {
+            sql.VALUES("process_status", "#{processStatus,jdbcType=INTEGER}");
+        }
+        
         if (record.getIsDelete() != null) {
             sql.VALUES("is_delete", "#{isDelete,jdbcType=INTEGER}");
         }
@@ -85,6 +89,7 @@ public class SwTaskEmployeeRelationSqlProvider {
         sql.SELECT("is_active");
         sql.SELECT("is_inspector");
         sql.SELECT("is_read");
+        sql.SELECT("process_status");
         sql.SELECT("is_delete");
         sql.SELECT("create_time");
         sql.SELECT("datetime_lastchange");
@@ -137,6 +142,10 @@ public class SwTaskEmployeeRelationSqlProvider {
             sql.SET("is_read = #{record.isRead,jdbcType=INTEGER}");
         }
         
+        if (record.getProcessStatus() != null) {
+            sql.SET("process_status = #{record.processStatus,jdbcType=INTEGER}");
+        }
+        
         if (record.getIsDelete() != null) {
             sql.SET("is_delete = #{record.isDelete,jdbcType=INTEGER}");
         }
@@ -165,6 +174,7 @@ public class SwTaskEmployeeRelationSqlProvider {
         sql.SET("is_active = #{record.isActive,jdbcType=INTEGER}");
         sql.SET("is_inspector = #{record.isInspector,jdbcType=INTEGER}");
         sql.SET("is_read = #{record.isRead,jdbcType=INTEGER}");
+        sql.SET("process_status = #{record.processStatus,jdbcType=INTEGER}");
         sql.SET("is_delete = #{record.isDelete,jdbcType=INTEGER}");
         sql.SET("create_time = #{record.createTime,jdbcType=TIMESTAMP}");
         sql.SET("datetime_lastchange = #{record.datetimeLastchange,jdbcType=TIMESTAMP}");
@@ -204,6 +214,10 @@ public class SwTaskEmployeeRelationSqlProvider {
         
         if (record.getIsRead() != null) {
             sql.SET("is_read = #{isRead,jdbcType=INTEGER}");
+        }
+        
+        if (record.getProcessStatus() != null) {
+            sql.SET("process_status = #{processStatus,jdbcType=INTEGER}");
         }
         
         if (record.getIsDelete() != null) {

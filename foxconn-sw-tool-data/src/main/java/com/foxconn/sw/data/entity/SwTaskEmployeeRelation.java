@@ -19,6 +19,8 @@ public class SwTaskEmployeeRelation {
 
     private Integer isRead;
 
+    private Integer processStatus;
+
     private Integer isDelete;
 
     private LocalDateTime createTime;
@@ -127,6 +129,19 @@ public class SwTaskEmployeeRelation {
 
     public void setIsRead(Integer isRead) {
         this.isRead = isRead;
+    }
+
+    public Integer getProcessStatus() {
+        return processStatus;
+    }
+
+    public SwTaskEmployeeRelation withProcessStatus(Integer processStatus) {
+        this.setProcessStatus(processStatus);
+        return this;
+    }
+
+    public void setProcessStatus(Integer processStatus) {
+        this.processStatus = processStatus;
     }
 
     public Integer getIsDelete() {

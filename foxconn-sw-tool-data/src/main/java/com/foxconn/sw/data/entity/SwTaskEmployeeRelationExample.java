@@ -595,6 +595,66 @@ public class SwTaskEmployeeRelationExample {
             return (Criteria) this;
         }
 
+        public Criteria andProcessStatusIsNull() {
+            addCriterion("process_status is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andProcessStatusIsNotNull() {
+            addCriterion("process_status is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andProcessStatusEqualTo(Integer value) {
+            addCriterion("process_status =", value, "processStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andProcessStatusNotEqualTo(Integer value) {
+            addCriterion("process_status <>", value, "processStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andProcessStatusGreaterThan(Integer value) {
+            addCriterion("process_status >", value, "processStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andProcessStatusGreaterThanOrEqualTo(Integer value) {
+            addCriterion("process_status >=", value, "processStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andProcessStatusLessThan(Integer value) {
+            addCriterion("process_status <", value, "processStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andProcessStatusLessThanOrEqualTo(Integer value) {
+            addCriterion("process_status <=", value, "processStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andProcessStatusIn(List<Integer> values) {
+            addCriterion("process_status in", values, "processStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andProcessStatusNotIn(List<Integer> values) {
+            addCriterion("process_status not in", values, "processStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andProcessStatusBetween(Integer value1, Integer value2) {
+            addCriterion("process_status between", value1, value2, "processStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andProcessStatusNotBetween(Integer value1, Integer value2) {
+            addCriterion("process_status not between", value1, value2, "processStatus");
+            return (Criteria) this;
+        }
+
         public Criteria andIsDeleteIsNull() {
             addCriterion("is_delete is null");
             return (Criteria) this;

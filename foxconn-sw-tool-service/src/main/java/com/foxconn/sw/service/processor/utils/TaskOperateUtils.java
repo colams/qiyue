@@ -119,10 +119,7 @@ public class TaskOperateUtils {
         boolean enable = false;
         switch (op) {
             case REJECT:
-//                boolean pendingAndUnReject = PENDING.equals(taskStatusEnums)
-//                        && RejectStatusEnum.DEFAULT.test(taskDetailVo.getRejectStatus());
-//                enable = (pendingAndUnReject && (isManger || isHandler)) || (ACCEPTING.equals(taskStatusEnums) && isProposer);
-                enable = ACCEPTING.equals(taskStatusEnums) && isProposer;
+                enable = ACCEPTING.equals(taskStatusEnums) && (isProposer || isInspector);
                 break;
             case ASSIGN:
             case SUBMIT:
