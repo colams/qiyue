@@ -13,7 +13,9 @@ public class SwTaskContentHistory {
 
     private LocalDateTime datetimeLastchange;
 
-    private String content;
+    private String oldContent;
+
+    private String newContent;
 
     public Integer getId() {
         return id;
@@ -80,16 +82,29 @@ public class SwTaskContentHistory {
         this.datetimeLastchange = datetimeLastchange;
     }
 
-    public String getContent() {
-        return content;
+    public String getOldContent() {
+        return oldContent;
     }
 
-    public SwTaskContentHistory withContent(String content) {
-        this.setContent(content);
+    public SwTaskContentHistory withOldContent(String oldContent) {
+        this.setOldContent(oldContent);
         return this;
     }
 
-    public void setContent(String content) {
-        this.content = content == null ? null : content.trim();
+    public void setOldContent(String oldContent) {
+        this.oldContent = oldContent == null ? null : oldContent.trim();
+    }
+
+    public String getNewContent() {
+        return newContent;
+    }
+
+    public SwTaskContentHistory withNewContent(String newContent) {
+        this.setNewContent(newContent);
+        return this;
+    }
+
+    public void setNewContent(String newContent) {
+        this.newContent = newContent == null ? null : newContent.trim();
     }
 }

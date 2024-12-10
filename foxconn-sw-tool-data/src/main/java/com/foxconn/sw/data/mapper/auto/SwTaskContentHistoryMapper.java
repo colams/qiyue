@@ -36,10 +36,10 @@ public interface SwTaskContentHistoryMapper {
     @Insert({
         "insert into sw_task_content_history (task_id, progress_id, ",
         "operator, datetime_lastchange, ",
-        "content)",
+        "old_content, new_content)",
         "values (#{taskId,jdbcType=INTEGER}, #{progressId,jdbcType=INTEGER}, ",
         "#{operator,jdbcType=VARCHAR}, #{datetimeLastchange,jdbcType=TIMESTAMP}, ",
-        "#{content,jdbcType=LONGVARCHAR})"
+        "#{oldContent,jdbcType=LONGVARCHAR}, #{newContent,jdbcType=LONGVARCHAR})"
     })
     @SelectKey(statement="SELECT LAST_INSERT_ID()", keyProperty="id", before=false, resultType=Integer.class)
     int insert(SwTaskContentHistory record);
@@ -55,7 +55,8 @@ public interface SwTaskContentHistoryMapper {
         @Result(column="progress_id", property="progressId", jdbcType=JdbcType.INTEGER),
         @Result(column="operator", property="operator", jdbcType=JdbcType.VARCHAR),
         @Result(column="datetime_lastchange", property="datetimeLastchange", jdbcType=JdbcType.TIMESTAMP),
-        @Result(column="content", property="content", jdbcType=JdbcType.LONGVARCHAR)
+        @Result(column="old_content", property="oldContent", jdbcType=JdbcType.LONGVARCHAR),
+        @Result(column="new_content", property="newContent", jdbcType=JdbcType.LONGVARCHAR)
     })
     List<SwTaskContentHistory> selectByExampleWithBLOBsWithRowbounds(SwTaskContentHistoryExample example, RowBounds rowBounds);
 
@@ -66,7 +67,8 @@ public interface SwTaskContentHistoryMapper {
         @Result(column="progress_id", property="progressId", jdbcType=JdbcType.INTEGER),
         @Result(column="operator", property="operator", jdbcType=JdbcType.VARCHAR),
         @Result(column="datetime_lastchange", property="datetimeLastchange", jdbcType=JdbcType.TIMESTAMP),
-        @Result(column="content", property="content", jdbcType=JdbcType.LONGVARCHAR)
+        @Result(column="old_content", property="oldContent", jdbcType=JdbcType.LONGVARCHAR),
+        @Result(column="new_content", property="newContent", jdbcType=JdbcType.LONGVARCHAR)
     })
     List<SwTaskContentHistory> selectByExampleWithBLOBs(SwTaskContentHistoryExample example);
 
@@ -92,7 +94,7 @@ public interface SwTaskContentHistoryMapper {
 
     @Select({
         "select",
-        "id, task_id, progress_id, operator, datetime_lastchange, content",
+        "id, task_id, progress_id, operator, datetime_lastchange, old_content, new_content",
         "from sw_task_content_history",
         "where id = #{id,jdbcType=INTEGER}"
     })
@@ -102,7 +104,8 @@ public interface SwTaskContentHistoryMapper {
         @Result(column="progress_id", property="progressId", jdbcType=JdbcType.INTEGER),
         @Result(column="operator", property="operator", jdbcType=JdbcType.VARCHAR),
         @Result(column="datetime_lastchange", property="datetimeLastchange", jdbcType=JdbcType.TIMESTAMP),
-        @Result(column="content", property="content", jdbcType=JdbcType.LONGVARCHAR)
+        @Result(column="old_content", property="oldContent", jdbcType=JdbcType.LONGVARCHAR),
+        @Result(column="new_content", property="newContent", jdbcType=JdbcType.LONGVARCHAR)
     })
     SwTaskContentHistory selectByPrimaryKey(Integer id);
 
@@ -124,7 +127,8 @@ public interface SwTaskContentHistoryMapper {
           "progress_id = #{progressId,jdbcType=INTEGER},",
           "operator = #{operator,jdbcType=VARCHAR},",
           "datetime_lastchange = #{datetimeLastchange,jdbcType=TIMESTAMP},",
-          "content = #{content,jdbcType=LONGVARCHAR}",
+          "old_content = #{oldContent,jdbcType=LONGVARCHAR},",
+          "new_content = #{newContent,jdbcType=LONGVARCHAR}",
         "where id = #{id,jdbcType=INTEGER}"
     })
     int updateByPrimaryKeyWithBLOBs(SwTaskContentHistory record);

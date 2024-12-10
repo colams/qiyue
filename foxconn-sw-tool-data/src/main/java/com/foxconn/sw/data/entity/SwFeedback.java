@@ -17,6 +17,10 @@ public class SwFeedback {
 
     private Integer status;
 
+    private LocalDateTime finishTime;
+
+    private LocalDateTime closeTime;
+
     private LocalDateTime createTime;
 
     private LocalDateTime datetimeLastchange;
@@ -112,6 +116,32 @@ public class SwFeedback {
 
     public void setStatus(Integer status) {
         this.status = status;
+    }
+
+    public LocalDateTime getFinishTime() {
+        return finishTime;
+    }
+
+    public SwFeedback withFinishTime(LocalDateTime finishTime) {
+        this.setFinishTime(finishTime);
+        return this;
+    }
+
+    public void setFinishTime(LocalDateTime finishTime) {
+        this.finishTime = finishTime;
+    }
+
+    public LocalDateTime getCloseTime() {
+        return closeTime;
+    }
+
+    public SwFeedback withCloseTime(LocalDateTime closeTime) {
+        this.setCloseTime(closeTime);
+        return this;
+    }
+
+    public void setCloseTime(LocalDateTime closeTime) {
+        this.closeTime = closeTime;
     }
 
     public LocalDateTime getCreateTime() {

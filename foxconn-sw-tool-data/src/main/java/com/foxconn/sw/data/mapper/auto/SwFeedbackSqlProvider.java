@@ -52,6 +52,14 @@ public class SwFeedbackSqlProvider {
             sql.VALUES("status", "#{status,jdbcType=INTEGER}");
         }
         
+        if (record.getFinishTime() != null) {
+            sql.VALUES("finish_time", "#{finishTime,jdbcType=TIMESTAMP}");
+        }
+        
+        if (record.getCloseTime() != null) {
+            sql.VALUES("close_time", "#{closeTime,jdbcType=TIMESTAMP}");
+        }
+        
         if (record.getCreateTime() != null) {
             sql.VALUES("create_time", "#{createTime,jdbcType=TIMESTAMP}");
         }
@@ -80,6 +88,8 @@ public class SwFeedbackSqlProvider {
         sql.SELECT("contact");
         sql.SELECT("ip");
         sql.SELECT("status");
+        sql.SELECT("finish_time");
+        sql.SELECT("close_time");
         sql.SELECT("create_time");
         sql.SELECT("datetime_lastchange");
         sql.SELECT("content");
@@ -106,6 +116,8 @@ public class SwFeedbackSqlProvider {
         sql.SELECT("contact");
         sql.SELECT("ip");
         sql.SELECT("status");
+        sql.SELECT("finish_time");
+        sql.SELECT("close_time");
         sql.SELECT("create_time");
         sql.SELECT("datetime_lastchange");
         sql.FROM("sw_feedback");
@@ -153,6 +165,14 @@ public class SwFeedbackSqlProvider {
             sql.SET("status = #{record.status,jdbcType=INTEGER}");
         }
         
+        if (record.getFinishTime() != null) {
+            sql.SET("finish_time = #{record.finishTime,jdbcType=TIMESTAMP}");
+        }
+        
+        if (record.getCloseTime() != null) {
+            sql.SET("close_time = #{record.closeTime,jdbcType=TIMESTAMP}");
+        }
+        
         if (record.getCreateTime() != null) {
             sql.SET("create_time = #{record.createTime,jdbcType=TIMESTAMP}");
         }
@@ -180,6 +200,8 @@ public class SwFeedbackSqlProvider {
         sql.SET("contact = #{record.contact,jdbcType=VARCHAR}");
         sql.SET("ip = #{record.ip,jdbcType=VARCHAR}");
         sql.SET("status = #{record.status,jdbcType=INTEGER}");
+        sql.SET("finish_time = #{record.finishTime,jdbcType=TIMESTAMP}");
+        sql.SET("close_time = #{record.closeTime,jdbcType=TIMESTAMP}");
         sql.SET("create_time = #{record.createTime,jdbcType=TIMESTAMP}");
         sql.SET("datetime_lastchange = #{record.datetimeLastchange,jdbcType=TIMESTAMP}");
         sql.SET("content = #{record.content,jdbcType=LONGVARCHAR}");
@@ -200,6 +222,8 @@ public class SwFeedbackSqlProvider {
         sql.SET("contact = #{record.contact,jdbcType=VARCHAR}");
         sql.SET("ip = #{record.ip,jdbcType=VARCHAR}");
         sql.SET("status = #{record.status,jdbcType=INTEGER}");
+        sql.SET("finish_time = #{record.finishTime,jdbcType=TIMESTAMP}");
+        sql.SET("close_time = #{record.closeTime,jdbcType=TIMESTAMP}");
         sql.SET("create_time = #{record.createTime,jdbcType=TIMESTAMP}");
         sql.SET("datetime_lastchange = #{record.datetimeLastchange,jdbcType=TIMESTAMP}");
         
@@ -234,6 +258,14 @@ public class SwFeedbackSqlProvider {
         
         if (record.getStatus() != null) {
             sql.SET("status = #{status,jdbcType=INTEGER}");
+        }
+        
+        if (record.getFinishTime() != null) {
+            sql.SET("finish_time = #{finishTime,jdbcType=TIMESTAMP}");
+        }
+        
+        if (record.getCloseTime() != null) {
+            sql.SET("close_time = #{closeTime,jdbcType=TIMESTAMP}");
         }
         
         if (record.getCreateTime() != null) {

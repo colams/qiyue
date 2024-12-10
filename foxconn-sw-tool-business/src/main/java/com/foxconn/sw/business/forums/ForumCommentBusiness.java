@@ -20,7 +20,7 @@ public class ForumCommentBusiness {
         ForumCommentExample.Criteria criteria = example.createCriteria();
         criteria.andPostsIdEqualTo(postID);
         criteria.andIsDeleteEqualTo(0);
-        return forumCommentExtMapper.selectByExample(example);
+        return forumCommentExtMapper.selectByExampleWithBLOBs(example);
     }
 
     public Integer addComment(ForumComment comment) {
@@ -33,7 +33,7 @@ public class ForumCommentBusiness {
         ForumCommentExample.Criteria criteria = example.createCriteria();
         criteria.andPostsIdEqualTo(id);
         criteria.andParentIdEqualTo(0);
-        List<ForumComment> comments = forumCommentExtMapper.selectByExample(example);
+        List<ForumComment> comments = forumCommentExtMapper.selectByExampleWithBLOBs(example);
         return Optional.ofNullable(comments)
                 .orElse(Lists.newArrayList())
                 .size();

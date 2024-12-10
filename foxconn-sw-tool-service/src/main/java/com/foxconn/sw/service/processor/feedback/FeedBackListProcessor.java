@@ -4,9 +4,13 @@ import com.foxconn.sw.business.SwFeedbackBusiness;
 import com.foxconn.sw.business.system.EmployeeBusiness;
 import com.foxconn.sw.common.context.RequestContext;
 import com.foxconn.sw.common.utils.ConfigReader;
+import com.foxconn.sw.common.utils.DateTimeUtils;
+import com.foxconn.sw.data.dto.PageEntity;
+import com.foxconn.sw.data.dto.PageParams;
 import com.foxconn.sw.data.dto.entity.feedback.FeedBackVo;
 import com.foxconn.sw.data.dto.entity.universal.OperateEntity;
 import com.foxconn.sw.data.dto.request.feedback.FeedBackConditionParams;
+import com.foxconn.sw.data.entity.SwEmployee;
 import com.foxconn.sw.data.entity.SwFeedback;
 import com.google.common.collect.Lists;
 import org.apache.commons.lang3.StringUtils;
@@ -27,8 +31,9 @@ public class FeedBackListProcessor {
     @Autowired
     EmployeeBusiness employeeBusiness;
 
-    public List<FeedBackVo> list(FeedBackConditionParams params) {
+    public PageEntity list(PageParams<FeedBackConditionParams> pageParams) {
         String employeeNo = RequestContext.getEmployeeNo();
+        FeedBackConditionParams params = pageParams.getParams();
         boolean hasPower = checkConfig(employeeNo);
         if (hasPower) {
             employeeNo = "";
@@ -37,8 +42,10 @@ public class FeedBackListProcessor {
                 employeeNo = params.getEmployeeNo();
             }
         }
-        List<SwFeedback> feedbacks = feedbackBusiness.queryFeedBack(employeeNo, params.getTitle(), params.getStatus());
-        return map(feedbacks, hasPower);
+        List<SwFeedback> feedbacks = feedbackBusiness.queryFeedBack(employeeNo, pageParams);
+        Long count = feedbackBusiness.queryFeedBackCount(employeeNo, pageParams);
+        List<FeedBackVo> vos = map(feedbacks, hasPower);
+        return new PageEntity(count.intValue(), vos);
     }
 
     private List<FeedBackVo> map(List<SwFeedback> feedbacks, boolean hasPower) {
@@ -48,17 +55,21 @@ public class FeedBackListProcessor {
 
         List<FeedBackVo> list = new ArrayList<>();
         feedbacks.forEach(e -> {
+
+            SwEmployee employee = employeeBusiness.queryEmployeeByEno(e.getEmployeeNo());
+
             FeedBackVo vo = new FeedBackVo();
             vo.setId(e.getId());
             vo.setEmployeeNo(e.getEmployeeNo());
             vo.setTitle(e.getTitle());
-            vo.setContact(e.getContact());
+            vo.setContact(StringUtils.isEmpty(e.getContact()) ? employee.getLandLine() + " " + employee.getInnerEmail() : e.getContact());
             vo.setIp(e.getIp());
             vo.setCreateTime(e.getCreateTime());
             vo.setContent(e.getContent());
             vo.setRemark(e.getRemark());
             vo.setStatus(e.getStatus());
             vo.setEmployeeVo(employeeBusiness.queryEmployeeVoByEno(e.getEmployeeNo()));
+            vo.setFinishTime(DateTimeUtils.formatYMD(e.getFinishTime()));
             boolean canClose = RequestContext.getEmployeeNo().equalsIgnoreCase(e.getEmployeeNo());
             List<OperateEntity> ops = Lists.newArrayList(initCompleteOp(e.getStatus(), hasPower), initCloseOp(e.getStatus(), canClose));
             vo.setOperates(ops);

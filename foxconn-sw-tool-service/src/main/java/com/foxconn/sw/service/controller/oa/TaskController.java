@@ -5,6 +5,7 @@ import com.foxconn.sw.data.dto.PageEntity;
 import com.foxconn.sw.data.dto.PageParams;
 import com.foxconn.sw.data.dto.Request;
 import com.foxconn.sw.data.dto.Response;
+import com.foxconn.sw.data.dto.entity.TupleValue;
 import com.foxconn.sw.data.dto.entity.oa.FollowParams;
 import com.foxconn.sw.data.dto.entity.task.*;
 import com.foxconn.sw.data.dto.entity.universal.IntegerParams;
@@ -231,9 +232,9 @@ public class TaskController {
     @Operation(summary = "接受任务", tags = TagsConstants.TASK)
     @ApiResponse(responseCode = "0", description = "成功码")
     @PostMapping("/historyContent")
-    public Response<String> historyContent(@Valid @RequestBody Request<IntegerParams> request) {
-        String originData = taskHistoryProcessor.getHistoryContent(request.getData().getParams());
-        return ResponseUtils.success(originData, request.getTraceId());
+    public Response<TupleValue> historyContent(@Valid @RequestBody Request<IntegerParams> request) {
+        TupleValue value = taskHistoryProcessor.getHistoryContent(request.getData().getParams());
+        return ResponseUtils.success(value, request.getTraceId());
     }
 
 }

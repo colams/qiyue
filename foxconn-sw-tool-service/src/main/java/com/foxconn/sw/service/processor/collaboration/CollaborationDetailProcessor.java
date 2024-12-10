@@ -109,8 +109,8 @@ public class CollaborationDetailProcessor {
             objectMap.put("rowIndex", entry.getKey());
             for (SwCollaborationDetail collaborationDetail : entry.getValue()) {
                 objectMap.put(header.get(index++), collaborationDetail.getItemValue());
-                var value = new TupleValue(collaborationDetail.getItemValue(), collaborationDetail.getSpareValue());
-                objectMap.put(header.get(index++), value);
+//                var value = new TupleValue(collaborationDetail.getItemValue(), collaborationDetail.getSpareValue());
+//                objectMap.put(header.get(index++), value);
             }
         }
         return list;

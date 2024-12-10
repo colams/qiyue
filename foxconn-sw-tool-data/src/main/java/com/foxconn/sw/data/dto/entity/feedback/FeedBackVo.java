@@ -28,6 +28,8 @@ public class FeedBackVo {
 
     private Integer status;
 
+    private String finishTime;
+
     private List<OperateEntity> operates;
 
     public Integer getId() {
@@ -108,6 +110,14 @@ public class FeedBackVo {
 
     public void setStatus(Integer status) {
         this.status = status;
+    }
+
+    public String getFinishTime() {
+        return finishTime;
+    }
+
+    public void setFinishTime(String finishTime) {
+        this.finishTime = finishTime;
     }
 
     public List<OperateEntity> getOperates() {

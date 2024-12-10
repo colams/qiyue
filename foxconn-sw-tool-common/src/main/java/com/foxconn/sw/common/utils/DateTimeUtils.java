@@ -3,6 +3,7 @@ package com.foxconn.sw.common.utils;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Objects;
 
 public class DateTimeUtils {
 
@@ -31,6 +32,9 @@ public class DateTimeUtils {
      * @return
      */
     public static String formatYMD(LocalDateTime localDateTime) {
+        if (Objects.isNull(localDateTime)) {
+            return "";
+        }
         return localDateTime.format(DateTimeFormatter.ofPattern(DateTimePattern.yyyyMMdd1));
     }
 

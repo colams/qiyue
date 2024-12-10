@@ -44,8 +44,12 @@ public class SwTaskContentHistorySqlProvider {
             sql.VALUES("datetime_lastchange", "#{datetimeLastchange,jdbcType=TIMESTAMP}");
         }
         
-        if (record.getContent() != null) {
-            sql.VALUES("content", "#{content,jdbcType=LONGVARCHAR}");
+        if (record.getOldContent() != null) {
+            sql.VALUES("old_content", "#{oldContent,jdbcType=LONGVARCHAR}");
+        }
+        
+        if (record.getNewContent() != null) {
+            sql.VALUES("new_content", "#{newContent,jdbcType=LONGVARCHAR}");
         }
         
         return sql.toString();
@@ -62,7 +66,8 @@ public class SwTaskContentHistorySqlProvider {
         sql.SELECT("progress_id");
         sql.SELECT("operator");
         sql.SELECT("datetime_lastchange");
-        sql.SELECT("content");
+        sql.SELECT("old_content");
+        sql.SELECT("new_content");
         sql.FROM("sw_task_content_history");
         applyWhere(sql, example, false);
         
@@ -121,8 +126,12 @@ public class SwTaskContentHistorySqlProvider {
             sql.SET("datetime_lastchange = #{record.datetimeLastchange,jdbcType=TIMESTAMP}");
         }
         
-        if (record.getContent() != null) {
-            sql.SET("content = #{record.content,jdbcType=LONGVARCHAR}");
+        if (record.getOldContent() != null) {
+            sql.SET("old_content = #{record.oldContent,jdbcType=LONGVARCHAR}");
+        }
+        
+        if (record.getNewContent() != null) {
+            sql.SET("new_content = #{record.newContent,jdbcType=LONGVARCHAR}");
         }
         
         applyWhere(sql, example, true);
@@ -138,7 +147,8 @@ public class SwTaskContentHistorySqlProvider {
         sql.SET("progress_id = #{record.progressId,jdbcType=INTEGER}");
         sql.SET("operator = #{record.operator,jdbcType=VARCHAR}");
         sql.SET("datetime_lastchange = #{record.datetimeLastchange,jdbcType=TIMESTAMP}");
-        sql.SET("content = #{record.content,jdbcType=LONGVARCHAR}");
+        sql.SET("old_content = #{record.oldContent,jdbcType=LONGVARCHAR}");
+        sql.SET("new_content = #{record.newContent,jdbcType=LONGVARCHAR}");
         
         SwTaskContentHistoryExample example = (SwTaskContentHistoryExample) parameter.get("example");
         applyWhere(sql, example, true);
@@ -180,8 +190,12 @@ public class SwTaskContentHistorySqlProvider {
             sql.SET("datetime_lastchange = #{datetimeLastchange,jdbcType=TIMESTAMP}");
         }
         
-        if (record.getContent() != null) {
-            sql.SET("content = #{content,jdbcType=LONGVARCHAR}");
+        if (record.getOldContent() != null) {
+            sql.SET("old_content = #{oldContent,jdbcType=LONGVARCHAR}");
+        }
+        
+        if (record.getNewContent() != null) {
+            sql.SET("new_content = #{newContent,jdbcType=LONGVARCHAR}");
         }
         
         sql.WHERE("id = #{id,jdbcType=INTEGER}");
