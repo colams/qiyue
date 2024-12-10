@@ -23,6 +23,7 @@ public class DocumentVo {
     private String updateTime;
     private String title;
     private Integer level;
+    private String content;
 
     public Integer getDocumentID() {
         return documentID;
@@ -160,5 +161,11 @@ public class DocumentVo {
         this.level = level;
     }
 
+    public String getContent() {
+        return content;
+    }
 
+    public void setContent(String content) {
+        this.content = content;
+    }
 }

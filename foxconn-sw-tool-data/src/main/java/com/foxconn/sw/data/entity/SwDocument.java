@@ -27,6 +27,10 @@ public class SwDocument {
 
     private String creator;
 
+    private Integer fileType;
+
+    private String content;
+
     private Integer isDelete;
 
     private LocalDateTime createTime;
@@ -187,6 +191,32 @@ public class SwDocument {
 
     public void setCreator(String creator) {
         this.creator = creator == null ? null : creator.trim();
+    }
+
+    public Integer getFileType() {
+        return fileType;
+    }
+
+    public SwDocument withFileType(Integer fileType) {
+        this.setFileType(fileType);
+        return this;
+    }
+
+    public void setFileType(Integer fileType) {
+        this.fileType = fileType;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public SwDocument withContent(String content) {
+        this.setContent(content);
+        return this;
+    }
+
+    public void setContent(String content) {
+        this.content = content == null ? null : content.trim();
     }
 
     public Integer getIsDelete() {

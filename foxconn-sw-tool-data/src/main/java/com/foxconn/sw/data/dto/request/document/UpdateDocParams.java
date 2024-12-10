@@ -18,7 +18,7 @@ public class UpdateDocParams {
     private List<String> departmentIDs;
     private List<String> employeeNos;
     private String extra;
-    private String description;
+    private String content;
 
     public Integer getDocumentID() {
         return documentID;
@@ -52,12 +52,12 @@ public class UpdateDocParams {
         this.fileVersion = fileVersion;
     }
 
-    public String getDescription() {
-        return description;
+    public String getContent() {
+        return content;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setContent(String content) {
+        this.content = content;
     }
 
     public Integer getDisableDown() {

@@ -84,6 +84,7 @@ public class ListDocProcessor {
             vo.setPublisher(employeeVo);
             vo.setCreateTime(DateTimeUtils.format(e.getCreateTime()));
             vo.setUpdateTime(DateTimeUtils.format(e.getDatetimeLastchange()));
+            vo.setContent(e.getContent());
             vos.add(vo);
         });
         return vos;

@@ -72,6 +72,14 @@ public class SwDocumentSqlProvider {
             sql.VALUES("creator", "#{creator,jdbcType=VARCHAR}");
         }
         
+        if (record.getFileType() != null) {
+            sql.VALUES("file_type", "#{fileType,jdbcType=INTEGER}");
+        }
+        
+        if (record.getContent() != null) {
+            sql.VALUES("content", "#{content,jdbcType=VARCHAR}");
+        }
+        
         if (record.getIsDelete() != null) {
             sql.VALUES("is_delete", "#{isDelete,jdbcType=INTEGER}");
         }
@@ -105,6 +113,8 @@ public class SwDocumentSqlProvider {
         sql.SELECT("resource_id");
         sql.SELECT("author");
         sql.SELECT("creator");
+        sql.SELECT("file_type");
+        sql.SELECT("content");
         sql.SELECT("is_delete");
         sql.SELECT("create_time");
         sql.SELECT("datetime_lastchange");
@@ -173,6 +183,14 @@ public class SwDocumentSqlProvider {
             sql.SET("creator = #{record.creator,jdbcType=VARCHAR}");
         }
         
+        if (record.getFileType() != null) {
+            sql.SET("file_type = #{record.fileType,jdbcType=INTEGER}");
+        }
+        
+        if (record.getContent() != null) {
+            sql.SET("content = #{record.content,jdbcType=VARCHAR}");
+        }
+        
         if (record.getIsDelete() != null) {
             sql.SET("is_delete = #{record.isDelete,jdbcType=INTEGER}");
         }
@@ -205,6 +223,8 @@ public class SwDocumentSqlProvider {
         sql.SET("resource_id = #{record.resourceId,jdbcType=INTEGER}");
         sql.SET("author = #{record.author,jdbcType=VARCHAR}");
         sql.SET("creator = #{record.creator,jdbcType=VARCHAR}");
+        sql.SET("file_type = #{record.fileType,jdbcType=INTEGER}");
+        sql.SET("content = #{record.content,jdbcType=VARCHAR}");
         sql.SET("is_delete = #{record.isDelete,jdbcType=INTEGER}");
         sql.SET("create_time = #{record.createTime,jdbcType=TIMESTAMP}");
         sql.SET("datetime_lastchange = #{record.datetimeLastchange,jdbcType=TIMESTAMP}");
@@ -260,6 +280,14 @@ public class SwDocumentSqlProvider {
         
         if (record.getCreator() != null) {
             sql.SET("creator = #{creator,jdbcType=VARCHAR}");
+        }
+        
+        if (record.getFileType() != null) {
+            sql.SET("file_type = #{fileType,jdbcType=INTEGER}");
+        }
+        
+        if (record.getContent() != null) {
+            sql.SET("content = #{content,jdbcType=VARCHAR}");
         }
         
         if (record.getIsDelete() != null) {

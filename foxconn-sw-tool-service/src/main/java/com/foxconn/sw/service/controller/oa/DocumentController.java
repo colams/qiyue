@@ -43,6 +43,15 @@ public class DocumentController {
     }
 
     @Permission
+    @Operation(summary = "新增文档信息", tags = TagsConstants.DOCUMENT)
+    @ApiResponse(responseCode = "0", description = "成功码")
+    @PostMapping("/createPersonalDoc")
+    public Response createPersonalDoc(@Valid @RequestBody Request<CreatePersonalDocParams> request) {
+        boolean result = createDoc.createPersonalDoc(request.getData());
+        return ResponseUtils.success(result, request.getTraceId());
+    }
+
+    @Permission
     @Operation(summary = "更新文档版本", tags = TagsConstants.DOCUMENT)
     @ApiResponse(responseCode = "0", description = "成功码")
     @PostMapping("/revise")
@@ -86,7 +95,6 @@ public class DocumentController {
         List<DocumentVo> result = listDoc.list(request.getData());
         return ResponseUtils.success(result, request.getTraceId());
     }
-
 
     @Permission
     @Operation(summary = "文档信息列表", tags = TagsConstants.DOCUMENT)

@@ -1,5 +1,7 @@
 package com.foxconn.sw.data.dto.request.document;
 
+import io.swagger.v3.oas.annotations.media.Schema;
+
 public class SearchDocParams {
     private String documentName ;
     private String publisher;
@@ -7,6 +9,9 @@ public class SearchDocParams {
 
     private String category;
     private String source;
+
+    @Schema(description = "个人文档：personal,公共文档：public")
+    private String fileType;
 
     public String getDocumentName() {
         return documentName;
@@ -38,5 +43,13 @@ public class SearchDocParams {
 
     public void setPublisher(String publisher) {
         this.publisher = publisher;
+    }
+
+    public String getFileType() {
+        return fileType;
+    }
+
+    public void setFileType(String fileType) {
+        this.fileType = fileType;
     }
 }

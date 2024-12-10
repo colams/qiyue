@@ -39,14 +39,16 @@ public interface SwDocumentMapper {
         "project, secret_level, ",
         "expire_date, disable_down, ",
         "resource_id, author, ",
-        "creator, is_delete, ",
+        "creator, file_type, ",
+        "content, is_delete, ",
         "create_time, datetime_lastchange)",
         "values (#{documentName,jdbcType=VARCHAR}, #{fileVersion,jdbcType=VARCHAR}, ",
         "#{category,jdbcType=VARCHAR}, #{department,jdbcType=INTEGER}, ",
         "#{project,jdbcType=VARCHAR}, #{secretLevel,jdbcType=INTEGER}, ",
         "#{expireDate,jdbcType=VARCHAR}, #{disableDown,jdbcType=INTEGER}, ",
         "#{resourceId,jdbcType=INTEGER}, #{author,jdbcType=VARCHAR}, ",
-        "#{creator,jdbcType=VARCHAR}, #{isDelete,jdbcType=INTEGER}, ",
+        "#{creator,jdbcType=VARCHAR}, #{fileType,jdbcType=INTEGER}, ",
+        "#{content,jdbcType=VARCHAR}, #{isDelete,jdbcType=INTEGER}, ",
         "#{createTime,jdbcType=TIMESTAMP}, #{datetimeLastchange,jdbcType=TIMESTAMP})"
     })
     @SelectKey(statement="SELECT LAST_INSERT_ID()", keyProperty="id", before=false, resultType=Integer.class)
@@ -70,6 +72,8 @@ public interface SwDocumentMapper {
         @Result(column="resource_id", property="resourceId", jdbcType=JdbcType.INTEGER),
         @Result(column="author", property="author", jdbcType=JdbcType.VARCHAR),
         @Result(column="creator", property="creator", jdbcType=JdbcType.VARCHAR),
+        @Result(column="file_type", property="fileType", jdbcType=JdbcType.INTEGER),
+        @Result(column="content", property="content", jdbcType=JdbcType.VARCHAR),
         @Result(column="is_delete", property="isDelete", jdbcType=JdbcType.INTEGER),
         @Result(column="create_time", property="createTime", jdbcType=JdbcType.TIMESTAMP),
         @Result(column="datetime_lastchange", property="datetimeLastchange", jdbcType=JdbcType.TIMESTAMP)
@@ -90,6 +94,8 @@ public interface SwDocumentMapper {
         @Result(column="resource_id", property="resourceId", jdbcType=JdbcType.INTEGER),
         @Result(column="author", property="author", jdbcType=JdbcType.VARCHAR),
         @Result(column="creator", property="creator", jdbcType=JdbcType.VARCHAR),
+        @Result(column="file_type", property="fileType", jdbcType=JdbcType.INTEGER),
+        @Result(column="content", property="content", jdbcType=JdbcType.VARCHAR),
         @Result(column="is_delete", property="isDelete", jdbcType=JdbcType.INTEGER),
         @Result(column="create_time", property="createTime", jdbcType=JdbcType.TIMESTAMP),
         @Result(column="datetime_lastchange", property="datetimeLastchange", jdbcType=JdbcType.TIMESTAMP)
@@ -99,8 +105,8 @@ public interface SwDocumentMapper {
     @Select({
         "select",
         "id, document_name, file_version, category, department, project, secret_level, ",
-        "expire_date, disable_down, resource_id, author, creator, is_delete, create_time, ",
-        "datetime_lastchange",
+        "expire_date, disable_down, resource_id, author, creator, file_type, content, ",
+        "is_delete, create_time, datetime_lastchange",
         "from sw_document",
         "where id = #{id,jdbcType=INTEGER}"
     })
@@ -117,6 +123,8 @@ public interface SwDocumentMapper {
         @Result(column="resource_id", property="resourceId", jdbcType=JdbcType.INTEGER),
         @Result(column="author", property="author", jdbcType=JdbcType.VARCHAR),
         @Result(column="creator", property="creator", jdbcType=JdbcType.VARCHAR),
+        @Result(column="file_type", property="fileType", jdbcType=JdbcType.INTEGER),
+        @Result(column="content", property="content", jdbcType=JdbcType.VARCHAR),
         @Result(column="is_delete", property="isDelete", jdbcType=JdbcType.INTEGER),
         @Result(column="create_time", property="createTime", jdbcType=JdbcType.TIMESTAMP),
         @Result(column="datetime_lastchange", property="datetimeLastchange", jdbcType=JdbcType.TIMESTAMP)
@@ -145,6 +153,8 @@ public interface SwDocumentMapper {
           "resource_id = #{resourceId,jdbcType=INTEGER},",
           "author = #{author,jdbcType=VARCHAR},",
           "creator = #{creator,jdbcType=VARCHAR},",
+          "file_type = #{fileType,jdbcType=INTEGER},",
+          "content = #{content,jdbcType=VARCHAR},",
           "is_delete = #{isDelete,jdbcType=INTEGER},",
           "create_time = #{createTime,jdbcType=TIMESTAMP},",
           "datetime_lastchange = #{datetimeLastchange,jdbcType=TIMESTAMP}",

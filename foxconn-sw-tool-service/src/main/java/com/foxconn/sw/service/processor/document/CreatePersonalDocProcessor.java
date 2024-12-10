@@ -6,7 +6,10 @@ import com.foxconn.sw.business.oa.SwDocumentPermissionBusiness;
 import com.foxconn.sw.business.system.DepartmentBusiness;
 import com.foxconn.sw.common.context.RequestContext;
 import com.foxconn.sw.data.dto.entity.universal.IntegerParams;
-import com.foxconn.sw.data.dto.request.document.*;
+import com.foxconn.sw.data.dto.request.document.CreateDocParams;
+import com.foxconn.sw.data.dto.request.document.DeleteDocParams;
+import com.foxconn.sw.data.dto.request.document.ReviseDocParams;
+import com.foxconn.sw.data.dto.request.document.UpdateDocParams;
 import com.foxconn.sw.data.entity.SwDocument;
 import com.foxconn.sw.data.entity.SwDocumentHistory;
 import com.foxconn.sw.data.exception.BizException;
@@ -18,7 +21,7 @@ import org.springframework.util.CollectionUtils;
 import java.util.Objects;
 
 @Component
-public class CreateDocProcessor {
+public class CreatePersonalDocProcessor {
 
     @Autowired
     SwDocumentBusiness documentBusiness;
@@ -28,8 +31,6 @@ public class CreateDocProcessor {
     DepartmentBusiness departmentBusiness;
     @Autowired
     SwDocumentPermissionBusiness documentPermissionBusiness;
-    @Autowired
-    CreatePersonalDocProcessor createPersonalDocProcessor;
 
 
     public boolean create(CreateDocParams params) {
@@ -52,23 +53,6 @@ public class CreateDocProcessor {
             }
 
 
-            SwDocumentHistory documentHistory = new SwDocumentHistory();
-            documentHistory.setDocumentId(documentID);
-            documentHistory.setDocumentName(params.getFileName());
-            documentHistory.setResourceId(params.getResourceID());
-            documentHistory.setCreator(RequestContext.getEmployeeNo());
-            documentHistoryBusiness.insertHistory(documentHistory);
-        }
-        return documentID > 0;
-    }
-
-    public boolean createPersonalDoc(CreatePersonalDocParams params) {
-        if (Objects.isNull(params.getResourceID()) || params.getResourceID() < 0) {
-            throw new BizException(4, "参数错误，缺少资源文件");
-        }
-
-        int documentID = documentBusiness.createDoc(params);
-        if (documentID > 0) {
             SwDocumentHistory documentHistory = new SwDocumentHistory();
             documentHistory.setDocumentId(documentID);
             documentHistory.setDocumentName(params.getFileName());
@@ -111,7 +95,6 @@ public class CreateDocProcessor {
         updateDoc.setSecretLevel(data.getSecretLevel());
         updateDoc.setExpireDate(data.getExpireDate());
         updateDoc.setDisableDown(data.getDisableDown());
-        updateDoc.setContent(data.getContent());
         documentBusiness.updateDocument(updateDoc);
 
 //        int documentID = data.getDocumentID();

@@ -895,6 +895,136 @@ public class SwDocumentExample {
             return (Criteria) this;
         }
 
+        public Criteria andFileTypeIsNull() {
+            addCriterion("file_type is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andFileTypeIsNotNull() {
+            addCriterion("file_type is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andFileTypeEqualTo(Integer value) {
+            addCriterion("file_type =", value, "fileType");
+            return (Criteria) this;
+        }
+
+        public Criteria andFileTypeNotEqualTo(Integer value) {
+            addCriterion("file_type <>", value, "fileType");
+            return (Criteria) this;
+        }
+
+        public Criteria andFileTypeGreaterThan(Integer value) {
+            addCriterion("file_type >", value, "fileType");
+            return (Criteria) this;
+        }
+
+        public Criteria andFileTypeGreaterThanOrEqualTo(Integer value) {
+            addCriterion("file_type >=", value, "fileType");
+            return (Criteria) this;
+        }
+
+        public Criteria andFileTypeLessThan(Integer value) {
+            addCriterion("file_type <", value, "fileType");
+            return (Criteria) this;
+        }
+
+        public Criteria andFileTypeLessThanOrEqualTo(Integer value) {
+            addCriterion("file_type <=", value, "fileType");
+            return (Criteria) this;
+        }
+
+        public Criteria andFileTypeIn(List<Integer> values) {
+            addCriterion("file_type in", values, "fileType");
+            return (Criteria) this;
+        }
+
+        public Criteria andFileTypeNotIn(List<Integer> values) {
+            addCriterion("file_type not in", values, "fileType");
+            return (Criteria) this;
+        }
+
+        public Criteria andFileTypeBetween(Integer value1, Integer value2) {
+            addCriterion("file_type between", value1, value2, "fileType");
+            return (Criteria) this;
+        }
+
+        public Criteria andFileTypeNotBetween(Integer value1, Integer value2) {
+            addCriterion("file_type not between", value1, value2, "fileType");
+            return (Criteria) this;
+        }
+
+        public Criteria andContentIsNull() {
+            addCriterion("content is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andContentIsNotNull() {
+            addCriterion("content is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andContentEqualTo(String value) {
+            addCriterion("content =", value, "content");
+            return (Criteria) this;
+        }
+
+        public Criteria andContentNotEqualTo(String value) {
+            addCriterion("content <>", value, "content");
+            return (Criteria) this;
+        }
+
+        public Criteria andContentGreaterThan(String value) {
+            addCriterion("content >", value, "content");
+            return (Criteria) this;
+        }
+
+        public Criteria andContentGreaterThanOrEqualTo(String value) {
+            addCriterion("content >=", value, "content");
+            return (Criteria) this;
+        }
+
+        public Criteria andContentLessThan(String value) {
+            addCriterion("content <", value, "content");
+            return (Criteria) this;
+        }
+
+        public Criteria andContentLessThanOrEqualTo(String value) {
+            addCriterion("content <=", value, "content");
+            return (Criteria) this;
+        }
+
+        public Criteria andContentLike(String value) {
+            addCriterion("content like", value, "content");
+            return (Criteria) this;
+        }
+
+        public Criteria andContentNotLike(String value) {
+            addCriterion("content not like", value, "content");
+            return (Criteria) this;
+        }
+
+        public Criteria andContentIn(List<String> values) {
+            addCriterion("content in", values, "content");
+            return (Criteria) this;
+        }
+
+        public Criteria andContentNotIn(List<String> values) {
+            addCriterion("content not in", values, "content");
+            return (Criteria) this;
+        }
+
+        public Criteria andContentBetween(String value1, String value2) {
+            addCriterion("content between", value1, value2, "content");
+            return (Criteria) this;
+        }
+
+        public Criteria andContentNotBetween(String value1, String value2) {
+            addCriterion("content not between", value1, value2, "content");
+            return (Criteria) this;
+        }
+
         public Criteria andIsDeleteIsNull() {
             addCriterion("is_delete is null");
             return (Criteria) this;
@@ -1107,6 +1237,11 @@ public class SwDocumentExample {
 
         public Criteria andCreatorLikeInsensitive(String value) {
             addCriterion("upper(creator) like", value.toUpperCase(), "creator");
+            return (Criteria) this;
+        }
+
+        public Criteria andContentLikeInsensitive(String value) {
+            addCriterion("upper(content) like", value.toUpperCase(), "content");
             return (Criteria) this;
         }
     }

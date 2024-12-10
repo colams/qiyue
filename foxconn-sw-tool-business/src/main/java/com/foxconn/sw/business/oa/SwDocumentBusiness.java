@@ -1,8 +1,10 @@
 package com.foxconn.sw.business.oa;
 
 import com.foxconn.sw.business.system.EmployeeBusiness;
+import com.foxconn.sw.common.constanst.Constants;
 import com.foxconn.sw.common.context.RequestContext;
 import com.foxconn.sw.data.dto.request.document.CreateDocParams;
+import com.foxconn.sw.data.dto.request.document.CreatePersonalDocParams;
 import com.foxconn.sw.data.dto.request.document.DeleteDocParams;
 import com.foxconn.sw.data.dto.request.document.SearchDocParams;
 import com.foxconn.sw.data.entity.SwDocument;
@@ -39,6 +41,20 @@ public class SwDocumentBusiness {
         return document.getId();
     }
 
+    public Integer createDoc(CreatePersonalDocParams data) {
+        SwDocument document = new SwDocument();
+        document.setDocumentName(data.getFileName());
+        document.setCategory(data.getCategory());
+        document.setProject(data.getProject());
+        document.setDepartment(employeeBusiness.queryEmployeeByEno(RequestContext.getEmployeeNo()).getDepartmentId());
+        document.setCreator(RequestContext.getEmployeeNo());
+        document.setResourceId(data.getResourceID());
+        document.setContent(data.getContent());
+        documentMapper.insertSelective(document);
+        return document.getId();
+    }
+
+
     public List<SwDocument> queryDocumentList(SearchDocParams data) {
         SwDocumentExample example = new SwDocumentExample();
         SwDocumentExample.Criteria criteria = example.createCriteria();
@@ -55,6 +71,8 @@ public class SwDocumentBusiness {
             criteria.andCategoryEqualTo(data.getCategory());
         }
 
+        int fileType = Constants.PERSONAL.equalsIgnoreCase(data.getFileType()) ? 1 : 0;
+        criteria.andFileTypeEqualTo(fileType);
         return documentMapper.selectByExample(example);
     }
 
