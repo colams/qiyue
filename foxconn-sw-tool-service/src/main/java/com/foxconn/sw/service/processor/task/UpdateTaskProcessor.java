@@ -1,7 +1,6 @@
 package com.foxconn.sw.service.processor.task;
 
 import com.foxconn.sw.business.oa.*;
-import com.foxconn.sw.common.constanst.NumberConstants;
 import com.foxconn.sw.common.context.RequestContext;
 import com.foxconn.sw.common.utils.ObjectCompare;
 import com.foxconn.sw.data.constants.enums.TaskRoleFlagEnums;
@@ -77,7 +76,7 @@ public class UpdateTaskProcessor {
             }
 
             if ("description".equalsIgnoreCase(taskParams.getFieldInfo())) {
-                employeeRelationBusiness.updateUnReadStatus(old.getId(), NumberConstants.ZERO);
+                employeeRelationBusiness.updateUnReadStatus(old.getId());
             }
         }
 

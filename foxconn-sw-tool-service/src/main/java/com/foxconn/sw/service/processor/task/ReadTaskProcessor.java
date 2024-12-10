@@ -14,6 +14,6 @@ public class ReadTaskProcessor {
 
 
     public Boolean setRead(IntegerParams taskID) {
-        return taskEmployeeRelationBusiness.updateReadStatus(taskID.getParams(), NumberConstants.ONE);
+        return taskEmployeeRelationBusiness.updateReadStatus(taskID.getParams());
     }
 }

@@ -1,5 +1,6 @@
 package com.foxconn.sw.business.oa;
 
+import com.foxconn.sw.common.constanst.NumberConstants;
 import com.foxconn.sw.common.context.RequestContext;
 import com.foxconn.sw.data.constants.enums.TaskRoleFlagEnums;
 import com.foxconn.sw.data.entity.SwTaskEmployeeRelation;
@@ -224,9 +225,9 @@ public class SwTaskEmployeeRelationBusiness {
         return true;
     }
 
-    public Boolean updateReadStatus(Integer taskID, Integer readStatus) {
+    public Boolean updateReadStatus(Integer taskID) {
         SwTaskEmployeeRelation relation = new SwTaskEmployeeRelation();
-        relation.setIsRead(readStatus);
+        relation.setIsRead(NumberConstants.ONE);
 
         SwTaskEmployeeRelationExample example = new SwTaskEmployeeRelationExample();
         SwTaskEmployeeRelationExample.Criteria criteria = example.createCriteria();
@@ -235,14 +236,14 @@ public class SwTaskEmployeeRelationBusiness {
         return employeeRelationExtensionMapper.updateByExampleSelective(relation, example) > 0;
     }
 
-    public Boolean updateUnReadStatus(Integer taskID, Integer readStatus) {
+    public Boolean updateUnReadStatus(Integer taskID) {
         SwTaskEmployeeRelation relation = new SwTaskEmployeeRelation();
-        relation.setIsRead(readStatus);
+        relation.setIsRead(NumberConstants.ZERO);
 
         SwTaskEmployeeRelationExample example = new SwTaskEmployeeRelationExample();
         SwTaskEmployeeRelationExample.Criteria criteria = example.createCriteria();
         criteria.andTaskIdEqualTo(taskID);
-        criteria.andEmployeeNoEqualTo(RequestContext.getEmployeeNo());
+        criteria.andEmployeeNoNotEqualTo(RequestContext.getEmployeeNo());
         return employeeRelationExtensionMapper.updateByExampleSelective(relation, example) > 0;
     }
 
