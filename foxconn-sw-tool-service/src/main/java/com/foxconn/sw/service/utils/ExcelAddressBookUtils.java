@@ -8,7 +8,7 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import java.util.List;
 
-public class ExcelAddresskBookUtils {
+public class ExcelAddressBookUtils {
 
 
     public static Workbook generateExcel(List<AddressBookVo> bookVoList) {

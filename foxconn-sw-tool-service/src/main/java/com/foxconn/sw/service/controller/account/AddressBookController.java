@@ -11,7 +11,7 @@ import com.foxconn.sw.data.dto.entity.universal.StringParams;
 import com.foxconn.sw.service.aspects.Permission;
 import com.foxconn.sw.service.processor.acount.GatherAddressBookProcessor;
 import com.foxconn.sw.service.processor.acount.ListAddressBookProcessor;
-import com.foxconn.sw.service.utils.ExcelAddresskBookUtils;
+import com.foxconn.sw.service.utils.ExcelAddressBookUtils;
 import com.foxconn.sw.service.utils.ResponseUtils;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -80,7 +80,7 @@ public class AddressBookController {
             return ResponseEntity.ok().body(null);
         }
         // 使用Apache POI生成Excel文件
-        Workbook workbook = ExcelAddresskBookUtils.generateExcel(bookVoList);
+        Workbook workbook = ExcelAddressBookUtils.generateExcel(bookVoList);
 
         // 将Excel文件写入响应输出流
         OutputStream outputStream = response.getOutputStream();
