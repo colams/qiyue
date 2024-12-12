@@ -4,8 +4,12 @@ import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 import com.foxconn.sw.common.utils.ConfigReader;
+import com.foxconn.sw.service.config.DynamicConfigLoader;
+import jakarta.annotation.Resource;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.web.server.WebServerFactoryCustomizer;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
+import org.springframework.boot.web.servlet.server.ConfigurableServletWebServerFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.converter.HttpMessageConverter;
@@ -27,10 +31,18 @@ import java.util.List;
 
 @EnableWebMvc
 @Configuration
-public class WebConfigurer implements WebMvcConfigurer {
+public class WebConfigurer implements WebMvcConfigurer, WebServerFactoryCustomizer<ConfigurableServletWebServerFactory> {
 
     @Autowired
     ConfigReader configReader;
+
+    @Resource
+    private DynamicConfigLoader dynamicConfigLoader;
+
+    @Override
+    public void customize(ConfigurableServletWebServerFactory factory) {
+        factory.setPort(dynamicConfigLoader.getPort());
+    }
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
