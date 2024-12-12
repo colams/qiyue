@@ -33,19 +33,18 @@ public class DynamicConfigLoader {
 
     @PostConstruct
     public void loadConfig() {
+        int tempPort = 0;
         try {
             String filename = configReader.readPropertyValue("app.property.config");
             System.out.println(filename);
             FileSystemResource resource = new FileSystemResource(filename);
             Properties properties = PropertiesLoaderUtils.loadProperties(resource);
             if (properties.containsKey("server.port")) {
-                this.port = Integer.parseInt(properties.getProperty("server.port"));
-            } else {
-                this.port = 8080;
+                tempPort = Integer.parseInt(properties.getProperty("server.port"));
             }
         } catch (IOException e) {
             System.out.println(e);
-            this.port = 8080;
         }
+        setPort(tempPort == 0 ? 8080 : tempPort);
     }
 }
