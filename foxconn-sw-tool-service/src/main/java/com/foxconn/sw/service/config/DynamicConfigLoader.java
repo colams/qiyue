@@ -34,7 +34,9 @@ public class DynamicConfigLoader {
     @PostConstruct
     public void loadConfig() {
         try {
-            FileSystemResource resource = new FileSystemResource(configReader.readPropertyValue("app.property.config"));
+            String filename = configReader.readPropertyValue("app.property.config");
+            System.out.println(filename);
+            FileSystemResource resource = new FileSystemResource(filename);
             Properties properties = PropertiesLoaderUtils.loadProperties(resource);
             if (properties.containsKey("server.port")) {
                 this.port = Integer.parseInt(properties.getProperty("server.port"));
