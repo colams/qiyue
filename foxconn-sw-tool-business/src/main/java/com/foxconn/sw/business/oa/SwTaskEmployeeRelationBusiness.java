@@ -133,6 +133,7 @@ public class SwTaskEmployeeRelationBusiness {
                 updateRelation.setRoleFlag(simpleRelation.getRoleFlag());
                 updateRelation.setIsActive(simpleRelation.getActive());
                 updateRelation.setId(relation.getId());
+                updateRelation.setIsRead(RequestContext.getEmployeeNo().equalsIgnoreCase(simpleRelation.getEmployeeNo()) ? 1 : 0);
                 employeeRelationExtensionMapper.updateByPrimaryKeySelective(updateRelation);
             }
             relationID = relation.getId();
@@ -143,6 +144,7 @@ public class SwTaskEmployeeRelationBusiness {
             insertRelation.setEmployeeNo(simpleRelation.getEmployeeNo());
             insertRelation.setIsActive(simpleRelation.getActive());
             insertRelation.setPrevId(prevID);
+            insertRelation.setIsRead(RequestContext.getEmployeeNo().equalsIgnoreCase(simpleRelation.getEmployeeNo()) ? 1 : 0);
             employeeRelationExtensionMapper.insertSelective(insertRelation);
             relationID = insertRelation.getId();
         }
