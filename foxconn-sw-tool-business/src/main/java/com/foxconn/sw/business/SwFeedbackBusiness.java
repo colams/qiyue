@@ -1,6 +1,7 @@
 package com.foxconn.sw.business;
 
 import com.foxconn.sw.common.constanst.NumberConstants;
+import com.foxconn.sw.common.context.RequestContext;
 import com.foxconn.sw.data.dto.PageParams;
 import com.foxconn.sw.data.dto.request.feedback.FeedBackConditionParams;
 import com.foxconn.sw.data.entity.SwFeedback;
@@ -30,8 +31,12 @@ public class SwFeedbackBusiness {
             criteria.andStatusEqualTo(params.getParams().getStatus());
         }
 
-        if (!hasPower && StringUtils.isNotEmpty(params.getParams().getTitle())) {
+        if (StringUtils.isNotEmpty(params.getParams().getTitle())) {
             criteria.andTitleLike("%" + params.getParams().getTitle() + "%");
+        }
+
+        if (!hasPower) {
+            criteria.andEmployeeNoEqualTo(RequestContext.getEmployeeNo());
         }
 
         SwFeedbackExample.Criteria or = example.or();
@@ -55,8 +60,12 @@ public class SwFeedbackBusiness {
             criteria.andStatusEqualTo(params.getParams().getStatus());
         }
 
-        if (!hasPower && StringUtils.isNotEmpty(params.getParams().getTitle())) {
+        if (StringUtils.isNotEmpty(params.getParams().getTitle())) {
             criteria.andTitleLike("%" + params.getParams().getTitle() + "%");
+        }
+
+        if (!hasPower) {
+            criteria.andEmployeeNoEqualTo(RequestContext.getEmployeeNo());
         }
 
         SwFeedbackExample.Criteria or = example.or();
