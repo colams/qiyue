@@ -6,6 +6,7 @@ import com.foxconn.sw.data.dto.PageEntity;
 import com.foxconn.sw.data.dto.PageParams;
 import com.foxconn.sw.data.dto.Request;
 import com.foxconn.sw.data.dto.Response;
+import com.foxconn.sw.data.dto.entity.group.CustomOperateVo;
 import com.foxconn.sw.data.dto.entity.group.GroupBriefVo;
 import com.foxconn.sw.data.dto.entity.group.GroupMemberVo;
 import com.foxconn.sw.data.dto.entity.system.AuthorizedVo;
@@ -97,12 +98,12 @@ public class GroupController {
     }
 
     @Permission
-    @Operation(summary = "获取待处理加群操作", tags = TagsConstants.GROUP)
+    @Operation(summary = "获取待处理消息", tags = TagsConstants.GROUP)
     @ApiResponse(responseCode = "0", description = "成功码")
     @PostMapping("/operateList")
     public Response<Boolean> operateList(@Valid @RequestBody Request request) {
-        applyJoinProcessor.operateList();
-        return ResponseUtils.success(true, request.getTraceId());
+        List<CustomOperateVo> vos = applyJoinProcessor.operateList();
+        return ResponseUtils.success(vos, request.getTraceId());
     }
 
 

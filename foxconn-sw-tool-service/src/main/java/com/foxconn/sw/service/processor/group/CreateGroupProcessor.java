@@ -66,9 +66,10 @@ public class CreateGroupProcessor {
     }
 
     public boolean disband(IntegerParams data) {
-        boolean result = groupBusiness.disband(data);
+        SwCustomGroup group = groupBusiness.getCustomGroup(data.getParams());
+        boolean result = groupBusiness.disband(group);
         if (result) {
-            customGroupOperateBusiness.disbandGroup(data, "解散群组");
+            customGroupOperateBusiness.disbandGroup(data, "解散群组 " + group.getName());
         }
         return result;
     }
