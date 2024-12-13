@@ -71,7 +71,12 @@
                              targetProject="src\main\java">
             <property name="enableSubPackages" value="false"/>
         </javaClientGenerator>
-
+        <table tableName="forum_bbs">
+            <generatedKey column="id" identity="true" sqlStatement="mysql"/>
+        </table>
+        <table tableName="forum_bbs_comment">
+            <generatedKey column="id" identity="true" sqlStatement="mysql"/>
+        </table>
         <table tableName="forum_comment">
             <generatedKey column="id" identity="true" sqlStatement="mysql"/>
         </table>

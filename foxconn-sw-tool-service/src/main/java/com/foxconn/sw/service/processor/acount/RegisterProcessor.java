@@ -32,17 +32,16 @@ public class RegisterProcessor {
     EmployeeBusiness employeeBusiness;
 
     public LoginStateVo register(UserBriefParams data) {
-        throw new BizException(4, "註冊功能已關閉，如有需要請聯繫【lan.lh.wu@mail.foxconn.com】");
         // 创建 用户账户
-//        checkExist(data);
-//        SwUser sysUser = createUser(data);
-//        if (Objects.isNull(sysUser)) {
-//            throw new BizException(AccountExceptionCode.CREATE_ACCOUNT_EXCEPTION);
-//        }
-//        saveEmployee(data);
-//        // 生成登录信息
-//        LoginStateVo result = createLoginState(data.getEmployeeNo());
-//        return result;
+        checkExist(data);
+        SwUser sysUser = createUser(data);
+        if (Objects.isNull(sysUser)) {
+            throw new BizException(AccountExceptionCode.CREATE_ACCOUNT_EXCEPTION);
+        }
+        saveEmployee(data);
+        // 生成登录信息
+        LoginStateVo result = createLoginState(data.getEmployeeNo());
+        return result;
     }
 
     private boolean checkExist(UserBriefParams data) {
