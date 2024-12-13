@@ -1,24 +1,26 @@
 package com.foxconn.sw.data.dto.request.group;
 
+import com.foxconn.sw.data.dto.request.enums.AgreeStatusEnums;
+
 public class ProcessApplyParams {
 
-    private Integer groupId;
+    private Integer applyID;
 
-    private Integer status;
+    private AgreeStatusEnums agree;
 
-    public Integer getGroupId() {
-        return groupId;
+    public Integer getApplyID() {
+        return applyID;
     }
 
-    public void setGroupId(Integer groupId) {
-        this.groupId = groupId;
+    public void setApplyID(Integer applyID) {
+        this.applyID = applyID;
     }
 
-    public Integer getStatus() {
-        return status;
+    public AgreeStatusEnums getAgree() {
+        return agree;
     }
 
-    public void setStatus(Integer status) {
-        this.status = status;
+    public void setAgree(AgreeStatusEnums agree) {
+        this.agree = agree;
     }
 }

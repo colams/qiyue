@@ -7,12 +7,17 @@ import com.foxconn.sw.data.dto.PageParams;
 import com.foxconn.sw.data.dto.Request;
 import com.foxconn.sw.data.dto.Response;
 import com.foxconn.sw.data.dto.entity.group.GroupBriefVo;
+import com.foxconn.sw.data.dto.entity.group.GroupMemberVo;
+import com.foxconn.sw.data.dto.entity.system.AuthorizedVo;
 import com.foxconn.sw.data.dto.entity.universal.IntegerParams;
+import com.foxconn.sw.data.dto.request.enums.AuthorizedEnums;
 import com.foxconn.sw.data.dto.request.group.ApplyJoinGroupParams;
 import com.foxconn.sw.data.dto.request.group.CreateGroupParams;
 import com.foxconn.sw.data.dto.request.group.ProcessApplyParams;
 import com.foxconn.sw.data.dto.request.group.SearchGroupParams;
 import com.foxconn.sw.service.aspects.Permission;
+import com.foxconn.sw.service.processor.group.ApplyJoinProcessor;
+import com.foxconn.sw.service.processor.group.AuthorizedProcessor;
 import com.foxconn.sw.service.processor.group.CreateGroupProcessor;
 import com.foxconn.sw.service.processor.group.GroupListProcessor;
 import com.foxconn.sw.service.utils.ResponseUtils;
@@ -21,6 +26,8 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @CrossOrigin
 @RestController
@@ -31,6 +38,19 @@ public class GroupController {
     CreateGroupProcessor createGroupProcessor;
     @Autowired
     GroupListProcessor groupListProcessor;
+    @Autowired
+    ApplyJoinProcessor applyJoinProcessor;
+    @Autowired
+    AuthorizedProcessor authorizedProcessor;
+
+    @Permission
+    @Operation(summary = "创建群组", tags = TagsConstants.GROUP)
+    @ApiResponse(responseCode = "0", description = "成功码")
+    @PostMapping("/authorized")
+    public Response<List<AuthorizedVo>> authorized(@Valid @RequestBody Request<List<AuthorizedEnums>> request) {
+        List<AuthorizedVo> vos = authorizedProcessor.authorized(request.getData());
+        return ResponseUtils.success(vos, request.getTraceId());
+    }
 
     @Permission
     @Operation(summary = "创建群组", tags = TagsConstants.GROUP)
@@ -65,7 +85,8 @@ public class GroupController {
     @ApiResponse(responseCode = "0", description = "成功码")
     @PostMapping("/applyJoin")
     public Response<Boolean> applyJoin(@Valid @RequestBody Request<ApplyJoinGroupParams> request) {
-        return ResponseUtils.success(true, request.getTraceId());
+        boolean result = applyJoinProcessor.applyJoin(request.getData());
+        return ResponseUtils.success(result, request.getTraceId());
     }
 
 
@@ -74,7 +95,8 @@ public class GroupController {
     @ApiResponse(responseCode = "0", description = "成功码")
     @PostMapping("/process")
     public Response<Boolean> processApply(@Valid @RequestBody Request<ProcessApplyParams> request) {
-        return ResponseUtils.success(true, request.getTraceId());
+        boolean result = applyJoinProcessor.process(request.getData());
+        return ResponseUtils.success(result, request.getTraceId());
     }
 
     @Permission
@@ -82,6 +104,7 @@ public class GroupController {
     @ApiResponse(responseCode = "0", description = "成功码")
     @PostMapping("/applyList")
     public Response<Boolean> applyList(@Valid @RequestBody Request<ProcessApplyParams> request) {
+        // todo
         return ResponseUtils.success(true, request.getTraceId());
     }
 
@@ -91,7 +114,8 @@ public class GroupController {
     @ApiResponse(responseCode = "0", description = "成功码")
     @PostMapping("/disband")
     public Response<Boolean> disband(@Valid @RequestBody Request<IntegerParams> request) {
-        return ResponseUtils.success(true, request.getTraceId());
+        boolean result = createGroupProcessor.disband(request.getData());
+        return ResponseUtils.success(result, request.getTraceId());
     }
 
     @Permission
@@ -99,16 +123,16 @@ public class GroupController {
     @ApiResponse(responseCode = "0", description = "成功码")
     @PostMapping("/collect")
     public Response<Boolean> collect(@Valid @RequestBody Request<IntegerParams> request) {
-        return ResponseUtils.success(true, request.getTraceId());
+        boolean result = applyJoinProcessor.collect(request.getData());
+        return ResponseUtils.success(result, request.getTraceId());
     }
 
     @Permission
     @Operation(summary = "查看群组成员操作", tags = TagsConstants.GROUP)
     @ApiResponse(responseCode = "0", description = "成功码")
     @PostMapping("/members")
-    public Response<Boolean> members(@Valid @RequestBody Request<IntegerParams> request) {
-        return ResponseUtils.success(true, request.getTraceId());
+    public Response<List<GroupMemberVo>> members(@Valid @RequestBody Request<IntegerParams> request) {
+        List<GroupMemberVo> vos = createGroupProcessor.listMember(request.getData());
+        return ResponseUtils.success(vos, request.getTraceId());
     }
-
-
 }

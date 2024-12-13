@@ -2,12 +2,11 @@ package com.foxconn.sw.business.group;
 
 import com.foxconn.sw.common.constanst.NumberConstants;
 import com.foxconn.sw.common.context.RequestContext;
-import com.foxconn.sw.data.dto.entity.group.GroupBriefVo;
+import com.foxconn.sw.data.dto.entity.universal.IntegerParams;
 import com.foxconn.sw.data.entity.SwCustomGroup;
 import com.foxconn.sw.data.entity.SwCustomGroupExample;
 import com.foxconn.sw.data.mapper.extension.group.SwCustomGroupExtMapper;
 import com.foxconn.sw.data.mapper.extension.group.SwCustomGroupMemberExtMapper;
-import com.google.common.collect.Lists;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -58,8 +57,8 @@ public class SwCustomGroupBusiness {
      * @param keywords
      * @return
      */
-    public List<GroupBriefVo> listCollectGroup(String keywords) {
-        return Lists.newArrayList();
+    public List<SwCustomGroup> listCollectGroup(String keywords) {
+        return customGroupExtMapper.listCollectGroup(keywords);
     }
 
     /**
@@ -68,7 +67,24 @@ public class SwCustomGroupBusiness {
      * @param keywords
      * @return
      */
-    public List<GroupBriefVo> listPublicGroup(String keywords) {
-        return Lists.newArrayList();
+    public List<SwCustomGroup> listPublicGroup(String keywords) {
+        SwCustomGroupExample example = new SwCustomGroupExample();
+        SwCustomGroupExample.Criteria criteria = example.createCriteria();
+        criteria.andIsPrivateEqualTo(NumberConstants.ZERO);
+        criteria.andIsDeleteEqualTo(NumberConstants.ZERO);
+        if (StringUtils.isNotEmpty(keywords)) {
+            criteria.andNameLike(String.format("%%%s%%", keywords));
+        }
+        return customGroupExtMapper.selectByExample(example);
+    }
+
+    public boolean disband(IntegerParams data) {
+        SwCustomGroup apply = new SwCustomGroup();
+        apply.setIsDelete(1);
+        SwCustomGroupExample example = new SwCustomGroupExample();
+        SwCustomGroupExample.Criteria criteria = example.createCriteria();
+        criteria.andIdEqualTo(data.getParams());
+        return customGroupExtMapper.updateByExampleSelective(apply, example) > 0;
+
     }
 }
