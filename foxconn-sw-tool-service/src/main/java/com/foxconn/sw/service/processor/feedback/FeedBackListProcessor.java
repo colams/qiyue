@@ -32,18 +32,10 @@ public class FeedBackListProcessor {
     EmployeeBusiness employeeBusiness;
 
     public PageEntity list(PageParams<FeedBackConditionParams> pageParams) {
-        String employeeNo = RequestContext.getEmployeeNo();
         FeedBackConditionParams params = pageParams.getParams();
-        boolean hasPower = checkConfig(employeeNo);
-        if (hasPower) {
-            employeeNo = "";
-
-            if (StringUtils.isNotEmpty(params.getEmployeeNo())) {
-                employeeNo = params.getEmployeeNo();
-            }
-        }
-        List<SwFeedback> feedbacks = feedbackBusiness.queryFeedBack(employeeNo, pageParams);
-        Long count = feedbackBusiness.queryFeedBackCount(employeeNo, pageParams);
+        boolean hasPower = checkConfig(RequestContext.getEmployeeNo());
+        List<SwFeedback> feedbacks = feedbackBusiness.queryFeedBack(hasPower, pageParams);
+        Long count = feedbackBusiness.queryFeedBackCount(hasPower, pageParams);
         List<FeedBackVo> vos = map(feedbacks, hasPower);
         return new PageEntity(count.intValue(), vos);
     }

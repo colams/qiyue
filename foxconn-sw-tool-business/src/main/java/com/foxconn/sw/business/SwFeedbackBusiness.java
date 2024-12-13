@@ -23,19 +23,15 @@ public class SwFeedbackBusiness {
     @Autowired
     SwFeedbackExtMapper feedbackExtMapper;
 
-    public List<SwFeedback> queryFeedBack(String employeeNo, PageParams<FeedBackConditionParams> params) {
+    public List<SwFeedback> queryFeedBack(boolean hasPower, PageParams<FeedBackConditionParams> params) {
         SwFeedbackExample example = new SwFeedbackExample();
         SwFeedbackExample.Criteria criteria = example.createCriteria();
-        if (StringUtils.isNotEmpty(params.getParams().getTitle())) {
-            criteria.andTitleLike("%" + params.getParams().getTitle() + "%");
-        }
-
         if (Objects.nonNull(params.getParams().getStatus())) {
             criteria.andStatusEqualTo(params.getParams().getStatus());
         }
 
-        if (StringUtils.isNotEmpty(employeeNo)) {
-            criteria.andEmployeeNoEqualTo(employeeNo);
+        if (!hasPower && StringUtils.isNotEmpty(params.getParams().getTitle())) {
+            criteria.andTitleLike("%" + params.getParams().getTitle() + "%");
         }
 
         SwFeedbackExample.Criteria or = example.or();
@@ -43,10 +39,8 @@ public class SwFeedbackBusiness {
             or.andStatusEqualTo(params.getParams().getStatus());
         }
 
-        if (StringUtils.isNotEmpty(employeeNo)) {
-            or.andEmployeeNoEqualTo(employeeNo);
-        } else {
-            or.andEmployeeNoEqualTo("%" + params.getParams().getTitle() + "%");
+        if (hasPower && StringUtils.isNotEmpty(params.getParams().getEmployeeNo())) {
+            or.andEmployeeNoEqualTo(params.getParams().getEmployeeNo());
         }
 
         example.setOrderByClause(" status,id ");
@@ -54,19 +48,24 @@ public class SwFeedbackBusiness {
         return feedbackExtMapper.selectByExampleWithBLOBsWithRowbounds(example, rowBounds);
     }
 
-    public Long queryFeedBackCount(String employeeNo, PageParams<FeedBackConditionParams> params) {
+    public Long queryFeedBackCount(boolean hasPower, PageParams<FeedBackConditionParams> params) {
         SwFeedbackExample example = new SwFeedbackExample();
         SwFeedbackExample.Criteria criteria = example.createCriteria();
-        if (StringUtils.isNotEmpty(employeeNo)) {
-            criteria.andEmployeeNoEqualTo(employeeNo);
+        if (Objects.nonNull(params.getParams().getStatus())) {
+            criteria.andStatusEqualTo(params.getParams().getStatus());
         }
 
-        if (StringUtils.isNotEmpty(params.getParams().getTitle())) {
+        if (!hasPower && StringUtils.isNotEmpty(params.getParams().getTitle())) {
             criteria.andTitleLike("%" + params.getParams().getTitle() + "%");
         }
 
+        SwFeedbackExample.Criteria or = example.or();
         if (Objects.nonNull(params.getParams().getStatus())) {
-            criteria.andStatusEqualTo(params.getParams().getStatus());
+            or.andStatusEqualTo(params.getParams().getStatus());
+        }
+
+        if (hasPower && StringUtils.isNotEmpty(params.getParams().getEmployeeNo())) {
+            or.andEmployeeNoEqualTo(params.getParams().getEmployeeNo());
         }
 
         return Optional.ofNullable(feedbackExtMapper.selectByExampleWithBLOBs(example))
