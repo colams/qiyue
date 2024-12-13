@@ -26,16 +26,27 @@ public class SwFeedbackBusiness {
     public List<SwFeedback> queryFeedBack(String employeeNo, PageParams<FeedBackConditionParams> params) {
         SwFeedbackExample example = new SwFeedbackExample();
         SwFeedbackExample.Criteria criteria = example.createCriteria();
-        if (StringUtils.isNotEmpty(employeeNo)) {
-            criteria.andEmployeeNoEqualTo(employeeNo);
-        }
-
         if (StringUtils.isNotEmpty(params.getParams().getTitle())) {
             criteria.andTitleLike("%" + params.getParams().getTitle() + "%");
         }
 
         if (Objects.nonNull(params.getParams().getStatus())) {
             criteria.andStatusEqualTo(params.getParams().getStatus());
+        }
+
+        if (StringUtils.isNotEmpty(employeeNo)) {
+            criteria.andEmployeeNoEqualTo(employeeNo);
+        }
+
+        SwFeedbackExample.Criteria or = example.or();
+        if (Objects.nonNull(params.getParams().getStatus())) {
+            or.andStatusEqualTo(params.getParams().getStatus());
+        }
+
+        if (StringUtils.isNotEmpty(employeeNo)) {
+            or.andEmployeeNoEqualTo(employeeNo);
+        } else {
+            or.andEmployeeNoEqualTo("%" + params.getParams().getTitle() + "%");
         }
 
         example.setOrderByClause(" status,id ");
