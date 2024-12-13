@@ -2,6 +2,7 @@ package com.foxconn.sw.service.processor.group;
 
 import com.foxconn.sw.business.group.SwCustomGroupBusiness;
 import com.foxconn.sw.business.group.SwCustomGroupMemberBusiness;
+import com.foxconn.sw.business.group.SwCustomGroupOperateBusiness;
 import com.foxconn.sw.common.constanst.NumberConstants;
 import com.foxconn.sw.common.context.RequestContext;
 import com.foxconn.sw.data.dto.entity.acount.EmployeeVo;
@@ -10,6 +11,7 @@ import com.foxconn.sw.data.dto.entity.group.GroupMemberVo;
 import com.foxconn.sw.data.dto.entity.universal.IntegerParams;
 import com.foxconn.sw.data.dto.request.group.CreateGroupParams;
 import com.foxconn.sw.data.dto.request.group.MemberBrief;
+import com.foxconn.sw.data.dto.request.group.UpdateGroupParams;
 import com.foxconn.sw.data.entity.SwCustomGroup;
 import com.foxconn.sw.data.entity.SwCustomGroupMember;
 import com.foxconn.sw.service.processor.utils.EmployeeUtils;
@@ -20,6 +22,7 @@ import org.springframework.util.CollectionUtils;
 
 import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Component
 public class CreateGroupProcessor {
@@ -28,6 +31,8 @@ public class CreateGroupProcessor {
     SwCustomGroupBusiness groupBusiness;
     @Autowired
     SwCustomGroupMemberBusiness groupMemberBusiness;
+    @Autowired
+    SwCustomGroupOperateBusiness customGroupOperateBusiness;
     @Autowired
     EmployeeUtils employeeUtils;
 
@@ -61,11 +66,15 @@ public class CreateGroupProcessor {
     }
 
     public boolean disband(IntegerParams data) {
-        return groupBusiness.disband(data);
+        boolean result = groupBusiness.disband(data);
+        if (result) {
+            customGroupOperateBusiness.disbandGroup(data, "解散群组");
+        }
+        return result;
     }
 
     public List<GroupMemberVo> listMember(IntegerParams data) {
-        List<SwCustomGroupMember> members = groupMemberBusiness.getGroupMember(data.getParams());
+        List<SwCustomGroupMember> members = groupMemberBusiness.getCustomGroupMember(data.getParams());
         if (CollectionUtils.isEmpty(members)) {
             return Lists.newArrayList();
         }
@@ -90,5 +99,65 @@ public class CreateGroupProcessor {
             vo.setRole("成員");
         }
         return vo;
+    }
+
+    public Boolean updateGroup(UpdateGroupParams data) {
+        SwCustomGroup customGroup = groupBusiness.getCustomGroup(data.getGroupID());
+        if (Objects.isNull(customGroup)) {
+            return false;
+        }
+        boolean result = groupBusiness.updateGroup(data);
+
+        List<SwCustomGroupMember> groupMembers = groupMemberBusiness.getCustomGroupMember(data.getGroupID());
+
+        if (!CollectionUtils.isEmpty(data.getMembers())) {
+
+            List<String> allEmpNos = Stream.of(data.getMembers(), groupMembers)
+                    .flatMap(e -> e.stream().map(m -> {
+                        if (m instanceof SwCustomGroupMember) {
+                            return ((SwCustomGroupMember) m).getMember();
+                        } else if (m instanceof MemberBrief) {
+                            return ((MemberBrief) m).getEmployeeNo();
+                        } else {
+                            return "";
+                        }
+                    }))
+                    .collect(Collectors.toList());
+            List<SwCustomGroupMember> newMembers = new ArrayList<>();
+            allEmpNos.forEach(e -> {
+                SwCustomGroupMember member = initMember(e, data, groupMembers);
+                newMembers.add(member);
+            });
+            groupMemberBusiness.insertOrUpdate(newMembers);
+        }
+        return result;
+    }
+
+    private SwCustomGroupMember initMember(String eno, UpdateGroupParams data, List<SwCustomGroupMember> groupMembers) {
+        SwCustomGroupMember member = groupMembers.stream()
+                .filter(e -> e.getMember().equalsIgnoreCase(eno))
+                .findFirst()
+                .orElse(null);
+
+        MemberBrief memberBrief = data.getMembers().stream()
+                .filter(e -> e.getEmployeeNo().equalsIgnoreCase(eno))
+                .findFirst()
+                .orElse(null);
+
+        if (Objects.isNull(member)) {
+            // 对于不存在旧数据的做 初始化成员信息
+            member = new SwCustomGroupMember();
+            member.setCustomGroupId(data.getGroupID());
+            member.setMember(eno);
+            member.setMemberType(memberBrief.getMemberType());
+        } else {
+            // 对于存在旧数据的 按照实际赋值，如果新增数据没有，则做删除操作
+            boolean hasUpdate = Objects.nonNull(memberBrief);
+            member.setIsDelete(!hasUpdate ? 1 : 0);
+            if (hasUpdate) {
+                member.setMemberType(memberBrief.getMemberType());
+            }
+        }
+        return member;
     }
 }

@@ -3,7 +3,7 @@ package com.foxconn.sw.data.dto.request.enums;
 public enum AgreeStatusEnums {
 
 
-    Agree(1, "Agree", "同意"),
+    Agree(1, "Agree", "同意/完成"),
     Deny(2, "Deny", "駁回"),
     ;
 

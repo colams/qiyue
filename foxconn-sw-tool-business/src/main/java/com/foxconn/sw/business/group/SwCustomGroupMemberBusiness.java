@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.Objects;
 
 @Component
 public class SwCustomGroupMemberBusiness {
@@ -47,11 +48,22 @@ public class SwCustomGroupMemberBusiness {
         return true;
     }
 
-    public List<SwCustomGroupMember> getGroupMember(Integer groupID) {
+    public List<SwCustomGroupMember> getCustomGroupMember(Integer groupID) {
         SwCustomGroupMemberExample example = new SwCustomGroupMemberExample();
         SwCustomGroupMemberExample.Criteria criteria = example.createCriteria();
         criteria.andCustomGroupIdEqualTo(groupID);
         criteria.andIsDeleteEqualTo(NumberConstants.ZERO);
         return customGroupMemberExtMapper.selectByExample(example);
+    }
+
+    public boolean insertOrUpdate(List<SwCustomGroupMember> members) {
+        members.forEach(e -> {
+            if (Objects.nonNull(e.getId()) && e.getId() > 0) {
+                customGroupMemberExtMapper.updateByPrimaryKeySelective(e);
+            } else {
+                customGroupMemberExtMapper.insertSelective(e);
+            }
+        });
+        return true;
     }
 }

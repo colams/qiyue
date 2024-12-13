@@ -1,43 +1,51 @@
 package com.foxconn.sw.data.mapper.auto;
 
-import com.foxconn.sw.data.entity.SwCustomGroupApply;
-import com.foxconn.sw.data.entity.SwCustomGroupApplyExample.Criteria;
-import com.foxconn.sw.data.entity.SwCustomGroupApplyExample.Criterion;
-import com.foxconn.sw.data.entity.SwCustomGroupApplyExample;
+import com.foxconn.sw.data.entity.SwCustomGroupOperate;
+import com.foxconn.sw.data.entity.SwCustomGroupOperateExample.Criteria;
+import com.foxconn.sw.data.entity.SwCustomGroupOperateExample.Criterion;
+import com.foxconn.sw.data.entity.SwCustomGroupOperateExample;
 import java.util.List;
 import java.util.Map;
 import org.apache.ibatis.jdbc.SQL;
 
-public class SwCustomGroupApplySqlProvider {
+public class SwCustomGroupOperateSqlProvider {
 
-    public String countByExample(SwCustomGroupApplyExample example) {
+    public String countByExample(SwCustomGroupOperateExample example) {
         SQL sql = new SQL();
-        sql.SELECT("count(*)").FROM("sw_custom_group_apply");
+        sql.SELECT("count(*)").FROM("sw_custom_group_operate");
         applyWhere(sql, example, false);
         return sql.toString();
     }
 
-    public String deleteByExample(SwCustomGroupApplyExample example) {
+    public String deleteByExample(SwCustomGroupOperateExample example) {
         SQL sql = new SQL();
-        sql.DELETE_FROM("sw_custom_group_apply");
+        sql.DELETE_FROM("sw_custom_group_operate");
         applyWhere(sql, example, false);
         return sql.toString();
     }
 
-    public String insertSelective(SwCustomGroupApply record) {
+    public String insertSelective(SwCustomGroupOperate record) {
         SQL sql = new SQL();
-        sql.INSERT_INTO("sw_custom_group_apply");
+        sql.INSERT_INTO("sw_custom_group_operate");
         
         if (record.getCustomGroupId() != null) {
             sql.VALUES("custom_group_id", "#{customGroupId,jdbcType=INTEGER}");
         }
         
-        if (record.getApplyEmployeeNo() != null) {
-            sql.VALUES("apply_employee_no", "#{applyEmployeeNo,jdbcType=VARCHAR}");
+        if (record.getOperator() != null) {
+            sql.VALUES("operator", "#{operator,jdbcType=VARCHAR}");
+        }
+        
+        if (record.getOperateType() != null) {
+            sql.VALUES("operate_type", "#{operateType,jdbcType=VARCHAR}");
         }
         
         if (record.getRemark() != null) {
             sql.VALUES("remark", "#{remark,jdbcType=VARCHAR}");
+        }
+        
+        if (record.getIsRead() != null) {
+            sql.VALUES("is_read", "#{isRead,jdbcType=INTEGER}");
         }
         
         if (record.getStatus() != null) {
@@ -55,7 +63,7 @@ public class SwCustomGroupApplySqlProvider {
         return sql.toString();
     }
 
-    public String selectByExample(SwCustomGroupApplyExample example) {
+    public String selectByExample(SwCustomGroupOperateExample example) {
         SQL sql = new SQL();
         if (example != null && example.isDistinct()) {
             sql.SELECT_DISTINCT("id");
@@ -63,12 +71,14 @@ public class SwCustomGroupApplySqlProvider {
             sql.SELECT("id");
         }
         sql.SELECT("custom_group_id");
-        sql.SELECT("apply_employee_no");
+        sql.SELECT("operator");
+        sql.SELECT("operate_type");
         sql.SELECT("remark");
+        sql.SELECT("is_read");
         sql.SELECT("status");
         sql.SELECT("create_time");
         sql.SELECT("datetime_lastchange");
-        sql.FROM("sw_custom_group_apply");
+        sql.FROM("sw_custom_group_operate");
         applyWhere(sql, example, false);
         
         if (example != null && example.getOrderByClause() != null) {
@@ -79,11 +89,11 @@ public class SwCustomGroupApplySqlProvider {
     }
 
     public String updateByExampleSelective(Map<String, Object> parameter) {
-        SwCustomGroupApply record = (SwCustomGroupApply) parameter.get("record");
-        SwCustomGroupApplyExample example = (SwCustomGroupApplyExample) parameter.get("example");
+        SwCustomGroupOperate record = (SwCustomGroupOperate) parameter.get("record");
+        SwCustomGroupOperateExample example = (SwCustomGroupOperateExample) parameter.get("example");
         
         SQL sql = new SQL();
-        sql.UPDATE("sw_custom_group_apply");
+        sql.UPDATE("sw_custom_group_operate");
         
         if (record.getId() != null) {
             sql.SET("id = #{record.id,jdbcType=INTEGER}");
@@ -93,12 +103,20 @@ public class SwCustomGroupApplySqlProvider {
             sql.SET("custom_group_id = #{record.customGroupId,jdbcType=INTEGER}");
         }
         
-        if (record.getApplyEmployeeNo() != null) {
-            sql.SET("apply_employee_no = #{record.applyEmployeeNo,jdbcType=VARCHAR}");
+        if (record.getOperator() != null) {
+            sql.SET("operator = #{record.operator,jdbcType=VARCHAR}");
+        }
+        
+        if (record.getOperateType() != null) {
+            sql.SET("operate_type = #{record.operateType,jdbcType=VARCHAR}");
         }
         
         if (record.getRemark() != null) {
             sql.SET("remark = #{record.remark,jdbcType=VARCHAR}");
+        }
+        
+        if (record.getIsRead() != null) {
+            sql.SET("is_read = #{record.isRead,jdbcType=INTEGER}");
         }
         
         if (record.getStatus() != null) {
@@ -119,35 +137,45 @@ public class SwCustomGroupApplySqlProvider {
 
     public String updateByExample(Map<String, Object> parameter) {
         SQL sql = new SQL();
-        sql.UPDATE("sw_custom_group_apply");
+        sql.UPDATE("sw_custom_group_operate");
         
         sql.SET("id = #{record.id,jdbcType=INTEGER}");
         sql.SET("custom_group_id = #{record.customGroupId,jdbcType=INTEGER}");
-        sql.SET("apply_employee_no = #{record.applyEmployeeNo,jdbcType=VARCHAR}");
+        sql.SET("operator = #{record.operator,jdbcType=VARCHAR}");
+        sql.SET("operate_type = #{record.operateType,jdbcType=VARCHAR}");
         sql.SET("remark = #{record.remark,jdbcType=VARCHAR}");
+        sql.SET("is_read = #{record.isRead,jdbcType=INTEGER}");
         sql.SET("status = #{record.status,jdbcType=INTEGER}");
         sql.SET("create_time = #{record.createTime,jdbcType=TIMESTAMP}");
         sql.SET("datetime_lastchange = #{record.datetimeLastchange,jdbcType=TIMESTAMP}");
         
-        SwCustomGroupApplyExample example = (SwCustomGroupApplyExample) parameter.get("example");
+        SwCustomGroupOperateExample example = (SwCustomGroupOperateExample) parameter.get("example");
         applyWhere(sql, example, true);
         return sql.toString();
     }
 
-    public String updateByPrimaryKeySelective(SwCustomGroupApply record) {
+    public String updateByPrimaryKeySelective(SwCustomGroupOperate record) {
         SQL sql = new SQL();
-        sql.UPDATE("sw_custom_group_apply");
+        sql.UPDATE("sw_custom_group_operate");
         
         if (record.getCustomGroupId() != null) {
             sql.SET("custom_group_id = #{customGroupId,jdbcType=INTEGER}");
         }
         
-        if (record.getApplyEmployeeNo() != null) {
-            sql.SET("apply_employee_no = #{applyEmployeeNo,jdbcType=VARCHAR}");
+        if (record.getOperator() != null) {
+            sql.SET("operator = #{operator,jdbcType=VARCHAR}");
+        }
+        
+        if (record.getOperateType() != null) {
+            sql.SET("operate_type = #{operateType,jdbcType=VARCHAR}");
         }
         
         if (record.getRemark() != null) {
             sql.SET("remark = #{remark,jdbcType=VARCHAR}");
+        }
+        
+        if (record.getIsRead() != null) {
+            sql.SET("is_read = #{isRead,jdbcType=INTEGER}");
         }
         
         if (record.getStatus() != null) {
@@ -167,7 +195,7 @@ public class SwCustomGroupApplySqlProvider {
         return sql.toString();
     }
 
-    protected void applyWhere(SQL sql, SwCustomGroupApplyExample example, boolean includeExamplePhrase) {
+    protected void applyWhere(SQL sql, SwCustomGroupOperateExample example, boolean includeExamplePhrase) {
         if (example == null) {
             return;
         }

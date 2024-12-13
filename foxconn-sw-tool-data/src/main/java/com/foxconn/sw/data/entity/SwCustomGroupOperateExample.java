@@ -4,14 +4,14 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SwCustomGroupApplyExample {
+public class SwCustomGroupOperateExample {
     protected String orderByClause;
 
     protected boolean distinct;
 
     protected List<Criteria> oredCriteria;
 
-    public SwCustomGroupApplyExample() {
+    public SwCustomGroupOperateExample() {
         oredCriteria = new ArrayList<Criteria>();
     }
 
@@ -225,73 +225,143 @@ public class SwCustomGroupApplyExample {
             return (Criteria) this;
         }
 
-        public Criteria andApplyEmployeeNoIsNull() {
-            addCriterion("apply_employee_no is null");
+        public Criteria andOperatorIsNull() {
+            addCriterion("operator is null");
             return (Criteria) this;
         }
 
-        public Criteria andApplyEmployeeNoIsNotNull() {
-            addCriterion("apply_employee_no is not null");
+        public Criteria andOperatorIsNotNull() {
+            addCriterion("operator is not null");
             return (Criteria) this;
         }
 
-        public Criteria andApplyEmployeeNoEqualTo(String value) {
-            addCriterion("apply_employee_no =", value, "applyEmployeeNo");
+        public Criteria andOperatorEqualTo(String value) {
+            addCriterion("operator =", value, "operator");
             return (Criteria) this;
         }
 
-        public Criteria andApplyEmployeeNoNotEqualTo(String value) {
-            addCriterion("apply_employee_no <>", value, "applyEmployeeNo");
+        public Criteria andOperatorNotEqualTo(String value) {
+            addCriterion("operator <>", value, "operator");
             return (Criteria) this;
         }
 
-        public Criteria andApplyEmployeeNoGreaterThan(String value) {
-            addCriterion("apply_employee_no >", value, "applyEmployeeNo");
+        public Criteria andOperatorGreaterThan(String value) {
+            addCriterion("operator >", value, "operator");
             return (Criteria) this;
         }
 
-        public Criteria andApplyEmployeeNoGreaterThanOrEqualTo(String value) {
-            addCriterion("apply_employee_no >=", value, "applyEmployeeNo");
+        public Criteria andOperatorGreaterThanOrEqualTo(String value) {
+            addCriterion("operator >=", value, "operator");
             return (Criteria) this;
         }
 
-        public Criteria andApplyEmployeeNoLessThan(String value) {
-            addCriterion("apply_employee_no <", value, "applyEmployeeNo");
+        public Criteria andOperatorLessThan(String value) {
+            addCriterion("operator <", value, "operator");
             return (Criteria) this;
         }
 
-        public Criteria andApplyEmployeeNoLessThanOrEqualTo(String value) {
-            addCriterion("apply_employee_no <=", value, "applyEmployeeNo");
+        public Criteria andOperatorLessThanOrEqualTo(String value) {
+            addCriterion("operator <=", value, "operator");
             return (Criteria) this;
         }
 
-        public Criteria andApplyEmployeeNoLike(String value) {
-            addCriterion("apply_employee_no like", value, "applyEmployeeNo");
+        public Criteria andOperatorLike(String value) {
+            addCriterion("operator like", value, "operator");
             return (Criteria) this;
         }
 
-        public Criteria andApplyEmployeeNoNotLike(String value) {
-            addCriterion("apply_employee_no not like", value, "applyEmployeeNo");
+        public Criteria andOperatorNotLike(String value) {
+            addCriterion("operator not like", value, "operator");
             return (Criteria) this;
         }
 
-        public Criteria andApplyEmployeeNoIn(List<String> values) {
-            addCriterion("apply_employee_no in", values, "applyEmployeeNo");
+        public Criteria andOperatorIn(List<String> values) {
+            addCriterion("operator in", values, "operator");
             return (Criteria) this;
         }
 
-        public Criteria andApplyEmployeeNoNotIn(List<String> values) {
-            addCriterion("apply_employee_no not in", values, "applyEmployeeNo");
+        public Criteria andOperatorNotIn(List<String> values) {
+            addCriterion("operator not in", values, "operator");
             return (Criteria) this;
         }
 
-        public Criteria andApplyEmployeeNoBetween(String value1, String value2) {
-            addCriterion("apply_employee_no between", value1, value2, "applyEmployeeNo");
+        public Criteria andOperatorBetween(String value1, String value2) {
+            addCriterion("operator between", value1, value2, "operator");
             return (Criteria) this;
         }
 
-        public Criteria andApplyEmployeeNoNotBetween(String value1, String value2) {
-            addCriterion("apply_employee_no not between", value1, value2, "applyEmployeeNo");
+        public Criteria andOperatorNotBetween(String value1, String value2) {
+            addCriterion("operator not between", value1, value2, "operator");
+            return (Criteria) this;
+        }
+
+        public Criteria andOperateTypeIsNull() {
+            addCriterion("operate_type is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andOperateTypeIsNotNull() {
+            addCriterion("operate_type is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andOperateTypeEqualTo(String value) {
+            addCriterion("operate_type =", value, "operateType");
+            return (Criteria) this;
+        }
+
+        public Criteria andOperateTypeNotEqualTo(String value) {
+            addCriterion("operate_type <>", value, "operateType");
+            return (Criteria) this;
+        }
+
+        public Criteria andOperateTypeGreaterThan(String value) {
+            addCriterion("operate_type >", value, "operateType");
+            return (Criteria) this;
+        }
+
+        public Criteria andOperateTypeGreaterThanOrEqualTo(String value) {
+            addCriterion("operate_type >=", value, "operateType");
+            return (Criteria) this;
+        }
+
+        public Criteria andOperateTypeLessThan(String value) {
+            addCriterion("operate_type <", value, "operateType");
+            return (Criteria) this;
+        }
+
+        public Criteria andOperateTypeLessThanOrEqualTo(String value) {
+            addCriterion("operate_type <=", value, "operateType");
+            return (Criteria) this;
+        }
+
+        public Criteria andOperateTypeLike(String value) {
+            addCriterion("operate_type like", value, "operateType");
+            return (Criteria) this;
+        }
+
+        public Criteria andOperateTypeNotLike(String value) {
+            addCriterion("operate_type not like", value, "operateType");
+            return (Criteria) this;
+        }
+
+        public Criteria andOperateTypeIn(List<String> values) {
+            addCriterion("operate_type in", values, "operateType");
+            return (Criteria) this;
+        }
+
+        public Criteria andOperateTypeNotIn(List<String> values) {
+            addCriterion("operate_type not in", values, "operateType");
+            return (Criteria) this;
+        }
+
+        public Criteria andOperateTypeBetween(String value1, String value2) {
+            addCriterion("operate_type between", value1, value2, "operateType");
+            return (Criteria) this;
+        }
+
+        public Criteria andOperateTypeNotBetween(String value1, String value2) {
+            addCriterion("operate_type not between", value1, value2, "operateType");
             return (Criteria) this;
         }
 
@@ -362,6 +432,66 @@ public class SwCustomGroupApplyExample {
 
         public Criteria andRemarkNotBetween(String value1, String value2) {
             addCriterion("remark not between", value1, value2, "remark");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsReadIsNull() {
+            addCriterion("is_read is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsReadIsNotNull() {
+            addCriterion("is_read is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsReadEqualTo(Integer value) {
+            addCriterion("is_read =", value, "isRead");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsReadNotEqualTo(Integer value) {
+            addCriterion("is_read <>", value, "isRead");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsReadGreaterThan(Integer value) {
+            addCriterion("is_read >", value, "isRead");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsReadGreaterThanOrEqualTo(Integer value) {
+            addCriterion("is_read >=", value, "isRead");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsReadLessThan(Integer value) {
+            addCriterion("is_read <", value, "isRead");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsReadLessThanOrEqualTo(Integer value) {
+            addCriterion("is_read <=", value, "isRead");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsReadIn(List<Integer> values) {
+            addCriterion("is_read in", values, "isRead");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsReadNotIn(List<Integer> values) {
+            addCriterion("is_read not in", values, "isRead");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsReadBetween(Integer value1, Integer value2) {
+            addCriterion("is_read between", value1, value2, "isRead");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsReadNotBetween(Integer value1, Integer value2) {
+            addCriterion("is_read not between", value1, value2, "isRead");
             return (Criteria) this;
         }
 
@@ -545,8 +675,13 @@ public class SwCustomGroupApplyExample {
             return (Criteria) this;
         }
 
-        public Criteria andApplyEmployeeNoLikeInsensitive(String value) {
-            addCriterion("upper(apply_employee_no) like", value.toUpperCase(), "applyEmployeeNo");
+        public Criteria andOperatorLikeInsensitive(String value) {
+            addCriterion("upper(operator) like", value.toUpperCase(), "operator");
+            return (Criteria) this;
+        }
+
+        public Criteria andOperateTypeLikeInsensitive(String value) {
+            addCriterion("upper(operate_type) like", value.toUpperCase(), "operateType");
             return (Criteria) this;
         }
 

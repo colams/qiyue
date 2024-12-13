@@ -3,6 +3,7 @@ package com.foxconn.sw.business.group;
 import com.foxconn.sw.common.constanst.NumberConstants;
 import com.foxconn.sw.common.context.RequestContext;
 import com.foxconn.sw.data.dto.entity.universal.IntegerParams;
+import com.foxconn.sw.data.dto.request.group.UpdateGroupParams;
 import com.foxconn.sw.data.entity.SwCustomGroup;
 import com.foxconn.sw.data.entity.SwCustomGroupExample;
 import com.foxconn.sw.data.mapper.extension.group.SwCustomGroupExtMapper;
@@ -85,6 +86,17 @@ public class SwCustomGroupBusiness {
         SwCustomGroupExample.Criteria criteria = example.createCriteria();
         criteria.andIdEqualTo(data.getParams());
         return customGroupExtMapper.updateByExampleSelective(apply, example) > 0;
+    }
 
+    public SwCustomGroup getCustomGroup(Integer groupID) {
+        return customGroupExtMapper.selectByPrimaryKey(groupID);
+    }
+
+    public boolean updateGroup(UpdateGroupParams data) {
+        SwCustomGroup updateGroup = new SwCustomGroup();
+        updateGroup.setName(data.getName());
+        updateGroup.setIsPrivate(data.getIsPrivate());
+        updateGroup.setDescription(data.getDescription());
+        return customGroupExtMapper.updateByPrimaryKeySelective(updateGroup) > 0;
     }
 }

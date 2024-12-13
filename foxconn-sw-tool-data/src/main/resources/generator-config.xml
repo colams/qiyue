@@ -112,13 +112,13 @@
         <table tableName="sw_custom_group">
             <generatedKey column="id" identity="true" sqlStatement="mysql"/>
         </table>
-        <table tableName="sw_custom_group_apply">
-            <generatedKey column="id" identity="true" sqlStatement="mysql"/>
-        </table>
         <table tableName="sw_custom_group_favorite">
             <generatedKey column="id" identity="true" sqlStatement="mysql"/>
         </table>
         <table tableName="sw_custom_group_member">
+            <generatedKey column="id" identity="true" sqlStatement="mysql"/>
+        </table>
+        <table tableName="sw_custom_group_operate">
             <generatedKey column="id" identity="true" sqlStatement="mysql"/>
         </table>
         <table tableName="sw_custom_member">

@@ -2,14 +2,18 @@ package com.foxconn.sw.data.entity;
 
 import java.time.LocalDateTime;
 
-public class SwCustomGroupApply {
+public class SwCustomGroupOperate {
     private Integer id;
 
     private Integer customGroupId;
 
-    private String applyEmployeeNo;
+    private String operator;
+
+    private String operateType;
 
     private String remark;
+
+    private Integer isRead;
 
     private Integer status;
 
@@ -21,7 +25,7 @@ public class SwCustomGroupApply {
         return id;
     }
 
-    public SwCustomGroupApply withId(Integer id) {
+    public SwCustomGroupOperate withId(Integer id) {
         this.setId(id);
         return this;
     }
@@ -34,7 +38,7 @@ public class SwCustomGroupApply {
         return customGroupId;
     }
 
-    public SwCustomGroupApply withCustomGroupId(Integer customGroupId) {
+    public SwCustomGroupOperate withCustomGroupId(Integer customGroupId) {
         this.setCustomGroupId(customGroupId);
         return this;
     }
@@ -43,24 +47,37 @@ public class SwCustomGroupApply {
         this.customGroupId = customGroupId;
     }
 
-    public String getApplyEmployeeNo() {
-        return applyEmployeeNo;
+    public String getOperator() {
+        return operator;
     }
 
-    public SwCustomGroupApply withApplyEmployeeNo(String applyEmployeeNo) {
-        this.setApplyEmployeeNo(applyEmployeeNo);
+    public SwCustomGroupOperate withOperator(String operator) {
+        this.setOperator(operator);
         return this;
     }
 
-    public void setApplyEmployeeNo(String applyEmployeeNo) {
-        this.applyEmployeeNo = applyEmployeeNo == null ? null : applyEmployeeNo.trim();
+    public void setOperator(String operator) {
+        this.operator = operator == null ? null : operator.trim();
+    }
+
+    public String getOperateType() {
+        return operateType;
+    }
+
+    public SwCustomGroupOperate withOperateType(String operateType) {
+        this.setOperateType(operateType);
+        return this;
+    }
+
+    public void setOperateType(String operateType) {
+        this.operateType = operateType == null ? null : operateType.trim();
     }
 
     public String getRemark() {
         return remark;
     }
 
-    public SwCustomGroupApply withRemark(String remark) {
+    public SwCustomGroupOperate withRemark(String remark) {
         this.setRemark(remark);
         return this;
     }
@@ -69,11 +86,24 @@ public class SwCustomGroupApply {
         this.remark = remark == null ? null : remark.trim();
     }
 
+    public Integer getIsRead() {
+        return isRead;
+    }
+
+    public SwCustomGroupOperate withIsRead(Integer isRead) {
+        this.setIsRead(isRead);
+        return this;
+    }
+
+    public void setIsRead(Integer isRead) {
+        this.isRead = isRead;
+    }
+
     public Integer getStatus() {
         return status;
     }
 
-    public SwCustomGroupApply withStatus(Integer status) {
+    public SwCustomGroupOperate withStatus(Integer status) {
         this.setStatus(status);
         return this;
     }
@@ -86,7 +116,7 @@ public class SwCustomGroupApply {
         return createTime;
     }
 
-    public SwCustomGroupApply withCreateTime(LocalDateTime createTime) {
+    public SwCustomGroupOperate withCreateTime(LocalDateTime createTime) {
         this.setCreateTime(createTime);
         return this;
     }
@@ -99,7 +129,7 @@ public class SwCustomGroupApply {
         return datetimeLastchange;
     }
 
-    public SwCustomGroupApply withDatetimeLastchange(LocalDateTime datetimeLastchange) {
+    public SwCustomGroupOperate withDatetimeLastchange(LocalDateTime datetimeLastchange) {
         this.setDatetimeLastchange(datetimeLastchange);
         return this;
     }

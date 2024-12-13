@@ -11,10 +11,7 @@ import com.foxconn.sw.data.dto.entity.group.GroupMemberVo;
 import com.foxconn.sw.data.dto.entity.system.AuthorizedVo;
 import com.foxconn.sw.data.dto.entity.universal.IntegerParams;
 import com.foxconn.sw.data.dto.request.enums.AuthorizedEnums;
-import com.foxconn.sw.data.dto.request.group.ApplyJoinGroupParams;
-import com.foxconn.sw.data.dto.request.group.CreateGroupParams;
-import com.foxconn.sw.data.dto.request.group.ProcessApplyParams;
-import com.foxconn.sw.data.dto.request.group.SearchGroupParams;
+import com.foxconn.sw.data.dto.request.group.*;
 import com.foxconn.sw.service.aspects.Permission;
 import com.foxconn.sw.service.processor.group.ApplyJoinProcessor;
 import com.foxconn.sw.service.processor.group.AuthorizedProcessor;
@@ -65,9 +62,9 @@ public class GroupController {
     @Operation(summary = "维护群组信息", tags = TagsConstants.GROUP)
     @ApiResponse(responseCode = "0", description = "成功码")
     @PostMapping("/update")
-    public Response<GroupBriefVo> update(@Valid @RequestBody Request<CreateGroupParams> request) {
-        GroupBriefVo briefVo = createGroupProcessor.createGroup(request.getData());
-        return ResponseUtils.success(briefVo, request.getTraceId());
+    public Response<Boolean> update(@Valid @RequestBody Request<UpdateGroupParams> request) {
+        Boolean result = createGroupProcessor.updateGroup(request.getData());
+        return ResponseUtils.success(result, request.getTraceId());
     }
 
     @Permission
@@ -102,9 +99,9 @@ public class GroupController {
     @Permission
     @Operation(summary = "获取待处理加群操作", tags = TagsConstants.GROUP)
     @ApiResponse(responseCode = "0", description = "成功码")
-    @PostMapping("/applyList")
-    public Response<Boolean> applyList(@Valid @RequestBody Request<ProcessApplyParams> request) {
-        // todo
+    @PostMapping("/operateList")
+    public Response<Boolean> operateList(@Valid @RequestBody Request request) {
+        applyJoinProcessor.operateList();
         return ResponseUtils.success(true, request.getTraceId());
     }
 
