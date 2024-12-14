@@ -118,6 +118,7 @@ public class CreateGroupProcessor {
 
             List<String> allEmpNos = Stream.of(data.getMembers(), groupMembers)
                     .flatMap(e -> e.stream().map(m -> {
+                        System.out.println(m.getClass().getSimpleName());
                         if (m instanceof SwCustomGroupMember) {
                             return ((SwCustomGroupMember) m).getMember();
                         } else if (m instanceof MemberBrief) {
