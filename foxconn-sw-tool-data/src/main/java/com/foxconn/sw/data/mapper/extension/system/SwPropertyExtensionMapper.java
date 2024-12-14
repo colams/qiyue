@@ -97,5 +97,5 @@ public interface SwPropertyExtensionMapper extends SwPropertyMapper {
             "ORDER BY id ",
             "</script>",
     })
-    Integer getTotalCountByParams(PropertiesParams params);
+    Long getTotalCountByParams(PropertiesParams params);
 }

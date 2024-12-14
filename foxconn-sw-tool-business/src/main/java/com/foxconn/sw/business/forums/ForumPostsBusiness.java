@@ -2,6 +2,7 @@ package com.foxconn.sw.business.forums;
 
 import com.foxconn.sw.common.constanst.NumberConstants;
 import com.foxconn.sw.common.context.RequestContext;
+import com.foxconn.sw.data.dto.request.enums.PostsCategoryEnums;
 import com.foxconn.sw.data.dto.request.forums.PostsParams;
 import com.foxconn.sw.data.entity.ForumPosts;
 import com.foxconn.sw.data.entity.ForumPostsExample;
@@ -31,15 +32,16 @@ public class ForumPostsBusiness {
     }
 
 
-    public List<ForumPosts> queryPosts(Integer postsType, String words) {
-        if (NumberConstants.TWO.equals(postsType)) {
-            return forumPostsExtMapper.favoritePosts(words, RequestContext.getEmployeeNo());
+    public List<ForumPosts> queryPosts(PostsCategoryEnums postsType, String words, Integer pageSize, Integer currentPage) {
+        int start = (currentPage - 1) * pageSize;
+        if (NumberConstants.TWO.equals(postsType.getCode())) {
+            return forumPostsExtMapper.favoritePosts(words, RequestContext.getEmployeeNo(), start, pageSize);
         }
         ForumPostsExample example = new ForumPostsExample();
         ForumPostsExample.Criteria criteria = example.createCriteria();
         criteria.andIsDeleteEqualTo(0);
 
-        if (NumberConstants.ONE.equals(postsType)) {
+        if (NumberConstants.ONE.equals(postsType.getCode())) {
             criteria.andAuthorNoEqualTo(RequestContext.getEmployeeNo());
         }
 

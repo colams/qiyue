@@ -7,6 +7,7 @@ import com.google.common.collect.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -49,4 +50,8 @@ public class ForumBbsCommentBusiness {
         return bbsCommentExtMapper.updateByExampleSelective(comment, example) > 0;
     }
 
+    public List<ForumBbsComment> queryCommentByBbsIds(List<Integer> bbsIds) {
+        List<ForumBbsComment> comments = new ArrayList<>();
+        return comments;
+    }
 }

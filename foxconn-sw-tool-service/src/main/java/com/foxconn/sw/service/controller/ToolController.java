@@ -93,7 +93,7 @@ public class ToolController {
             @Valid @RequestBody Request<PageParams<IntegerParams>> request) {
         PageParams<IntegerParams> pageParams = request.getData();
         List<SwToolDTO> results = toolsHistoryBusiness.searchByToolId(request.getData());
-        int totalCount = toolsHistoryBusiness.countByToolID(pageParams.getParams());
+        Long totalCount = toolsHistoryBusiness.countByToolID(pageParams.getParams());
         PageEntity<SwToolDTO> pageEntity = new PageEntity<>(totalCount, results);
         return ResponseUtils.success(pageEntity, request.getTraceId());
     }

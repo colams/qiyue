@@ -37,7 +37,7 @@ public class FeedBackListProcessor {
         List<SwFeedback> feedbacks = feedbackBusiness.queryFeedBack(hasPower, pageParams);
         Long count = feedbackBusiness.queryFeedBackCount(hasPower, pageParams);
         List<FeedBackVo> vos = map(feedbacks, hasPower);
-        return new PageEntity(count.intValue(), vos);
+        return new PageEntity(count, vos);
     }
 
     private List<FeedBackVo> map(List<SwFeedback> feedbacks, boolean hasPower) {

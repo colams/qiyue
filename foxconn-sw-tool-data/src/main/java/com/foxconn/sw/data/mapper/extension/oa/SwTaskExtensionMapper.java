@@ -319,7 +319,7 @@ public interface SwTaskExtensionMapper extends SwTaskMapper {
             "ORDER BY st.id ",
             "</script>"
     })
-    int getTotalCountByParams(@Param("params") TaskParams params,
+    Long getTotalCountByParams(@Param("params") TaskParams params,
                               @Param("employeeNos") List<String> employeeNos,
                               @Param("nowDate") String nowDate,
                               @Param("proposer") String proposer);

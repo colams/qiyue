@@ -9,6 +9,8 @@ public class ForumParticipant {
 
     private String employeeNo;
 
+    private Integer isRead;
+
     private Integer isDelete;
 
     private LocalDateTime createTime;
@@ -52,6 +54,19 @@ public class ForumParticipant {
 
     public void setEmployeeNo(String employeeNo) {
         this.employeeNo = employeeNo == null ? null : employeeNo.trim();
+    }
+
+    public Integer getIsRead() {
+        return isRead;
+    }
+
+    public ForumParticipant withIsRead(Integer isRead) {
+        this.setIsRead(isRead);
+        return this;
+    }
+
+    public void setIsRead(Integer isRead) {
+        this.isRead = isRead;
     }
 
     public Integer getIsDelete() {

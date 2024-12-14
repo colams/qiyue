@@ -46,6 +46,14 @@ public class ForumParticipantBusiness {
         return forumParticipantExtMapper.selectByExample(example);
     }
 
+    public List<ForumParticipant> getBbsParticipantByEno(List<Integer> bbsIds, String employeeNo) {
+        ForumParticipantExample example = new ForumParticipantExample();
+        ForumParticipantExample.Criteria criteria = example.createCriteria();
+        criteria.andPostsIdIn(bbsIds);
+        criteria.andEmployeeNoEqualTo(employeeNo);
+        return forumParticipantExtMapper.selectByExample(example);
+    }
+
     public List<ForumsParticipantVo> queryParticipants(Integer id) {
         ForumParticipantExample example = new ForumParticipantExample();
         ForumParticipantExample.Criteria criteria = example.createCriteria();

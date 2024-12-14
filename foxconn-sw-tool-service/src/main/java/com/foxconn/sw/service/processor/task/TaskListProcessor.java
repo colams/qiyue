@@ -53,7 +53,7 @@ public class TaskListProcessor {
         List<String> employeeNos = getQueryEmployee(proposer, taskParams.getParams().getIsTeam());
         List<SwTask> tasks = taskBusiness.listBriefVos(taskParams, employeeNos, proposer);
         List<TaskBriefListVo> briefListVos = processAfter(tasks);
-        int totalCount = taskBusiness.getTotalCountByParams(taskParams.getParams(), employeeNos, proposer);
+        Long totalCount = taskBusiness.getTotalCountByParams(taskParams.getParams(), employeeNos, proposer);
         PageEntity<TaskBriefListVo> voPageEntity = new PageEntity<>(totalCount, briefListVos);
         return voPageEntity;
     }

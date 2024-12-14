@@ -25,7 +25,7 @@ public class SearchToolProcessor {
     public PageEntity<SwToolDTO> search(PageParams<ToolSearchParams> pageParams) {
         System.out.println(JsonUtils.serialize(pageParams));
         List<SwToolDTO> toolDTOs = toolsBusiness.searchByParams(pageParams);
-        int totalCount = toolsBusiness.getTotalCountByParams(pageParams);
+        Long totalCount = toolsBusiness.getTotalCountByParams(pageParams);
         PageEntity<SwToolDTO> pageEntity = new PageEntity<>(totalCount, toolDTOs);
         return pageEntity;
     }

@@ -6,22 +6,23 @@ import java.util.List;
 
 public class PageEntity<T> {
 
-    public PageEntity(int totalCount, List<T> list) {
+    public PageEntity(Long totalCount, List<T> list) {
         this.totalCount = totalCount;
         this.list = list;
     }
 
     @Schema(description = "总页数")
-    private int totalCount;
+    private Long totalCount;
 
     @Schema(description = "结果对象List")
     private List<T> list;
 
-    public int getTotalCount() {
+
+    public Long getTotalCount() {
         return totalCount;
     }
 
-    public void setTotalCount(int totalCount) {
+    public void setTotalCount(Long totalCount) {
         this.totalCount = totalCount;
     }
 
@@ -32,4 +33,5 @@ public class PageEntity<T> {
     public void setList(List<T> list) {
         this.list = list;
     }
+
 }

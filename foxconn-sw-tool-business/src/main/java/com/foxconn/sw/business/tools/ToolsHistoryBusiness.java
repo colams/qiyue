@@ -37,7 +37,7 @@ public class ToolsHistoryBusiness {
         return toolDTOs;
     }
 
-    public Integer countByToolID(IntegerParams integerParams) {
+    public Long countByToolID(IntegerParams integerParams) {
         return swToolsHistoryExtensionMapper.countByToolID(integerParams.getParams());
     }
 }

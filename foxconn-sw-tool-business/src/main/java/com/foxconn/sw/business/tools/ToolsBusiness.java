@@ -42,7 +42,7 @@ public class ToolsBusiness {
         return toolDTOs;
     }
 
-    public int getTotalCountByParams(PageParams<ToolSearchParams> pageParams) {
+    public Long getTotalCountByParams(PageParams<ToolSearchParams> pageParams) {
         return swToolsExtensionMapper.getTotalCountByParams(pageParams.getParams());
     }
 

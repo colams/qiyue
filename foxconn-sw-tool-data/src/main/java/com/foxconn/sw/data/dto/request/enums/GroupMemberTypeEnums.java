@@ -6,7 +6,6 @@ import static com.foxconn.sw.data.constants.enums.retcode.RetCode.ENUM_CONVERT_E
 
 public enum GroupMemberTypeEnums {
 
-
     Member(0, "member", "成员"),
     Owner(1, "owner", "群主"),
     Admin(2, "admin", "管理员"),

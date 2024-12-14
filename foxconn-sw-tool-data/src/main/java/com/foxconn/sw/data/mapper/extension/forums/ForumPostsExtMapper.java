@@ -21,6 +21,7 @@ public interface ForumPostsExtMapper extends ForumPostsMapper {
             "<if test='words!=null and words!=\"\"' >",
             " and p.title like CONCAT('%', #{words,jdbcType=VARCHAR}, '%') ",
             "</if> ",
+            "LIMIT #{start,jdbcType=INTEGER} , #{pageSize,jdbcType=INTEGER} ",
             " </script> "
     })
     @Results({
@@ -34,7 +35,10 @@ public interface ForumPostsExtMapper extends ForumPostsMapper {
             @Result(column = "lastchange_datetime", property = "lastchangeDatetime", jdbcType = JdbcType.TIMESTAMP),
             @Result(column = "description", property = "description", jdbcType = JdbcType.LONGVARCHAR)
     })
-    List<ForumPosts> favoritePosts(@Param("words") String words,@Param("operator") String operator);
+    List<ForumPosts> favoritePosts(@Param("words") String words,
+                                   @Param("operator") String operator,
+                                   @Param("start") int start,
+                                   @Param("pageSize") int pageSize);
 
 
 }

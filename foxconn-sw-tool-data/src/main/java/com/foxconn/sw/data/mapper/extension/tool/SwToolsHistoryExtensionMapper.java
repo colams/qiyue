@@ -58,7 +58,7 @@ public interface SwToolsHistoryExtensionMapper extends SwToolsHistoryMapper {
             "from sw_tools_history sth\n" +
             "         inner join sw_property sp on sth.property_id = sp.id\n" +
             "where sth.tool_id = #{tool_id,jdbcType=INTEGER}"})
-    Integer countByToolID(Integer tool_id);
+    Long countByToolID(Integer tool_id);
 
 
 }

@@ -35,11 +35,11 @@ public interface ForumParticipantMapper {
 
     @Insert({
         "insert into forum_participant (posts_id, employee_no, ",
-        "is_delete, create_time, ",
-        "datetime_lastchange)",
+        "is_read, is_delete, ",
+        "create_time, datetime_lastchange)",
         "values (#{postsId,jdbcType=INTEGER}, #{employeeNo,jdbcType=VARCHAR}, ",
-        "#{isDelete,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, ",
-        "#{datetimeLastchange,jdbcType=TIMESTAMP})"
+        "#{isRead,jdbcType=INTEGER}, #{isDelete,jdbcType=INTEGER}, ",
+        "#{createTime,jdbcType=TIMESTAMP}, #{datetimeLastchange,jdbcType=TIMESTAMP})"
     })
     @SelectKey(statement="SELECT LAST_INSERT_ID()", keyProperty="id", before=false, resultType=Integer.class)
     int insert(ForumParticipant record);
@@ -53,6 +53,7 @@ public interface ForumParticipantMapper {
         @Result(column="id", property="id", jdbcType=JdbcType.INTEGER, id=true),
         @Result(column="posts_id", property="postsId", jdbcType=JdbcType.INTEGER),
         @Result(column="employee_no", property="employeeNo", jdbcType=JdbcType.VARCHAR),
+        @Result(column="is_read", property="isRead", jdbcType=JdbcType.INTEGER),
         @Result(column="is_delete", property="isDelete", jdbcType=JdbcType.INTEGER),
         @Result(column="create_time", property="createTime", jdbcType=JdbcType.TIMESTAMP),
         @Result(column="datetime_lastchange", property="datetimeLastchange", jdbcType=JdbcType.TIMESTAMP)
@@ -64,6 +65,7 @@ public interface ForumParticipantMapper {
         @Result(column="id", property="id", jdbcType=JdbcType.INTEGER, id=true),
         @Result(column="posts_id", property="postsId", jdbcType=JdbcType.INTEGER),
         @Result(column="employee_no", property="employeeNo", jdbcType=JdbcType.VARCHAR),
+        @Result(column="is_read", property="isRead", jdbcType=JdbcType.INTEGER),
         @Result(column="is_delete", property="isDelete", jdbcType=JdbcType.INTEGER),
         @Result(column="create_time", property="createTime", jdbcType=JdbcType.TIMESTAMP),
         @Result(column="datetime_lastchange", property="datetimeLastchange", jdbcType=JdbcType.TIMESTAMP)
@@ -72,7 +74,7 @@ public interface ForumParticipantMapper {
 
     @Select({
         "select",
-        "id, posts_id, employee_no, is_delete, create_time, datetime_lastchange",
+        "id, posts_id, employee_no, is_read, is_delete, create_time, datetime_lastchange",
         "from forum_participant",
         "where id = #{id,jdbcType=INTEGER}"
     })
@@ -80,6 +82,7 @@ public interface ForumParticipantMapper {
         @Result(column="id", property="id", jdbcType=JdbcType.INTEGER, id=true),
         @Result(column="posts_id", property="postsId", jdbcType=JdbcType.INTEGER),
         @Result(column="employee_no", property="employeeNo", jdbcType=JdbcType.VARCHAR),
+        @Result(column="is_read", property="isRead", jdbcType=JdbcType.INTEGER),
         @Result(column="is_delete", property="isDelete", jdbcType=JdbcType.INTEGER),
         @Result(column="create_time", property="createTime", jdbcType=JdbcType.TIMESTAMP),
         @Result(column="datetime_lastchange", property="datetimeLastchange", jdbcType=JdbcType.TIMESTAMP)
@@ -99,6 +102,7 @@ public interface ForumParticipantMapper {
         "update forum_participant",
         "set posts_id = #{postsId,jdbcType=INTEGER},",
           "employee_no = #{employeeNo,jdbcType=VARCHAR},",
+          "is_read = #{isRead,jdbcType=INTEGER},",
           "is_delete = #{isDelete,jdbcType=INTEGER},",
           "create_time = #{createTime,jdbcType=TIMESTAMP},",
           "datetime_lastchange = #{datetimeLastchange,jdbcType=TIMESTAMP}",

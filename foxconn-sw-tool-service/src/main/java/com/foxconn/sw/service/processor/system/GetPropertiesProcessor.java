@@ -18,7 +18,7 @@ public class GetPropertiesProcessor {
 
     public PageEntity<PropertyVo> getSwPropertiesPage(PageParams<PropertiesParams> data) {
         List<PropertyVo> propertyVos = propertyBusiness.getSwPropertiesPage(data);
-        Integer totalCount = propertyBusiness.getTotalCount(data.getParams());
+        Long totalCount = propertyBusiness.getTotalCount(data.getParams());
         return new PageEntity<>(totalCount, propertyVos);
     }
 

@@ -62,13 +62,17 @@ public class SwTaskBusiness {
     }
 
 
-    public int getTotalCountByParams(TaskParams params, List<String> employeeNos, String proposer) {
+    public Long getTotalCountByParams(TaskParams params, List<String> employeeNos, String proposer) {
         LocalDateTime localDateTime = LocalDateTime.now();
         String now = DateTimeUtils.formatYMD(localDateTime);
         return taskExtensionMapper.getTotalCountByParams(params, employeeNos, now, proposer);
     }
 
-    public int getTotalCountByParams(int searchType, List<String> employees, String now, String proposer, Integer viewType) {
+    public Long getTotalCountByParams(int searchType,
+                                      List<String> employees,
+                                      String now,
+                                      String proposer,
+                                      Integer viewType) {
         TaskParams params = new TaskParams();
         params.setKeyWord("");
         params.setSearchType(searchType);

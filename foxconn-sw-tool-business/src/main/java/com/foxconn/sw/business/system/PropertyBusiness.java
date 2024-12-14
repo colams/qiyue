@@ -30,7 +30,7 @@ public class PropertyBusiness {
         return propertyExtensionMapper.getModules(module);
     }
 
-    public Integer getTotalCount(PropertiesParams params) {
+    public Long getTotalCount(PropertiesParams params) {
         return propertyExtensionMapper.getTotalCountByParams(params);
     }
 

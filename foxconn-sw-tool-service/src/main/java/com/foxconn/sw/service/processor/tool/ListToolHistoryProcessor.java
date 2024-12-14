@@ -25,7 +25,7 @@ public class ListToolHistoryProcessor {
      */
     public PageEntity<SwToolDTO> listToolHistory(PageParams<IntegerParams> pageParams, Header header) {
         List<SwToolDTO> results = toolsHistoryBusiness.searchByToolId(pageParams);
-        int totalCount = toolsHistoryBusiness.countByToolID(pageParams.getParams());
+        Long totalCount = toolsHistoryBusiness.countByToolID(pageParams.getParams());
         return new PageEntity<>(totalCount, results);
     }
 

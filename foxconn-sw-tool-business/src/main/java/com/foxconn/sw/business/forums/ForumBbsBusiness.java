@@ -2,11 +2,10 @@ package com.foxconn.sw.business.forums;
 
 import com.foxconn.sw.common.constanst.NumberConstants;
 import com.foxconn.sw.common.context.RequestContext;
+import com.foxconn.sw.data.dto.request.enums.PostsCategoryEnums;
 import com.foxconn.sw.data.dto.request.forums.PostsParams;
 import com.foxconn.sw.data.entity.ForumBbs;
 import com.foxconn.sw.data.entity.ForumBbsExample;
-import com.foxconn.sw.data.entity.ForumPosts;
-import com.foxconn.sw.data.entity.ForumPostsExample;
 import com.foxconn.sw.data.mapper.extension.forums.ForumBbsExtMapper;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,15 +30,17 @@ public class ForumBbsBusiness {
     }
 
 
-    public List<ForumBbs> queryPosts(Integer postsType, String words) {
-        if (NumberConstants.TWO.equals(postsType)) {
-            return forumBbsExtMapper.favoriteBbs(words, RequestContext.getEmployeeNo());
+    public List<ForumBbs> queryPosts(PostsCategoryEnums postsType, String words, Integer pageSize, Integer currentPage) {
+
+        int start = (currentPage - 1) * pageSize;
+        if (NumberConstants.TWO.equals(postsType.getCode())) {
+            return forumBbsExtMapper.favoriteBbs(words, RequestContext.getEmployeeNo(), start, pageSize);
         }
         ForumBbsExample example = new ForumBbsExample();
         ForumBbsExample.Criteria criteria = example.createCriteria();
         criteria.andIsDeleteEqualTo(0);
 
-        if (NumberConstants.ONE.equals(postsType)) {
+        if (NumberConstants.ONE.equals(postsType.getCode())) {
             criteria.andAuthorNoEqualTo(RequestContext.getEmployeeNo());
         }
 
@@ -50,6 +51,17 @@ public class ForumBbsBusiness {
         example.setOrderByClause(" create_time desc ");
 
         return forumBbsExtMapper.selectByExample(example);
+    }
+
+    public Long getPostsCount(PostsCategoryEnums postsType, String words) {
+        if (NumberConstants.TWO.equals(postsType.getCode())) {
+            return forumBbsExtMapper.getFavoriteBbsCount(words, RequestContext.getEmployeeNo());
+        }
+        String employee = "";
+        if (NumberConstants.ONE.equals(postsType.getCode())) {
+            employee = RequestContext.getEmployeeNo();
+        }
+        return forumBbsExtMapper.selectBbsCount(words, employee);
     }
 
     public ForumBbs getForumPosts(Integer params) {

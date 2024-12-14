@@ -79,7 +79,7 @@ public interface SwToolsExtensionMapper extends SwToolsMapper {
             "ORDER BY st.id " +
             " </script> "
     )
-    int getTotalCountByParams(ToolSearchParams searchParams);
+    Long getTotalCountByParams(ToolSearchParams searchParams);
 
     @Insert({
             "insert into sw_tools (id,tool_name, tool_icon, ",

@@ -1,9 +1,11 @@
 package com.foxconn.sw.service.controller.community;
 
 import com.foxconn.sw.data.constants.TagsConstants;
+import com.foxconn.sw.data.dto.PageEntity;
 import com.foxconn.sw.data.dto.PageParams;
 import com.foxconn.sw.data.dto.Request;
 import com.foxconn.sw.data.dto.Response;
+import com.foxconn.sw.data.dto.entity.forums.BbsListVo;
 import com.foxconn.sw.data.dto.entity.forums.PostsBriefVo;
 import com.foxconn.sw.data.dto.entity.forums.PostsDetailVo;
 import com.foxconn.sw.data.dto.entity.universal.IntegerParams;
@@ -43,6 +45,15 @@ public class ForumController {
     public Response<List<PostsBriefVo>> list(@Valid @RequestBody Request<PageParams<ListPostsParams>> request) {
         List<PostsBriefVo> vos = listPostsProcessor.list(request.getData());
         return ResponseUtils.success(vos, request.getTraceId());
+    }
+
+    @Permission
+    @Operation(summary = "查询帖子信息", tags = TagsConstants.FORUMS)
+    @ApiResponse(responseCode = "0", description = "成功码")
+    @PostMapping("/listV2")
+    public Response<PageEntity<List<BbsListVo>>> listV2(@Valid @RequestBody Request<PageParams<ListPostsParams>> request) {
+        PageEntity pageEntity = listPostsProcessor.listV2(request.getData());
+        return ResponseUtils.success(pageEntity, request.getTraceId());
     }
 
     @Permission
@@ -99,6 +110,4 @@ public class ForumController {
         boolean result = updatePostsProcessor.delete(request.getData());
         return ResponseUtils.success(result, request.getTraceId());
     }
-
-
 }

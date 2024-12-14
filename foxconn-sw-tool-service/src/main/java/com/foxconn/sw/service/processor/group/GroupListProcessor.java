@@ -44,7 +44,7 @@ public class GroupListProcessor {
         } else {
             list = listPublicGroup(data.getKeywords());
         }
-        return new PageEntity<>(list.size(), list);
+        return new PageEntity<>(list.stream().count(), list);
     }
 
     /**
