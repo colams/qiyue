@@ -6,9 +6,12 @@ import com.foxconn.sw.business.group.SwCustomGroupOperateBusiness;
 import com.foxconn.sw.common.constanst.NumberConstants;
 import com.foxconn.sw.common.context.RequestContext;
 import com.foxconn.sw.data.dto.entity.acount.EmployeeVo;
+import com.foxconn.sw.data.dto.entity.group.DetailVo;
 import com.foxconn.sw.data.dto.entity.group.GroupBriefVo;
 import com.foxconn.sw.data.dto.entity.group.GroupMemberVo;
 import com.foxconn.sw.data.dto.entity.universal.IntegerParams;
+import com.foxconn.sw.data.dto.request.enums.AccessLevelEnums;
+import com.foxconn.sw.data.dto.request.enums.GroupMemberTypeEnums;
 import com.foxconn.sw.data.dto.request.group.CreateGroupParams;
 import com.foxconn.sw.data.dto.request.group.MemberBrief;
 import com.foxconn.sw.data.dto.request.group.UpdateGroupParams;
@@ -40,7 +43,7 @@ public class CreateGroupProcessor {
     public GroupBriefVo createGroup(CreateGroupParams groupParams) {
         SwCustomGroup group = groupBusiness.createGroup(groupParams.getName(),
                 RequestContext.getEmployeeNo(),
-                groupParams.getIsPrivate(),
+                groupParams.getAccessLevel().getCode(),
                 groupParams.getDescription());
 
         if (Objects.nonNull(group)) {
@@ -58,7 +61,7 @@ public class CreateGroupProcessor {
                 SwCustomGroupMember member = new SwCustomGroupMember();
                 member.setCustomGroupId(groupId);
                 member.setMember(e.getEmployeeNo());
-                member.setMemberType(e.getMemberType());
+                member.setMemberType(e.getMemberType().getCode());
                 groupMembers.add(member);
             }
         });
@@ -150,15 +153,48 @@ public class CreateGroupProcessor {
             member = new SwCustomGroupMember();
             member.setCustomGroupId(data.getGroupID());
             member.setMember(eno);
-            member.setMemberType(memberBrief.getMemberType());
+            member.setMemberType(memberBrief.getMemberType().getCode());
         } else {
             // 对于存在旧数据的 按照实际赋值，如果新增数据没有，则做删除操作
             boolean hasUpdate = Objects.nonNull(memberBrief);
             member.setIsDelete(!hasUpdate ? 1 : 0);
             if (hasUpdate) {
-                member.setMemberType(memberBrief.getMemberType());
+                member.setMemberType(memberBrief.getMemberType().getCode());
             }
         }
         return member;
+    }
+
+    public DetailVo getGroupDetail(IntegerParams data) {
+
+        SwCustomGroup customGroup = groupBusiness.getCustomGroup(data.getParams());
+        if (Objects.isNull(customGroup)) {
+            return null;
+        }
+
+        List<SwCustomGroupMember> groupMembers = groupMemberBusiness.getCustomGroupMember(data.getParams());
+
+
+        DetailVo detailVo = new DetailVo();
+        detailVo.setGroupID(customGroup.getId());
+        detailVo.setName(customGroup.getName());
+        detailVo.setAccessLevel(customGroup.getIsPrivate() == 0 ? AccessLevelEnums.PUBLIC : AccessLevelEnums.PRIVATE);
+        detailVo.setDescription(customGroup.getDescription());
+        detailVo.setMembers(initMember2(groupMembers));
+        return detailVo;
+    }
+
+    private List<MemberBrief> initMember2(List<SwCustomGroupMember> groupMembers) {
+        if (CollectionUtils.isEmpty(groupMembers)) {
+            return Lists.newArrayList();
+        }
+        return groupMembers.stream().map(e -> mapBrief(e)).collect(Collectors.toList());
+    }
+
+    private MemberBrief mapBrief(SwCustomGroupMember e) {
+        MemberBrief brief = new MemberBrief();
+        brief.setEmployeeNo(e.getMember());
+        brief.setMemberType(GroupMemberTypeEnums.getEnumByCode(e.getMemberType()));
+        return brief;
     }
 }

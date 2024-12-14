@@ -1,5 +1,6 @@
 package com.foxconn.sw.data.dto.request.group;
 
+import com.foxconn.sw.data.dto.request.enums.AccessLevelEnums;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
@@ -9,7 +10,7 @@ public class UpdateGroupParams {
 
     private Integer groupID;
     private String name;
-    private Integer isPrivate;
+    private AccessLevelEnums accessLevel;
     private String description;
 
     @NotNull
@@ -32,12 +33,12 @@ public class UpdateGroupParams {
         this.name = name;
     }
 
-    public Integer getIsPrivate() {
-        return isPrivate;
+    public AccessLevelEnums getAccessLevel() {
+        return accessLevel;
     }
 
-    public void setIsPrivate(Integer isPrivate) {
-        this.isPrivate = isPrivate;
+    public void setAccessLevel(AccessLevelEnums accessLevel) {
+        this.accessLevel = accessLevel;
     }
 
     public String getDescription() {

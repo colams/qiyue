@@ -1,20 +1,25 @@
-package com.foxconn.sw.data.dto.request.group;
+package com.foxconn.sw.data.dto.entity.group;
 
 import com.foxconn.sw.data.dto.request.enums.AccessLevelEnums;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
+import com.foxconn.sw.data.dto.request.group.MemberBrief;
 
 import java.util.List;
 
-public class CreateGroupParams {
+public class DetailVo {
 
+    private Integer groupID;
     private String name;
     private AccessLevelEnums accessLevel;
     private String description;
-
-    @NotNull
-    @Size(min = 1)
     private List<MemberBrief> members;
+
+    public Integer getGroupID() {
+        return groupID;
+    }
+
+    public void setGroupID(Integer groupID) {
+        this.groupID = groupID;
+    }
 
     public String getName() {
         return name;

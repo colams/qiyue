@@ -7,6 +7,7 @@ import com.foxconn.sw.data.dto.PageParams;
 import com.foxconn.sw.data.dto.Request;
 import com.foxconn.sw.data.dto.Response;
 import com.foxconn.sw.data.dto.entity.group.CustomOperateVo;
+import com.foxconn.sw.data.dto.entity.group.DetailVo;
 import com.foxconn.sw.data.dto.entity.group.GroupBriefVo;
 import com.foxconn.sw.data.dto.entity.group.GroupMemberVo;
 import com.foxconn.sw.data.dto.entity.system.AuthorizedVo;
@@ -132,5 +133,15 @@ public class GroupController {
     public Response<List<GroupMemberVo>> members(@Valid @RequestBody Request<IntegerParams> request) {
         List<GroupMemberVo> vos = createGroupProcessor.listMember(request.getData());
         return ResponseUtils.success(vos, request.getTraceId());
+    }
+
+
+    @Permission
+    @Operation(summary = "查看群组成员操作", tags = TagsConstants.GROUP)
+    @ApiResponse(responseCode = "0", description = "成功码")
+    @PostMapping("/detail")
+    public Response<DetailVo> detail(@Valid @RequestBody Request<IntegerParams> request) {
+        DetailVo vo = createGroupProcessor.getGroupDetail(request.getData());
+        return ResponseUtils.success(vo, request.getTraceId());
     }
 }

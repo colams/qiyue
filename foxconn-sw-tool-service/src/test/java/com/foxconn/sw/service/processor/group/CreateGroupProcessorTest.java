@@ -1,5 +1,6 @@
 package com.foxconn.sw.service.processor.group;
 
+import com.foxconn.sw.data.dto.request.enums.GroupMemberTypeEnums;
 import com.foxconn.sw.data.dto.request.group.MemberBrief;
 import com.foxconn.sw.service.BaseTest;
 import org.junit.Test;
@@ -17,11 +18,11 @@ public class CreateGroupProcessorTest extends BaseTest {
         List<MemberBrief> memberBriefs = new ArrayList<>();
         MemberBrief f1 = new MemberBrief();
         f1.setEmployeeNo("G123456");
-        f1.setMemberType(1);
+        f1.setMemberType(GroupMemberTypeEnums.Member);
 
         MemberBrief f2 = new MemberBrief();
         f2.setEmployeeNo("G123456");
-        f2.setMemberType(1);
+        f2.setMemberType(GroupMemberTypeEnums.Member);
 
         memberBriefs.add(f1);
         memberBriefs.add(f2);

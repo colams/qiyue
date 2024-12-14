@@ -92,7 +92,7 @@ public class SwCustomGroupBusiness {
     public boolean updateGroup(UpdateGroupParams data) {
         SwCustomGroup updateGroup = new SwCustomGroup();
         updateGroup.setName(data.getName());
-        updateGroup.setIsPrivate(data.getIsPrivate());
+        updateGroup.setIsPrivate(data.getAccessLevel().getCode());
         updateGroup.setDescription(data.getDescription());
         return customGroupExtMapper.updateByPrimaryKeySelective(updateGroup) > 0;
     }
