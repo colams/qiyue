@@ -1,10 +1,10 @@
 package com.foxconn.sw.service.processor.forums;
 
-import com.foxconn.sw.common.context.RequestContext;
-import com.foxconn.sw.business.forums.ForumCommentBusiness;
+import com.foxconn.sw.business.forums.ForumBbsCommentBusiness;
 import com.foxconn.sw.business.forums.ForumPostsAttachmentBusiness;
+import com.foxconn.sw.common.context.RequestContext;
 import com.foxconn.sw.data.dto.request.forums.CommentsParams;
-import com.foxconn.sw.data.entity.ForumComment;
+import com.foxconn.sw.data.entity.ForumBbsComment;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -12,18 +12,18 @@ import org.springframework.stereotype.Component;
 public class CreateCommentProcessor {
 
     @Autowired
-    ForumCommentBusiness forumCommentBusiness;
+    ForumBbsCommentBusiness forumBbsCommentBusiness;
     @Autowired
     ForumPostsAttachmentBusiness postsAttachmentBusiness;
 
     public Integer createComments(CommentsParams data) {
-        ForumComment comment = new ForumComment();
-        comment.setPostsId(data.getPostsId());
+        ForumBbsComment comment = new ForumBbsComment();
+        comment.setFbId(data.getPostsId());
         comment.setParentId(data.getParentId());
         comment.setTargetId(data.getTargetId());
         comment.setAuthorNo(RequestContext.getEmployeeNo());
         comment.setContent(data.getContent());
-        Integer commentId = forumCommentBusiness.addComment(comment);
+        Integer commentId = forumBbsCommentBusiness.addComment(comment);
         if (commentId > 0) {
             postsAttachmentBusiness.insertPostsAttachment(data.getPostsId(), commentId, data.getResources());
         }

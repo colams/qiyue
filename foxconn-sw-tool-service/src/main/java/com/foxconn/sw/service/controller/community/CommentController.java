@@ -50,15 +50,4 @@ public class CommentController {
         return ResponseUtils.success(result > 0, request.getTraceId());
     }
 
-    @Permission
-    @Operation(summary = "提交评论帖子信息", tags = TagsConstants.COMMENTS)
-    @ApiResponse(responseCode = "0", description = "成功码")
-    @PostMapping("/createV2")
-    public Response<Boolean> createV2(@Valid @RequestBody Request<CommentsParams> request) {
-        Integer result = createCommentProcessor.createComments(request.getData());
-        return ResponseUtils.success(result > 0, request.getTraceId());
-    }
-
-
-
 }

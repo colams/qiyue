@@ -1,14 +1,14 @@
 package com.foxconn.sw.service.processor.forums;
 
-import com.foxconn.sw.business.forums.ForumCommentBusiness;
-import com.foxconn.sw.business.forums.ForumPostsBusiness;
+import com.foxconn.sw.business.forums.ForumBbsBusiness;
+import com.foxconn.sw.business.forums.ForumBbsCommentBusiness;
 import com.foxconn.sw.common.context.RequestContext;
 import com.foxconn.sw.common.utils.DateTimeUtils;
 import com.foxconn.sw.data.dto.PageParams;
 import com.foxconn.sw.data.dto.entity.forums.CommentsVo;
 import com.foxconn.sw.data.dto.entity.universal.IntegerParams;
-import com.foxconn.sw.data.entity.ForumComment;
-import com.foxconn.sw.data.entity.ForumPosts;
+import com.foxconn.sw.data.entity.ForumBbs;
+import com.foxconn.sw.data.entity.ForumBbsComment;
 import com.foxconn.sw.service.processor.utils.EmployeeUtils;
 import com.google.common.collect.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,20 +24,20 @@ import java.util.stream.Collectors;
 public class ListCommentProcessor {
 
     @Autowired
-    ForumCommentBusiness forumCommentBusiness;
+    ForumBbsCommentBusiness forumBbsCommentBusiness;
     @Autowired
-    ForumPostsBusiness forumPostsBusiness;
+    ForumBbsBusiness forumBbsBusiness;
     @Autowired
     EmployeeUtils employeeUtils;
 
 
     public List<CommentsVo> list(PageParams<IntegerParams> data) {
-        List<ForumComment> comments = forumCommentBusiness.queryCommentByPostsID(data.getParams().getParams());
-        ForumPosts forumPosts = forumPostsBusiness.getForumPosts(data.getParams().getParams());
+        List<ForumBbsComment> comments = forumBbsCommentBusiness.queryCommentByPostsID(data.getParams().getParams());
+        ForumBbs forumBbs = forumBbsBusiness.getForumPosts(data.getParams().getParams());
         if (CollectionUtils.isEmpty(comments)) {
             return Lists.newArrayList();
         }
-        List<CommentsVo> vos = mapComments(comments, forumPosts.getAuthorNo());
+        List<CommentsVo> vos = mapComments(comments, forumBbs.getAuthorNo());
         return buildTree(vos);
     }
 
@@ -51,11 +51,11 @@ public class ListCommentProcessor {
         return comments;
     }
 
-    private List<CommentsVo> mapComments(List<ForumComment> comments, String postAuthNo) {
+    private List<CommentsVo> mapComments(List<ForumBbsComment> comments, String postAuthNo) {
         List<CommentsVo> vos = new ArrayList<>();
         comments.forEach(e -> {
             CommentsVo vo = new CommentsVo();
-            vo.setPostsId(e.getPostsId());
+            vo.setPostsId(e.getFbId());
             vo.setId(e.getId());
             vo.setTargetId(e.getTargetId());
             vo.setParentId(e.getParentId());
