@@ -83,9 +83,7 @@ public class CreateGroupProcessor {
             return Lists.newArrayList();
         }
 
-        return members.stream().map(e ->
-                mapGroupVo(e)
-        ).collect(Collectors.toList());
+        return members.stream().map(e -> mapGroupVo(e)).collect(Collectors.toList());
     }
 
     private GroupMemberVo mapGroupVo(SwCustomGroupMember groupMember) {

@@ -54,7 +54,6 @@ public class ForumController {
         return ResponseUtils.success(result, request.getTraceId());
     }
 
-
     @Permission
     @Operation(summary = "帖子详情", tags = TagsConstants.FORUMS)
     @ApiResponse(responseCode = "0", description = "成功码")
@@ -93,7 +92,7 @@ public class ForumController {
 
 
     @Permission
-    @Operation(summary = "更新附件资源", tags = TagsConstants.FORUMS)
+    @Operation(summary = "删除帖子", tags = TagsConstants.FORUMS)
     @ApiResponse(responseCode = "0", description = "成功码")
     @PostMapping("/delete")
     public Response<Boolean> delete(@Valid @RequestBody Request<DeletePostsParams> request) {

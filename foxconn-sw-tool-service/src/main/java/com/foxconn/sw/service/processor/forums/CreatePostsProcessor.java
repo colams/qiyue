@@ -1,15 +1,18 @@
 package com.foxconn.sw.service.processor.forums;
 
-import com.foxconn.sw.business.forums.ForumParticipantBusiness;
-import com.foxconn.sw.business.forums.ForumPostsAttachmentBusiness;
-import com.foxconn.sw.business.forums.ForumPostsBusiness;
+import com.foxconn.sw.business.forums.*;
+import com.foxconn.sw.common.context.RequestContext;
 import com.foxconn.sw.data.dto.request.forums.PostsParams;
+import com.foxconn.sw.data.entity.ForumBbsComment;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.util.CollectionUtils;
 
 @Component
 public class CreatePostsProcessor {
+    @Autowired
+    ForumBbsBusiness forumBbsBusiness;
+    @Autowired
+    ForumBbsCommentBusiness forumBbsCommentBusiness;
 
     @Autowired
     ForumPostsBusiness forumPostsBusiness;
@@ -18,13 +21,22 @@ public class CreatePostsProcessor {
     @Autowired
     ForumPostsAttachmentBusiness postsAttachmentBusiness;
 
-
     public Boolean create(PostsParams data) {
-        int postsID = forumPostsBusiness.createPosts(data);
-        if (postsID > 0 && !CollectionUtils.isEmpty(data.getParticipants())) {
-            postsAttachmentBusiness.insertPostsAttachment(postsID, data.getResources());
-            forumParticipantBusiness.addForumParticipant(postsID, data.getParticipants());
+        int fbID = forumBbsBusiness.createPosts(data);
+        if (fbID > 0) {
+            saveBbsComment(fbID, data.getContent());
+            postsAttachmentBusiness.insertPostsAttachment(fbID, data.getResources());
+            forumParticipantBusiness.addForumParticipant(fbID, data.getParticipants());
         }
-        return postsID > 0;
+        return fbID > 0;
+    }
+
+    private Integer saveBbsComment(Integer postsID, String content) {
+        ForumBbsComment comment = new ForumBbsComment();
+        comment.setFbId(postsID);
+        comment.setAuthorNo(RequestContext.getEmployeeNo());
+        comment.setContent(content);
+        Integer commentId = forumBbsCommentBusiness.addComment(comment);
+        return commentId;
     }
 }

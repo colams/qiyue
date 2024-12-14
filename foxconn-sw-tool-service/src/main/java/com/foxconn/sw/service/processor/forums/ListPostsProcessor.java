@@ -32,7 +32,8 @@ public class ListPostsProcessor {
 
     public List<PostsBriefVo> list(PageParams<ListPostsParams> data) {
 
-        List<ForumPosts> forumPosts = forumPostsBusiness.queryPosts(data.getParams().getPostsType(), data.getParams().getWords());
+        List<ForumPosts> forumPosts = forumPostsBusiness.queryPosts(data.getParams().getPostsType(),
+                data.getParams().getWords());
         if (CollectionUtils.isEmpty(forumPosts)) {
             return Lists.newArrayList();
         }
