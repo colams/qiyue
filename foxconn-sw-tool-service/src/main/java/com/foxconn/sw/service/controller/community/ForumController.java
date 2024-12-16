@@ -91,6 +91,15 @@ public class ForumController {
     }
 
     @Permission
+    @Operation(summary = "帖子详情", tags = TagsConstants.FORUMS)
+    @ApiResponse(responseCode = "0", description = "成功码")
+    @PostMapping("/detailV2")
+    public Response<BbsDetailVo> detailV2(@Valid @RequestBody Request<IntegerParams> request) {
+        BbsDetailVo detailVo = postsDetailProcessor.detailV2(request.getData());
+        return ResponseUtils.success(detailVo, request.getTraceId());
+    }
+
+    @Permission
     @Operation(summary = "邀请参与帖子", tags = TagsConstants.FORUMS)
     @ApiResponse(responseCode = "0", description = "成功码")
     @PostMapping("/invite")

@@ -13,8 +13,6 @@ public class ForumBbsComment {
 
     private String authorNo;
 
-    private String resources;
-
     private Integer isDelete;
 
     private LocalDateTime createTime;
@@ -86,19 +84,6 @@ public class ForumBbsComment {
 
     public void setAuthorNo(String authorNo) {
         this.authorNo = authorNo == null ? null : authorNo.trim();
-    }
-
-    public String getResources() {
-        return resources;
-    }
-
-    public ForumBbsComment withResources(String resources) {
-        this.setResources(resources);
-        return this;
-    }
-
-    public void setResources(String resources) {
-        this.resources = resources == null ? null : resources.trim();
     }
 
     public Integer getIsDelete() {

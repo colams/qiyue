@@ -76,6 +76,7 @@ public class ForumPostsBusiness {
         ForumPostsExample example = new ForumPostsExample();
         ForumPostsExample.Criteria criteria = example.createCriteria();
         criteria.andIsDeleteEqualTo(0);
+        example.setOrderByClause(" id ");
         return forumPostsExtMapper.selectByExampleWithBLOBs(example);
     }
 }

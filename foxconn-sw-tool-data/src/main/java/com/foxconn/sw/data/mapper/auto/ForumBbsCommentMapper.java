@@ -36,14 +36,12 @@ public interface ForumBbsCommentMapper {
     @Insert({
         "insert into forum_bbs_comment (fb_id, parent_id, ",
         "target_id, author_no, ",
-        "resources, is_delete, ",
-        "create_time, datetime_lastchange, ",
-        "content)",
+        "is_delete, create_time, ",
+        "datetime_lastchange, content)",
         "values (#{fbId,jdbcType=INTEGER}, #{parentId,jdbcType=INTEGER}, ",
         "#{targetId,jdbcType=INTEGER}, #{authorNo,jdbcType=VARCHAR}, ",
-        "#{resources,jdbcType=VARCHAR}, #{isDelete,jdbcType=INTEGER}, ",
-        "#{createTime,jdbcType=TIMESTAMP}, #{datetimeLastchange,jdbcType=TIMESTAMP}, ",
-        "#{content,jdbcType=LONGVARCHAR})"
+        "#{isDelete,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, ",
+        "#{datetimeLastchange,jdbcType=TIMESTAMP}, #{content,jdbcType=LONGVARCHAR})"
     })
     @SelectKey(statement="SELECT LAST_INSERT_ID()", keyProperty="id", before=false, resultType=Integer.class)
     int insert(ForumBbsComment record);
@@ -59,7 +57,6 @@ public interface ForumBbsCommentMapper {
         @Result(column="parent_id", property="parentId", jdbcType=JdbcType.INTEGER),
         @Result(column="target_id", property="targetId", jdbcType=JdbcType.INTEGER),
         @Result(column="author_no", property="authorNo", jdbcType=JdbcType.VARCHAR),
-        @Result(column="resources", property="resources", jdbcType=JdbcType.VARCHAR),
         @Result(column="is_delete", property="isDelete", jdbcType=JdbcType.INTEGER),
         @Result(column="create_time", property="createTime", jdbcType=JdbcType.TIMESTAMP),
         @Result(column="datetime_lastchange", property="datetimeLastchange", jdbcType=JdbcType.TIMESTAMP),
@@ -74,7 +71,6 @@ public interface ForumBbsCommentMapper {
         @Result(column="parent_id", property="parentId", jdbcType=JdbcType.INTEGER),
         @Result(column="target_id", property="targetId", jdbcType=JdbcType.INTEGER),
         @Result(column="author_no", property="authorNo", jdbcType=JdbcType.VARCHAR),
-        @Result(column="resources", property="resources", jdbcType=JdbcType.VARCHAR),
         @Result(column="is_delete", property="isDelete", jdbcType=JdbcType.INTEGER),
         @Result(column="create_time", property="createTime", jdbcType=JdbcType.TIMESTAMP),
         @Result(column="datetime_lastchange", property="datetimeLastchange", jdbcType=JdbcType.TIMESTAMP),
@@ -89,7 +85,6 @@ public interface ForumBbsCommentMapper {
         @Result(column="parent_id", property="parentId", jdbcType=JdbcType.INTEGER),
         @Result(column="target_id", property="targetId", jdbcType=JdbcType.INTEGER),
         @Result(column="author_no", property="authorNo", jdbcType=JdbcType.VARCHAR),
-        @Result(column="resources", property="resources", jdbcType=JdbcType.VARCHAR),
         @Result(column="is_delete", property="isDelete", jdbcType=JdbcType.INTEGER),
         @Result(column="create_time", property="createTime", jdbcType=JdbcType.TIMESTAMP),
         @Result(column="datetime_lastchange", property="datetimeLastchange", jdbcType=JdbcType.TIMESTAMP)
@@ -103,7 +98,6 @@ public interface ForumBbsCommentMapper {
         @Result(column="parent_id", property="parentId", jdbcType=JdbcType.INTEGER),
         @Result(column="target_id", property="targetId", jdbcType=JdbcType.INTEGER),
         @Result(column="author_no", property="authorNo", jdbcType=JdbcType.VARCHAR),
-        @Result(column="resources", property="resources", jdbcType=JdbcType.VARCHAR),
         @Result(column="is_delete", property="isDelete", jdbcType=JdbcType.INTEGER),
         @Result(column="create_time", property="createTime", jdbcType=JdbcType.TIMESTAMP),
         @Result(column="datetime_lastchange", property="datetimeLastchange", jdbcType=JdbcType.TIMESTAMP)
@@ -112,8 +106,8 @@ public interface ForumBbsCommentMapper {
 
     @Select({
         "select",
-        "id, fb_id, parent_id, target_id, author_no, resources, is_delete, create_time, ",
-        "datetime_lastchange, content",
+        "id, fb_id, parent_id, target_id, author_no, is_delete, create_time, datetime_lastchange, ",
+        "content",
         "from forum_bbs_comment",
         "where id = #{id,jdbcType=INTEGER}"
     })
@@ -123,7 +117,6 @@ public interface ForumBbsCommentMapper {
         @Result(column="parent_id", property="parentId", jdbcType=JdbcType.INTEGER),
         @Result(column="target_id", property="targetId", jdbcType=JdbcType.INTEGER),
         @Result(column="author_no", property="authorNo", jdbcType=JdbcType.VARCHAR),
-        @Result(column="resources", property="resources", jdbcType=JdbcType.VARCHAR),
         @Result(column="is_delete", property="isDelete", jdbcType=JdbcType.INTEGER),
         @Result(column="create_time", property="createTime", jdbcType=JdbcType.TIMESTAMP),
         @Result(column="datetime_lastchange", property="datetimeLastchange", jdbcType=JdbcType.TIMESTAMP),
@@ -149,7 +142,6 @@ public interface ForumBbsCommentMapper {
           "parent_id = #{parentId,jdbcType=INTEGER},",
           "target_id = #{targetId,jdbcType=INTEGER},",
           "author_no = #{authorNo,jdbcType=VARCHAR},",
-          "resources = #{resources,jdbcType=VARCHAR},",
           "is_delete = #{isDelete,jdbcType=INTEGER},",
           "create_time = #{createTime,jdbcType=TIMESTAMP},",
           "datetime_lastchange = #{datetimeLastchange,jdbcType=TIMESTAMP},",
@@ -164,7 +156,6 @@ public interface ForumBbsCommentMapper {
           "parent_id = #{parentId,jdbcType=INTEGER},",
           "target_id = #{targetId,jdbcType=INTEGER},",
           "author_no = #{authorNo,jdbcType=VARCHAR},",
-          "resources = #{resources,jdbcType=VARCHAR},",
           "is_delete = #{isDelete,jdbcType=INTEGER},",
           "create_time = #{createTime,jdbcType=TIMESTAMP},",
           "datetime_lastchange = #{datetimeLastchange,jdbcType=TIMESTAMP}",

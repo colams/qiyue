@@ -34,7 +34,7 @@ public class ListCommentProcessor {
 
     public List<CommentsVo> list(PageParams<IntegerParams> data) {
         List<ForumBbsComment> comments = forumBbsCommentBusiness.queryCommentByPostsID(data.getParams().getParams());
-        ForumBbs forumBbs = forumBbsBusiness.getForumPosts(data.getParams().getParams());
+        ForumBbs forumBbs = forumBbsBusiness.getForumBbs(data.getParams().getParams());
         if (CollectionUtils.isEmpty(comments)) {
             return Lists.newArrayList();
         }
@@ -73,7 +73,7 @@ public class ListCommentProcessor {
 
     public PageEntity<List<CommentsVo>> listV2(PageParams<IntegerParams> data) {
         List<ForumBbsComment> comments = forumBbsCommentBusiness.queryCommentByPostsID(data.getParams().getParams());
-        ForumBbs forumBbs = forumBbsBusiness.getForumPosts(data.getParams().getParams());
+        ForumBbs forumBbs = forumBbsBusiness.getForumBbs(data.getParams().getParams());
         if (CollectionUtils.isEmpty(comments)) {
             return new PageEntity<>();
         }

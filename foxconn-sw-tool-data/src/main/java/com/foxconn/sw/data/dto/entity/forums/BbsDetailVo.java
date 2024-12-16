@@ -1,12 +1,9 @@
 package com.foxconn.sw.data.dto.entity.forums;
 
-import java.util.List;
-
 public class BbsDetailVo {
 
     private Integer id;
     private String title;
-    private List<CommentsVo> commentsVos;
 
     private Integer collectionStatus;
 
@@ -26,14 +23,6 @@ public class BbsDetailVo {
 
     public void setTitle(String title) {
         this.title = title;
-    }
-
-    public List<CommentsVo> getCommentsVos() {
-        return commentsVos;
-    }
-
-    public void setCommentsVos(List<CommentsVo> commentsVos) {
-        this.commentsVos = commentsVos;
     }
 
     public Integer getCollectionStatus() {

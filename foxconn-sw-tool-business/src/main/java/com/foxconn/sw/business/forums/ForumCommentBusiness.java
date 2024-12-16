@@ -20,6 +20,7 @@ public class ForumCommentBusiness {
         ForumCommentExample.Criteria criteria = example.createCriteria();
         criteria.andPostsIdEqualTo(postID);
         criteria.andIsDeleteEqualTo(0);
+        example.setOrderByClause(" id ");
         return forumCommentExtMapper.selectByExampleWithBLOBs(example);
     }
 

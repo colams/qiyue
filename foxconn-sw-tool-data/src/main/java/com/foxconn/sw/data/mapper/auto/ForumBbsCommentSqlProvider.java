@@ -44,10 +44,6 @@ public class ForumBbsCommentSqlProvider {
             sql.VALUES("author_no", "#{authorNo,jdbcType=VARCHAR}");
         }
         
-        if (record.getResources() != null) {
-            sql.VALUES("resources", "#{resources,jdbcType=VARCHAR}");
-        }
-        
         if (record.getIsDelete() != null) {
             sql.VALUES("is_delete", "#{isDelete,jdbcType=INTEGER}");
         }
@@ -78,7 +74,6 @@ public class ForumBbsCommentSqlProvider {
         sql.SELECT("parent_id");
         sql.SELECT("target_id");
         sql.SELECT("author_no");
-        sql.SELECT("resources");
         sql.SELECT("is_delete");
         sql.SELECT("create_time");
         sql.SELECT("datetime_lastchange");
@@ -104,7 +99,6 @@ public class ForumBbsCommentSqlProvider {
         sql.SELECT("parent_id");
         sql.SELECT("target_id");
         sql.SELECT("author_no");
-        sql.SELECT("resources");
         sql.SELECT("is_delete");
         sql.SELECT("create_time");
         sql.SELECT("datetime_lastchange");
@@ -145,10 +139,6 @@ public class ForumBbsCommentSqlProvider {
             sql.SET("author_no = #{record.authorNo,jdbcType=VARCHAR}");
         }
         
-        if (record.getResources() != null) {
-            sql.SET("resources = #{record.resources,jdbcType=VARCHAR}");
-        }
-        
         if (record.getIsDelete() != null) {
             sql.SET("is_delete = #{record.isDelete,jdbcType=INTEGER}");
         }
@@ -178,7 +168,6 @@ public class ForumBbsCommentSqlProvider {
         sql.SET("parent_id = #{record.parentId,jdbcType=INTEGER}");
         sql.SET("target_id = #{record.targetId,jdbcType=INTEGER}");
         sql.SET("author_no = #{record.authorNo,jdbcType=VARCHAR}");
-        sql.SET("resources = #{record.resources,jdbcType=VARCHAR}");
         sql.SET("is_delete = #{record.isDelete,jdbcType=INTEGER}");
         sql.SET("create_time = #{record.createTime,jdbcType=TIMESTAMP}");
         sql.SET("datetime_lastchange = #{record.datetimeLastchange,jdbcType=TIMESTAMP}");
@@ -198,7 +187,6 @@ public class ForumBbsCommentSqlProvider {
         sql.SET("parent_id = #{record.parentId,jdbcType=INTEGER}");
         sql.SET("target_id = #{record.targetId,jdbcType=INTEGER}");
         sql.SET("author_no = #{record.authorNo,jdbcType=VARCHAR}");
-        sql.SET("resources = #{record.resources,jdbcType=VARCHAR}");
         sql.SET("is_delete = #{record.isDelete,jdbcType=INTEGER}");
         sql.SET("create_time = #{record.createTime,jdbcType=TIMESTAMP}");
         sql.SET("datetime_lastchange = #{record.datetimeLastchange,jdbcType=TIMESTAMP}");
@@ -226,10 +214,6 @@ public class ForumBbsCommentSqlProvider {
         
         if (record.getAuthorNo() != null) {
             sql.SET("author_no = #{authorNo,jdbcType=VARCHAR}");
-        }
-        
-        if (record.getResources() != null) {
-            sql.SET("resources = #{resources,jdbcType=VARCHAR}");
         }
         
         if (record.getIsDelete() != null) {

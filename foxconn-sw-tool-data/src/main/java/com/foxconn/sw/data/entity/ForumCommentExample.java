@@ -415,76 +415,6 @@ public class ForumCommentExample {
             return (Criteria) this;
         }
 
-        public Criteria andResourcesIsNull() {
-            addCriterion("resources is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andResourcesIsNotNull() {
-            addCriterion("resources is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andResourcesEqualTo(String value) {
-            addCriterion("resources =", value, "resources");
-            return (Criteria) this;
-        }
-
-        public Criteria andResourcesNotEqualTo(String value) {
-            addCriterion("resources <>", value, "resources");
-            return (Criteria) this;
-        }
-
-        public Criteria andResourcesGreaterThan(String value) {
-            addCriterion("resources >", value, "resources");
-            return (Criteria) this;
-        }
-
-        public Criteria andResourcesGreaterThanOrEqualTo(String value) {
-            addCriterion("resources >=", value, "resources");
-            return (Criteria) this;
-        }
-
-        public Criteria andResourcesLessThan(String value) {
-            addCriterion("resources <", value, "resources");
-            return (Criteria) this;
-        }
-
-        public Criteria andResourcesLessThanOrEqualTo(String value) {
-            addCriterion("resources <=", value, "resources");
-            return (Criteria) this;
-        }
-
-        public Criteria andResourcesLike(String value) {
-            addCriterion("resources like", value, "resources");
-            return (Criteria) this;
-        }
-
-        public Criteria andResourcesNotLike(String value) {
-            addCriterion("resources not like", value, "resources");
-            return (Criteria) this;
-        }
-
-        public Criteria andResourcesIn(List<String> values) {
-            addCriterion("resources in", values, "resources");
-            return (Criteria) this;
-        }
-
-        public Criteria andResourcesNotIn(List<String> values) {
-            addCriterion("resources not in", values, "resources");
-            return (Criteria) this;
-        }
-
-        public Criteria andResourcesBetween(String value1, String value2) {
-            addCriterion("resources between", value1, value2, "resources");
-            return (Criteria) this;
-        }
-
-        public Criteria andResourcesNotBetween(String value1, String value2) {
-            addCriterion("resources not between", value1, value2, "resources");
-            return (Criteria) this;
-        }
-
         public Criteria andIsDeleteIsNull() {
             addCriterion("is_delete is null");
             return (Criteria) this;
@@ -667,11 +597,6 @@ public class ForumCommentExample {
 
         public Criteria andAuthorNoLikeInsensitive(String value) {
             addCriterion("upper(author_no) like", value.toUpperCase(), "authorNo");
-            return (Criteria) this;
-        }
-
-        public Criteria andResourcesLikeInsensitive(String value) {
-            addCriterion("upper(resources) like", value.toUpperCase(), "resources");
             return (Criteria) this;
         }
     }

@@ -5,10 +5,12 @@ import com.foxconn.sw.business.forums.*;
 import com.foxconn.sw.common.context.RequestContext;
 import com.foxconn.sw.common.utils.ConvertUtils;
 import com.foxconn.sw.common.utils.DateTimeUtils;
+import com.foxconn.sw.data.dto.entity.forums.BbsDetailVo;
 import com.foxconn.sw.data.dto.entity.forums.ForumsParticipantVo;
 import com.foxconn.sw.data.dto.entity.forums.PostsDetailVo;
 import com.foxconn.sw.data.dto.entity.forums.PostsResourceVo;
 import com.foxconn.sw.data.dto.entity.universal.IntegerParams;
+import com.foxconn.sw.data.entity.ForumBbs;
 import com.foxconn.sw.data.entity.ForumPosts;
 import com.foxconn.sw.data.entity.ForumPostsAttachment;
 import com.foxconn.sw.data.entity.SwAppendResource;
@@ -23,6 +25,8 @@ import java.util.stream.Collectors;
 
 @Component
 public class PostsDetailProcessor {
+    @Autowired
+    ForumBbsBusiness forumBbsBusiness;
     @Autowired
     ForumPostsBusiness forumPostsBusiness;
     @Autowired
@@ -42,6 +46,20 @@ public class PostsDetailProcessor {
     public PostsDetailVo detail(IntegerParams data) {
         ForumPosts forumPosts = forumPostsBusiness.getForumPosts(data.getParams());
         return map(forumPosts);
+    }
+
+    public BbsDetailVo detailV2(IntegerParams data) {
+        ForumBbs forumBbs = forumBbsBusiness.getForumBbs(data.getParams());
+        return map2Bbs(forumBbs);
+    }
+
+    private BbsDetailVo map2Bbs(ForumBbs forumBbs) {
+        BbsDetailVo bbsDetailVo = new BbsDetailVo();
+        bbsDetailVo.setId(forumBbs.getId());
+        bbsDetailVo.setTitle(forumBbs.getTitle());
+        bbsDetailVo.setCollectionStatus(favoriteBusiness.queryCollectionStatus(forumBbs.getId()));
+        bbsDetailVo.setCanDel(RequestContext.getEmployeeNo().equalsIgnoreCase(forumBbs.getAuthorNo()));
+        return bbsDetailVo;
     }
 
     private PostsDetailVo map(ForumPosts forumPosts) {

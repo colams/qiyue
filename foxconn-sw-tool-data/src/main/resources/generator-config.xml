@@ -77,6 +77,9 @@
         <table tableName="forum_bbs_comment">
             <generatedKey column="id" identity="true" sqlStatement="mysql"/>
         </table>
+        <table tableName="forum_bbs_read">
+            <generatedKey column="id" identity="true" sqlStatement="mysql"/>
+        </table>
         <table tableName="forum_comment">
             <generatedKey column="id" identity="true" sqlStatement="mysql"/>
         </table>

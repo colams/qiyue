@@ -64,7 +64,7 @@ public class ForumBbsBusiness {
         return forumBbsExtMapper.selectBbsCount(words, employee);
     }
 
-    public ForumBbs getForumPosts(Integer params) {
+    public ForumBbs getForumBbs(Integer params) {
         return forumBbsExtMapper.selectByPrimaryKey(params);
     }
 
