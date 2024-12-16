@@ -71,4 +71,11 @@ public class ForumPostsBusiness {
         criteria.andIdEqualTo(id);
         return forumPostsExtMapper.updateByExampleSelective(forumPosts, example) > 0;
     }
+
+    public List<ForumPosts> selectAll() {
+        ForumPostsExample example = new ForumPostsExample();
+        ForumPostsExample.Criteria criteria = example.createCriteria();
+        criteria.andIsDeleteEqualTo(0);
+        return forumPostsExtMapper.selectByExampleWithBLOBs(example);
+    }
 }

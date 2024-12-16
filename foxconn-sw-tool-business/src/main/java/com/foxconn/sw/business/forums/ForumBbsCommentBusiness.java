@@ -52,6 +52,9 @@ public class ForumBbsCommentBusiness {
 
     public List<ForumBbsComment> queryCommentByBbsIds(List<Integer> bbsIds) {
         List<ForumBbsComment> comments = new ArrayList<>();
+        for (Integer id : bbsIds) {
+            comments.add(bbsCommentExtMapper.selectByFbId(id));
+        }
         return comments;
     }
 

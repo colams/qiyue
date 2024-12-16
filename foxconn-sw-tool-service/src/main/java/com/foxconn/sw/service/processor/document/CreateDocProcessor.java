@@ -85,7 +85,6 @@ public class CreateDocProcessor {
 
         SwDocument updateDoc = new SwDocument();
         updateDoc.setId(document.getId());
-        updateDoc.setDocumentName(data.getFileName());
         updateDoc.setCategory(data.getCategory());
         updateDoc.setFileVersion(data.getFileVersion());
         updateDoc.setResourceId(data.getResourceID());
@@ -95,7 +94,7 @@ public class CreateDocProcessor {
         SwDocumentHistory documentHistory = new SwDocumentHistory();
         documentHistory.setDocumentId(document.getId());
         documentHistory.setDocumentName(document.getDocumentName());
-        documentHistory.setResourceId(document.getResourceId());
+        documentHistory.setResourceId(data.getResourceID());
         documentHistory.setCreator(RequestContext.getEmployeeNo());
         documentHistoryBusiness.insertHistory(documentHistory);
         return true;

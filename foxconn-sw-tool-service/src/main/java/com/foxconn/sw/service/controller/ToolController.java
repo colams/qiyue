@@ -4,6 +4,7 @@ import com.foxconn.sw.business.tools.ToolCategoryBusiness;
 import com.foxconn.sw.business.tools.ToolsBusiness;
 import com.foxconn.sw.business.tools.ToolsHistoryBusiness;
 import com.foxconn.sw.common.utils.ConfigReader;
+import com.foxconn.sw.common.utils.FilePathUtils;
 import com.foxconn.sw.common.utils.UUIDUtils;
 import com.foxconn.sw.data.constants.TagsConstants;
 import com.foxconn.sw.data.constants.enums.retcode.RetCode;
@@ -12,14 +13,14 @@ import com.foxconn.sw.data.dto.PageParams;
 import com.foxconn.sw.data.dto.Request;
 import com.foxconn.sw.data.dto.Response;
 import com.foxconn.sw.data.dto.entity.CategoryDTO;
-import com.foxconn.sw.data.dto.entity.universal.IntegerParams;
 import com.foxconn.sw.data.dto.entity.tool.RunToolParams;
 import com.foxconn.sw.data.dto.entity.tool.SwToolDTO;
 import com.foxconn.sw.data.dto.entity.tool.ToolSearchParams;
+import com.foxconn.sw.data.dto.entity.universal.IntegerParams;
+import com.foxconn.sw.service.processor.forums.ForumBbsProcessor;
 import com.foxconn.sw.service.processor.tool.RunToolProcessor;
 import com.foxconn.sw.service.processor.tool.SaveToolProcessor;
 import com.foxconn.sw.service.processor.tool.SearchToolProcessor;
-import com.foxconn.sw.common.utils.FilePathUtils;
 import com.foxconn.sw.service.utils.ResponseUtils;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -30,7 +31,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.script.ScriptException;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.List;
 
@@ -61,6 +61,8 @@ public class ToolController {
     RunToolProcessor runToolProcessor;
     @Autowired
     SearchToolProcessor searchToolProcessor;
+    @Autowired
+    ForumBbsProcessor forumBbsProcessor;
 
     @Operation(summary = "保存工具上传记录", tags = TagsConstants.TOOL)
     @ApiResponse(responseCode = "0", description = "成功码")
@@ -112,6 +114,14 @@ public class ToolController {
     public Response categoryList(@Valid @RequestBody Request<IntegerParams> request) {
         List<CategoryDTO> results = listToolCategoryBusiness.listByType(1);
         return ResponseUtils.success(results, UUIDUtils.getUuid());
+    }
+
+
+    @Operation(summary = "工具分类", tags = TagsConstants.TOOL)
+    @ApiResponse(responseCode = "0", description = "成功码")
+    @PostMapping("/refresh")
+    public Response refresh() {
+        return forumBbsProcessor.refresh();
     }
 
 }

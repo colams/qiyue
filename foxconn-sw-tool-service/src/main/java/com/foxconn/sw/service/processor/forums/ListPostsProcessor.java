@@ -94,7 +94,7 @@ public class ListPostsProcessor {
 
 
         Map<Integer, ForumBbsComment> commentMap = comments.stream()
-                .collect(Collectors.toMap(e -> e.getId(), e -> e));
+                .collect(Collectors.toMap(e -> e.getFbId(), e -> e));
         Map<Integer, ForumParticipant> participantMap = forumParticipants.stream()
                 .collect(Collectors.toMap(e -> e.getId(), e -> e));
 
