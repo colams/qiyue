@@ -1,13 +1,13 @@
 package com.foxconn.sw.service.processor.report;
 
-import com.foxconn.sw.common.context.RequestContext;
 import com.foxconn.sw.business.report.SwWorkReportBusiness;
 import com.foxconn.sw.business.report.SwWorkReportLockBusiness;
 import com.foxconn.sw.business.report.SwWorkReportScoreBusiness;
 import com.foxconn.sw.business.system.DepartmentBusiness;
 import com.foxconn.sw.business.system.EmployeeBusiness;
-import com.foxconn.sw.common.utils.PinyinUtils;
 import com.foxconn.sw.common.constanst.NumberConstants;
+import com.foxconn.sw.common.context.RequestContext;
+import com.foxconn.sw.common.utils.PinyinUtils;
 import com.foxconn.sw.data.dto.entity.acount.EmployeeVo;
 import com.foxconn.sw.data.dto.entity.oa.ReportSearchParams;
 import com.foxconn.sw.data.dto.entity.oa.WorkReportDetail;
@@ -50,6 +50,13 @@ public class ListReportProcessor {
         String currentYearWeek = ReportSearchParamsUtils.processDate(LocalDate.now());
         if (NumberConstants.TWO.equals(searchParams.getSearchType())) {
             Collections.sort(retValue, (a, b) -> {
+                if (ReportSearchParamsUtils.lessThanWeek(searchParams.getStartDate(), searchParams.getEndDate())) {
+                    int aComparison = a.getYearWeek().compareTo(b.getYearWeek());
+                    if (aComparison != 0) {
+                        return aComparison;
+                    }
+                }
+
                 Integer sSize = Objects.isNull(a.getReportDetailList()) ? 0 : a.getReportDetailList().size();
                 Integer bSize = Objects.isNull(b.getReportDetailList()) ? 0 : b.getReportDetailList().size();
                 int aComparison = sSize.compareTo(bSize);
