@@ -1,10 +1,16 @@
 package com.foxconn.sw.data.dto;
 
+import com.google.common.collect.Lists;
 import io.swagger.v3.oas.annotations.media.Schema;
 
 import java.util.List;
 
 public class PageEntity<T> {
+
+    public PageEntity() {
+        this.totalCount = 0L;
+        this.list = Lists.newArrayList();
+    }
 
     public PageEntity(Long totalCount, List<T> list) {
         this.totalCount = totalCount;

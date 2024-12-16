@@ -2,6 +2,7 @@ package com.foxconn.sw.service.controller.community;
 
 
 import com.foxconn.sw.data.constants.TagsConstants;
+import com.foxconn.sw.data.dto.PageEntity;
 import com.foxconn.sw.data.dto.PageParams;
 import com.foxconn.sw.data.dto.Request;
 import com.foxconn.sw.data.dto.Response;
@@ -38,6 +39,15 @@ public class CommentController {
     public Response<List<CommentsVo>> list(@Valid @RequestBody Request<PageParams<IntegerParams>> request) {
         List<CommentsVo> vos = listCommentProcessor.list(request.getData());
         return ResponseUtils.success(vos, request.getTraceId());
+    }
+
+    @Permission
+    @Operation(summary = "获取帖子评论信息 v2", tags = "v2")
+    @ApiResponse(responseCode = "0", description = "成功码")
+    @PostMapping("/listV2")
+    public Response<PageEntity<List<CommentsVo>>> listV2(@Valid @RequestBody Request<PageParams<IntegerParams>> request) {
+        PageEntity<List<CommentsVo>> page = listCommentProcessor.listV2(request.getData());
+        return ResponseUtils.success(page, request.getTraceId());
     }
 
 

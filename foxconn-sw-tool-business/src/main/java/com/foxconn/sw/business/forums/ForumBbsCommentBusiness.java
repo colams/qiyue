@@ -54,4 +54,8 @@ public class ForumBbsCommentBusiness {
         List<ForumBbsComment> comments = new ArrayList<>();
         return comments;
     }
+
+    public Long queryCountByBbsId(Integer params) {
+        return bbsCommentExtMapper.queryCountByBbsId(params);
+    }
 }

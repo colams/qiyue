@@ -13,16 +13,16 @@ import java.util.List;
 @Repository
 public interface SwCustomGroupExtMapper extends SwCustomGroupMapper {
 
-    @Select({
-            "select g.*",
-            "datetime_lastchange",
-            "from sw_custom_group g inner join sw_custom_group_favorite f on g.id=f.custom_group_id",
+    @Select({"<script>",
+            "select g.* ",
+            "from sw_custom_group g inner join sw_custom_group_favorite f on g.id=f.custom_group_id ",
             "<where>",
-            " g.is_delete=0 and f.is_delete=0 ",
+            "g.is_delete=0 and f.is_delete=0 ",
             "<if test='keywords!=null and keywords!=\"\"' >",
-            " and name like CONCAT('%', #{keywords,jdbcType=VARCHAR}, '%') ",
+            "and g.name like CONCAT('%', #{keywords,jdbcType=VARCHAR}, '%') ",
             "</if> ",
             "</where>",
+            "</script>"
     })
     @Results({
             @Result(column = "id", property = "id", jdbcType = JdbcType.INTEGER, id = true),

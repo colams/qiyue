@@ -4,6 +4,7 @@ import com.foxconn.sw.business.forums.ForumBbsBusiness;
 import com.foxconn.sw.business.forums.ForumBbsCommentBusiness;
 import com.foxconn.sw.common.context.RequestContext;
 import com.foxconn.sw.common.utils.DateTimeUtils;
+import com.foxconn.sw.data.dto.PageEntity;
 import com.foxconn.sw.data.dto.PageParams;
 import com.foxconn.sw.data.dto.entity.forums.CommentsVo;
 import com.foxconn.sw.data.dto.entity.universal.IntegerParams;
@@ -68,5 +69,16 @@ public class ListCommentProcessor {
             vos.add(vo);
         });
         return vos;
+    }
+
+    public PageEntity<List<CommentsVo>> listV2(PageParams<IntegerParams> data) {
+        List<ForumBbsComment> comments = forumBbsCommentBusiness.queryCommentByPostsID(data.getParams().getParams());
+        ForumBbs forumBbs = forumBbsBusiness.getForumPosts(data.getParams().getParams());
+        if (CollectionUtils.isEmpty(comments)) {
+            return new PageEntity<>();
+        }
+        List<CommentsVo> vos = mapComments(comments, forumBbs.getAuthorNo());
+        Long count = forumBbsCommentBusiness.queryCountByBbsId(data.getParams().getParams());
+        return new PageEntity(count, vos);
     }
 }
