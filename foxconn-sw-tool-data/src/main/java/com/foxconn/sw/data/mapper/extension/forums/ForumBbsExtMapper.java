@@ -15,8 +15,8 @@ import java.util.List;
 public interface ForumBbsExtMapper extends ForumBbsMapper {
 
     @Select({"<script> " +
-            "select b.* from forum_bbs b inner join forum_favorite f on " +
-            "b.id=f.posts_id " +
+            "select b.* from forum_bbs b inner join forum_favorite f on b.id=f.posts_id " +
+            // "inner join forum_participant p on b.id=p.posts_id and b.employee_no=#{operator,jdbcType=VARCHAR}" +
             "where f.is_valid=1 and b.is_delete=0 and f.operator=#{operator,jdbcType=VARCHAR}" +
             "<if test='words!=null and words!=\"\"' >",
             " and b.title like CONCAT('%', #{words,jdbcType=VARCHAR}, '%') ",

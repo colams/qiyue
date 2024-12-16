@@ -57,6 +57,30 @@ public class ForumBbsBusiness {
         return forumBbsExtMapper.selectByExample(example);
     }
 
+    public List<ForumBbs> queryBbsList(PostsCategoryEnums postsType, String words, Integer pageSize, Integer currentPage) {
+
+        int start = (currentPage - 1) * pageSize;
+        if (NumberConstants.TWO.equals(postsType.getCode())) {
+            return forumBbsExtMapper.favoriteBbs(words, RequestContext.getEmployeeNo(), start, pageSize);
+        }
+        ForumBbsExample example = new ForumBbsExample();
+        ForumBbsExample.Criteria criteria = example.createCriteria();
+        criteria.andIsDeleteEqualTo(0);
+
+        if (NumberConstants.ONE.equals(postsType.getCode())) {
+            criteria.andAuthorNoEqualTo(RequestContext.getEmployeeNo());
+        }
+
+        if (StringUtils.isNotEmpty(words)) {
+            criteria.andTitleLike("%" + words + "%");
+        }
+
+        example.setOrderByClause(" create_time desc ");
+
+        return forumBbsExtMapper.selectByExample(example);
+    }
+
+
     public Long getPostsCount(PostsCategoryEnums postsType, String words) {
         if (NumberConstants.TWO.equals(postsType.getCode())) {
             return forumBbsExtMapper.getFavoriteBbsCount(words, RequestContext.getEmployeeNo());
