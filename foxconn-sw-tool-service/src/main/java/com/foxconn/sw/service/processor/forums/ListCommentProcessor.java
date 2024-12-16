@@ -79,6 +79,6 @@ public class ListCommentProcessor {
         }
         List<CommentsVo> vos = mapComments(comments, forumBbs.getAuthorNo());
         Long count = forumBbsCommentBusiness.queryCountByBbsId(data.getParams().getParams());
-        return new PageEntity(count, vos);
+        return new PageEntity(count, buildTree(vos));
     }
 }

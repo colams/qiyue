@@ -70,7 +70,7 @@ public class ForumBbsProcessor {
         forumBbs.setIsDelete(e.getIsDelete());
         forumBbs.setCreateTime(e.getCreateTime());
         forumBbs.setDatetimeLastchange(e.getLastchangeDatetime());
-        return forumBbs.getId();
+        return bbsBusiness.createPosts(forumBbs);
     }
 
 }
