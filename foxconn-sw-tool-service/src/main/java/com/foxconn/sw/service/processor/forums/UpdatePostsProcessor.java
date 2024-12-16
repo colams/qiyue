@@ -1,8 +1,6 @@
 package com.foxconn.sw.service.processor.forums;
 
-import com.foxconn.sw.business.forums.ForumCommentBusiness;
-import com.foxconn.sw.business.forums.ForumPostsAttachmentBusiness;
-import com.foxconn.sw.business.forums.ForumPostsBusiness;
+import com.foxconn.sw.business.forums.*;
 import com.foxconn.sw.common.constanst.NumberConstants;
 import com.foxconn.sw.data.dto.request.forums.DeletePostsParams;
 import com.foxconn.sw.data.dto.request.forums.UpdateAttachParams;
@@ -23,6 +21,11 @@ public class UpdatePostsProcessor {
     ForumPostsAttachmentBusiness postsAttachmentBusiness;
     @Autowired
     ForumCommentBusiness commentBusiness;
+
+    @Autowired
+    ForumBbsBusiness forumBbsBusiness;
+    @Autowired
+    ForumBbsCommentBusiness forumBbsCommentBusiness;
 
     public boolean updateAttach(UpdateAttachParams data) {
         if (Objects.isNull(data.getId()) || CollectionUtils.isEmpty(data.getResourceIds())) {
@@ -46,9 +49,9 @@ public class UpdatePostsProcessor {
 
     public boolean delete(DeletePostsParams data) {
         if (NumberConstants.ONE.equals(data.getDelType())) {
-            return forumPostsBusiness.delete(data.getId());
+            return forumBbsBusiness.delete(data.getId());
         } else if (NumberConstants.TWO.equals(data.getDelType())) {
-            boolean result = commentBusiness.delete(data.getId());
+            boolean result = forumBbsCommentBusiness.delete(data.getId());
             if (result) {
                 postsAttachmentBusiness.deletePostsAttachmentByCId(data.getId());
             }
