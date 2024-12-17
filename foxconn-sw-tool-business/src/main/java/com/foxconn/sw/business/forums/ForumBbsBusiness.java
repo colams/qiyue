@@ -36,50 +36,17 @@ public class ForumBbsBusiness {
 
     public List<ForumBbs> queryPosts(PostsCategoryEnums postsType, String words, Integer pageSize, Integer currentPage) {
 
+        Integer isAdmin = RequestContext.getEmployeeNo().equalsIgnoreCase("G1658973") ? 1 : 0;
         int start = (currentPage - 1) * pageSize;
-        if (NumberConstants.TWO.equals(postsType.getCode())) {
-            return forumBbsExtMapper.favoriteBbs(words, RequestContext.getEmployeeNo(), start, pageSize);
-        }
-        ForumBbsExample example = new ForumBbsExample();
-        ForumBbsExample.Criteria criteria = example.createCriteria();
-        criteria.andIsDeleteEqualTo(0);
-
-        if (NumberConstants.ONE.equals(postsType.getCode())) {
-            criteria.andAuthorNoEqualTo(RequestContext.getEmployeeNo());
+        if (PostsCategoryEnums.CollectPosts.equals(postsType)) {
+            return forumBbsExtMapper.favoriteBbs(isAdmin, words, RequestContext.getEmployeeNo(), start, pageSize);
         }
 
-        if (StringUtils.isNotEmpty(words)) {
-            criteria.andTitleLike("%" + words + "%");
-        }
+        String owner = PostsCategoryEnums.MyPosts.equals(postsType) ? RequestContext.getEmployeeNo() : null;
+        String title = StringUtils.isNotEmpty(words) ? "%" + words + "%" : null;
 
-        example.setOrderByClause(" create_time desc ");
-
-        return forumBbsExtMapper.selectByExample(example);
+        return forumBbsExtMapper.selectByKeyWords(isAdmin, RequestContext.getEmployeeNo(), owner, title, start, pageSize);
     }
-
-    public List<ForumBbs> queryBbsList(PostsCategoryEnums postsType, String words, Integer pageSize, Integer currentPage) {
-
-        int start = (currentPage - 1) * pageSize;
-        if (NumberConstants.TWO.equals(postsType.getCode())) {
-            return forumBbsExtMapper.favoriteBbs(words, RequestContext.getEmployeeNo(), start, pageSize);
-        }
-        ForumBbsExample example = new ForumBbsExample();
-        ForumBbsExample.Criteria criteria = example.createCriteria();
-        criteria.andIsDeleteEqualTo(0);
-
-        if (NumberConstants.ONE.equals(postsType.getCode())) {
-            criteria.andAuthorNoEqualTo(RequestContext.getEmployeeNo());
-        }
-
-        if (StringUtils.isNotEmpty(words)) {
-            criteria.andTitleLike("%" + words + "%");
-        }
-
-        example.setOrderByClause(" create_time desc ");
-
-        return forumBbsExtMapper.selectByExample(example);
-    }
-
 
     public Long getPostsCount(PostsCategoryEnums postsType, String words) {
         if (NumberConstants.TWO.equals(postsType.getCode())) {
