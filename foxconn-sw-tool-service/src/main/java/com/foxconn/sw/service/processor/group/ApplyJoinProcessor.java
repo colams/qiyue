@@ -1,13 +1,17 @@
 package com.foxconn.sw.service.processor.group;
 
 import com.foxconn.sw.business.group.SwCustomGroupFavoriteBusiness;
+import com.foxconn.sw.business.group.SwCustomGroupMemberBusiness;
 import com.foxconn.sw.business.group.SwCustomGroupOperateBusiness;
 import com.foxconn.sw.common.constanst.NumberConstants;
 import com.foxconn.sw.data.dto.entity.group.CustomOperateVo;
 import com.foxconn.sw.data.dto.entity.universal.IntegerParams;
+import com.foxconn.sw.data.dto.request.enums.AgreeStatusEnums;
+import com.foxconn.sw.data.dto.request.enums.GroupMemberTypeEnums;
 import com.foxconn.sw.data.dto.request.group.ApplyJoinGroupParams;
 import com.foxconn.sw.data.dto.request.group.ProcessApplyParams;
 import com.foxconn.sw.data.entity.SwCustomGroupFavorite;
+import com.foxconn.sw.data.entity.SwCustomGroupMember;
 import com.foxconn.sw.data.entity.SwCustomGroupOperate;
 import com.foxconn.sw.service.processor.utils.EmployeeUtils;
 import com.google.common.collect.Lists;
@@ -28,12 +32,22 @@ public class ApplyJoinProcessor {
     SwCustomGroupFavoriteBusiness customGroupFavoriteBusiness;
     @Autowired
     EmployeeUtils employeeUtils;
+    @Autowired
+    SwCustomGroupMemberBusiness groupMemberBusiness;
 
     public boolean applyJoin(ApplyJoinGroupParams data) {
         return customGroupOperateBusiness.applyJoin(data.getGroupId(), data.getRemark());
     }
 
     public boolean process(ProcessApplyParams data) {
+        if (data.getAgree().equals(AgreeStatusEnums.Agree)) {
+            SwCustomGroupOperate operate = customGroupOperateBusiness.selectById(data.getApplyID());
+            SwCustomGroupMember member = new SwCustomGroupMember();
+            member.setCustomGroupId(operate.getCustomGroupId());
+            member.setMember(operate.getOperator());
+            member.setMemberType(GroupMemberTypeEnums.Member.getCode());
+            groupMemberBusiness.insert(member);
+        }
         return customGroupOperateBusiness.processApply(data.getApplyID(), data.getAgree());
     }
 

@@ -66,4 +66,8 @@ public class SwCustomGroupMemberBusiness {
         });
         return true;
     }
+
+    public boolean insert(SwCustomGroupMember members) {
+        return customGroupMemberExtMapper.insertSelective(members) > 0;
+    }
 }

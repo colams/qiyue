@@ -77,4 +77,8 @@ public class SwCustomGroupOperateBusiness {
         or.andStatusEqualTo(NumberConstants.ZERO);
         return customGroupOperateExtMapper.selectByExample(example);
     }
+
+    public SwCustomGroupOperate selectById(Integer applyID) {
+        return customGroupOperateExtMapper.selectByPrimaryKey(applyID);
+    }
 }
