@@ -20,6 +20,7 @@ import org.springframework.util.CollectionUtils;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Component
 public class FeedBackListProcessor {
@@ -54,7 +55,7 @@ public class FeedBackListProcessor {
             vo.setId(e.getId());
             vo.setEmployeeNo(e.getEmployeeNo());
             vo.setTitle(e.getTitle());
-            vo.setContact(StringUtils.isEmpty(e.getContact()) ? employee.getLandLine() + " " + employee.getInnerEmail() : e.getContact());
+            vo.setContact(StringUtils.isEmpty(e.getContact()) ? Objects.nonNull(employee) ? employee.getLandLine() + " " + employee.getInnerEmail() : "" : e.getContact());
             vo.setIp(e.getIp());
             vo.setCreateTime(e.getCreateTime());
             vo.setContent(e.getContent());

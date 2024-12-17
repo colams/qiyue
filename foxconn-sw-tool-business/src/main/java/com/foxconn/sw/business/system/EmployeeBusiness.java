@@ -114,6 +114,9 @@ public class EmployeeBusiness {
         criteria.andEmployeeNoEqualTo(eNo);
         example.setOrderByClause(" department_id ,post_id,employee_no ");
         List<SwEmployee> employees = swEmployeeExtensionMapper.selectByExample(example);
+        if (CollectionUtils.isEmpty(employees)) {
+            return null;
+        }
         return employees.get(0);
     }
 
