@@ -121,7 +121,11 @@ public class ListPostsProcessor {
         vo.setId(bbs.getId());
         vo.setAuthor(employeeUtils.mapEmployee(bbs.getAuthorNo()));
         vo.setCreateTime(DateTimeUtils.format(bbs.getCreateTime(), "yyyy-MM-dd HH:mm"));
-        vo.setTitle(bbs.getTitle());
+        if (StringUtils.isNotEmpty(bbs.getProject())) {
+            vo.setTitle(String.format("【%s】%s", bbs.getProject(), bbs.getTitle()));
+        } else {
+            vo.setTitle(bbs.getTitle());
+        }
         vo.setContent(content);
         vo.setRead(NumberConstants.ONE.equals(read));
         return vo;
