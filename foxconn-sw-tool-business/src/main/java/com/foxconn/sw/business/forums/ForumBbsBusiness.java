@@ -1,6 +1,5 @@
 package com.foxconn.sw.business.forums;
 
-import com.foxconn.sw.common.constanst.NumberConstants;
 import com.foxconn.sw.common.context.RequestContext;
 import com.foxconn.sw.data.dto.request.enums.PostsCategoryEnums;
 import com.foxconn.sw.data.dto.request.forums.PostsParams;
@@ -49,11 +48,11 @@ public class ForumBbsBusiness {
     }
 
     public Long getPostsCount(PostsCategoryEnums postsType, String words) {
-        if (NumberConstants.TWO.equals(postsType.getCode())) {
+        if (PostsCategoryEnums.CollectPosts.equals(postsType)) {
             return forumBbsExtMapper.getFavoriteBbsCount(words, RequestContext.getEmployeeNo());
         }
         String employee = "";
-        if (NumberConstants.ONE.equals(postsType.getCode())) {
+        if (PostsCategoryEnums.MyPosts.equals(postsType)) {
             employee = RequestContext.getEmployeeNo();
         }
         return forumBbsExtMapper.selectBbsCount(words, employee);
