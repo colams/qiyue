@@ -29,17 +29,6 @@ public class ForumBbsCommentBusiness {
         return comment.getId();
     }
 
-    public Integer queryCommentCountByPostsID(Integer id) {
-        ForumBbsCommentExample example = new ForumBbsCommentExample();
-        ForumBbsCommentExample.Criteria criteria = example.createCriteria();
-        criteria.andFbIdEqualTo(id);
-        criteria.andParentIdEqualTo(0);
-        List<ForumBbsComment> comments = bbsCommentExtMapper.selectByExampleWithBLOBs(example);
-        return Optional.ofNullable(comments)
-                .orElse(Lists.newArrayList())
-                .size();
-    }
-
     public boolean delete(Integer id) {
         ForumBbsComment comment = new ForumBbsComment();
         comment.setIsDelete(1);

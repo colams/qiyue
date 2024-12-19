@@ -58,6 +58,7 @@ public class ForumParticipantBusiness {
         ForumParticipantExample example = new ForumParticipantExample();
         ForumParticipantExample.Criteria criteria = example.createCriteria();
         criteria.andPostsIdEqualTo(id);
+        example.setOrderByClause(" create_time ");
         List<ForumParticipant> forumParticipants = forumParticipantExtMapper.selectByExample(example);
         return Optional.ofNullable(forumParticipants).orElse(Lists.newArrayList())
                 .stream()
