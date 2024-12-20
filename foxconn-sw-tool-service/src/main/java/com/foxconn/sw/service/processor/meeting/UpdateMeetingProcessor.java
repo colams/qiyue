@@ -1,10 +1,11 @@
 package com.foxconn.sw.service.processor.meeting;
 
-import com.foxconn.sw.common.context.RequestContext;
 import com.foxconn.sw.business.meeting.MeetingBusiness;
 import com.foxconn.sw.business.meeting.MeetingCycleDetailBusiness;
 import com.foxconn.sw.business.meeting.MeetingMemberBusiness;
 import com.foxconn.sw.business.meeting.utils.CycleUtils;
+import com.foxconn.sw.common.constanst.NumberConstants;
+import com.foxconn.sw.common.context.RequestContext;
 import com.foxconn.sw.common.utils.JsonUtils;
 import com.foxconn.sw.data.dto.request.meeting.UpdateMeetingParams;
 import com.foxconn.sw.data.entity.SwMeeting;
@@ -18,7 +19,6 @@ import org.springframework.util.CollectionUtils;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 
 @Component
 public class UpdateMeetingProcessor {
@@ -32,17 +32,16 @@ public class UpdateMeetingProcessor {
 
     public Boolean update(UpdateMeetingParams data) {
         SwMeeting meeting = meetingBusiness.getMeetingByID(data.getMeetingID());
-        if (((Objects.nonNull(meeting.getIsRepeat())
-                && meeting.getIsRepeat() == 1)
-                || StringUtils.isNotEmpty(meeting.getCycle()))
-                && Objects.nonNull(data.getOperateType())
-                && data.getOperateType() == 1) {
-            processCycle(meeting, data);
+        boolean result = false;
+        if (StringUtils.isNotEmpty(meeting.getCycle()) && NumberConstants.ONE.equals(data.getOperateType())) {
+            result = processCycle(meeting, data);
         } else {
-            processMeeting(meeting, data);
+            result = processMeeting(meeting, data);
+        }
+        if (result) {
             processMembers(data);
         }
-        return true;
+        return result;
     }
 
     private boolean processMeeting(SwMeeting meeting, UpdateMeetingParams data) {
@@ -77,8 +76,7 @@ public class UpdateMeetingProcessor {
         detail.setStartTime(data.getTimeVo().getStartTime());
         detail.setEndTime(data.getTimeVo().getEndTime());
         detail.setCancel(0);
-        meetingCycleDetailBusiness.updateCycle(detail);
-        return false;
+        return meetingCycleDetailBusiness.updateCycle(detail);
     }
 
     private boolean processMembers(UpdateMeetingParams data) {
