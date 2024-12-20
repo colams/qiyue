@@ -54,8 +54,7 @@ public class TaskListProcessor {
         List<SwTask> tasks = taskBusiness.listBriefVos(taskParams, employeeNos, proposer);
         List<TaskBriefListVo> briefListVos = processAfter(tasks);
         Long totalCount = taskBusiness.getTotalCountByParams(taskParams.getParams(), employeeNos, proposer);
-        PageEntity<TaskBriefListVo> voPageEntity = new PageEntity<>(totalCount, briefListVos);
-        return voPageEntity;
+        return new PageEntity<>(totalCount, briefListVos);
     }
 
     public TaskListPageVo list2(PageParams<TaskParams> taskParams) {
@@ -76,8 +75,8 @@ public class TaskListProcessor {
         }
 
         TaskListFilterVo filterVo = new TaskListFilterVo();
-        filterVo.setProjectFilter(TaskProjectUtils.processProject(tasks.stream().map(e -> e.getProject()).collect(Collectors.toList())));
-        filterVo.setCategoryFilter(TaskCategoryUtils.processCategory(tasks.stream().map(e -> e.getCategory()).collect(Collectors.toList())));
+        filterVo.setProjectFilter(TaskProjectUtils.processProject(tasks.stream().map(SwTask::getProject).collect(Collectors.toList())));
+        filterVo.setCategoryFilter(TaskCategoryUtils.processCategory(tasks.stream().map(SwTask::getCategory).collect(Collectors.toList())));
         filterVo.setStateFilter(new ArrayList<>());
         filterVo.setProposeFilter(new ArrayList<>());
         filterVo.setSupervisorFilter(new ArrayList<>());
@@ -94,7 +93,7 @@ public class TaskListProcessor {
     private List<String> getQueryEmployee(String employeeNo, Integer isTeam) {
         if (Objects.nonNull(isTeam) && isTeam == 1) {
             return employeeBusiness.queryMembers(employeeNo).stream()
-                    .map(e -> e.getEmployeeNo())
+                    .map(SwEmployee::getEmployeeNo)
                     .collect(Collectors.toList());
         } else {
             return Lists.newArrayList(employeeNo);
@@ -118,6 +117,7 @@ public class TaskListProcessor {
 
         Map<Integer, List<SwTaskEmployeeRelation>> relationsMap = relationBusiness.queryEmployeeRelation(taskIDs);
 
+        assert tasks != null;
         return tasks.stream()
                 .map(e -> mapBrief(e, map, relationsMap.get(e.getId())))
                 .collect(Collectors.toList());
@@ -172,7 +172,7 @@ public class TaskListProcessor {
                                 SwEmployee ee = employeeBusiness.selectEmployeeByENo(r.getEmployeeNo());
                                 return map(ee);
                             })
-                            .filter(f -> Objects.nonNull(f))
+                            .filter(Objects::nonNull)
                             .collect(Collectors.toList());
                 }
             } else if (TaskRoleFlagEnums.Handler_Flag.test(optional.get().getRoleFlag())) {
@@ -220,8 +220,8 @@ public class TaskListProcessor {
 
         vo.setOperateList(processOperate(e, optional));
         vo.setStatusInfoVo(TaskStatusUtils.processStatus(e.getStatus(), e.getRejectStatus(), optional));
-        int readStatus = optional.map(o -> o.getIsRead()).orElse(0);
-        vo.setRead(readStatus == 0 ? false : true);
+        int readStatus = optional.map(SwTaskEmployeeRelation::getIsRead).orElse(0);
+        vo.setRead(readStatus != 0);
         return vo;
     }
 

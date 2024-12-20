@@ -13,18 +13,13 @@ public class ExcelUtils {
             return "";
         }
 
-        switch (cell.getCellType()) {
-            case STRING:
-                return cell.getStringCellValue();
-            case NUMERIC:
-                return String.valueOf(cell.getNumericCellValue());
-            case BOOLEAN:
-                return String.valueOf(cell.getBooleanCellValue());
-            case FORMULA:
-                return cell.getCellFormula();
-            default:
-                return "";
-        }
+        return switch (cell.getCellType()) {
+            case STRING -> cell.getStringCellValue();
+            case NUMERIC -> String.valueOf(cell.getNumericCellValue());
+            case BOOLEAN -> String.valueOf(cell.getBooleanCellValue());
+            case FORMULA -> cell.getCellFormula();
+            default -> "";
+        };
     }
 
     public static boolean isMerged(Sheet sheet, int row, int column) {
