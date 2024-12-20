@@ -43,6 +43,7 @@ public class ForumParticipantBusiness {
         ForumParticipantExample example = new ForumParticipantExample();
         ForumParticipantExample.Criteria criteria = example.createCriteria();
         criteria.andPostsIdEqualTo(id);
+        criteria.andIsDeleteEqualTo(0);
         return forumParticipantExtMapper.selectByExample(example);
     }
 
@@ -51,6 +52,7 @@ public class ForumParticipantBusiness {
         ForumParticipantExample.Criteria criteria = example.createCriteria();
         criteria.andPostsIdIn(bbsIds);
         criteria.andEmployeeNoEqualTo(employeeNo);
+        criteria.andIsDeleteEqualTo(0);
         return forumParticipantExtMapper.selectByExample(example);
     }
 
@@ -87,5 +89,9 @@ public class ForumParticipantBusiness {
         participantVo.setDepartmentName(userInfo.getDepartName());
         participantVo.setCreateTime(DateTimeUtils.format(e.getCreateTime()));
         return participantVo;
+    }
+
+    public boolean update(ForumParticipant participant) {
+        return forumParticipantExtMapper.updateByPrimaryKeySelective(participant) > 0;
     }
 }

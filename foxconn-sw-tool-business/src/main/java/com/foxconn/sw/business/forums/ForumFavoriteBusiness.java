@@ -1,7 +1,7 @@
 package com.foxconn.sw.business.forums;
 
-import com.foxconn.sw.common.context.RequestContext;
 import com.foxconn.sw.common.constanst.NumberConstants;
+import com.foxconn.sw.common.context.RequestContext;
 import com.foxconn.sw.data.entity.ForumFavorite;
 import com.foxconn.sw.data.entity.ForumFavoriteExample;
 import com.foxconn.sw.data.mapper.extension.forums.ForumFavoriteExtMapper;
@@ -59,5 +59,17 @@ public class ForumFavoriteBusiness {
                 .map(e -> e.getIsValid())
                 .findFirst()
                 .orElse(0);
+    }
+
+    public List<ForumFavorite> selectAllFavorites(Integer id) {
+
+        ForumFavoriteExample example = new ForumFavoriteExample();
+        ForumFavoriteExample.Criteria criteria = example.createCriteria();
+        criteria.andPostsIdEqualTo(id);
+        return forumFavoriteExtMapper.selectByExample(example);
+    }
+
+    public boolean update(ForumFavorite favorite) {
+        return forumFavoriteExtMapper.updateByPrimaryKeySelective(favorite) > 0;
     }
 }

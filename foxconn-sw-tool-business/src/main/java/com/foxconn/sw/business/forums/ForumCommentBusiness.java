@@ -19,7 +19,6 @@ public class ForumCommentBusiness {
         ForumCommentExample example = new ForumCommentExample();
         ForumCommentExample.Criteria criteria = example.createCriteria();
         criteria.andPostsIdEqualTo(postID);
-        criteria.andIsDeleteEqualTo(0);
         example.setOrderByClause(" id ");
         return forumCommentExtMapper.selectByExampleWithBLOBs(example);
     }

@@ -3,13 +3,12 @@ package com.foxconn.sw.business.forums;
 import com.foxconn.sw.data.entity.ForumBbsComment;
 import com.foxconn.sw.data.entity.ForumBbsCommentExample;
 import com.foxconn.sw.data.mapper.extension.forums.ForumBbsCommentExtMapper;
-import com.google.common.collect.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
+import java.util.Objects;
 
 @Component
 public class ForumBbsCommentBusiness {
@@ -42,7 +41,10 @@ public class ForumBbsCommentBusiness {
     public List<ForumBbsComment> queryCommentByBbsIds(List<Integer> bbsIds) {
         List<ForumBbsComment> comments = new ArrayList<>();
         for (Integer id : bbsIds) {
-            comments.add(bbsCommentExtMapper.selectByFbId(id));
+            ForumBbsComment comment = bbsCommentExtMapper.selectByFbId(id);
+            if (Objects.nonNull(comment)) {
+                comments.add(comment);
+            }
         }
         return comments;
     }

@@ -63,4 +63,7 @@ public class ForumPostsAttachmentBusiness {
         return postsAttachmentExtMapper.updateByExampleSelective(postsAttachment, example) > 0;
     }
 
+    public boolean update(ForumPostsAttachment attachment) {
+        return postsAttachmentExtMapper.updateByPrimaryKeySelective(attachment) > 0;
+    }
 }
