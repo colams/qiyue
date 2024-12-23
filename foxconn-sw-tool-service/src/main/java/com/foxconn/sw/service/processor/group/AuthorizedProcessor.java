@@ -46,29 +46,20 @@ public class AuthorizedProcessor {
     }
 
     private AuthorizedVo getAuthorizeConfig(AuthorizedEnums authorizedEnums) {
-        AuthorizedVo vo = null;
+        AuthorizedVo vo;
         switch (authorizedEnums) {
-            case PublicGroupsAuthorized, ProjectMenuAuthorized -> publicGroups(authorizedEnums);
+            case PublicGroupsAuthorized, ProjectMenuAuthorized -> vo = publicGroups(authorizedEnums);
+            default -> vo = null;
         }
         return vo;
-    }
-
-
-    private AuthorizedVo projectMenu(AuthorizedEnums authorizedEnums) {
-        SwEmployee ee = employeeBusiness.selectEmployeeByENo(RequestContext.getEmployeeNo());
-        SwDepartment department = departmentBusiness.getDepartment(ee.getDepartmentId());
-        boolean result = ee.getManagerLevel() < 4 || RequestContext.getEmployeeNo().equalsIgnoreCase(department.getManagerNo());
-
-        AuthorizedVo authorizedVo = new AuthorizedVo();
-        authorizedVo.setAuthorizedEnums(authorizedEnums);
-        authorizedVo.setResult(result);
-        return authorizedVo;
     }
 
     private AuthorizedVo publicGroups(AuthorizedEnums authorizedEnums) {
         SwEmployee ee = employeeBusiness.selectEmployeeByENo(RequestContext.getEmployeeNo());
         SwDepartment department = departmentBusiness.getDepartment(ee.getDepartmentId());
-        boolean result = ee.getManagerLevel() < 4 || RequestContext.getEmployeeNo().equalsIgnoreCase(department.getManagerNo());
+        boolean result = (ee.getManagerLevel() < 4
+                && ee.getManagerLevel() > 0)
+                || RequestContext.getEmployeeNo().equalsIgnoreCase(department.getManagerNo());
 
         AuthorizedVo authorizedVo = new AuthorizedVo();
         authorizedVo.setAuthorizedEnums(authorizedEnums);
