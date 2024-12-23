@@ -10,6 +10,7 @@ import com.foxconn.sw.data.dto.entity.oa.FollowParams;
 import com.foxconn.sw.data.dto.entity.task.*;
 import com.foxconn.sw.data.dto.entity.universal.IntegerParams;
 import com.foxconn.sw.data.dto.request.task.OverviewParams;
+import com.foxconn.sw.data.dto.request.task.SubTaskParams;
 import com.foxconn.sw.data.dto.request.task.TaskEmployRelationParams;
 import com.foxconn.sw.data.dto.request.task.UpdateTaskParams;
 import com.foxconn.sw.service.aspects.Permission;
@@ -72,6 +73,15 @@ public class TaskController {
     @PostMapping("/create")
     public Response createTask(@Valid @RequestBody Request<TaskBriefDetailVo> request) {
         Integer taskID = createTaskProcessor.createTask(request.getData());
+        return ResponseUtils.success(taskID, request.getTraceId());
+    }
+
+    @Permission
+    @Operation(summary = "创建子任务", tags = TagsConstants.TASK)
+    @ApiResponse(responseCode = "0", description = "成功码")
+    @PostMapping("/createSubTask")
+    public Response createSubTask(@Valid @RequestBody Request<SubTaskParams> request) {
+        Integer taskID = createTaskProcessor.createSubTask(request.getData());
         return ResponseUtils.success(taskID, request.getTraceId());
     }
 

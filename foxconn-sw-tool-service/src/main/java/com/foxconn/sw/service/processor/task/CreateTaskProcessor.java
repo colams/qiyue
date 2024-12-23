@@ -17,6 +17,7 @@ import com.foxconn.sw.data.constants.enums.TaskOperateType;
 import com.foxconn.sw.data.constants.enums.TaskRoleFlagEnums;
 import com.foxconn.sw.data.constants.enums.oa.RejectStatusEnum;
 import com.foxconn.sw.data.dto.entity.task.TaskBriefDetailVo;
+import com.foxconn.sw.data.dto.request.task.SubTaskParams;
 import com.foxconn.sw.data.entity.*;
 import com.foxconn.sw.service.processor.user.CommonUserUtils;
 import com.google.common.collect.Lists;
@@ -28,6 +29,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
 
 import java.io.FileNotFoundException;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
 
@@ -168,5 +170,18 @@ public class CreateTaskProcessor {
         progress.setContent(content);
         progress.setOperateType(TaskOperateType.RELEASE.getOperateType());
         progressBusiness.addProcessInfo(progress);
+    }
+
+    public Integer createSubTask(SubTaskParams data) {
+        SwTask task = new SwTask();
+        task.setTaskNo(taskNoSeedSingleton.getTaskNo());
+        task.setTitle(data.getTitle());
+        task.setProposerEid(RequestContext.getEmployeeNo());
+        task.setDeadLine(data.getDeadline());
+        task.setParentId(data.getParentTaskID());
+        task.setCreateTime(LocalDateTime.now());
+        task.setProposerEid(RequestContext.getEmployeeNo());
+        int subTaskID = swTaskBusiness.insertOrUpdate(task);
+        return subTaskID;
     }
 }
