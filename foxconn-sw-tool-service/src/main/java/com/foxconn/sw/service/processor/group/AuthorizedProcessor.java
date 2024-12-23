@@ -14,6 +14,7 @@ import org.springframework.util.CollectionUtils;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Component
 public class AuthorizedProcessor {
@@ -36,12 +37,35 @@ public class AuthorizedProcessor {
 
         List<AuthorizedVo> vos = new ArrayList<>();
         data.forEach(authorizedEnums -> {
-            vos.add(getAuthorizeConfig(authorizedEnums));
+            AuthorizedVo authorizedVo = getAuthorizeConfig(authorizedEnums);
+            if (Objects.nonNull(authorizedVo)) {
+                vos.add(authorizedVo);
+            }
         });
         return vos;
     }
 
     private AuthorizedVo getAuthorizeConfig(AuthorizedEnums authorizedEnums) {
+        AuthorizedVo vo = null;
+        switch (authorizedEnums) {
+            case PublicGroupsAuthorized, ProjectMenuAuthorized -> publicGroups(authorizedEnums);
+        }
+        return vo;
+    }
+
+
+    private AuthorizedVo projectMenu(AuthorizedEnums authorizedEnums) {
+        SwEmployee ee = employeeBusiness.selectEmployeeByENo(RequestContext.getEmployeeNo());
+        SwDepartment department = departmentBusiness.getDepartment(ee.getDepartmentId());
+        boolean result = ee.getManagerLevel() < 4 || RequestContext.getEmployeeNo().equalsIgnoreCase(department.getManagerNo());
+
+        AuthorizedVo authorizedVo = new AuthorizedVo();
+        authorizedVo.setAuthorizedEnums(authorizedEnums);
+        authorizedVo.setResult(result);
+        return authorizedVo;
+    }
+
+    private AuthorizedVo publicGroups(AuthorizedEnums authorizedEnums) {
         SwEmployee ee = employeeBusiness.selectEmployeeByENo(RequestContext.getEmployeeNo());
         SwDepartment department = departmentBusiness.getDepartment(ee.getDepartmentId());
         boolean result = ee.getManagerLevel() < 4 || RequestContext.getEmployeeNo().equalsIgnoreCase(department.getManagerNo());

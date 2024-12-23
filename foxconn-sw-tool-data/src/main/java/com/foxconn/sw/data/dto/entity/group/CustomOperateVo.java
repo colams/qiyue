@@ -8,6 +8,7 @@ public class CustomOperateVo {
     private EmployeeVo employeeVo;
     private String remark;
     private String operateType;
+    private String operateTime;
 
     public Integer getId() {
         return id;
@@ -39,5 +40,13 @@ public class CustomOperateVo {
 
     public void setOperateType(String operateType) {
         this.operateType = operateType;
+    }
+
+    public String getOperateTime() {
+        return operateTime;
+    }
+
+    public void setOperateTime(String operateTime) {
+        this.operateTime = operateTime;
     }
 }

@@ -6,17 +6,8 @@ public class ApplyJoinVo {
     /**
      *
      */
-    private boolean canJoin;
     private Integer status;
     private String description;
-
-    public boolean isCanJoin() {
-        return canJoin;
-    }
-
-    public void setCanJoin(boolean canJoin) {
-        this.canJoin = canJoin;
-    }
 
     public Integer getStatus() {
         return status;

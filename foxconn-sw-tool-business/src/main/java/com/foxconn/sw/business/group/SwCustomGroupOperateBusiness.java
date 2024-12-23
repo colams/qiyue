@@ -81,4 +81,15 @@ public class SwCustomGroupOperateBusiness {
     public SwCustomGroupOperate selectById(Integer applyID) {
         return customGroupOperateExtMapper.selectByPrimaryKey(applyID);
     }
+
+    public List<SwCustomGroupOperate> hasGroupOperateInfo(Integer id) {
+
+        SwCustomGroupOperateExample example = new SwCustomGroupOperateExample();
+        SwCustomGroupOperateExample.Criteria criteria = example.createCriteria();
+        criteria.andOperatorEqualTo(RequestContext.getEmployeeNo());
+        criteria.andCustomGroupIdEqualTo(id);
+        List<SwCustomGroupOperate> operates = customGroupOperateExtMapper.selectByExample(example);
+        return operates;
+
+    }
 }

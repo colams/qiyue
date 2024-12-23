@@ -1,15 +1,18 @@
 package com.foxconn.sw.service.processor.group;
 
+import com.foxconn.sw.business.group.SwCustomGroupBusiness;
 import com.foxconn.sw.business.group.SwCustomGroupFavoriteBusiness;
 import com.foxconn.sw.business.group.SwCustomGroupMemberBusiness;
 import com.foxconn.sw.business.group.SwCustomGroupOperateBusiness;
 import com.foxconn.sw.common.constanst.NumberConstants;
+import com.foxconn.sw.common.utils.DateTimeUtils;
 import com.foxconn.sw.data.dto.entity.group.CustomOperateVo;
 import com.foxconn.sw.data.dto.entity.universal.IntegerParams;
 import com.foxconn.sw.data.dto.request.enums.AgreeStatusEnums;
 import com.foxconn.sw.data.dto.request.enums.GroupMemberTypeEnums;
 import com.foxconn.sw.data.dto.request.group.ApplyJoinGroupParams;
 import com.foxconn.sw.data.dto.request.group.ProcessApplyParams;
+import com.foxconn.sw.data.entity.SwCustomGroup;
 import com.foxconn.sw.data.entity.SwCustomGroupFavorite;
 import com.foxconn.sw.data.entity.SwCustomGroupMember;
 import com.foxconn.sw.data.entity.SwCustomGroupOperate;
@@ -34,9 +37,12 @@ public class ApplyJoinProcessor {
     EmployeeUtils employeeUtils;
     @Autowired
     SwCustomGroupMemberBusiness groupMemberBusiness;
+    @Autowired
+    SwCustomGroupBusiness customGroupBusiness;
 
     public boolean applyJoin(ApplyJoinGroupParams data) {
-        return customGroupOperateBusiness.applyJoin(data.getGroupId(), data.getRemark());
+        SwCustomGroup group = customGroupBusiness.getCustomGroup(data.getGroupId());
+        return customGroupOperateBusiness.applyJoin(data.getGroupId(), data.getRemark() + group.getName());
     }
 
     public boolean process(ProcessApplyParams data) {
@@ -74,6 +80,7 @@ public class ApplyJoinProcessor {
         vo.setEmployeeVo(employeeUtils.mapEmployee(operate.getOperator()));
         vo.setRemark(operate.getRemark());
         vo.setOperateType(operate.getOperateType());
+        vo.setOperateTime(DateTimeUtils.format(operate.getCreateTime()));
         return vo;
     }
 }

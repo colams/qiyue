@@ -4,6 +4,7 @@ public enum AuthorizedEnums {
 
 
     PublicGroupsAuthorized(1, "publicGroups", "公开群组"),
+    ProjectMenuAuthorized(1, "projectMenu", "专案管理"),
     ;
 
     AuthorizedEnums(int code, String enCode, String name) {

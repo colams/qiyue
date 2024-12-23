@@ -3,6 +3,7 @@ package com.foxconn.sw.service.processor.group;
 import com.foxconn.sw.business.group.SwCustomGroupBusiness;
 import com.foxconn.sw.business.group.SwCustomGroupFavoriteBusiness;
 import com.foxconn.sw.business.group.SwCustomGroupMemberBusiness;
+import com.foxconn.sw.business.group.SwCustomGroupOperateBusiness;
 import com.foxconn.sw.common.constanst.NumberConstants;
 import com.foxconn.sw.common.context.RequestContext;
 import com.foxconn.sw.data.dto.PageEntity;
@@ -13,6 +14,7 @@ import com.foxconn.sw.data.dto.request.group.SearchGroupParams;
 import com.foxconn.sw.data.entity.SwCustomGroup;
 import com.foxconn.sw.data.entity.SwCustomGroupFavorite;
 import com.foxconn.sw.data.entity.SwCustomGroupMember;
+import com.foxconn.sw.data.entity.SwCustomGroupOperate;
 import com.foxconn.sw.service.processor.utils.EmployeeUtils;
 import com.google.common.collect.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +33,8 @@ public class GroupListProcessor {
     SwCustomGroupMemberBusiness customGroupMemberBusiness;
     @Autowired
     SwCustomGroupFavoriteBusiness customGroupFavoriteBusiness;
+    @Autowired
+    SwCustomGroupOperateBusiness groupOperateBusiness;
     @Autowired
     EmployeeUtils employeeUtils;
 
@@ -56,11 +60,15 @@ public class GroupListProcessor {
     private List<GroupBriefVo> listCollectGroup(String keywords) {
         List<SwCustomGroupMember> joinGroups = customGroupMemberBusiness.listJoinGroup();
         List<SwCustomGroup> list = customGroupBusiness.listCollectGroup(keywords);
-        EmployeeVo owner = employeeUtils.mapEmployee(RequestContext.getEmployeeNo());
+
 
         return Optional.ofNullable(list).orElse(Lists.newArrayList())
                 .stream()
-                .map(e -> CommonUtils.map2(e, joinGroups, null, owner))
+                .map(e -> {
+                    EmployeeVo owner = employeeUtils.mapEmployee(e.getOwner());
+                    List<SwCustomGroupOperate> operates = groupOperateBusiness.hasGroupOperateInfo(e.getId());
+                    return CommonUtils.map2(e, joinGroups, null, owner, operates);
+                })
                 .collect(Collectors.toList());
     }
 
@@ -74,11 +82,14 @@ public class GroupListProcessor {
         List<SwCustomGroup> list = customGroupBusiness.listPublicGroup(keywords);
         List<SwCustomGroupMember> joinGroups = customGroupMemberBusiness.listJoinGroup();
         List<SwCustomGroupFavorite> favoriteGroups = customGroupFavoriteBusiness.listFavoriteGroup();
-        EmployeeVo owner = employeeUtils.mapEmployee(RequestContext.getEmployeeNo());
 
         return Optional.ofNullable(list).orElse(Lists.newArrayList())
                 .stream()
-                .map(e -> CommonUtils.map2(e, joinGroups, favoriteGroups, owner))
+                .map(e -> {
+                    EmployeeVo owner = employeeUtils.mapEmployee(e.getOwner());
+                    List<SwCustomGroupOperate> operates = groupOperateBusiness.hasGroupOperateInfo(e.getId());
+                    return CommonUtils.map2(e, joinGroups, favoriteGroups, owner, operates);
+                })
                 .collect(Collectors.toList());
     }
 
@@ -96,8 +107,6 @@ public class GroupListProcessor {
                 .stream().map(e -> CommonUtils.map(e, owner))
                 .collect(Collectors.toList());
     }
-
-
 }
 
 
