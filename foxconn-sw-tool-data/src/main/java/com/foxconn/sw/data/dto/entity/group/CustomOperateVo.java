@@ -1,6 +1,7 @@
 package com.foxconn.sw.data.dto.entity.group;
 
 import com.foxconn.sw.data.dto.entity.acount.EmployeeVo;
+import com.foxconn.sw.data.dto.entity.oa.InfoColorVo;
 
 public class CustomOperateVo {
 
@@ -9,6 +10,8 @@ public class CustomOperateVo {
     private String remark;
     private String operateType;
     private String operateTime;
+    private InfoColorVo infoVo;
+    private InfoColorVo readVo;
 
     public Integer getId() {
         return id;
@@ -48,5 +51,21 @@ public class CustomOperateVo {
 
     public void setOperateTime(String operateTime) {
         this.operateTime = operateTime;
+    }
+
+    public InfoColorVo getInfoVo() {
+        return infoVo;
+    }
+
+    public void setInfoVo(InfoColorVo infoVo) {
+        this.infoVo = infoVo;
+    }
+
+    public InfoColorVo getReadVo() {
+        return readVo;
+    }
+
+    public void setReadVo(InfoColorVo readVo) {
+        this.readVo = readVo;
     }
 }

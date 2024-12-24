@@ -1,6 +1,6 @@
 package com.foxconn.sw.data.dto.entity.group;
 
-import com.foxconn.sw.data.dto.request.enums.AccessLevelEnums;
+import com.foxconn.sw.data.dto.enums.AccessLevelEnums;
 import com.foxconn.sw.data.dto.request.group.MemberBrief;
 
 import java.util.List;

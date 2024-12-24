@@ -7,9 +7,12 @@ import com.foxconn.sw.business.group.SwCustomGroupOperateBusiness;
 import com.foxconn.sw.common.constanst.NumberConstants;
 import com.foxconn.sw.common.utils.DateTimeUtils;
 import com.foxconn.sw.data.dto.entity.group.CustomOperateVo;
+import com.foxconn.sw.data.dto.entity.oa.InfoColorVo;
 import com.foxconn.sw.data.dto.entity.universal.IntegerParams;
-import com.foxconn.sw.data.dto.request.enums.AgreeStatusEnums;
-import com.foxconn.sw.data.dto.request.enums.GroupMemberTypeEnums;
+import com.foxconn.sw.data.dto.enums.AgreeStatusEnums;
+import com.foxconn.sw.data.dto.enums.GroupMemberTypeEnums;
+import com.foxconn.sw.data.dto.enums.OperateStatusEnums;
+import com.foxconn.sw.data.dto.enums.ReadStatusEnums;
 import com.foxconn.sw.data.dto.request.group.ApplyJoinGroupParams;
 import com.foxconn.sw.data.dto.request.group.ProcessApplyParams;
 import com.foxconn.sw.data.entity.SwCustomGroup;
@@ -22,6 +25,7 @@ import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -69,16 +73,21 @@ public class ApplyJoinProcessor {
         if (CollectionUtils.isEmpty(list)) {
             return Lists.newArrayList();
         }
-        return list.stream().map(e ->
-                toCustomOperateVo(e)
-        ).collect(Collectors.toList());
+        return list.stream().map(e -> toCustomOperateVo(e))
+                .sorted(Comparator.comparing(CustomOperateVo::getOperateTime))
+                .collect(Collectors.toList());
     }
 
     private CustomOperateVo toCustomOperateVo(SwCustomGroupOperate operate) {
+        ReadStatusEnums readStatusEnums = ReadStatusEnums.getEnumByCode(operate.getIsRead());
+        OperateStatusEnums operateStatusEnums = OperateStatusEnums.getEnumByCode(operate.getStatus());
+
         CustomOperateVo vo = new CustomOperateVo();
         vo.setId(operate.getId());
         vo.setEmployeeVo(employeeUtils.mapEmployee(operate.getOperator()));
         vo.setRemark(operate.getRemark());
+        vo.setInfoVo(new InfoColorVo(operateStatusEnums.getCode(), operateStatusEnums.getDescription()));
+        vo.setReadVo(new InfoColorVo(readStatusEnums.getCode(), readStatusEnums.getDescription()));
         vo.setOperateType(operate.getOperateType());
         vo.setOperateTime(DateTimeUtils.format(operate.getCreateTime()));
         return vo;

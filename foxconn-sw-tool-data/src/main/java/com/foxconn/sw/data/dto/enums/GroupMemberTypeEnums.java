@@ -1,4 +1,4 @@
-package com.foxconn.sw.data.dto.request.enums;
+package com.foxconn.sw.data.dto.enums;
 
 import com.foxconn.sw.data.exception.BizException;
 

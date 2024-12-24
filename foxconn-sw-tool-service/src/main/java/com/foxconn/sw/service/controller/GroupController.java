@@ -12,7 +12,7 @@ import com.foxconn.sw.data.dto.entity.group.GroupBriefVo;
 import com.foxconn.sw.data.dto.entity.group.GroupMemberVo;
 import com.foxconn.sw.data.dto.entity.system.AuthorizedVo;
 import com.foxconn.sw.data.dto.entity.universal.IntegerParams;
-import com.foxconn.sw.data.dto.request.enums.AuthorizedEnums;
+import com.foxconn.sw.data.dto.enums.AuthorizedEnums;
 import com.foxconn.sw.data.dto.request.group.*;
 import com.foxconn.sw.service.aspects.Permission;
 import com.foxconn.sw.service.processor.group.ApplyJoinProcessor;

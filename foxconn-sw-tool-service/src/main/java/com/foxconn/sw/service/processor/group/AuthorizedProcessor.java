@@ -4,7 +4,7 @@ import com.foxconn.sw.business.system.DepartmentBusiness;
 import com.foxconn.sw.business.system.EmployeeBusiness;
 import com.foxconn.sw.common.context.RequestContext;
 import com.foxconn.sw.data.dto.entity.system.AuthorizedVo;
-import com.foxconn.sw.data.dto.request.enums.AuthorizedEnums;
+import com.foxconn.sw.data.dto.enums.AuthorizedEnums;
 import com.foxconn.sw.data.entity.SwDepartment;
 import com.foxconn.sw.data.entity.SwEmployee;
 import com.google.common.collect.Lists;

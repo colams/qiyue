@@ -1,13 +1,12 @@
-package com.foxconn.sw.data.dto.request.enums;
+package com.foxconn.sw.data.dto.enums;
 
-public enum AgreeStatusEnums {
+public enum AccessLevelEnums {
 
-
-    Agree(1, "Agree", "同意/完成"),
-    Deny(2, "Deny", "駁回"),
+    PUBLIC(0, "public", "公开"),
+    PRIVATE(1, "private", "私有"),
     ;
 
-    AgreeStatusEnums(int code, String enCode, String name) {
+    AccessLevelEnums(int code, String enCode, String name) {
         this.code = code;
         this.enCode = enCode;
         this.name = name;
@@ -28,6 +27,5 @@ public enum AgreeStatusEnums {
     public String getName() {
         return name;
     }
-
 
 }

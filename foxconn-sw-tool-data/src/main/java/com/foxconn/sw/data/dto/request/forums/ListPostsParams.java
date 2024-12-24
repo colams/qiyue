@@ -1,6 +1,6 @@
 package com.foxconn.sw.data.dto.request.forums;
 
-import com.foxconn.sw.data.dto.request.enums.PostsCategoryEnums;
+import com.foxconn.sw.data.dto.enums.PostsCategoryEnums;
 
 public class ListPostsParams {
 

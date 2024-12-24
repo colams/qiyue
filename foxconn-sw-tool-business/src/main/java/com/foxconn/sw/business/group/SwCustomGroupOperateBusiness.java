@@ -3,7 +3,7 @@ package com.foxconn.sw.business.group;
 import com.foxconn.sw.common.constanst.NumberConstants;
 import com.foxconn.sw.common.context.RequestContext;
 import com.foxconn.sw.data.dto.entity.universal.IntegerParams;
-import com.foxconn.sw.data.dto.request.enums.AgreeStatusEnums;
+import com.foxconn.sw.data.dto.enums.AgreeStatusEnums;
 import com.foxconn.sw.data.entity.SwCustomGroupOperate;
 import com.foxconn.sw.data.entity.SwCustomGroupOperateExample;
 import com.foxconn.sw.data.mapper.extension.group.SwCustomGroupOperateExtMapper;

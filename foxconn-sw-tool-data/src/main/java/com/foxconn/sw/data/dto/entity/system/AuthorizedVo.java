@@ -1,6 +1,6 @@
 package com.foxconn.sw.data.dto.entity.system;
 
-import com.foxconn.sw.data.dto.request.enums.AuthorizedEnums;
+import com.foxconn.sw.data.dto.enums.AuthorizedEnums;
 
 public class AuthorizedVo {
 

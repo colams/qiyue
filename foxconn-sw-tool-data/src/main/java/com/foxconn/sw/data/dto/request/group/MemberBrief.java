@@ -1,6 +1,6 @@
 package com.foxconn.sw.data.dto.request.group;
 
-import com.foxconn.sw.data.dto.request.enums.GroupMemberTypeEnums;
+import com.foxconn.sw.data.dto.enums.GroupMemberTypeEnums;
 
 public class MemberBrief {
 

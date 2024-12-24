@@ -1,6 +1,6 @@
 package com.foxconn.sw.data.dto.request.group;
 
-import com.foxconn.sw.data.dto.request.enums.AgreeStatusEnums;
+import com.foxconn.sw.data.dto.enums.AgreeStatusEnums;
 
 public class ProcessApplyParams {
 

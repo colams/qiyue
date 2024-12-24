@@ -1,7 +1,7 @@
 package com.foxconn.sw.business.forums;
 
 import com.foxconn.sw.common.context.RequestContext;
-import com.foxconn.sw.data.dto.request.enums.PostsCategoryEnums;
+import com.foxconn.sw.data.dto.enums.PostsCategoryEnums;
 import com.foxconn.sw.data.dto.request.forums.PostsParams;
 import com.foxconn.sw.data.entity.ForumBbs;
 import com.foxconn.sw.data.entity.ForumBbsExample;

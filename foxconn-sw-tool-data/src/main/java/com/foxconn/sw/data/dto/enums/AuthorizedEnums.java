@@ -1,14 +1,13 @@
-package com.foxconn.sw.data.dto.request.enums;
+package com.foxconn.sw.data.dto.enums;
 
-public enum PostsCategoryEnums {
+public enum AuthorizedEnums {
 
 
-    Default(0, "default", "默认所有"),
-    MyPosts(1, "MyPosts", "我的帖子"),
-    CollectPosts(2, "CollectPosts", "我的收藏"),
+    PublicGroupsAuthorized(1, "publicGroups", "公开群组"),
+    ProjectMenuAuthorized(1, "projectMenu", "专案管理"),
     ;
 
-    PostsCategoryEnums(int code, String enCode, String name) {
+    AuthorizedEnums(int code, String enCode, String name) {
         this.code = code;
         this.enCode = enCode;
         this.name = name;

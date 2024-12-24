@@ -1,13 +1,13 @@
-package com.foxconn.sw.data.dto.request.enums;
+package com.foxconn.sw.data.dto.enums;
 
-public enum AuthorizedEnums {
+public enum AgreeStatusEnums {
 
 
-    PublicGroupsAuthorized(1, "publicGroups", "公开群组"),
-    ProjectMenuAuthorized(1, "projectMenu", "专案管理"),
+    Agree(1, "Agree", "同意/完成"),
+    Deny(2, "Deny", "駁回"),
     ;
 
-    AuthorizedEnums(int code, String enCode, String name) {
+    AgreeStatusEnums(int code, String enCode, String name) {
         this.code = code;
         this.enCode = enCode;
         this.name = name;

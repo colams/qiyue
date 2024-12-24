@@ -50,6 +50,7 @@ public class SwDocumentBusiness {
         document.setCreator(RequestContext.getEmployeeNo());
         document.setResourceId(data.getResourceID());
         document.setContent(data.getContent());
+        document.setFileType(1);
         documentMapper.insertSelective(document);
         return document.getId();
     }

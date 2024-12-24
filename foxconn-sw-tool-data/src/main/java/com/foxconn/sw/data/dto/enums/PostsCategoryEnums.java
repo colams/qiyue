@@ -1,12 +1,14 @@
-package com.foxconn.sw.data.dto.request.enums;
+package com.foxconn.sw.data.dto.enums;
 
-public enum AccessLevelEnums {
+public enum PostsCategoryEnums {
 
-    PUBLIC(0, "public", "公开"),
-    PRIVATE(1, "private", "私有"),
+
+    Default(0, "default", "默认所有"),
+    MyPosts(1, "MyPosts", "我的帖子"),
+    CollectPosts(2, "CollectPosts", "我的收藏"),
     ;
 
-    AccessLevelEnums(int code, String enCode, String name) {
+    PostsCategoryEnums(int code, String enCode, String name) {
         this.code = code;
         this.enCode = enCode;
         this.name = name;
@@ -27,5 +29,6 @@ public enum AccessLevelEnums {
     public String getName() {
         return name;
     }
+
 
 }

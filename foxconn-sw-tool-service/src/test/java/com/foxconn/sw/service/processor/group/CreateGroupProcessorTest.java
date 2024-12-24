@@ -1,6 +1,6 @@
 package com.foxconn.sw.service.processor.group;
 
-import com.foxconn.sw.data.dto.request.enums.GroupMemberTypeEnums;
+import com.foxconn.sw.data.dto.enums.GroupMemberTypeEnums;
 import com.foxconn.sw.data.dto.request.group.MemberBrief;
 import com.foxconn.sw.service.BaseTest;
 import org.junit.Test;

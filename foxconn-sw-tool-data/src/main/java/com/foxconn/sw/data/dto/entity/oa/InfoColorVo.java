@@ -6,6 +6,20 @@ public class InfoColorVo {
     private String description;
     private String color;
 
+    public InfoColorVo() {
+    }
+
+    public InfoColorVo(Integer code, String description) {
+        this.code = code;
+        this.description = description;
+    }
+
+    public InfoColorVo(Integer code, String description, String color) {
+        this.code = code;
+        this.description = description;
+        this.color = color;
+    }
+
     public Integer getCode() {
         return code;
     }

@@ -1,6 +1,6 @@
 package com.foxconn.sw.data.dto.request.group;
 
-import com.foxconn.sw.data.dto.request.enums.AccessLevelEnums;
+import com.foxconn.sw.data.dto.enums.AccessLevelEnums;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
