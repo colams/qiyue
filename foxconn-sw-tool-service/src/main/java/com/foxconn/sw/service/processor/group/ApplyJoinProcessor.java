@@ -86,7 +86,7 @@ public class ApplyJoinProcessor {
         vo.setId(operate.getId());
         vo.setEmployeeVo(employeeUtils.mapEmployee(operate.getOperator()));
         vo.setRemark(operate.getRemark());
-        vo.setInfoVo(new InfoColorVo(operateStatusEnums.getCode(), operateStatusEnums.getDescription()));
+        vo.setStatusVo(new InfoColorVo(operateStatusEnums.getCode(), operateStatusEnums.getDescription()));
         vo.setReadVo(new InfoColorVo(readStatusEnums.getCode(), readStatusEnums.getDescription()));
         vo.setOperateType(operate.getOperateType());
         vo.setOperateTime(DateTimeUtils.format(operate.getCreateTime()));

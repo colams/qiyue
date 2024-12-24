@@ -10,7 +10,7 @@ public class CustomOperateVo {
     private String remark;
     private String operateType;
     private String operateTime;
-    private InfoColorVo infoVo;
+    private InfoColorVo statusVo;
     private InfoColorVo readVo;
 
     public Integer getId() {
@@ -53,12 +53,12 @@ public class CustomOperateVo {
         this.operateTime = operateTime;
     }
 
-    public InfoColorVo getInfoVo() {
-        return infoVo;
+    public InfoColorVo getStatusVo() {
+        return statusVo;
     }
 
-    public void setInfoVo(InfoColorVo infoVo) {
-        this.infoVo = infoVo;
+    public void setStatusVo(InfoColorVo statusVo) {
+        this.statusVo = statusVo;
     }
 
     public InfoColorVo getReadVo() {
