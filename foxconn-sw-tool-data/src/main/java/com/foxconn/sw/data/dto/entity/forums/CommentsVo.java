@@ -14,6 +14,7 @@ public class CommentsVo {
     private EmployeeVo employee;
     private String createTime;
     private Boolean canDel;
+    private Boolean isRead;
 
     private List<CommentsVo> replies;
 
@@ -79,6 +80,14 @@ public class CommentsVo {
 
     public void setCanDel(Boolean canDel) {
         this.canDel = canDel;
+    }
+
+    public Boolean getRead() {
+        return isRead;
+    }
+
+    public void setRead(Boolean read) {
+        isRead = read;
     }
 
     public List<CommentsVo> getReplies() {

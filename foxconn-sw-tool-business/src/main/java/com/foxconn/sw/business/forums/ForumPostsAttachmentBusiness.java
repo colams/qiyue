@@ -1,8 +1,8 @@
 package com.foxconn.sw.business.forums;
 
-import com.foxconn.sw.data.entity.ForumPostsAttachment;
-import com.foxconn.sw.data.entity.ForumPostsAttachmentExample;
-import com.foxconn.sw.data.mapper.extension.forums.ForumPostsAttachmentExtMapper;
+import com.foxconn.sw.data.entity.ForumAttachment;
+import com.foxconn.sw.data.entity.ForumAttachmentExample;
+import com.foxconn.sw.data.mapper.extension.forums.ForumAttachmentExtMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -12,58 +12,58 @@ import java.util.List;
 public class ForumPostsAttachmentBusiness {
 
     @Autowired
-    ForumPostsAttachmentExtMapper postsAttachmentExtMapper;
+    ForumAttachmentExtMapper forumAttachmentExtMapper;
 
     public boolean insertPostsAttachment(Integer postsID, List<Integer> resourceIDs) {
         resourceIDs.forEach(e -> {
-            ForumPostsAttachment postsAttachment = new ForumPostsAttachment();
+            ForumAttachment postsAttachment = new ForumAttachment();
             postsAttachment.setPostsId(postsID);
             postsAttachment.setResourceId(e);
-            postsAttachmentExtMapper.insertSelective(postsAttachment);
+            forumAttachmentExtMapper.insertSelective(postsAttachment);
         });
         return true;
     }
 
     public boolean insertPostsAttachment(Integer postsID, Integer commentId, List<Integer> resourceIDs) {
         resourceIDs.forEach(e -> {
-            ForumPostsAttachment postsAttachment = new ForumPostsAttachment();
+            ForumAttachment postsAttachment = new ForumAttachment();
             postsAttachment.setPostsId(postsID);
             postsAttachment.setCommentId(commentId);
             postsAttachment.setResourceId(e);
-            postsAttachmentExtMapper.insertSelective(postsAttachment);
+            forumAttachmentExtMapper.insertSelective(postsAttachment);
         });
         return true;
     }
 
-    public List<ForumPostsAttachment> selectPostsAttachment(Integer postsID) {
-        ForumPostsAttachmentExample example = new ForumPostsAttachmentExample();
-        ForumPostsAttachmentExample.Criteria criteria = example.createCriteria();
+    public List<ForumAttachment> selectPostsAttachment(Integer postsID) {
+        ForumAttachmentExample example = new ForumAttachmentExample();
+        ForumAttachmentExample.Criteria criteria = example.createCriteria();
         criteria.andPostsIdEqualTo(postsID);
         criteria.andIsDeleteEqualTo(0);
-        return postsAttachmentExtMapper.selectByExample(example);
+        return forumAttachmentExtMapper.selectByExample(example);
     }
 
     public boolean deletePostsAttachment(Integer id) {
-        ForumPostsAttachment postsAttachment = new ForumPostsAttachment();
+        ForumAttachment postsAttachment = new ForumAttachment();
         postsAttachment.setIsDelete(1);
 
-        ForumPostsAttachmentExample example = new ForumPostsAttachmentExample();
-        ForumPostsAttachmentExample.Criteria criteria = example.createCriteria();
+        ForumAttachmentExample example = new ForumAttachmentExample();
+        ForumAttachmentExample.Criteria criteria = example.createCriteria();
         criteria.andIdEqualTo(id);
-        return postsAttachmentExtMapper.updateByExampleSelective(postsAttachment, example) > 0;
+        return forumAttachmentExtMapper.updateByExampleSelective(postsAttachment, example) > 0;
     }
 
     public boolean deletePostsAttachmentByCId(Integer commentID) {
-        ForumPostsAttachment postsAttachment = new ForumPostsAttachment();
+        ForumAttachment postsAttachment = new ForumAttachment();
         postsAttachment.setIsDelete(1);
 
-        ForumPostsAttachmentExample example = new ForumPostsAttachmentExample();
-        ForumPostsAttachmentExample.Criteria criteria = example.createCriteria();
+        ForumAttachmentExample example = new ForumAttachmentExample();
+        ForumAttachmentExample.Criteria criteria = example.createCriteria();
         criteria.andCommentIdEqualTo(commentID);
-        return postsAttachmentExtMapper.updateByExampleSelective(postsAttachment, example) > 0;
+        return forumAttachmentExtMapper.updateByExampleSelective(postsAttachment, example) > 0;
     }
 
-    public boolean update(ForumPostsAttachment attachment) {
-        return postsAttachmentExtMapper.updateByPrimaryKeySelective(attachment) > 0;
+    public boolean update(ForumAttachment attachment) {
+        return forumAttachmentExtMapper.updateByPrimaryKeySelective(attachment) > 0;
     }
 }

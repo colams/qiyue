@@ -71,6 +71,9 @@
                              targetProject="src\main\java">
             <property name="enableSubPackages" value="false"/>
         </javaClientGenerator>
+        <table tableName="forum_attachment">
+            <generatedKey column="id" identity="true" sqlStatement="mysql"/>
+        </table>
         <table tableName="forum_bbs">
             <generatedKey column="id" identity="true" sqlStatement="mysql"/>
         </table>
@@ -84,9 +87,6 @@
             <generatedKey column="id" identity="true" sqlStatement="mysql"/>
         </table>
         <table tableName="forum_participant">
-            <generatedKey column="id" identity="true" sqlStatement="mysql"/>
-        </table>
-        <table tableName="forum_posts_attachment">
             <generatedKey column="id" identity="true" sqlStatement="mysql"/>
         </table>
 
@@ -175,6 +175,9 @@
             <generatedKey column="id" identity="true" sqlStatement="mysql"/>
         </table>
         <table tableName="sw_property">
+            <generatedKey column="id" identity="true" sqlStatement="mysql"/>
+        </table>
+        <table tableName="sw_read_status">
             <generatedKey column="id" identity="true" sqlStatement="mysql"/>
         </table>
         <table tableName="sw_role">

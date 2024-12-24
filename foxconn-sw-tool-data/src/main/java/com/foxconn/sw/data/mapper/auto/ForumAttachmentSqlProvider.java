@@ -1,32 +1,32 @@
 package com.foxconn.sw.data.mapper.auto;
 
-import com.foxconn.sw.data.entity.ForumPostsAttachment;
-import com.foxconn.sw.data.entity.ForumPostsAttachmentExample.Criteria;
-import com.foxconn.sw.data.entity.ForumPostsAttachmentExample.Criterion;
-import com.foxconn.sw.data.entity.ForumPostsAttachmentExample;
+import com.foxconn.sw.data.entity.ForumAttachment;
+import com.foxconn.sw.data.entity.ForumAttachmentExample.Criteria;
+import com.foxconn.sw.data.entity.ForumAttachmentExample.Criterion;
+import com.foxconn.sw.data.entity.ForumAttachmentExample;
 import java.util.List;
 import java.util.Map;
 import org.apache.ibatis.jdbc.SQL;
 
-public class ForumPostsAttachmentSqlProvider {
+public class ForumAttachmentSqlProvider {
 
-    public String countByExample(ForumPostsAttachmentExample example) {
+    public String countByExample(ForumAttachmentExample example) {
         SQL sql = new SQL();
-        sql.SELECT("count(*)").FROM("forum_posts_attachment");
+        sql.SELECT("count(*)").FROM("forum_attachment");
         applyWhere(sql, example, false);
         return sql.toString();
     }
 
-    public String deleteByExample(ForumPostsAttachmentExample example) {
+    public String deleteByExample(ForumAttachmentExample example) {
         SQL sql = new SQL();
-        sql.DELETE_FROM("forum_posts_attachment");
+        sql.DELETE_FROM("forum_attachment");
         applyWhere(sql, example, false);
         return sql.toString();
     }
 
-    public String insertSelective(ForumPostsAttachment record) {
+    public String insertSelective(ForumAttachment record) {
         SQL sql = new SQL();
-        sql.INSERT_INTO("forum_posts_attachment");
+        sql.INSERT_INTO("forum_attachment");
         
         if (record.getPostsId() != null) {
             sql.VALUES("posts_id", "#{postsId,jdbcType=INTEGER}");
@@ -55,7 +55,7 @@ public class ForumPostsAttachmentSqlProvider {
         return sql.toString();
     }
 
-    public String selectByExample(ForumPostsAttachmentExample example) {
+    public String selectByExample(ForumAttachmentExample example) {
         SQL sql = new SQL();
         if (example != null && example.isDistinct()) {
             sql.SELECT_DISTINCT("id");
@@ -68,7 +68,7 @@ public class ForumPostsAttachmentSqlProvider {
         sql.SELECT("is_delete");
         sql.SELECT("create_time");
         sql.SELECT("datatime_lastchange");
-        sql.FROM("forum_posts_attachment");
+        sql.FROM("forum_attachment");
         applyWhere(sql, example, false);
         
         if (example != null && example.getOrderByClause() != null) {
@@ -79,11 +79,11 @@ public class ForumPostsAttachmentSqlProvider {
     }
 
     public String updateByExampleSelective(Map<String, Object> parameter) {
-        ForumPostsAttachment record = (ForumPostsAttachment) parameter.get("record");
-        ForumPostsAttachmentExample example = (ForumPostsAttachmentExample) parameter.get("example");
+        ForumAttachment record = (ForumAttachment) parameter.get("record");
+        ForumAttachmentExample example = (ForumAttachmentExample) parameter.get("example");
         
         SQL sql = new SQL();
-        sql.UPDATE("forum_posts_attachment");
+        sql.UPDATE("forum_attachment");
         
         if (record.getId() != null) {
             sql.SET("id = #{record.id,jdbcType=INTEGER}");
@@ -119,7 +119,7 @@ public class ForumPostsAttachmentSqlProvider {
 
     public String updateByExample(Map<String, Object> parameter) {
         SQL sql = new SQL();
-        sql.UPDATE("forum_posts_attachment");
+        sql.UPDATE("forum_attachment");
         
         sql.SET("id = #{record.id,jdbcType=INTEGER}");
         sql.SET("posts_id = #{record.postsId,jdbcType=INTEGER}");
@@ -129,14 +129,14 @@ public class ForumPostsAttachmentSqlProvider {
         sql.SET("create_time = #{record.createTime,jdbcType=TIMESTAMP}");
         sql.SET("datatime_lastchange = #{record.datatimeLastchange,jdbcType=TIMESTAMP}");
         
-        ForumPostsAttachmentExample example = (ForumPostsAttachmentExample) parameter.get("example");
+        ForumAttachmentExample example = (ForumAttachmentExample) parameter.get("example");
         applyWhere(sql, example, true);
         return sql.toString();
     }
 
-    public String updateByPrimaryKeySelective(ForumPostsAttachment record) {
+    public String updateByPrimaryKeySelective(ForumAttachment record) {
         SQL sql = new SQL();
-        sql.UPDATE("forum_posts_attachment");
+        sql.UPDATE("forum_attachment");
         
         if (record.getPostsId() != null) {
             sql.SET("posts_id = #{postsId,jdbcType=INTEGER}");
@@ -167,7 +167,7 @@ public class ForumPostsAttachmentSqlProvider {
         return sql.toString();
     }
 
-    protected void applyWhere(SQL sql, ForumPostsAttachmentExample example, boolean includeExamplePhrase) {
+    protected void applyWhere(SQL sql, ForumAttachmentExample example, boolean includeExamplePhrase) {
         if (example == null) {
             return;
         }

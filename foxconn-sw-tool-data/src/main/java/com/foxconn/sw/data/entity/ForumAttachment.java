@@ -2,7 +2,7 @@ package com.foxconn.sw.data.entity;
 
 import java.time.LocalDateTime;
 
-public class ForumPostsAttachment {
+public class ForumAttachment {
     private Integer id;
 
     private Integer postsId;
@@ -21,7 +21,7 @@ public class ForumPostsAttachment {
         return id;
     }
 
-    public ForumPostsAttachment withId(Integer id) {
+    public ForumAttachment withId(Integer id) {
         this.setId(id);
         return this;
     }
@@ -34,7 +34,7 @@ public class ForumPostsAttachment {
         return postsId;
     }
 
-    public ForumPostsAttachment withPostsId(Integer postsId) {
+    public ForumAttachment withPostsId(Integer postsId) {
         this.setPostsId(postsId);
         return this;
     }
@@ -47,7 +47,7 @@ public class ForumPostsAttachment {
         return commentId;
     }
 
-    public ForumPostsAttachment withCommentId(Integer commentId) {
+    public ForumAttachment withCommentId(Integer commentId) {
         this.setCommentId(commentId);
         return this;
     }
@@ -60,7 +60,7 @@ public class ForumPostsAttachment {
         return resourceId;
     }
 
-    public ForumPostsAttachment withResourceId(Integer resourceId) {
+    public ForumAttachment withResourceId(Integer resourceId) {
         this.setResourceId(resourceId);
         return this;
     }
@@ -73,7 +73,7 @@ public class ForumPostsAttachment {
         return isDelete;
     }
 
-    public ForumPostsAttachment withIsDelete(Integer isDelete) {
+    public ForumAttachment withIsDelete(Integer isDelete) {
         this.setIsDelete(isDelete);
         return this;
     }
@@ -86,7 +86,7 @@ public class ForumPostsAttachment {
         return createTime;
     }
 
-    public ForumPostsAttachment withCreateTime(LocalDateTime createTime) {
+    public ForumAttachment withCreateTime(LocalDateTime createTime) {
         this.setCreateTime(createTime);
         return this;
     }
@@ -99,7 +99,7 @@ public class ForumPostsAttachment {
         return datatimeLastchange;
     }
 
-    public ForumPostsAttachment withDatatimeLastchange(LocalDateTime datatimeLastchange) {
+    public ForumAttachment withDatatimeLastchange(LocalDateTime datatimeLastchange) {
         this.setDatatimeLastchange(datatimeLastchange);
         return this;
     }

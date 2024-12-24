@@ -4,7 +4,7 @@ import com.foxconn.sw.business.forums.*;
 import com.foxconn.sw.common.constanst.NumberConstants;
 import com.foxconn.sw.data.dto.request.forums.DeletePostsParams;
 import com.foxconn.sw.data.dto.request.forums.UpdateAttachParams;
-import com.foxconn.sw.data.entity.ForumPostsAttachment;
+import com.foxconn.sw.data.entity.ForumAttachment;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
@@ -28,7 +28,7 @@ public class UpdatePostsProcessor {
             return false;
         }
 
-        List<ForumPostsAttachment> attachments = postsAttachmentBusiness.selectPostsAttachment(data.getId());
+        List<ForumAttachment> attachments = postsAttachmentBusiness.selectPostsAttachment(data.getId());
 
         if (CollectionUtils.isEmpty(attachments)) {
             return false;

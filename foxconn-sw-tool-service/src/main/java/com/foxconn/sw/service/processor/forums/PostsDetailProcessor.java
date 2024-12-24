@@ -4,14 +4,12 @@ import com.foxconn.sw.business.SwAppendResourceBusiness;
 import com.foxconn.sw.business.forums.*;
 import com.foxconn.sw.common.context.RequestContext;
 import com.foxconn.sw.common.utils.ConvertUtils;
-import com.foxconn.sw.common.utils.DateTimeUtils;
 import com.foxconn.sw.data.dto.entity.forums.BbsDetailVo;
 import com.foxconn.sw.data.dto.entity.forums.ForumsParticipantVo;
-import com.foxconn.sw.data.dto.entity.forums.PostsDetailVo;
 import com.foxconn.sw.data.dto.entity.forums.PostsResourceVo;
 import com.foxconn.sw.data.dto.entity.universal.IntegerParams;
+import com.foxconn.sw.data.entity.ForumAttachment;
 import com.foxconn.sw.data.entity.ForumBbs;
-import com.foxconn.sw.data.entity.ForumPostsAttachment;
 import com.foxconn.sw.data.entity.SwAppendResource;
 import com.foxconn.sw.service.processor.utils.EmployeeUtils;
 import com.google.common.collect.Lists;
@@ -57,14 +55,14 @@ public class PostsDetailProcessor {
             return Lists.newArrayList();
         }
 
-        List<ForumPostsAttachment> attachments = postsAttachmentBusiness.selectPostsAttachment(postsID);
+        List<ForumAttachment> attachments = postsAttachmentBusiness.selectPostsAttachment(postsID);
 
         if (CollectionUtils.isEmpty(attachments)) {
             return Lists.newArrayList();
         }
         List<Integer> resourceIDsInt = attachments.stream().map(e -> e.getResourceId()).collect(Collectors.toList());
-        Map<Integer, ForumPostsAttachment> attachmentMap = attachments.stream()
-                .collect(Collectors.toMap(ForumPostsAttachment::getResourceId, e -> e));
+        Map<Integer, ForumAttachment> attachmentMap = attachments.stream()
+                .collect(Collectors.toMap(ForumAttachment::getResourceId, e -> e));
 
         List<SwAppendResource> resources = appendResourceBusiness.getAppendResources(attachmentMap.keySet().stream().toList());
         List<PostsResourceVo> resourceVos = new ArrayList<>();
@@ -86,13 +84,13 @@ public class PostsDetailProcessor {
             return Lists.newArrayList();
         }
 
-        List<ForumPostsAttachment> attachments = postsAttachmentBusiness.selectPostsAttachment(data.getParams());
+        List<ForumAttachment> attachments = postsAttachmentBusiness.selectPostsAttachment(data.getParams());
 
         if (CollectionUtils.isEmpty(attachments)) {
             return Lists.newArrayList();
         }
-        Map<Integer, ForumPostsAttachment> attachmentMap = attachments.stream()
-                .collect(Collectors.toMap(ForumPostsAttachment::getResourceId, e -> e));
+        Map<Integer, ForumAttachment> attachmentMap = attachments.stream()
+                .collect(Collectors.toMap(ForumAttachment::getResourceId, e -> e));
 
         List<SwAppendResource> resources = appendResourceBusiness.getAppendResources(attachmentMap.keySet().stream().toList());
         List<PostsResourceVo> resourceVos = new ArrayList<>();

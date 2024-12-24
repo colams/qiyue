@@ -65,6 +65,7 @@ public class ListCommentProcessor {
             vo.setCreateTime(DateTimeUtils.format(e.getCreateTime()));
             vo.setCanDel(RequestContext.getEmployeeNo().equalsIgnoreCase(e.getAuthorNo())
                     || RequestContext.getEmployeeNo().equalsIgnoreCase(postAuthNo));
+            vo.setRead(false);  // todo
             vo.setReplies(Lists.newArrayList());
             vos.add(vo);
         });
