@@ -60,7 +60,7 @@ public class PostsDetailProcessor {
         if (CollectionUtils.isEmpty(attachments)) {
             return Lists.newArrayList();
         }
-        
+
         Map<Integer, ForumAttachment> attachmentMap = attachments.stream()
                 .collect(Collectors.toMap(ForumAttachment::getResourceId, e -> e));
 
