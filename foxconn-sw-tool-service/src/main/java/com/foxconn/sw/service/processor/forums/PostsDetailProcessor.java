@@ -49,36 +49,6 @@ public class PostsDetailProcessor {
         return bbsDetailVo;
     }
 
-
-    private List<PostsResourceVo> mapResource(Integer postsID) {
-        if (Objects.isNull(postsID)) {
-            return Lists.newArrayList();
-        }
-
-        List<ForumAttachment> attachments = postsAttachmentBusiness.selectPostsAttachment(postsID);
-
-        if (CollectionUtils.isEmpty(attachments)) {
-            return Lists.newArrayList();
-        }
-
-        Map<Integer, ForumAttachment> attachmentMap = attachments.stream()
-                .collect(Collectors.toMap(ForumAttachment::getResourceId, e -> e));
-
-        List<SwAppendResource> resources = appendResourceBusiness.getAppendResources(attachmentMap.keySet().stream().toList());
-        List<PostsResourceVo> resourceVos = new ArrayList<>();
-        Optional.ofNullable(resources).orElse(Lists.newArrayList()).forEach(e -> {
-            PostsResourceVo resourceVo = new PostsResourceVo();
-            resourceVo.setPostsId(postsID);
-            resourceVo.setCommentId(attachmentMap.get(e.getId()).getCommentId());
-            resourceVo.setId(e.getId());
-            resourceVo.setName(e.getOriginName());
-            resourceVo.setUrl(ConvertUtils.urlPreFix(e.getId(), e.getFilePath()));
-            resourceVo.setOperator(employeeUtils.mapEmployee(e.getOperator()));
-            resourceVos.add(resourceVo);
-        });
-        return resourceVos;
-    }
-
     public List<PostsResourceVo> attachments(IntegerParams data) {
         if (Objects.isNull(data.getParams())) {
             return Lists.newArrayList();

@@ -20,6 +20,6 @@ public class InvitePostsMemberProcessor {
             return false;
         }
 
-        return forumParticipantBusiness.addForumParticipant(data.getId(), data.getEmployeeNos());
+        return forumParticipantBusiness.insertForumParticipant(data.getId(), data.getEmployeeNos());
     }
 }

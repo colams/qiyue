@@ -24,7 +24,7 @@ public class ForumParticipantBusiness {
     @Autowired
     UserBusiness userBusiness;
 
-    public boolean addForumParticipant(int postsID, List<String> participants) {
+    public boolean insertForumParticipant(int postsID, List<String> participants) {
         List<ForumParticipant> participantList = selectParticipants(postsID);
         participants.forEach(e -> {
             boolean hasEmployee = participantList.stream().anyMatch(p -> p.getEmployeeNo().equalsIgnoreCase(e));

@@ -23,7 +23,7 @@ public class CreatePostsProcessor {
         if (fbID > 0) {
             saveBbsComment(fbID, data.getContent());
             postsAttachmentBusiness.insertPostsAttachment(fbID, data.getResources());
-            forumParticipantBusiness.addForumParticipant(fbID, data.getParticipants());
+            forumParticipantBusiness.insertForumParticipant(fbID, data.getParticipants());
         }
         return fbID > 0;
     }
