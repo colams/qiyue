@@ -31,6 +31,7 @@ public class SwReadStatusBusiness {
         SwReadStatusExample.Criteria criteria = example.createCriteria();
         criteria.andForeignIdIn(idList);
         criteria.andModuleTypeEqualTo(moduleEnums.getName());
+        criteria.andEmployeeNoEqualTo(RequestContext.getEmployeeNo());
         List<SwReadStatus> readStatuses = readStatusExtMapper.selectByExample(example);
         return Optional.ofNullable(readStatuses).orElse(Lists.newArrayList())
                 .stream()
@@ -62,4 +63,7 @@ public class SwReadStatusBusiness {
         return true;
     }
 
+    public int getForumUnReadCount(Integer bbsId) {
+        return readStatusExtMapper.getForumUnReadCount(ModuleEnums.Forum.getName(), bbsId);
+    }
 }

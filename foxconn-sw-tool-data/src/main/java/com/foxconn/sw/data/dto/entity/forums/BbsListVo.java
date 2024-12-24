@@ -10,6 +10,7 @@ public class BbsListVo {
     private String title;
     private String content;
     private boolean isRead;
+    private int newCount;
 
     public Integer getId() {
         return id;
@@ -49,6 +50,14 @@ public class BbsListVo {
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    public int getNewCount() {
+        return newCount;
+    }
+
+    public void setNewCount(int newCount) {
+        this.newCount = newCount;
     }
 
     public boolean isRead() {
