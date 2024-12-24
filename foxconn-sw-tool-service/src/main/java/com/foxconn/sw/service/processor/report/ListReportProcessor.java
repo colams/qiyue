@@ -50,8 +50,8 @@ public class ListReportProcessor {
         String currentYearWeek = ReportSearchParamsUtils.processDate(LocalDate.now());
         if (NumberConstants.TWO.equals(searchParams.getSearchType())) {
             Collections.sort(retValue, (a, b) -> {
-                if (ReportSearchParamsUtils.lessThanWeek(searchParams.getStartDate(), searchParams.getEndDate())) {
-                    int aComparison = a.getYearWeek().compareTo(b.getYearWeek());
+                if (!ReportSearchParamsUtils.lessThanWeek(searchParams.getStartDate(), searchParams.getEndDate())) {
+                    int aComparison = b.getYearWeek().compareTo(a.getYearWeek());
                     if (aComparison != 0) {
                         return aComparison;
                     }
