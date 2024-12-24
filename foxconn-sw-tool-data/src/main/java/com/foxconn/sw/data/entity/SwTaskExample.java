@@ -1175,66 +1175,6 @@ public class SwTaskExample {
             return (Criteria) this;
         }
 
-        public Criteria andIsSubIsNull() {
-            addCriterion("is_sub is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andIsSubIsNotNull() {
-            addCriterion("is_sub is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andIsSubEqualTo(Integer value) {
-            addCriterion("is_sub =", value, "isSub");
-            return (Criteria) this;
-        }
-
-        public Criteria andIsSubNotEqualTo(Integer value) {
-            addCriterion("is_sub <>", value, "isSub");
-            return (Criteria) this;
-        }
-
-        public Criteria andIsSubGreaterThan(Integer value) {
-            addCriterion("is_sub >", value, "isSub");
-            return (Criteria) this;
-        }
-
-        public Criteria andIsSubGreaterThanOrEqualTo(Integer value) {
-            addCriterion("is_sub >=", value, "isSub");
-            return (Criteria) this;
-        }
-
-        public Criteria andIsSubLessThan(Integer value) {
-            addCriterion("is_sub <", value, "isSub");
-            return (Criteria) this;
-        }
-
-        public Criteria andIsSubLessThanOrEqualTo(Integer value) {
-            addCriterion("is_sub <=", value, "isSub");
-            return (Criteria) this;
-        }
-
-        public Criteria andIsSubIn(List<Integer> values) {
-            addCriterion("is_sub in", values, "isSub");
-            return (Criteria) this;
-        }
-
-        public Criteria andIsSubNotIn(List<Integer> values) {
-            addCriterion("is_sub not in", values, "isSub");
-            return (Criteria) this;
-        }
-
-        public Criteria andIsSubBetween(Integer value1, Integer value2) {
-            addCriterion("is_sub between", value1, value2, "isSub");
-            return (Criteria) this;
-        }
-
-        public Criteria andIsSubNotBetween(Integer value1, Integer value2) {
-            addCriterion("is_sub not between", value1, value2, "isSub");
-            return (Criteria) this;
-        }
-
         public Criteria andParentIdIsNull() {
             addCriterion("parent_id is null");
             return (Criteria) this;

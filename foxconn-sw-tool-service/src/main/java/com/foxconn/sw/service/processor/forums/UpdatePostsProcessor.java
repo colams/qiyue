@@ -16,11 +16,7 @@ import java.util.Objects;
 public class UpdatePostsProcessor {
 
     @Autowired
-    ForumPostsBusiness forumPostsBusiness;
-    @Autowired
     ForumPostsAttachmentBusiness postsAttachmentBusiness;
-    @Autowired
-    ForumCommentBusiness commentBusiness;
 
     @Autowired
     ForumBbsBusiness forumBbsBusiness;

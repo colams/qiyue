@@ -35,8 +35,6 @@ public class SwTask {
 
     private String reflection;
 
-    private Integer isSub;
-
     private Integer parentId;
 
     private String finishTime;
@@ -253,19 +251,6 @@ public class SwTask {
 
     public void setReflection(String reflection) {
         this.reflection = reflection == null ? null : reflection.trim();
-    }
-
-    public Integer getIsSub() {
-        return isSub;
-    }
-
-    public SwTask withIsSub(Integer isSub) {
-        this.setIsSub(isSub);
-        return this;
-    }
-
-    public void setIsSub(Integer isSub) {
-        this.isSub = isSub;
     }
 
     public Integer getParentId() {

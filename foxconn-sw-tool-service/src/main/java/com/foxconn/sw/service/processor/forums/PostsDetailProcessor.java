@@ -11,7 +11,6 @@ import com.foxconn.sw.data.dto.entity.forums.PostsDetailVo;
 import com.foxconn.sw.data.dto.entity.forums.PostsResourceVo;
 import com.foxconn.sw.data.dto.entity.universal.IntegerParams;
 import com.foxconn.sw.data.entity.ForumBbs;
-import com.foxconn.sw.data.entity.ForumPosts;
 import com.foxconn.sw.data.entity.ForumPostsAttachment;
 import com.foxconn.sw.data.entity.SwAppendResource;
 import com.foxconn.sw.service.processor.utils.EmployeeUtils;
@@ -28,8 +27,6 @@ public class PostsDetailProcessor {
     @Autowired
     ForumBbsBusiness forumBbsBusiness;
     @Autowired
-    ForumPostsBusiness forumPostsBusiness;
-    @Autowired
     ForumParticipantBusiness forumParticipantBusiness;
     @Autowired
     EmployeeUtils employeeUtils;
@@ -39,14 +36,6 @@ public class PostsDetailProcessor {
     ForumPostsAttachmentBusiness postsAttachmentBusiness;
     @Autowired
     ForumFavoriteBusiness favoriteBusiness;
-    @Autowired
-    ForumCommentBusiness forumCommentBusiness;
-
-
-    public PostsDetailVo detail(IntegerParams data) {
-        ForumPosts forumPosts = forumPostsBusiness.getForumPosts(data.getParams());
-        return map(forumPosts);
-    }
 
     public BbsDetailVo detailV2(IntegerParams data) {
         ForumBbs forumBbs = forumBbsBusiness.getForumBbs(data.getParams());
@@ -62,21 +51,6 @@ public class PostsDetailProcessor {
         return bbsDetailVo;
     }
 
-    private PostsDetailVo map(ForumPosts forumPosts) {
-        PostsDetailVo detailVo = new PostsDetailVo();
-        detailVo.setId(forumPosts.getId());
-        detailVo.setAuthor(employeeUtils.mapEmployee(forumPosts.getAuthorNo()));
-        detailVo.setCreateTime(DateTimeUtils.format(forumPosts.getCreateTime()));
-        detailVo.setTitle(forumPosts.getTitle());
-        detailVo.setContent(forumPosts.getDescription());
-        detailVo.setParticipants(forumParticipantBusiness.queryParticipants(forumPosts.getId()));
-        detailVo.setResources(mapResource(forumPosts.getId()));
-        detailVo.setMemberCount(detailVo.getParticipants().size());
-        detailVo.setCommentCount(forumCommentBusiness.queryCommentCountByPostsID(forumPosts.getId()));
-        detailVo.setCollectionStatus(favoriteBusiness.queryCollectionStatus(forumPosts.getId()));
-        detailVo.setCanDel(RequestContext.getEmployeeNo().equalsIgnoreCase(forumPosts.getAuthorNo()));
-        return detailVo;
-    }
 
     private List<PostsResourceVo> mapResource(Integer postsID) {
         if (Objects.isNull(postsID)) {

@@ -1,51 +1,47 @@
 package com.foxconn.sw.data.mapper.auto;
 
-import com.foxconn.sw.data.entity.ForumComment;
-import com.foxconn.sw.data.entity.ForumCommentExample.Criteria;
-import com.foxconn.sw.data.entity.ForumCommentExample.Criterion;
-import com.foxconn.sw.data.entity.ForumCommentExample;
+import com.foxconn.sw.data.entity.SwCollaborationDetailLog;
+import com.foxconn.sw.data.entity.SwCollaborationDetailLogExample.Criteria;
+import com.foxconn.sw.data.entity.SwCollaborationDetailLogExample.Criterion;
+import com.foxconn.sw.data.entity.SwCollaborationDetailLogExample;
 import java.util.List;
 import java.util.Map;
 import org.apache.ibatis.jdbc.SQL;
 
-public class ForumCommentSqlProvider {
+public class SwCollaborationDetailLogSqlProvider {
 
-    public String countByExample(ForumCommentExample example) {
+    public String countByExample(SwCollaborationDetailLogExample example) {
         SQL sql = new SQL();
-        sql.SELECT("count(*)").FROM("forum_comment");
+        sql.SELECT("count(*)").FROM("sw_collaboration_detail_log");
         applyWhere(sql, example, false);
         return sql.toString();
     }
 
-    public String deleteByExample(ForumCommentExample example) {
+    public String deleteByExample(SwCollaborationDetailLogExample example) {
         SQL sql = new SQL();
-        sql.DELETE_FROM("forum_comment");
+        sql.DELETE_FROM("sw_collaboration_detail_log");
         applyWhere(sql, example, false);
         return sql.toString();
     }
 
-    public String insertSelective(ForumComment record) {
+    public String insertSelective(SwCollaborationDetailLog record) {
         SQL sql = new SQL();
-        sql.INSERT_INTO("forum_comment");
+        sql.INSERT_INTO("sw_collaboration_detail_log");
         
-        if (record.getPostsId() != null) {
-            sql.VALUES("posts_id", "#{postsId,jdbcType=INTEGER}");
+        if (record.getDetailId() != null) {
+            sql.VALUES("detail_id", "#{detailId,jdbcType=BIGINT}");
         }
         
-        if (record.getParentId() != null) {
-            sql.VALUES("parent_id", "#{parentId,jdbcType=INTEGER}");
+        if (record.getRowIndex() != null) {
+            sql.VALUES("row_index", "#{rowIndex,jdbcType=INTEGER}");
         }
         
-        if (record.getTargetId() != null) {
-            sql.VALUES("target_id", "#{targetId,jdbcType=INTEGER}");
+        if (record.getColIndex() != null) {
+            sql.VALUES("col_index", "#{colIndex,jdbcType=INTEGER}");
         }
         
-        if (record.getAuthorNo() != null) {
-            sql.VALUES("author_no", "#{authorNo,jdbcType=VARCHAR}");
-        }
-        
-        if (record.getIsDelete() != null) {
-            sql.VALUES("is_delete", "#{isDelete,jdbcType=INTEGER}");
+        if (record.getRemark() != null) {
+            sql.VALUES("remark", "#{remark,jdbcType=VARCHAR}");
         }
         
         if (record.getCreateTime() != null) {
@@ -56,53 +52,23 @@ public class ForumCommentSqlProvider {
             sql.VALUES("datetime_lastchange", "#{datetimeLastchange,jdbcType=TIMESTAMP}");
         }
         
-        if (record.getContent() != null) {
-            sql.VALUES("content", "#{content,jdbcType=LONGVARCHAR}");
-        }
-        
         return sql.toString();
     }
 
-    public String selectByExampleWithBLOBs(ForumCommentExample example) {
+    public String selectByExample(SwCollaborationDetailLogExample example) {
         SQL sql = new SQL();
         if (example != null && example.isDistinct()) {
             sql.SELECT_DISTINCT("id");
         } else {
             sql.SELECT("id");
         }
-        sql.SELECT("posts_id");
-        sql.SELECT("parent_id");
-        sql.SELECT("target_id");
-        sql.SELECT("author_no");
-        sql.SELECT("is_delete");
+        sql.SELECT("detail_id");
+        sql.SELECT("row_index");
+        sql.SELECT("col_index");
+        sql.SELECT("remark");
         sql.SELECT("create_time");
         sql.SELECT("datetime_lastchange");
-        sql.SELECT("content");
-        sql.FROM("forum_comment");
-        applyWhere(sql, example, false);
-        
-        if (example != null && example.getOrderByClause() != null) {
-            sql.ORDER_BY(example.getOrderByClause());
-        }
-        
-        return sql.toString();
-    }
-
-    public String selectByExample(ForumCommentExample example) {
-        SQL sql = new SQL();
-        if (example != null && example.isDistinct()) {
-            sql.SELECT_DISTINCT("id");
-        } else {
-            sql.SELECT("id");
-        }
-        sql.SELECT("posts_id");
-        sql.SELECT("parent_id");
-        sql.SELECT("target_id");
-        sql.SELECT("author_no");
-        sql.SELECT("is_delete");
-        sql.SELECT("create_time");
-        sql.SELECT("datetime_lastchange");
-        sql.FROM("forum_comment");
+        sql.FROM("sw_collaboration_detail_log");
         applyWhere(sql, example, false);
         
         if (example != null && example.getOrderByClause() != null) {
@@ -113,34 +79,30 @@ public class ForumCommentSqlProvider {
     }
 
     public String updateByExampleSelective(Map<String, Object> parameter) {
-        ForumComment record = (ForumComment) parameter.get("record");
-        ForumCommentExample example = (ForumCommentExample) parameter.get("example");
+        SwCollaborationDetailLog record = (SwCollaborationDetailLog) parameter.get("record");
+        SwCollaborationDetailLogExample example = (SwCollaborationDetailLogExample) parameter.get("example");
         
         SQL sql = new SQL();
-        sql.UPDATE("forum_comment");
+        sql.UPDATE("sw_collaboration_detail_log");
         
         if (record.getId() != null) {
-            sql.SET("id = #{record.id,jdbcType=INTEGER}");
+            sql.SET("id = #{record.id,jdbcType=BIGINT}");
         }
         
-        if (record.getPostsId() != null) {
-            sql.SET("posts_id = #{record.postsId,jdbcType=INTEGER}");
+        if (record.getDetailId() != null) {
+            sql.SET("detail_id = #{record.detailId,jdbcType=BIGINT}");
         }
         
-        if (record.getParentId() != null) {
-            sql.SET("parent_id = #{record.parentId,jdbcType=INTEGER}");
+        if (record.getRowIndex() != null) {
+            sql.SET("row_index = #{record.rowIndex,jdbcType=INTEGER}");
         }
         
-        if (record.getTargetId() != null) {
-            sql.SET("target_id = #{record.targetId,jdbcType=INTEGER}");
+        if (record.getColIndex() != null) {
+            sql.SET("col_index = #{record.colIndex,jdbcType=INTEGER}");
         }
         
-        if (record.getAuthorNo() != null) {
-            sql.SET("author_no = #{record.authorNo,jdbcType=VARCHAR}");
-        }
-        
-        if (record.getIsDelete() != null) {
-            sql.SET("is_delete = #{record.isDelete,jdbcType=INTEGER}");
+        if (record.getRemark() != null) {
+            sql.SET("remark = #{record.remark,jdbcType=VARCHAR}");
         }
         
         if (record.getCreateTime() != null) {
@@ -151,73 +113,45 @@ public class ForumCommentSqlProvider {
             sql.SET("datetime_lastchange = #{record.datetimeLastchange,jdbcType=TIMESTAMP}");
         }
         
-        if (record.getContent() != null) {
-            sql.SET("content = #{record.content,jdbcType=LONGVARCHAR}");
-        }
-        
-        applyWhere(sql, example, true);
-        return sql.toString();
-    }
-
-    public String updateByExampleWithBLOBs(Map<String, Object> parameter) {
-        SQL sql = new SQL();
-        sql.UPDATE("forum_comment");
-        
-        sql.SET("id = #{record.id,jdbcType=INTEGER}");
-        sql.SET("posts_id = #{record.postsId,jdbcType=INTEGER}");
-        sql.SET("parent_id = #{record.parentId,jdbcType=INTEGER}");
-        sql.SET("target_id = #{record.targetId,jdbcType=INTEGER}");
-        sql.SET("author_no = #{record.authorNo,jdbcType=VARCHAR}");
-        sql.SET("is_delete = #{record.isDelete,jdbcType=INTEGER}");
-        sql.SET("create_time = #{record.createTime,jdbcType=TIMESTAMP}");
-        sql.SET("datetime_lastchange = #{record.datetimeLastchange,jdbcType=TIMESTAMP}");
-        sql.SET("content = #{record.content,jdbcType=LONGVARCHAR}");
-        
-        ForumCommentExample example = (ForumCommentExample) parameter.get("example");
         applyWhere(sql, example, true);
         return sql.toString();
     }
 
     public String updateByExample(Map<String, Object> parameter) {
         SQL sql = new SQL();
-        sql.UPDATE("forum_comment");
+        sql.UPDATE("sw_collaboration_detail_log");
         
-        sql.SET("id = #{record.id,jdbcType=INTEGER}");
-        sql.SET("posts_id = #{record.postsId,jdbcType=INTEGER}");
-        sql.SET("parent_id = #{record.parentId,jdbcType=INTEGER}");
-        sql.SET("target_id = #{record.targetId,jdbcType=INTEGER}");
-        sql.SET("author_no = #{record.authorNo,jdbcType=VARCHAR}");
-        sql.SET("is_delete = #{record.isDelete,jdbcType=INTEGER}");
+        sql.SET("id = #{record.id,jdbcType=BIGINT}");
+        sql.SET("detail_id = #{record.detailId,jdbcType=BIGINT}");
+        sql.SET("row_index = #{record.rowIndex,jdbcType=INTEGER}");
+        sql.SET("col_index = #{record.colIndex,jdbcType=INTEGER}");
+        sql.SET("remark = #{record.remark,jdbcType=VARCHAR}");
         sql.SET("create_time = #{record.createTime,jdbcType=TIMESTAMP}");
         sql.SET("datetime_lastchange = #{record.datetimeLastchange,jdbcType=TIMESTAMP}");
         
-        ForumCommentExample example = (ForumCommentExample) parameter.get("example");
+        SwCollaborationDetailLogExample example = (SwCollaborationDetailLogExample) parameter.get("example");
         applyWhere(sql, example, true);
         return sql.toString();
     }
 
-    public String updateByPrimaryKeySelective(ForumComment record) {
+    public String updateByPrimaryKeySelective(SwCollaborationDetailLog record) {
         SQL sql = new SQL();
-        sql.UPDATE("forum_comment");
+        sql.UPDATE("sw_collaboration_detail_log");
         
-        if (record.getPostsId() != null) {
-            sql.SET("posts_id = #{postsId,jdbcType=INTEGER}");
+        if (record.getDetailId() != null) {
+            sql.SET("detail_id = #{detailId,jdbcType=BIGINT}");
         }
         
-        if (record.getParentId() != null) {
-            sql.SET("parent_id = #{parentId,jdbcType=INTEGER}");
+        if (record.getRowIndex() != null) {
+            sql.SET("row_index = #{rowIndex,jdbcType=INTEGER}");
         }
         
-        if (record.getTargetId() != null) {
-            sql.SET("target_id = #{targetId,jdbcType=INTEGER}");
+        if (record.getColIndex() != null) {
+            sql.SET("col_index = #{colIndex,jdbcType=INTEGER}");
         }
         
-        if (record.getAuthorNo() != null) {
-            sql.SET("author_no = #{authorNo,jdbcType=VARCHAR}");
-        }
-        
-        if (record.getIsDelete() != null) {
-            sql.SET("is_delete = #{isDelete,jdbcType=INTEGER}");
+        if (record.getRemark() != null) {
+            sql.SET("remark = #{remark,jdbcType=VARCHAR}");
         }
         
         if (record.getCreateTime() != null) {
@@ -228,16 +162,12 @@ public class ForumCommentSqlProvider {
             sql.SET("datetime_lastchange = #{datetimeLastchange,jdbcType=TIMESTAMP}");
         }
         
-        if (record.getContent() != null) {
-            sql.SET("content = #{content,jdbcType=LONGVARCHAR}");
-        }
-        
-        sql.WHERE("id = #{id,jdbcType=INTEGER}");
+        sql.WHERE("id = #{id,jdbcType=BIGINT}");
         
         return sql.toString();
     }
 
-    protected void applyWhere(SQL sql, ForumCommentExample example, boolean includeExamplePhrase) {
+    protected void applyWhere(SQL sql, SwCollaborationDetailLogExample example, boolean includeExamplePhrase) {
         if (example == null) {
             return;
         }

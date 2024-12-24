@@ -37,15 +37,6 @@ public class ForumController {
     UpdatePostsProcessor updatePostsProcessor;
 
     @Permission
-    @Operation(summary = "查询帖子信息", tags = TagsConstants.FORUMS)
-    @ApiResponse(responseCode = "0", description = "成功码")
-    @PostMapping("/list")
-    public Response<List<PostsBriefVo>> list(@Valid @RequestBody Request<PageParams<ListPostsParams>> request) {
-        List<PostsBriefVo> vos = listPostsProcessor.list(request.getData());
-        return ResponseUtils.success(vos, request.getTraceId());
-    }
-
-    @Permission
     @Operation(summary = "查询帖子信息", tags = "v2")
     @ApiResponse(responseCode = "0", description = "成功码")
     @PostMapping("/listV2")
@@ -79,15 +70,6 @@ public class ForumController {
     public Response<List<ForumsParticipantVo>> participants(@Valid @RequestBody Request<IntegerParams> request) {
         List<ForumsParticipantVo> participants = postsDetailProcessor.participants(request.getData());
         return ResponseUtils.success(participants, request.getTraceId());
-    }
-
-    @Permission
-    @Operation(summary = "帖子详情", tags = TagsConstants.FORUMS)
-    @ApiResponse(responseCode = "0", description = "成功码")
-    @PostMapping("/detail")
-    public Response<PostsDetailVo> detail(@Valid @RequestBody Request<IntegerParams> request) {
-        PostsDetailVo detailVo = postsDetailProcessor.detail(request.getData());
-        return ResponseUtils.success(detailVo, request.getTraceId());
     }
 
     @Permission

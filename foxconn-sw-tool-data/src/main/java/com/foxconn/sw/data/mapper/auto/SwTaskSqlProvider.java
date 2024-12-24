@@ -88,10 +88,6 @@ public class SwTaskSqlProvider {
             sql.VALUES("reflection", "#{reflection,jdbcType=VARCHAR}");
         }
         
-        if (record.getIsSub() != null) {
-            sql.VALUES("is_sub", "#{isSub,jdbcType=INTEGER}");
-        }
-        
         if (record.getParentId() != null) {
             sql.VALUES("parent_id", "#{parentId,jdbcType=INTEGER}");
         }
@@ -137,7 +133,6 @@ public class SwTaskSqlProvider {
         sql.SELECT("handle_eid");
         sql.SELECT("dead_line");
         sql.SELECT("reflection");
-        sql.SELECT("is_sub");
         sql.SELECT("parent_id");
         sql.SELECT("finish_time");
         sql.SELECT("create_time");
@@ -175,7 +170,6 @@ public class SwTaskSqlProvider {
         sql.SELECT("handle_eid");
         sql.SELECT("dead_line");
         sql.SELECT("reflection");
-        sql.SELECT("is_sub");
         sql.SELECT("parent_id");
         sql.SELECT("finish_time");
         sql.SELECT("create_time");
@@ -261,10 +255,6 @@ public class SwTaskSqlProvider {
             sql.SET("reflection = #{record.reflection,jdbcType=VARCHAR}");
         }
         
-        if (record.getIsSub() != null) {
-            sql.SET("is_sub = #{record.isSub,jdbcType=INTEGER}");
-        }
-        
         if (record.getParentId() != null) {
             sql.SET("parent_id = #{record.parentId,jdbcType=INTEGER}");
         }
@@ -309,7 +299,6 @@ public class SwTaskSqlProvider {
         sql.SET("handle_eid = #{record.handleEid,jdbcType=VARCHAR}");
         sql.SET("dead_line = #{record.deadLine,jdbcType=VARCHAR}");
         sql.SET("reflection = #{record.reflection,jdbcType=VARCHAR}");
-        sql.SET("is_sub = #{record.isSub,jdbcType=INTEGER}");
         sql.SET("parent_id = #{record.parentId,jdbcType=INTEGER}");
         sql.SET("finish_time = #{record.finishTime,jdbcType=VARCHAR}");
         sql.SET("create_time = #{record.createTime,jdbcType=TIMESTAMP}");
@@ -341,7 +330,6 @@ public class SwTaskSqlProvider {
         sql.SET("handle_eid = #{record.handleEid,jdbcType=VARCHAR}");
         sql.SET("dead_line = #{record.deadLine,jdbcType=VARCHAR}");
         sql.SET("reflection = #{record.reflection,jdbcType=VARCHAR}");
-        sql.SET("is_sub = #{record.isSub,jdbcType=INTEGER}");
         sql.SET("parent_id = #{record.parentId,jdbcType=INTEGER}");
         sql.SET("finish_time = #{record.finishTime,jdbcType=VARCHAR}");
         sql.SET("create_time = #{record.createTime,jdbcType=TIMESTAMP}");
@@ -414,10 +402,6 @@ public class SwTaskSqlProvider {
         
         if (record.getReflection() != null) {
             sql.SET("reflection = #{reflection,jdbcType=VARCHAR}");
-        }
-        
-        if (record.getIsSub() != null) {
-            sql.SET("is_sub = #{isSub,jdbcType=INTEGER}");
         }
         
         if (record.getParentId() != null) {

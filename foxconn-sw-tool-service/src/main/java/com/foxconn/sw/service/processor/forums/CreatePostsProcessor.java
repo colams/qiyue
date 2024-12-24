@@ -13,9 +13,6 @@ public class CreatePostsProcessor {
     ForumBbsBusiness forumBbsBusiness;
     @Autowired
     ForumBbsCommentBusiness forumBbsCommentBusiness;
-
-    @Autowired
-    ForumPostsBusiness forumPostsBusiness;
     @Autowired
     ForumParticipantBusiness forumParticipantBusiness;
     @Autowired

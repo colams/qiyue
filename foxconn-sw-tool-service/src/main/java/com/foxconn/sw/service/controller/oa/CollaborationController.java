@@ -83,6 +83,16 @@ public class CollaborationController {
     }
 
     @Permission
+    @Operation(summary = "协作平台-提交工作", tags = TagsConstants.COLLABORATION)
+    @ApiResponse(responseCode = "0", description = "成功码")
+    @PostMapping("/log")
+    public Response<Boolean> log(@Valid @RequestBody Request<CollaborationDetailParams> request) {
+        Boolean result = collaborationUpdate.submit(request.getData());
+        return ResponseUtils.success(result, request.getTraceId());
+    }
+
+
+    @Permission
     @Operation(summary = "协作平台-导入工作", tags = TagsConstants.COLLABORATION)
     @ApiResponse(responseCode = "0", description = "成功码")
     @PostMapping("/import")

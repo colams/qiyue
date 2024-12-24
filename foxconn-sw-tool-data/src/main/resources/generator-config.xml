@@ -80,16 +80,10 @@
         <table tableName="forum_bbs_read">
             <generatedKey column="id" identity="true" sqlStatement="mysql"/>
         </table>
-        <table tableName="forum_comment">
-            <generatedKey column="id" identity="true" sqlStatement="mysql"/>
-        </table>
         <table tableName="forum_favorite">
             <generatedKey column="id" identity="true" sqlStatement="mysql"/>
         </table>
         <table tableName="forum_participant">
-            <generatedKey column="id" identity="true" sqlStatement="mysql"/>
-        </table>
-        <table tableName="forum_posts">
             <generatedKey column="id" identity="true" sqlStatement="mysql"/>
         </table>
         <table tableName="forum_posts_attachment">
@@ -106,6 +100,9 @@
             <generatedKey column="id" identity="true" sqlStatement="mysql"/>
         </table>
         <table tableName="sw_collaboration_detail">
+            <generatedKey column="id" identity="true" sqlStatement="mysql"/>
+        </table>
+        <table tableName="sw_collaboration_detail_log">
             <generatedKey column="id" identity="true" sqlStatement="mysql"/>
         </table>
         <table tableName="sw_collaboration_user">
