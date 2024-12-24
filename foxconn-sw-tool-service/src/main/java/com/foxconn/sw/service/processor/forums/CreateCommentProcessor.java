@@ -23,7 +23,7 @@ public class CreateCommentProcessor {
         comment.setTargetId(data.getTargetId());
         comment.setAuthorNo(RequestContext.getEmployeeNo());
         comment.setContent(data.getContent());
-        Integer commentId = forumBbsCommentBusiness.addComment(comment);
+        Integer commentId = forumBbsCommentBusiness.insertComment(comment);
         if (commentId > 0) {
             postsAttachmentBusiness.insertPostsAttachment(data.getPostsId(), commentId, data.getResources());
         }

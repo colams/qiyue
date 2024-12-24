@@ -33,7 +33,7 @@ public class CreatePostsProcessor {
         comment.setFbId(postsID);
         comment.setAuthorNo(RequestContext.getEmployeeNo());
         comment.setContent(content);
-        Integer commentId = forumBbsCommentBusiness.addComment(comment);
+        Integer commentId = forumBbsCommentBusiness.insertComment(comment);
         return commentId;
     }
 }

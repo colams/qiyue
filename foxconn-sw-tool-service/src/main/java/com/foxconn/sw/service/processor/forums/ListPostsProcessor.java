@@ -1,17 +1,17 @@
 package com.foxconn.sw.service.processor.forums;
 
-import com.foxconn.sw.business.forums.*;
-import com.foxconn.sw.common.constanst.NumberConstants;
-import com.foxconn.sw.common.context.RequestContext;
+import com.foxconn.sw.business.SwReadStatusBusiness;
+import com.foxconn.sw.business.forums.ForumBbsBusiness;
+import com.foxconn.sw.business.forums.ForumBbsCommentBusiness;
+import com.foxconn.sw.business.forums.ForumParticipantBusiness;
 import com.foxconn.sw.common.utils.DateTimeUtils;
+import com.foxconn.sw.data.constants.enums.ModuleEnums;
 import com.foxconn.sw.data.dto.PageEntity;
 import com.foxconn.sw.data.dto.PageParams;
 import com.foxconn.sw.data.dto.entity.forums.BbsListVo;
-import com.foxconn.sw.data.dto.entity.forums.PostsBriefVo;
 import com.foxconn.sw.data.dto.request.forums.ListPostsParams;
 import com.foxconn.sw.data.entity.ForumBbs;
 import com.foxconn.sw.data.entity.ForumBbsComment;
-import com.foxconn.sw.data.entity.ForumParticipant;
 import com.foxconn.sw.service.processor.utils.EmployeeUtils;
 import com.google.common.collect.Lists;
 import org.apache.commons.lang3.StringUtils;
@@ -19,7 +19,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -38,6 +37,8 @@ public class ListPostsProcessor {
     EmployeeUtils employeeUtils;
     @Autowired
     ForumParticipantBusiness participantBusiness;
+    @Autowired
+    SwReadStatusBusiness readStatusBusiness;
 
 
     public PageEntity<List<BbsListVo>> listV2(PageParams<ListPostsParams> data) {
@@ -48,21 +49,11 @@ public class ListPostsProcessor {
         if (CollectionUtils.isEmpty(forumPosts)) {
             return new PageEntity(0L, Lists.newArrayList());
         }
-
-        List<Integer> bbsIds = forumPosts.stream().map(ForumBbs::getId).collect(Collectors.toList());
-
-        List<ForumBbsComment> comments = forumBbsCommentBusiness.queryCommentByBbsIds(bbsIds);
-        List<ForumParticipant> forumParticipants = participantBusiness.getBbsParticipantByEno(bbsIds,
-                RequestContext.getEmployeeNo());
-
-
-        Map<Integer, ForumBbsComment> commentMap = comments.stream()
-                .collect(Collectors.toMap(e -> e.getFbId(), e -> e));
-        Map<Integer, ForumParticipant> participantMap = forumParticipants.stream()
-                .collect(Collectors.toMap(e -> e.getId(), e -> e));
+        Map<Integer, ForumBbsComment> bbsCommentMap = getCommentIdAndBbsId(forumPosts);
+        Map<Integer, Integer> maps = getCommentReadStatus(bbsCommentMap);
 
         List<BbsListVo> listVo = forumPosts.stream()
-                .map(e -> toListVo(e, commentMap, participantMap))
+                .map(e -> toListVo(e, bbsCommentMap, maps))
                 .collect(Collectors.toList());
 
         Long count = forumBbsBusiness.getPostsCount(data.getParams().getPostsType(),
@@ -73,12 +64,9 @@ public class ListPostsProcessor {
     }
 
     private BbsListVo toListVo(ForumBbs bbs,
-                               Map<Integer, ForumBbsComment> commentMap,
-                               Map<Integer, ForumParticipant> participantMap) {
-        ForumBbsComment comment = commentMap.get(bbs.getId());
-        ForumParticipant participant = participantMap.get(bbs.getId());
-        String content = Optional.ofNullable(comment).map(e -> e.getContent()).orElse("");
-        int read = Optional.ofNullable(participant).map(e -> e.getIsRead()).orElse(1);
+                               Map<Integer, ForumBbsComment> bbsCommentMap,
+                               Map<Integer, Integer> maps) {
+        ForumBbsComment bbsComment = bbsCommentMap.get(bbs.getId());
 
         BbsListVo vo = new BbsListVo();
         vo.setId(bbs.getId());
@@ -89,8 +77,19 @@ public class ListPostsProcessor {
         } else {
             vo.setTitle(bbs.getTitle());
         }
-        vo.setContent(content);
-        vo.setRead(NumberConstants.ONE.equals(read));
+        vo.setContent(Optional.ofNullable(bbsComment).map(ForumBbsComment::getContent).orElse(""));
+        vo.setRead(maps.getOrDefault(Optional.ofNullable(bbsComment).map(ForumBbsComment::getId).orElse(0), 0).equals(1));
         return vo;
+    }
+
+    public Map<Integer, Integer> getCommentReadStatus(Map<Integer, ForumBbsComment> bbsIdCommentIDs) {
+        List<Integer> commentIds = bbsIdCommentIDs.values().stream().map(ForumBbsComment::getId).toList();
+        return readStatusBusiness.getReadStatusList(ModuleEnums.Forum, commentIds);
+    }
+
+    public Map<Integer, ForumBbsComment> getCommentIdAndBbsId(List<ForumBbs> forumPosts) {
+        List<Integer> bbsIds = forumPosts.stream().map(ForumBbs::getId).collect(Collectors.toList());
+        List<ForumBbsComment> comments = forumBbsCommentBusiness.queryCommentByBbsIds(bbsIds);
+        return comments.stream().collect(Collectors.toMap(ForumBbsComment::getFbId, e -> e));
     }
 }

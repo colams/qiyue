@@ -1,9 +1,12 @@
 package com.foxconn.sw.service.processor.forums;
 
+import com.foxconn.sw.business.SwReadStatusBusiness;
 import com.foxconn.sw.business.forums.ForumBbsBusiness;
 import com.foxconn.sw.business.forums.ForumBbsCommentBusiness;
+import com.foxconn.sw.common.constanst.NumberConstants;
 import com.foxconn.sw.common.context.RequestContext;
 import com.foxconn.sw.common.utils.DateTimeUtils;
+import com.foxconn.sw.data.constants.enums.ModuleEnums;
 import com.foxconn.sw.data.dto.PageEntity;
 import com.foxconn.sw.data.dto.PageParams;
 import com.foxconn.sw.data.dto.entity.forums.CommentsVo;
@@ -18,6 +21,7 @@ import org.springframework.util.CollectionUtils;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
@@ -30,7 +34,8 @@ public class ListCommentProcessor {
     ForumBbsBusiness forumBbsBusiness;
     @Autowired
     EmployeeUtils employeeUtils;
-
+    @Autowired
+    SwReadStatusBusiness readStatusBusiness;
 
     public List<CommentsVo> list(PageParams<IntegerParams> data) {
         List<ForumBbsComment> comments = forumBbsCommentBusiness.queryCommentByPostsID(data.getParams().getParams());
@@ -53,9 +58,18 @@ public class ListCommentProcessor {
     }
 
     private List<CommentsVo> mapComments(List<ForumBbsComment> comments, String postAuthNo) {
+
+        if (CollectionUtils.isEmpty(comments)) {
+            return Lists.newArrayList();
+        }
+
+        List<Integer> commentIds = comments.stream().map(ForumBbsComment::getId).collect(Collectors.toList());
+        Map<Integer, Integer> map = readStatusBusiness.getReadStatusList(ModuleEnums.Forum, commentIds);
+
         List<CommentsVo> vos = new ArrayList<>();
         comments.forEach(e -> {
             CommentsVo vo = new CommentsVo();
+            Integer readStatus = map.getOrDefault(e.getId(), 0);
             vo.setPostsId(e.getFbId());
             vo.setId(e.getId());
             vo.setTargetId(e.getTargetId());
@@ -65,7 +79,7 @@ public class ListCommentProcessor {
             vo.setCreateTime(DateTimeUtils.format(e.getCreateTime()));
             vo.setCanDel(RequestContext.getEmployeeNo().equalsIgnoreCase(e.getAuthorNo())
                     || RequestContext.getEmployeeNo().equalsIgnoreCase(postAuthNo));
-            vo.setRead(false);  // todo
+            vo.setRead(NumberConstants.ONE.equals(readStatus));
             vo.setReplies(Lists.newArrayList());
             vos.add(vo);
         });
@@ -79,6 +93,9 @@ public class ListCommentProcessor {
             return new PageEntity<>();
         }
         List<CommentsVo> vos = mapComments(comments, forumBbs.getAuthorNo());
+
+        List<Integer> commentids = vos.stream().filter(e -> !e.getRead()).map(CommentsVo::getId).collect(Collectors.toList());
+        readStatusBusiness.insertReadStatus(ModuleEnums.Forum, commentids);
         Long count = forumBbsCommentBusiness.queryCountByBbsId(data.getParams().getParams());
         return new PageEntity(count, buildTree(vos));
     }
