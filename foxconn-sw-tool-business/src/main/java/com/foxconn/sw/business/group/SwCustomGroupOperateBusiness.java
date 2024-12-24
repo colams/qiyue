@@ -48,24 +48,6 @@ public class SwCustomGroupOperateBusiness {
         return group.getId() > 0;
     }
 
-    public List<SwCustomGroupOperate> getUnReadOperateList() {
-        SwCustomGroupOperateExample example = new SwCustomGroupOperateExample();
-        SwCustomGroupOperateExample.Criteria criteria = example.createCriteria();
-        criteria.andOperatorEqualTo(RequestContext.getEmployeeNo());
-
-        criteria.andIsReadEqualTo(NumberConstants.ZERO);
-        return customGroupOperateExtMapper.selectByExample(example);
-    }
-
-    public List<SwCustomGroupOperate> getUnDealOperateList() {
-        SwCustomGroupOperateExample example = new SwCustomGroupOperateExample();
-        SwCustomGroupOperateExample.Criteria criteria = example.createCriteria();
-        criteria.andOperatorEqualTo(RequestContext.getEmployeeNo());
-        criteria.andStatusEqualTo(NumberConstants.ZERO);
-        return customGroupOperateExtMapper.selectByExample(example);
-    }
-
-
     public List<SwCustomGroupOperate> getOperateList() {
         SwCustomGroupOperateExample example = new SwCustomGroupOperateExample();
         SwCustomGroupOperateExample.Criteria criteria = example.createCriteria();
