@@ -1,7 +1,7 @@
 package com.foxconn.sw.business.meeting;
 
-import com.foxconn.sw.common.context.RequestContext;
 import com.foxconn.sw.business.meeting.utils.CycleUtils;
+import com.foxconn.sw.common.context.RequestContext;
 import com.foxconn.sw.common.utils.JsonUtils;
 import com.foxconn.sw.data.dto.request.meeting.EstablishMeetingParams;
 import com.foxconn.sw.data.entity.SwMeeting;
@@ -40,7 +40,7 @@ public class MeetingBusiness {
 
     public List<SwMeeting> queryMeeting(LocalDate startDate, LocalDate endDate) {
         String employeeNo = RequestContext.getEmployeeNo();
-        List<SwMeeting> meetings = meetingMapper.selectMeetings(startDate, endDate, employeeNo);
+        List<SwMeeting> meetings = meetingMapper.selectMeetings(LocalDate.now(), startDate, endDate, employeeNo);
         return meetings;
     }
 

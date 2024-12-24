@@ -22,7 +22,7 @@ public interface SwMeetingExtensionMapper extends SwMeetingMapper {
             "inner join sw_meeting_member smm on sm.id = smm.meeting_id ",
             "where status = 0 and smm.is_delete = 0",
             "and smm.employee_no = #{employeeNo,jdbcType=VARCHAR}",
-            "and ((is_repeat = 1 and sm.cycle_start <= #{startDate,jdbcType=VARCHAR}) or (meeting_date >= #{startDate,jdbcType=VARCHAR} and meeting_date < #{endDate,jdbcType=VARCHAR}))"
+            "and ((sm.cycle_start <= #{nowDate,jdbcType=VARCHAR} and (sm.cycle_expire >= #{nowDate,jdbcType=VARCHAR} ||sm.cycle_expire = '' || sm.cycle_expire is null )) or (meeting_date >= #{startDate,jdbcType=VARCHAR} and meeting_date < #{endDate,jdbcType=VARCHAR}))"
     })
     @Results({
             @Result(column = "id", property = "id", jdbcType = JdbcType.INTEGER, id = true),
@@ -40,5 +40,8 @@ public interface SwMeetingExtensionMapper extends SwMeetingMapper {
             @Result(column = "create_time", property = "createTime", jdbcType = JdbcType.TIMESTAMP),
             @Result(column = "datetime_lastchange", property = "datetimeLastchange", jdbcType = JdbcType.TIMESTAMP)
     })
-    List<SwMeeting> selectMeetings(@Param("startDate") LocalDate startDate, @Param("endDate") LocalDate endDate, @Param("employeeNo") String employeeNo);
+    List<SwMeeting> selectMeetings(@Param("nowDate") LocalDate nowDate,
+                                   @Param("startDate") LocalDate startDate,
+                                   @Param("endDate") LocalDate endDate,
+                                   @Param("employeeNo") String employeeNo);
 }
