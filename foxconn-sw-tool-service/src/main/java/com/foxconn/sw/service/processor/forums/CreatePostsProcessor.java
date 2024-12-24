@@ -1,6 +1,9 @@
 package com.foxconn.sw.service.processor.forums;
 
-import com.foxconn.sw.business.forums.*;
+import com.foxconn.sw.business.forums.ForumBbsBusiness;
+import com.foxconn.sw.business.forums.ForumBbsCommentBusiness;
+import com.foxconn.sw.business.forums.ForumParticipantBusiness;
+import com.foxconn.sw.business.forums.ForumPostsAttachmentBusiness;
 import com.foxconn.sw.common.context.RequestContext;
 import com.foxconn.sw.data.dto.request.forums.PostsParams;
 import com.foxconn.sw.data.entity.ForumBbsComment;
@@ -21,8 +24,8 @@ public class CreatePostsProcessor {
     public Boolean create(PostsParams data) {
         int fbID = forumBbsBusiness.createPosts(data);
         if (fbID > 0) {
-            saveBbsComment(fbID, data.getContent());
-            postsAttachmentBusiness.insertPostsAttachment(fbID, data.getResources());
+            Integer commentId = saveBbsComment(fbID, data.getContent());
+            postsAttachmentBusiness.insertPostsAttachment(fbID, commentId, data.getResources());
             forumParticipantBusiness.insertForumParticipant(fbID, data.getParticipants());
         }
         return fbID > 0;
