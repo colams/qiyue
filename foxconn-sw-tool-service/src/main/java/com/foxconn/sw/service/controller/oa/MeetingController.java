@@ -44,6 +44,15 @@ public class MeetingController {
     @Permission
     @Operation(summary = "会议列表", tags = TagsConstants.MEET)
     @ApiResponse(responseCode = "0", description = "成功码")
+    @PostMapping("/meetList")
+    public Response<List<MeetingVo>[]> meetList(@Valid @RequestBody Request<ListMeetingParams> request) {
+        List[] vos = listMeeting.list(request.getData());
+        return ResponseUtils.success(vos, request.getTraceId());
+    }
+
+    @Permission
+    @Operation(summary = "会议列表", tags = TagsConstants.MEET)
+    @ApiResponse(responseCode = "0", description = "成功码")
     @PostMapping("/detail")
     public Response<MeetingVo> detail(@Valid @RequestBody Request<DetailMeetingParams> request) {
         MeetingVo vos = detailMeeting.detail(request.getData());
