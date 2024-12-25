@@ -64,6 +64,6 @@ public class SwReadStatusBusiness {
     }
 
     public int getForumUnReadCount(Integer bbsId) {
-        return readStatusExtMapper.getForumUnReadCount(ModuleEnums.Forum.getName(), bbsId);
+        return readStatusExtMapper.getForumUnReadCount(ModuleEnums.Forum.getName(), bbsId, RequestContext.getEmployeeNo());
     }
 }
