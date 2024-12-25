@@ -11,6 +11,7 @@ public class HistoryVo {
     private String publisher;
     private String avatar;
     private String updateTime;
+    private Integer resourceId;
 
     public Integer getHistoryID() {
         return historyID;
@@ -82,5 +83,13 @@ public class HistoryVo {
 
     public void setUpdateTime(String updateTime) {
         this.updateTime = updateTime;
+    }
+
+    public Integer getResourceId() {
+        return resourceId;
+    }
+
+    public void setResourceId(Integer resourceId) {
+        this.resourceId = resourceId;
     }
 }

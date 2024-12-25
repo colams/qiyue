@@ -85,6 +85,7 @@ public class ListDocProcessor {
             vo.setCreateTime(DateTimeUtils.format(e.getCreateTime()));
             vo.setUpdateTime(DateTimeUtils.format(e.getDatetimeLastchange()));
             vo.setContent(e.getContent());
+            vo.setResourceID(e.getResourceId());
             vos.add(vo);
         });
         return vos;
@@ -108,6 +109,7 @@ public class ListDocProcessor {
             vo.setAvatar(userBusiness.queryUserInfo(e.getCreator()).getAvatar());
             vo.setPublisher(e.getCreator());
             vo.setUpdateTime(DateTimeUtils.format(e.getCreateTime()));
+            vo.setResourceId(e.getResourceId());
             vos.add(vo);
         });
         return vos;

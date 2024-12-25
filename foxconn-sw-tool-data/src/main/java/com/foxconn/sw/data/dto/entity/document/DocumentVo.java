@@ -24,6 +24,7 @@ public class DocumentVo {
     private String title;
     private Integer level;
     private String content;
+    private Integer resourceID;
 
     public Integer getDocumentID() {
         return documentID;
@@ -167,5 +168,13 @@ public class DocumentVo {
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    public Integer getResourceID() {
+        return resourceID;
+    }
+
+    public void setResourceID(Integer resourceID) {
+        this.resourceID = resourceID;
     }
 }
