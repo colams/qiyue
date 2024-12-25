@@ -139,5 +139,20 @@ public class CommonController {
         return ResponseUtils.response(fileName, RetCode.SUCCESS, UUIDUtils.getUuid());
     }
 
+    @Operation(summary = "文档转换接口", tags = TagsConstants.UNIVERSAL)
+    @ApiResponse(responseCode = "0", description = "成功码")
+    @PostMapping("/convert")
+    public Response convert() throws FileNotFoundException {
+
+        List<String> results = new ArrayList<>();
+        results.add("test 000:");
+        results.add("test 001:");
+
+        String contextPath = environment.getProperty("server.servlet.context-path");
+
+        String fileName = execToolUtils.outputResult(results);
+        return ResponseUtils.response(fileName, RetCode.SUCCESS, UUIDUtils.getUuid());
+    }
+
 
 }
