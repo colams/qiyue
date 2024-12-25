@@ -12,11 +12,14 @@ import com.foxconn.sw.data.dto.Response;
 import com.foxconn.sw.data.dto.entity.universal.IntegerParams;
 import com.foxconn.sw.data.dto.entity.universal.UploadResult;
 import com.foxconn.sw.data.entity.SwAppendResource;
+import com.foxconn.sw.service.aspects.Permission;
+import com.foxconn.sw.service.processor.universal.ConvertProcessor;
 import com.foxconn.sw.service.processor.universal.UploadProcessor;
 import com.foxconn.sw.service.processor.user.CommonUserUtils;
 import com.foxconn.sw.service.utils.ResponseUtils;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +33,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.OutputStream;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -50,6 +55,10 @@ public class CommonController {
     UploadProcessor uploadProcessor;
     @Autowired
     ExecToolUtils execToolUtils;
+    @Autowired
+    ConvertProcessor convertProcessor;
+    @Autowired
+    HttpServletResponse response;
 
     @Operation(summary = "下载文件", tags = TagsConstants.UNIVERSAL)
     @GetMapping("/down/{id}/{fileName}")
@@ -139,19 +148,21 @@ public class CommonController {
         return ResponseUtils.response(fileName, RetCode.SUCCESS, UUIDUtils.getUuid());
     }
 
+
+    @Permission
     @Operation(summary = "文档转换接口", tags = TagsConstants.UNIVERSAL)
     @ApiResponse(responseCode = "0", description = "成功码")
+    @CrossOrigin(exposedHeaders = {"Content-Disposition"})
     @PostMapping("/convert")
-    public Response convert() throws FileNotFoundException {
+    public ResponseEntity convert(@Valid @RequestBody Request<IntegerParams> request) throws IOException {
+        Integer fileId = request.getData().getParams();
+        byte[] resource = convertProcessor.convertFile(fileId);
+        // 字节写入响应输出流
+        OutputStream outputStream = response.getOutputStream();
+        outputStream.write(resource);
+        outputStream.close();
+        return ResponseEntity.ok().body(null);
 
-        List<String> results = new ArrayList<>();
-        results.add("test 000:");
-        results.add("test 001:");
-
-        String contextPath = environment.getProperty("server.servlet.context-path");
-
-        String fileName = execToolUtils.outputResult(results);
-        return ResponseUtils.response(fileName, RetCode.SUCCESS, UUIDUtils.getUuid());
     }
 
 

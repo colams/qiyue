@@ -1,5 +1,8 @@
 package com.foxconn.sw.common.utils;
 
+import com.documents4j.api.DocumentType;
+import com.documents4j.api.IConverter;
+import com.documents4j.job.LocalConverter;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.PageSize;
 import com.itextpdf.text.pdf.PdfPCell;
@@ -10,14 +13,13 @@ import org.apache.poi.hslf.usermodel.HSLFSlideShow;
 import org.apache.poi.xslf.usermodel.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import com.documents4j.api.DocumentType;
-import com.documents4j.api.IConverter;
-import com.documents4j.job.LocalConverter;
+
 import java.awt.*;
 import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 import java.io.*;
 import java.util.List;
+import java.util.concurrent.Future;
 
 
 public class PptxToPdfConverter {
@@ -30,7 +32,7 @@ public class PptxToPdfConverter {
      * @param sourcePath 源文件地址 如 D:\\1.pptx
      * @param targetPath 目标文件地址 如 D:\\1.pdf
      */
-    public static void pptToPdf(String sourcePath, String targetPath) {
+    public static byte[] pptx2Pdf(String sourcePath) {
         Document document = null;
         XMLSlideShow slideShow = null;
         FileOutputStream fileOutputStream = null;
@@ -86,10 +88,6 @@ public class PptxToPdfConverter {
             document.close();
             pdfWriter.close();
             resBytes = baos.toByteArray();
-            FileOutputStream outputStream = new FileOutputStream(targetPath);
-            outputStream.write(resBytes);
-            outputStream.flush();
-            outputStream.close();
         } catch (Exception e) {
             log.error("pptx转pdf异常：" + e.getMessage(), e);
         } finally {
@@ -101,16 +99,16 @@ public class PptxToPdfConverter {
                 log.error("pptx转pdf关闭io流异常：" + e.getMessage(), e);
             }
         }
+        return resBytes;
     }
-
 
 
     /**
      * pptx转为pdf
+     *
      * @param sourcePath 源文件地址 如 D:\\1.ppt
-     * @param targetPath 目标文件地址 如 D:\\1.pdf
      */
-    public static void ppt2pdf(String sourcePath,String targetPath) {
+    public static byte[] ppt2Pdf(String sourcePath) {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         byte[] resBytes = null;
         InputStream inputStream = null;
@@ -129,7 +127,7 @@ public class PptxToPdfConverter {
                 java.util.List<XSLFSlide> slide = ppt.getSlides();
                 AffineTransform at = new AffineTransform();
                 at.setToScale(zoom, zoom);
-                pdfDocument.setPageSize(new com.itextpdf.text.Rectangle((float) pgsize.getWidth(),(float) pgsize.getHeight()));
+                pdfDocument.setPageSize(new com.itextpdf.text.Rectangle((float) pgsize.getWidth(), (float) pgsize.getHeight()));
                 pdfWriter.open();
                 pdfDocument.open();
                 PdfPTable table = new PdfPTable(1);
@@ -150,11 +148,6 @@ public class PptxToPdfConverter {
                 pdfDocument.close();
                 pdfWriter.close();
                 resBytes = baos.toByteArray();
-                FileOutputStream outputStream = new FileOutputStream(targetPath);
-                outputStream.write(resBytes);
-                outputStream.flush();
-                outputStream.close();
-                return;
             }
             Dimension pgsize = hslfSlideShow.getPageSize();
             List<HSLFSlide> slides = hslfSlideShow.getSlides();
@@ -180,39 +173,40 @@ public class PptxToPdfConverter {
             pdfDocument.close();
             pdfWriter.close();
             resBytes = baos.toByteArray();
-            FileOutputStream outputStream = new FileOutputStream(targetPath);
-            outputStream.write(resBytes);
-            outputStream.flush();
-            outputStream.close();
         } catch (Exception e) {
-            log.error("ppt转为pdf异常："+e.getMessage(),e);
+            log.error("ppt转为pdf异常：" + e.getMessage(), e);
         }
+        return resBytes;
     }
 
     /**
      * 实现word转pdf
      *
      * @param sourcePath 源文件地址 如 D:\\1.doc
-     * @param targetPath 目标文件地址 如 D:\\1.pdf
      */
-    public static void wordToPdf(String sourcePath, String targetPath) {
+    public static byte[] wordToPdf(String sourcePath) throws IOException {
+        // 创建本地转换器实例
+        IConverter converter = LocalConverter.builder().build();
         File inputWord = new File(sourcePath);
-        File outputFile = new File(targetPath);
-        try {
-            InputStream docxInputStream = new FileInputStream(inputWord);
-            OutputStream outputStream = new FileOutputStream(outputFile);
-            IConverter converter = LocalConverter.builder().build();
-            converter.convert(docxInputStream)
-                    .as(DocumentType.DOCX)
-                    .to(outputStream)
-                    .as(DocumentType.PDF).schedule().get();
-            outputStream.close();
-            docxInputStream.close();
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
 
-            log.info("转换完毕 targetPath = {}", outputFile.getAbsolutePath()+",targetPath = " + outputFile.getAbsolutePath());
-            converter.shutDown();
+        try {
+            // 提交转换任务
+            Future<Boolean> conversion = converter.convert(inputWord).as(DocumentType.DOCX).to(outputStream).as(DocumentType.PDF).prioritizeWith(1000).schedule();
+            // 等待转换完成
+            conversion.get();
+            return outputStream.toByteArray();
         } catch (Exception e) {
-            log.error("word转pdf失败:"+e.getMessage(), e);
+            e.printStackTrace();
+            throw new IOException("转换失败", e);
+        } finally {
+            // 关闭转换器，释放资源
+            converter.shutDown();
+            try {
+                outputStream.close();
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
         }
     }
 
