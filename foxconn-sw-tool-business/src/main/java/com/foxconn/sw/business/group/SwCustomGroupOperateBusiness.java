@@ -43,21 +43,14 @@ public class SwCustomGroupOperateBusiness {
         group.setCustomGroupId(data.getParams());
         group.setOperator(RequestContext.getEmployeeNo());
         group.setOperateType("disband");
+        group.setStatus(NumberConstants.ONE);
         group.setRemark(remark);
         customGroupOperateExtMapper.insertSelective(group);
         return group.getId() > 0;
     }
 
     public List<SwCustomGroupOperate> getOperateList() {
-        SwCustomGroupOperateExample example = new SwCustomGroupOperateExample();
-        SwCustomGroupOperateExample.Criteria criteria = example.createCriteria();
-        criteria.andOperatorEqualTo(RequestContext.getEmployeeNo());
-        criteria.andIsReadEqualTo(NumberConstants.ZERO);
-
-        SwCustomGroupOperateExample.Criteria or = example.or();
-        or.andOperatorEqualTo(RequestContext.getEmployeeNo());
-        or.andStatusEqualTo(NumberConstants.ZERO);
-        return customGroupOperateExtMapper.selectByExample(example);
+        return customGroupOperateExtMapper.getOperateList(RequestContext.getEmployeeNo());
     }
 
     public SwCustomGroupOperate selectById(Integer applyID) {
