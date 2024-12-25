@@ -22,7 +22,7 @@ public class ConvertProcessor {
         String filePath = filePathUtils.getFilePath(resource.getUploadType()) + resource.getFilePath();
         if (filePath.endsWith("ppt")) {
             return PptxToPdfConverter.ppt2Pdf(filePath);
-        } else if (filePath.endsWith("ppt")) {
+        } else if (filePath.endsWith("pptx")) {
             return PptxToPdfConverter.pptx2Pdf(filePath);
         } else if (filePath.endsWith("docx") || filePath.endsWith("doc")) {
             return PptxToPdfConverter.wordToPdf(filePath);
