@@ -2,6 +2,7 @@ package com.foxconn.sw.business.oa;
 
 import com.foxconn.sw.business.system.EmployeeBusiness;
 import com.foxconn.sw.common.constanst.Constants;
+import com.foxconn.sw.common.constanst.NumberConstants;
 import com.foxconn.sw.common.context.RequestContext;
 import com.foxconn.sw.data.dto.request.document.CreateDocParams;
 import com.foxconn.sw.data.dto.request.document.CreatePersonalDocParams;
@@ -13,6 +14,7 @@ import com.foxconn.sw.data.mapper.extension.oa.SwDocumentExtensionMapper;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.util.CollectionUtils;
 
 import java.util.List;
 
@@ -90,5 +92,14 @@ public class SwDocumentBusiness {
 
     public boolean updateDocument(SwDocument document) {
         return documentMapper.updateByPrimaryKeySelective(document) > 0;
+    }
+
+    public boolean hasSameFile(CreateDocParams params) {
+        SwDocumentExample example = new SwDocumentExample();
+        SwDocumentExample.Criteria criteria = example.createCriteria();
+        criteria.andDocumentNameEqualTo(params.getFileName());
+        criteria.andIsDeleteEqualTo(NumberConstants.ZERO);
+        List<SwDocument> documents = documentMapper.selectByExample(example);
+        return !CollectionUtils.isEmpty(documents);
     }
 }
