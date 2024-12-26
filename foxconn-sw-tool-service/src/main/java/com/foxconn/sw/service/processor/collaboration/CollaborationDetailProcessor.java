@@ -176,7 +176,7 @@ public class CollaborationDetailProcessor {
 
         Map<String, Object> map = new HashMap<>();
         for (String head : headers) {
-            map.put(head, "");
+            map.put(head, null);
         }
         map.put("id", collaborationUser.getId());
         map.put("status", collaborationUser.getStatus());
