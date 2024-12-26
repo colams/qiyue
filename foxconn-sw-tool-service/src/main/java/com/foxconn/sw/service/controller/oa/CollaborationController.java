@@ -4,14 +4,17 @@ import com.foxconn.sw.common.utils.JsonUtils;
 import com.foxconn.sw.data.constants.TagsConstants;
 import com.foxconn.sw.data.dto.Request;
 import com.foxconn.sw.data.dto.Response;
+import com.foxconn.sw.data.dto.entity.collaboration.CollaborationDetailLogVo;
 import com.foxconn.sw.data.dto.entity.collaboration.CollaborationVo;
 import com.foxconn.sw.data.dto.entity.universal.IntegerParams;
+import com.foxconn.sw.data.dto.request.collaboration.CollaborationDetailLogParams;
 import com.foxconn.sw.data.dto.request.collaboration.CollaborationDetailParams;
 import com.foxconn.sw.data.dto.request.collaboration.CollaborationEvaluationParams;
 import com.foxconn.sw.data.dto.request.collaboration.CollaborationUpdateParams;
 import com.foxconn.sw.service.aspects.Permission;
 import com.foxconn.sw.service.processor.collaboration.CollaborationDetailProcessor;
 import com.foxconn.sw.service.processor.collaboration.CollaborationImportProcessor;
+import com.foxconn.sw.service.processor.collaboration.CollaborationUpdateHistoryProcessor;
 import com.foxconn.sw.service.processor.collaboration.CollaborationUpdateProcessor;
 import com.foxconn.sw.service.utils.ExcelCollaborationUtils;
 import com.foxconn.sw.service.utils.ResponseUtils;
@@ -30,6 +33,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.net.URLEncoder;
+import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 @CrossOrigin
@@ -43,6 +47,8 @@ public class CollaborationController {
     CollaborationUpdateProcessor collaborationUpdate;
     @Autowired
     CollaborationImportProcessor collaborationImport;
+    @Autowired
+    CollaborationUpdateHistoryProcessor updateHistoryProcessor;
     @Autowired
     HttpServletResponse response;
 
@@ -86,11 +92,10 @@ public class CollaborationController {
     @Operation(summary = "协作平台-提交工作", tags = TagsConstants.COLLABORATION)
     @ApiResponse(responseCode = "0", description = "成功码")
     @PostMapping("/log")
-    public Response<Boolean> log(@Valid @RequestBody Request<CollaborationDetailParams> request) {
-        Boolean result = collaborationUpdate.submit(request.getData());
-        return ResponseUtils.success(result, request.getTraceId());
+    public Response<List<CollaborationDetailLogVo>> log(@Valid @RequestBody Request<CollaborationDetailLogParams> request) {
+        List<CollaborationDetailLogVo> detailLogVoList = updateHistoryProcessor.log(request.getData());
+        return ResponseUtils.success(detailLogVoList, request.getTraceId());
     }
-
 
     @Permission
     @Operation(summary = "协作平台-导入工作", tags = TagsConstants.COLLABORATION)

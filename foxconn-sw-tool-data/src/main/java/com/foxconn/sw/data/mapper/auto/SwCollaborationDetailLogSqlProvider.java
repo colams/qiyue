@@ -40,6 +40,10 @@ public class SwCollaborationDetailLogSqlProvider {
             sql.VALUES("col_index", "#{colIndex,jdbcType=INTEGER}");
         }
         
+        if (record.getOperator() != null) {
+            sql.VALUES("operator", "#{operator,jdbcType=VARCHAR}");
+        }
+        
         if (record.getRemark() != null) {
             sql.VALUES("remark", "#{remark,jdbcType=VARCHAR}");
         }
@@ -65,6 +69,7 @@ public class SwCollaborationDetailLogSqlProvider {
         sql.SELECT("detail_id");
         sql.SELECT("row_index");
         sql.SELECT("col_index");
+        sql.SELECT("operator");
         sql.SELECT("remark");
         sql.SELECT("create_time");
         sql.SELECT("datetime_lastchange");
@@ -101,6 +106,10 @@ public class SwCollaborationDetailLogSqlProvider {
             sql.SET("col_index = #{record.colIndex,jdbcType=INTEGER}");
         }
         
+        if (record.getOperator() != null) {
+            sql.SET("operator = #{record.operator,jdbcType=VARCHAR}");
+        }
+        
         if (record.getRemark() != null) {
             sql.SET("remark = #{record.remark,jdbcType=VARCHAR}");
         }
@@ -125,6 +134,7 @@ public class SwCollaborationDetailLogSqlProvider {
         sql.SET("detail_id = #{record.detailId,jdbcType=BIGINT}");
         sql.SET("row_index = #{record.rowIndex,jdbcType=INTEGER}");
         sql.SET("col_index = #{record.colIndex,jdbcType=INTEGER}");
+        sql.SET("operator = #{record.operator,jdbcType=VARCHAR}");
         sql.SET("remark = #{record.remark,jdbcType=VARCHAR}");
         sql.SET("create_time = #{record.createTime,jdbcType=TIMESTAMP}");
         sql.SET("datetime_lastchange = #{record.datetimeLastchange,jdbcType=TIMESTAMP}");
@@ -148,6 +158,10 @@ public class SwCollaborationDetailLogSqlProvider {
         
         if (record.getColIndex() != null) {
             sql.SET("col_index = #{colIndex,jdbcType=INTEGER}");
+        }
+        
+        if (record.getOperator() != null) {
+            sql.SET("operator = #{operator,jdbcType=VARCHAR}");
         }
         
         if (record.getRemark() != null) {

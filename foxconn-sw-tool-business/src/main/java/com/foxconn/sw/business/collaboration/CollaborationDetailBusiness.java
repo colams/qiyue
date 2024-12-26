@@ -59,7 +59,7 @@ public class CollaborationDetailBusiness {
     }
 
     public boolean updateOrInsert(SwCollaborationDetail detail) {
-        int i = 0;
+        int i;
         if (Objects.isNull(detail.getId())) {
             i = collaborationDetailMapper.insertSelective(detail);
         } else {

@@ -35,11 +35,13 @@ public interface SwCollaborationDetailLogMapper {
 
     @Insert({
         "insert into sw_collaboration_detail_log (detail_id, row_index, ",
-        "col_index, remark, ",
-        "create_time, datetime_lastchange)",
+        "col_index, operator, ",
+        "remark, create_time, ",
+        "datetime_lastchange)",
         "values (#{detailId,jdbcType=BIGINT}, #{rowIndex,jdbcType=INTEGER}, ",
-        "#{colIndex,jdbcType=INTEGER}, #{remark,jdbcType=VARCHAR}, ",
-        "#{createTime,jdbcType=TIMESTAMP}, #{datetimeLastchange,jdbcType=TIMESTAMP})"
+        "#{colIndex,jdbcType=INTEGER}, #{operator,jdbcType=VARCHAR}, ",
+        "#{remark,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, ",
+        "#{datetimeLastchange,jdbcType=TIMESTAMP})"
     })
     @SelectKey(statement="SELECT LAST_INSERT_ID()", keyProperty="id", before=false, resultType=Long.class)
     int insert(SwCollaborationDetailLog record);
@@ -54,6 +56,7 @@ public interface SwCollaborationDetailLogMapper {
         @Result(column="detail_id", property="detailId", jdbcType=JdbcType.BIGINT),
         @Result(column="row_index", property="rowIndex", jdbcType=JdbcType.INTEGER),
         @Result(column="col_index", property="colIndex", jdbcType=JdbcType.INTEGER),
+        @Result(column="operator", property="operator", jdbcType=JdbcType.VARCHAR),
         @Result(column="remark", property="remark", jdbcType=JdbcType.VARCHAR),
         @Result(column="create_time", property="createTime", jdbcType=JdbcType.TIMESTAMP),
         @Result(column="datetime_lastchange", property="datetimeLastchange", jdbcType=JdbcType.TIMESTAMP)
@@ -66,6 +69,7 @@ public interface SwCollaborationDetailLogMapper {
         @Result(column="detail_id", property="detailId", jdbcType=JdbcType.BIGINT),
         @Result(column="row_index", property="rowIndex", jdbcType=JdbcType.INTEGER),
         @Result(column="col_index", property="colIndex", jdbcType=JdbcType.INTEGER),
+        @Result(column="operator", property="operator", jdbcType=JdbcType.VARCHAR),
         @Result(column="remark", property="remark", jdbcType=JdbcType.VARCHAR),
         @Result(column="create_time", property="createTime", jdbcType=JdbcType.TIMESTAMP),
         @Result(column="datetime_lastchange", property="datetimeLastchange", jdbcType=JdbcType.TIMESTAMP)
@@ -74,7 +78,7 @@ public interface SwCollaborationDetailLogMapper {
 
     @Select({
         "select",
-        "id, detail_id, row_index, col_index, remark, create_time, datetime_lastchange",
+        "id, detail_id, row_index, col_index, operator, remark, create_time, datetime_lastchange",
         "from sw_collaboration_detail_log",
         "where id = #{id,jdbcType=BIGINT}"
     })
@@ -83,6 +87,7 @@ public interface SwCollaborationDetailLogMapper {
         @Result(column="detail_id", property="detailId", jdbcType=JdbcType.BIGINT),
         @Result(column="row_index", property="rowIndex", jdbcType=JdbcType.INTEGER),
         @Result(column="col_index", property="colIndex", jdbcType=JdbcType.INTEGER),
+        @Result(column="operator", property="operator", jdbcType=JdbcType.VARCHAR),
         @Result(column="remark", property="remark", jdbcType=JdbcType.VARCHAR),
         @Result(column="create_time", property="createTime", jdbcType=JdbcType.TIMESTAMP),
         @Result(column="datetime_lastchange", property="datetimeLastchange", jdbcType=JdbcType.TIMESTAMP)
@@ -103,6 +108,7 @@ public interface SwCollaborationDetailLogMapper {
         "set detail_id = #{detailId,jdbcType=BIGINT},",
           "row_index = #{rowIndex,jdbcType=INTEGER},",
           "col_index = #{colIndex,jdbcType=INTEGER},",
+          "operator = #{operator,jdbcType=VARCHAR},",
           "remark = #{remark,jdbcType=VARCHAR},",
           "create_time = #{createTime,jdbcType=TIMESTAMP},",
           "datetime_lastchange = #{datetimeLastchange,jdbcType=TIMESTAMP}",

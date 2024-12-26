@@ -11,6 +11,8 @@ public class SwCollaborationDetailLog {
 
     private Integer colIndex;
 
+    private String operator;
+
     private String remark;
 
     private LocalDateTime createTime;
@@ -67,6 +69,19 @@ public class SwCollaborationDetailLog {
 
     public void setColIndex(Integer colIndex) {
         this.colIndex = colIndex;
+    }
+
+    public String getOperator() {
+        return operator;
+    }
+
+    public SwCollaborationDetailLog withOperator(String operator) {
+        this.setOperator(operator);
+        return this;
+    }
+
+    public void setOperator(String operator) {
+        this.operator = operator == null ? null : operator.trim();
     }
 
     public String getRemark() {
