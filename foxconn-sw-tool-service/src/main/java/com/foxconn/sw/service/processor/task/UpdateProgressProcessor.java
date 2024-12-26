@@ -84,7 +84,7 @@ public class UpdateProgressProcessor {
         String employeeID = RequestContext.getEmployeeNo();
         SwTaskProgress progress = TaskProgressMapper.INSTANCE.toTaskProcess(data);
         progress.setOperateEid(employeeID);
-        return taskProgressBusiness.addProcessInfo(progress);
+        return taskProgressBusiness.addProcessInfo(progress)>0;
     }
 
     /**

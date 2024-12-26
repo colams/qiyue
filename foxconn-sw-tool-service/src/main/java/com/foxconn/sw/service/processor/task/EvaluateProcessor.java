@@ -107,6 +107,6 @@ public class EvaluateProcessor {
         progress.setTaskId(data.getTaskId());
         progress.setOperateEid(employeeNo);
         progress.setContent(String.format("%s 验收了该任務", employeeName));
-        return taskProgressBusiness.addProcessInfo(progress);
+        return taskProgressBusiness.addProcessInfo(progress)>0;
     }
 }

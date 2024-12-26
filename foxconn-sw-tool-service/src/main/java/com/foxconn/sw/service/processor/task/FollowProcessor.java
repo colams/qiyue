@@ -46,6 +46,6 @@ public class FollowProcessor {
         progress.setTaskId(data.getTaskID());
         progress.setOperateEid(userInfo.getEmployeeNo());
         progress.setContent(data.getContent());
-        return taskProgressBusiness.addProcessInfo(progress);
+        return taskProgressBusiness.addProcessInfo(progress)>0;
     }
 }

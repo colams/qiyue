@@ -103,6 +103,6 @@ public class AssignTaskProcessor {
         progress.setTaskId(data.getTaskId());
         progress.setOperateEid(user.getEmployeeNo());
         progress.setContent(content);
-        return taskProgressBusiness.addProcessInfo(progress);
+        return taskProgressBusiness.addProcessInfo(progress)>0;
     }
 }

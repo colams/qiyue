@@ -56,6 +56,6 @@ public class AchieveTaskProcessor {
         } else {
             taskProgress.setContent(briefParams.getContent());
         }
-        return taskProgressBusiness.addProcessInfo(taskProgress);
+        return taskProgressBusiness.addProcessInfo(taskProgress)>0;
     }
 }
