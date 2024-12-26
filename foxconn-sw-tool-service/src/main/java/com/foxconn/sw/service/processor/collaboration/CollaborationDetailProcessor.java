@@ -11,7 +11,6 @@ import com.foxconn.sw.common.utils.FilePathUtils;
 import com.foxconn.sw.data.constants.enums.TaskRoleFlagEnums;
 import com.foxconn.sw.data.constants.enums.oa.TaskStatusEnums;
 import com.foxconn.sw.data.dto.entity.ResourceVo;
-import com.foxconn.sw.data.dto.entity.TupleValue;
 import com.foxconn.sw.data.dto.entity.acount.EmployeeVo;
 import com.foxconn.sw.data.dto.entity.collaboration.CollaborationVo;
 import com.foxconn.sw.data.dto.entity.oa.CapexParamsVo;
@@ -108,9 +107,7 @@ public class CollaborationDetailProcessor {
             int index = 0;
             objectMap.put("rowIndex", entry.getKey());
             for (SwCollaborationDetail collaborationDetail : entry.getValue()) {
-                objectMap.put(header.get(index++), collaborationDetail.getItemValue());
-//                var value = new TupleValue(collaborationDetail.getItemValue(), collaborationDetail.getSpareValue());
-//                objectMap.put(header.get(index++), value);
+                objectMap.put(header.get(index++), CollaborationDetailMapper.CollaborationDetail2ItemValue(collaborationDetail));
             }
         }
         return list;
@@ -199,8 +196,9 @@ public class CollaborationDetailProcessor {
         vo.setEmployeeNo(employee.getEmployeeNo());
 
         Map<String, Object> map = new HashMap<>();
-        for (SwCollaborationDetail detail : swCollaborationDetails.stream().filter(e -> e.getRowIndex() <= 1).collect(Collectors.toList())) {
-            map.put(detail.getItem(), detail.getItemValue());
+        for (SwCollaborationDetail detail : swCollaborationDetails.stream()
+                .filter(e -> e.getRowIndex() <= 1).collect(Collectors.toList())) {
+            map.put(detail.getItem(), CollaborationDetailMapper.CollaborationDetail2ItemValue(detail));
             map.put("rowIndex", detail.getRowIndex());
         }
         map.put("id", collaborationUser.getId());
@@ -210,4 +208,6 @@ public class CollaborationDetailProcessor {
         map.put("desc", collaborationUser.getEmployeeNo().equalsIgnoreCase(employeeNo) ? 0 : 1);
         return map;
     }
+
+
 }

@@ -55,6 +55,7 @@ public class CollaborationUpdateProcessor {
                 SwCollaborationDetail detail = new SwCollaborationDetail();
                 detail.setId(e.getId());
                 detail.setItemValue(content.getOrDefault(e.getItem(), ""));
+                detail.setSpareValue(content.getOrDefault(e.getItem(), ""));
                 updateDetails.add(detail);
             });
             collaborationDetail.batchUpdate(updateDetails);
@@ -70,6 +71,7 @@ public class CollaborationUpdateProcessor {
                     detail.setScuId(scuID);
                     detail.setItem(entry.getKey());
                     detail.setItemValue(entry.getValue());
+                    detail.setSpareValue(entry.getValue());
                     collaborationDetail.updateOrInsert(detail);
                 }
 
@@ -85,6 +87,7 @@ public class CollaborationUpdateProcessor {
                 detail.setItem(entry.getKey());
                 detail.setScuId(id);
                 detail.setItemValue(entry.getValue());
+                detail.setSpareValue(entry.getValue());
                 collaborationDetail.updateOrInsert(detail);
             }
         }
