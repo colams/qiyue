@@ -75,6 +75,10 @@ public class SwDocumentBusiness {
         }
 
         int fileType = Constants.PERSONAL.equalsIgnoreCase(data.getFileType()) ? 1 : 0;
+        if (Constants.PERSONAL.equalsIgnoreCase(data.getFileType())) {
+            criteria.andCreatorEqualTo(RequestContext.getEmployeeNo());
+        }
+
         criteria.andFileTypeEqualTo(fileType);
         return documentMapper.selectByExample(example);
     }

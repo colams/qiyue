@@ -5,10 +5,7 @@ import com.foxconn.sw.business.TaskNoSeedSingleton;
 import com.foxconn.sw.business.collaboration.CollaborationDetailBusiness;
 import com.foxconn.sw.business.collaboration.CollaborationUserBusiness;
 import com.foxconn.sw.business.mapper.TaskMapper;
-import com.foxconn.sw.business.oa.SwTaskBusiness;
-import com.foxconn.sw.business.oa.SwTaskEmployeeRelationBusiness;
-import com.foxconn.sw.business.oa.SwTaskLogBusiness;
-import com.foxconn.sw.business.oa.SwTaskProgressBusiness;
+import com.foxconn.sw.business.oa.*;
 import com.foxconn.sw.business.system.EmployeeBusiness;
 import com.foxconn.sw.common.context.RequestContext;
 import com.foxconn.sw.common.utils.ConvertUtils;
@@ -65,6 +62,8 @@ public class CreateTaskProcessor {
     CollaborationDetailBusiness collaborationDetailBusiness;
     @Autowired
     TaskEmployeeRelationProcessor employeeRelationProcessor;
+    @Autowired
+    SwTaskContentHistoryBusiness taskContentHistoryBusiness;
 
 
     public Integer createTask(TaskBriefDetailVo data) {
@@ -81,7 +80,7 @@ public class CreateTaskProcessor {
 
         int taskID = swTaskBusiness.insertOrUpdate(task);
         addTaskLog(task, isUpdate);
-        addProcessInfo(task, data.getResourceIds(), isUpdate);
+        Integer progressId = addProcessInfo(task, data.getResourceIds(), isUpdate);
         taskEmployeeRelation.addRelationAtCreate(taskID, data.getManagers(), data.getWatchers());
 
         if ("6-2".equalsIgnoreCase(data.getCategory()) || "capex".equalsIgnoreCase(data.getCategory())) {
@@ -95,6 +94,10 @@ public class CreateTaskProcessor {
             if (!data.getStatus().equals(DRAFT.getCode())) {
                 processHandle(taskID, hasSet, data.getResourceIds().get(0));
             }
+        }
+
+        if (taskID > 0) {
+            taskContentHistoryBusiness.insertHistory(progressId, taskID, "", task.getDescription());
         }
 
         return taskID;
@@ -139,7 +142,7 @@ public class CreateTaskProcessor {
         taskLogBusiness.addTaskLog(task.getId(), operator, content);
     }
 
-    private void addProcessInfo(SwTask task, List<Integer> resourceIds, boolean isUpdate) {
+    private Integer addProcessInfo(SwTask task, List<Integer> resourceIds, boolean isUpdate) {
         String content = "";
 
         List<String> managerNos = Lists.newArrayList(task.getManagerEid());
@@ -169,7 +172,7 @@ public class CreateTaskProcessor {
         progress.setProgress(0);
         progress.setContent(content);
         progress.setOperateType(TaskOperateType.RELEASE.getOperateType());
-        progressBusiness.addProcessInfo(progress);
+        return progressBusiness.addProcessInfo(progress);
     }
 
     public Integer createSubTask(SubTaskParams data) {

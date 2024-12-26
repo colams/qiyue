@@ -58,8 +58,9 @@ public class SwTaskProgressBusiness {
         return progress.getId() > 0 ? progress : null;
     }
 
-    public boolean addProcessInfo(SwTaskProgress progress) {
-        return progressExtensionMapper.insertSelective(progress) > 0;
+    public Integer addProcessInfo(SwTaskProgress progress) {
+        progressExtensionMapper.insertSelective(progress);
+        return progress.getId();
     }
 
     public boolean addProcessInfo(Integer taskId, String content) {
