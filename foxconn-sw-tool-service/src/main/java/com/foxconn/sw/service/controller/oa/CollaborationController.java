@@ -89,7 +89,7 @@ public class CollaborationController {
     }
 
     @Permission
-    @Operation(summary = "协作平台-提交工作", tags = TagsConstants.COLLABORATION)
+    @Operation(summary = "协作平台-记录表格更新记录", tags = TagsConstants.COLLABORATION)
     @ApiResponse(responseCode = "0", description = "成功码")
     @PostMapping("/log")
     public Response<List<CollaborationDetailLogVo>> log(@Valid @RequestBody Request<CollaborationDetailLogParams> request) {
