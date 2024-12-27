@@ -84,6 +84,7 @@ public class CollaborationDetailProcessor {
         vo.setCapexParamsVos(capexParamsVos);
         vo.setPropose(swTask.getProposerEid().equalsIgnoreCase(RequestContext.getEmployeeNo()));
         vo.setFinish(swTask.getStatus().equals(TaskStatusEnums.COMPLETED.getCode()));
+        vo.setBgStatus(collaborationUsers.get(0).getBgStatus());
         if (!CollectionUtils.isEmpty(capexParamsVos)) {
             vo.setContent(initMapList2(collaborationUsers.get(0).getId(), header));
         } else {

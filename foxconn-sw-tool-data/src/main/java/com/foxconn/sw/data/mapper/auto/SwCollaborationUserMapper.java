@@ -36,10 +36,12 @@ public interface SwCollaborationUserMapper {
     @Insert({
         "insert into sw_collaboration_user (task_id, employee_no, ",
         "is_delete, status, ",
-        "create_time, datetime_lastchange)",
+        "bg_status, create_time, ",
+        "datetime_lastchange)",
         "values (#{taskId,jdbcType=INTEGER}, #{employeeNo,jdbcType=VARCHAR}, ",
         "#{isDelete,jdbcType=INTEGER}, #{status,jdbcType=INTEGER}, ",
-        "#{createTime,jdbcType=TIMESTAMP}, #{datetimeLastchange,jdbcType=TIMESTAMP})"
+        "#{bgStatus,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, ",
+        "#{datetimeLastchange,jdbcType=TIMESTAMP})"
     })
     @SelectKey(statement="SELECT LAST_INSERT_ID()", keyProperty="id", before=false, resultType=Long.class)
     int insert(SwCollaborationUser record);
@@ -55,6 +57,7 @@ public interface SwCollaborationUserMapper {
         @Result(column="employee_no", property="employeeNo", jdbcType=JdbcType.VARCHAR),
         @Result(column="is_delete", property="isDelete", jdbcType=JdbcType.INTEGER),
         @Result(column="status", property="status", jdbcType=JdbcType.INTEGER),
+        @Result(column="bg_status", property="bgStatus", jdbcType=JdbcType.INTEGER),
         @Result(column="create_time", property="createTime", jdbcType=JdbcType.TIMESTAMP),
         @Result(column="datetime_lastchange", property="datetimeLastchange", jdbcType=JdbcType.TIMESTAMP)
     })
@@ -67,6 +70,7 @@ public interface SwCollaborationUserMapper {
         @Result(column="employee_no", property="employeeNo", jdbcType=JdbcType.VARCHAR),
         @Result(column="is_delete", property="isDelete", jdbcType=JdbcType.INTEGER),
         @Result(column="status", property="status", jdbcType=JdbcType.INTEGER),
+        @Result(column="bg_status", property="bgStatus", jdbcType=JdbcType.INTEGER),
         @Result(column="create_time", property="createTime", jdbcType=JdbcType.TIMESTAMP),
         @Result(column="datetime_lastchange", property="datetimeLastchange", jdbcType=JdbcType.TIMESTAMP)
     })
@@ -74,7 +78,7 @@ public interface SwCollaborationUserMapper {
 
     @Select({
         "select",
-        "id, task_id, employee_no, is_delete, status, create_time, datetime_lastchange",
+        "id, task_id, employee_no, is_delete, status, bg_status, create_time, datetime_lastchange",
         "from sw_collaboration_user",
         "where id = #{id,jdbcType=BIGINT}"
     })
@@ -84,6 +88,7 @@ public interface SwCollaborationUserMapper {
         @Result(column="employee_no", property="employeeNo", jdbcType=JdbcType.VARCHAR),
         @Result(column="is_delete", property="isDelete", jdbcType=JdbcType.INTEGER),
         @Result(column="status", property="status", jdbcType=JdbcType.INTEGER),
+        @Result(column="bg_status", property="bgStatus", jdbcType=JdbcType.INTEGER),
         @Result(column="create_time", property="createTime", jdbcType=JdbcType.TIMESTAMP),
         @Result(column="datetime_lastchange", property="datetimeLastchange", jdbcType=JdbcType.TIMESTAMP)
     })
@@ -104,6 +109,7 @@ public interface SwCollaborationUserMapper {
           "employee_no = #{employeeNo,jdbcType=VARCHAR},",
           "is_delete = #{isDelete,jdbcType=INTEGER},",
           "status = #{status,jdbcType=INTEGER},",
+          "bg_status = #{bgStatus,jdbcType=INTEGER},",
           "create_time = #{createTime,jdbcType=TIMESTAMP},",
           "datetime_lastchange = #{datetimeLastchange,jdbcType=TIMESTAMP}",
         "where id = #{id,jdbcType=BIGINT}"

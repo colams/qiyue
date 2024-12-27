@@ -2,13 +2,18 @@ package com.foxconn.sw.business.collaboration;
 
 import com.foxconn.sw.business.SwAppendResourceBusiness;
 import com.foxconn.sw.business.oa.SwTaskProgressBusiness;
+import com.foxconn.sw.common.constanst.NumberConstants;
 import com.foxconn.sw.common.context.RequestContext;
 import com.foxconn.sw.common.utils.ConvertUtils;
 import com.foxconn.sw.common.utils.ExcelUtils;
 import com.foxconn.sw.common.utils.FilePathUtils;
 import com.foxconn.sw.data.dto.entity.ResourceVo;
 import com.foxconn.sw.data.dto.entity.task.TaskProgressVo;
-import com.foxconn.sw.data.entity.*;
+import com.foxconn.sw.data.dto.request.collaboration.CollaborationDetailParams;
+import com.foxconn.sw.data.entity.SwAppendResource;
+import com.foxconn.sw.data.entity.SwCollaborationUser;
+import com.foxconn.sw.data.entity.SwCollaborationUserExample;
+import com.foxconn.sw.data.entity.SwTask;
 import com.foxconn.sw.data.exception.BizException;
 import com.foxconn.sw.data.mapper.auto.SwCollaborationUserMapper;
 import com.foxconn.sw.data.mapper.extension.oa.SwCollaborationUserExtensionMapper;
@@ -191,5 +196,15 @@ public class CollaborationUserBusiness {
         sqlSession.commit();
         sqlSession.close();
         return true;
+    }
+
+    public Boolean clearBg(CollaborationDetailParams data) {
+        SwCollaborationUser record = new SwCollaborationUser();
+        record.setBgStatus(NumberConstants.ONE);
+
+        SwCollaborationUserExample example = new SwCollaborationUserExample();
+        SwCollaborationUserExample.Criteria criteria = example.createCriteria();
+        criteria.andTaskIdEqualTo(data.getTaskID());
+        return collaborationUserMapper.updateByExampleSelective(record, example) > 0;
     }
 }

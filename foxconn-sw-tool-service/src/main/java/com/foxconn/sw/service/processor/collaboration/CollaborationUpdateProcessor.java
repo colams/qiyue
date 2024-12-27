@@ -8,6 +8,7 @@ import com.foxconn.sw.business.oa.SwTaskProgressBusiness;
 import com.foxconn.sw.common.context.RequestContext;
 import com.foxconn.sw.data.constants.enums.oa.TaskStatusEnums;
 import com.foxconn.sw.data.constants.enums.retcode.OAExceptionCode;
+import com.foxconn.sw.data.dto.request.collaboration.CollaborationDetailLogParams;
 import com.foxconn.sw.data.dto.request.collaboration.CollaborationDetailParams;
 import com.foxconn.sw.data.dto.request.collaboration.CollaborationEvaluationParams;
 import com.foxconn.sw.data.dto.request.collaboration.CollaborationUpdateParams;
@@ -147,5 +148,9 @@ public class CollaborationUpdateProcessor {
         }
         collaboration.setStatus(1);
         return collaborationUserBusiness.updateUser(collaboration);
+    }
+
+    public Boolean clearBg(CollaborationDetailParams data) {
+        return collaborationUserBusiness.clearBg(data);
     }
 }

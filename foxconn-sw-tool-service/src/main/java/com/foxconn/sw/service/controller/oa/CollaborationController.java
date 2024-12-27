@@ -100,6 +100,15 @@ public class CollaborationController {
     @Permission
     @Operation(summary = "协作平台-导入工作", tags = TagsConstants.COLLABORATION)
     @ApiResponse(responseCode = "0", description = "成功码")
+    @PostMapping("/clearBg")
+    public Response<Boolean> clearBg(@Valid @RequestBody Request<CollaborationDetailParams> request) {
+        Boolean result = collaborationUpdate.clearBg(request.getData());
+        return ResponseUtils.success(result, request.getTraceId());
+    }
+
+    @Permission
+    @Operation(summary = "协作平台-导入工作", tags = TagsConstants.COLLABORATION)
+    @ApiResponse(responseCode = "0", description = "成功码")
     @PostMapping("/import")
     public Response<Boolean> importExcel(@Valid @RequestParam("request") String reqJson,
                                          @RequestParam("multipartFile") MultipartFile multipartFile) throws IOException, ExecutionException, InterruptedException {

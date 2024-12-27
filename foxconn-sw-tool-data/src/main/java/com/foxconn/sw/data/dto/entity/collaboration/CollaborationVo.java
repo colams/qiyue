@@ -18,6 +18,7 @@ public class CollaborationVo {
     private Boolean canFinish;
     private Boolean isPropose;
     private Boolean isFinish;
+    private Integer bgStatus;
 
     public List<String> getHeaders() {
         return headers;
@@ -97,5 +98,13 @@ public class CollaborationVo {
 
     public void setFinish(Boolean finish) {
         isFinish = finish;
+    }
+
+    public Integer getBgStatus() {
+        return bgStatus;
+    }
+
+    public void setBgStatus(Integer bgStatus) {
+        this.bgStatus = bgStatus;
     }
 }
