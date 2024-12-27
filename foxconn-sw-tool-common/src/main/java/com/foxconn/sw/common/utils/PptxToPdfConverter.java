@@ -30,12 +30,10 @@ public class PptxToPdfConverter {
      * pptx转为pdf
      *
      * @param sourcePath 源文件地址 如 D:\\1.pptx
-     * @param targetPath 目标文件地址 如 D:\\1.pdf
      */
     public static byte[] pptx2Pdf(String sourcePath) {
         Document document = null;
         XMLSlideShow slideShow = null;
-        FileOutputStream fileOutputStream = null;
         PdfWriter pdfWriter = null;
         ByteArrayOutputStream baos = null;
         byte[] resBytes = null;
@@ -88,6 +86,12 @@ public class PptxToPdfConverter {
             document.close();
             pdfWriter.close();
             resBytes = baos.toByteArray();
+
+            FileOutputStream outputStream = new FileOutputStream("D:\\1.pdf");
+            outputStream.write(resBytes);
+            outputStream.flush();
+            outputStream.close();
+
         } catch (Exception e) {
             log.error("pptx转pdf异常：" + e.getMessage(), e);
         } finally {
@@ -173,6 +177,13 @@ public class PptxToPdfConverter {
             pdfDocument.close();
             pdfWriter.close();
             resBytes = baos.toByteArray();
+
+
+            FileOutputStream outputStream = new FileOutputStream("D:\\1.pdf");
+            outputStream.write(resBytes);
+            outputStream.flush();
+            outputStream.close();
+
         } catch (Exception e) {
             log.error("ppt转为pdf异常：" + e.getMessage(), e);
         }
@@ -190,12 +201,21 @@ public class PptxToPdfConverter {
         File inputWord = new File(sourcePath);
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
 
+        byte[] resBytes = null;
+
         try {
             // 提交转换任务
             Future<Boolean> conversion = converter.convert(inputWord).as(DocumentType.DOCX).to(outputStream).as(DocumentType.PDF).prioritizeWith(1000).schedule();
             // 等待转换完成
             conversion.get();
-            return outputStream.toByteArray();
+            resBytes = outputStream.toByteArray();
+
+            FileOutputStream outputStream1 = new FileOutputStream("D:\\1.pdf");
+            outputStream1.write(resBytes);
+            outputStream1.flush();
+            outputStream1.close();
+
+            return resBytes;
         } catch (Exception e) {
             e.printStackTrace();
             throw new IOException("转换失败", e);
