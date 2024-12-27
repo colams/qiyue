@@ -198,9 +198,9 @@ public class CollaborationUserBusiness {
         return true;
     }
 
-    public Boolean clearBg(CollaborationDetailParams data) {
+    public Boolean clearBg(CollaborationDetailParams data, int bgStatus) {
         SwCollaborationUser record = new SwCollaborationUser();
-        record.setBgStatus(NumberConstants.ONE);
+        record.setBgStatus(bgStatus);
 
         SwCollaborationUserExample example = new SwCollaborationUserExample();
         SwCollaborationUserExample.Criteria criteria = example.createCriteria();

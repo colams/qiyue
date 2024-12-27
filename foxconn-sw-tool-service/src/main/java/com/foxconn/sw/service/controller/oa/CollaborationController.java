@@ -111,7 +111,8 @@ public class CollaborationController {
     @ApiResponse(responseCode = "0", description = "成功码")
     @PostMapping("/import")
     public Response<Boolean> importExcel(@Valid @RequestParam("request") String reqJson,
-                                         @RequestParam("multipartFile") MultipartFile multipartFile) throws IOException, ExecutionException, InterruptedException {
+                                         @RequestParam("multipartFile") MultipartFile multipartFile)
+            throws IOException, ExecutionException, InterruptedException {
         Request<IntegerParams> request = JsonUtils.deserialize(reqJson, Request.class, IntegerParams.class);
         Boolean result = collaborationImport.importExcel(request.getData(), multipartFile);
         return ResponseUtils.success(result, request.getTraceId());
