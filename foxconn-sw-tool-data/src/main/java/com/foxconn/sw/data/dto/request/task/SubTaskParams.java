@@ -1,10 +1,19 @@
 package com.foxconn.sw.data.dto.request.task;
 
 public class SubTaskParams {
+    private Integer taskID;
     private Integer parentTaskID;
     private String title;
     private String handler;
     private String deadline;
+
+    public Integer getTaskID() {
+        return taskID;
+    }
+
+    public void setTaskID(Integer taskID) {
+        this.taskID = taskID;
+    }
 
     public Integer getParentTaskID() {
         return parentTaskID;

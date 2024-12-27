@@ -1,6 +1,7 @@
 package com.foxconn.sw.service.processor.collaboration;
 
 import com.foxconn.sw.business.collaboration.CollaborationDetailBusiness;
+import com.foxconn.sw.business.collaboration.CollaborationDetailLogBusiness;
 import com.foxconn.sw.business.collaboration.CollaborationUserBusiness;
 import com.foxconn.sw.business.oa.SwTaskBusiness;
 import com.foxconn.sw.business.oa.SwTaskProgressBusiness;
@@ -33,6 +34,8 @@ public class CollaborationUpdateProcessor {
     SwTaskBusiness taskBusiness;
     @Autowired
     SwTaskProgressBusiness taskProgressBusiness;
+    @Autowired
+    CollaborationDetailLogBusiness collaborationDetailLogBusiness;
 
 
     public Boolean update(CollaborationUpdateParams data) {
@@ -59,6 +62,7 @@ public class CollaborationUpdateProcessor {
                 updateDetails.add(detail);
             });
             collaborationDetail.batchUpdate(updateDetails);
+            collaborationDetailLogBusiness.insertCollaborationDetailLog(updateDetails);
         } else {
             if (Objects.isNull(id)) {
                 SwCollaborationUser collaborationUser = new SwCollaborationUser();
@@ -72,7 +76,11 @@ public class CollaborationUpdateProcessor {
                     detail.setItem(entry.getKey());
                     detail.setItemValue(entry.getValue());
                     detail.setSpareValue(entry.getValue());
-                    collaborationDetail.updateOrInsert(detail);
+                    Long detailID = collaborationDetail.updateOrInsert(detail);
+                    collaborationDetailLogBusiness.insertCollaborationDetailLog(detailID,
+                            detail.getRowIndex(),
+                            detail.getColIndex(),
+                            entry.getValue());
                 }
 
                 return true;
@@ -88,7 +96,11 @@ public class CollaborationUpdateProcessor {
                 detail.setScuId(id);
                 detail.setItemValue(entry.getValue());
                 detail.setSpareValue(entry.getValue());
-                collaborationDetail.updateOrInsert(detail);
+                Long detailID = collaborationDetail.updateOrInsert(detail);
+                collaborationDetailLogBusiness.insertCollaborationDetailLog(detailID,
+                        detail.getRowIndex(),
+                        detail.getColIndex(),
+                        entry.getValue());
             }
         }
         return true;

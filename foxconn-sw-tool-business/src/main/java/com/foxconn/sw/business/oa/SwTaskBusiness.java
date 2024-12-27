@@ -10,6 +10,7 @@ import com.foxconn.sw.data.dto.entity.task.BriefTaskVo;
 import com.foxconn.sw.data.dto.entity.task.TaskParams;
 import com.foxconn.sw.data.dto.entity.task.TaskProgressBriefParams;
 import com.foxconn.sw.data.entity.SwTask;
+import com.foxconn.sw.data.entity.SwTaskExample;
 import com.foxconn.sw.data.exception.BizException;
 import com.foxconn.sw.data.mapper.extension.oa.SwTaskExtensionMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,6 +54,14 @@ public class SwTaskBusiness {
         String now = DateTimeUtils.formatYMD(localDateTime);
         int start = (data.getCurrentPage() - 1) * data.getPageSize();
         return taskExtensionMapper.listBriefVos(start, data.getPageSize(), data.getParams(), employeeNos, now, proposer);
+    }
+
+
+    public List<SwTask> getSubTaskList(Integer taskID) {
+        SwTaskExample example = new SwTaskExample();
+        SwTaskExample.Criteria criteria = example.createCriteria();
+        criteria.andParentIdEqualTo(taskID);
+        return taskExtensionMapper.selectByExample(example);
     }
 
     public List<SwTask> listProjectFilter(PageParams<TaskParams> data, List<String> employeeNos, String proposer) {

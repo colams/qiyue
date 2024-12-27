@@ -86,6 +86,15 @@ public class TaskController {
     }
 
     @Permission
+    @Operation(summary = "创建子任务", tags = TagsConstants.TASK)
+    @ApiResponse(responseCode = "0", description = "成功码")
+    @PostMapping("/subTaskList")
+    public Response<List<TaskBriefListVo>> subTaskList(@Valid @RequestBody Request<IntegerParams> request) {
+        List<TaskBriefListVo> vos = taskListProcessor.subTaskList(request.getData());
+        return ResponseUtils.success(vos, request.getTraceId());
+    }
+
+    @Permission
     @Operation(summary = "更新任务", tags = TagsConstants.TASK)
     @ApiResponse(responseCode = "0", description = "成功码")
     @PostMapping("/update")

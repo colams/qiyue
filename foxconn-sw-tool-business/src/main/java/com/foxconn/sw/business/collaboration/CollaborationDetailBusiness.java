@@ -58,14 +58,13 @@ public class CollaborationDetailBusiness {
         return collaborationDetailMapper.selectByExample(example);
     }
 
-    public boolean updateOrInsert(SwCollaborationDetail detail) {
-        int i;
+    public Long updateOrInsert(SwCollaborationDetail detail) {
         if (Objects.isNull(detail.getId())) {
-            i = collaborationDetailMapper.insertSelective(detail);
+            collaborationDetailMapper.insertSelective(detail);
         } else {
-            i = collaborationDetailMapper.updateByPrimaryKeySelective(detail);
+            collaborationDetailMapper.updateByPrimaryKeySelective(detail);
         }
-        return i > 0;
+        return detail.getId();
     }
 
     public boolean updateItemValue(Long scuID, Integer key, String item, String value) {

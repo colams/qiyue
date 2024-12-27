@@ -179,6 +179,7 @@ public class CreateTaskProcessor {
         SwTask task = new SwTask();
         task.setTaskNo(taskNoSeedSingleton.getTaskNo());
         task.setTitle(data.getTitle());
+        task.setId(data.getTaskID());
         task.setProposerEid(RequestContext.getEmployeeNo());
         task.setDeadLine(data.getDeadline());
         task.setParentId(data.getParentTaskID());

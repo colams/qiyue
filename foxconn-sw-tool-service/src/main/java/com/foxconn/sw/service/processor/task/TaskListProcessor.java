@@ -15,6 +15,7 @@ import com.foxconn.sw.data.dto.entity.task.TaskBriefListVo;
 import com.foxconn.sw.data.dto.entity.task.TaskListFilterVo;
 import com.foxconn.sw.data.dto.entity.task.TaskListPageVo;
 import com.foxconn.sw.data.dto.entity.task.TaskParams;
+import com.foxconn.sw.data.dto.entity.universal.IntegerParams;
 import com.foxconn.sw.data.dto.entity.universal.OperateEntity;
 import com.foxconn.sw.data.entity.SwEmployee;
 import com.foxconn.sw.data.entity.SwTask;
@@ -251,5 +252,35 @@ public class TaskListProcessor {
             }
         }
         return entityList;
+    }
+
+    public List<TaskBriefListVo> subTaskList(IntegerParams data) {
+        List<SwTask> tasks = taskBusiness.getSubTaskList(data.getParams());
+        List<TaskBriefListVo> vos = tasks.stream().map(e -> {
+            TaskBriefListVo vo = new TaskBriefListVo();
+            vo.setId(e.getId());
+            vo.setTaskNo(e.getTaskNo());
+            vo.setCategory(e.getCategory());
+            vo.setTitle(e.getTitle());
+            vo.setProject(e.getProject());
+            vo.setLevel(e.getLevel());
+//            vo.setLevelInfo(e.getLevel());
+            vo.setProgressPercent(e.getProgressPercent());
+            vo.setStatus(e.getStatus());
+//            vo.setStatusInfoVo();
+            vo.setProposer(e.getProposerEid());
+//            vo.setProposerVo();
+            vo.setDeadLine(e.getDeadLine());
+//            vo.setCreateTime();
+//            vo.setOperateList();
+//            vo.setRejectStatus();
+//            vo.setFollowStatus();
+//            vo.setSupervisor();
+//            vo.setSupervisorVo();
+//            vo.setCollaboration();
+//            vo.setRead();
+            return vo;
+        }).collect(Collectors.toList());
+        return vos;
     }
 }

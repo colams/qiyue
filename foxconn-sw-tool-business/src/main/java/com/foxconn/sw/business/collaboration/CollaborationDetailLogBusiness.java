@@ -2,6 +2,7 @@
 package com.foxconn.sw.business.collaboration;
 
 import com.foxconn.sw.common.context.RequestContext;
+import com.foxconn.sw.data.entity.SwCollaborationDetail;
 import com.foxconn.sw.data.entity.SwCollaborationDetailLog;
 import com.foxconn.sw.data.entity.SwCollaborationDetailLogExample;
 import com.foxconn.sw.data.mapper.extension.oa.SwCollaborationDetailLogExtensionMapper;
@@ -9,6 +10,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.util.CollectionUtils;
 
 import java.util.List;
 
@@ -44,5 +46,19 @@ public class CollaborationDetailLogBusiness {
         detailLog.setOperator(RequestContext.getEmployeeNo());
         detailLog.setRemark(remark);
         return collaborationDetailLogExtensionMapper.insertSelective(detailLog) > 0;
+    }
+
+    public boolean insertCollaborationDetailLog(List<SwCollaborationDetail> updateDetails) {
+        if (CollectionUtils.isEmpty(updateDetails)) {
+            return true;
+        }
+        try {
+            updateDetails.forEach(e -> {
+                insertCollaborationDetailLog(e.getId(), e.getRowIndex(), e.getColIndex(), e.getItemValue());
+            });
+        } catch (Exception e) {
+            logger.error("insertCollaborationDetailLog", e);
+        }
+        return true;
     }
 }
