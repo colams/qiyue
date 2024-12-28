@@ -1,10 +1,8 @@
 package com.foxconn.sw.business.collaboration;
 
 import com.foxconn.sw.business.SwAppendResourceBusiness;
-import com.foxconn.sw.common.constanst.NumberConstants;
 import com.foxconn.sw.common.utils.ExcelUtils;
 import com.foxconn.sw.common.utils.FilePathUtils;
-import com.foxconn.sw.data.dto.request.collaboration.CollaborationDetailLogParams;
 import com.foxconn.sw.data.entity.SwAppendResource;
 import com.foxconn.sw.data.entity.SwCollaborationDetail;
 import com.foxconn.sw.data.entity.SwCollaborationDetailExample;
@@ -80,6 +78,16 @@ public class CollaborationDetailBusiness {
         criteria.andItemEqualTo(item);
         criteria.andScuIdEqualTo(scuID);
         return collaborationDetailMapper.updateByExampleSelective(detail, example) > 0;
+    }
+
+    public SwCollaborationDetail selectCollaborationDetail(Long scuID, Integer key, String item) {
+        SwCollaborationDetailExample example = new SwCollaborationDetailExample();
+        SwCollaborationDetailExample.Criteria criteria = example.createCriteria();
+        criteria.andRowIndexEqualTo(key);
+        criteria.andItemEqualTo(item);
+        criteria.andScuIdEqualTo(scuID);
+        List<SwCollaborationDetail> details = collaborationDetailMapper.selectByExample(example);
+        return details.get(0);
     }
 
     public boolean readExcelContent(Long scuId, Integer resourceId) throws FileNotFoundException {

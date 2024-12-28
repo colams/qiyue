@@ -111,6 +111,11 @@ public class CollaborationUpdateProcessor {
     public Boolean updateCol(List<SwCollaborationUser> collaborationUsers, String header, Map<Integer, String> colPair) {
         for (Map.Entry<Integer, String> entry : colPair.entrySet()) {
             collaborationDetail.updateItemValue(collaborationUsers.get(0).getId(), entry.getKey(), header, entry.getValue());
+            SwCollaborationDetail detail = collaborationDetail.selectCollaborationDetail(collaborationUsers.get(0).getId(), entry.getKey(), header);
+            collaborationDetailLogBusiness.insertCollaborationDetailLog(detail.getId(),
+                    detail.getRowIndex(),
+                    detail.getColIndex(),
+                    entry.getValue());
         }
         return true;
     }
