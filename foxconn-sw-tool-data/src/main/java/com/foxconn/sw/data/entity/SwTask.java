@@ -17,7 +17,7 @@ public class SwTask {
 
     private String project;
 
-    private String level;
+    private Integer level;
 
     private Integer progressPercent;
 
@@ -136,17 +136,17 @@ public class SwTask {
         this.project = project == null ? null : project.trim();
     }
 
-    public String getLevel() {
+    public Integer getLevel() {
         return level;
     }
 
-    public SwTask withLevel(String level) {
+    public SwTask withLevel(Integer level) {
         this.setLevel(level);
         return this;
     }
 
-    public void setLevel(String level) {
-        this.level = level == null ? null : level.trim();
+    public void setLevel(Integer level) {
+        this.level = level;
     }
 
     public Integer getProgressPercent() {

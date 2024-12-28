@@ -185,6 +185,10 @@ public class CreateTaskProcessor {
         task.setParentId(data.getParentTaskID());
         task.setCreateTime(LocalDateTime.now());
         task.setProposerEid(RequestContext.getEmployeeNo());
+        task.setStatus(PENDING.getCode());
+        task.setProgressPercent(data.getProgressPercent());
+        task.setDescription(data.getDescription());
+        task.setLevel(data.getLevel());
         int subTaskID = swTaskBusiness.insertOrUpdate(task);
         return subTaskID;
     }

@@ -6,7 +6,7 @@ import com.foxconn.sw.data.dto.entity.oa.InfoColorVo;
 public class TaskLevelUtils {
 
 
-    public static InfoColorVo processLevel(String level) {
+    public static InfoColorVo processLevel(Integer level) {
         TaskLevelEnums levelEnums = TaskLevelEnums.getLevel(level);
         InfoColorVo colorVo = new InfoColorVo();
         colorVo.setCode(levelEnums.getCode());

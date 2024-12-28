@@ -54,7 +54,7 @@ public class TaskDetailVo {
     /**
      * 优先等级
      */
-    private String level;
+    private Integer level;
 
 
     /**
@@ -198,11 +198,11 @@ public class TaskDetailVo {
         this.description = description;
     }
 
-    public String getLevel() {
+    public Integer getLevel() {
         return level;
     }
 
-    public void setLevel(String level) {
+    public void setLevel(Integer level) {
         this.level = level;
     }
 

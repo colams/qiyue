@@ -53,7 +53,7 @@ public class SwTaskSqlProvider {
         }
         
         if (record.getLevel() != null) {
-            sql.VALUES("level", "#{level,jdbcType=VARCHAR}");
+            sql.VALUES("level", "#{level,jdbcType=INTEGER}");
         }
         
         if (record.getProgressPercent() != null) {
@@ -220,7 +220,7 @@ public class SwTaskSqlProvider {
         }
         
         if (record.getLevel() != null) {
-            sql.SET("level = #{record.level,jdbcType=VARCHAR}");
+            sql.SET("level = #{record.level,jdbcType=INTEGER}");
         }
         
         if (record.getProgressPercent() != null) {
@@ -290,7 +290,7 @@ public class SwTaskSqlProvider {
         sql.SET("title = #{record.title,jdbcType=VARCHAR}");
         sql.SET("top_project = #{record.topProject,jdbcType=VARCHAR}");
         sql.SET("project = #{record.project,jdbcType=VARCHAR}");
-        sql.SET("level = #{record.level,jdbcType=VARCHAR}");
+        sql.SET("level = #{record.level,jdbcType=INTEGER}");
         sql.SET("progress_percent = #{record.progressPercent,jdbcType=INTEGER}");
         sql.SET("status = #{record.status,jdbcType=INTEGER}");
         sql.SET("reject_status = #{record.rejectStatus,jdbcType=INTEGER}");
@@ -321,7 +321,7 @@ public class SwTaskSqlProvider {
         sql.SET("title = #{record.title,jdbcType=VARCHAR}");
         sql.SET("top_project = #{record.topProject,jdbcType=VARCHAR}");
         sql.SET("project = #{record.project,jdbcType=VARCHAR}");
-        sql.SET("level = #{record.level,jdbcType=VARCHAR}");
+        sql.SET("level = #{record.level,jdbcType=INTEGER}");
         sql.SET("progress_percent = #{record.progressPercent,jdbcType=INTEGER}");
         sql.SET("status = #{record.status,jdbcType=INTEGER}");
         sql.SET("reject_status = #{record.rejectStatus,jdbcType=INTEGER}");
@@ -369,7 +369,7 @@ public class SwTaskSqlProvider {
         }
         
         if (record.getLevel() != null) {
-            sql.SET("level = #{level,jdbcType=VARCHAR}");
+            sql.SET("level = #{level,jdbcType=INTEGER}");
         }
         
         if (record.getProgressPercent() != null) {

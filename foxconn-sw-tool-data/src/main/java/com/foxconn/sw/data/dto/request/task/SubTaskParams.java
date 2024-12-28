@@ -6,6 +6,9 @@ public class SubTaskParams {
     private String title;
     private String handler;
     private String deadline;
+    private Integer progressPercent;
+    private String description;
+    private Integer level;
 
     public Integer getTaskID() {
         return taskID;
@@ -45,5 +48,29 @@ public class SubTaskParams {
 
     public void setDeadline(String deadline) {
         this.deadline = deadline;
+    }
+
+    public Integer getProgressPercent() {
+        return progressPercent;
+    }
+
+    public void setProgressPercent(Integer progressPercent) {
+        this.progressPercent = progressPercent;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public Integer getLevel() {
+        return level;
+    }
+
+    public void setLevel(Integer level) {
+        this.level = level;
     }
 }

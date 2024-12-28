@@ -35,12 +35,9 @@ public enum TaskLevelEnums {
         return color;
     }
 
-    public static TaskLevelEnums getLevel(String text) {
+    public static TaskLevelEnums getLevel(Integer text) {
         for (TaskLevelEnums status : TaskLevelEnums.values()) {
-            if (status.getCode().toString().equalsIgnoreCase(text)) {
-                return status;
-            }
-            if (status.getMsg().equalsIgnoreCase(text)) {
+            if (status.getCode().equals(text)) {
                 return status;
             }
         }
