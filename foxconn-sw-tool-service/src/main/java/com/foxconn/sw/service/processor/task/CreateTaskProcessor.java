@@ -184,12 +184,14 @@ public class CreateTaskProcessor {
         task.setDeadLine(data.getDeadline());
         task.setParentId(data.getParentTaskID());
         task.setCreateTime(LocalDateTime.now());
-        task.setProposerEid(RequestContext.getEmployeeNo());
-        task.setStatus(PENDING.getCode());
+        task.setStatus(data.getStatus());
         task.setProgressPercent(data.getProgressPercent());
         task.setDescription(data.getDescription());
         task.setLevel(data.getLevel());
         int subTaskID = swTaskBusiness.insertOrUpdate(task);
+        if (subTaskID > 0) {
+            taskEmployeeRelation.addRelationAtCreate(subTaskID, Lists.newArrayList(data.getHandler()), null);
+        }
         return subTaskID;
     }
 }

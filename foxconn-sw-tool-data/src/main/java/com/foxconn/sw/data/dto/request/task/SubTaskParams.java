@@ -9,6 +9,7 @@ public class SubTaskParams {
     private Integer progressPercent;
     private String description;
     private Integer level;
+    private Integer status;
 
     public Integer getTaskID() {
         return taskID;
@@ -72,5 +73,13 @@ public class SubTaskParams {
 
     public void setLevel(Integer level) {
         this.level = level;
+    }
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
     }
 }
