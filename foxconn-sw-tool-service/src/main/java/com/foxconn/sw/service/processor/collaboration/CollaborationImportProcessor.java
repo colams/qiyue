@@ -83,6 +83,9 @@ public class CollaborationImportProcessor {
                 SwCollaborationDetail detail = new SwCollaborationDetail();
                 detail.setScuId(scuId);
                 detail.setItem(entry.getKey());
+                if (entry.getKey().equalsIgnoreCase("id")) {
+                    throw new BizException(4, "附件excel文件請不要使用id作為列名！");
+                }
                 detail.setItemValue(entry.getValue());
                 collaborationDetails.add(detail);
             }

@@ -6,6 +6,7 @@ public enum MeetingRoleFlagEnums {
     Maintainer_Flag(1 << 1), // 0010 会议维护人 2
     Member_Flag(1 << 2),  // 0100 会议参与人    4
     Creator_Flag(1 << 3), // 1000 会议创建人    8
+    Recorder(1 << 4), // 10000 会议记录人    16
     ;
 
 

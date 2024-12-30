@@ -1,10 +1,10 @@
 package com.foxconn.sw.service.processor.meeting;
 
-import com.foxconn.sw.common.context.RequestContext;
 import com.foxconn.sw.business.meeting.MeetingBusiness;
 import com.foxconn.sw.business.meeting.MeetingCycleDetailBusiness;
 import com.foxconn.sw.business.meeting.MeetingMemberBusiness;
 import com.foxconn.sw.business.system.EmployeeBusiness;
+import com.foxconn.sw.common.context.RequestContext;
 import com.foxconn.sw.common.utils.JsonUtils;
 import com.foxconn.sw.common.utils.LocalDateExtUtils;
 import com.foxconn.sw.common.utils.StringExtUtils;
@@ -13,6 +13,7 @@ import com.foxconn.sw.data.dto.communal.CycleMeetingVo;
 import com.foxconn.sw.data.dto.entity.acount.EmployeeVo;
 import com.foxconn.sw.data.dto.entity.meeting.MeetingVo;
 import com.foxconn.sw.data.dto.request.meeting.ListMeetingParams;
+import com.foxconn.sw.data.dto.request.meeting.ListMeetingV2Params;
 import com.foxconn.sw.data.entity.SwMeeting;
 import com.foxconn.sw.data.entity.SwMeetingCycleDetail;
 import com.foxconn.sw.data.entity.SwMeetingMember;
@@ -234,5 +235,10 @@ public class ListMeetingProcessor {
         Map<Integer, List<SwMeetingCycleDetail>> map = meetingCycleDetails.stream()
                 .collect(Collectors.groupingBy(SwMeetingCycleDetail::getMeetingId));
         return map;
+    }
+
+    public List<MeetingVo> meetList(ListMeetingV2Params data) {
+
+        return Lists.newArrayList();
     }
 }

@@ -38,6 +38,11 @@ public class CreatePersonalDocProcessor {
             throw new BizException(4, "参数错误，缺少资源文件");
         }
 
+        boolean sameFile = documentBusiness.hasSameFile(params);
+        if (sameFile) {
+            throw new BizException(1, "存在重複文件！");
+        }
+
         int documentID = documentBusiness.createDoc(params);
         if (documentID > 0) {
             if (CollectionUtils.isEmpty(params.getDepartmentIDs()) && CollectionUtils.isEmpty(params.getEmployeeNos())) {

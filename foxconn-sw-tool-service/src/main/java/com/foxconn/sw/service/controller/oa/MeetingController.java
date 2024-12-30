@@ -42,11 +42,11 @@ public class MeetingController {
     }
 
     @Permission
-    @Operation(summary = "会议列表", tags = TagsConstants.MEET)
+    @Operation(summary = "会议列表查询", tags = TagsConstants.MEET)
     @ApiResponse(responseCode = "0", description = "成功码")
     @PostMapping("/meetList")
-    public Response<List<MeetingVo>[]> meetList(@Valid @RequestBody Request<ListMeetingParams> request) {
-        List[] vos = listMeeting.list(request.getData());
+    public Response<List<MeetingVo>> meetList(@Valid @RequestBody Request<ListMeetingV2Params> request) {
+        List<MeetingVo> vos = listMeeting.meetList(request.getData());
         return ResponseUtils.success(vos, request.getTraceId());
     }
 
