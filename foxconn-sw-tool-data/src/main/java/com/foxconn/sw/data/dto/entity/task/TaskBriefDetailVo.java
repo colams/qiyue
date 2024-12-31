@@ -97,6 +97,8 @@ public class TaskBriefDetailVo {
 
     private List<CapexParamsVo> capexParamsVos;
 
+    private boolean useCapex;
+
     public Integer getId() {
         return id;
     }
@@ -207,5 +209,13 @@ public class TaskBriefDetailVo {
 
     public void setCapexParamsVos(List<CapexParamsVo> capexParamsVos) {
         this.capexParamsVos = capexParamsVos;
+    }
+
+    public boolean isUseCapex() {
+        return useCapex;
+    }
+
+    public void setUseCapex(boolean useCapex) {
+        this.useCapex = useCapex;
     }
 }

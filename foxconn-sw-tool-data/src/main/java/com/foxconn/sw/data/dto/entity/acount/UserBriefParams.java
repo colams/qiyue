@@ -23,6 +23,10 @@ public class UserBriefParams {
     @Length(min = 6, max = 15, message = "密码长度需6-15位")
     private String password;
 
+    private Integer managerLevel;
+
+    private String depart;
+
     public String getName() {
         return name;
     }
@@ -54,5 +58,21 @@ public class UserBriefParams {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public Integer getManagerLevel() {
+        return managerLevel;
+    }
+
+    public void setManagerLevel(Integer managerLevel) {
+        this.managerLevel = managerLevel;
+    }
+
+    public String getDepart() {
+        return depart;
+    }
+
+    public void setDepart(String depart) {
+        this.depart = depart;
     }
 }

@@ -67,6 +67,7 @@ public class RegisterProcessor {
         employee.setName(data.getName());
         employee.setEmployeeNo(data.getEmployeeNo());
         employee.setDepartmentId(data.getDepartmentId());
+        employee.setManagerLevel(data.getManagerLevel());
         employee.setStatus(0);
         return employee;
     }
