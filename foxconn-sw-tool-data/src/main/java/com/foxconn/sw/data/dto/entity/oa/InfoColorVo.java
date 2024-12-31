@@ -1,30 +1,30 @@
 package com.foxconn.sw.data.dto.entity.oa;
 
-public class InfoColorVo {
+public class InfoColorVo <T> {
 
-    private Integer code;
+    private T code;
     private String description;
     private String color;
 
     public InfoColorVo() {
     }
 
-    public InfoColorVo(Integer code, String description) {
+    public InfoColorVo(T code, String description) {
         this.code = code;
         this.description = description;
     }
 
-    public InfoColorVo(Integer code, String description, String color) {
+    public InfoColorVo(T code, String description, String color) {
         this.code = code;
         this.description = description;
         this.color = color;
     }
 
-    public Integer getCode() {
+    public T getCode() {
         return code;
     }
 
-    public void setCode(Integer code) {
+    public void setCode(T code) {
         this.code = code;
     }
 
