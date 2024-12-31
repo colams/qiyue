@@ -11,7 +11,9 @@ import com.foxconn.sw.common.utils.StringExtUtils;
 import com.foxconn.sw.data.constants.enums.MeetingRoleFlagEnums;
 import com.foxconn.sw.data.dto.communal.CycleMeetingVo;
 import com.foxconn.sw.data.dto.entity.acount.EmployeeVo;
+import com.foxconn.sw.data.dto.entity.meeting.MeetingV2Vo;
 import com.foxconn.sw.data.dto.entity.meeting.MeetingVo;
+import com.foxconn.sw.data.dto.entity.universal.OptionsVo;
 import com.foxconn.sw.data.dto.request.meeting.ListMeetingParams;
 import com.foxconn.sw.data.dto.request.meeting.ListMeetingV2Params;
 import com.foxconn.sw.data.entity.SwMeeting;
@@ -237,8 +239,20 @@ public class ListMeetingProcessor {
         return map;
     }
 
-    public List<MeetingVo> meetList(ListMeetingV2Params data) {
+    public List<MeetingV2Vo> meetList(ListMeetingV2Params data) {
+        List<SwMeeting> meetings = Lists.newArrayList();// meetingBusiness.selectMeetingList();
+        return meetings.stream().map(e -> map2MeetingV2Vo(e))
+                .collect(Collectors.toList());
+    }
 
-        return Lists.newArrayList();
+    private MeetingV2Vo map2MeetingV2Vo(SwMeeting meeting) {
+        MeetingV2Vo vo = new MeetingV2Vo();
+        vo.setMeetingID(meeting.getId());
+        vo.setRoomVo(getRoomVo(meeting.getRoom()));
+        return vo;
+    }
+
+    private OptionsVo getRoomVo(String roomKey) {
+        return new OptionsVo(roomKey, MeetingRoomConfig.getText(roomKey));
     }
 }
