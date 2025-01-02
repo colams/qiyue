@@ -165,6 +165,66 @@ public class SwMeetingMinutesExample {
             return (Criteria) this;
         }
 
+        public Criteria andMeetingIdIsNull() {
+            addCriterion("meeting_id is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andMeetingIdIsNotNull() {
+            addCriterion("meeting_id is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andMeetingIdEqualTo(Integer value) {
+            addCriterion("meeting_id =", value, "meetingId");
+            return (Criteria) this;
+        }
+
+        public Criteria andMeetingIdNotEqualTo(Integer value) {
+            addCriterion("meeting_id <>", value, "meetingId");
+            return (Criteria) this;
+        }
+
+        public Criteria andMeetingIdGreaterThan(Integer value) {
+            addCriterion("meeting_id >", value, "meetingId");
+            return (Criteria) this;
+        }
+
+        public Criteria andMeetingIdGreaterThanOrEqualTo(Integer value) {
+            addCriterion("meeting_id >=", value, "meetingId");
+            return (Criteria) this;
+        }
+
+        public Criteria andMeetingIdLessThan(Integer value) {
+            addCriterion("meeting_id <", value, "meetingId");
+            return (Criteria) this;
+        }
+
+        public Criteria andMeetingIdLessThanOrEqualTo(Integer value) {
+            addCriterion("meeting_id <=", value, "meetingId");
+            return (Criteria) this;
+        }
+
+        public Criteria andMeetingIdIn(List<Integer> values) {
+            addCriterion("meeting_id in", values, "meetingId");
+            return (Criteria) this;
+        }
+
+        public Criteria andMeetingIdNotIn(List<Integer> values) {
+            addCriterion("meeting_id not in", values, "meetingId");
+            return (Criteria) this;
+        }
+
+        public Criteria andMeetingIdBetween(Integer value1, Integer value2) {
+            addCriterion("meeting_id between", value1, value2, "meetingId");
+            return (Criteria) this;
+        }
+
+        public Criteria andMeetingIdNotBetween(Integer value1, Integer value2) {
+            addCriterion("meeting_id not between", value1, value2, "meetingId");
+            return (Criteria) this;
+        }
+
         public Criteria andRoomIsNull() {
             addCriterion("room is null");
             return (Criteria) this;

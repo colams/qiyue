@@ -5,6 +5,8 @@ import java.time.LocalDateTime;
 public class SwMeetingMinutes {
     private Long id;
 
+    private Integer meetingId;
+
     private String room;
 
     private String title;
@@ -32,6 +34,19 @@ public class SwMeetingMinutes {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Integer getMeetingId() {
+        return meetingId;
+    }
+
+    public SwMeetingMinutes withMeetingId(Integer meetingId) {
+        this.setMeetingId(meetingId);
+        return this;
+    }
+
+    public void setMeetingId(Integer meetingId) {
+        this.meetingId = meetingId;
     }
 
     public String getRoom() {

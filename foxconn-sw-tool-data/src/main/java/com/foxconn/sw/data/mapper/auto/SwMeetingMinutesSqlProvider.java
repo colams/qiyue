@@ -28,6 +28,10 @@ public class SwMeetingMinutesSqlProvider {
         SQL sql = new SQL();
         sql.INSERT_INTO("sw_meeting_minutes");
         
+        if (record.getMeetingId() != null) {
+            sql.VALUES("meeting_id", "#{meetingId,jdbcType=INTEGER}");
+        }
+        
         if (record.getRoom() != null) {
             sql.VALUES("room", "#{room,jdbcType=VARCHAR}");
         }
@@ -70,6 +74,7 @@ public class SwMeetingMinutesSqlProvider {
         } else {
             sql.SELECT("id");
         }
+        sql.SELECT("meeting_id");
         sql.SELECT("room");
         sql.SELECT("title");
         sql.SELECT("meeting_date");
@@ -97,6 +102,10 @@ public class SwMeetingMinutesSqlProvider {
         
         if (record.getId() != null) {
             sql.SET("id = #{record.id,jdbcType=BIGINT}");
+        }
+        
+        if (record.getMeetingId() != null) {
+            sql.SET("meeting_id = #{record.meetingId,jdbcType=INTEGER}");
         }
         
         if (record.getRoom() != null) {
@@ -140,6 +149,7 @@ public class SwMeetingMinutesSqlProvider {
         sql.UPDATE("sw_meeting_minutes");
         
         sql.SET("id = #{record.id,jdbcType=BIGINT}");
+        sql.SET("meeting_id = #{record.meetingId,jdbcType=INTEGER}");
         sql.SET("room = #{record.room,jdbcType=VARCHAR}");
         sql.SET("title = #{record.title,jdbcType=VARCHAR}");
         sql.SET("meeting_date = #{record.meetingDate,jdbcType=VARCHAR}");
@@ -157,6 +167,10 @@ public class SwMeetingMinutesSqlProvider {
     public String updateByPrimaryKeySelective(SwMeetingMinutes record) {
         SQL sql = new SQL();
         sql.UPDATE("sw_meeting_minutes");
+        
+        if (record.getMeetingId() != null) {
+            sql.SET("meeting_id = #{meetingId,jdbcType=INTEGER}");
+        }
         
         if (record.getRoom() != null) {
             sql.SET("room = #{room,jdbcType=VARCHAR}");

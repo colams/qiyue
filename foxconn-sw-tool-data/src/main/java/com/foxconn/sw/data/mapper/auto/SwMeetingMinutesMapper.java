@@ -34,14 +34,16 @@ public interface SwMeetingMinutesMapper {
     int deleteByPrimaryKey(Long id);
 
     @Insert({
-        "insert into sw_meeting_minutes (room, title, ",
-        "meeting_date, start_time, ",
-        "end_time, webex_url, ",
-        "create_time, datetime_lastchange)",
-        "values (#{room,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, ",
-        "#{meetingDate,jdbcType=VARCHAR}, #{startTime,jdbcType=VARCHAR}, ",
-        "#{endTime,jdbcType=VARCHAR}, #{webexUrl,jdbcType=VARCHAR}, ",
-        "#{createTime,jdbcType=TIMESTAMP}, #{datetimeLastchange,jdbcType=TIMESTAMP})"
+        "insert into sw_meeting_minutes (meeting_id, room, ",
+        "title, meeting_date, ",
+        "start_time, end_time, ",
+        "webex_url, create_time, ",
+        "datetime_lastchange)",
+        "values (#{meetingId,jdbcType=INTEGER}, #{room,jdbcType=VARCHAR}, ",
+        "#{title,jdbcType=VARCHAR}, #{meetingDate,jdbcType=VARCHAR}, ",
+        "#{startTime,jdbcType=VARCHAR}, #{endTime,jdbcType=VARCHAR}, ",
+        "#{webexUrl,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, ",
+        "#{datetimeLastchange,jdbcType=TIMESTAMP})"
     })
     @SelectKey(statement="SELECT LAST_INSERT_ID()", keyProperty="id", before=false, resultType=Long.class)
     int insert(SwMeetingMinutes record);
@@ -53,6 +55,7 @@ public interface SwMeetingMinutesMapper {
     @SelectProvider(type=SwMeetingMinutesSqlProvider.class, method="selectByExample")
     @Results({
         @Result(column="id", property="id", jdbcType=JdbcType.BIGINT, id=true),
+        @Result(column="meeting_id", property="meetingId", jdbcType=JdbcType.INTEGER),
         @Result(column="room", property="room", jdbcType=JdbcType.VARCHAR),
         @Result(column="title", property="title", jdbcType=JdbcType.VARCHAR),
         @Result(column="meeting_date", property="meetingDate", jdbcType=JdbcType.VARCHAR),
@@ -67,6 +70,7 @@ public interface SwMeetingMinutesMapper {
     @SelectProvider(type=SwMeetingMinutesSqlProvider.class, method="selectByExample")
     @Results({
         @Result(column="id", property="id", jdbcType=JdbcType.BIGINT, id=true),
+        @Result(column="meeting_id", property="meetingId", jdbcType=JdbcType.INTEGER),
         @Result(column="room", property="room", jdbcType=JdbcType.VARCHAR),
         @Result(column="title", property="title", jdbcType=JdbcType.VARCHAR),
         @Result(column="meeting_date", property="meetingDate", jdbcType=JdbcType.VARCHAR),
@@ -80,13 +84,14 @@ public interface SwMeetingMinutesMapper {
 
     @Select({
         "select",
-        "id, room, title, meeting_date, start_time, end_time, webex_url, create_time, ",
-        "datetime_lastchange",
+        "id, meeting_id, room, title, meeting_date, start_time, end_time, webex_url, ",
+        "create_time, datetime_lastchange",
         "from sw_meeting_minutes",
         "where id = #{id,jdbcType=BIGINT}"
     })
     @Results({
         @Result(column="id", property="id", jdbcType=JdbcType.BIGINT, id=true),
+        @Result(column="meeting_id", property="meetingId", jdbcType=JdbcType.INTEGER),
         @Result(column="room", property="room", jdbcType=JdbcType.VARCHAR),
         @Result(column="title", property="title", jdbcType=JdbcType.VARCHAR),
         @Result(column="meeting_date", property="meetingDate", jdbcType=JdbcType.VARCHAR),
@@ -109,7 +114,8 @@ public interface SwMeetingMinutesMapper {
 
     @Update({
         "update sw_meeting_minutes",
-        "set room = #{room,jdbcType=VARCHAR},",
+        "set meeting_id = #{meetingId,jdbcType=INTEGER},",
+          "room = #{room,jdbcType=VARCHAR},",
           "title = #{title,jdbcType=VARCHAR},",
           "meeting_date = #{meetingDate,jdbcType=VARCHAR},",
           "start_time = #{startTime,jdbcType=VARCHAR},",
