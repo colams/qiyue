@@ -34,7 +34,7 @@ public class CollaborationUpdateCellProcessor {
                 data.getColIndex(),
                 data.getItem());
 
-        if (Objects.nonNull(collaborationDetail)) {
+        if (Objects.isNull(collaborationDetail)) {
             return false;
         }
 
@@ -50,8 +50,11 @@ public class CollaborationUpdateCellProcessor {
             SwCollaborationDetail updateDetail = new SwCollaborationDetail();
             updateDetail.setId(e.getId());
             updateDetail.setSpareValue("");
+            updateDetail.setRowIndex(e.getRowIndex());
+            updateDetail.setColIndex(e.getRowIndex());
             updateDetail.setItemValue(e.getSpareValue());
             collaborationDetailBusiness.updateOrInsert(updateDetail);
+            collaborationDetailLogBusiness.insertCollaborationDetailLog(updateDetail);
         });
         return true;
     }

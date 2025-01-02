@@ -61,4 +61,11 @@ public class CollaborationDetailLogBusiness {
         }
         return true;
     }
+
+    public boolean insertCollaborationDetailLog(SwCollaborationDetail updateDetail) {
+        return insertCollaborationDetailLog(updateDetail.getId(),
+                updateDetail.getRowIndex(),
+                updateDetail.getColIndex(),
+                updateDetail.getItemValue());
+    }
 }
