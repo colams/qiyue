@@ -6,6 +6,15 @@ public class MeetingDateTimeVo {
     private String startTime;
     private String endTime;
 
+    public MeetingDateTimeVo() {
+    }
+
+    public MeetingDateTimeVo(String meetingDate, String startTime, String endTime) {
+        this.meetingDate = meetingDate;
+        this.startTime = startTime;
+        this.endTime = endTime;
+    }
+
     public String getMeetingDate() {
         return meetingDate;
     }

@@ -12,10 +12,7 @@ import com.foxconn.sw.data.mapper.extension.SwCapexSetExtMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Component
@@ -74,6 +71,8 @@ public class SwCapexSetBusiness {
                         && !CapexSetConstants.FIXED.equalsIgnoreCase(e.getSetValue())) {
                     SwEmployee ee = employeeBusiness.queryEmployeeByEno(e.getSetValue());
                     capexSetDetail2Vo.setExtra(Optional.ofNullable(ee).map(f -> f.getName()).orElse(e.getSetValue()));
+                } else {
+                    capexSetDetail2Vo.setExtra("唯讀");
                 }
                 capexSetVos.add(capexSetDetail2Vo);
             });
