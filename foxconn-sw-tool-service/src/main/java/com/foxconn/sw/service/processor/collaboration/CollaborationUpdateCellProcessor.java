@@ -8,6 +8,7 @@ import com.foxconn.sw.business.oa.SwTaskProgressBusiness;
 import com.foxconn.sw.data.dto.request.collaboration.CollaborationSaveUpdateParams;
 import com.foxconn.sw.data.dto.request.collaboration.CollaborationUpdateCellParams;
 import com.foxconn.sw.data.entity.SwCollaborationDetail;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -47,14 +48,16 @@ public class CollaborationUpdateCellProcessor {
     public Boolean saveUpdate(CollaborationSaveUpdateParams data) {
         List<SwCollaborationDetail> collaborationDetails = collaborationDetailBusiness.selectCollaborationDetail(data.getTaskID());
         collaborationDetails.forEach(e -> {
-            SwCollaborationDetail updateDetail = new SwCollaborationDetail();
-            updateDetail.setId(e.getId());
-            updateDetail.setSpareValue("");
-            updateDetail.setRowIndex(e.getRowIndex());
-            updateDetail.setColIndex(e.getRowIndex());
-            updateDetail.setItemValue(e.getSpareValue());
-            collaborationDetailBusiness.updateOrInsert(updateDetail);
-            collaborationDetailLogBusiness.insertCollaborationDetailLog(updateDetail);
+            if (StringUtils.isNotEmpty(e.getSpareValue())) {
+                SwCollaborationDetail updateDetail = new SwCollaborationDetail();
+                updateDetail.setId(e.getId());
+                updateDetail.setSpareValue("");
+                updateDetail.setRowIndex(e.getRowIndex());
+                updateDetail.setColIndex(e.getRowIndex());
+                updateDetail.setItemValue(e.getSpareValue());
+                collaborationDetailBusiness.updateOrInsert(updateDetail);
+                collaborationDetailLogBusiness.insertCollaborationDetailLog(updateDetail);
+            }
         });
         return true;
     }
