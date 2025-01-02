@@ -8,17 +8,24 @@ import com.foxconn.sw.data.exception.BizException;
 import com.foxconn.sw.service.utils.ResponseUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.aop.interceptor.AsyncUncaughtExceptionHandler;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.scheduling.annotation.AsyncConfigurer;
+import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+@Configuration
+@EnableAsync
 @RestControllerAdvice
-public class CustomExceptionHandler {
+public class CustomExceptionHandler implements AsyncConfigurer {
 
     private static final Logger log = LoggerFactory.getLogger(CustomExceptionHandler.class);
 
@@ -64,4 +71,19 @@ public class CustomExceptionHandler {
         log.warn("handleException ===================================:" + e.getMessage(), e);
         return ResponseUtils.failure(RetCode.SYSTEM_EXCEPTION, UUIDUtils.getUuid());
     }
+
+    @Override
+    public AsyncUncaughtExceptionHandler getAsyncUncaughtExceptionHandler() {
+        return new CustomAsyncExceptionHandler();
+    }
+
+    public class CustomAsyncExceptionHandler implements AsyncUncaughtExceptionHandler {
+        @Override
+        public void handleUncaughtException(Throwable ex, Method method, Object... params) {
+            log.warn("异步任务出现异常.....:" + ex.toString());
+            // 在这里记录异常或者进行其他处理逻辑
+            System.err.println("异步任务出现异常：" + ex.getMessage());
+        }
+    }
+
 }

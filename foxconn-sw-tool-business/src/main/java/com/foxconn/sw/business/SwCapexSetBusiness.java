@@ -12,7 +12,10 @@ import com.foxconn.sw.data.mapper.extension.SwCapexSetExtMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Component
@@ -117,6 +120,7 @@ public class SwCapexSetBusiness {
         SwCapexSetExample example = new SwCapexSetExample();
         SwCapexSetExample.Criteria criteria = example.createCriteria();
         criteria.andTaskIdEqualTo(taskID);
+        criteria.andIsDeleteEqualTo(0);
         return capexSetExtMapper.selectByExample(example);
     }
 }
