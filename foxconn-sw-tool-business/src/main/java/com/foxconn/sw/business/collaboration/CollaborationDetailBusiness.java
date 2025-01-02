@@ -91,33 +91,12 @@ public class CollaborationDetailBusiness {
         return details.get(0);
     }
 
-    public List<SwCollaborationDetail> selectCollaborationDetail(Long scuID) {
-        SwCollaborationDetailExample example = new SwCollaborationDetailExample();
-        SwCollaborationDetailExample.Criteria criteria = example.createCriteria();
-        criteria.andScuIdEqualTo(scuID);
-        criteria.andSpareValueNotEqualTo("");
-        return collaborationDetailMapper.selectByExample(example);
+    public List<SwCollaborationDetail> selectCollaborationDetail(Long taskID) {
+        return collaborationDetailMapper.selectCollaborationsByTaskID(taskID);
     }
 
-    public SwCollaborationDetail selectCollaborationDetail(Long detailID, Long scuID, Integer rowIndex, Integer colIndex, String item) {
-        if (Objects.nonNull(detailID)) {
-            return collaborationDetailMapper.selectByPrimaryKey(detailID);
-        }
-
-        SwCollaborationDetailExample example = new SwCollaborationDetailExample();
-        SwCollaborationDetailExample.Criteria criteria = example.createCriteria();
-        if (Objects.nonNull(rowIndex)) {
-            criteria.andRowIndexEqualTo(rowIndex);
-        }
-
-        if (Objects.nonNull(colIndex)) {
-            criteria.andRowIndexEqualTo(colIndex);
-        }
-
-        criteria.andItemEqualTo(item);
-        criteria.andScuIdEqualTo(scuID);
-        List<SwCollaborationDetail> details = collaborationDetailMapper.selectByExample(example);
-        return details.get(0);
+    public SwCollaborationDetail selectCollaborationDetail(Long detailID, Integer rowIndex, Integer colIndex, String item) {
+        return collaborationDetailMapper.selectByPrimaryKey(detailID);
     }
 
     public boolean readExcelContent(Long scuId, Integer resourceId) throws FileNotFoundException {

@@ -30,7 +30,6 @@ public class CollaborationUpdateCellProcessor {
 
     public Boolean updateCell(CollaborationUpdateCellParams data) {
         SwCollaborationDetail collaborationDetail = collaborationDetailBusiness.selectCollaborationDetail(data.getDetailID(),
-                data.getScuID(),
                 data.getRowIndex(),
                 data.getColIndex(),
                 data.getItem());
@@ -46,7 +45,7 @@ public class CollaborationUpdateCellProcessor {
     }
 
     public Boolean saveUpdate(CollaborationSaveUpdateParams data) {
-        List<SwCollaborationDetail> collaborationDetails = collaborationDetailBusiness.selectCollaborationDetail(data.getScuID());
+        List<SwCollaborationDetail> collaborationDetails = collaborationDetailBusiness.selectCollaborationDetail(data.getTaskID());
         collaborationDetails.forEach(e -> {
             SwCollaborationDetail updateDetail = new SwCollaborationDetail();
             updateDetail.setId(e.getId());
