@@ -2,7 +2,6 @@ package com.foxconn.sw.business.collaboration;
 
 import com.foxconn.sw.business.SwAppendResourceBusiness;
 import com.foxconn.sw.business.oa.SwTaskProgressBusiness;
-import com.foxconn.sw.common.constanst.NumberConstants;
 import com.foxconn.sw.common.context.RequestContext;
 import com.foxconn.sw.common.utils.ConvertUtils;
 import com.foxconn.sw.common.utils.ExcelUtils;
@@ -16,7 +15,7 @@ import com.foxconn.sw.data.entity.SwCollaborationUserExample;
 import com.foxconn.sw.data.entity.SwTask;
 import com.foxconn.sw.data.exception.BizException;
 import com.foxconn.sw.data.mapper.auto.SwCollaborationUserMapper;
-import com.foxconn.sw.data.mapper.extension.oa.SwCollaborationUserExtensionMapper;
+import com.foxconn.sw.data.mapper.extension.collaboration.SwCollaborationUserExtensionMapper;
 import com.google.common.collect.Lists;
 import org.apache.ibatis.session.ExecutorType;
 import org.apache.ibatis.session.SqlSession;

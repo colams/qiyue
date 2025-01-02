@@ -5,7 +5,7 @@ import com.foxconn.sw.common.context.RequestContext;
 import com.foxconn.sw.data.entity.SwCollaborationDetail;
 import com.foxconn.sw.data.entity.SwCollaborationDetailLog;
 import com.foxconn.sw.data.entity.SwCollaborationDetailLogExample;
-import com.foxconn.sw.data.mapper.extension.oa.SwCollaborationDetailLogExtensionMapper;
+import com.foxconn.sw.data.mapper.extension.collaboration.SwCollaborationDetailLogExtensionMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

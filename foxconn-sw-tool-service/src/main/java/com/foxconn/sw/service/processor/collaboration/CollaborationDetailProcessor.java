@@ -2,6 +2,7 @@ package com.foxconn.sw.service.processor.collaboration;
 
 import com.foxconn.sw.business.SwCapexSetBusiness;
 import com.foxconn.sw.business.collaboration.CollaborationDetailBusiness;
+import com.foxconn.sw.business.collaboration.CollaborationDetailSpareBusiness;
 import com.foxconn.sw.business.collaboration.CollaborationUserBusiness;
 import com.foxconn.sw.business.oa.SwTaskBusiness;
 import com.foxconn.sw.business.oa.SwTaskEmployeeRelationBusiness;
@@ -45,6 +46,8 @@ public class CollaborationDetailProcessor {
     SwTaskBusiness taskBusiness;
     @Autowired
     SwCapexSetBusiness capexSetBusiness;
+    @Autowired
+    CollaborationDetailSpareBusiness collaborationDetailSpareBusiness;
 
     /**
      * int taskID = 75;
@@ -108,7 +111,8 @@ public class CollaborationDetailProcessor {
             int index = 0;
             objectMap.put("rowIndex", entry.getKey());
             for (SwCollaborationDetail collaborationDetail : entry.getValue()) {
-                objectMap.put(header.get(index++), CollaborationDetailMapper.CollaborationDetail2ItemValue(collaborationDetail));
+                SwCollaborationDetailSpare detailSpare = collaborationDetailSpareBusiness.getCollaborationDetail(collaborationDetail.getId());
+                objectMap.put(header.get(index++), CollaborationDetailMapper.CollaborationDetail2ItemValue(collaborationDetail, detailSpare));
             }
         }
         return list;
@@ -199,7 +203,9 @@ public class CollaborationDetailProcessor {
         Map<String, Object> map = new HashMap<>();
         for (SwCollaborationDetail detail : swCollaborationDetails.stream()
                 .filter(e -> e.getRowIndex() <= 1).collect(Collectors.toList())) {
-            map.put(detail.getItem(), CollaborationDetailMapper.CollaborationDetail2ItemValue(detail));
+
+            SwCollaborationDetailSpare detailSpare = collaborationDetailSpareBusiness.getCollaborationDetail(detail.getId());
+            map.put(detail.getItem(), CollaborationDetailMapper.CollaborationDetail2ItemValue(detail, detailSpare));
             map.put("rowIndex", detail.getRowIndex());
         }
         map.put("id", collaborationUser.getId());

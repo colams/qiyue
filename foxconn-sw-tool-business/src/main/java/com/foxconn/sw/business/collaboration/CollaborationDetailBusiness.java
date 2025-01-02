@@ -7,7 +7,7 @@ import com.foxconn.sw.data.entity.SwAppendResource;
 import com.foxconn.sw.data.entity.SwCollaborationDetail;
 import com.foxconn.sw.data.entity.SwCollaborationDetailExample;
 import com.foxconn.sw.data.mapper.auto.SwCollaborationDetailMapper;
-import com.foxconn.sw.data.mapper.extension.oa.SwCollaborationDetailExtensionMapper;
+import com.foxconn.sw.data.mapper.extension.collaboration.SwCollaborationDetailExtensionMapper;
 import com.google.common.collect.Lists;
 import org.apache.ibatis.session.ExecutorType;
 import org.apache.ibatis.session.SqlSession;

@@ -4,13 +4,13 @@ import jakarta.validation.constraints.NotNull;
 
 public class CollaborationSaveUpdateParams {
     @NotNull
-    private Long taskID;
+    private Integer taskID;
 
-    public Long getTaskID() {
+    public Integer getTaskID() {
         return taskID;
     }
 
-    public void setTaskID(Long taskID) {
+    public void setTaskID(Integer taskID) {
         this.taskID = taskID;
     }
 
