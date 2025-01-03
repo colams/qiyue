@@ -68,7 +68,7 @@ public class CollaborationUpdateCellProcessor {
             collaborationDetailLogBusiness.insertCollaborationDetailLog(updateDetail);
 
             SwCollaborationDetailSpare detailSpare = new SwCollaborationDetailSpare();
-            detailSpare.setId(spare.getDetailId());
+            detailSpare.setId(spare.getId());
             detailSpare.setIsDelete(NumberConstants.ONE);
             collaborationDetailSpareBusiness.updateOrInsert(detailSpare);
         });
