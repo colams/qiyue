@@ -30,6 +30,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 @Component
 public class CollaborationDetailBusiness {
@@ -163,17 +164,32 @@ public class CollaborationDetailBusiness {
 
     public SwCollaborationDetail createCollaborationDetail(CollaborationUpdateCellParams data) {
         List<SwCollaborationDetail> detailList = collaborationDetailMapper.selectCollaborationsByTaskID(data.getTaskID().longValue());
-        SwCollaborationDetail collaborationDetail = detailList.stream()
-                .filter(e -> e.getColIndex().equals(data.getColIndex()))
+        SwCollaborationDetail maxDetail = detailList.stream()
                 .max(((o1, o2) -> o1.getRowIndex() - o2.getRowIndex()))
                 .orElseThrow(() -> new BizException(4, "處理失敗，若重試仍失敗，請聯繫開發人員"));
-        SwCollaborationDetail insertDetail = new SwCollaborationDetail();
-        insertDetail.setScuId(collaborationDetail.getScuId());
-        insertDetail.setRowIndex(collaborationDetail.getRowIndex() + 1);
-        insertDetail.setColIndex(data.getColIndex());
-        insertDetail.setItem(collaborationDetail.getItem());
-        insertDetail.setItemValue("");
-        collaborationDetailMapper.insertSelective(insertDetail);
-        return insertDetail;
+
+        List<SwCollaborationDetail> collaborationDetails = detailList.stream()
+                .filter(e -> e.getRowIndex().equals(maxDetail.getRowIndex()))
+                .collect(Collectors.toList());
+        if (CollectionUtils.isEmpty(collaborationDetails)) {
+            new BizException(4, "處理失敗，若重試仍失敗，請聯繫開發人員");
+        }
+
+        SwCollaborationDetail insertDetail;
+        SwCollaborationDetail tempDetail = null;
+        for (SwCollaborationDetail collaborationDetail : collaborationDetails) {
+            insertDetail = new SwCollaborationDetail();
+            insertDetail.setScuId(collaborationDetail.getScuId());
+            insertDetail.setRowIndex(collaborationDetail.getRowIndex() + 1);
+            insertDetail.setColIndex(collaborationDetail.getColIndex());
+            insertDetail.setItem(collaborationDetail.getItem());
+            insertDetail.setItemValue("");
+            collaborationDetailMapper.insertSelective(insertDetail);
+            if (collaborationDetail.getColIndex().equals(data.getColIndex())) {
+                tempDetail = insertDetail;
+            }
+        }
+
+        return tempDetail;
     }
 }
