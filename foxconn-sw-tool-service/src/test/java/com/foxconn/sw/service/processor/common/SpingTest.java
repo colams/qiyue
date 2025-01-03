@@ -12,10 +12,7 @@ public class SpingTest {
 
     @Test
     public void Proposer_FlagTest() {
-        System.out.println("createTask=================:" + Proposer_Flag.initFlag());
-        System.out.println("createTask=================:" + Manager_Flag.initFlag());
-        System.out.println("createTask=================:" + Handler_Flag.initFlag());
-        System.out.println("createTask=================:" + Watcher_Flag.initFlag());
+
     }
 
 }

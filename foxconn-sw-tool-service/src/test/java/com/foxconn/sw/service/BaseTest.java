@@ -1,10 +1,13 @@
 package com.foxconn.sw.service;
 
 
+import com.foxconn.sw.business.tools.ToolCategoryBusinessTest;
 import com.foxconn.sw.data.dto.Header;
 import org.apache.commons.lang3.tuple.Pair;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -28,6 +31,8 @@ import static com.foxconn.sw.data.constants.enums.TaskRoleFlagEnums.Watcher_Flag
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest(classes = WebApplication.class)
 public class BaseTest {
+
+    public static final Logger logger = LoggerFactory.getLogger(BaseTest.class);
 
     public Header initHead() {
         Header head = new Header();
