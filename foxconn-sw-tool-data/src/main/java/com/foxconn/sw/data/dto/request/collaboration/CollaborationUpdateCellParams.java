@@ -3,6 +3,7 @@ package com.foxconn.sw.data.dto.request.collaboration;
 public class CollaborationUpdateCellParams {
     private Long detailID;
     private Integer taskID;
+    private Integer colIndex;
     private String value;
 
     public Long getDetailID() {
@@ -19,6 +20,14 @@ public class CollaborationUpdateCellParams {
 
     public void setTaskID(Integer taskID) {
         this.taskID = taskID;
+    }
+
+    public Integer getColIndex() {
+        return colIndex;
+    }
+
+    public void setColIndex(Integer colIndex) {
+        this.colIndex = colIndex;
     }
 
     public String getValue() {

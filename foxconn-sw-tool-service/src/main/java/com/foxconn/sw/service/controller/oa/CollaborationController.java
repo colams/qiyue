@@ -65,8 +65,18 @@ public class CollaborationController {
         return ResponseUtils.success(result, request.getTraceId());
     }
 
+
     @Permission
-    @Operation(summary = "协作平台-更新或者新增協作 工作內容", tags = TagsConstants.COLLABORATION)
+    @Operation(summary = "协作平台-撤銷草稿修改", tags = TagsConstants.COLLABORATION)
+    @ApiResponse(responseCode = "0", description = "成功码")
+    @PostMapping("/cancelUpdate")
+    public Response<Boolean> cancelUpdate(@Valid @RequestBody Request<CollaborationSaveUpdateParams> request) {
+        Boolean result = collaborationUpdateCellProcessor.cancelUpdate(request.getData());
+        return ResponseUtils.success(result, request.getTraceId());
+    }
+
+    @Permission
+    @Operation(summary = "协作平台-更新單元格數據", tags = TagsConstants.COLLABORATION)
     @ApiResponse(responseCode = "0", description = "成功码")
     @PostMapping("/updateCell")
     public Response<Boolean> updateCell(@Valid @RequestBody Request<CollaborationUpdateCellParams> request) {
@@ -75,7 +85,7 @@ public class CollaborationController {
     }
 
     @Permission
-    @Operation(summary = "协作平台-更新或者新增協作 工作內容", tags = TagsConstants.COLLABORATION)
+    @Operation(summary = "协作平台-將草稿信息轉為正常值", tags = TagsConstants.COLLABORATION)
     @ApiResponse(responseCode = "0", description = "成功码")
     @PostMapping("/saveUpdate")
     public Response<Boolean> saveUpdate(@Valid @RequestBody Request<CollaborationSaveUpdateParams> request) {

@@ -9,23 +9,16 @@ import com.foxconn.sw.business.oa.SwTaskBusiness;
 import com.foxconn.sw.business.oa.SwTaskProgressBusiness;
 import com.foxconn.sw.common.constanst.NumberConstants;
 import com.foxconn.sw.common.context.RequestContext;
-import com.foxconn.sw.data.dto.entity.task.BriefTaskVo;
 import com.foxconn.sw.data.dto.request.collaboration.CollaborationSaveUpdateParams;
 import com.foxconn.sw.data.dto.request.collaboration.CollaborationUpdateCellParams;
-import com.foxconn.sw.data.entity.SwCapexSet;
 import com.foxconn.sw.data.entity.SwCollaborationDetail;
 import com.foxconn.sw.data.entity.SwCollaborationDetailSpare;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
-import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
-import java.util.stream.Collectors;
-
-import static com.foxconn.sw.common.constanst.CapexSetConstants.Column;
-import static com.foxconn.sw.common.constanst.CapexSetConstants.ROW;
 
 @Component
 public class CollaborationUpdateCellProcessor {
@@ -45,7 +38,28 @@ public class CollaborationUpdateCellProcessor {
     @Autowired
     CollaborationDetailSpareBusiness collaborationDetailSpareBusiness;
 
+
     public Boolean updateCell(CollaborationUpdateCellParams data) {
+        SwCollaborationDetailSpare updateDetailSpare;
+        if (Objects.nonNull(data.getDetailID())) {
+            updateDetailSpare = getUpdateDetailSpareEntity(data);
+        } else {
+            updateDetailSpare = initNewDetailLine(data);
+        }
+        return collaborationDetailSpareBusiness.updateOrInsert(updateDetailSpare) > 0;
+    }
+
+    private SwCollaborationDetailSpare initNewDetailLine(CollaborationUpdateCellParams data) {
+        SwCollaborationDetail collaborationDetail = collaborationDetailBusiness.createCollaborationDetail(data);
+        SwCollaborationDetailSpare updateDetailSpare = new SwCollaborationDetailSpare();
+        updateDetailSpare.setTaskId(data.getTaskID());
+        updateDetailSpare.setDetailId(collaborationDetail.getId());
+        updateDetailSpare.setOperator(RequestContext.getEmployeeNo());
+        updateDetailSpare.setValue(data.getValue());
+        return updateDetailSpare;
+    }
+
+    private SwCollaborationDetailSpare getUpdateDetailSpareEntity(CollaborationUpdateCellParams data) {
         SwCollaborationDetailSpare detailSpare = collaborationDetailSpareBusiness.getCollaborationDetail(data.getDetailID());
         SwCollaborationDetailSpare updateDetailSpare = new SwCollaborationDetailSpare();
         updateDetailSpare.setDetailId(data.getDetailID());
@@ -53,12 +67,10 @@ public class CollaborationUpdateCellProcessor {
         updateDetailSpare.setValue(data.getValue());
         updateDetailSpare.setOperator(RequestContext.getEmployeeNo());
         updateDetailSpare.setTaskId(data.getTaskID());
-
-        return collaborationDetailSpareBusiness.updateOrInsert(updateDetailSpare) > 0;
+        return updateDetailSpare;
     }
 
     public Boolean saveUpdate(CollaborationSaveUpdateParams data) {
-
         List<SwCollaborationDetailSpare> spares = collaborationDetailSpareBusiness.getCollaborationDetails(data.getTaskID());
         spares.forEach(spare -> {
             SwCollaborationDetail updateDetail = new SwCollaborationDetail();
@@ -75,25 +87,14 @@ public class CollaborationUpdateCellProcessor {
         return true;
     }
 
-    public boolean checkPermission(Long taskID, Integer rowIndex, Integer colIndex) {
-        List<SwCapexSet> swCapexSets = capexSetBusiness.queryCapexSet(taskID.intValue());
-        String employeeNo = RequestContext.getEmployeeNo();
-        BriefTaskVo task = taskBusiness.getTaskById(taskID.intValue());
-        if (employeeNo.equalsIgnoreCase(task.getProposerEid())) {
-            return true;
-        }
-
-        Map<String, List<SwCapexSet>> mapSet = swCapexSets.stream()
-                .filter(e -> employeeNo.equalsIgnoreCase(e.getSetValue()) || StringUtils.isEmpty(e.getSetValue()))
-                .collect(Collectors.groupingBy(SwCapexSet::getType));
-
-        if (mapSet.containsKey(ROW)) {
-            return mapSet.get(ROW).stream().anyMatch(e -> e.getNumber().equals(rowIndex));
-        }
-
-        if (mapSet.containsKey(Column)) {
-            return mapSet.get(Column).stream().anyMatch(e -> e.getNumber().equals(colIndex));
-        }
-        return false;
+    public Boolean cancelUpdate(CollaborationSaveUpdateParams data) {
+        List<SwCollaborationDetailSpare> spares = collaborationDetailSpareBusiness.getCollaborationDetails(data.getTaskID());
+        spares.forEach(spare -> {
+            SwCollaborationDetailSpare detailSpare = new SwCollaborationDetailSpare();
+            detailSpare.setId(spare.getId());
+            detailSpare.setIsDelete(NumberConstants.ONE);
+            collaborationDetailSpareBusiness.updateOrInsert(detailSpare);
+        });
+        return true;
     }
 }

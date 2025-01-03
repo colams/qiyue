@@ -3,9 +3,11 @@ package com.foxconn.sw.business.collaboration;
 import com.foxconn.sw.business.SwAppendResourceBusiness;
 import com.foxconn.sw.common.utils.ExcelUtils;
 import com.foxconn.sw.common.utils.FilePathUtils;
+import com.foxconn.sw.data.dto.request.collaboration.CollaborationUpdateCellParams;
 import com.foxconn.sw.data.entity.SwAppendResource;
 import com.foxconn.sw.data.entity.SwCollaborationDetail;
 import com.foxconn.sw.data.entity.SwCollaborationDetailExample;
+import com.foxconn.sw.data.exception.BizException;
 import com.foxconn.sw.data.mapper.auto.SwCollaborationDetailMapper;
 import com.foxconn.sw.data.mapper.extension.collaboration.SwCollaborationDetailExtensionMapper;
 import com.google.common.collect.Lists;
@@ -91,14 +93,6 @@ public class CollaborationDetailBusiness {
         return details.get(0);
     }
 
-    public List<SwCollaborationDetail> selectCollaborationDetail(Long taskID) {
-        return collaborationDetailMapper.selectCollaborationsByTaskID(taskID);
-    }
-
-    public SwCollaborationDetail selectCollaborationDetail(Long detailID, Integer rowIndex, Integer colIndex, String item) {
-        return collaborationDetailMapper.selectByPrimaryKey(detailID);
-    }
-
     public boolean readExcelContent(Long scuId, Integer resourceId) throws FileNotFoundException {
 
         SwAppendResource appendResource = resourceBusiness.getAppendResources(resourceId);
@@ -165,5 +159,21 @@ public class CollaborationDetailBusiness {
         sqlSession.commit();
         sqlSession.close();
         return true;
+    }
+
+    public SwCollaborationDetail createCollaborationDetail(CollaborationUpdateCellParams data) {
+        List<SwCollaborationDetail> detailList = collaborationDetailMapper.selectCollaborationsByTaskID(data.getTaskID().longValue());
+        SwCollaborationDetail collaborationDetail = detailList.stream()
+                .filter(e -> e.getColIndex().equals(data.getColIndex()))
+                .max(((o1, o2) -> o1.getRowIndex() - o2.getRowIndex()))
+                .orElseThrow(() -> new BizException(4, "處理失敗，若重試仍失敗，請聯繫開發人員"));
+        SwCollaborationDetail insertDetail = new SwCollaborationDetail();
+        insertDetail.setScuId(collaborationDetail.getScuId());
+        insertDetail.setRowIndex(collaborationDetail.getRowIndex() + 1);
+        insertDetail.setColIndex(data.getColIndex());
+        insertDetail.setItem(collaborationDetail.getItem());
+        insertDetail.setItemValue("");
+        collaborationDetailMapper.insertSelective(insertDetail);
+        return insertDetail;
     }
 }
