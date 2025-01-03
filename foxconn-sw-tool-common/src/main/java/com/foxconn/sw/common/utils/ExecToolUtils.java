@@ -71,7 +71,7 @@ public class ExecToolUtils {
 //                System.out.println("Output from Python script: " + output);
 //            }
 //        }
-        return  outputResult(Lists.newArrayList("Result function: " + "hello word"));
+        return outputResult(Lists.newArrayList("Result function: " + "hello word"));
         // return fileName;
     }
 
@@ -90,7 +90,7 @@ public class ExecToolUtils {
             // 调用 Python 函数
             fileName = outputResult(Lists.newArrayList("Result from Python function: " + "value"));
         } else {
-            System.out.println("Python engine not found.");
+            logger.info("Python engine not found.");
         }
 
         return fileName;
@@ -120,12 +120,13 @@ public class ExecToolUtils {
      */
     public String execExeFile(String toolPath, String params) {
         String charset = "Big5";
+        String cmder = "cmd.exe";
         try {
             if (toolPath.startsWith("/")) {
                 toolPath = toolPath.substring(1);
             }
 
-            Process process = Runtime.getRuntime().exec("cmd.exe");
+            Process process = Runtime.getRuntime().exec(cmder);
             process.getOutputStream().write((toolPath + "  " + params + "\r\n").getBytes());
             List<String> results = new ArrayList<>();
 
@@ -138,8 +139,7 @@ public class ExecToolUtils {
                     }
                     results.add("BufferedReader  end ");
                 } catch (IOException e) {
-                    System.out.println("BufferedReader  excetpinot");
-                    e.printStackTrace();
+                    logger.info("BufferedReader  excetpinot.");
                 }
             });
 
@@ -152,7 +152,7 @@ public class ExecToolUtils {
                 writer.flush();
                 writer.write("s");
             } catch (IOException e) {
-                e.printStackTrace();
+                logger.error("execExeFile", e);
             }
 
             // 等待读取输出的线程结束
