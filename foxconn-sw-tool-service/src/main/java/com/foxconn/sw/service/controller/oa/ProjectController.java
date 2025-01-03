@@ -26,7 +26,6 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.time.LocalDateTime;
 
-@CrossOrigin
 @RestController
 @RequestMapping("api/oa/project")
 public class ProjectController {

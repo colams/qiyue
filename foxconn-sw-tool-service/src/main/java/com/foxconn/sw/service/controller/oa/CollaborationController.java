@@ -30,7 +30,6 @@ import java.net.URLEncoder;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
-@CrossOrigin
 @RestController
 @RequestMapping("api/collaboration")
 public class CollaborationController {

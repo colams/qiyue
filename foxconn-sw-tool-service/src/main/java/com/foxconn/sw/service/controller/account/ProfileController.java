@@ -21,7 +21,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.FileNotFoundException;
 
-@CrossOrigin
 @RestController
 @RequestMapping("api/profile")
 public class ProfileController {

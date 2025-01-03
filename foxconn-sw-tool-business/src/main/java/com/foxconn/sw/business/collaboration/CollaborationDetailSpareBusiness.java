@@ -22,7 +22,7 @@ public class CollaborationDetailSpareBusiness {
     SwCollaborationDetailSpareExtensionMapper detailSpareExtensionMapper;
 
     public Long updateOrInsert(SwCollaborationDetailSpare detailSpare) {
-        if (Objects.isNull(detailSpare.getId())) {
+        if (Objects.isNull(detailSpare.getId()) || detailSpare.getId() == NumberConstants.ZERO.longValue()) {
             detailSpareExtensionMapper.insertSelective(detailSpare);
             return detailSpare.getId();
         } else {

@@ -27,7 +27,6 @@ import java.util.List;
 /**
  * 任务管理相关接口
  */
-@CrossOrigin
 @RestController
 @RequestMapping("api/oa/task")
 public class TaskController {

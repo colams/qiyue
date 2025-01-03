@@ -21,6 +21,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import static com.foxconn.sw.common.constanst.CapexSetConstants.Column;
@@ -48,7 +49,7 @@ public class CollaborationUpdateCellProcessor {
         SwCollaborationDetailSpare detailSpare = collaborationDetailSpareBusiness.getCollaborationDetail(data.getDetailID());
         SwCollaborationDetailSpare updateDetailSpare = new SwCollaborationDetailSpare();
         updateDetailSpare.setDetailId(data.getDetailID());
-        updateDetailSpare.setId(detailSpare.getId());
+        updateDetailSpare.setId(Optional.ofNullable(detailSpare).map(SwCollaborationDetailSpare::getId).orElse(0L));
         updateDetailSpare.setValue(data.getValue());
         updateDetailSpare.setOperator(RequestContext.getEmployeeNo());
         updateDetailSpare.setTaskId(data.getTaskID());
