@@ -4,6 +4,7 @@ import com.foxconn.sw.business.account.UserBusiness;
 import com.foxconn.sw.business.system.EmployeeBusiness;
 import com.foxconn.sw.data.dto.entity.acount.EmployeeVo;
 import com.foxconn.sw.data.dto.entity.acount.UserInfo;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -18,6 +19,10 @@ public class EmployeeUtils {
     UserBusiness userBusiness;
 
     public EmployeeVo mapEmployee(String employeeNo) {
+        if (StringUtils.isEmpty(employeeNo)) {
+            return null;
+        }
+
         UserInfo userInfo = userBusiness.queryUserInfo(employeeNo);
 
         EmployeeVo employeeVo = new EmployeeVo();

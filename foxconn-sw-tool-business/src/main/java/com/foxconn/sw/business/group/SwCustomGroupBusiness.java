@@ -94,6 +94,7 @@ public class SwCustomGroupBusiness {
         updateGroup.setName(data.getName());
         updateGroup.setIsPrivate(data.getAccessLevel().getCode());
         updateGroup.setDescription(data.getDescription());
+        updateGroup.setId(data.getGroupID());
         return customGroupExtMapper.updateByPrimaryKeySelective(updateGroup) > 0;
     }
 }
