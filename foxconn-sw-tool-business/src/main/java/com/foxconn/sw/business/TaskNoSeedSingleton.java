@@ -38,7 +38,6 @@ public class TaskNoSeedSingleton {
             }
             insertSeed(++taskNumber);
         } catch (Exception e) {
-            System.out.println(e);
             throw new BizException(SYSTEM_ERROR);
         } finally {
             lock.unlock();

@@ -2,6 +2,8 @@ package com.foxconn.sw.service.config;
 
 import com.foxconn.sw.common.utils.ConfigReader;
 import jakarta.annotation.PostConstruct;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
@@ -18,6 +20,7 @@ import java.util.Properties;
 //@org.springframework.cloud.context.config.annotation.RefreshScope // 动态刷新
 public class DynamicConfigLoader {
 
+    private static final Logger logger = LoggerFactory.getLogger(DynamicConfigLoader.class);
     @Autowired
     ConfigReader configReader;
 
@@ -36,14 +39,14 @@ public class DynamicConfigLoader {
         int tempPort = 0;
         try {
             String filename = configReader.readPropertyValue("app.property.config");
-            System.out.println(filename);
             FileSystemResource resource = new FileSystemResource(filename);
             Properties properties = PropertiesLoaderUtils.loadProperties(resource);
             if (properties.containsKey("server.port")) {
                 tempPort = Integer.parseInt(properties.getProperty("server.port"));
             }
         } catch (IOException e) {
-            System.out.println(e);
+            logger.error(e.toString());
+
         }
         setPort(tempPort == 0 ? 8080 : tempPort);
     }

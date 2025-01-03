@@ -71,7 +71,6 @@ public class RegisterProcessorTest extends BaseTest {
 
     public String register(UserBriefParams params) {
         if (params.getDepartmentId() <= 0) {
-            System.out.println(String.format("部门找不到*****************%s,failed" + params.getDepart(), params.getEmployeeNo()));
             return "unknown";
         }
 

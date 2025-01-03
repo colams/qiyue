@@ -46,7 +46,6 @@ public class MenuController {
     @ApiResponse(responseCode = "0", description = "成功码")
     @PostMapping("/authList")
     public Response authList(@Valid @RequestBody Request<MenuParams> request) {
-        System.out.println("authList list");
         List<MenuBriefVo> sysMenus = menuBusiness.authList(request.getData(), request.getHead());
         Response response = ResponseUtils.success(sysMenus, request.getTraceId());
         return response;

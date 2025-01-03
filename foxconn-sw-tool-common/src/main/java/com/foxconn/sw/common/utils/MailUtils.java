@@ -3,6 +3,8 @@ package com.foxconn.sw.common.utils;
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.extra.mail.MailAccount;
 import cn.hutool.extra.mail.MailUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 
@@ -10,7 +12,7 @@ import java.util.ArrayList;
  * 公司邮件发送类
  */
 public class MailUtils {
-
+    private static final Logger logger = LoggerFactory.getLogger(MailUtils.class);
 
     private static final String HOST = "smtp.mail.foxconn.com";//邮件服务器的SMTP地址，可选，默认为smtp.<发件人邮箱后缀>
     private static final int PORT = 25;// 邮件服务器的SMTP端口，可选，默认25,110,485
@@ -41,10 +43,9 @@ public class MailUtils {
         try {
             result = MailUtil.send(account, mailList, " Mail Test", "<b>测试二维码</b><br/>", false);
         } catch (Exception e) {
-            e.printStackTrace();
             result = e.toString();
         } finally {
-            System.out.println(result);
+            logger.info(result);
         }
     }
 
