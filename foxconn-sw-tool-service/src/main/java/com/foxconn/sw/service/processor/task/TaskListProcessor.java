@@ -15,6 +15,7 @@ import com.foxconn.sw.data.dto.entity.task.TaskBriefListVo;
 import com.foxconn.sw.data.dto.entity.task.TaskListFilterVo;
 import com.foxconn.sw.data.dto.entity.task.TaskListPageVo;
 import com.foxconn.sw.data.dto.entity.task.TaskParams;
+import com.foxconn.sw.data.dto.entity.universal.IntegerParams;
 import com.foxconn.sw.data.dto.entity.universal.OperateEntity;
 import com.foxconn.sw.data.entity.SwEmployee;
 import com.foxconn.sw.data.entity.SwTask;
@@ -251,5 +252,110 @@ public class TaskListProcessor {
             }
         }
         return entityList;
+    }
+
+    public List<TaskBriefListVo> subTaskList(IntegerParams data) {
+        List<SwTask> tasks = taskBusiness.getSubTaskList(data.getParams());
+        if (CollectionUtils.isEmpty(tasks)) {
+            return Lists.newArrayList();
+        }
+
+        List<Integer> taskIDs = Optional.ofNullable(tasks)
+                .orElse(Lists.newArrayList())
+                .stream()
+                .map(SwTask::getId)
+                .collect(Collectors.toList());
+        Map<Integer, List<SwTaskEmployeeRelation>> relationsMap = relationBusiness.queryEmployeeRelation(taskIDs);
+
+        List<TaskBriefListVo> vos = tasks.stream().map(e -> {
+            List<SwTaskEmployeeRelation> relations = relationsMap.getOrDefault(e.getId(), Lists.newArrayList());
+            TaskBriefListVo vo = new TaskBriefListVo();
+            vo.setId(e.getId());
+            vo.setTaskNo(e.getTaskNo());
+            vo.setCategory(e.getCategory());
+            vo.setTitle(e.getTitle());
+            vo.setProject(e.getProject());
+            vo.setLevel(e.getLevel());
+            vo.setProgressPercent(e.getProgressPercent());
+            vo.setStatus(e.getStatus());
+            vo.setProposer(e.getProposerEid());
+            vo.setDeadLine(e.getDeadLine());
+
+            Optional<SwTaskEmployeeRelation> optional = relations.stream()
+                    .filter(r -> r.getTaskId().equals(e.getId()) && r.getEmployeeNo().equalsIgnoreCase(RequestContext.getEmployeeNo()))
+                    .findFirst();
+            if (optional.isPresent()) {
+                String supervisorNo = "";
+                List<EmployeeVo> supervisorVos = new ArrayList<>();
+
+                if (TaskRoleFlagEnums.Manager_Flag.test(optional.get().getRoleFlag())) {
+                    List<SwTaskEmployeeRelation> nexts = relations.stream()
+                            .filter(r -> TaskRoleFlagEnums.Watcher_Flag.getFlag() != r.getRoleFlag())
+                            .filter(r -> r.getPrevId().equals(optional.get().getId()))
+                            .collect(Collectors.toList());
+                    if (CollectionUtils.isEmpty(nexts)) {
+                        SwEmployee ee = employeeBusiness.selectEmployeeByENo(optional.get().getEmployeeNo());
+                        if (Objects.nonNull(ee)) {
+                            supervisorNo = ee.getName();
+                            supervisorVos = Lists.newArrayList(map(ee));
+                        }
+                    } else {
+                        supervisorNo = nexts.stream().map(r -> {
+                                    SwEmployee ee = employeeBusiness.selectEmployeeByENo(r.getEmployeeNo());
+                                    return Objects.nonNull(ee) ? ee.getName() : "";
+                                })
+                                .collect(Collectors.joining(","));
+                        supervisorVos = nexts.stream().map(r -> {
+                                    SwEmployee ee = employeeBusiness.selectEmployeeByENo(r.getEmployeeNo());
+                                    return map(ee);
+                                })
+                                .filter(Objects::nonNull)
+                                .collect(Collectors.toList());
+                    }
+                } else if (TaskRoleFlagEnums.Handler_Flag.test(optional.get().getRoleFlag())) {
+                    SwEmployee ee = employeeBusiness.selectEmployeeByENo(optional.get().getEmployeeNo());
+                    if (Objects.nonNull(ee)) {
+                        supervisorNo = ee.getName();
+                        supervisorVos = Lists.newArrayList(map(ee));
+                    }
+                } else if (TaskRoleFlagEnums.Proposer_Flag.test(optional.get().getRoleFlag())) {
+                    List<SwTaskEmployeeRelation> nexts = relations.stream()
+                            .filter(r -> TaskRoleFlagEnums.Manager_Flag.test(r.getRoleFlag()))
+                            .filter(r -> r.getPrevId().equals(optional.get().getId()))
+                            .collect(Collectors.toList());
+                    if (!CollectionUtils.isEmpty(nexts)) {
+                        supervisorNo = nexts.stream().map(r -> {
+                                    SwEmployee ee = employeeBusiness.selectEmployeeByENo(r.getEmployeeNo());
+                                    return Objects.nonNull(ee) ? ee.getName() : "";
+                                })
+                                .collect(Collectors.joining(","));
+                        supervisorVos = nexts.stream().map(r -> {
+                                    SwEmployee ee = employeeBusiness.selectEmployeeByENo(r.getEmployeeNo());
+                                    return map(ee);
+                                })
+                                .collect(Collectors.toList());
+                    }
+                } else if (TaskRoleFlagEnums.Watcher_Flag.test(optional.get().getRoleFlag())) {
+                    supervisorNo = relations.stream()
+                            .filter(r -> r.getIsActive() == 1)
+                            .map(r -> {
+                                SwEmployee ee = employeeBusiness.selectEmployeeByENo(r.getEmployeeNo());
+                                return Objects.nonNull(ee) ? ee.getName() : "";
+                            })
+                            .collect(Collectors.joining(","));
+                    supervisorVos = relations.stream()
+                            .filter(r -> r.getIsActive() == 1)
+                            .map(r -> {
+                                SwEmployee ee = employeeBusiness.selectEmployeeByENo(r.getEmployeeNo());
+                                return map(ee);
+                            })
+                            .collect(Collectors.toList());
+                }
+                vo.setSupervisorVo(supervisorVos);
+            }
+
+            return vo;
+        }).collect(Collectors.toList());
+        return vos;
     }
 }

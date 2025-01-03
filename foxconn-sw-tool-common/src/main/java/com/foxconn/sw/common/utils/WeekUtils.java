@@ -11,6 +11,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.temporal.TemporalAdjusters;
 import java.time.temporal.WeekFields;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
 
@@ -87,30 +88,13 @@ public class WeekUtils {
      * @return Left：week，Right：year
      */
     public static Pair<Integer, Integer> getWeekOfYearAndYear(LocalDate date) {
-        if (date == null) {
-            date = LocalDate.now();
-        }
-
-        LocalDate yearStart = LocalDate.of(date.getYear(), 1, 1);
-        int daysFromYearStart = date.getDayOfYear() - yearStart.getDayOfYear();
-        int yearStartDayOfWeekValue = yearStart.getDayOfWeek().getValue();
-
-        int adjustedDays;
-        if (yearStartDayOfWeekValue <= DayOfWeek.MONDAY.getValue()) {
-            adjustedDays = daysFromYearStart + (yearStartDayOfWeekValue == DayOfWeek.MONDAY.getValue() ? 0 : (1 - yearStartDayOfWeekValue));
-        } else {
-            adjustedDays = daysFromYearStart + (8 - yearStartDayOfWeekValue);
-        }
-
-        int weekNumber = adjustedDays / 7 + 1;
+        int weekNumber = 0;
         int year = date.getYear();
-
-        if (date.isAfter(yearStart.plusYears(1).minusDays(1)) && weekNumber > 51) {
-            year++;
-            weekNumber = 1;
-        } else if (date.getDayOfWeek() == DayOfWeek.MONDAY && date.isAfter(yearStart)) {
-            weekNumber = adjustedDays / 7 + 1;
-            year = date.getYear();
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(date.getYear(), date.getMonthValue() - 1, date.getDayOfMonth());
+        weekNumber = calendar.get(Calendar.WEEK_OF_YEAR);
+        if (date.getMonthValue() == 12 && weekNumber == 1) {
+            year += 1;
         }
         return Pair.of(weekNumber, year);
     }

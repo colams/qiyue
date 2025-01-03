@@ -38,7 +38,6 @@ import java.util.List;
  * 参数
  * 审核开放在线使用
  */
-@CrossOrigin
 @RestController
 @RequestMapping("api/tool")
 public class ToolController {

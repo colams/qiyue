@@ -415,6 +415,66 @@ public class SwCollaborationUserExample {
             return (Criteria) this;
         }
 
+        public Criteria andBgStatusIsNull() {
+            addCriterion("bg_status is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andBgStatusIsNotNull() {
+            addCriterion("bg_status is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andBgStatusEqualTo(Integer value) {
+            addCriterion("bg_status =", value, "bgStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andBgStatusNotEqualTo(Integer value) {
+            addCriterion("bg_status <>", value, "bgStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andBgStatusGreaterThan(Integer value) {
+            addCriterion("bg_status >", value, "bgStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andBgStatusGreaterThanOrEqualTo(Integer value) {
+            addCriterion("bg_status >=", value, "bgStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andBgStatusLessThan(Integer value) {
+            addCriterion("bg_status <", value, "bgStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andBgStatusLessThanOrEqualTo(Integer value) {
+            addCriterion("bg_status <=", value, "bgStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andBgStatusIn(List<Integer> values) {
+            addCriterion("bg_status in", values, "bgStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andBgStatusNotIn(List<Integer> values) {
+            addCriterion("bg_status not in", values, "bgStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andBgStatusBetween(Integer value1, Integer value2) {
+            addCriterion("bg_status between", value1, value2, "bgStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andBgStatusNotBetween(Integer value1, Integer value2) {
+            addCriterion("bg_status not between", value1, value2, "bgStatus");
+            return (Criteria) this;
+        }
+
         public Criteria andCreateTimeIsNull() {
             addCriterion("create_time is null");
             return (Criteria) this;

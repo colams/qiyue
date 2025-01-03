@@ -15,11 +15,11 @@ public class SwCollaborationDetail {
 
     private String itemValue;
 
-    private String spareValue;
-
     private LocalDateTime createTime;
 
     private LocalDateTime datetimeLastchange;
+
+    private String spareValue;
 
     public Long getId() {
         return id;
@@ -99,19 +99,6 @@ public class SwCollaborationDetail {
         this.itemValue = itemValue == null ? null : itemValue.trim();
     }
 
-    public String getSpareValue() {
-        return spareValue;
-    }
-
-    public SwCollaborationDetail withSpareValue(String spareValue) {
-        this.setSpareValue(spareValue);
-        return this;
-    }
-
-    public void setSpareValue(String spareValue) {
-        this.spareValue = spareValue == null ? null : spareValue.trim();
-    }
-
     public LocalDateTime getCreateTime() {
         return createTime;
     }
@@ -136,5 +123,18 @@ public class SwCollaborationDetail {
 
     public void setDatetimeLastchange(LocalDateTime datetimeLastchange) {
         this.datetimeLastchange = datetimeLastchange;
+    }
+
+    public String getSpareValue() {
+        return spareValue;
+    }
+
+    public SwCollaborationDetail withSpareValue(String spareValue) {
+        this.setSpareValue(spareValue);
+        return this;
+    }
+
+    public void setSpareValue(String spareValue) {
+        this.spareValue = spareValue == null ? null : spareValue.trim();
     }
 }

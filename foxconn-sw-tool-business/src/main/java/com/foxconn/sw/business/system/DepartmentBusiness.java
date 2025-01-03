@@ -116,7 +116,7 @@ public class DepartmentBusiness {
 
     public SwDepartment getDepartment(Integer departmentId) {
         List<SwDepartment> departments = getDepartment();
-        SwDepartment department = departments.stream().filter(e -> e.getId() == departmentId).findFirst().orElse(null);
+        SwDepartment department = departments.stream().filter(e -> e.getId().equals(departmentId)).findFirst().orElse(null);
         if (Objects.isNull(department)) {
             throw new BizException(4, "查找部門失敗");
         }

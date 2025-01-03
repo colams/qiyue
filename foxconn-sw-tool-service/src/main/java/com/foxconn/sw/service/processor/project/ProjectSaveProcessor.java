@@ -1,9 +1,10 @@
 package com.foxconn.sw.service.processor.project;
 
-import com.foxconn.sw.common.context.RequestContext;
 import com.foxconn.sw.business.project.ProjectBusiness;
 import com.foxconn.sw.business.project.ProjectItemBusiness;
+import com.foxconn.sw.common.context.RequestContext;
 import com.foxconn.sw.data.dto.request.project.ProjectSaveParams;
+import com.foxconn.sw.data.dto.request.project.ProjectUpdateParams;
 import com.foxconn.sw.data.entity.SwProject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -35,6 +36,10 @@ public class ProjectSaveProcessor {
         swProject.setApplication(params.getApplication());
         swProject.setOperator(RequestContext.getEmployeeNo());
         return projectBusiness.insertOrUpdate(swProject);
+    }
+
+    public Boolean update(ProjectUpdateParams params) {
+        return projectItemBusiness.updateProjectValue(params);
     }
 
 

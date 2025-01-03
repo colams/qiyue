@@ -485,76 +485,6 @@ public class SwCollaborationDetailExample {
             return (Criteria) this;
         }
 
-        public Criteria andSpareValueIsNull() {
-            addCriterion("spare_value is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andSpareValueIsNotNull() {
-            addCriterion("spare_value is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andSpareValueEqualTo(String value) {
-            addCriterion("spare_value =", value, "spareValue");
-            return (Criteria) this;
-        }
-
-        public Criteria andSpareValueNotEqualTo(String value) {
-            addCriterion("spare_value <>", value, "spareValue");
-            return (Criteria) this;
-        }
-
-        public Criteria andSpareValueGreaterThan(String value) {
-            addCriterion("spare_value >", value, "spareValue");
-            return (Criteria) this;
-        }
-
-        public Criteria andSpareValueGreaterThanOrEqualTo(String value) {
-            addCriterion("spare_value >=", value, "spareValue");
-            return (Criteria) this;
-        }
-
-        public Criteria andSpareValueLessThan(String value) {
-            addCriterion("spare_value <", value, "spareValue");
-            return (Criteria) this;
-        }
-
-        public Criteria andSpareValueLessThanOrEqualTo(String value) {
-            addCriterion("spare_value <=", value, "spareValue");
-            return (Criteria) this;
-        }
-
-        public Criteria andSpareValueLike(String value) {
-            addCriterion("spare_value like", value, "spareValue");
-            return (Criteria) this;
-        }
-
-        public Criteria andSpareValueNotLike(String value) {
-            addCriterion("spare_value not like", value, "spareValue");
-            return (Criteria) this;
-        }
-
-        public Criteria andSpareValueIn(List<String> values) {
-            addCriterion("spare_value in", values, "spareValue");
-            return (Criteria) this;
-        }
-
-        public Criteria andSpareValueNotIn(List<String> values) {
-            addCriterion("spare_value not in", values, "spareValue");
-            return (Criteria) this;
-        }
-
-        public Criteria andSpareValueBetween(String value1, String value2) {
-            addCriterion("spare_value between", value1, value2, "spareValue");
-            return (Criteria) this;
-        }
-
-        public Criteria andSpareValueNotBetween(String value1, String value2) {
-            addCriterion("spare_value not between", value1, value2, "spareValue");
-            return (Criteria) this;
-        }
-
         public Criteria andCreateTimeIsNull() {
             addCriterion("create_time is null");
             return (Criteria) this;
@@ -672,6 +602,76 @@ public class SwCollaborationDetailExample {
 
         public Criteria andDatetimeLastchangeNotBetween(LocalDateTime value1, LocalDateTime value2) {
             addCriterion("datetime_lastchange not between", value1, value2, "datetimeLastchange");
+            return (Criteria) this;
+        }
+
+        public Criteria andSpareValueIsNull() {
+            addCriterion("spare_value is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andSpareValueIsNotNull() {
+            addCriterion("spare_value is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andSpareValueEqualTo(String value) {
+            addCriterion("spare_value =", value, "spareValue");
+            return (Criteria) this;
+        }
+
+        public Criteria andSpareValueNotEqualTo(String value) {
+            addCriterion("spare_value <>", value, "spareValue");
+            return (Criteria) this;
+        }
+
+        public Criteria andSpareValueGreaterThan(String value) {
+            addCriterion("spare_value >", value, "spareValue");
+            return (Criteria) this;
+        }
+
+        public Criteria andSpareValueGreaterThanOrEqualTo(String value) {
+            addCriterion("spare_value >=", value, "spareValue");
+            return (Criteria) this;
+        }
+
+        public Criteria andSpareValueLessThan(String value) {
+            addCriterion("spare_value <", value, "spareValue");
+            return (Criteria) this;
+        }
+
+        public Criteria andSpareValueLessThanOrEqualTo(String value) {
+            addCriterion("spare_value <=", value, "spareValue");
+            return (Criteria) this;
+        }
+
+        public Criteria andSpareValueLike(String value) {
+            addCriterion("spare_value like", value, "spareValue");
+            return (Criteria) this;
+        }
+
+        public Criteria andSpareValueNotLike(String value) {
+            addCriterion("spare_value not like", value, "spareValue");
+            return (Criteria) this;
+        }
+
+        public Criteria andSpareValueIn(List<String> values) {
+            addCriterion("spare_value in", values, "spareValue");
+            return (Criteria) this;
+        }
+
+        public Criteria andSpareValueNotIn(List<String> values) {
+            addCriterion("spare_value not in", values, "spareValue");
+            return (Criteria) this;
+        }
+
+        public Criteria andSpareValueBetween(String value1, String value2) {
+            addCriterion("spare_value between", value1, value2, "spareValue");
+            return (Criteria) this;
+        }
+
+        public Criteria andSpareValueNotBetween(String value1, String value2) {
+            addCriterion("spare_value not between", value1, value2, "spareValue");
             return (Criteria) this;
         }
 

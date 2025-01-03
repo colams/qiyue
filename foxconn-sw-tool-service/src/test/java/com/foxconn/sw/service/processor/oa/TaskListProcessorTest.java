@@ -17,7 +17,7 @@ public class TaskListProcessorTest extends BaseTest {
     public void list() {
         PageParams<TaskParams> taskParams = initParam();
         var result = taskListProcessor.list(taskParams);
-        System.out.println(JsonUtils.serialize(result));
+        logger.info(JsonUtils.serialize(result));
 
     }
 

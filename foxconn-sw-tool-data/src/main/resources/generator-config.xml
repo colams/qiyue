@@ -105,6 +105,9 @@
         <table tableName="sw_collaboration_detail_log">
             <generatedKey column="id" identity="true" sqlStatement="mysql"/>
         </table>
+        <table tableName="sw_collaboration_detail_spare">
+            <generatedKey column="id" identity="true" sqlStatement="mysql"/>
+        </table>
         <table tableName="sw_collaboration_user">
             <generatedKey column="id" identity="true" sqlStatement="mysql"/>
         </table>
@@ -159,6 +162,15 @@
             <generatedKey column="id" identity="true" sqlStatement="mysql"/>
         </table>
         <table tableName="sw_meeting_member">
+            <generatedKey column="id" identity="true" sqlStatement="mysql"/>
+        </table>
+        <table tableName="sw_meeting_minutes">
+            <generatedKey column="id" identity="true" sqlStatement="mysql"/>
+        </table>
+        <table tableName="sw_meeting_minutes_detail">
+            <generatedKey column="id" identity="true" sqlStatement="mysql"/>
+        </table>
+        <table tableName="sw_meeting_minutes_members">
             <generatedKey column="id" identity="true" sqlStatement="mysql"/>
         </table>
 

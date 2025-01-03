@@ -1,21 +1,28 @@
 package com.foxconn.sw.service.processor.meeting;
 
-import com.foxconn.sw.common.context.RequestContext;
 import com.foxconn.sw.business.meeting.MeetingBusiness;
 import com.foxconn.sw.business.meeting.MeetingCycleDetailBusiness;
 import com.foxconn.sw.business.meeting.MeetingMemberBusiness;
 import com.foxconn.sw.business.system.EmployeeBusiness;
+import com.foxconn.sw.common.context.RequestContext;
 import com.foxconn.sw.common.utils.JsonUtils;
 import com.foxconn.sw.common.utils.LocalDateExtUtils;
 import com.foxconn.sw.common.utils.StringExtUtils;
 import com.foxconn.sw.data.constants.enums.MeetingRoleFlagEnums;
 import com.foxconn.sw.data.dto.communal.CycleMeetingVo;
+import com.foxconn.sw.data.dto.communal.MeetingDateTimeVo;
 import com.foxconn.sw.data.dto.entity.acount.EmployeeVo;
+import com.foxconn.sw.data.dto.entity.meeting.MeetingV2Vo;
 import com.foxconn.sw.data.dto.entity.meeting.MeetingVo;
+import com.foxconn.sw.data.dto.entity.oa.InfoColorVo;
+import com.foxconn.sw.data.dto.entity.universal.OptionsVo;
+import com.foxconn.sw.data.dto.enums.MeetingStatusEnums;
 import com.foxconn.sw.data.dto.request.meeting.ListMeetingParams;
+import com.foxconn.sw.data.dto.request.meeting.ListMeetingV2Params;
 import com.foxconn.sw.data.entity.SwMeeting;
 import com.foxconn.sw.data.entity.SwMeetingCycleDetail;
 import com.foxconn.sw.data.entity.SwMeetingMember;
+import com.foxconn.sw.data.entity.extension.SwMeetingExtension;
 import com.foxconn.sw.service.processor.MeetingRoomConfig;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
@@ -234,5 +241,36 @@ public class ListMeetingProcessor {
         Map<Integer, List<SwMeetingCycleDetail>> map = meetingCycleDetails.stream()
                 .collect(Collectors.groupingBy(SwMeetingCycleDetail::getMeetingId));
         return map;
+    }
+
+    public List<MeetingV2Vo> meetList(ListMeetingV2Params data) {
+        if (Objects.isNull(data.getValue())) {
+            return Lists.newArrayList();
+        }
+
+        List<SwMeetingExtension> meetings = meetingBusiness.selectMeetingList(data);
+        return meetings.stream().map(e -> map2MeetingV2Vo(e))
+                .collect(Collectors.toList());
+    }
+
+    private MeetingV2Vo map2MeetingV2Vo(SwMeetingExtension meeting) {
+        MeetingV2Vo vo = new MeetingV2Vo();
+        vo.setMeetingID(meeting.getId());
+        vo.setRoomVo(getRoomVo(meeting.getRoom()));
+        vo.setTitle(meeting.getTitle());
+        if (Objects.nonNull(meeting.getCycle()) && StringUtils.isNotEmpty(meeting.getMeetingDate2())) {
+            vo.setMeetingDateVo(new MeetingDateTimeVo(meeting.getMeetingDate2(), meeting.getStartTime2(), meeting.getEndTime2()));
+        } else {
+            vo.setMeetingDateVo(new MeetingDateTimeVo(meeting.getMeetingDate(), meeting.getStartTime(), meeting.getEndTime()));
+        }
+        vo.setChairman(null);
+        vo.setResource(Lists.newArrayList());
+        MeetingStatusEnums meetingStatusEnums = MeetingStatusEnums.getEnumByCode(meeting.getStatus());
+        vo.setStatusVo(new InfoColorVo(meetingStatusEnums.getCode(), meeting.getDescription()));
+        return vo;
+    }
+
+    private OptionsVo getRoomVo(String roomKey) {
+        return new OptionsVo(roomKey, MeetingRoomConfig.getText(roomKey));
     }
 }

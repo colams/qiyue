@@ -9,7 +9,6 @@ import com.foxconn.sw.business.oa.*;
 import com.foxconn.sw.business.system.EmployeeBusiness;
 import com.foxconn.sw.common.context.RequestContext;
 import com.foxconn.sw.common.utils.ConvertUtils;
-import com.foxconn.sw.common.utils.JsonUtils;
 import com.foxconn.sw.data.constants.enums.TaskOperateType;
 import com.foxconn.sw.data.constants.enums.TaskRoleFlagEnums;
 import com.foxconn.sw.data.constants.enums.oa.RejectStatusEnum;
@@ -18,7 +17,6 @@ import com.foxconn.sw.data.dto.request.task.SubTaskParams;
 import com.foxconn.sw.data.entity.*;
 import com.foxconn.sw.service.processor.user.CommonUserUtils;
 import com.google.common.collect.Lists;
-import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -80,7 +78,7 @@ public class CreateTaskProcessor {
 
         int taskID = swTaskBusiness.insertOrUpdate(task);
         addTaskLog(task, isUpdate);
-        Integer progressId = addProcessInfo(task, data.getResourceIds(), isUpdate);
+        Integer progressId = addProcessInfo(task, data.getManagers(), data.getResourceIds(), isUpdate);
         taskEmployeeRelation.addRelationAtCreate(taskID, data.getManagers(), data.getWatchers());
 
         if ("6-2".equalsIgnoreCase(data.getCategory()) || "capex".equalsIgnoreCase(data.getCategory())) {
@@ -142,16 +140,11 @@ public class CreateTaskProcessor {
         taskLogBusiness.addTaskLog(task.getId(), operator, content);
     }
 
-    private Integer addProcessInfo(SwTask task, List<Integer> resourceIds, boolean isUpdate) {
+    private Integer addProcessInfo(SwTask task, List<String> managers, List<Integer> resourceIds, boolean isUpdate) {
         String content = "";
 
-        List<String> managerNos = Lists.newArrayList(task.getManagerEid());
-        if (StringUtils.isNotEmpty(task.getManagerEid()) && task.getManagerEid().startsWith("[")) {
-            managerNos = JsonUtils.deserialize(task.getManagerEid(), List.class, String.class);
-        }
-
         if (task.getStatus() == PENDING.getCode()) {
-            List<SwEmployee> ee = employeeBusiness.selectEmployeeByENos(managerNos);
+            List<SwEmployee> ee = employeeBusiness.selectEmployeeByENos(managers);
             String name = "";
             for (SwEmployee employee : ee) {
                 name += String.format("：%s(%s)", employee.getName(), employee.getEmployeeNo());
@@ -179,12 +172,19 @@ public class CreateTaskProcessor {
         SwTask task = new SwTask();
         task.setTaskNo(taskNoSeedSingleton.getTaskNo());
         task.setTitle(data.getTitle());
+        task.setId(data.getTaskID());
         task.setProposerEid(RequestContext.getEmployeeNo());
         task.setDeadLine(data.getDeadline());
         task.setParentId(data.getParentTaskID());
         task.setCreateTime(LocalDateTime.now());
-        task.setProposerEid(RequestContext.getEmployeeNo());
+        task.setStatus(data.getStatus());
+        task.setProgressPercent(data.getProgressPercent());
+        task.setDescription(data.getDescription());
+        task.setLevel(data.getLevel());
         int subTaskID = swTaskBusiness.insertOrUpdate(task);
+        if (subTaskID > 0) {
+            taskEmployeeRelation.addRelationAtCreate(subTaskID, Lists.newArrayList(data.getHandler()), null);
+        }
         return subTaskID;
     }
 }

@@ -13,6 +13,7 @@ import com.foxconn.sw.data.entity.ForumBbs;
 import com.foxconn.sw.data.entity.SwAppendResource;
 import com.foxconn.sw.service.processor.utils.EmployeeUtils;
 import com.google.common.collect.Lists;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
@@ -43,7 +44,12 @@ public class PostsDetailProcessor {
     private BbsDetailVo map2Bbs(ForumBbs forumBbs) {
         BbsDetailVo bbsDetailVo = new BbsDetailVo();
         bbsDetailVo.setId(forumBbs.getId());
-        bbsDetailVo.setTitle(forumBbs.getTitle());
+
+        if (StringUtils.isNotEmpty(forumBbs.getProject())) {
+            bbsDetailVo.setTitle(String.format("【%s】%s", forumBbs.getProject(), forumBbs.getTitle()));
+        } else {
+            bbsDetailVo.setTitle(forumBbs.getTitle());
+        }
         bbsDetailVo.setCollectionStatus(favoriteBusiness.queryCollectionStatus(forumBbs.getId()));
         bbsDetailVo.setCanDel(RequestContext.getEmployeeNo().equalsIgnoreCase(forumBbs.getAuthorNo()));
         return bbsDetailVo;

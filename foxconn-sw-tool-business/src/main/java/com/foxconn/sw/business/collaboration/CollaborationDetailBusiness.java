@@ -3,11 +3,13 @@ package com.foxconn.sw.business.collaboration;
 import com.foxconn.sw.business.SwAppendResourceBusiness;
 import com.foxconn.sw.common.utils.ExcelUtils;
 import com.foxconn.sw.common.utils.FilePathUtils;
+import com.foxconn.sw.data.dto.request.collaboration.CollaborationUpdateCellParams;
 import com.foxconn.sw.data.entity.SwAppendResource;
 import com.foxconn.sw.data.entity.SwCollaborationDetail;
 import com.foxconn.sw.data.entity.SwCollaborationDetailExample;
+import com.foxconn.sw.data.exception.BizException;
 import com.foxconn.sw.data.mapper.auto.SwCollaborationDetailMapper;
-import com.foxconn.sw.data.mapper.extension.oa.SwCollaborationDetailExtensionMapper;
+import com.foxconn.sw.data.mapper.extension.collaboration.SwCollaborationDetailExtensionMapper;
 import com.google.common.collect.Lists;
 import org.apache.ibatis.session.ExecutorType;
 import org.apache.ibatis.session.SqlSession;
@@ -58,14 +60,14 @@ public class CollaborationDetailBusiness {
         return collaborationDetailMapper.selectByExample(example);
     }
 
-    public boolean updateOrInsert(SwCollaborationDetail detail) {
-        int i;
+    public Long updateOrInsert(SwCollaborationDetail detail) {
         if (Objects.isNull(detail.getId())) {
-            i = collaborationDetailMapper.insertSelective(detail);
+            collaborationDetailMapper.insertSelective(detail);
+            return detail.getId();
         } else {
-            i = collaborationDetailMapper.updateByPrimaryKeySelective(detail);
+            int effectCount = collaborationDetailMapper.updateByPrimaryKeySelective(detail);
+            return Long.valueOf(effectCount);
         }
-        return i > 0;
     }
 
     public boolean updateItemValue(Long scuID, Integer key, String item, String value) {
@@ -79,6 +81,16 @@ public class CollaborationDetailBusiness {
         criteria.andItemEqualTo(item);
         criteria.andScuIdEqualTo(scuID);
         return collaborationDetailMapper.updateByExampleSelective(detail, example) > 0;
+    }
+
+    public SwCollaborationDetail selectCollaborationDetail(Long scuID, Integer key, String item) {
+        SwCollaborationDetailExample example = new SwCollaborationDetailExample();
+        SwCollaborationDetailExample.Criteria criteria = example.createCriteria();
+        criteria.andRowIndexEqualTo(key);
+        criteria.andItemEqualTo(item);
+        criteria.andScuIdEqualTo(scuID);
+        List<SwCollaborationDetail> details = collaborationDetailMapper.selectByExample(example);
+        return details.get(0);
     }
 
     public boolean readExcelContent(Long scuId, Integer resourceId) throws FileNotFoundException {
@@ -147,5 +159,21 @@ public class CollaborationDetailBusiness {
         sqlSession.commit();
         sqlSession.close();
         return true;
+    }
+
+    public SwCollaborationDetail createCollaborationDetail(CollaborationUpdateCellParams data) {
+        List<SwCollaborationDetail> detailList = collaborationDetailMapper.selectCollaborationsByTaskID(data.getTaskID().longValue());
+        SwCollaborationDetail collaborationDetail = detailList.stream()
+                .filter(e -> e.getColIndex().equals(data.getColIndex()))
+                .max(((o1, o2) -> o1.getRowIndex() - o2.getRowIndex()))
+                .orElseThrow(() -> new BizException(4, "處理失敗，若重試仍失敗，請聯繫開發人員"));
+        SwCollaborationDetail insertDetail = new SwCollaborationDetail();
+        insertDetail.setScuId(collaborationDetail.getScuId());
+        insertDetail.setRowIndex(collaborationDetail.getRowIndex() + 1);
+        insertDetail.setColIndex(data.getColIndex());
+        insertDetail.setItem(collaborationDetail.getItem());
+        insertDetail.setItemValue("");
+        collaborationDetailMapper.insertSelective(insertDetail);
+        return insertDetail;
     }
 }

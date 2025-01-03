@@ -20,7 +20,6 @@ class ToolsBusinessTest extends BaseTest {
     public void saveTool() {
         SwToolDTO swToolDTO = initDto();
         SwTools tools = toolsBusiness.saveTool(swToolDTO);
-        System.out.println(JsonUtils.serialize(tools));
     }
 
     private SwToolDTO initDto() {
@@ -41,6 +40,5 @@ class ToolsBusinessTest extends BaseTest {
         searchParams.setPropertyId(1);
         searchParams.setKeyword("10");
         List<SwToolDTO> dtos = toolsBusiness.searchByParams(null);
-        System.out.println(JsonUtils.serialize(dtos));
     }
 }

@@ -36,12 +36,12 @@ public interface SwCollaborationDetailMapper {
     @Insert({
         "insert into sw_collaboration_detail (scu_id, row_index, ",
         "col_index, item, ",
-        "item_value, spare_value, ",
-        "create_time, datetime_lastchange)",
+        "item_value, create_time, ",
+        "datetime_lastchange, spare_value)",
         "values (#{scuId,jdbcType=BIGINT}, #{rowIndex,jdbcType=INTEGER}, ",
         "#{colIndex,jdbcType=INTEGER}, #{item,jdbcType=VARCHAR}, ",
-        "#{itemValue,jdbcType=VARCHAR}, #{spareValue,jdbcType=VARCHAR}, ",
-        "#{createTime,jdbcType=TIMESTAMP}, #{datetimeLastchange,jdbcType=TIMESTAMP})"
+        "#{itemValue,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, ",
+        "#{datetimeLastchange,jdbcType=TIMESTAMP}, #{spareValue,jdbcType=VARCHAR})"
     })
     @SelectKey(statement="SELECT LAST_INSERT_ID()", keyProperty="id", before=false, resultType=Long.class)
     int insert(SwCollaborationDetail record);
@@ -58,9 +58,9 @@ public interface SwCollaborationDetailMapper {
         @Result(column="col_index", property="colIndex", jdbcType=JdbcType.INTEGER),
         @Result(column="item", property="item", jdbcType=JdbcType.VARCHAR),
         @Result(column="item_value", property="itemValue", jdbcType=JdbcType.VARCHAR),
-        @Result(column="spare_value", property="spareValue", jdbcType=JdbcType.VARCHAR),
         @Result(column="create_time", property="createTime", jdbcType=JdbcType.TIMESTAMP),
-        @Result(column="datetime_lastchange", property="datetimeLastchange", jdbcType=JdbcType.TIMESTAMP)
+        @Result(column="datetime_lastchange", property="datetimeLastchange", jdbcType=JdbcType.TIMESTAMP),
+        @Result(column="spare_value", property="spareValue", jdbcType=JdbcType.VARCHAR)
     })
     List<SwCollaborationDetail> selectByExampleWithRowbounds(SwCollaborationDetailExample example, RowBounds rowBounds);
 
@@ -72,16 +72,16 @@ public interface SwCollaborationDetailMapper {
         @Result(column="col_index", property="colIndex", jdbcType=JdbcType.INTEGER),
         @Result(column="item", property="item", jdbcType=JdbcType.VARCHAR),
         @Result(column="item_value", property="itemValue", jdbcType=JdbcType.VARCHAR),
-        @Result(column="spare_value", property="spareValue", jdbcType=JdbcType.VARCHAR),
         @Result(column="create_time", property="createTime", jdbcType=JdbcType.TIMESTAMP),
-        @Result(column="datetime_lastchange", property="datetimeLastchange", jdbcType=JdbcType.TIMESTAMP)
+        @Result(column="datetime_lastchange", property="datetimeLastchange", jdbcType=JdbcType.TIMESTAMP),
+        @Result(column="spare_value", property="spareValue", jdbcType=JdbcType.VARCHAR)
     })
     List<SwCollaborationDetail> selectByExample(SwCollaborationDetailExample example);
 
     @Select({
         "select",
-        "id, scu_id, row_index, col_index, item, item_value, spare_value, create_time, ",
-        "datetime_lastchange",
+        "id, scu_id, row_index, col_index, item, item_value, create_time, datetime_lastchange, ",
+        "spare_value",
         "from sw_collaboration_detail",
         "where id = #{id,jdbcType=BIGINT}"
     })
@@ -92,9 +92,9 @@ public interface SwCollaborationDetailMapper {
         @Result(column="col_index", property="colIndex", jdbcType=JdbcType.INTEGER),
         @Result(column="item", property="item", jdbcType=JdbcType.VARCHAR),
         @Result(column="item_value", property="itemValue", jdbcType=JdbcType.VARCHAR),
-        @Result(column="spare_value", property="spareValue", jdbcType=JdbcType.VARCHAR),
         @Result(column="create_time", property="createTime", jdbcType=JdbcType.TIMESTAMP),
-        @Result(column="datetime_lastchange", property="datetimeLastchange", jdbcType=JdbcType.TIMESTAMP)
+        @Result(column="datetime_lastchange", property="datetimeLastchange", jdbcType=JdbcType.TIMESTAMP),
+        @Result(column="spare_value", property="spareValue", jdbcType=JdbcType.VARCHAR)
     })
     SwCollaborationDetail selectByPrimaryKey(Long id);
 
@@ -114,9 +114,9 @@ public interface SwCollaborationDetailMapper {
           "col_index = #{colIndex,jdbcType=INTEGER},",
           "item = #{item,jdbcType=VARCHAR},",
           "item_value = #{itemValue,jdbcType=VARCHAR},",
-          "spare_value = #{spareValue,jdbcType=VARCHAR},",
           "create_time = #{createTime,jdbcType=TIMESTAMP},",
-          "datetime_lastchange = #{datetimeLastchange,jdbcType=TIMESTAMP}",
+          "datetime_lastchange = #{datetimeLastchange,jdbcType=TIMESTAMP},",
+          "spare_value = #{spareValue,jdbcType=VARCHAR}",
         "where id = #{id,jdbcType=BIGINT}"
     })
     int updateByPrimaryKey(SwCollaborationDetail record);

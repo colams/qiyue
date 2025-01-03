@@ -27,6 +27,7 @@ public interface SwTaskExtensionMapper extends SwTaskMapper {
             "<foreach collection='employeeNos' open='(' close=')' separator=',' item='employeeNo'>",
             " #{employeeNo} ",
             "</foreach>",
+            " and st.parent_id=0 ",
             "<if test='params.keyWord!=null and params.keyWord!=\"\"' >",
             " and title like CONCAT('%', #{params.keyWord,jdbcType=VARCHAR}, '%') ",
             "</if> ",
@@ -151,6 +152,7 @@ public interface SwTaskExtensionMapper extends SwTaskMapper {
             "<foreach collection='employeeNos' open='(' close=')' separator=',' item='employeeNo'>",
             " #{employeeNo} ",
             "</foreach>",
+            " and st.parent_id=0 ",
             "<if test='params.keyWord!=null and params.keyWord!=\"\"' >",
             " and title like CONCAT('%', #{params.keyWord,jdbcType=VARCHAR}, '%') ",
             "</if> ",
@@ -247,6 +249,7 @@ public interface SwTaskExtensionMapper extends SwTaskMapper {
             "<foreach collection='employeeNos' open='(' close=')' separator=',' item='employeeNo'>",
             " #{employeeNo} ",
             "</foreach>",
+            " and st.parent_id=0 ",
             "<if test='params.keyWord!=null and params.keyWord!=\"\"' >",
             " and title like CONCAT('%', #{params.keyWord,jdbcType=VARCHAR}, '%') ",
             "</if> ",
@@ -320,9 +323,9 @@ public interface SwTaskExtensionMapper extends SwTaskMapper {
             "</script>"
     })
     Long getTotalCountByParams(@Param("params") TaskParams params,
-                              @Param("employeeNos") List<String> employeeNos,
-                              @Param("nowDate") String nowDate,
-                              @Param("proposer") String proposer);
+                               @Param("employeeNos") List<String> employeeNos,
+                               @Param("nowDate") String nowDate,
+                               @Param("proposer") String proposer);
 
     @Select({
             "select * ",

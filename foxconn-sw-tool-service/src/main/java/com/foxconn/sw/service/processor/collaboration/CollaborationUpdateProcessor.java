@@ -1,9 +1,11 @@
 package com.foxconn.sw.service.processor.collaboration;
 
 import com.foxconn.sw.business.collaboration.CollaborationDetailBusiness;
+import com.foxconn.sw.business.collaboration.CollaborationDetailLogBusiness;
 import com.foxconn.sw.business.collaboration.CollaborationUserBusiness;
 import com.foxconn.sw.business.oa.SwTaskBusiness;
 import com.foxconn.sw.business.oa.SwTaskProgressBusiness;
+import com.foxconn.sw.common.constanst.NumberConstants;
 import com.foxconn.sw.common.context.RequestContext;
 import com.foxconn.sw.data.constants.enums.oa.TaskStatusEnums;
 import com.foxconn.sw.data.constants.enums.retcode.OAExceptionCode;
@@ -33,6 +35,8 @@ public class CollaborationUpdateProcessor {
     SwTaskBusiness taskBusiness;
     @Autowired
     SwTaskProgressBusiness taskProgressBusiness;
+    @Autowired
+    CollaborationDetailLogBusiness collaborationDetailLogBusiness;
 
 
     public Boolean update(CollaborationUpdateParams data) {
@@ -55,9 +59,11 @@ public class CollaborationUpdateProcessor {
                 SwCollaborationDetail detail = new SwCollaborationDetail();
                 detail.setId(e.getId());
                 detail.setItemValue(content.getOrDefault(e.getItem(), ""));
+                detail.setSpareValue(content.getOrDefault(e.getItem(), ""));
                 updateDetails.add(detail);
             });
             collaborationDetail.batchUpdate(updateDetails);
+            collaborationDetailLogBusiness.insertCollaborationDetailLog(updateDetails);
         } else {
             if (Objects.isNull(id)) {
                 SwCollaborationUser collaborationUser = new SwCollaborationUser();
@@ -70,7 +76,12 @@ public class CollaborationUpdateProcessor {
                     detail.setScuId(scuID);
                     detail.setItem(entry.getKey());
                     detail.setItemValue(entry.getValue());
-                    collaborationDetail.updateOrInsert(detail);
+                    detail.setSpareValue(entry.getValue());
+                    Long detailID = collaborationDetail.updateOrInsert(detail);
+                    collaborationDetailLogBusiness.insertCollaborationDetailLog(detailID,
+                            detail.getRowIndex(),
+                            detail.getColIndex(),
+                            entry.getValue());
                 }
 
                 return true;
@@ -85,7 +96,12 @@ public class CollaborationUpdateProcessor {
                 detail.setItem(entry.getKey());
                 detail.setScuId(id);
                 detail.setItemValue(entry.getValue());
-                collaborationDetail.updateOrInsert(detail);
+                detail.setSpareValue(entry.getValue());
+                Long detailID = collaborationDetail.updateOrInsert(detail);
+                collaborationDetailLogBusiness.insertCollaborationDetailLog(detailID,
+                        detail.getRowIndex(),
+                        detail.getColIndex(),
+                        entry.getValue());
             }
         }
         return true;
@@ -95,6 +111,11 @@ public class CollaborationUpdateProcessor {
     public Boolean updateCol(List<SwCollaborationUser> collaborationUsers, String header, Map<Integer, String> colPair) {
         for (Map.Entry<Integer, String> entry : colPair.entrySet()) {
             collaborationDetail.updateItemValue(collaborationUsers.get(0).getId(), entry.getKey(), header, entry.getValue());
+            SwCollaborationDetail detail = collaborationDetail.selectCollaborationDetail(collaborationUsers.get(0).getId(), entry.getKey(), header);
+            collaborationDetailLogBusiness.insertCollaborationDetailLog(detail.getId(),
+                    detail.getRowIndex(),
+                    detail.getColIndex(),
+                    entry.getValue());
         }
         return true;
     }
@@ -132,5 +153,16 @@ public class CollaborationUpdateProcessor {
         }
         collaboration.setStatus(1);
         return collaborationUserBusiness.updateUser(collaboration);
+    }
+
+    public Boolean clearBg(CollaborationDetailParams data) {
+        List<SwCollaborationUser> collaborationUsers = collaborationUserBusiness.queryCollaborationUser(data.getTaskID());
+        int bgStatus = collaborationUsers.get(0).getBgStatus();
+        if (NumberConstants.ONE.equals(bgStatus)) {
+            bgStatus = NumberConstants.ZERO;
+        } else {
+            bgStatus = NumberConstants.ONE;
+        }
+        return collaborationUserBusiness.clearBg(data, bgStatus);
     }
 }

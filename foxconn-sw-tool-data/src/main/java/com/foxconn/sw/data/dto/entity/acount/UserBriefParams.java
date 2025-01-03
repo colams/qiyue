@@ -15,8 +15,6 @@ public class UserBriefParams {
     @Min(1)
     private Integer departmentId;
 
-    private String title;
-
     @NotNull(message = "账号不能为空")
     @Length(min = 4, max = 20, message = "账号长度需4-20位")
     private String employeeNo;
@@ -24,6 +22,10 @@ public class UserBriefParams {
     @NotNull(message = "密码不能为空")
     @Length(min = 6, max = 15, message = "密码长度需6-15位")
     private String password;
+
+    private Integer managerLevel;
+
+    private String depart;
 
     public String getName() {
         return name;
@@ -41,13 +43,6 @@ public class UserBriefParams {
         this.departmentId = departmentId;
     }
 
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
 
     public String getEmployeeNo() {
         return employeeNo;
@@ -63,5 +58,21 @@ public class UserBriefParams {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public Integer getManagerLevel() {
+        return managerLevel;
+    }
+
+    public void setManagerLevel(Integer managerLevel) {
+        this.managerLevel = managerLevel;
+    }
+
+    public String getDepart() {
+        return depart;
+    }
+
+    public void setDepart(String depart) {
+        this.depart = depart;
     }
 }

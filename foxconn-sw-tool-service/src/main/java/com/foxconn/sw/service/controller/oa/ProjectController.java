@@ -5,6 +5,7 @@ import com.foxconn.sw.data.dto.Request;
 import com.foxconn.sw.data.dto.Response;
 import com.foxconn.sw.data.dto.entity.project.ProjectListVo;
 import com.foxconn.sw.data.dto.request.project.ProjectSaveParams;
+import com.foxconn.sw.data.dto.request.project.ProjectUpdateParams;
 import com.foxconn.sw.service.aspects.Permission;
 import com.foxconn.sw.service.processor.project.ProjectImportProcessor;
 import com.foxconn.sw.service.processor.project.ProjectListProcessor;
@@ -25,7 +26,6 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.time.LocalDateTime;
 
-@CrossOrigin
 @RestController
 @RequestMapping("api/oa/project")
 public class ProjectController {
@@ -51,11 +51,20 @@ public class ProjectController {
     }
 
     @Permission
-    @Operation(summary = "保存专案信息", tags = TagsConstants.PROJECT)
+    @Operation(summary = "新建专案信息", tags = TagsConstants.PROJECT)
     @ApiResponse(responseCode = "0", description = "成功码")
     @PostMapping("/save")
     public Response<Boolean> save(@Valid @RequestBody Request<ProjectSaveParams> request) {
         Boolean result = projectSaveProcessor.save(request.getData());
+        return ResponseUtils.success(result, request.getTraceId());
+    }
+
+    @Permission
+    @Operation(summary = "更新专案信息", tags = TagsConstants.PROJECT)
+    @ApiResponse(responseCode = "0", description = "成功码")
+    @PostMapping("/update")
+    public Response<Boolean> update(@Valid @RequestBody Request<ProjectUpdateParams> request) {
+        Boolean result = projectSaveProcessor.update(request.getData());
         return ResponseUtils.success(result, request.getTraceId());
     }
 

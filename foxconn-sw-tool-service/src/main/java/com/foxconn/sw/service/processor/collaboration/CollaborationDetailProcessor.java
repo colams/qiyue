@@ -2,6 +2,7 @@ package com.foxconn.sw.service.processor.collaboration;
 
 import com.foxconn.sw.business.SwCapexSetBusiness;
 import com.foxconn.sw.business.collaboration.CollaborationDetailBusiness;
+import com.foxconn.sw.business.collaboration.CollaborationDetailSpareBusiness;
 import com.foxconn.sw.business.collaboration.CollaborationUserBusiness;
 import com.foxconn.sw.business.oa.SwTaskBusiness;
 import com.foxconn.sw.business.oa.SwTaskEmployeeRelationBusiness;
@@ -11,7 +12,6 @@ import com.foxconn.sw.common.utils.FilePathUtils;
 import com.foxconn.sw.data.constants.enums.TaskRoleFlagEnums;
 import com.foxconn.sw.data.constants.enums.oa.TaskStatusEnums;
 import com.foxconn.sw.data.dto.entity.ResourceVo;
-import com.foxconn.sw.data.dto.entity.TupleValue;
 import com.foxconn.sw.data.dto.entity.acount.EmployeeVo;
 import com.foxconn.sw.data.dto.entity.collaboration.CollaborationVo;
 import com.foxconn.sw.data.dto.entity.oa.CapexParamsVo;
@@ -46,6 +46,8 @@ public class CollaborationDetailProcessor {
     SwTaskBusiness taskBusiness;
     @Autowired
     SwCapexSetBusiness capexSetBusiness;
+    @Autowired
+    CollaborationDetailSpareBusiness collaborationDetailSpareBusiness;
 
     /**
      * int taskID = 75;
@@ -85,6 +87,7 @@ public class CollaborationDetailProcessor {
         vo.setCapexParamsVos(capexParamsVos);
         vo.setPropose(swTask.getProposerEid().equalsIgnoreCase(RequestContext.getEmployeeNo()));
         vo.setFinish(swTask.getStatus().equals(TaskStatusEnums.COMPLETED.getCode()));
+        vo.setBgStatus(collaborationUsers.get(0).getBgStatus());
         if (!CollectionUtils.isEmpty(capexParamsVos)) {
             vo.setContent(initMapList2(collaborationUsers.get(0).getId(), header));
         } else {
@@ -108,9 +111,8 @@ public class CollaborationDetailProcessor {
             int index = 0;
             objectMap.put("rowIndex", entry.getKey());
             for (SwCollaborationDetail collaborationDetail : entry.getValue()) {
-                objectMap.put(header.get(index++), collaborationDetail.getItemValue());
-//                var value = new TupleValue(collaborationDetail.getItemValue(), collaborationDetail.getSpareValue());
-//                objectMap.put(header.get(index++), value);
+                SwCollaborationDetailSpare detailSpare = collaborationDetailSpareBusiness.getCollaborationDetail(collaborationDetail.getId());
+                objectMap.put(header.get(index++), CollaborationDetailMapper.CollaborationDetail2ItemValue(collaborationDetail, detailSpare));
             }
         }
         return list;
@@ -179,7 +181,7 @@ public class CollaborationDetailProcessor {
 
         Map<String, Object> map = new HashMap<>();
         for (String head : headers) {
-            map.put(head, "");
+            map.put(head, null);
         }
         map.put("id", collaborationUser.getId());
         map.put("status", collaborationUser.getStatus());
@@ -199,8 +201,11 @@ public class CollaborationDetailProcessor {
         vo.setEmployeeNo(employee.getEmployeeNo());
 
         Map<String, Object> map = new HashMap<>();
-        for (SwCollaborationDetail detail : swCollaborationDetails.stream().filter(e -> e.getRowIndex() <= 1).collect(Collectors.toList())) {
-            map.put(detail.getItem(), detail.getItemValue());
+        for (SwCollaborationDetail detail : swCollaborationDetails.stream()
+                .filter(e -> e.getRowIndex() <= 1).collect(Collectors.toList())) {
+
+            SwCollaborationDetailSpare detailSpare = collaborationDetailSpareBusiness.getCollaborationDetail(detail.getId());
+            map.put(detail.getItem(), CollaborationDetailMapper.CollaborationDetail2ItemValue(detail, detailSpare));
             map.put("rowIndex", detail.getRowIndex());
         }
         map.put("id", collaborationUser.getId());
@@ -210,4 +215,6 @@ public class CollaborationDetailProcessor {
         map.put("desc", collaborationUser.getEmployeeNo().equalsIgnoreCase(employeeNo) ? 0 : 1);
         return map;
     }
+
+
 }

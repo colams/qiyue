@@ -7,15 +7,9 @@ import com.foxconn.sw.data.dto.Response;
 import com.foxconn.sw.data.dto.entity.collaboration.CollaborationDetailLogVo;
 import com.foxconn.sw.data.dto.entity.collaboration.CollaborationVo;
 import com.foxconn.sw.data.dto.entity.universal.IntegerParams;
-import com.foxconn.sw.data.dto.request.collaboration.CollaborationDetailLogParams;
-import com.foxconn.sw.data.dto.request.collaboration.CollaborationDetailParams;
-import com.foxconn.sw.data.dto.request.collaboration.CollaborationEvaluationParams;
-import com.foxconn.sw.data.dto.request.collaboration.CollaborationUpdateParams;
+import com.foxconn.sw.data.dto.request.collaboration.*;
 import com.foxconn.sw.service.aspects.Permission;
-import com.foxconn.sw.service.processor.collaboration.CollaborationDetailProcessor;
-import com.foxconn.sw.service.processor.collaboration.CollaborationImportProcessor;
-import com.foxconn.sw.service.processor.collaboration.CollaborationUpdateHistoryProcessor;
-import com.foxconn.sw.service.processor.collaboration.CollaborationUpdateProcessor;
+import com.foxconn.sw.service.processor.collaboration.*;
 import com.foxconn.sw.service.utils.ExcelCollaborationUtils;
 import com.foxconn.sw.service.utils.ResponseUtils;
 import io.swagger.v3.oas.annotations.Operation;
@@ -36,7 +30,6 @@ import java.net.URLEncoder;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
-@CrossOrigin
 @RestController
 @RequestMapping("api/collaboration")
 public class CollaborationController {
@@ -51,6 +44,8 @@ public class CollaborationController {
     CollaborationUpdateHistoryProcessor updateHistoryProcessor;
     @Autowired
     HttpServletResponse response;
+    @Autowired
+    CollaborationUpdateCellProcessor collaborationUpdateCellProcessor;
 
     @Permission
     @Operation(summary = "协作平台-獲取協作工作內容", tags = TagsConstants.COLLABORATION)
@@ -67,6 +62,34 @@ public class CollaborationController {
     @PostMapping("/update")
     public Response<Boolean> update(@Valid @RequestBody Request<CollaborationUpdateParams> request) {
         Boolean result = collaborationUpdate.update(request.getData());
+        return ResponseUtils.success(result, request.getTraceId());
+    }
+
+
+    @Permission
+    @Operation(summary = "协作平台-撤銷草稿修改", tags = TagsConstants.COLLABORATION)
+    @ApiResponse(responseCode = "0", description = "成功码")
+    @PostMapping("/cancelUpdate")
+    public Response<Boolean> cancelUpdate(@Valid @RequestBody Request<CollaborationSaveUpdateParams> request) {
+        Boolean result = collaborationUpdateCellProcessor.cancelUpdate(request.getData());
+        return ResponseUtils.success(result, request.getTraceId());
+    }
+
+    @Permission
+    @Operation(summary = "协作平台-更新單元格數據", tags = TagsConstants.COLLABORATION)
+    @ApiResponse(responseCode = "0", description = "成功码")
+    @PostMapping("/updateCell")
+    public Response<Boolean> updateCell(@Valid @RequestBody Request<CollaborationUpdateCellParams> request) {
+        Boolean result = collaborationUpdateCellProcessor.updateCell(request.getData());
+        return ResponseUtils.success(result, request.getTraceId());
+    }
+
+    @Permission
+    @Operation(summary = "协作平台-將草稿信息轉為正常值", tags = TagsConstants.COLLABORATION)
+    @ApiResponse(responseCode = "0", description = "成功码")
+    @PostMapping("/saveUpdate")
+    public Response<Boolean> saveUpdate(@Valid @RequestBody Request<CollaborationSaveUpdateParams> request) {
+        Boolean result = collaborationUpdateCellProcessor.saveUpdate(request.getData());
         return ResponseUtils.success(result, request.getTraceId());
     }
 
@@ -96,13 +119,23 @@ public class CollaborationController {
         List<CollaborationDetailLogVo> detailLogVoList = updateHistoryProcessor.log(request.getData());
         return ResponseUtils.success(detailLogVoList, request.getTraceId());
     }
+//
+//    @Permission
+//    @Operation(summary = "协作平台-导入工作", tags = TagsConstants.COLLABORATION)
+//    @ApiResponse(responseCode = "0", description = "成功码")
+//    @PostMapping("/clearBg")
+//    public Response<Boolean> clearBg(@Valid @RequestBody Request<CollaborationDetailParams> request) {
+//        Boolean result = collaborationUpdate.clearBg(request.getData());
+//        return ResponseUtils.success(result, request.getTraceId());
+//    }
 
     @Permission
     @Operation(summary = "协作平台-导入工作", tags = TagsConstants.COLLABORATION)
     @ApiResponse(responseCode = "0", description = "成功码")
     @PostMapping("/import")
     public Response<Boolean> importExcel(@Valid @RequestParam("request") String reqJson,
-                                         @RequestParam("multipartFile") MultipartFile multipartFile) throws IOException, ExecutionException, InterruptedException {
+                                         @RequestParam("multipartFile") MultipartFile multipartFile)
+            throws IOException, ExecutionException, InterruptedException {
         Request<IntegerParams> request = JsonUtils.deserialize(reqJson, Request.class, IntegerParams.class);
         Boolean result = collaborationImport.importExcel(request.getData(), multipartFile);
         return ResponseUtils.success(result, request.getTraceId());

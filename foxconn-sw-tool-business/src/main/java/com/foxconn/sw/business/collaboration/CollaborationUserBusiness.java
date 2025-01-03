@@ -8,10 +8,14 @@ import com.foxconn.sw.common.utils.ExcelUtils;
 import com.foxconn.sw.common.utils.FilePathUtils;
 import com.foxconn.sw.data.dto.entity.ResourceVo;
 import com.foxconn.sw.data.dto.entity.task.TaskProgressVo;
-import com.foxconn.sw.data.entity.*;
+import com.foxconn.sw.data.dto.request.collaboration.CollaborationDetailParams;
+import com.foxconn.sw.data.entity.SwAppendResource;
+import com.foxconn.sw.data.entity.SwCollaborationUser;
+import com.foxconn.sw.data.entity.SwCollaborationUserExample;
+import com.foxconn.sw.data.entity.SwTask;
 import com.foxconn.sw.data.exception.BizException;
 import com.foxconn.sw.data.mapper.auto.SwCollaborationUserMapper;
-import com.foxconn.sw.data.mapper.extension.oa.SwCollaborationUserExtensionMapper;
+import com.foxconn.sw.data.mapper.extension.collaboration.SwCollaborationUserExtensionMapper;
 import com.google.common.collect.Lists;
 import org.apache.ibatis.session.ExecutorType;
 import org.apache.ibatis.session.SqlSession;
@@ -191,5 +195,15 @@ public class CollaborationUserBusiness {
         sqlSession.commit();
         sqlSession.close();
         return true;
+    }
+
+    public Boolean clearBg(CollaborationDetailParams data, int bgStatus) {
+        SwCollaborationUser record = new SwCollaborationUser();
+        record.setBgStatus(bgStatus);
+
+        SwCollaborationUserExample example = new SwCollaborationUserExample();
+        SwCollaborationUserExample.Criteria criteria = example.createCriteria();
+        criteria.andTaskIdEqualTo(data.getTaskID());
+        return collaborationUserMapper.updateByExampleSelective(record, example) > 0;
     }
 }

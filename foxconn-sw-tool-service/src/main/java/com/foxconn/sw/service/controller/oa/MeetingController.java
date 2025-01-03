@@ -3,6 +3,8 @@ package com.foxconn.sw.service.controller.oa;
 import com.foxconn.sw.data.constants.TagsConstants;
 import com.foxconn.sw.data.dto.Request;
 import com.foxconn.sw.data.dto.Response;
+import com.foxconn.sw.data.dto.response.meeting.MeetingMinuteDetailVo;
+import com.foxconn.sw.data.dto.entity.meeting.MeetingV2Vo;
 import com.foxconn.sw.data.dto.entity.meeting.MeetingVo;
 import com.foxconn.sw.data.dto.request.meeting.*;
 import com.foxconn.sw.service.aspects.Permission;
@@ -16,7 +18,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@CrossOrigin
 @RestController
 @RequestMapping("api/meet")
 public class MeetingController {
@@ -31,21 +32,17 @@ public class MeetingController {
     DeleteProcessor deleteProcessor;
     @Autowired
     UpdateMeetingProcessor updateMeetingProcessor;
+    @Autowired
+    MeetMinuteProcessor meetMinuteProcessor;
+    @Autowired
+    MinuteDetailProcessor minuteDetailProcessor;
+
 
     @Permission
     @Operation(summary = "会议列表", tags = TagsConstants.MEET)
     @ApiResponse(responseCode = "0", description = "成功码")
     @PostMapping("/list")
     public Response<List<MeetingVo>[]> list(@Valid @RequestBody Request<ListMeetingParams> request) {
-        List[] vos = listMeeting.list(request.getData());
-        return ResponseUtils.success(vos, request.getTraceId());
-    }
-
-    @Permission
-    @Operation(summary = "会议列表", tags = TagsConstants.MEET)
-    @ApiResponse(responseCode = "0", description = "成功码")
-    @PostMapping("/meetList")
-    public Response<List<MeetingVo>[]> meetList(@Valid @RequestBody Request<ListMeetingParams> request) {
         List[] vos = listMeeting.list(request.getData());
         return ResponseUtils.success(vos, request.getTraceId());
     }
@@ -84,6 +81,34 @@ public class MeetingController {
     public Response<Boolean> delete(@Valid @RequestBody Request<DeleteParams> request) {
         boolean isDelete = deleteProcessor.delete(request.getData());
         return ResponseUtils.success(isDelete, request.getTraceId());
+    }
+
+
+    @Permission
+    @Operation(summary = "会议列表查询", tags = "meet.2")
+    @ApiResponse(responseCode = "0", description = "成功码")
+    @PostMapping("/meetList")
+    public Response<List<MeetingV2Vo>> meetList(@Valid @RequestBody Request<ListMeetingV2Params> request) {
+        List<MeetingV2Vo> vos = listMeeting.meetList(request.getData());
+        return ResponseUtils.success(vos, request.getTraceId());
+    }
+
+    @Permission
+    @Operation(summary = "会议记录总结", tags = "meet.2")
+    @ApiResponse(responseCode = "0", description = "成功码")
+    @PostMapping("/meetMinute")
+    public Response<Boolean> meetMinute(@Valid @RequestBody Request<MeetingMinuteParams> request) {
+        Boolean result = meetMinuteProcessor.meetMinute(request.getData());
+        return ResponseUtils.success(result, request.getTraceId());
+    }
+
+    @Permission
+    @Operation(summary = "会议记录详情信息", tags = "meet.2")
+    @ApiResponse(responseCode = "0", description = "成功码")
+    @PostMapping("/minuteDetail")
+    public Response<MeetingMinuteDetailVo> minuteDetail(@Valid @RequestBody Request<MinuteDetailParams> request) {
+        MeetingMinuteDetailVo vo = minuteDetailProcessor.minuteDetail(request.getData());
+        return ResponseUtils.success(vo, request.getTraceId());
     }
 
 }

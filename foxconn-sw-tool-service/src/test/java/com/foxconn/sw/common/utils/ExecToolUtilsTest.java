@@ -2,6 +2,8 @@ package com.foxconn.sw.common.utils;
 
 import com.foxconn.sw.service.BaseTest;
 import org.junit.jupiter.api.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -10,6 +12,7 @@ import java.util.List;
 
 public class ExecToolUtilsTest extends BaseTest {
 
+    private static final Logger logger = LoggerFactory.getLogger(ExecToolUtilsTest.class);
 
 
     @Test
@@ -18,14 +21,12 @@ public class ExecToolUtilsTest extends BaseTest {
         List<String> results = new ArrayList<>();
         results.add("test 000:");
         results.add("test 001:");
-
-//        String fileName = ExecToolUtils.outputResult(results);
-        System.out.println("fileName");
+        logger.info("test listToolHistory over");
     }
 
     public static void main(String[] args) {
         Calendar calendar = Calendar.getInstance();
         int weekOfYear = calendar.get(Calendar.WEEK_OF_YEAR);
-        System.out.println("当前日期属于今年的第 " + weekOfYear + " 周");
+        logger.info("当前日期属于今年的第 " + weekOfYear + " 周");
     }
 }

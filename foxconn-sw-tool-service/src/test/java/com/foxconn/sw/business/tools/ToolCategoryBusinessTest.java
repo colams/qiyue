@@ -17,6 +17,6 @@ public class ToolCategoryBusinessTest extends BaseTest {
     @Test
     public void listAll() {
         List<CategoryDTO> categoryDTOList = toolCategoryBusiness.listAll();
-        System.out.println(JsonUtils.serialize(categoryDTOList));
+        logger.info(JsonUtils.serialize(categoryDTOList));
     }
 }

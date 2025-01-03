@@ -15,7 +15,6 @@ public class SseEmitterController {
 
     private static Map<String, SseEmitter> sseEmitterMap = new ConcurrentHashMap<>();
 
-    @CrossOrigin
     @GetMapping("/createConnect")
     public SseEmitter createConnect(@Valid @RequestBody Request request) {
         SseEmitter sseEmitter = new SseEmitter(0L);
@@ -53,17 +52,14 @@ public class SseEmitterController {
         return emitter;
     }
 
-    @CrossOrigin
     @PostMapping("/broadcast")
     public void sendMessageToAllClient(@RequestBody(required = false) String msg) {
     }
 
-//    @CrossOrigin
 //    @PostMapping("/sendMessage")
 //    public void sendMessageToOneClient() {
 //    }
 
-    @CrossOrigin
     @GetMapping("/closeConnect")
     public void closeConnect(@RequestParam(required = true) String clientId) {
     }

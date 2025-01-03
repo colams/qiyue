@@ -74,6 +74,8 @@ public class SwCapexSetBusiness {
                         && !CapexSetConstants.FIXED.equalsIgnoreCase(e.getSetValue())) {
                     SwEmployee ee = employeeBusiness.queryEmployeeByEno(e.getSetValue());
                     capexSetDetail2Vo.setExtra(Optional.ofNullable(ee).map(f -> f.getName()).orElse(e.getSetValue()));
+                } else {
+                    capexSetDetail2Vo.setExtra("唯讀");
                 }
                 capexSetVos.add(capexSetDetail2Vo);
             });
@@ -118,6 +120,7 @@ public class SwCapexSetBusiness {
         SwCapexSetExample example = new SwCapexSetExample();
         SwCapexSetExample.Criteria criteria = example.createCriteria();
         criteria.andTaskIdEqualTo(taskID);
+        criteria.andIsDeleteEqualTo(0);
         return capexSetExtMapper.selectByExample(example);
     }
 }

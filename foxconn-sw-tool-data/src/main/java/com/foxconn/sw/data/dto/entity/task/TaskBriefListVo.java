@@ -34,7 +34,7 @@ public class TaskBriefListVo {
     /**
      * 优先等级
      */
-    private String level;
+    private Integer level;
 
 
     /**
@@ -149,11 +149,11 @@ public class TaskBriefListVo {
         this.project = project;
     }
 
-    public String getLevel() {
+    public Integer getLevel() {
         return level;
     }
 
-    public void setLevel(String level) {
+    public void setLevel(Integer level) {
         this.level = level;
     }
 
