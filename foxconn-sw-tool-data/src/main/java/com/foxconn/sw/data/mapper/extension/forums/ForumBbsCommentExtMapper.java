@@ -23,7 +23,7 @@ public interface ForumBbsCommentExtMapper extends ForumBbsCommentMapper {
             "id, fb_id, parent_id, target_id, author_no, is_delete, create_time, ",
             "datetime_lastchange, content",
             "from forum_bbs_comment",
-            "where is_delete=0 and fb_id = #{id,jdbcType=INTEGER}",
+            "where is_delete=0 and fb_id = #{id,jdbcType=INTEGER} and parent_id=0",
             "order by id desc",
             "limit 1"
     })
