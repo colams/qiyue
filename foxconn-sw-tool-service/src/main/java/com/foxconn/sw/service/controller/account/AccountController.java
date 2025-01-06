@@ -43,9 +43,9 @@ public class AccountController {
     @Operation(summary = "注册账号", tags = TagsConstants.ACCOUNT)
     @ApiResponse(responseCode = "0", description = "成功码")
     @PostMapping("/create")
-    public Response<LoginStateVo> createAccount(@Valid @RequestBody Request<CreateAccountParams> request) {
+    public Response<Boolean> createAccount(@Valid @RequestBody Request<CreateAccountParams> request) {
         Boolean result = registerProcessor.createAccount(request.getData());
-        return ResponseUtils.success(null, request.getTraceId());
+        return ResponseUtils.success(result, request.getTraceId());
     }
 
     @Operation(summary = "重置密码", tags = TagsConstants.ACCOUNT)

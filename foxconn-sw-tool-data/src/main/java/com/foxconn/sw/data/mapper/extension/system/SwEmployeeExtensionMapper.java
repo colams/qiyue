@@ -21,7 +21,7 @@ public interface SwEmployeeExtensionMapper extends SwEmployeeMapper {
             "select",
             "se.name, se.employee_no,se.department_id,sd.name as departmentName ",
             "from sw_employee se inner join sw_department sd on se.department_id=sd.id",
-            "where sd.id>=1 ",
+            "where sd.id>=1 and se.status=0",
             "</script> ",
     })
     @Results({
