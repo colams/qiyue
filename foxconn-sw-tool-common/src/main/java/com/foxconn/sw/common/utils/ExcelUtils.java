@@ -14,7 +14,6 @@ public class ExcelUtils {
             return "";
         }
 
-
         return switch (cell.getCellType()) {
             case STRING -> cell.getStringCellValue();
             case NUMERIC -> convertCellString(cell);
@@ -28,7 +27,13 @@ public class ExcelUtils {
         if (DateUtil.isCellDateFormatted(cell)) {
             return DateTimeUtils.format(cell.getLocalDateTimeCellValue());
         }
-        return String.valueOf(cell.getBooleanCellValue());
+
+        String numberString = String.valueOf(cell.getNumericCellValue());
+
+        if (numberString.endsWith(".0")) {
+            numberString = numberString.replace(".0", "");
+        }
+        return numberString;
     }
 
     public static boolean isMerged(Sheet sheet, int row, int column) {
