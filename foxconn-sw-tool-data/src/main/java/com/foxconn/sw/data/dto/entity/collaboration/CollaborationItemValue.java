@@ -8,6 +8,7 @@ public class CollaborationItemValue {
     private Long detailId;
     private Integer rowIndex;
     private Integer colIndex;
+    private String authorized;
 
     public String getCurrentValue() {
         return currentValue;
@@ -55,5 +56,14 @@ public class CollaborationItemValue {
 
     public void setColIndex(Integer colIndex) {
         this.colIndex = colIndex;
+    }
+
+
+    public String getAuthorized() {
+        return authorized;
+    }
+
+    public void setAuthorized(String authorized) {
+        this.authorized = authorized;
     }
 }

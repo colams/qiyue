@@ -22,6 +22,7 @@ public class CollaborationDetailMapper {
         itemValue.setDetailId(detail.getId());
         itemValue.setRowIndex(detail.getRowIndex());
         itemValue.setColIndex(detail.getColIndex());
+        itemValue.setAuthorized("");    // todo
         return itemValue;
     }
 

@@ -88,6 +88,7 @@ public class CollaborationDetailProcessor {
         vo.setPropose(swTask.getProposerEid().equalsIgnoreCase(RequestContext.getEmployeeNo()));
         vo.setFinish(swTask.getStatus().equals(TaskStatusEnums.COMPLETED.getCode()));
         vo.setBgStatus(collaborationUsers.get(0).getBgStatus());
+
         if (!CollectionUtils.isEmpty(capexParamsVos)) {
             vo.setContent(initMapList2(collaborationUsers.get(0).getId(), header));
         } else {
@@ -111,7 +112,8 @@ public class CollaborationDetailProcessor {
             int index = 0;
             objectMap.put("rowIndex", entry.getKey());
             for (SwCollaborationDetail collaborationDetail : entry.getValue()) {
-                SwCollaborationDetailSpare detailSpare = collaborationDetailSpareBusiness.getCollaborationDetail(collaborationDetail.getId());
+                SwCollaborationDetailSpare detailSpare = collaborationDetailSpareBusiness.
+                        getCollaborationDetail(collaborationDetail.getId());
                 objectMap.put(header.get(index++), CollaborationDetailMapper.CollaborationDetail2ItemValue(collaborationDetail, detailSpare));
             }
         }

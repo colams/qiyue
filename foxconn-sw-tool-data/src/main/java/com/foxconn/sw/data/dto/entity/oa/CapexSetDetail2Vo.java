@@ -1,10 +1,13 @@
 package com.foxconn.sw.data.dto.entity.oa;
 
+import java.util.List;
+
 public class CapexSetDetail2Vo {
 
     private Integer index;
     private String type;
     private String setValue;
+    private List<CapexSetValueVo> setValueVos;
     private String extra;
 
     public Integer getIndex() {
@@ -29,6 +32,14 @@ public class CapexSetDetail2Vo {
 
     public void setSetValue(String setValue) {
         this.setValue = setValue;
+    }
+
+    public List<CapexSetValueVo> getSetValueVos() {
+        return setValueVos;
+    }
+
+    public void setSetValueVos(List<CapexSetValueVo> setValueVos) {
+        this.setValueVos = setValueVos;
     }
 
     public String getExtra() {

@@ -495,6 +495,76 @@ public class SwCapexSetExample {
             return (Criteria) this;
         }
 
+        public Criteria andSetValueJsonIsNull() {
+            addCriterion("set_value_json is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andSetValueJsonIsNotNull() {
+            addCriterion("set_value_json is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andSetValueJsonEqualTo(String value) {
+            addCriterion("set_value_json =", value, "setValueJson");
+            return (Criteria) this;
+        }
+
+        public Criteria andSetValueJsonNotEqualTo(String value) {
+            addCriterion("set_value_json <>", value, "setValueJson");
+            return (Criteria) this;
+        }
+
+        public Criteria andSetValueJsonGreaterThan(String value) {
+            addCriterion("set_value_json >", value, "setValueJson");
+            return (Criteria) this;
+        }
+
+        public Criteria andSetValueJsonGreaterThanOrEqualTo(String value) {
+            addCriterion("set_value_json >=", value, "setValueJson");
+            return (Criteria) this;
+        }
+
+        public Criteria andSetValueJsonLessThan(String value) {
+            addCriterion("set_value_json <", value, "setValueJson");
+            return (Criteria) this;
+        }
+
+        public Criteria andSetValueJsonLessThanOrEqualTo(String value) {
+            addCriterion("set_value_json <=", value, "setValueJson");
+            return (Criteria) this;
+        }
+
+        public Criteria andSetValueJsonLike(String value) {
+            addCriterion("set_value_json like", value, "setValueJson");
+            return (Criteria) this;
+        }
+
+        public Criteria andSetValueJsonNotLike(String value) {
+            addCriterion("set_value_json not like", value, "setValueJson");
+            return (Criteria) this;
+        }
+
+        public Criteria andSetValueJsonIn(List<String> values) {
+            addCriterion("set_value_json in", values, "setValueJson");
+            return (Criteria) this;
+        }
+
+        public Criteria andSetValueJsonNotIn(List<String> values) {
+            addCriterion("set_value_json not in", values, "setValueJson");
+            return (Criteria) this;
+        }
+
+        public Criteria andSetValueJsonBetween(String value1, String value2) {
+            addCriterion("set_value_json between", value1, value2, "setValueJson");
+            return (Criteria) this;
+        }
+
+        public Criteria andSetValueJsonNotBetween(String value1, String value2) {
+            addCriterion("set_value_json not between", value1, value2, "setValueJson");
+            return (Criteria) this;
+        }
+
         public Criteria andIsDeleteIsNull() {
             addCriterion("is_delete is null");
             return (Criteria) this;
@@ -687,6 +757,11 @@ public class SwCapexSetExample {
 
         public Criteria andSetValueLikeInsensitive(String value) {
             addCriterion("upper(set_value) like", value.toUpperCase(), "setValue");
+            return (Criteria) this;
+        }
+
+        public Criteria andSetValueJsonLikeInsensitive(String value) {
+            addCriterion("upper(set_value_json) like", value.toUpperCase(), "setValueJson");
             return (Criteria) this;
         }
     }
