@@ -44,7 +44,11 @@ public class ExcelCollaborationUtils {
             int colIndex = 0;
 
             for (String header : collaborationVo.getHeaders()) {
-                row.createCell(colIndex++).setCellValue(((CollaborationItemValue) map.get(header)).getCurrentValue());
+                if (Objects.isNull(map.get(header))) {
+                    row.createCell(colIndex++).setCellValue("");
+                } else {
+                    row.createCell(colIndex++).setCellValue(((CollaborationItemValue) map.get(header)).getCurrentValue());
+                }
             }
 
             EmployeeVo opEmployee = ((EmployeeVo) map.get("handler"));
