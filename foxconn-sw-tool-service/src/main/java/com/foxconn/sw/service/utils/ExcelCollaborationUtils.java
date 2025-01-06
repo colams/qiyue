@@ -1,6 +1,7 @@
 package com.foxconn.sw.service.utils;
 
 import com.foxconn.sw.data.dto.entity.acount.EmployeeVo;
+import com.foxconn.sw.data.dto.entity.collaboration.CollaborationItemValue;
 import com.foxconn.sw.data.dto.entity.collaboration.CollaborationVo;
 import com.foxconn.sw.data.dto.entity.oa.CapexParamsVo;
 import org.apache.poi.ss.usermodel.Row;
@@ -43,7 +44,7 @@ public class ExcelCollaborationUtils {
             int colIndex = 0;
 
             for (String header : collaborationVo.getHeaders()) {
-                row.createCell(colIndex++).setCellValue(map.get(header).toString());
+                row.createCell(colIndex++).setCellValue(((CollaborationItemValue) map.get(header)).getCurrentValue());
             }
 
             EmployeeVo opEmployee = ((EmployeeVo) map.get("handler"));

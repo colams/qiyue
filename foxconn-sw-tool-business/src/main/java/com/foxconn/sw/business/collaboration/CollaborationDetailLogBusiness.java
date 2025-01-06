@@ -10,7 +10,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.util.CollectionUtils;
 
 import java.util.List;
 
@@ -38,34 +37,22 @@ public class CollaborationDetailLogBusiness {
     public boolean insertCollaborationDetailLog(Long detailId,
                                                 Integer rowIndex,
                                                 Integer colIndex,
-                                                String remark) {
+                                                String newValue,
+                                                String oldValue) {
         SwCollaborationDetailLog detailLog = new SwCollaborationDetailLog();
         detailLog.setDetailId(detailId);
         detailLog.setRowIndex(rowIndex);
         detailLog.setColIndex(colIndex);
         detailLog.setOperator(RequestContext.getEmployeeNo());
-        detailLog.setRemark(remark);
+        detailLog.setRemark(String.format("將【%s】修改為【%s】", oldValue, newValue));
         return collaborationDetailLogExtensionMapper.insertSelective(detailLog) > 0;
     }
 
-    public boolean insertCollaborationDetailLog(List<SwCollaborationDetail> updateDetails) {
-        if (CollectionUtils.isEmpty(updateDetails)) {
-            return true;
-        }
-        try {
-            updateDetails.forEach(e -> {
-                insertCollaborationDetailLog(e.getId(), e.getRowIndex(), e.getColIndex(), e.getItemValue());
-            });
-        } catch (Exception e) {
-            logger.error("insertCollaborationDetailLog", e);
-        }
-        return true;
-    }
-
-    public boolean insertCollaborationDetailLog(SwCollaborationDetail updateDetail) {
+    public boolean insertCollaborationDetailLog(SwCollaborationDetail updateDetail, String oldValue) {
         return insertCollaborationDetailLog(updateDetail.getId(),
                 updateDetail.getRowIndex(),
                 updateDetail.getColIndex(),
-                updateDetail.getItemValue());
+                updateDetail.getItemValue(),
+                oldValue);
     }
 }

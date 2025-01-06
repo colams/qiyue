@@ -196,14 +196,4 @@ public class CollaborationUserBusiness {
         sqlSession.close();
         return true;
     }
-
-    public Boolean clearBg(CollaborationDetailParams data, int bgStatus) {
-        SwCollaborationUser record = new SwCollaborationUser();
-        record.setBgStatus(bgStatus);
-
-        SwCollaborationUserExample example = new SwCollaborationUserExample();
-        SwCollaborationUserExample.Criteria criteria = example.createCriteria();
-        criteria.andTaskIdEqualTo(data.getTaskID());
-        return collaborationUserMapper.updateByExampleSelective(record, example) > 0;
-    }
 }

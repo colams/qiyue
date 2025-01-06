@@ -57,16 +57,6 @@ public class CollaborationController {
     }
 
     @Permission
-    @Operation(summary = "协作平台-更新或者新增協作 工作內容", tags = TagsConstants.COLLABORATION)
-    @ApiResponse(responseCode = "0", description = "成功码")
-    @PostMapping("/update")
-    public Response<Boolean> update(@Valid @RequestBody Request<CollaborationUpdateParams> request) {
-        Boolean result = collaborationUpdate.update(request.getData());
-        return ResponseUtils.success(result, request.getTraceId());
-    }
-
-
-    @Permission
     @Operation(summary = "协作平台-撤銷草稿修改", tags = TagsConstants.COLLABORATION)
     @ApiResponse(responseCode = "0", description = "成功码")
     @PostMapping("/cancelUpdate")

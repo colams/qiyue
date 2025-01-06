@@ -54,13 +54,6 @@ public class CollaborationDetailBusiness {
         return collaborationDetailMapper.selectByExample(example);
     }
 
-    public List<SwCollaborationDetail> queryCollaborationDetail(Long scuID) {
-        SwCollaborationDetailExample example = new SwCollaborationDetailExample();
-        SwCollaborationDetailExample.Criteria criteria = example.createCriteria();
-        criteria.andScuIdEqualTo(scuID);
-        return collaborationDetailMapper.selectByExample(example);
-    }
-
     public Long updateOrInsert(SwCollaborationDetail detail) {
         if (Objects.isNull(detail.getId())) {
             collaborationDetailMapper.insertSelective(detail);
@@ -191,5 +184,9 @@ public class CollaborationDetailBusiness {
         }
 
         return tempDetail;
+    }
+
+    public SwCollaborationDetail selectCollaborationDetail(Long detailId) {
+        return collaborationDetailMapper.selectByPrimaryKey(detailId);
     }
 }

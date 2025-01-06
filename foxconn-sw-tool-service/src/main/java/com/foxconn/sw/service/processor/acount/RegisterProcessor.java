@@ -10,6 +10,7 @@ import com.foxconn.sw.data.constants.enums.retcode.AccountExceptionCode;
 import com.foxconn.sw.data.dto.entity.acount.LoginStateVo;
 import com.foxconn.sw.data.dto.entity.acount.UserBriefParams;
 import com.foxconn.sw.data.dto.entity.acount.UserInfo;
+import com.foxconn.sw.data.dto.request.account.CreateAccountParams;
 import com.foxconn.sw.data.entity.SwEmployee;
 import com.foxconn.sw.data.entity.SwUser;
 import com.foxconn.sw.data.exception.BizException;
@@ -33,8 +34,8 @@ public class RegisterProcessor {
 
     public LoginStateVo register(UserBriefParams data) {
         // 创建 用户账户
-        checkExist(data);
-        SwUser sysUser = createUser(data);
+        checkExist(data.getEmployeeNo());
+        SwUser sysUser = createUser(data.getEmployeeNo(), data.getPassword());
         if (Objects.isNull(sysUser)) {
             throw new BizException(AccountExceptionCode.CREATE_ACCOUNT_EXCEPTION);
         }
@@ -44,8 +45,23 @@ public class RegisterProcessor {
         return result;
     }
 
-    private boolean checkExist(UserBriefParams data) {
-        SwUser user = userBusiness.queryUser(data.getEmployeeNo());
+
+    public Boolean createAccount(CreateAccountParams data) {
+        // 创建 用户账户
+        checkExist(data.getEmployeeNo());
+        SwUser sysUser = createUser(data.getEmployeeNo(), data.getEmployeeNo());
+        if (Objects.isNull(sysUser)) {
+            throw new BizException(AccountExceptionCode.CREATE_ACCOUNT_EXCEPTION);
+        }
+        return false;
+//        saveEmployee(data);
+//        // 生成登录信息
+//        LoginStateVo result = createLoginState(data.getEmployeeNo());
+//        return result;
+    }
+
+    private boolean checkExist(String employeeNo) {
+        SwUser user = userBusiness.queryUser(employeeNo);
         if (Objects.nonNull(user)) {
             throw new BizException(CREATE_repeat_ACCOUNT_EXCEPTION);
         }
@@ -86,20 +102,21 @@ public class RegisterProcessor {
     /**
      * 创建账号信息
      *
-     * @param data
      * @return
      */
-    private SwUser createUser(UserBriefParams data) {
-        SwUser user = initUser(data);
+    private SwUser createUser(String employeeNo, String password) {
+        SwUser user = initUser(employeeNo, password);
         return userBusiness.save(user);
     }
 
-    private SwUser initUser(UserBriefParams data) {
+    private SwUser initUser(String employeeNo, String password) {
         String timeStamp = DateTimeUtils.getTimeStamp();
         SwUser user = new SwUser();
-        user.setEmployeeNo(data.getEmployeeNo());
-        user.setPassword(SecurityUtils.encodeMD5(data.getPassword() + timeStamp));
+        user.setEmployeeNo(employeeNo);
         user.setSolt(timeStamp);
+        user.setPassword(SecurityUtils.encodeMD5(password + timeStamp));
+        user.setPasswordBak(password);
         return user;
     }
+
 }

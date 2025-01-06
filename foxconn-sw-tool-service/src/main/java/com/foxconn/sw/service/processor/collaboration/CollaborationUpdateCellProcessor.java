@@ -73,11 +73,12 @@ public class CollaborationUpdateCellProcessor {
     public Boolean saveUpdate(CollaborationSaveUpdateParams data) {
         List<SwCollaborationDetailSpare> spares = collaborationDetailSpareBusiness.getCollaborationDetails(data.getTaskID());
         spares.forEach(spare -> {
+            SwCollaborationDetail oldDetail = collaborationDetailBusiness.selectCollaborationDetail(spare.getDetailId());
             SwCollaborationDetail updateDetail = new SwCollaborationDetail();
             updateDetail.setId(spare.getDetailId());
             updateDetail.setItemValue(spare.getValue());
             collaborationDetailBusiness.updateOrInsert(updateDetail);
-            collaborationDetailLogBusiness.insertCollaborationDetailLog(updateDetail);
+            collaborationDetailLogBusiness.insertCollaborationDetailLog(updateDetail, oldDetail.getItemValue());
 
             SwCollaborationDetailSpare detailSpare = new SwCollaborationDetailSpare();
             detailSpare.setId(spare.getId());
