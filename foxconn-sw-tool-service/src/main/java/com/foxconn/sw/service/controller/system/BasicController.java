@@ -53,4 +53,13 @@ public class BasicController {
         List<OptionsVo> departmentVos = meetingRoom.rooms();
         return ResponseUtils.success(departmentVos, request.getTraceId());
     }
+
+    @Permission
+    @Operation(summary = "获取会议室信息", tags = TagsConstants.SYSTEM)
+    @ApiResponse(responseCode = "0", description = "成功码")
+    @PostMapping("/selectEmployee")
+    public Response<List<OptionsVo>> selectEmployee(@Valid @RequestBody Request request) {
+        List<OptionsVo> departmentVos = meetingRoom.rooms();
+        return ResponseUtils.success(departmentVos, request.getTraceId());
+    }
 }

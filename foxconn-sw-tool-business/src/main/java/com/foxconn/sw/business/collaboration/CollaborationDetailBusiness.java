@@ -66,7 +66,7 @@ public class CollaborationDetailBusiness {
         }
     }
 
-    public boolean readExcelContent(Long scuId, Integer resourceId) throws FileNotFoundException {
+    public boolean readExcelContent(Long scuId, Integer resourceId, List<String> managers) throws FileNotFoundException {
 
         SwAppendResource appendResource = resourceBusiness.getAppendResources(resourceId);
         String filePath = filePathUtils.getFilePath(appendResource.getUploadType()) + appendResource.getFilePath();
@@ -74,14 +74,31 @@ public class CollaborationDetailBusiness {
              Workbook workbook = new XSSFWorkbook(fis)) {
             Sheet sheet = workbook.getSheetAt(0);
             List<String> headers = new ArrayList<>();
-            for (int i = 0; i < sheet.getLastRowNum(); i++) {
-                for (int j = 0; j < sheet.getRow(i).getLastCellNum(); j++) {
-                    Cell cell = sheet.getRow(i).getCell(j);
-                    String text = ExcelUtils.getCellValueAsString(cell);
-                    if (i == 0) {
-                        headers.add(text);
-                    } else {
-                        insert(i, scuId, j, headers.get(j), text);
+            if (sheet.getLastRowNum() < managers.size()) {
+                for (int i = 0; i <= managers.size(); i++) {
+                    for (int j = 0; j < sheet.getRow(0).getLastCellNum(); j++) {
+                        String text = "";
+                        if (i <= sheet.getLastRowNum()) {
+                            Cell cell = sheet.getRow(i).getCell(j);
+                            text = ExcelUtils.getCellValueAsString(cell);
+                        }
+                        if (i == 0) {
+                            headers.add(text);
+                        } else {
+                            insert(i, scuId, j, headers.get(j), text);
+                        }
+                    }
+                }
+            } else {
+                for (int i = 0; i < sheet.getLastRowNum(); i++) {
+                    for (int j = 0; j < sheet.getRow(i).getLastCellNum(); j++) {
+                        Cell cell = sheet.getRow(i).getCell(j);
+                        String text = ExcelUtils.getCellValueAsString(cell);
+                        if (i == 0) {
+                            headers.add(text);
+                        } else {
+                            insert(i, scuId, j, headers.get(j), text);
+                        }
                     }
                 }
             }
