@@ -22,7 +22,7 @@ public class CollaborationDetailMapper {
         itemValue.setDetailId(detail.getId());
         itemValue.setRowIndex(detail.getRowIndex());
         itemValue.setColIndex(detail.getColIndex());
-        itemValue.setAuthorized(isCc ? "" : "true");    // todo
+        itemValue.setAuthorized(isCc ? "" : "true");
         return itemValue;
     }
 
@@ -34,7 +34,7 @@ public class CollaborationDetailMapper {
         // itemValue.setDetailId(0);
         itemValue.setRowIndex(rowIndex);
         itemValue.setColIndex(colIndex);
-        itemValue.setAuthorized(isCc ? "" : "true");    // todo
+        itemValue.setAuthorized(isCc ? "" : "true");
         return itemValue;
     }
 
