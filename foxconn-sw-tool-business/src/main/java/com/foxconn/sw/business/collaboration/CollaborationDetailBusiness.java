@@ -115,11 +115,11 @@ public class CollaborationDetailBusiness {
         detail.setColIndex(colNum);
         detail.setItem(header);
         detail.setItemValue(value);
-        return collaborationDetailMapper.insertSelective(detail) > 0;
+        return updateOrInsert(detail) > 0;
     }
 
 
-    public boolean insertBatchCollaborationUserDetail(List<SwCollaborationDetail> collaborationDetails) {
+    public boolean batchInsert(List<SwCollaborationDetail> collaborationDetails) {
         SqlSession sqlSession = sqlSessionFactory.openSession(ExecutorType.BATCH, false);
         SwCollaborationDetailMapper mapper = sqlSession.getMapper(SwCollaborationDetailMapper.class);
 
@@ -131,13 +131,6 @@ public class CollaborationDetailBusiness {
         return true;
     }
 
-    public List<SwCollaborationDetail> queryCollaborationDetail(Long scuID, Integer rowIndex) {
-        SwCollaborationDetailExample example = new SwCollaborationDetailExample();
-        SwCollaborationDetailExample.Criteria criteria = example.createCriteria();
-        criteria.andScuIdEqualTo(scuID);
-        criteria.andRowIndexEqualTo(rowIndex);
-        return collaborationDetailMapper.selectByExample(example);
-    }
 
     public boolean batchUpdate(List<SwCollaborationDetail> updateDetails) {
         SqlSession sqlSession = sqlSessionFactory.openSession(ExecutorType.BATCH, false);
@@ -151,8 +144,12 @@ public class CollaborationDetailBusiness {
         return true;
     }
 
+    public List<SwCollaborationDetail> selectCollaborationsByTaskID(long taskId) {
+        return collaborationDetailMapper.selectCollaborationsByTaskID(taskId);
+    }
+
     public SwCollaborationDetail createCollaborationDetail(CollaborationUpdateCellParams data) {
-        List<SwCollaborationDetail> detailList = collaborationDetailMapper.selectCollaborationsByTaskID(data.getTaskID().longValue());
+        List<SwCollaborationDetail> detailList = selectCollaborationsByTaskID(data.getTaskID().longValue());
 
         SwCollaborationDetail maxDetail = detailList.stream()
                 .max(((o1, o2) -> o1.getRowIndex() - o2.getRowIndex()))
@@ -188,7 +185,7 @@ public class CollaborationDetailBusiness {
         List<SwCollaborationDetail> updateRowIndex = detailBigRow.stream().map(e -> {
             SwCollaborationDetail detail = new SwCollaborationDetail();
             detail.setId(e.getId());
-            detail.setRowIndex(e.getRowIndex() + 1);
+            detail.setRowIndex(detail.getRowIndex() * 2 - data.getRowIndex() + 2);
             return detail;
         }).collect(Collectors.toList());
         batchUpdate(updateRowIndex);
