@@ -88,16 +88,17 @@ public class CollaborationDetailProcessor {
         vo.setPropose(swTask.getProposerEid().equalsIgnoreCase(RequestContext.getEmployeeNo()));
         vo.setFinish(swTask.getStatus().equals(TaskStatusEnums.COMPLETED.getCode()));
         vo.setBgStatus(collaborationUsers.get(0).getBgStatus());
-
+        boolean isCc = relations.stream().filter(e -> e.getEmployeeNo().equalsIgnoreCase(RequestContext.getEmployeeNo()))
+                .anyMatch(e -> TaskRoleFlagEnums.Watcher_Flag.equals(e.getRoleFlag()));
         if (!CollectionUtils.isEmpty(capexParamsVos)) {
-            vo.setContent(initMapList2(collaborationUsers.get(0).getId(), header));
+            vo.setContent(initMapList2(collaborationUsers.get(0).getId(), header, isCc));
         } else {
-            vo.setContent(initMapList(header, params.getTaskID(), swTask.getProposerEid(), isExport));
+            vo.setContent(initMapList(header, params.getTaskID(), swTask.getProposerEid(), isExport, isCc));
         }
         return vo;
     }
 
-    private List<Map<String, Object>> initMapList2(Long scuId, List<String> header) {
+    private List<Map<String, Object>> initMapList2(Long scuId, List<String> header, boolean isCc) {
 
         List<SwCollaborationDetail> detailList = collaborationDetail.queryCollaborationDetail(Lists.newArrayList(scuId));
 
@@ -114,13 +115,14 @@ public class CollaborationDetailProcessor {
             for (SwCollaborationDetail collaborationDetail : entry.getValue()) {
                 SwCollaborationDetailSpare detailSpare = collaborationDetailSpareBusiness.
                         getCollaborationDetail(collaborationDetail.getId());
-                objectMap.put(header.get(index++), CollaborationDetailMapper.CollaborationDetail2ItemValue(collaborationDetail, detailSpare));
+                objectMap.put(header.get(index++), CollaborationDetailMapper
+                        .CollaborationDetail2ItemValue(collaborationDetail, detailSpare, isCc));
             }
         }
         return list;
     }
 
-    private List<Map<String, Object>> initMapList(List<String> headers, int taskID, String proposerEid, boolean isExport) {
+    private List<Map<String, Object>> initMapList(List<String> headers, int taskID, String proposerEid, boolean isExport, boolean isCc) {
         List<SwCollaborationUser> collaborationUsers = collaborationUser.queryCollaborationUser(taskID);
 
         List<SwTaskEmployeeRelation> relations = taskEmployeeRelationBusiness.getRelationsByTaskId(taskID);
@@ -135,6 +137,7 @@ public class CollaborationDetailProcessor {
                 .collect(Collectors.groupingBy(SwCollaborationDetail::getScuId));
 
         List<Map<String, Object>> list = new ArrayList<>();
+        int rowIndex = 0;
         for (SwCollaborationUser collaborationUser : collaborationUsers) {
             if (isExport
                     && !RequestContext.getEmployeeNo().equalsIgnoreCase(proposerEid)
@@ -144,9 +147,9 @@ public class CollaborationDetailProcessor {
 
             List<SwCollaborationDetail> swCollaborationDetails = map.get(collaborationUser.getId());
             if (CollectionUtils.isEmpty(swCollaborationDetails)) {
-                list.add(initDefaultMap(collaborationUser, headers, isPropose));
+                list.add(initDefaultMap(collaborationUser, headers, isPropose, isCc, rowIndex++));
             } else {
-                list.add(initMap(collaborationUser, swCollaborationDetails, isPropose));
+                list.add(initMap(collaborationUser, swCollaborationDetails, isPropose, isCc));
             }
         }
         return sortList(list);
@@ -174,7 +177,10 @@ public class CollaborationDetailProcessor {
         return list;
     }
 
-    private Map<String, Object> initDefaultMap(SwCollaborationUser collaborationUser, List<String> headers, boolean isPropose) {
+    private Map<String, Object> initDefaultMap(SwCollaborationUser collaborationUser,
+                                               List<String> headers,
+                                               boolean isPropose,
+                                               boolean isCc, int rowindex) {
         String employeeNo = RequestContext.getEmployeeNo();
         SwEmployee employee = employeeBusiness.selectEmployeeByENo(collaborationUser.getEmployeeNo());
         EmployeeVo vo = new EmployeeVo();
@@ -182,8 +188,9 @@ public class CollaborationDetailProcessor {
         vo.setEmployeeNo(employee.getEmployeeNo());
 
         Map<String, Object> map = new HashMap<>();
+        int colIndex = 0;
         for (String head : headers) {
-            map.put(head, null);
+            map.put(head, CollaborationDetailMapper.CollaborationDetail2ItemValue(isCc, colIndex++, rowindex));
         }
         map.put("id", collaborationUser.getId());
         map.put("status", collaborationUser.getStatus());
@@ -195,7 +202,8 @@ public class CollaborationDetailProcessor {
 
     private Map<String, Object> initMap(SwCollaborationUser collaborationUser,
                                         List<SwCollaborationDetail> swCollaborationDetails,
-                                        boolean isPropose) {
+                                        boolean isPropose,
+                                        boolean isCc) {
         String employeeNo = RequestContext.getEmployeeNo();
         SwEmployee employee = employeeBusiness.selectEmployeeByENo(collaborationUser.getEmployeeNo());
         EmployeeVo vo = new EmployeeVo();
@@ -207,7 +215,7 @@ public class CollaborationDetailProcessor {
                 .filter(e -> e.getRowIndex() <= 1).collect(Collectors.toList())) {
 
             SwCollaborationDetailSpare detailSpare = collaborationDetailSpareBusiness.getCollaborationDetail(detail.getId());
-            map.put(detail.getItem(), CollaborationDetailMapper.CollaborationDetail2ItemValue(detail, detailSpare));
+            map.put(detail.getItem(), CollaborationDetailMapper.CollaborationDetail2ItemValue(detail, detailSpare, isCc));
             map.put("rowIndex", detail.getRowIndex());
         }
         map.put("id", collaborationUser.getId());
