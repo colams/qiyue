@@ -11,10 +11,14 @@ import com.foxconn.sw.data.entity.SwCapexSet;
 import com.foxconn.sw.data.entity.SwCapexSetExample;
 import com.foxconn.sw.data.entity.SwEmployee;
 import com.foxconn.sw.data.mapper.extension.SwCapexSetExtMapper;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Component
@@ -77,7 +81,7 @@ public class SwCapexSetBusiness {
                 } else {
                     capexSetDetail2Vo.setExtra("唯讀");
                 }
-                if (Objects.nonNull(e.getSetValueJson())) {
+                if (StringUtils.isNotEmpty(e.getSetValueJson())) {
                     capexSetDetail2Vo.setSetValueVos(JsonUtils.deserialize(e.getSetValueJson(), List.class, CapexSetValueVo.class));
                 }
                 capexSetVos.add(capexSetDetail2Vo);
