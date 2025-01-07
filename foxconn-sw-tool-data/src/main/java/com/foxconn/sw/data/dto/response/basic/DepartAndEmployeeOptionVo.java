@@ -11,7 +11,7 @@ public class DepartAndEmployeeOptionVo {
 
     private List<OptionsVo> departmentVos;
     private List<EmployeeVo> employeeVos;
-    private List<GroupBriefVo> groupBriefVos;
+    private List<OptionsVo> groupBriefVos;
 
     public List<OptionsVo> getDepartmentVos() {
         return departmentVos;
@@ -29,11 +29,11 @@ public class DepartAndEmployeeOptionVo {
         this.employeeVos = employeeVos;
     }
 
-    public List<GroupBriefVo> getGroupBriefVos() {
+    public List<OptionsVo> getGroupBriefVos() {
         return groupBriefVos;
     }
 
-    public void setGroupBriefVos(List<GroupBriefVo> groupBriefVos) {
+    public void setGroupBriefVos(List<OptionsVo> groupBriefVos) {
         this.groupBriefVos = groupBriefVos;
     }
 }

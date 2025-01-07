@@ -5,6 +5,7 @@ import com.foxconn.sw.data.dto.Request;
 import com.foxconn.sw.data.dto.Response;
 import com.foxconn.sw.data.dto.entity.system.DepartmentVo;
 import com.foxconn.sw.data.dto.entity.universal.OptionsVo;
+import com.foxconn.sw.data.dto.response.basic.DepartAndEmployeeOptionVo;
 import com.foxconn.sw.service.aspects.Permission;
 import com.foxconn.sw.service.processor.department.GetDepartListProcessor;
 import com.foxconn.sw.service.processor.system.MeetingRoomProcessor;
@@ -55,11 +56,11 @@ public class BasicController {
     }
 
     @Permission
-    @Operation(summary = "获取会议室信息", tags = TagsConstants.SYSTEM)
+    @Operation(summary = "部门员工选项接口", tags = TagsConstants.SYSTEM)
     @ApiResponse(responseCode = "0", description = "成功码")
-    @PostMapping("/selectEmployee")
-    public Response<List<OptionsVo>> selectEmployee(@Valid @RequestBody Request request) {
-        List<OptionsVo> departmentVos = meetingRoom.rooms();
+    @PostMapping("/selectDepartAndEmployee")
+    public Response<DepartAndEmployeeOptionVo> selectDepartAndEmployee(@Valid @RequestBody Request request) {
+        DepartAndEmployeeOptionVo departmentVos = null;
         return ResponseUtils.success(departmentVos, request.getTraceId());
     }
 }
