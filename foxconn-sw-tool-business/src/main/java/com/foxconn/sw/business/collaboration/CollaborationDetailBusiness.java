@@ -170,7 +170,7 @@ public class CollaborationDetailBusiness {
         for (SwCollaborationDetail collaborationDetail : collaborationDetails) {
             insertDetail = new SwCollaborationDetail();
             insertDetail.setScuId(collaborationDetail.getScuId());
-            insertDetail.setRowIndex(collaborationDetail.getRowIndex() + 1);
+            insertDetail.setRowIndex(data.getRowIndex() + 1);
             insertDetail.setColIndex(collaborationDetail.getColIndex());
             insertDetail.setItem(collaborationDetail.getItem());
             insertDetail.setItemValue("");
