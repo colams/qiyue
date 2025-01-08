@@ -34,7 +34,7 @@ public class CollaborationUpdateRowProcessor {
         for (CellVo cellVo : data.getCellVoList()) {
             SwCollaborationDetail insertDetail = new SwCollaborationDetail();
             insertDetail.setScuId(detailList.get(0).getScuId());
-            insertDetail.setRowIndex(data.getRowIndex() + 1);
+            insertDetail.setRowIndex(data.getRowIndex());
             insertDetail.setColIndex(cellVo.getColIndex());
             insertDetail.setItem(cellVo.getItem());
             insertDetail.setItemValue("");
@@ -62,7 +62,7 @@ public class CollaborationUpdateRowProcessor {
         List<SwCollaborationDetail> updateRowIndex = detailBiggerRow.stream().map(e -> {
             SwCollaborationDetail detail = new SwCollaborationDetail();
             detail.setId(e.getId());
-            detail.setRowIndex(e.getRowIndex() * 2 - rowIndex + 2);
+            detail.setRowIndex(rowIndex + 1);
             return detail;
         }).collect(Collectors.toList());
         collaborationDetailBusiness.batchUpdate(updateRowIndex);
