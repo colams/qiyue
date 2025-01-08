@@ -62,7 +62,7 @@ public class CollaborationUpdateRowProcessor {
         List<SwCollaborationDetail> updateRowIndex = detailBiggerRow.stream().map(e -> {
             SwCollaborationDetail detail = new SwCollaborationDetail();
             detail.setId(e.getId());
-            detail.setRowIndex(detail.getRowIndex() * 2 - rowIndex + 2);
+            detail.setRowIndex(e.getRowIndex() * 2 - rowIndex + 2);
             return detail;
         }).collect(Collectors.toList());
         collaborationDetailBusiness.batchUpdate(updateRowIndex);

@@ -2,6 +2,8 @@ package com.foxconn.sw.data.dto.entity.acount;
 
 public class EmployeeVo {
 
+    private Integer id;
+
     private String name;
 
     private String employeeNo;
@@ -15,6 +17,14 @@ public class EmployeeVo {
     private String pinyin;
 
     private String avatar;
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
     public String getName() {
         return name;
