@@ -16,6 +16,14 @@ public class SwMeetingMinutesBusiness {
     @Autowired
     SwMeetingMinutesExtensionMapper meetingMinutesExtensionMapper;
 
+    public List<SwMeetingMinutes> queryMeetingMinuteByMeetingId(Integer meetingID) {
+        SwMeetingMinutesExample example = new SwMeetingMinutesExample();
+        SwMeetingMinutesExample.Criteria criteria = example.createCriteria();
+        criteria.andMeetingIdEqualTo(meetingID.intValue());
+        List<SwMeetingMinutes> minutesList = meetingMinutesExtensionMapper.selectByExample(example);
+        return minutesList;
+    }
+
     public SwMeetingMinutes queryMeetingMinute(Integer meetingID, String meetingDate) {
         SwMeetingMinutesExample example = new SwMeetingMinutesExample();
         SwMeetingMinutesExample.Criteria criteria = example.createCriteria();
