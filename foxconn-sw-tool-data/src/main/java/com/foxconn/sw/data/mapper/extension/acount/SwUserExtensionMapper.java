@@ -13,9 +13,9 @@ import java.util.List;
 
 @Repository
 public interface SwUserExtensionMapper extends SwUserMapper {
-    @Select({"select su.employee_no,se.name,sd.name as departName,su.avatar_id,se.manager_level " +
+    @Select({"select su.employee_no,se.name,sd.name as departName,su.avatar_id,se.manager_level,se.is_complete " +
             "from sw_user su " +
-            "    left join sw_employee se on su.employee_no=se.employee_no " +
+            "    inner join sw_employee se on su.employee_no=se.employee_no " +
             "    left join sw_department sd on se.department_id=sd.id " +
             "where su.employee_no=#{employeeNo,jdbcType=VARCHAR} " +
             "limit 1 "
@@ -25,7 +25,8 @@ public interface SwUserExtensionMapper extends SwUserMapper {
             @Result(column = "name", property = "employeeName", jdbcType = JdbcType.VARCHAR),
             @Result(column = "departName", property = "departName", jdbcType = JdbcType.VARCHAR),
             @Result(column = "avatar_id", property = "avatarID", jdbcType = JdbcType.INTEGER),
-            @Result(column = "manager_level", property = "managerLevel", jdbcType = JdbcType.VARCHAR),
+            @Result(column = "manager_level", property = "managerLevel", jdbcType = JdbcType.INTEGER),
+            @Result(column = "is_complete", property = "isComplete", jdbcType = JdbcType.INTEGER),
     })
     UserInfo queryUserInfo(String employeeNo);
 

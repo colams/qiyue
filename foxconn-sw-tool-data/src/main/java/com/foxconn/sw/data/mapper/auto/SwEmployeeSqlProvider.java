@@ -100,6 +100,10 @@ public class SwEmployeeSqlProvider {
             sql.VALUES("datetime_lastchange", "#{datetimeLastchange,jdbcType=TIMESTAMP}");
         }
         
+        if (record.getIsComplete() != null) {
+            sql.VALUES("is_complete", "#{isComplete,jdbcType=INTEGER}");
+        }
+        
         return sql.toString();
     }
 
@@ -128,6 +132,7 @@ public class SwEmployeeSqlProvider {
         sql.SELECT("outer_abc_years");
         sql.SELECT("manager_level");
         sql.SELECT("datetime_lastchange");
+        sql.SELECT("is_complete");
         sql.FROM("sw_employee");
         applyWhere(sql, example, false);
         
@@ -221,6 +226,10 @@ public class SwEmployeeSqlProvider {
             sql.SET("datetime_lastchange = #{record.datetimeLastchange,jdbcType=TIMESTAMP}");
         }
         
+        if (record.getIsComplete() != null) {
+            sql.SET("is_complete = #{record.isComplete,jdbcType=INTEGER}");
+        }
+        
         applyWhere(sql, example, true);
         return sql.toString();
     }
@@ -248,6 +257,7 @@ public class SwEmployeeSqlProvider {
         sql.SET("outer_abc_years = #{record.outerAbcYears,jdbcType=INTEGER}");
         sql.SET("manager_level = #{record.managerLevel,jdbcType=INTEGER}");
         sql.SET("datetime_lastchange = #{record.datetimeLastchange,jdbcType=TIMESTAMP}");
+        sql.SET("is_complete = #{record.isComplete,jdbcType=INTEGER}");
         
         SwEmployeeExample example = (SwEmployeeExample) parameter.get("example");
         applyWhere(sql, example, true);
@@ -328,6 +338,10 @@ public class SwEmployeeSqlProvider {
         
         if (record.getDatetimeLastchange() != null) {
             sql.SET("datetime_lastchange = #{datetimeLastchange,jdbcType=TIMESTAMP}");
+        }
+        
+        if (record.getIsComplete() != null) {
+            sql.SET("is_complete = #{isComplete,jdbcType=INTEGER}");
         }
         
         sql.WHERE("id = #{id,jdbcType=INTEGER}");
