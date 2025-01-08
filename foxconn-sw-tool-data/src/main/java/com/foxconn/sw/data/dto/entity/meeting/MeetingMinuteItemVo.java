@@ -2,7 +2,7 @@ package com.foxconn.sw.data.dto.entity.meeting;
 
 public class MeetingMinuteItemVo {
 
-    private Integer id;
+    private Long id;
     private Integer index;
     private String itemTitle;
     private String director;
@@ -10,11 +10,11 @@ public class MeetingMinuteItemVo {
     private String status;
     private String remark;
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

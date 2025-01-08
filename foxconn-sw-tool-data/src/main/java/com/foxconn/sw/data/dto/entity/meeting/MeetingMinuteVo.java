@@ -6,6 +6,7 @@ import java.util.List;
 
 public class MeetingMinuteVo {
 
+    private Long id;
     private Integer meetingID;
     private String meetingRoomKey;
     private MeetingDateTimeVo dateTimeVo;
@@ -14,6 +15,14 @@ public class MeetingMinuteVo {
     private List<String> members;
     private String meetingTitle;
     private List<Long> resourceIds;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public Integer getMeetingID() {
         return meetingID;

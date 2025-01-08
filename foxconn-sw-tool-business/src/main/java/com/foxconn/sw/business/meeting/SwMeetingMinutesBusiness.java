@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
 
 import java.util.List;
+import java.util.Objects;
 
 @Component
 public class SwMeetingMinutesBusiness {
@@ -28,4 +29,14 @@ public class SwMeetingMinutesBusiness {
     }
 
 
+    public Long insertOrUpdate(SwMeetingMinutes meetingMinutes) {
+        int effectCount;
+        if (Objects.nonNull(meetingMinutes.getId()) && meetingMinutes.getId() > 0) {
+            effectCount = meetingMinutesExtensionMapper.updateByPrimaryKeySelective(meetingMinutes);
+            return Long.valueOf(effectCount);
+        } else {
+            meetingMinutesExtensionMapper.insertSelective(meetingMinutes);
+            return meetingMinutes.getId();
+        }
+    }
 }
