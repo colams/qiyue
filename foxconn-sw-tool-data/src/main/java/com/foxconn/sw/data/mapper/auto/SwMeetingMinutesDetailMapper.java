@@ -34,13 +34,13 @@ public interface SwMeetingMinutesDetailMapper {
     int deleteByPrimaryKey(Long id);
 
     @Insert({
-        "insert into sw_meeting_minutes_detail (item_type, index_no, ",
-        "item, direct_eno, ",
+        "insert into sw_meeting_minutes_detail (meeting_minutes_id, item_type, ",
+        "index_no, item, direct_eno, ",
         "due_date, status, ",
         "is_delete, remark, ",
         "create_time, datetime_lastchange)",
-        "values (#{itemType,jdbcType=VARCHAR}, #{indexNo,jdbcType=INTEGER}, ",
-        "#{item,jdbcType=VARCHAR}, #{directEno,jdbcType=VARCHAR}, ",
+        "values (#{meetingMinutesId,jdbcType=BIGINT}, #{itemType,jdbcType=VARCHAR}, ",
+        "#{indexNo,jdbcType=INTEGER}, #{item,jdbcType=VARCHAR}, #{directEno,jdbcType=VARCHAR}, ",
         "#{dueDate,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, ",
         "#{isDelete,jdbcType=INTEGER}, #{remark,jdbcType=VARCHAR}, ",
         "#{createTime,jdbcType=TIMESTAMP}, #{datetimeLastchange,jdbcType=TIMESTAMP})"
@@ -55,6 +55,7 @@ public interface SwMeetingMinutesDetailMapper {
     @SelectProvider(type=SwMeetingMinutesDetailSqlProvider.class, method="selectByExample")
     @Results({
         @Result(column="id", property="id", jdbcType=JdbcType.BIGINT, id=true),
+        @Result(column="meeting_minutes_id", property="meetingMinutesId", jdbcType=JdbcType.BIGINT),
         @Result(column="item_type", property="itemType", jdbcType=JdbcType.VARCHAR),
         @Result(column="index_no", property="indexNo", jdbcType=JdbcType.INTEGER),
         @Result(column="item", property="item", jdbcType=JdbcType.VARCHAR),
@@ -71,6 +72,7 @@ public interface SwMeetingMinutesDetailMapper {
     @SelectProvider(type=SwMeetingMinutesDetailSqlProvider.class, method="selectByExample")
     @Results({
         @Result(column="id", property="id", jdbcType=JdbcType.BIGINT, id=true),
+        @Result(column="meeting_minutes_id", property="meetingMinutesId", jdbcType=JdbcType.BIGINT),
         @Result(column="item_type", property="itemType", jdbcType=JdbcType.VARCHAR),
         @Result(column="index_no", property="indexNo", jdbcType=JdbcType.INTEGER),
         @Result(column="item", property="item", jdbcType=JdbcType.VARCHAR),
@@ -86,13 +88,14 @@ public interface SwMeetingMinutesDetailMapper {
 
     @Select({
         "select",
-        "id, item_type, index_no, item, direct_eno, due_date, status, is_delete, remark, ",
-        "create_time, datetime_lastchange",
+        "id, meeting_minutes_id, item_type, index_no, item, direct_eno, due_date, status, ",
+        "is_delete, remark, create_time, datetime_lastchange",
         "from sw_meeting_minutes_detail",
         "where id = #{id,jdbcType=BIGINT}"
     })
     @Results({
         @Result(column="id", property="id", jdbcType=JdbcType.BIGINT, id=true),
+        @Result(column="meeting_minutes_id", property="meetingMinutesId", jdbcType=JdbcType.BIGINT),
         @Result(column="item_type", property="itemType", jdbcType=JdbcType.VARCHAR),
         @Result(column="index_no", property="indexNo", jdbcType=JdbcType.INTEGER),
         @Result(column="item", property="item", jdbcType=JdbcType.VARCHAR),
@@ -117,7 +120,8 @@ public interface SwMeetingMinutesDetailMapper {
 
     @Update({
         "update sw_meeting_minutes_detail",
-        "set item_type = #{itemType,jdbcType=VARCHAR},",
+        "set meeting_minutes_id = #{meetingMinutesId,jdbcType=BIGINT},",
+          "item_type = #{itemType,jdbcType=VARCHAR},",
           "index_no = #{indexNo,jdbcType=INTEGER},",
           "item = #{item,jdbcType=VARCHAR},",
           "direct_eno = #{directEno,jdbcType=VARCHAR},",

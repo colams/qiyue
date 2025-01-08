@@ -3,10 +3,12 @@ package com.foxconn.sw.service.controller.oa;
 import com.foxconn.sw.data.constants.TagsConstants;
 import com.foxconn.sw.data.dto.Request;
 import com.foxconn.sw.data.dto.Response;
-import com.foxconn.sw.data.dto.response.meeting.MeetingMinuteDetailVo;
 import com.foxconn.sw.data.dto.entity.meeting.MeetingV2Vo;
 import com.foxconn.sw.data.dto.entity.meeting.MeetingVo;
+import com.foxconn.sw.data.dto.entity.universal.IntegerParams;
 import com.foxconn.sw.data.dto.request.meeting.*;
+import com.foxconn.sw.data.dto.response.meeting.MeetingLineVo;
+import com.foxconn.sw.data.dto.response.meeting.MeetingMinuteDetailVo;
 import com.foxconn.sw.service.aspects.Permission;
 import com.foxconn.sw.service.processor.meeting.*;
 import com.foxconn.sw.service.utils.ResponseUtils;
@@ -14,7 +16,10 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
@@ -36,6 +41,8 @@ public class MeetingController {
     MeetMinuteProcessor meetMinuteProcessor;
     @Autowired
     MinuteDetailProcessor minuteDetailProcessor;
+    @Autowired
+    MeetingLineProcessor meetingLineProcessor;
 
 
     @Permission
@@ -83,6 +90,14 @@ public class MeetingController {
         return ResponseUtils.success(isDelete, request.getTraceId());
     }
 
+    @Permission
+    @Operation(summary = "会议时间线", tags = "meet.2")
+    @ApiResponse(responseCode = "0", description = "成功码")
+    @PostMapping("/meetingLine")
+    public Response<List<MeetingLineVo>> meetingLine(@Valid @RequestBody Request<IntegerParams> request) {
+        List<MeetingLineVo> vos = meetingLineProcessor.meetingLines(request.getData().getParams());
+        return ResponseUtils.success(vos, request.getTraceId());
+    }
 
     @Permission
     @Operation(summary = "会议列表查询", tags = "meet.2")

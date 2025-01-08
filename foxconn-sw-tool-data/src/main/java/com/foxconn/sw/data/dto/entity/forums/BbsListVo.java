@@ -9,6 +9,7 @@ public class BbsListVo {
     private String createTime;
     private String title;
     private String content;
+    private EmployeeVo discussantVo;
     private boolean isRead;
     private int newCount;
 
@@ -50,6 +51,14 @@ public class BbsListVo {
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    public EmployeeVo getDiscussantVo() {
+        return discussantVo;
+    }
+
+    public void setDiscussantVo(EmployeeVo discussantVo) {
+        this.discussantVo = discussantVo;
     }
 
     public int getNewCount() {

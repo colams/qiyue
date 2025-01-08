@@ -80,6 +80,7 @@ public class ListPostsProcessor {
         vo.setContent(Optional.ofNullable(bbsComment).map(ForumBbsComment::getContent).orElse(""));
         vo.setRead(maps.getOrDefault(Optional.ofNullable(bbsComment).map(ForumBbsComment::getId).orElse(0), 0).equals(1));
         vo.setNewCount(readStatusBusiness.getForumUnReadCount(bbs.getId()));
+        vo.setDiscussantVo(employeeUtils.mapEmployee(Optional.ofNullable(bbsComment).map(ForumBbsComment::getAuthorNo).orElse("")));
         return vo;
     }
 

@@ -40,6 +40,10 @@ public class SwUserSqlProvider {
             sql.VALUES("solt", "#{solt,jdbcType=VARCHAR}");
         }
         
+        if (record.getPasswordBak() != null) {
+            sql.VALUES("password_bak", "#{passwordBak,jdbcType=VARCHAR}");
+        }
+        
         if (record.getAvatarId() != null) {
             sql.VALUES("avatar_id", "#{avatarId,jdbcType=INTEGER}");
         }
@@ -69,6 +73,7 @@ public class SwUserSqlProvider {
         sql.SELECT("employee_no");
         sql.SELECT("password");
         sql.SELECT("solt");
+        sql.SELECT("password_bak");
         sql.SELECT("avatar_id");
         sql.SELECT("signature");
         sql.SELECT("create_time");
@@ -106,6 +111,10 @@ public class SwUserSqlProvider {
             sql.SET("solt = #{record.solt,jdbcType=VARCHAR}");
         }
         
+        if (record.getPasswordBak() != null) {
+            sql.SET("password_bak = #{record.passwordBak,jdbcType=VARCHAR}");
+        }
+        
         if (record.getAvatarId() != null) {
             sql.SET("avatar_id = #{record.avatarId,jdbcType=INTEGER}");
         }
@@ -134,6 +143,7 @@ public class SwUserSqlProvider {
         sql.SET("employee_no = #{record.employeeNo,jdbcType=VARCHAR}");
         sql.SET("password = #{record.password,jdbcType=VARCHAR}");
         sql.SET("solt = #{record.solt,jdbcType=VARCHAR}");
+        sql.SET("password_bak = #{record.passwordBak,jdbcType=VARCHAR}");
         sql.SET("avatar_id = #{record.avatarId,jdbcType=INTEGER}");
         sql.SET("signature = #{record.signature,jdbcType=VARCHAR}");
         sql.SET("create_time = #{record.createTime,jdbcType=TIMESTAMP}");
@@ -158,6 +168,10 @@ public class SwUserSqlProvider {
         
         if (record.getSolt() != null) {
             sql.SET("solt = #{solt,jdbcType=VARCHAR}");
+        }
+        
+        if (record.getPasswordBak() != null) {
+            sql.SET("password_bak = #{passwordBak,jdbcType=VARCHAR}");
         }
         
         if (record.getAvatarId() != null) {

@@ -375,6 +375,76 @@ public class SwUserExample {
             return (Criteria) this;
         }
 
+        public Criteria andPasswordBakIsNull() {
+            addCriterion("password_bak is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andPasswordBakIsNotNull() {
+            addCriterion("password_bak is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andPasswordBakEqualTo(String value) {
+            addCriterion("password_bak =", value, "passwordBak");
+            return (Criteria) this;
+        }
+
+        public Criteria andPasswordBakNotEqualTo(String value) {
+            addCriterion("password_bak <>", value, "passwordBak");
+            return (Criteria) this;
+        }
+
+        public Criteria andPasswordBakGreaterThan(String value) {
+            addCriterion("password_bak >", value, "passwordBak");
+            return (Criteria) this;
+        }
+
+        public Criteria andPasswordBakGreaterThanOrEqualTo(String value) {
+            addCriterion("password_bak >=", value, "passwordBak");
+            return (Criteria) this;
+        }
+
+        public Criteria andPasswordBakLessThan(String value) {
+            addCriterion("password_bak <", value, "passwordBak");
+            return (Criteria) this;
+        }
+
+        public Criteria andPasswordBakLessThanOrEqualTo(String value) {
+            addCriterion("password_bak <=", value, "passwordBak");
+            return (Criteria) this;
+        }
+
+        public Criteria andPasswordBakLike(String value) {
+            addCriterion("password_bak like", value, "passwordBak");
+            return (Criteria) this;
+        }
+
+        public Criteria andPasswordBakNotLike(String value) {
+            addCriterion("password_bak not like", value, "passwordBak");
+            return (Criteria) this;
+        }
+
+        public Criteria andPasswordBakIn(List<String> values) {
+            addCriterion("password_bak in", values, "passwordBak");
+            return (Criteria) this;
+        }
+
+        public Criteria andPasswordBakNotIn(List<String> values) {
+            addCriterion("password_bak not in", values, "passwordBak");
+            return (Criteria) this;
+        }
+
+        public Criteria andPasswordBakBetween(String value1, String value2) {
+            addCriterion("password_bak between", value1, value2, "passwordBak");
+            return (Criteria) this;
+        }
+
+        public Criteria andPasswordBakNotBetween(String value1, String value2) {
+            addCriterion("password_bak not between", value1, value2, "passwordBak");
+            return (Criteria) this;
+        }
+
         public Criteria andAvatarIdIsNull() {
             addCriterion("avatar_id is null");
             return (Criteria) this;
@@ -637,6 +707,11 @@ public class SwUserExample {
 
         public Criteria andSoltLikeInsensitive(String value) {
             addCriterion("upper(solt) like", value.toUpperCase(), "solt");
+            return (Criteria) this;
+        }
+
+        public Criteria andPasswordBakLikeInsensitive(String value) {
+            addCriterion("upper(password_bak) like", value.toUpperCase(), "passwordBak");
             return (Criteria) this;
         }
 

@@ -165,6 +165,66 @@ public class SwMeetingMinutesDetailExample {
             return (Criteria) this;
         }
 
+        public Criteria andMeetingMinutesIdIsNull() {
+            addCriterion("meeting_minutes_id is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andMeetingMinutesIdIsNotNull() {
+            addCriterion("meeting_minutes_id is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andMeetingMinutesIdEqualTo(Long value) {
+            addCriterion("meeting_minutes_id =", value, "meetingMinutesId");
+            return (Criteria) this;
+        }
+
+        public Criteria andMeetingMinutesIdNotEqualTo(Long value) {
+            addCriterion("meeting_minutes_id <>", value, "meetingMinutesId");
+            return (Criteria) this;
+        }
+
+        public Criteria andMeetingMinutesIdGreaterThan(Long value) {
+            addCriterion("meeting_minutes_id >", value, "meetingMinutesId");
+            return (Criteria) this;
+        }
+
+        public Criteria andMeetingMinutesIdGreaterThanOrEqualTo(Long value) {
+            addCriterion("meeting_minutes_id >=", value, "meetingMinutesId");
+            return (Criteria) this;
+        }
+
+        public Criteria andMeetingMinutesIdLessThan(Long value) {
+            addCriterion("meeting_minutes_id <", value, "meetingMinutesId");
+            return (Criteria) this;
+        }
+
+        public Criteria andMeetingMinutesIdLessThanOrEqualTo(Long value) {
+            addCriterion("meeting_minutes_id <=", value, "meetingMinutesId");
+            return (Criteria) this;
+        }
+
+        public Criteria andMeetingMinutesIdIn(List<Long> values) {
+            addCriterion("meeting_minutes_id in", values, "meetingMinutesId");
+            return (Criteria) this;
+        }
+
+        public Criteria andMeetingMinutesIdNotIn(List<Long> values) {
+            addCriterion("meeting_minutes_id not in", values, "meetingMinutesId");
+            return (Criteria) this;
+        }
+
+        public Criteria andMeetingMinutesIdBetween(Long value1, Long value2) {
+            addCriterion("meeting_minutes_id between", value1, value2, "meetingMinutesId");
+            return (Criteria) this;
+        }
+
+        public Criteria andMeetingMinutesIdNotBetween(Long value1, Long value2) {
+            addCriterion("meeting_minutes_id not between", value1, value2, "meetingMinutesId");
+            return (Criteria) this;
+        }
+
         public Criteria andItemTypeIsNull() {
             addCriterion("item_type is null");
             return (Criteria) this;

@@ -1,7 +1,7 @@
 package com.foxconn.sw.business.system;
 
+import com.foxconn.sw.common.context.RequestContext;
 import com.foxconn.sw.data.dto.entity.system.DepartmentVo;
-import com.foxconn.sw.data.dto.request.deparment.DepartmentParams;
 import com.foxconn.sw.data.entity.SwDepartment;
 import com.foxconn.sw.data.entity.SwDepartmentExample;
 import com.foxconn.sw.data.exception.BizException;
@@ -229,30 +229,28 @@ public class DepartmentBusiness {
         return vos;
     }
 
-    public boolean delete(Integer departmentID) {
-        SwDepartment department = new SwDepartment();
-        department.setId(departmentID);
-        department.setStatus(0);
-        return departmentExtensionMapper.updateByPrimaryKeySelective(department) > 0;
+    /**
+     * 修改或新增
+     *
+     * @param department
+     * @return
+     */
+    public Integer updateOrInsert(SwDepartment department) {
+        int effectCount;
+        if (Objects.nonNull(department.getId()) && department.getId() > 0) {
+            effectCount = departmentExtensionMapper.updateByPrimaryKeySelective(department);
+        } else {
+            departmentExtensionMapper.insertSelective(department);
+            effectCount = department.getId();
+        }
+        return effectCount;
     }
 
-    public boolean updateOrInsert(DepartmentParams departmentVo) {
-        SwDepartment department = new SwDepartment();
-        department.setId(departmentVo.getId());
-        department.setLevel(departmentVo.getLevel());
-        department.setName(departmentVo.getName());
-        department.setShortName(departmentVo.getShortName());
-        department.setManagerNo(departmentVo.getManagerNo());
-        department.setDescription(departmentVo.getDescription());
-        department.setParentId(departmentVo.getParentId());
-        department.setStatus(1);
-        int count = 0;
-        if (Objects.nonNull(departmentVo.getId()) && departmentVo.getId() > 0) {
-            count = departmentExtensionMapper.updateByPrimaryKeySelective(department);
-        } else {
-            count = departmentExtensionMapper.insertSelective(department);
-        }
-        return count > 0;
-
+    public boolean isHead() {
+        SwDepartmentExample example = new SwDepartmentExample();
+        SwDepartmentExample.Criteria criteria = example.createCriteria();
+        criteria.andManagerNoEqualTo(RequestContext.getEmployeeNo());
+        List<SwDepartment> departments = departmentExtensionMapper.selectByExample(example);
+        return CollectionUtils.isEmpty(departments);
     }
 }

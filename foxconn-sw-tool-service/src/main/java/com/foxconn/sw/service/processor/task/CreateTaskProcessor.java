@@ -90,7 +90,7 @@ public class CreateTaskProcessor {
             }
 
             if (!data.getStatus().equals(DRAFT.getCode())) {
-                processHandle(taskID, hasSet, data.getResourceIds().get(0));
+                processHandle(taskID, hasSet, data.getResourceIds().get(0), data.getManagers());
             }
         }
 
@@ -102,7 +102,7 @@ public class CreateTaskProcessor {
     }
 
 
-    private void processHandle(Integer taskID, boolean hasSet, Integer resourceId) {
+    private void processHandle(Integer taskID, boolean hasSet, Integer resourceId, List<String> managers) {
         if (!hasSet) {
             List<SwCollaborationUser> collaborationUsers = collaborationUser.queryCollaborationUser(taskID);
             List<SwTaskEmployeeRelation> relations = taskEmployeeRelationBusiness.getRelationsByTaskIdAndRole(taskID,
@@ -118,7 +118,7 @@ public class CreateTaskProcessor {
         } else {
             Long cuId = collaborationUser.acceptTask(taskID, RequestContext.getEmployeeNo());
             try {
-                collaborationDetailBusiness.readExcelContent(cuId, resourceId);
+                collaborationDetailBusiness.readExcelContent(cuId, resourceId, managers);
             } catch (FileNotFoundException e) {
                 logger.error("processHandle", e);
             }

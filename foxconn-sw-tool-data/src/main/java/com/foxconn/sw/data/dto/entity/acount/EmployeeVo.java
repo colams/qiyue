@@ -1,12 +1,18 @@
 package com.foxconn.sw.data.dto.entity.acount;
 
+import java.util.List;
+
 public class EmployeeVo {
+
+    private Integer id;
 
     private String name;
 
     private String employeeNo;
 
     private Integer departmentId;
+
+    private List<String> departments;
 
     private String departmentName;
 
@@ -15,6 +21,14 @@ public class EmployeeVo {
     private String pinyin;
 
     private String avatar;
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
     public String getName() {
         return name;
@@ -38,6 +52,14 @@ public class EmployeeVo {
 
     public void setDepartmentId(Integer departmentId) {
         this.departmentId = departmentId;
+    }
+
+    public List<String> getDepartments() {
+        return departments;
+    }
+
+    public void setDepartments(List<String> departments) {
+        this.departments = departments;
     }
 
     public String getDepartmentName() {

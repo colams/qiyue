@@ -11,6 +11,8 @@ public class SwUser {
 
     private String solt;
 
+    private String passwordBak;
+
     private Integer avatarId;
 
     private String signature;
@@ -69,6 +71,19 @@ public class SwUser {
 
     public void setSolt(String solt) {
         this.solt = solt == null ? null : solt.trim();
+    }
+
+    public String getPasswordBak() {
+        return passwordBak;
+    }
+
+    public SwUser withPasswordBak(String passwordBak) {
+        this.setPasswordBak(passwordBak);
+        return this;
+    }
+
+    public void setPasswordBak(String passwordBak) {
+        this.passwordBak = passwordBak == null ? null : passwordBak.trim();
     }
 
     public Integer getAvatarId() {

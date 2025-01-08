@@ -14,6 +14,7 @@ import com.foxconn.sw.data.dto.request.account.QuerySubEmpParams;
 import com.foxconn.sw.service.aspects.Permission;
 import com.foxconn.sw.service.processor.acount.QueryMemberProcessor;
 import com.foxconn.sw.service.processor.acount.QueryUsersProcessor;
+import com.foxconn.sw.service.processor.acount.SubordinateProcessor;
 import com.foxconn.sw.service.utils.ResponseUtils;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -21,7 +22,10 @@ import jakarta.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
@@ -39,6 +43,8 @@ public class UserController {
     EmployeeBusiness employeeBusiness;
     @Autowired
     QueryMemberProcessor queryMemberProcessor;
+    @Autowired
+    SubordinateProcessor subordinateProcessor;
 
     @Operation(summary = "用户信息列表", tags = TagsConstants.ACCOUNT)
     @ApiResponse(responseCode = "0", description = "成功码")
@@ -70,6 +76,15 @@ public class UserController {
     @PostMapping("/queryMembers")
     public Response<List<EmployeeVo>> queryMembers(@Valid @RequestBody Request<QuerySubEmpParams> request) {
         List<EmployeeVo> vos = queryMemberProcessor.queryMembers(request.getData());
+        return ResponseUtils.success(vos, request.getTraceId());
+    }
+
+    @Permission
+    @Operation(summary = "获取下属员工", tags = TagsConstants.ACCOUNT)
+    @ApiResponse(responseCode = "0", description = "成功码")
+    @PostMapping("/subordinate")
+    public Response<List<EmployeeVo>> subordinate(@Valid @RequestBody Request request) {
+        List<EmployeeVo> vos = subordinateProcessor.subordinateList();
         return ResponseUtils.success(vos, request.getTraceId());
     }
 }

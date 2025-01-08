@@ -15,6 +15,8 @@ public class SwCapexSet {
 
     private String setValue;
 
+    private String setValueJson;
+
     private Integer isDelete;
 
     private LocalDateTime createTime;
@@ -97,6 +99,19 @@ public class SwCapexSet {
 
     public void setSetValue(String setValue) {
         this.setValue = setValue == null ? null : setValue.trim();
+    }
+
+    public String getSetValueJson() {
+        return setValueJson;
+    }
+
+    public SwCapexSet withSetValueJson(String setValueJson) {
+        this.setSetValueJson(setValueJson);
+        return this;
+    }
+
+    public void setSetValueJson(String setValueJson) {
+        this.setValueJson = setValueJson == null ? null : setValueJson.trim();
     }
 
     public Integer getIsDelete() {

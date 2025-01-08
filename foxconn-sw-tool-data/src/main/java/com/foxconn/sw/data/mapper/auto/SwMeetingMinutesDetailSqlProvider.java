@@ -28,6 +28,10 @@ public class SwMeetingMinutesDetailSqlProvider {
         SQL sql = new SQL();
         sql.INSERT_INTO("sw_meeting_minutes_detail");
         
+        if (record.getMeetingMinutesId() != null) {
+            sql.VALUES("meeting_minutes_id", "#{meetingMinutesId,jdbcType=BIGINT}");
+        }
+        
         if (record.getItemType() != null) {
             sql.VALUES("item_type", "#{itemType,jdbcType=VARCHAR}");
         }
@@ -78,6 +82,7 @@ public class SwMeetingMinutesDetailSqlProvider {
         } else {
             sql.SELECT("id");
         }
+        sql.SELECT("meeting_minutes_id");
         sql.SELECT("item_type");
         sql.SELECT("index_no");
         sql.SELECT("item");
@@ -107,6 +112,10 @@ public class SwMeetingMinutesDetailSqlProvider {
         
         if (record.getId() != null) {
             sql.SET("id = #{record.id,jdbcType=BIGINT}");
+        }
+        
+        if (record.getMeetingMinutesId() != null) {
+            sql.SET("meeting_minutes_id = #{record.meetingMinutesId,jdbcType=BIGINT}");
         }
         
         if (record.getItemType() != null) {
@@ -158,6 +167,7 @@ public class SwMeetingMinutesDetailSqlProvider {
         sql.UPDATE("sw_meeting_minutes_detail");
         
         sql.SET("id = #{record.id,jdbcType=BIGINT}");
+        sql.SET("meeting_minutes_id = #{record.meetingMinutesId,jdbcType=BIGINT}");
         sql.SET("item_type = #{record.itemType,jdbcType=VARCHAR}");
         sql.SET("index_no = #{record.indexNo,jdbcType=INTEGER}");
         sql.SET("item = #{record.item,jdbcType=VARCHAR}");
@@ -177,6 +187,10 @@ public class SwMeetingMinutesDetailSqlProvider {
     public String updateByPrimaryKeySelective(SwMeetingMinutesDetail record) {
         SQL sql = new SQL();
         sql.UPDATE("sw_meeting_minutes_detail");
+        
+        if (record.getMeetingMinutesId() != null) {
+            sql.SET("meeting_minutes_id = #{meetingMinutesId,jdbcType=BIGINT}");
+        }
         
         if (record.getItemType() != null) {
             sql.SET("item_type = #{itemType,jdbcType=VARCHAR}");

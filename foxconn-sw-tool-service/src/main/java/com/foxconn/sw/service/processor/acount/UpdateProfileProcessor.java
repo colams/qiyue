@@ -2,6 +2,7 @@ package com.foxconn.sw.service.processor.acount;
 
 import com.foxconn.sw.business.account.UserBusiness;
 import com.foxconn.sw.business.system.EmployeeBusiness;
+import com.foxconn.sw.common.constanst.NumberConstants;
 import com.foxconn.sw.data.dto.entity.acount.UserProfileBrief;
 import com.foxconn.sw.data.entity.SwEmployee;
 import com.foxconn.sw.data.entity.SwUser;
@@ -43,6 +44,7 @@ public class UpdateProfileProcessor {
         updateEmployee.setPhoneNumber(data.getPhoneNumber());
         updateEmployee.setHireDate(data.getHireDate());
         updateEmployee.setDepartmentId(data.getDepartmentID());
+        updateEmployee.setIsComplete(NumberConstants.ONE);
         return employeeBusiness.updateEmployee(updateEmployee);
     }
 

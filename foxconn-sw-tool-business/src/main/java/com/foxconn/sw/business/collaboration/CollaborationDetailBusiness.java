@@ -30,6 +30,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 @Component
 public class CollaborationDetailBusiness {
@@ -42,6 +43,8 @@ public class CollaborationDetailBusiness {
     FilePathUtils filePathUtils;
     @Autowired
     SqlSessionFactory sqlSessionFactory;
+    @Autowired
+    CollaborationUserBusiness collaborationUserBusiness;
 
     public List<SwCollaborationDetail> queryCollaborationDetail(List<Long> scuIDs) {
         if (CollectionUtils.isEmpty(scuIDs)) {
@@ -50,13 +53,6 @@ public class CollaborationDetailBusiness {
         SwCollaborationDetailExample example = new SwCollaborationDetailExample();
         SwCollaborationDetailExample.Criteria criteria = example.createCriteria();
         criteria.andScuIdIn(scuIDs);
-        return collaborationDetailMapper.selectByExample(example);
-    }
-
-    public List<SwCollaborationDetail> queryCollaborationDetail(Long scuID) {
-        SwCollaborationDetailExample example = new SwCollaborationDetailExample();
-        SwCollaborationDetailExample.Criteria criteria = example.createCriteria();
-        criteria.andScuIdEqualTo(scuID);
         return collaborationDetailMapper.selectByExample(example);
     }
 
@@ -70,30 +66,7 @@ public class CollaborationDetailBusiness {
         }
     }
 
-    public boolean updateItemValue(Long scuID, Integer key, String item, String value) {
-
-        SwCollaborationDetail detail = new SwCollaborationDetail();
-        detail.setItemValue(value);
-
-        SwCollaborationDetailExample example = new SwCollaborationDetailExample();
-        SwCollaborationDetailExample.Criteria criteria = example.createCriteria();
-        criteria.andRowIndexEqualTo(key);
-        criteria.andItemEqualTo(item);
-        criteria.andScuIdEqualTo(scuID);
-        return collaborationDetailMapper.updateByExampleSelective(detail, example) > 0;
-    }
-
-    public SwCollaborationDetail selectCollaborationDetail(Long scuID, Integer key, String item) {
-        SwCollaborationDetailExample example = new SwCollaborationDetailExample();
-        SwCollaborationDetailExample.Criteria criteria = example.createCriteria();
-        criteria.andRowIndexEqualTo(key);
-        criteria.andItemEqualTo(item);
-        criteria.andScuIdEqualTo(scuID);
-        List<SwCollaborationDetail> details = collaborationDetailMapper.selectByExample(example);
-        return details.get(0);
-    }
-
-    public boolean readExcelContent(Long scuId, Integer resourceId) throws FileNotFoundException {
+    public boolean readExcelContent(Long scuId, Integer resourceId, List<String> managers) throws FileNotFoundException {
 
         SwAppendResource appendResource = resourceBusiness.getAppendResources(resourceId);
         String filePath = filePathUtils.getFilePath(appendResource.getUploadType()) + appendResource.getFilePath();
@@ -101,14 +74,31 @@ public class CollaborationDetailBusiness {
              Workbook workbook = new XSSFWorkbook(fis)) {
             Sheet sheet = workbook.getSheetAt(0);
             List<String> headers = new ArrayList<>();
-            for (int i = 0; i < sheet.getLastRowNum(); i++) {
-                for (int j = 0; j < sheet.getRow(i).getLastCellNum(); j++) {
-                    Cell cell = sheet.getRow(i).getCell(j);
-                    String text = ExcelUtils.getCellValueAsString(cell);
-                    if (i == 0) {
-                        headers.add(text);
-                    } else {
-                        insert(i, scuId, j, headers.get(j), text);
+            if (sheet.getLastRowNum() < managers.size()) {
+                for (int i = 0; i <= managers.size(); i++) {
+                    for (int j = 0; j < sheet.getRow(0).getLastCellNum(); j++) {
+                        String text = "";
+                        if (i <= sheet.getLastRowNum()) {
+                            Cell cell = sheet.getRow(i).getCell(j);
+                            text = ExcelUtils.getCellValueAsString(cell);
+                        }
+                        if (i == 0) {
+                            headers.add(text);
+                        } else {
+                            insert(i, scuId, j, headers.get(j), text);
+                        }
+                    }
+                }
+            } else {
+                for (int i = 0; i < sheet.getLastRowNum(); i++) {
+                    for (int j = 0; j < sheet.getRow(i).getLastCellNum(); j++) {
+                        Cell cell = sheet.getRow(i).getCell(j);
+                        String text = ExcelUtils.getCellValueAsString(cell);
+                        if (i == 0) {
+                            headers.add(text);
+                        } else {
+                            insert(i, scuId, j, headers.get(j), text);
+                        }
                     }
                 }
             }
@@ -125,11 +115,11 @@ public class CollaborationDetailBusiness {
         detail.setColIndex(colNum);
         detail.setItem(header);
         detail.setItemValue(value);
-        return collaborationDetailMapper.insertSelective(detail) > 0;
+        return updateOrInsert(detail) > 0;
     }
 
 
-    public boolean insertBatchCollaborationUserDetail(List<SwCollaborationDetail> collaborationDetails) {
+    public boolean batchInsert(List<SwCollaborationDetail> collaborationDetails) {
         SqlSession sqlSession = sqlSessionFactory.openSession(ExecutorType.BATCH, false);
         SwCollaborationDetailMapper mapper = sqlSession.getMapper(SwCollaborationDetailMapper.class);
 
@@ -141,13 +131,6 @@ public class CollaborationDetailBusiness {
         return true;
     }
 
-    public List<SwCollaborationDetail> queryCollaborationDetail(Long scuID, Integer rowIndex) {
-        SwCollaborationDetailExample example = new SwCollaborationDetailExample();
-        SwCollaborationDetailExample.Criteria criteria = example.createCriteria();
-        criteria.andScuIdEqualTo(scuID);
-        criteria.andRowIndexEqualTo(rowIndex);
-        return collaborationDetailMapper.selectByExample(example);
-    }
 
     public boolean batchUpdate(List<SwCollaborationDetail> updateDetails) {
         SqlSession sqlSession = sqlSessionFactory.openSession(ExecutorType.BATCH, false);
@@ -161,19 +144,55 @@ public class CollaborationDetailBusiness {
         return true;
     }
 
+    public List<SwCollaborationDetail> selectCollaborationsByTaskID(long taskId) {
+        return collaborationDetailMapper.selectCollaborationsByTaskID(taskId);
+    }
+
     public SwCollaborationDetail createCollaborationDetail(CollaborationUpdateCellParams data) {
-        List<SwCollaborationDetail> detailList = collaborationDetailMapper.selectCollaborationsByTaskID(data.getTaskID().longValue());
-        SwCollaborationDetail collaborationDetail = detailList.stream()
-                .filter(e -> e.getColIndex().equals(data.getColIndex()))
+        List<SwCollaborationDetail> detailList = selectCollaborationsByTaskID(data.getTaskID().longValue());
+
+        SwCollaborationDetail maxDetail = detailList.stream()
                 .max(((o1, o2) -> o1.getRowIndex() - o2.getRowIndex()))
                 .orElseThrow(() -> new BizException(4, "處理失敗，若重試仍失敗，請聯繫開發人員"));
-        SwCollaborationDetail insertDetail = new SwCollaborationDetail();
-        insertDetail.setScuId(collaborationDetail.getScuId());
-        insertDetail.setRowIndex(collaborationDetail.getRowIndex() + 1);
-        insertDetail.setColIndex(data.getColIndex());
-        insertDetail.setItem(collaborationDetail.getItem());
-        insertDetail.setItemValue("");
-        collaborationDetailMapper.insertSelective(insertDetail);
-        return insertDetail;
+
+        List<SwCollaborationDetail> collaborationDetails = detailList.stream()
+                .filter(e -> e.getRowIndex().equals(maxDetail.getRowIndex()))
+                .collect(Collectors.toList());
+        if (CollectionUtils.isEmpty(collaborationDetails)) {
+            new BizException(4, "max 處理失敗，若重試仍失敗，請聯繫開發人員");
+        }
+
+        SwCollaborationDetail insertDetail;
+        SwCollaborationDetail tempDetail = null;
+        for (SwCollaborationDetail collaborationDetail : collaborationDetails) {
+            insertDetail = new SwCollaborationDetail();
+            insertDetail.setScuId(collaborationDetail.getScuId());
+            insertDetail.setRowIndex(data.getRowIndex() + 1);
+            insertDetail.setColIndex(collaborationDetail.getColIndex());
+            insertDetail.setItem(collaborationDetail.getItem());
+            insertDetail.setItemValue("");
+            collaborationDetailMapper.insertSelective(insertDetail);
+            if (collaborationDetail.getColIndex().equals(data.getColIndex())) {
+                tempDetail = insertDetail;
+            }
+        }
+
+        List<SwCollaborationDetail> detailBigRow = detailList
+                .stream()
+                .filter(e -> e.getRowIndex().compareTo(data.getRowIndex()) >= 0)
+                .collect(Collectors.toList());
+
+        List<SwCollaborationDetail> updateRowIndex = detailBigRow.stream().map(e -> {
+            SwCollaborationDetail detail = new SwCollaborationDetail();
+            detail.setId(e.getId());
+            detail.setRowIndex(detail.getRowIndex() * 2 - data.getRowIndex() + 2);
+            return detail;
+        }).collect(Collectors.toList());
+        batchUpdate(updateRowIndex);
+        return tempDetail;
+    }
+
+    public SwCollaborationDetail selectCollaborationDetail(Long detailId) {
+        return collaborationDetailMapper.selectByPrimaryKey(detailId);
     }
 }

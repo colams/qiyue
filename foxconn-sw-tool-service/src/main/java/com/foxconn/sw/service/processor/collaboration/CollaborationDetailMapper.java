@@ -10,14 +10,31 @@ import java.util.Optional;
 public class CollaborationDetailMapper {
 
     public static CollaborationItemValue CollaborationDetail2ItemValue(SwCollaborationDetail detail,
-                                                                       SwCollaborationDetailSpare detailSpare) {
+                                                                       SwCollaborationDetailSpare detailSpare, boolean isCc) {
         CollaborationItemValue itemValue = new CollaborationItemValue();
         itemValue.setCurrentValue(detail.getItemValue());
         itemValue.setSpareValue(Optional.ofNullable(detailSpare).map(e -> e.getValue()).orElse(""));
-        itemValue.setUpdateTime(DateTimeUtils.format(detail.getDatetimeLastchange()));
+        String createTime = DateTimeUtils.format(detail.getCreateTime());
+        String updateTime = DateTimeUtils.format(detail.getDatetimeLastchange());
+        if (!createTime.equalsIgnoreCase(updateTime)) {
+            itemValue.setUpdateTime(updateTime);
+        }
         itemValue.setDetailId(detail.getId());
         itemValue.setRowIndex(detail.getRowIndex());
         itemValue.setColIndex(detail.getColIndex());
+        itemValue.setAuthorized(isCc ? "" : "true");
+        return itemValue;
+    }
+
+    public static CollaborationItemValue CollaborationDetail2ItemValue(boolean isCc, int colIndex, int rowIndex) {
+        CollaborationItemValue itemValue = new CollaborationItemValue();
+        itemValue.setCurrentValue("");
+        itemValue.setSpareValue("");
+        itemValue.setUpdateTime("");
+        // itemValue.setDetailId(0);
+        itemValue.setRowIndex(rowIndex);
+        itemValue.setColIndex(colIndex);
+        itemValue.setAuthorized(isCc ? "" : "true");
         return itemValue;
     }
 

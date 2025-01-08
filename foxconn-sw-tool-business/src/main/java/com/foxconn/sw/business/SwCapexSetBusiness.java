@@ -2,13 +2,16 @@ package com.foxconn.sw.business;
 
 import com.foxconn.sw.business.system.EmployeeBusiness;
 import com.foxconn.sw.common.constanst.CapexSetConstants;
+import com.foxconn.sw.common.utils.JsonUtils;
 import com.foxconn.sw.data.dto.entity.oa.CapexParamsVo;
 import com.foxconn.sw.data.dto.entity.oa.CapexSetDetail2Vo;
+import com.foxconn.sw.data.dto.entity.oa.CapexSetValueVo;
 import com.foxconn.sw.data.dto.entity.oa.CapexSetVo;
 import com.foxconn.sw.data.entity.SwCapexSet;
 import com.foxconn.sw.data.entity.SwCapexSetExample;
 import com.foxconn.sw.data.entity.SwEmployee;
 import com.foxconn.sw.data.mapper.extension.SwCapexSetExtMapper;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -40,6 +43,7 @@ public class SwCapexSetBusiness {
                     capexSet.setType(f.getType());
                     capexSet.setNumber(set.getIndex());
                     capexSet.setSetValue(set.getSetValue());
+                    capexSet.setSetValueJson(JsonUtils.serialize(set.getSetValueVos()));
                     capexSetExtMapper.insertSelective(capexSet);
                 });
             });
@@ -76,6 +80,9 @@ public class SwCapexSetBusiness {
                     capexSetDetail2Vo.setExtra(Optional.ofNullable(ee).map(f -> f.getName()).orElse(e.getSetValue()));
                 } else {
                     capexSetDetail2Vo.setExtra("唯讀");
+                }
+                if (StringUtils.isNotEmpty(e.getSetValueJson())) {
+                    capexSetDetail2Vo.setSetValueVos(JsonUtils.deserialize(e.getSetValueJson(), List.class, CapexSetValueVo.class));
                 }
                 capexSetVos.add(capexSetDetail2Vo);
             });

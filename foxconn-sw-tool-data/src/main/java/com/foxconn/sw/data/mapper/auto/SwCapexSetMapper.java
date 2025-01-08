@@ -36,12 +36,12 @@ public interface SwCapexSetMapper {
     @Insert({
         "insert into sw_capex_set (task_id, sheet_name, ",
         "type, number, set_value, ",
-        "is_delete, create_time, ",
-        "datetime_lastchange)",
+        "set_value_json, is_delete, ",
+        "create_time, datetime_lastchange)",
         "values (#{taskId,jdbcType=INTEGER}, #{sheetName,jdbcType=VARCHAR}, ",
         "#{type,jdbcType=VARCHAR}, #{number,jdbcType=INTEGER}, #{setValue,jdbcType=VARCHAR}, ",
-        "#{isDelete,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, ",
-        "#{datetimeLastchange,jdbcType=TIMESTAMP})"
+        "#{setValueJson,jdbcType=VARCHAR}, #{isDelete,jdbcType=INTEGER}, ",
+        "#{createTime,jdbcType=TIMESTAMP}, #{datetimeLastchange,jdbcType=TIMESTAMP})"
     })
     @SelectKey(statement="SELECT LAST_INSERT_ID()", keyProperty="id", before=false, resultType=Integer.class)
     int insert(SwCapexSet record);
@@ -58,6 +58,7 @@ public interface SwCapexSetMapper {
         @Result(column="type", property="type", jdbcType=JdbcType.VARCHAR),
         @Result(column="number", property="number", jdbcType=JdbcType.INTEGER),
         @Result(column="set_value", property="setValue", jdbcType=JdbcType.VARCHAR),
+        @Result(column="set_value_json", property="setValueJson", jdbcType=JdbcType.VARCHAR),
         @Result(column="is_delete", property="isDelete", jdbcType=JdbcType.INTEGER),
         @Result(column="create_time", property="createTime", jdbcType=JdbcType.TIMESTAMP),
         @Result(column="datetime_lastchange", property="datetimeLastchange", jdbcType=JdbcType.TIMESTAMP)
@@ -72,6 +73,7 @@ public interface SwCapexSetMapper {
         @Result(column="type", property="type", jdbcType=JdbcType.VARCHAR),
         @Result(column="number", property="number", jdbcType=JdbcType.INTEGER),
         @Result(column="set_value", property="setValue", jdbcType=JdbcType.VARCHAR),
+        @Result(column="set_value_json", property="setValueJson", jdbcType=JdbcType.VARCHAR),
         @Result(column="is_delete", property="isDelete", jdbcType=JdbcType.INTEGER),
         @Result(column="create_time", property="createTime", jdbcType=JdbcType.TIMESTAMP),
         @Result(column="datetime_lastchange", property="datetimeLastchange", jdbcType=JdbcType.TIMESTAMP)
@@ -80,7 +82,8 @@ public interface SwCapexSetMapper {
 
     @Select({
         "select",
-        "id, task_id, sheet_name, type, number, set_value, is_delete, create_time, datetime_lastchange",
+        "id, task_id, sheet_name, type, number, set_value, set_value_json, is_delete, ",
+        "create_time, datetime_lastchange",
         "from sw_capex_set",
         "where id = #{id,jdbcType=INTEGER}"
     })
@@ -91,6 +94,7 @@ public interface SwCapexSetMapper {
         @Result(column="type", property="type", jdbcType=JdbcType.VARCHAR),
         @Result(column="number", property="number", jdbcType=JdbcType.INTEGER),
         @Result(column="set_value", property="setValue", jdbcType=JdbcType.VARCHAR),
+        @Result(column="set_value_json", property="setValueJson", jdbcType=JdbcType.VARCHAR),
         @Result(column="is_delete", property="isDelete", jdbcType=JdbcType.INTEGER),
         @Result(column="create_time", property="createTime", jdbcType=JdbcType.TIMESTAMP),
         @Result(column="datetime_lastchange", property="datetimeLastchange", jdbcType=JdbcType.TIMESTAMP)
@@ -113,6 +117,7 @@ public interface SwCapexSetMapper {
           "type = #{type,jdbcType=VARCHAR},",
           "number = #{number,jdbcType=INTEGER},",
           "set_value = #{setValue,jdbcType=VARCHAR},",
+          "set_value_json = #{setValueJson,jdbcType=VARCHAR},",
           "is_delete = #{isDelete,jdbcType=INTEGER},",
           "create_time = #{createTime,jdbcType=TIMESTAMP},",
           "datetime_lastchange = #{datetimeLastchange,jdbcType=TIMESTAMP}",

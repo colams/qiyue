@@ -1,6 +1,7 @@
 package com.foxconn.sw.common.utils;
 
 import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.DateUtil;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.util.CellRangeAddress;
 
@@ -15,11 +16,24 @@ public class ExcelUtils {
 
         return switch (cell.getCellType()) {
             case STRING -> cell.getStringCellValue();
-            case NUMERIC -> String.valueOf(cell.getNumericCellValue());
+            case NUMERIC -> convertCellString(cell);
             case BOOLEAN -> String.valueOf(cell.getBooleanCellValue());
             case FORMULA -> cell.getCellFormula();
             default -> "";
         };
+    }
+
+    private static String convertCellString(Cell cell) {
+        if (DateUtil.isCellDateFormatted(cell)) {
+            return DateTimeUtils.format(cell.getLocalDateTimeCellValue());
+        }
+
+        String numberString = String.valueOf(cell.getNumericCellValue());
+
+        if (numberString.endsWith(".0")) {
+            numberString = numberString.replace(".0", "");
+        }
+        return numberString;
     }
 
     public static boolean isMerged(Sheet sheet, int row, int column) {
@@ -45,6 +59,4 @@ public class ExcelUtils {
     private static boolean isLessOrEqual(Integer number1, Integer number2) {
         return number1.compareTo(number2) >= 0;
     }
-
-
 }

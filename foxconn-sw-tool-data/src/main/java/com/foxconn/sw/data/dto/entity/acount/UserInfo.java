@@ -16,6 +16,8 @@ public class UserInfo {
 
     private Integer managerLevel;
 
+    private Integer isComplete;
+
     public String getEmployeeNo() {
         return employeeNo;
     }
@@ -70,5 +72,13 @@ public class UserInfo {
 
     public void setManagerLevel(Integer managerLevel) {
         this.managerLevel = managerLevel;
+    }
+
+    public Integer getIsComplete() {
+        return isComplete;
+    }
+
+    public void setIsComplete(Integer isComplete) {
+        this.isComplete = isComplete;
     }
 }

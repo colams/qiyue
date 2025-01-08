@@ -1,11 +1,13 @@
 package com.foxconn.sw.data.dto.entity.collaboration;
 
+import com.foxconn.sw.data.dto.entity.acount.EmployeeVo;
+
 import java.time.LocalDateTime;
 
 public class CollaborationDetailLogVo {
     private Long id;
 
-    private String operator;
+    private EmployeeVo employeeVo;
 
     private String remark;
 
@@ -19,12 +21,12 @@ public class CollaborationDetailLogVo {
         this.id = id;
     }
 
-    public String getOperator() {
-        return operator;
+    public EmployeeVo getEmployeeVo() {
+        return employeeVo;
     }
 
-    public void setOperator(String operator) {
-        this.operator = operator;
+    public void setEmployeeVo(EmployeeVo employeeVo) {
+        this.employeeVo = employeeVo;
     }
 
     public String getRemark() {

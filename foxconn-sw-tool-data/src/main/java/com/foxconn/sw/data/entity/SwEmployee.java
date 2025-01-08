@@ -41,6 +41,8 @@ public class SwEmployee {
 
     private LocalDateTime datetimeLastchange;
 
+    private Integer isComplete;
+
     public Integer getId() {
         return id;
     }
@@ -286,5 +288,18 @@ public class SwEmployee {
 
     public void setDatetimeLastchange(LocalDateTime datetimeLastchange) {
         this.datetimeLastchange = datetimeLastchange;
+    }
+
+    public Integer getIsComplete() {
+        return isComplete;
+    }
+
+    public SwEmployee withIsComplete(Integer isComplete) {
+        this.setIsComplete(isComplete);
+        return this;
+    }
+
+    public void setIsComplete(Integer isComplete) {
+        this.isComplete = isComplete;
     }
 }

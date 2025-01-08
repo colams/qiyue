@@ -93,7 +93,7 @@ public class CollaborationImportProcessor {
 
         List<List<SwCollaborationDetail>> lists = Lists.partition(collaborationDetails, 100);
         lists.parallelStream().forEach(e -> {
-            collaborationDetail.insertBatchCollaborationUserDetail(e);
+            collaborationDetail.batchInsert(e);
         });
         return true;
     }

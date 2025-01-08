@@ -8,7 +8,6 @@ import com.foxconn.sw.common.utils.ExcelUtils;
 import com.foxconn.sw.common.utils.FilePathUtils;
 import com.foxconn.sw.data.dto.entity.ResourceVo;
 import com.foxconn.sw.data.dto.entity.task.TaskProgressVo;
-import com.foxconn.sw.data.dto.request.collaboration.CollaborationDetailParams;
 import com.foxconn.sw.data.entity.SwAppendResource;
 import com.foxconn.sw.data.entity.SwCollaborationUser;
 import com.foxconn.sw.data.entity.SwCollaborationUserExample;
@@ -57,6 +56,7 @@ public class CollaborationUserBusiness {
         SwCollaborationUserExample.Criteria criteria = example.createCriteria();
         criteria.andTaskIdEqualTo(taskID);
         criteria.andIsDeleteEqualTo(0);
+        example.setOrderByClause(" create_time desc ");
         return collaborationUserMapper.selectByExample(example);
     }
 
@@ -195,15 +195,5 @@ public class CollaborationUserBusiness {
         sqlSession.commit();
         sqlSession.close();
         return true;
-    }
-
-    public Boolean clearBg(CollaborationDetailParams data, int bgStatus) {
-        SwCollaborationUser record = new SwCollaborationUser();
-        record.setBgStatus(bgStatus);
-
-        SwCollaborationUserExample example = new SwCollaborationUserExample();
-        SwCollaborationUserExample.Criteria criteria = example.createCriteria();
-        criteria.andTaskIdEqualTo(data.getTaskID());
-        return collaborationUserMapper.updateByExampleSelective(record, example) > 0;
     }
 }

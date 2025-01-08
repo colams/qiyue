@@ -5,6 +5,8 @@ import java.time.LocalDateTime;
 public class SwMeetingMinutesDetail {
     private Long id;
 
+    private Long meetingMinutesId;
+
     private String itemType;
 
     private Integer indexNo;
@@ -36,6 +38,19 @@ public class SwMeetingMinutesDetail {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Long getMeetingMinutesId() {
+        return meetingMinutesId;
+    }
+
+    public SwMeetingMinutesDetail withMeetingMinutesId(Long meetingMinutesId) {
+        this.setMeetingMinutesId(meetingMinutesId);
+        return this;
+    }
+
+    public void setMeetingMinutesId(Long meetingMinutesId) {
+        this.meetingMinutesId = meetingMinutesId;
     }
 
     public String getItemType() {

@@ -46,6 +46,8 @@ public class CollaborationController {
     HttpServletResponse response;
     @Autowired
     CollaborationUpdateCellProcessor collaborationUpdateCellProcessor;
+    @Autowired
+    CollaborationUpdateRowProcessor collaborationUpdateRowProcessor;
 
     @Permission
     @Operation(summary = "协作平台-獲取協作工作內容", tags = TagsConstants.COLLABORATION)
@@ -55,16 +57,6 @@ public class CollaborationController {
         CollaborationVo collaborationVo = collaborationDetail.detail(request.getData());
         return ResponseUtils.success(collaborationVo, request.getTraceId());
     }
-
-    @Permission
-    @Operation(summary = "协作平台-更新或者新增協作 工作內容", tags = TagsConstants.COLLABORATION)
-    @ApiResponse(responseCode = "0", description = "成功码")
-    @PostMapping("/update")
-    public Response<Boolean> update(@Valid @RequestBody Request<CollaborationUpdateParams> request) {
-        Boolean result = collaborationUpdate.update(request.getData());
-        return ResponseUtils.success(result, request.getTraceId());
-    }
-
 
     @Permission
     @Operation(summary = "协作平台-撤銷草稿修改", tags = TagsConstants.COLLABORATION)
@@ -81,6 +73,15 @@ public class CollaborationController {
     @PostMapping("/updateCell")
     public Response<Boolean> updateCell(@Valid @RequestBody Request<CollaborationUpdateCellParams> request) {
         Boolean result = collaborationUpdateCellProcessor.updateCell(request.getData());
+        return ResponseUtils.success(result, request.getTraceId());
+    }
+
+    @Permission
+    @Operation(summary = "协作平台-更新行單元格數據", tags = TagsConstants.COLLABORATION)
+    @ApiResponse(responseCode = "0", description = "成功码")
+    @PostMapping("/createRow")
+    public Response<Boolean> createRow(@Valid @RequestBody Request<CollaborationUpdateRowParams> request) {
+        Boolean result = collaborationUpdateRowProcessor.createRow(request.getData());
         return ResponseUtils.success(result, request.getTraceId());
     }
 
