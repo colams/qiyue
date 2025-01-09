@@ -80,6 +80,34 @@ public class SwDocumentSqlProvider {
             sql.VALUES("content", "#{content,jdbcType=VARCHAR}");
         }
         
+        if (record.getWorkType() != null) {
+            sql.VALUES("work_type", "#{workType,jdbcType=VARCHAR}");
+        }
+        
+        if (record.getMainType() != null) {
+            sql.VALUES("main_type", "#{mainType,jdbcType=VARCHAR}");
+        }
+        
+        if (record.getSubType() != null) {
+            sql.VALUES("sub_type", "#{subType,jdbcType=VARCHAR}");
+        }
+        
+        if (record.getMainPart() != null) {
+            sql.VALUES("main_part", "#{mainPart,jdbcType=VARCHAR}");
+        }
+        
+        if (record.getSupplier() != null) {
+            sql.VALUES("supplier", "#{supplier,jdbcType=VARCHAR}");
+        }
+        
+        if (record.getSource() != null) {
+            sql.VALUES("source", "#{source,jdbcType=VARCHAR}");
+        }
+        
+        if (record.getDeadLine() != null) {
+            sql.VALUES("dead_line", "#{deadLine,jdbcType=VARCHAR}");
+        }
+        
         if (record.getIsDelete() != null) {
             sql.VALUES("is_delete", "#{isDelete,jdbcType=INTEGER}");
         }
@@ -115,6 +143,13 @@ public class SwDocumentSqlProvider {
         sql.SELECT("creator");
         sql.SELECT("file_type");
         sql.SELECT("content");
+        sql.SELECT("work_type");
+        sql.SELECT("main_type");
+        sql.SELECT("sub_type");
+        sql.SELECT("main_part");
+        sql.SELECT("supplier");
+        sql.SELECT("source");
+        sql.SELECT("dead_line");
         sql.SELECT("is_delete");
         sql.SELECT("create_time");
         sql.SELECT("datetime_lastchange");
@@ -191,6 +226,34 @@ public class SwDocumentSqlProvider {
             sql.SET("content = #{record.content,jdbcType=VARCHAR}");
         }
         
+        if (record.getWorkType() != null) {
+            sql.SET("work_type = #{record.workType,jdbcType=VARCHAR}");
+        }
+        
+        if (record.getMainType() != null) {
+            sql.SET("main_type = #{record.mainType,jdbcType=VARCHAR}");
+        }
+        
+        if (record.getSubType() != null) {
+            sql.SET("sub_type = #{record.subType,jdbcType=VARCHAR}");
+        }
+        
+        if (record.getMainPart() != null) {
+            sql.SET("main_part = #{record.mainPart,jdbcType=VARCHAR}");
+        }
+        
+        if (record.getSupplier() != null) {
+            sql.SET("supplier = #{record.supplier,jdbcType=VARCHAR}");
+        }
+        
+        if (record.getSource() != null) {
+            sql.SET("source = #{record.source,jdbcType=VARCHAR}");
+        }
+        
+        if (record.getDeadLine() != null) {
+            sql.SET("dead_line = #{record.deadLine,jdbcType=VARCHAR}");
+        }
+        
         if (record.getIsDelete() != null) {
             sql.SET("is_delete = #{record.isDelete,jdbcType=INTEGER}");
         }
@@ -225,6 +288,13 @@ public class SwDocumentSqlProvider {
         sql.SET("creator = #{record.creator,jdbcType=VARCHAR}");
         sql.SET("file_type = #{record.fileType,jdbcType=INTEGER}");
         sql.SET("content = #{record.content,jdbcType=VARCHAR}");
+        sql.SET("work_type = #{record.workType,jdbcType=VARCHAR}");
+        sql.SET("main_type = #{record.mainType,jdbcType=VARCHAR}");
+        sql.SET("sub_type = #{record.subType,jdbcType=VARCHAR}");
+        sql.SET("main_part = #{record.mainPart,jdbcType=VARCHAR}");
+        sql.SET("supplier = #{record.supplier,jdbcType=VARCHAR}");
+        sql.SET("source = #{record.source,jdbcType=VARCHAR}");
+        sql.SET("dead_line = #{record.deadLine,jdbcType=VARCHAR}");
         sql.SET("is_delete = #{record.isDelete,jdbcType=INTEGER}");
         sql.SET("create_time = #{record.createTime,jdbcType=TIMESTAMP}");
         sql.SET("datetime_lastchange = #{record.datetimeLastchange,jdbcType=TIMESTAMP}");
@@ -288,6 +358,34 @@ public class SwDocumentSqlProvider {
         
         if (record.getContent() != null) {
             sql.SET("content = #{content,jdbcType=VARCHAR}");
+        }
+        
+        if (record.getWorkType() != null) {
+            sql.SET("work_type = #{workType,jdbcType=VARCHAR}");
+        }
+        
+        if (record.getMainType() != null) {
+            sql.SET("main_type = #{mainType,jdbcType=VARCHAR}");
+        }
+        
+        if (record.getSubType() != null) {
+            sql.SET("sub_type = #{subType,jdbcType=VARCHAR}");
+        }
+        
+        if (record.getMainPart() != null) {
+            sql.SET("main_part = #{mainPart,jdbcType=VARCHAR}");
+        }
+        
+        if (record.getSupplier() != null) {
+            sql.SET("supplier = #{supplier,jdbcType=VARCHAR}");
+        }
+        
+        if (record.getSource() != null) {
+            sql.SET("source = #{source,jdbcType=VARCHAR}");
+        }
+        
+        if (record.getDeadLine() != null) {
+            sql.SET("dead_line = #{deadLine,jdbcType=VARCHAR}");
         }
         
         if (record.getIsDelete() != null) {

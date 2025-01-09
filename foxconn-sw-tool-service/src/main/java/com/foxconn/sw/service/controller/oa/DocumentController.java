@@ -17,7 +17,10 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
@@ -112,4 +115,13 @@ public class DocumentController {
         List<HistoryVo> result = listDoc.history(request.getData());
         return ResponseUtils.success(result, request.getTraceId());
     }
+
+//    @Permission
+//    @Operation(summary = "OA 分类信息", tags = TagsConstants.OA)
+//    @ApiResponse(responseCode = "0", description = "成功码")
+//    @PostMapping("/optionList")
+//    public Response<OAOptionVo> optionList(@Valid @RequestBody Request<OptionParams> request) {
+//        OAOptionVo result = optionListProcessor.getOptions2(request.getData());
+//        return ResponseUtils.success(result, request.getTraceId());
+//    }
 }

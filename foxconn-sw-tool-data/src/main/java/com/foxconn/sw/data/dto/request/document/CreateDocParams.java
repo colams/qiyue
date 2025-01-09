@@ -17,6 +17,15 @@ public class CreateDocParams {
     private List<String> employeeNos;
     private String extra;
 
+    private String workType;
+    private String mainType;
+    private String subType;
+    private String mainPart;
+    private String supplier;
+    private String source;
+    private String deadLine;
+
+
     public String getFileName() {
         return fileName;
     }
@@ -111,5 +120,61 @@ public class CreateDocParams {
 
     public void setExtra(String extra) {
         this.extra = extra;
+    }
+
+    public String getWorkType() {
+        return workType;
+    }
+
+    public void setWorkType(String workType) {
+        this.workType = workType;
+    }
+
+    public String getMainType() {
+        return mainType;
+    }
+
+    public void setMainType(String mainType) {
+        this.mainType = mainType;
+    }
+
+    public String getSubType() {
+        return subType;
+    }
+
+    public void setSubType(String subType) {
+        this.subType = subType;
+    }
+
+    public String getMainPart() {
+        return mainPart;
+    }
+
+    public void setMainPart(String mainPart) {
+        this.mainPart = mainPart;
+    }
+
+    public String getSupplier() {
+        return supplier;
+    }
+
+    public void setSupplier(String supplier) {
+        this.supplier = supplier;
+    }
+
+    public String getSource() {
+        return source;
+    }
+
+    public void setSource(String source) {
+        this.source = source;
+    }
+
+    public String getDeadLine() {
+        return deadLine;
+    }
+
+    public void setDeadLine(String deadLine) {
+        this.deadLine = deadLine;
     }
 }

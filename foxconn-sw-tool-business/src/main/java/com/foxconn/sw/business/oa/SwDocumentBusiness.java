@@ -39,6 +39,15 @@ public class SwDocumentBusiness {
         document.setResourceId(data.getResourceID());
         document.setDisableDown(data.getDisableDown());
         document.setAuthor(data.getAuthor());
+
+        document.setWorkType(data.getWorkType());
+        document.setMainType(data.getMainType());
+        document.setSubType(data.getSubType());
+        document.setMainPart(data.getMainPart());
+        document.setSupplier(data.getSupplier());
+        document.setSource(data.getSource());
+        document.setDeadLine(data.getDeadLine());
+
         documentMapper.insertSelective(document);
         return document.getId();
     }
