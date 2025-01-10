@@ -118,7 +118,7 @@ public class CollaborationUserBusiness {
         resourceVo.setId(appendResource.getId());
         resourceVo.setName(appendResource.getOriginName());
         resourceVo.setUrl(ConvertUtils.urlPreFix(appendResource.getId(), appendResource.getFilePath()));
-        resourceVo.setFilePath(filePathUtils.getFilePath(appendResource.getUploadType()) + appendResource.getFilePath());
+//        resourceVo.setFilePath(filePathUtils.getFilePath(appendResource.getUploadType()) + appendResource.getFilePath());
         return resourceVo;
     }
 

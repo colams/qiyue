@@ -7,7 +7,8 @@ public class ResourceVo {
     private Integer id;
     private String name;
     private String url;
-    private String filePath;
+    private String viewUrl;
+//    private String filePath;
     private EmployeeVo operator;
 
     public Integer getId() {
@@ -34,13 +35,21 @@ public class ResourceVo {
         this.url = url;
     }
 
-    public String getFilePath() {
-        return filePath;
+    public String getViewUrl() {
+        return viewUrl;
     }
 
-    public void setFilePath(String filePath) {
-        this.filePath = filePath;
+    public void setViewUrl(String viewUrl) {
+        this.viewUrl = viewUrl;
     }
+
+//    public String getFilePath() {
+//        return filePath;
+//    }
+//
+//    public void setFilePath(String filePath) {
+//        this.filePath = filePath;
+//    }
 
     public EmployeeVo getOperator() {
         return operator;
