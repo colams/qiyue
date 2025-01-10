@@ -1,5 +1,6 @@
 package com.foxconn.sw.business;
 
+import com.foxconn.sw.common.constanst.Constants;
 import com.foxconn.sw.common.utils.ConvertUtils;
 import com.foxconn.sw.common.utils.DomainRetrieval;
 import com.foxconn.sw.data.dto.entity.ResourceVo;
@@ -63,7 +64,12 @@ public class SwAppendResourceBusiness {
         if (Objects.isNull(resource)) {
             return "";
         }
-        return String.format("%s/upload/%s/%s", DomainRetrieval.getDomain(), resource.getUploadType(), resource.getFilePath());
+
+        String domain = DomainRetrieval.getDomain();
+        if (DomainRetrieval.getDomain().indexOf("127.0.0.1") > 0) {
+            domain = Constants.Domain;
+        }
+        return String.format("%s/upload/%s/%s", domain, resource.getUploadType(), resource.getFilePath());
     }
 
     public Integer saveResource(String filePath, String originName, String uploadType, String operator) {
