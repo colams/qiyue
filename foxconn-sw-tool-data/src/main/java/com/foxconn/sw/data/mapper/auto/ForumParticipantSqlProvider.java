@@ -40,6 +40,10 @@ public class ForumParticipantSqlProvider {
             sql.VALUES("is_read", "#{isRead,jdbcType=INTEGER}");
         }
         
+        if (record.getHidden() != null) {
+            sql.VALUES("hidden", "#{hidden,jdbcType=INTEGER}");
+        }
+        
         if (record.getIsDelete() != null) {
             sql.VALUES("is_delete", "#{isDelete,jdbcType=INTEGER}");
         }
@@ -65,6 +69,7 @@ public class ForumParticipantSqlProvider {
         sql.SELECT("posts_id");
         sql.SELECT("employee_no");
         sql.SELECT("is_read");
+        sql.SELECT("hidden");
         sql.SELECT("is_delete");
         sql.SELECT("create_time");
         sql.SELECT("datetime_lastchange");
@@ -101,6 +106,10 @@ public class ForumParticipantSqlProvider {
             sql.SET("is_read = #{record.isRead,jdbcType=INTEGER}");
         }
         
+        if (record.getHidden() != null) {
+            sql.SET("hidden = #{record.hidden,jdbcType=INTEGER}");
+        }
+        
         if (record.getIsDelete() != null) {
             sql.SET("is_delete = #{record.isDelete,jdbcType=INTEGER}");
         }
@@ -125,6 +134,7 @@ public class ForumParticipantSqlProvider {
         sql.SET("posts_id = #{record.postsId,jdbcType=INTEGER}");
         sql.SET("employee_no = #{record.employeeNo,jdbcType=VARCHAR}");
         sql.SET("is_read = #{record.isRead,jdbcType=INTEGER}");
+        sql.SET("hidden = #{record.hidden,jdbcType=INTEGER}");
         sql.SET("is_delete = #{record.isDelete,jdbcType=INTEGER}");
         sql.SET("create_time = #{record.createTime,jdbcType=TIMESTAMP}");
         sql.SET("datetime_lastchange = #{record.datetimeLastchange,jdbcType=TIMESTAMP}");
@@ -148,6 +158,10 @@ public class ForumParticipantSqlProvider {
         
         if (record.getIsRead() != null) {
             sql.SET("is_read = #{isRead,jdbcType=INTEGER}");
+        }
+        
+        if (record.getHidden() != null) {
+            sql.SET("hidden = #{hidden,jdbcType=INTEGER}");
         }
         
         if (record.getIsDelete() != null) {

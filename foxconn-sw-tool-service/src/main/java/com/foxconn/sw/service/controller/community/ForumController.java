@@ -5,7 +5,10 @@ import com.foxconn.sw.data.dto.PageEntity;
 import com.foxconn.sw.data.dto.PageParams;
 import com.foxconn.sw.data.dto.Request;
 import com.foxconn.sw.data.dto.Response;
-import com.foxconn.sw.data.dto.entity.forums.*;
+import com.foxconn.sw.data.dto.entity.forums.BbsDetailVo;
+import com.foxconn.sw.data.dto.entity.forums.BbsListVo;
+import com.foxconn.sw.data.dto.entity.forums.ForumsParticipantVo;
+import com.foxconn.sw.data.dto.entity.forums.PostsResourceVo;
 import com.foxconn.sw.data.dto.entity.universal.IntegerParams;
 import com.foxconn.sw.data.dto.request.forums.*;
 import com.foxconn.sw.service.aspects.Permission;
@@ -15,7 +18,10 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
@@ -114,6 +120,15 @@ public class ForumController {
     @PostMapping("/delete")
     public Response<Boolean> delete(@Valid @RequestBody Request<DeletePostsParams> request) {
         boolean result = updatePostsProcessor.delete(request.getData());
+        return ResponseUtils.success(result, request.getTraceId());
+    }
+
+    @Permission
+    @Operation(summary = "隐藏帖子", tags = TagsConstants.FORUMS)
+    @ApiResponse(responseCode = "0", description = "成功码")
+    @PostMapping("/hidden")
+    public Response<Boolean> hidden(@Valid @RequestBody Request<IntegerParams> request) {
+        boolean result = updatePostsProcessor.hidden(request.getData());
         return ResponseUtils.success(result, request.getTraceId());
     }
 }

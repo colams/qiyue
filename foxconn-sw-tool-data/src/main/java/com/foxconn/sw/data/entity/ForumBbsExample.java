@@ -375,66 +375,6 @@ public class ForumBbsExample {
             return (Criteria) this;
         }
 
-        public Criteria andHiddenIsNull() {
-            addCriterion("hidden is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andHiddenIsNotNull() {
-            addCriterion("hidden is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andHiddenEqualTo(Integer value) {
-            addCriterion("hidden =", value, "hidden");
-            return (Criteria) this;
-        }
-
-        public Criteria andHiddenNotEqualTo(Integer value) {
-            addCriterion("hidden <>", value, "hidden");
-            return (Criteria) this;
-        }
-
-        public Criteria andHiddenGreaterThan(Integer value) {
-            addCriterion("hidden >", value, "hidden");
-            return (Criteria) this;
-        }
-
-        public Criteria andHiddenGreaterThanOrEqualTo(Integer value) {
-            addCriterion("hidden >=", value, "hidden");
-            return (Criteria) this;
-        }
-
-        public Criteria andHiddenLessThan(Integer value) {
-            addCriterion("hidden <", value, "hidden");
-            return (Criteria) this;
-        }
-
-        public Criteria andHiddenLessThanOrEqualTo(Integer value) {
-            addCriterion("hidden <=", value, "hidden");
-            return (Criteria) this;
-        }
-
-        public Criteria andHiddenIn(List<Integer> values) {
-            addCriterion("hidden in", values, "hidden");
-            return (Criteria) this;
-        }
-
-        public Criteria andHiddenNotIn(List<Integer> values) {
-            addCriterion("hidden not in", values, "hidden");
-            return (Criteria) this;
-        }
-
-        public Criteria andHiddenBetween(Integer value1, Integer value2) {
-            addCriterion("hidden between", value1, value2, "hidden");
-            return (Criteria) this;
-        }
-
-        public Criteria andHiddenNotBetween(Integer value1, Integer value2) {
-            addCriterion("hidden not between", value1, value2, "hidden");
-            return (Criteria) this;
-        }
-
         public Criteria andIsDeleteIsNull() {
             addCriterion("is_delete is null");
             return (Criteria) this;

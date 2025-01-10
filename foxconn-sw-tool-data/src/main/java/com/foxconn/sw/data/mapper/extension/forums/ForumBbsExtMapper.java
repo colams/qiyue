@@ -69,9 +69,7 @@ public interface ForumBbsExtMapper extends ForumBbsMapper {
 
     @Select({"<script> " +
             "select b.* from forum_bbs b ",
-            "<if test='isAdmin!=1'>",
             "inner join forum_participant p on b.id=p.posts_id and p.is_delete=0 ",
-            "</if> ",
             "where b.is_delete=0 ",
             "<if test='title!=null and title!=\"\"' >",
             " and b.title like #{title,jdbcType=VARCHAR} ",
@@ -82,7 +80,7 @@ public interface ForumBbsExtMapper extends ForumBbsMapper {
             "<if test='isAdmin!=1'>",
             "and p.employee_no=#{currentUser,jdbcType=VARCHAR}",
             "</if> ",
-            "and b.hidden=#{hiddenStatus,jdbcType=INTEGER}",
+            "and p.hidden=#{hiddenStatus,jdbcType=INTEGER}",
             "order by b.create_time desc",
             "LIMIT #{start,jdbcType=INTEGER} , #{pageSize,jdbcType=INTEGER} ",
             " </script> "

@@ -10,6 +10,7 @@ import com.foxconn.sw.data.mapper.extension.forums.ForumParticipantExtMapper;
 import com.google.common.collect.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.util.CollectionUtils;
 
 import java.util.List;
 import java.util.Objects;
@@ -93,5 +94,14 @@ public class ForumParticipantBusiness {
 
     public boolean update(ForumParticipant participant) {
         return forumParticipantExtMapper.updateByPrimaryKeySelective(participant) > 0;
+    }
+
+    public ForumParticipant queryParticipants(Integer params, String employeeNo) {
+        ForumParticipantExample example = new ForumParticipantExample();
+        ForumParticipantExample.Criteria criteria = example.createCriteria();
+        criteria.andPostsIdEqualTo(params);
+        criteria.andEmployeeNoEqualTo(employeeNo);
+        List<ForumParticipant> forumParticipants = forumParticipantExtMapper.selectByExample(example);
+        return CollectionUtils.isEmpty(forumParticipants) ? null : forumParticipants.get(0);
     }
 }
