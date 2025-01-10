@@ -96,9 +96,8 @@ public class MeetListProcessor {
 
     private MeetingV2Vo map2MeetingV2Vo(MeetingEntity meetingEntity, LocalDate startDate) {
         MeetingDateTimeVo meetingDateTimeVo = new MeetingDateTimeVo();
-        meetingDateTimeVo.setMeetingDate(String.format("%s(%s)",
-                LocalDateExtUtils.toString(startDate),
-                startDate.getDayOfWeek().getDisplayName(TextStyle.SHORT, Locale.getDefault())));
+        meetingDateTimeVo.setWeekInfo(startDate.getDayOfWeek().getDisplayName(TextStyle.SHORT, Locale.getDefault())));
+        meetingDateTimeVo.setMeetingDate(LocalDateExtUtils.toString(startDate));
         meetingDateTimeVo.setStartTime(meetingDateTimeVo.getStartTime());
         meetingDateTimeVo.setEndTime(meetingDateTimeVo.getEndTime());
 

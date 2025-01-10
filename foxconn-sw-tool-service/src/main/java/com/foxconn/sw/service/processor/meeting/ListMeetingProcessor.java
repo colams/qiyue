@@ -95,7 +95,7 @@ public class ListMeetingProcessor {
                                LocalDate currentDate,
                                List<SwMeetingMember> allMembers,
                                List<SwMeetingCycleDetail> cycleDetails) {
-        String date = StringExtUtils.toString(currentDate);
+        String date = LocalDateExtUtils.toString(currentDate);
 
         SwMeetingCycleDetail detail = cycleDetails.stream()
                 .filter(e -> e.getMeetingDate().equalsIgnoreCase(date))
@@ -161,7 +161,7 @@ public class ListMeetingProcessor {
     }
 
     private boolean currentMeeting(SwMeeting meeting, LocalDate currentDate) {
-        String date = StringExtUtils.toString(currentDate);
+        String date = LocalDateExtUtils.toString(currentDate);
         int weekOfDay = currentDate.getDayOfWeek().getValue();
         if (StringUtils.isNotEmpty(meeting.getMeetingDate())
                 && meeting.getMeetingDate().equalsIgnoreCase(date)) {
