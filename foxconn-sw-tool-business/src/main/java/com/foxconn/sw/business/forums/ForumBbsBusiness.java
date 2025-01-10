@@ -42,9 +42,10 @@ public class ForumBbsBusiness {
         }
 
         String owner = PostsCategoryEnums.MyPosts.equals(postsType) ? RequestContext.getEmployeeNo() : null;
+        Integer hiddenStatus = PostsCategoryEnums.Hidden.equals(postsType) ? 1 : 0;
         String title = StringUtils.isNotEmpty(words) ? "%" + words + "%" : null;
 
-        return forumBbsExtMapper.selectByKeyWords(isAdmin, RequestContext.getEmployeeNo(), owner, title, start, pageSize);
+        return forumBbsExtMapper.selectByKeyWords(isAdmin, RequestContext.getEmployeeNo(), owner, title, hiddenStatus, start, pageSize);
     }
 
     public Long getPostsCount(PostsCategoryEnums postsType, String words) {

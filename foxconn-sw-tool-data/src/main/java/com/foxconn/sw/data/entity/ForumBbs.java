@@ -11,6 +11,8 @@ public class ForumBbs {
 
     private String authorNo;
 
+    private Integer hidden;
+
     private Integer isDelete;
 
     private LocalDateTime createTime;
@@ -67,6 +69,19 @@ public class ForumBbs {
 
     public void setAuthorNo(String authorNo) {
         this.authorNo = authorNo == null ? null : authorNo.trim();
+    }
+
+    public Integer getHidden() {
+        return hidden;
+    }
+
+    public ForumBbs withHidden(Integer hidden) {
+        this.setHidden(hidden);
+        return this;
+    }
+
+    public void setHidden(Integer hidden) {
+        this.hidden = hidden;
     }
 
     public Integer getIsDelete() {

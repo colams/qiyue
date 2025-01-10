@@ -43,6 +43,7 @@ public class UpdateTaskProcessor {
         hashMap.put("deadLine", "任務截止時間");
         hashMap.put("description", "需求描述");
         hashMap.put("watcher", "關注人");
+        hashMap.put("title", "標題");
     }
 
     public boolean updateTask(UpdateTaskParams taskParams) {

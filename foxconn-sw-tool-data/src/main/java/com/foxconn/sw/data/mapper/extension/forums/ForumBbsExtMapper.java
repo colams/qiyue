@@ -82,6 +82,7 @@ public interface ForumBbsExtMapper extends ForumBbsMapper {
             "<if test='isAdmin!=1'>",
             "and p.employee_no=#{currentUser,jdbcType=VARCHAR}",
             "</if> ",
+            "and b.hidden=#{hiddenStatus,jdbcType=INTEGER}",
             "order by b.create_time desc",
             "LIMIT #{start,jdbcType=INTEGER} , #{pageSize,jdbcType=INTEGER} ",
             " </script> "
@@ -97,6 +98,7 @@ public interface ForumBbsExtMapper extends ForumBbsMapper {
                                     @Param("currentUser") String currentUser,
                                     @Param("owner") String owner,
                                     @Param("title") String title,
+                                    @Param("hiddenStatus") Integer hiddenStatus,
                                     @Param("start") int start,
                                     @Param("pageSize") int pageSize);
 }

@@ -6,6 +6,7 @@ public enum PostsCategoryEnums {
     Default(0, "default", "默认所有"),
     MyPosts(1, "MyPosts", "我的帖子"),
     CollectPosts(2, "CollectPosts", "我的收藏"),
+    Hidden(3, "Hidden", "隐藏"),
     ;
 
     PostsCategoryEnums(int code, String enCode, String name) {
