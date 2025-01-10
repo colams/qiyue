@@ -6,14 +6,13 @@ import com.foxconn.sw.common.utils.JsonUtils;
 import com.foxconn.sw.data.dto.request.meeting.EstablishMeetingParams;
 import com.foxconn.sw.data.dto.request.meeting.ListMeetingV2Params;
 import com.foxconn.sw.data.entity.SwMeeting;
-import com.foxconn.sw.data.entity.extension.SwMeetingExtension;
+import com.foxconn.sw.data.entity.extension.MeetingEntity;
 import com.foxconn.sw.data.mapper.extension.meeting.SwMeetingExtensionMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Component
@@ -62,7 +61,7 @@ public class MeetingBusiness {
         return meetingMapper.updateByPrimaryKeySelective(meeting) > 1;
     }
 
-    public List<SwMeetingExtension> selectMeetingList(ListMeetingV2Params data) {
-        return meetingMapper.selectMeetingList(RequestContext.getEmployeeNo(), LocalDateTime.now().minusDays(365), data);
+    public List<MeetingEntity> selectMeetingList(ListMeetingV2Params data, String searchStartDate, String searchEndDate) {
+        return meetingMapper.selectMeetingList2(RequestContext.getEmployeeNo(), searchStartDate, searchEndDate, data);
     }
 }

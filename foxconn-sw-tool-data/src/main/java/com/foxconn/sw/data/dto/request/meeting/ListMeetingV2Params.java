@@ -5,6 +5,9 @@ public class ListMeetingV2Params {
     private String valueType;
     private String value;
 
+    private String searchStartDate;
+    private String searchEndDate;
+
     public String getValueType() {
         return valueType;
     }
@@ -19,5 +22,21 @@ public class ListMeetingV2Params {
 
     public void setValue(String value) {
         this.value = value;
+    }
+
+    public String getSearchStartDate() {
+        return searchStartDate;
+    }
+
+    public void setSearchStartDate(String searchStartDate) {
+        this.searchStartDate = searchStartDate;
+    }
+
+    public String getSearchEndDate() {
+        return searchEndDate;
+    }
+
+    public void setSearchEndDate(String searchEndDate) {
+        this.searchEndDate = searchEndDate;
     }
 }

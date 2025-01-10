@@ -11,4 +11,9 @@ public class LocalDateExtUtils {
         return LocalDate.parse(strDate, DateTimeFormatter.ofPattern(yyyyMMdd));
     }
 
+    public static String toString(LocalDate localDate) {
+        return localDate.format(DateTimeFormatter.ofPattern(yyyyMMdd));
+    }
+
+
 }

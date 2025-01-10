@@ -1,6 +1,7 @@
 package com.foxconn.sw.business.meeting;
 
 import com.foxconn.sw.business.system.EmployeeBusiness;
+import com.foxconn.sw.data.dto.entity.acount.EmployeeVo;
 import com.foxconn.sw.data.entity.SwMeetingMember;
 import com.foxconn.sw.data.entity.SwMeetingMemberExample;
 import com.foxconn.sw.data.mapper.extension.meeting.SwMeetingMemberExtensionMapper;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Component
