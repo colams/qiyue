@@ -43,6 +43,8 @@ public class MeetingController {
     MinuteDetailProcessor minuteDetailProcessor;
     @Autowired
     MeetingLineProcessor meetingLineProcessor;
+    @Autowired
+    MeetListProcessor meetListProcessor;
 
 
     @Permission
@@ -104,7 +106,7 @@ public class MeetingController {
     @ApiResponse(responseCode = "0", description = "成功码")
     @PostMapping("/meetList")
     public Response<List<MeetingV2Vo>> meetList(@Valid @RequestBody Request<ListMeetingV2Params> request) {
-        List<MeetingV2Vo> vos = listMeeting.meetList(request.getData());
+        List<MeetingV2Vo> vos = meetListProcessor.meetList(request.getData());
         return ResponseUtils.success(vos, request.getTraceId());
     }
 

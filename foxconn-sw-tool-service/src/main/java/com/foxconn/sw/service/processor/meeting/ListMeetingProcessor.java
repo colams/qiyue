@@ -242,35 +242,4 @@ public class ListMeetingProcessor {
                 .collect(Collectors.groupingBy(SwMeetingCycleDetail::getMeetingId));
         return map;
     }
-
-    public List<MeetingV2Vo> meetList(ListMeetingV2Params data) {
-        if (Objects.isNull(data.getValue())) {
-            return Lists.newArrayList();
-        }
-
-        List<SwMeetingExtension> meetings = meetingBusiness.selectMeetingList(data);
-        return meetings.stream().map(e -> map2MeetingV2Vo(e))
-                .collect(Collectors.toList());
-    }
-
-    private MeetingV2Vo map2MeetingV2Vo(SwMeetingExtension meeting) {
-        MeetingV2Vo vo = new MeetingV2Vo();
-        vo.setMeetingID(meeting.getId());
-        vo.setRoomVo(getRoomVo(meeting.getRoom()));
-        vo.setTitle(meeting.getTitle());
-        if (Objects.nonNull(meeting.getCycle()) && StringUtils.isNotEmpty(meeting.getMeetingDate2())) {
-            vo.setMeetingDateVo(new MeetingDateTimeVo(meeting.getMeetingDate2(), meeting.getStartTime2(), meeting.getEndTime2()));
-        } else {
-            vo.setMeetingDateVo(new MeetingDateTimeVo(meeting.getMeetingDate(), meeting.getStartTime(), meeting.getEndTime()));
-        }
-        vo.setChairman(null);
-        vo.setResource(Lists.newArrayList());
-        MeetingStatusEnums meetingStatusEnums = MeetingStatusEnums.getEnumByCode(meeting.getStatus());
-        vo.setStatusVo(new InfoColorVo(meetingStatusEnums.getCode(), meeting.getDescription()));
-        return vo;
-    }
-
-    private OptionsVo getRoomVo(String roomKey) {
-        return new OptionsVo(roomKey, MeetingRoomConfig.getText(roomKey));
-    }
 }
