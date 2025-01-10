@@ -3,7 +3,6 @@ package com.foxconn.sw.data.entity.extension;
 public class MeetingEntity {
 
     private Integer meetingId;
-    private Integer meetingDetailId;
     private String title;
     private String cycle;
     private String startTime;
@@ -17,14 +16,6 @@ public class MeetingEntity {
 
     public void setMeetingId(Integer meetingId) {
         this.meetingId = meetingId;
-    }
-
-    public Integer getMeetingDetailId() {
-        return meetingDetailId;
-    }
-
-    public void setMeetingDetailId(Integer meetingDetailId) {
-        this.meetingDetailId = meetingDetailId;
     }
 
     public String getTitle() {

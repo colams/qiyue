@@ -2,7 +2,6 @@ package com.foxconn.sw.service.processor.meeting;
 
 import com.foxconn.sw.business.meeting.MeetingBusiness;
 import com.foxconn.sw.business.meeting.MeetingMemberBusiness;
-import com.foxconn.sw.common.utils.IntegerExtUtils;
 import com.foxconn.sw.common.utils.JsonUtils;
 import com.foxconn.sw.common.utils.LocalDateExtUtils;
 import com.foxconn.sw.data.dto.communal.MeetingDateTimeVo;
@@ -107,24 +106,24 @@ public class MeetListProcessor {
         List<SwMeetingMember> memberList = members.stream()
                 .filter(e -> Chairman_Flag.test(e.getRole()))
                 .collect(Collectors.toList());
-        EmployeeVo employeeVo;
+        EmployeeVo employeeVo = null;
         String employeeNo = null;
-        if (IntegerExtUtils.isPk(meetingEntity.getMeetingDetailId())) {
-            employeeNo = memberList.stream()
-                    .filter(e -> meetingEntity.getMeetingDetailId().equals(e.getMeetingDetailId()))
-                    .findFirst()
-                    .map(e -> e.getEmployeeNo())
-                    .orElse("");
-        }
-
-        if (StringUtils.isEmpty(employeeNo)) {
-            employeeNo = memberList.stream()
-                    .filter(e -> !IntegerExtUtils.isPk(e.getMeetingDetailId()))
-                    .findFirst()
-                    .map(e -> e.getEmployeeNo())
-                    .orElse("");
-        }
-        employeeVo = employeeUtils.mapEmployee(employeeNo);
+//        if (IntegerExtUtils.isPk(meetingEntity.getMeetingDetailId())) {
+//            employeeNo = memberList.stream()
+//                    .filter(e -> meetingEntity.getMeetingDetailId().equals(e.getMeetingDetailId()))
+//                    .findFirst()
+//                    .map(e -> e.getEmployeeNo())
+//                    .orElse("");
+//        }
+//
+//        if (StringUtils.isEmpty(employeeNo)) {
+//            employeeNo = memberList.stream()
+//                    .filter(e -> !IntegerExtUtils.isPk(e.getMeetingDetailId()))
+//                    .findFirst()
+//                    .map(e -> e.getEmployeeNo())
+//                    .orElse("");
+//        }
+//        employeeVo = employeeUtils.mapEmployee(employeeNo);
 
         MeetingV2Vo vo = new MeetingV2Vo();
         vo.setMeetingID(meetingEntity.getMeetingId());
