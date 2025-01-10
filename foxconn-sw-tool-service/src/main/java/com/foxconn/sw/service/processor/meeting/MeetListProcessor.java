@@ -11,6 +11,7 @@ import com.foxconn.sw.data.dto.entity.meeting.MeetingV2Vo;
 import com.foxconn.sw.data.dto.entity.oa.InfoColorVo;
 import com.foxconn.sw.data.dto.entity.universal.OptionsVo;
 import com.foxconn.sw.data.dto.request.meeting.ListMeetingV2Params;
+import com.foxconn.sw.data.dto.response.meeting.MeetListVo;
 import com.foxconn.sw.data.entity.SwMeetingMember;
 import com.foxconn.sw.data.entity.extension.MeetingEntity;
 import com.foxconn.sw.service.processor.MeetingRoomConfig;
@@ -41,9 +42,13 @@ public class MeetListProcessor {
     @Autowired
     EmployeeUtils employeeUtils;
 
-    public List<MeetingV2Vo> meetList(ListMeetingV2Params data) {
+    public MeetListVo meetList(ListMeetingV2Params data) {
+        MeetListVo vo = new MeetListVo();
+
         if (Objects.isNull(data.getValue())) {
-            return Lists.newArrayList();
+            vo.setMeetingList(Lists.newArrayList());
+            vo.setChairmanFilter(Lists.newArrayList());
+            return vo;
         }
 
         String searchStartDate = getCurrentMonday(data.getSearchStartDate());
@@ -65,7 +70,9 @@ public class MeetListProcessor {
                 vos.addAll(list);
             }
         });
-        return vos;
+        vo.setMeetingList(vos);
+        vo.setChairmanFilter(Lists.newArrayList());
+        return vo;
     }
 
     private List<MeetingV2Vo> map2MeetingV2Vo(MeetingEntity meetingEntity,

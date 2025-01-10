@@ -3,10 +3,10 @@ package com.foxconn.sw.service.controller.oa;
 import com.foxconn.sw.data.constants.TagsConstants;
 import com.foxconn.sw.data.dto.Request;
 import com.foxconn.sw.data.dto.Response;
-import com.foxconn.sw.data.dto.entity.meeting.MeetingV2Vo;
 import com.foxconn.sw.data.dto.entity.meeting.MeetingVo;
 import com.foxconn.sw.data.dto.entity.universal.IntegerParams;
 import com.foxconn.sw.data.dto.request.meeting.*;
+import com.foxconn.sw.data.dto.response.meeting.MeetListVo;
 import com.foxconn.sw.data.dto.response.meeting.MeetingLineVo;
 import com.foxconn.sw.data.dto.response.meeting.MeetingMinuteDetailVo;
 import com.foxconn.sw.service.aspects.Permission;
@@ -105,9 +105,9 @@ public class MeetingController {
     @Operation(summary = "会议列表查询", tags = "meet.2")
     @ApiResponse(responseCode = "0", description = "成功码")
     @PostMapping("/meetList")
-    public Response<List<MeetingV2Vo>> meetList(@Valid @RequestBody Request<ListMeetingV2Params> request) {
-        List<MeetingV2Vo> vos = meetListProcessor.meetList(request.getData());
-        return ResponseUtils.success(vos, request.getTraceId());
+    public Response<MeetListVo> meetList(@Valid @RequestBody Request<ListMeetingV2Params> request) {
+        MeetListVo vo = meetListProcessor.meetList(request.getData());
+        return ResponseUtils.success(vo, request.getTraceId());
     }
 
     @Permission
