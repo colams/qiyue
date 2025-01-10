@@ -1,7 +1,9 @@
 package com.foxconn.sw.service.processor.meeting;
 
 import com.foxconn.sw.business.meeting.MeetingBusiness;
+import com.foxconn.sw.business.meeting.MeetingCycleDetailBusiness;
 import com.foxconn.sw.business.meeting.MeetingMemberBusiness;
+import com.foxconn.sw.common.constanst.NumberConstants;
 import com.foxconn.sw.common.utils.JsonUtils;
 import com.foxconn.sw.common.utils.LocalDateExtUtils;
 import com.foxconn.sw.data.dto.communal.MeetingDateTimeVo;
@@ -11,6 +13,7 @@ import com.foxconn.sw.data.dto.entity.oa.InfoColorVo;
 import com.foxconn.sw.data.dto.entity.universal.OptionsVo;
 import com.foxconn.sw.data.dto.request.meeting.ListMeetingV2Params;
 import com.foxconn.sw.data.dto.response.meeting.MeetListVo;
+import com.foxconn.sw.data.entity.SwMeetingCycleDetail;
 import com.foxconn.sw.data.entity.SwMeetingMember;
 import com.foxconn.sw.data.entity.extension.MeetingEntity;
 import com.foxconn.sw.service.processor.MeetingRoomConfig;
@@ -39,6 +42,9 @@ public class MeetListProcessor {
     MeetingMemberBusiness memberBusiness;
     @Autowired
     EmployeeUtils employeeUtils;
+    @Autowired
+    MeetingCycleDetailBusiness meetingCycleDetailBusiness;
+
 
     public MeetListVo meetList(ListMeetingV2Params data) {
         String searchStartDate = getCurrentMonday(data.getSearchStartDate());
@@ -106,24 +112,27 @@ public class MeetListProcessor {
         List<SwMeetingMember> memberList = members.stream()
                 .filter(e -> Chairman_Flag.test(e.getRole()))
                 .collect(Collectors.toList());
+
         EmployeeVo employeeVo = null;
-        String employeeNo = null;
-//        if (IntegerExtUtils.isPk(meetingEntity.getMeetingDetailId())) {
-//            employeeNo = memberList.stream()
-//                    .filter(e -> meetingEntity.getMeetingDetailId().equals(e.getMeetingDetailId()))
-//                    .findFirst()
-//                    .map(e -> e.getEmployeeNo())
-//                    .orElse("");
-//        }
-//
-//        if (StringUtils.isEmpty(employeeNo)) {
-//            employeeNo = memberList.stream()
-//                    .filter(e -> !IntegerExtUtils.isPk(e.getMeetingDetailId()))
-//                    .findFirst()
-//                    .map(e -> e.getEmployeeNo())
-//                    .orElse("");
-//        }
-//        employeeVo = employeeUtils.mapEmployee(employeeNo);
+        String employeeNo = memberList.stream()
+                .filter(e -> e.getMeetingDetailId().equals(NumberConstants.ZERO))
+                .findFirst()
+                .map(e -> e.getEmployeeNo())
+                .orElse("");
+        if (StringUtils.isNotEmpty(meetingEntity.getCycle())) {
+            List<SwMeetingCycleDetail> details = meetingCycleDetailBusiness
+                    .queryCycleDetailWithDate(meetingEntity.getMeetingId(), meetingDateTimeVo.getMeetingDate());
+            if (CollectionUtils.isEmpty(details)) {
+                employeeVo = employeeUtils.mapEmployee(employeeNo);
+            } else {
+                employeeNo = memberList.stream()
+                        .filter(e -> e.getMeetingDetailId().equals(details.get(0).getId()))
+                        .findFirst()
+                        .map(e -> e.getEmployeeNo())
+                        .orElse(employeeNo);
+                employeeVo = employeeUtils.mapEmployee(employeeNo);
+            }
+        }
 
         MeetingV2Vo vo = new MeetingV2Vo();
         vo.setMeetingID(meetingEntity.getMeetingId());
