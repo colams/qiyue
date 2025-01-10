@@ -100,9 +100,11 @@ public interface SwMeetingExtensionMapper extends SwMeetingMapper {
             "where s.status = 0 ",
             "and m.is_delete = 0 ",
             "and m.employee_no = #{employeeNo,jdbcType=VARCHAR} ",
-            "and (case when c.title is not null and c.title != '' then c.title and s.title end like '%123%') ",
-            "and ((s.meeting_date != '' and s.meeting_date &gt;= #{nowDate,jdbcType=VARCHAR} and s.meeting_date &lt;= #{nowDate,jdbcType=VARCHAR}) or ",
-            "   (s.meeting_date = '' and s.cycle_start &gt;= #{nowDate,jdbcType=VARCHAR} and s.cycle_expire &lt;= #{nowDate,jdbcType=VARCHAR}))",
+            "<if test='data.value!=null and data.value!=\"\"' >",
+            " case when c.title is not null and c.title != '' then c.title and s.title end like CONCAT('%', #{data.value,jdbcType=VARCHAR}, '%') ",
+            "</if> ",
+            "and ((s.meeting_date != '' and s.meeting_date &gt;= #{searchStart,jdbcType=VARCHAR} and s.meeting_date &lt;= #{searchEnd,jdbcType=VARCHAR}) or ",
+            "   (s.meeting_date = '' and s.cycle_start &lt;= #{searchStart,jdbcType=VARCHAR} and s.cycle_expire &gt;= #{searchEnd,jdbcType=VARCHAR}))",
             "</script>"
     })
     @Results({

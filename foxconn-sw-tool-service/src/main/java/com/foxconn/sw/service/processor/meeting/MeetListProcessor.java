@@ -28,7 +28,6 @@ import java.time.format.TextStyle;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
-import java.util.Objects;
 import java.util.stream.Collectors;
 
 import static com.foxconn.sw.data.constants.enums.MeetingRoleFlagEnums.Chairman_Flag;
@@ -43,14 +42,6 @@ public class MeetListProcessor {
     EmployeeUtils employeeUtils;
 
     public MeetListVo meetList(ListMeetingV2Params data) {
-        MeetListVo vo = new MeetListVo();
-
-        if (Objects.isNull(data.getValue())) {
-            vo.setMeetingList(Lists.newArrayList());
-            vo.setChairmanFilter(Lists.newArrayList());
-            return vo;
-        }
-
         String searchStartDate = getCurrentMonday(data.getSearchStartDate());
         String searchEndDate = getEndSunday(data.getSearchEndDate());
 
@@ -58,7 +49,7 @@ public class MeetListProcessor {
 
         List<MeetingV2Vo> vos = new ArrayList<>();
         meetings.forEach(e -> {
-            List<Integer> cycles = JsonUtils.deserialize(e.getCycle(), Lists.class, Integer.class);
+            List<Integer> cycles = JsonUtils.deserialize(e.getCycle(), List.class, Integer.class);
             List<MeetingV2Vo> list;
             if (CollectionUtils.isEmpty(cycles)) {
                 list = map2MeetingV2Vo(e);
@@ -70,6 +61,8 @@ public class MeetListProcessor {
                 vos.addAll(list);
             }
         });
+
+        MeetListVo vo = new MeetListVo();
         vo.setMeetingList(vos);
         vo.setChairmanFilter(Lists.newArrayList());
         return vo;
@@ -90,6 +83,7 @@ public class MeetListProcessor {
                 MeetingV2Vo vo = map2MeetingV2Vo(meetingEntity, startDate);
                 vos.add(vo);
             }
+            startDate = startDate.plusDays(1);
         }
 
         return vos;
@@ -150,7 +144,7 @@ public class MeetListProcessor {
     private String getEndSunday(String searchEndDate) {
         LocalDate t;
         if (StringUtils.isEmpty(searchEndDate)) {
-            t = LocalDate.now().plusWeeks(2);
+            t = LocalDate.now().plusWeeks(1);
         } else {
             t = LocalDateExtUtils.toLocalDate(searchEndDate);
         }
