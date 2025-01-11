@@ -7,7 +7,9 @@ public class SwChangeLog {
 
     private String operator;
 
-    private String remark;
+    private String releaseVersion;
+
+    private String releaseNote;
 
     private LocalDateTime createTime;
 
@@ -39,17 +41,30 @@ public class SwChangeLog {
         this.operator = operator == null ? null : operator.trim();
     }
 
-    public String getRemark() {
-        return remark;
+    public String getReleaseVersion() {
+        return releaseVersion;
     }
 
-    public SwChangeLog withRemark(String remark) {
-        this.setRemark(remark);
+    public SwChangeLog withReleaseVersion(String releaseVersion) {
+        this.setReleaseVersion(releaseVersion);
         return this;
     }
 
-    public void setRemark(String remark) {
-        this.remark = remark == null ? null : remark.trim();
+    public void setReleaseVersion(String releaseVersion) {
+        this.releaseVersion = releaseVersion == null ? null : releaseVersion.trim();
+    }
+
+    public String getReleaseNote() {
+        return releaseNote;
+    }
+
+    public SwChangeLog withReleaseNote(String releaseNote) {
+        this.setReleaseNote(releaseNote);
+        return this;
+    }
+
+    public void setReleaseNote(String releaseNote) {
+        this.releaseNote = releaseNote == null ? null : releaseNote.trim();
     }
 
     public LocalDateTime getCreateTime() {

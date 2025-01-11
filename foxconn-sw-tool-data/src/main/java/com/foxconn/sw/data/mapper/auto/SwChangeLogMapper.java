@@ -34,10 +34,12 @@ public interface SwChangeLogMapper {
     int deleteByPrimaryKey(Integer id);
 
     @Insert({
-        "insert into sw_change_log (operator, remark, ",
-        "create_time, datetime_lastchange)",
-        "values (#{operator,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, ",
-        "#{createTime,jdbcType=TIMESTAMP}, #{datetimeLastchange,jdbcType=TIMESTAMP})"
+        "insert into sw_change_log (operator, release_version, ",
+        "release_note, create_time, ",
+        "datetime_lastchange)",
+        "values (#{operator,jdbcType=VARCHAR}, #{releaseVersion,jdbcType=VARCHAR}, ",
+        "#{releaseNote,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, ",
+        "#{datetimeLastchange,jdbcType=TIMESTAMP})"
     })
     @SelectKey(statement="SELECT LAST_INSERT_ID()", keyProperty="id", before=false, resultType=Integer.class)
     int insert(SwChangeLog record);
@@ -50,7 +52,8 @@ public interface SwChangeLogMapper {
     @Results({
         @Result(column="id", property="id", jdbcType=JdbcType.INTEGER, id=true),
         @Result(column="operator", property="operator", jdbcType=JdbcType.VARCHAR),
-        @Result(column="remark", property="remark", jdbcType=JdbcType.VARCHAR),
+        @Result(column="release_version", property="releaseVersion", jdbcType=JdbcType.VARCHAR),
+        @Result(column="release_note", property="releaseNote", jdbcType=JdbcType.VARCHAR),
         @Result(column="create_time", property="createTime", jdbcType=JdbcType.TIMESTAMP),
         @Result(column="datetime_lastchange", property="datetimeLastchange", jdbcType=JdbcType.TIMESTAMP)
     })
@@ -60,7 +63,8 @@ public interface SwChangeLogMapper {
     @Results({
         @Result(column="id", property="id", jdbcType=JdbcType.INTEGER, id=true),
         @Result(column="operator", property="operator", jdbcType=JdbcType.VARCHAR),
-        @Result(column="remark", property="remark", jdbcType=JdbcType.VARCHAR),
+        @Result(column="release_version", property="releaseVersion", jdbcType=JdbcType.VARCHAR),
+        @Result(column="release_note", property="releaseNote", jdbcType=JdbcType.VARCHAR),
         @Result(column="create_time", property="createTime", jdbcType=JdbcType.TIMESTAMP),
         @Result(column="datetime_lastchange", property="datetimeLastchange", jdbcType=JdbcType.TIMESTAMP)
     })
@@ -68,14 +72,15 @@ public interface SwChangeLogMapper {
 
     @Select({
         "select",
-        "id, operator, remark, create_time, datetime_lastchange",
+        "id, operator, release_version, release_note, create_time, datetime_lastchange",
         "from sw_change_log",
         "where id = #{id,jdbcType=INTEGER}"
     })
     @Results({
         @Result(column="id", property="id", jdbcType=JdbcType.INTEGER, id=true),
         @Result(column="operator", property="operator", jdbcType=JdbcType.VARCHAR),
-        @Result(column="remark", property="remark", jdbcType=JdbcType.VARCHAR),
+        @Result(column="release_version", property="releaseVersion", jdbcType=JdbcType.VARCHAR),
+        @Result(column="release_note", property="releaseNote", jdbcType=JdbcType.VARCHAR),
         @Result(column="create_time", property="createTime", jdbcType=JdbcType.TIMESTAMP),
         @Result(column="datetime_lastchange", property="datetimeLastchange", jdbcType=JdbcType.TIMESTAMP)
     })
@@ -93,7 +98,8 @@ public interface SwChangeLogMapper {
     @Update({
         "update sw_change_log",
         "set operator = #{operator,jdbcType=VARCHAR},",
-          "remark = #{remark,jdbcType=VARCHAR},",
+          "release_version = #{releaseVersion,jdbcType=VARCHAR},",
+          "release_note = #{releaseNote,jdbcType=VARCHAR},",
           "create_time = #{createTime,jdbcType=TIMESTAMP},",
           "datetime_lastchange = #{datetimeLastchange,jdbcType=TIMESTAMP}",
         "where id = #{id,jdbcType=INTEGER}"

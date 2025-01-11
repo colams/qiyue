@@ -1,12 +1,10 @@
-package com.foxconn.sw.data.dto.entity;
+package com.foxconn.sw.data.dto.request.system;
 
-public class ChangeLogVo {
+public class UpdateChangeLogParams {
 
     private Integer id;
-    private String operator;
     private String releaseVersion;
     private String releaseNote;
-    private String createTime;
 
     public Integer getId() {
         return id;
@@ -14,14 +12,6 @@ public class ChangeLogVo {
 
     public void setId(Integer id) {
         this.id = id;
-    }
-
-    public String getOperator() {
-        return operator;
-    }
-
-    public void setOperator(String operator) {
-        this.operator = operator;
     }
 
     public String getReleaseVersion() {
@@ -38,13 +28,5 @@ public class ChangeLogVo {
 
     public void setReleaseNote(String releaseNote) {
         this.releaseNote = releaseNote;
-    }
-
-    public String getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(String createTime) {
-        this.createTime = createTime;
     }
 }

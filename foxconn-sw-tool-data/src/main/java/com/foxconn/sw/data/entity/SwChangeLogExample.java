@@ -235,73 +235,143 @@ public class SwChangeLogExample {
             return (Criteria) this;
         }
 
-        public Criteria andRemarkIsNull() {
-            addCriterion("remark is null");
+        public Criteria andReleaseVersionIsNull() {
+            addCriterion("release_version is null");
             return (Criteria) this;
         }
 
-        public Criteria andRemarkIsNotNull() {
-            addCriterion("remark is not null");
+        public Criteria andReleaseVersionIsNotNull() {
+            addCriterion("release_version is not null");
             return (Criteria) this;
         }
 
-        public Criteria andRemarkEqualTo(String value) {
-            addCriterion("remark =", value, "remark");
+        public Criteria andReleaseVersionEqualTo(String value) {
+            addCriterion("release_version =", value, "releaseVersion");
             return (Criteria) this;
         }
 
-        public Criteria andRemarkNotEqualTo(String value) {
-            addCriterion("remark <>", value, "remark");
+        public Criteria andReleaseVersionNotEqualTo(String value) {
+            addCriterion("release_version <>", value, "releaseVersion");
             return (Criteria) this;
         }
 
-        public Criteria andRemarkGreaterThan(String value) {
-            addCriterion("remark >", value, "remark");
+        public Criteria andReleaseVersionGreaterThan(String value) {
+            addCriterion("release_version >", value, "releaseVersion");
             return (Criteria) this;
         }
 
-        public Criteria andRemarkGreaterThanOrEqualTo(String value) {
-            addCriterion("remark >=", value, "remark");
+        public Criteria andReleaseVersionGreaterThanOrEqualTo(String value) {
+            addCriterion("release_version >=", value, "releaseVersion");
             return (Criteria) this;
         }
 
-        public Criteria andRemarkLessThan(String value) {
-            addCriterion("remark <", value, "remark");
+        public Criteria andReleaseVersionLessThan(String value) {
+            addCriterion("release_version <", value, "releaseVersion");
             return (Criteria) this;
         }
 
-        public Criteria andRemarkLessThanOrEqualTo(String value) {
-            addCriterion("remark <=", value, "remark");
+        public Criteria andReleaseVersionLessThanOrEqualTo(String value) {
+            addCriterion("release_version <=", value, "releaseVersion");
             return (Criteria) this;
         }
 
-        public Criteria andRemarkLike(String value) {
-            addCriterion("remark like", value, "remark");
+        public Criteria andReleaseVersionLike(String value) {
+            addCriterion("release_version like", value, "releaseVersion");
             return (Criteria) this;
         }
 
-        public Criteria andRemarkNotLike(String value) {
-            addCriterion("remark not like", value, "remark");
+        public Criteria andReleaseVersionNotLike(String value) {
+            addCriterion("release_version not like", value, "releaseVersion");
             return (Criteria) this;
         }
 
-        public Criteria andRemarkIn(List<String> values) {
-            addCriterion("remark in", values, "remark");
+        public Criteria andReleaseVersionIn(List<String> values) {
+            addCriterion("release_version in", values, "releaseVersion");
             return (Criteria) this;
         }
 
-        public Criteria andRemarkNotIn(List<String> values) {
-            addCriterion("remark not in", values, "remark");
+        public Criteria andReleaseVersionNotIn(List<String> values) {
+            addCriterion("release_version not in", values, "releaseVersion");
             return (Criteria) this;
         }
 
-        public Criteria andRemarkBetween(String value1, String value2) {
-            addCriterion("remark between", value1, value2, "remark");
+        public Criteria andReleaseVersionBetween(String value1, String value2) {
+            addCriterion("release_version between", value1, value2, "releaseVersion");
             return (Criteria) this;
         }
 
-        public Criteria andRemarkNotBetween(String value1, String value2) {
-            addCriterion("remark not between", value1, value2, "remark");
+        public Criteria andReleaseVersionNotBetween(String value1, String value2) {
+            addCriterion("release_version not between", value1, value2, "releaseVersion");
+            return (Criteria) this;
+        }
+
+        public Criteria andReleaseNoteIsNull() {
+            addCriterion("release_note is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andReleaseNoteIsNotNull() {
+            addCriterion("release_note is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andReleaseNoteEqualTo(String value) {
+            addCriterion("release_note =", value, "releaseNote");
+            return (Criteria) this;
+        }
+
+        public Criteria andReleaseNoteNotEqualTo(String value) {
+            addCriterion("release_note <>", value, "releaseNote");
+            return (Criteria) this;
+        }
+
+        public Criteria andReleaseNoteGreaterThan(String value) {
+            addCriterion("release_note >", value, "releaseNote");
+            return (Criteria) this;
+        }
+
+        public Criteria andReleaseNoteGreaterThanOrEqualTo(String value) {
+            addCriterion("release_note >=", value, "releaseNote");
+            return (Criteria) this;
+        }
+
+        public Criteria andReleaseNoteLessThan(String value) {
+            addCriterion("release_note <", value, "releaseNote");
+            return (Criteria) this;
+        }
+
+        public Criteria andReleaseNoteLessThanOrEqualTo(String value) {
+            addCriterion("release_note <=", value, "releaseNote");
+            return (Criteria) this;
+        }
+
+        public Criteria andReleaseNoteLike(String value) {
+            addCriterion("release_note like", value, "releaseNote");
+            return (Criteria) this;
+        }
+
+        public Criteria andReleaseNoteNotLike(String value) {
+            addCriterion("release_note not like", value, "releaseNote");
+            return (Criteria) this;
+        }
+
+        public Criteria andReleaseNoteIn(List<String> values) {
+            addCriterion("release_note in", values, "releaseNote");
+            return (Criteria) this;
+        }
+
+        public Criteria andReleaseNoteNotIn(List<String> values) {
+            addCriterion("release_note not in", values, "releaseNote");
+            return (Criteria) this;
+        }
+
+        public Criteria andReleaseNoteBetween(String value1, String value2) {
+            addCriterion("release_note between", value1, value2, "releaseNote");
+            return (Criteria) this;
+        }
+
+        public Criteria andReleaseNoteNotBetween(String value1, String value2) {
+            addCriterion("release_note not between", value1, value2, "releaseNote");
             return (Criteria) this;
         }
 
@@ -430,8 +500,13 @@ public class SwChangeLogExample {
             return (Criteria) this;
         }
 
-        public Criteria andRemarkLikeInsensitive(String value) {
-            addCriterion("upper(remark) like", value.toUpperCase(), "remark");
+        public Criteria andReleaseVersionLikeInsensitive(String value) {
+            addCriterion("upper(release_version) like", value.toUpperCase(), "releaseVersion");
+            return (Criteria) this;
+        }
+
+        public Criteria andReleaseNoteLikeInsensitive(String value) {
+            addCriterion("upper(release_note) like", value.toUpperCase(), "releaseNote");
             return (Criteria) this;
         }
     }
