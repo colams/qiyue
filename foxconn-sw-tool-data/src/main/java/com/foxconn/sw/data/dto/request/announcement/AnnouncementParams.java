@@ -1,22 +1,15 @@
-package com.foxconn.sw.data.dto.entity.universal;
+package com.foxconn.sw.data.dto.request.announcement;
 
-import jakarta.validation.constraints.Pattern;
+import com.foxconn.sw.data.dto.enums.AnnouncementStatusEnums;
 
-import java.time.LocalDateTime;
-
-public class SwAnnouncementDto {
+public class AnnouncementParams {
 
     private Integer id;
-
-    @Pattern(regexp = "^\\S*$", message = "字符串不能全部为空格")
     private String title;
-
-    @Pattern(regexp = "^\\S*$", message = "字符串不能全部为空格")
     private String content;
-
     private String operator;
-
-    private LocalDateTime createTime;
+    private AnnouncementStatusEnums status;
+    private String expiryDate;
 
     public Integer getId() {
         return id;
@@ -50,11 +43,19 @@ public class SwAnnouncementDto {
         this.operator = operator;
     }
 
-    public LocalDateTime getCreateTime() {
-        return createTime;
+    public AnnouncementStatusEnums getStatus() {
+        return status;
     }
 
-    public void setCreateTime(LocalDateTime createTime) {
-        this.createTime = createTime;
+    public void setStatus(AnnouncementStatusEnums status) {
+        this.status = status;
+    }
+
+    public String getExpiryDate() {
+        return expiryDate;
+    }
+
+    public void setExpiryDate(String expiryDate) {
+        this.expiryDate = expiryDate;
     }
 }

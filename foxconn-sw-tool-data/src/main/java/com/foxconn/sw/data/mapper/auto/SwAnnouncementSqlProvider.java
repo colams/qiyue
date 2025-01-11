@@ -32,16 +32,28 @@ public class SwAnnouncementSqlProvider {
             sql.VALUES("title", "#{title,jdbcType=VARCHAR}");
         }
         
+        if (record.getExpiryDate() != null) {
+            sql.VALUES("expiry_date", "#{expiryDate,jdbcType=VARCHAR}");
+        }
+        
+        if (record.getStatus() != null) {
+            sql.VALUES("status", "#{status,jdbcType=VARCHAR}");
+        }
+        
         if (record.getContent() != null) {
             sql.VALUES("content", "#{content,jdbcType=VARCHAR}");
+        }
+        
+        if (record.getIsDelete() != null) {
+            sql.VALUES("is_delete", "#{isDelete,jdbcType=INTEGER}");
         }
         
         if (record.getOperator() != null) {
             sql.VALUES("operator", "#{operator,jdbcType=VARCHAR}");
         }
         
-        if (record.getStatus() != null) {
-            sql.VALUES("status", "#{status,jdbcType=INTEGER}");
+        if (record.getLastUpdater() != null) {
+            sql.VALUES("last_updater", "#{lastUpdater,jdbcType=VARCHAR}");
         }
         
         if (record.getCreateTime() != null) {
@@ -63,9 +75,12 @@ public class SwAnnouncementSqlProvider {
             sql.SELECT("id");
         }
         sql.SELECT("title");
-        sql.SELECT("content");
-        sql.SELECT("operator");
+        sql.SELECT("expiry_date");
         sql.SELECT("status");
+        sql.SELECT("content");
+        sql.SELECT("is_delete");
+        sql.SELECT("operator");
+        sql.SELECT("last_updater");
         sql.SELECT("create_time");
         sql.SELECT("datetime_lastchange");
         sql.FROM("sw_announcement");
@@ -93,16 +108,28 @@ public class SwAnnouncementSqlProvider {
             sql.SET("title = #{record.title,jdbcType=VARCHAR}");
         }
         
+        if (record.getExpiryDate() != null) {
+            sql.SET("expiry_date = #{record.expiryDate,jdbcType=VARCHAR}");
+        }
+        
+        if (record.getStatus() != null) {
+            sql.SET("status = #{record.status,jdbcType=VARCHAR}");
+        }
+        
         if (record.getContent() != null) {
             sql.SET("content = #{record.content,jdbcType=VARCHAR}");
+        }
+        
+        if (record.getIsDelete() != null) {
+            sql.SET("is_delete = #{record.isDelete,jdbcType=INTEGER}");
         }
         
         if (record.getOperator() != null) {
             sql.SET("operator = #{record.operator,jdbcType=VARCHAR}");
         }
         
-        if (record.getStatus() != null) {
-            sql.SET("status = #{record.status,jdbcType=INTEGER}");
+        if (record.getLastUpdater() != null) {
+            sql.SET("last_updater = #{record.lastUpdater,jdbcType=VARCHAR}");
         }
         
         if (record.getCreateTime() != null) {
@@ -123,9 +150,12 @@ public class SwAnnouncementSqlProvider {
         
         sql.SET("id = #{record.id,jdbcType=INTEGER}");
         sql.SET("title = #{record.title,jdbcType=VARCHAR}");
+        sql.SET("expiry_date = #{record.expiryDate,jdbcType=VARCHAR}");
+        sql.SET("status = #{record.status,jdbcType=VARCHAR}");
         sql.SET("content = #{record.content,jdbcType=VARCHAR}");
+        sql.SET("is_delete = #{record.isDelete,jdbcType=INTEGER}");
         sql.SET("operator = #{record.operator,jdbcType=VARCHAR}");
-        sql.SET("status = #{record.status,jdbcType=INTEGER}");
+        sql.SET("last_updater = #{record.lastUpdater,jdbcType=VARCHAR}");
         sql.SET("create_time = #{record.createTime,jdbcType=TIMESTAMP}");
         sql.SET("datetime_lastchange = #{record.datetimeLastchange,jdbcType=TIMESTAMP}");
         
@@ -142,16 +172,28 @@ public class SwAnnouncementSqlProvider {
             sql.SET("title = #{title,jdbcType=VARCHAR}");
         }
         
+        if (record.getExpiryDate() != null) {
+            sql.SET("expiry_date = #{expiryDate,jdbcType=VARCHAR}");
+        }
+        
+        if (record.getStatus() != null) {
+            sql.SET("status = #{status,jdbcType=VARCHAR}");
+        }
+        
         if (record.getContent() != null) {
             sql.SET("content = #{content,jdbcType=VARCHAR}");
+        }
+        
+        if (record.getIsDelete() != null) {
+            sql.SET("is_delete = #{isDelete,jdbcType=INTEGER}");
         }
         
         if (record.getOperator() != null) {
             sql.SET("operator = #{operator,jdbcType=VARCHAR}");
         }
         
-        if (record.getStatus() != null) {
-            sql.SET("status = #{status,jdbcType=INTEGER}");
+        if (record.getLastUpdater() != null) {
+            sql.SET("last_updater = #{lastUpdater,jdbcType=VARCHAR}");
         }
         
         if (record.getCreateTime() != null) {

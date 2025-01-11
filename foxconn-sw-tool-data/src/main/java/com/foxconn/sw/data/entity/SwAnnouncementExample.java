@@ -235,6 +235,146 @@ public class SwAnnouncementExample {
             return (Criteria) this;
         }
 
+        public Criteria andExpiryDateIsNull() {
+            addCriterion("expiry_date is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andExpiryDateIsNotNull() {
+            addCriterion("expiry_date is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andExpiryDateEqualTo(String value) {
+            addCriterion("expiry_date =", value, "expiryDate");
+            return (Criteria) this;
+        }
+
+        public Criteria andExpiryDateNotEqualTo(String value) {
+            addCriterion("expiry_date <>", value, "expiryDate");
+            return (Criteria) this;
+        }
+
+        public Criteria andExpiryDateGreaterThan(String value) {
+            addCriterion("expiry_date >", value, "expiryDate");
+            return (Criteria) this;
+        }
+
+        public Criteria andExpiryDateGreaterThanOrEqualTo(String value) {
+            addCriterion("expiry_date >=", value, "expiryDate");
+            return (Criteria) this;
+        }
+
+        public Criteria andExpiryDateLessThan(String value) {
+            addCriterion("expiry_date <", value, "expiryDate");
+            return (Criteria) this;
+        }
+
+        public Criteria andExpiryDateLessThanOrEqualTo(String value) {
+            addCriterion("expiry_date <=", value, "expiryDate");
+            return (Criteria) this;
+        }
+
+        public Criteria andExpiryDateLike(String value) {
+            addCriterion("expiry_date like", value, "expiryDate");
+            return (Criteria) this;
+        }
+
+        public Criteria andExpiryDateNotLike(String value) {
+            addCriterion("expiry_date not like", value, "expiryDate");
+            return (Criteria) this;
+        }
+
+        public Criteria andExpiryDateIn(List<String> values) {
+            addCriterion("expiry_date in", values, "expiryDate");
+            return (Criteria) this;
+        }
+
+        public Criteria andExpiryDateNotIn(List<String> values) {
+            addCriterion("expiry_date not in", values, "expiryDate");
+            return (Criteria) this;
+        }
+
+        public Criteria andExpiryDateBetween(String value1, String value2) {
+            addCriterion("expiry_date between", value1, value2, "expiryDate");
+            return (Criteria) this;
+        }
+
+        public Criteria andExpiryDateNotBetween(String value1, String value2) {
+            addCriterion("expiry_date not between", value1, value2, "expiryDate");
+            return (Criteria) this;
+        }
+
+        public Criteria andStatusIsNull() {
+            addCriterion("status is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andStatusIsNotNull() {
+            addCriterion("status is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andStatusEqualTo(String value) {
+            addCriterion("status =", value, "status");
+            return (Criteria) this;
+        }
+
+        public Criteria andStatusNotEqualTo(String value) {
+            addCriterion("status <>", value, "status");
+            return (Criteria) this;
+        }
+
+        public Criteria andStatusGreaterThan(String value) {
+            addCriterion("status >", value, "status");
+            return (Criteria) this;
+        }
+
+        public Criteria andStatusGreaterThanOrEqualTo(String value) {
+            addCriterion("status >=", value, "status");
+            return (Criteria) this;
+        }
+
+        public Criteria andStatusLessThan(String value) {
+            addCriterion("status <", value, "status");
+            return (Criteria) this;
+        }
+
+        public Criteria andStatusLessThanOrEqualTo(String value) {
+            addCriterion("status <=", value, "status");
+            return (Criteria) this;
+        }
+
+        public Criteria andStatusLike(String value) {
+            addCriterion("status like", value, "status");
+            return (Criteria) this;
+        }
+
+        public Criteria andStatusNotLike(String value) {
+            addCriterion("status not like", value, "status");
+            return (Criteria) this;
+        }
+
+        public Criteria andStatusIn(List<String> values) {
+            addCriterion("status in", values, "status");
+            return (Criteria) this;
+        }
+
+        public Criteria andStatusNotIn(List<String> values) {
+            addCriterion("status not in", values, "status");
+            return (Criteria) this;
+        }
+
+        public Criteria andStatusBetween(String value1, String value2) {
+            addCriterion("status between", value1, value2, "status");
+            return (Criteria) this;
+        }
+
+        public Criteria andStatusNotBetween(String value1, String value2) {
+            addCriterion("status not between", value1, value2, "status");
+            return (Criteria) this;
+        }
+
         public Criteria andContentIsNull() {
             addCriterion("content is null");
             return (Criteria) this;
@@ -302,6 +442,66 @@ public class SwAnnouncementExample {
 
         public Criteria andContentNotBetween(String value1, String value2) {
             addCriterion("content not between", value1, value2, "content");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsDeleteIsNull() {
+            addCriterion("is_delete is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsDeleteIsNotNull() {
+            addCriterion("is_delete is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsDeleteEqualTo(Integer value) {
+            addCriterion("is_delete =", value, "isDelete");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsDeleteNotEqualTo(Integer value) {
+            addCriterion("is_delete <>", value, "isDelete");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsDeleteGreaterThan(Integer value) {
+            addCriterion("is_delete >", value, "isDelete");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsDeleteGreaterThanOrEqualTo(Integer value) {
+            addCriterion("is_delete >=", value, "isDelete");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsDeleteLessThan(Integer value) {
+            addCriterion("is_delete <", value, "isDelete");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsDeleteLessThanOrEqualTo(Integer value) {
+            addCriterion("is_delete <=", value, "isDelete");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsDeleteIn(List<Integer> values) {
+            addCriterion("is_delete in", values, "isDelete");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsDeleteNotIn(List<Integer> values) {
+            addCriterion("is_delete not in", values, "isDelete");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsDeleteBetween(Integer value1, Integer value2) {
+            addCriterion("is_delete between", value1, value2, "isDelete");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsDeleteNotBetween(Integer value1, Integer value2) {
+            addCriterion("is_delete not between", value1, value2, "isDelete");
             return (Criteria) this;
         }
 
@@ -375,63 +575,73 @@ public class SwAnnouncementExample {
             return (Criteria) this;
         }
 
-        public Criteria andStatusIsNull() {
-            addCriterion("status is null");
+        public Criteria andLastUpdaterIsNull() {
+            addCriterion("last_updater is null");
             return (Criteria) this;
         }
 
-        public Criteria andStatusIsNotNull() {
-            addCriterion("status is not null");
+        public Criteria andLastUpdaterIsNotNull() {
+            addCriterion("last_updater is not null");
             return (Criteria) this;
         }
 
-        public Criteria andStatusEqualTo(Integer value) {
-            addCriterion("status =", value, "status");
+        public Criteria andLastUpdaterEqualTo(String value) {
+            addCriterion("last_updater =", value, "lastUpdater");
             return (Criteria) this;
         }
 
-        public Criteria andStatusNotEqualTo(Integer value) {
-            addCriterion("status <>", value, "status");
+        public Criteria andLastUpdaterNotEqualTo(String value) {
+            addCriterion("last_updater <>", value, "lastUpdater");
             return (Criteria) this;
         }
 
-        public Criteria andStatusGreaterThan(Integer value) {
-            addCriterion("status >", value, "status");
+        public Criteria andLastUpdaterGreaterThan(String value) {
+            addCriterion("last_updater >", value, "lastUpdater");
             return (Criteria) this;
         }
 
-        public Criteria andStatusGreaterThanOrEqualTo(Integer value) {
-            addCriterion("status >=", value, "status");
+        public Criteria andLastUpdaterGreaterThanOrEqualTo(String value) {
+            addCriterion("last_updater >=", value, "lastUpdater");
             return (Criteria) this;
         }
 
-        public Criteria andStatusLessThan(Integer value) {
-            addCriterion("status <", value, "status");
+        public Criteria andLastUpdaterLessThan(String value) {
+            addCriterion("last_updater <", value, "lastUpdater");
             return (Criteria) this;
         }
 
-        public Criteria andStatusLessThanOrEqualTo(Integer value) {
-            addCriterion("status <=", value, "status");
+        public Criteria andLastUpdaterLessThanOrEqualTo(String value) {
+            addCriterion("last_updater <=", value, "lastUpdater");
             return (Criteria) this;
         }
 
-        public Criteria andStatusIn(List<Integer> values) {
-            addCriterion("status in", values, "status");
+        public Criteria andLastUpdaterLike(String value) {
+            addCriterion("last_updater like", value, "lastUpdater");
             return (Criteria) this;
         }
 
-        public Criteria andStatusNotIn(List<Integer> values) {
-            addCriterion("status not in", values, "status");
+        public Criteria andLastUpdaterNotLike(String value) {
+            addCriterion("last_updater not like", value, "lastUpdater");
             return (Criteria) this;
         }
 
-        public Criteria andStatusBetween(Integer value1, Integer value2) {
-            addCriterion("status between", value1, value2, "status");
+        public Criteria andLastUpdaterIn(List<String> values) {
+            addCriterion("last_updater in", values, "lastUpdater");
             return (Criteria) this;
         }
 
-        public Criteria andStatusNotBetween(Integer value1, Integer value2) {
-            addCriterion("status not between", value1, value2, "status");
+        public Criteria andLastUpdaterNotIn(List<String> values) {
+            addCriterion("last_updater not in", values, "lastUpdater");
+            return (Criteria) this;
+        }
+
+        public Criteria andLastUpdaterBetween(String value1, String value2) {
+            addCriterion("last_updater between", value1, value2, "lastUpdater");
+            return (Criteria) this;
+        }
+
+        public Criteria andLastUpdaterNotBetween(String value1, String value2) {
+            addCriterion("last_updater not between", value1, value2, "lastUpdater");
             return (Criteria) this;
         }
 
@@ -560,6 +770,16 @@ public class SwAnnouncementExample {
             return (Criteria) this;
         }
 
+        public Criteria andExpiryDateLikeInsensitive(String value) {
+            addCriterion("upper(expiry_date) like", value.toUpperCase(), "expiryDate");
+            return (Criteria) this;
+        }
+
+        public Criteria andStatusLikeInsensitive(String value) {
+            addCriterion("upper(status) like", value.toUpperCase(), "status");
+            return (Criteria) this;
+        }
+
         public Criteria andContentLikeInsensitive(String value) {
             addCriterion("upper(content) like", value.toUpperCase(), "content");
             return (Criteria) this;
@@ -567,6 +787,11 @@ public class SwAnnouncementExample {
 
         public Criteria andOperatorLikeInsensitive(String value) {
             addCriterion("upper(operator) like", value.toUpperCase(), "operator");
+            return (Criteria) this;
+        }
+
+        public Criteria andLastUpdaterLikeInsensitive(String value) {
+            addCriterion("upper(last_updater) like", value.toUpperCase(), "lastUpdater");
             return (Criteria) this;
         }
     }

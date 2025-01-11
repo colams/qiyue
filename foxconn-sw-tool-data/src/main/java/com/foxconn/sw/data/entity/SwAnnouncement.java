@@ -7,11 +7,17 @@ public class SwAnnouncement {
 
     private String title;
 
+    private String expiryDate;
+
+    private String status;
+
     private String content;
+
+    private Integer isDelete;
 
     private String operator;
 
-    private Integer status;
+    private String lastUpdater;
 
     private LocalDateTime createTime;
 
@@ -43,6 +49,32 @@ public class SwAnnouncement {
         this.title = title == null ? null : title.trim();
     }
 
+    public String getExpiryDate() {
+        return expiryDate;
+    }
+
+    public SwAnnouncement withExpiryDate(String expiryDate) {
+        this.setExpiryDate(expiryDate);
+        return this;
+    }
+
+    public void setExpiryDate(String expiryDate) {
+        this.expiryDate = expiryDate == null ? null : expiryDate.trim();
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public SwAnnouncement withStatus(String status) {
+        this.setStatus(status);
+        return this;
+    }
+
+    public void setStatus(String status) {
+        this.status = status == null ? null : status.trim();
+    }
+
     public String getContent() {
         return content;
     }
@@ -54,6 +86,19 @@ public class SwAnnouncement {
 
     public void setContent(String content) {
         this.content = content == null ? null : content.trim();
+    }
+
+    public Integer getIsDelete() {
+        return isDelete;
+    }
+
+    public SwAnnouncement withIsDelete(Integer isDelete) {
+        this.setIsDelete(isDelete);
+        return this;
+    }
+
+    public void setIsDelete(Integer isDelete) {
+        this.isDelete = isDelete;
     }
 
     public String getOperator() {
@@ -69,17 +114,17 @@ public class SwAnnouncement {
         this.operator = operator == null ? null : operator.trim();
     }
 
-    public Integer getStatus() {
-        return status;
+    public String getLastUpdater() {
+        return lastUpdater;
     }
 
-    public SwAnnouncement withStatus(Integer status) {
-        this.setStatus(status);
+    public SwAnnouncement withLastUpdater(String lastUpdater) {
+        this.setLastUpdater(lastUpdater);
         return this;
     }
 
-    public void setStatus(Integer status) {
-        this.status = status;
+    public void setLastUpdater(String lastUpdater) {
+        this.lastUpdater = lastUpdater == null ? null : lastUpdater.trim();
     }
 
     public LocalDateTime getCreateTime() {
