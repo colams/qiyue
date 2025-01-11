@@ -45,21 +45,6 @@ public class RegisterProcessor {
         return result;
     }
 
-
-    public Boolean createAccount(CreateAccountParams data) {
-        // 创建 用户账户
-        checkExist(data.getEmployeeNo());
-        SwUser sysUser = createUser(data.getEmployeeNo(), data.getEmployeeNo());
-        if (Objects.isNull(sysUser)) {
-            throw new BizException(AccountExceptionCode.CREATE_ACCOUNT_EXCEPTION);
-        }
-        return false;
-//        saveEmployee(data);
-//        // 生成登录信息
-//        LoginStateVo result = createLoginState(data.getEmployeeNo());
-//        return result;
-    }
-
     private boolean checkExist(String employeeNo) {
         SwUser user = userBusiness.queryUser(employeeNo);
         if (Objects.nonNull(user)) {

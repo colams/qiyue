@@ -46,16 +46,16 @@ public class AnnouncementController {
     @Permission
     @Operation(summary = "所有更新信息列表", tags = TagsConstants.ANNOUNCEMENT)
     @ApiResponse(responseCode = "0", description = "成功码")
-    @PostMapping("/updateReleaseNote")
-    public Response<Boolean> updateAnnouncement(@Valid @RequestBody Request<AnnouncementParams> request) {
+    @PostMapping("/save")
+    public Response<Boolean> save(@Valid @RequestBody Request<AnnouncementParams> request) {
         Boolean result = announcementManagerProcessor.updateAnnouncement(request.getData());
         return ResponseUtils.success(result, request.getTraceId());
     }
 
     @Operation(summary = "通知公告详情信息", tags = TagsConstants.ANNOUNCEMENT)
     @ApiResponse(responseCode = "0", description = "成功码")
-    @PostMapping("/content")
-    public Response content(@Valid @RequestBody Request<IntegerParams> request) {
+    @PostMapping("/detail")
+    public Response<AnnouncementDetailVo> detail(@Valid @RequestBody Request<IntegerParams> request) {
         AnnouncementDetailVo swAnnouncements = announcementDetailProcessor.detail(request.getData());
         return ResponseUtils.success(swAnnouncements, request.getTraceId());
     }

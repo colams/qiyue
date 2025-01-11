@@ -43,8 +43,6 @@ public class UserController {
     EmployeeBusiness employeeBusiness;
     @Autowired
     QueryMemberProcessor queryMemberProcessor;
-    @Autowired
-    SubordinateProcessor subordinateProcessor;
 
     @Operation(summary = "用户信息列表", tags = TagsConstants.ACCOUNT)
     @ApiResponse(responseCode = "0", description = "成功码")
@@ -76,15 +74,6 @@ public class UserController {
     @PostMapping("/queryMembers")
     public Response<List<EmployeeVo>> queryMembers(@Valid @RequestBody Request<QuerySubEmpParams> request) {
         List<EmployeeVo> vos = queryMemberProcessor.queryMembers(request.getData());
-        return ResponseUtils.success(vos, request.getTraceId());
-    }
-
-    @Permission
-    @Operation(summary = "获取下属员工", tags = TagsConstants.ACCOUNT)
-    @ApiResponse(responseCode = "0", description = "成功码")
-    @PostMapping("/subordinate")
-    public Response<List<EmployeeVo>> subordinate(@Valid @RequestBody Request request) {
-        List<EmployeeVo> vos = subordinateProcessor.subordinateList();
         return ResponseUtils.success(vos, request.getTraceId());
     }
 }
