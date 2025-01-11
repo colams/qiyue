@@ -44,7 +44,7 @@ public class AnnouncementController {
     }
 
     @Permission
-    @Operation(summary = "所有更新信息列表", tags = "changeLog")
+    @Operation(summary = "所有更新信息列表", tags = TagsConstants.ANNOUNCEMENT)
     @ApiResponse(responseCode = "0", description = "成功码")
     @PostMapping("/updateReleaseNote")
     public Response<Boolean> updateAnnouncement(@Valid @RequestBody Request<AnnouncementParams> request) {
