@@ -165,73 +165,73 @@ public class SwChangeLogExample {
             return (Criteria) this;
         }
 
-        public Criteria andOperatorIsNull() {
-            addCriterion("operator is null");
+        public Criteria andReleaseNoteIsNull() {
+            addCriterion("release_note is null");
             return (Criteria) this;
         }
 
-        public Criteria andOperatorIsNotNull() {
-            addCriterion("operator is not null");
+        public Criteria andReleaseNoteIsNotNull() {
+            addCriterion("release_note is not null");
             return (Criteria) this;
         }
 
-        public Criteria andOperatorEqualTo(String value) {
-            addCriterion("operator =", value, "operator");
+        public Criteria andReleaseNoteEqualTo(String value) {
+            addCriterion("release_note =", value, "releaseNote");
             return (Criteria) this;
         }
 
-        public Criteria andOperatorNotEqualTo(String value) {
-            addCriterion("operator <>", value, "operator");
+        public Criteria andReleaseNoteNotEqualTo(String value) {
+            addCriterion("release_note <>", value, "releaseNote");
             return (Criteria) this;
         }
 
-        public Criteria andOperatorGreaterThan(String value) {
-            addCriterion("operator >", value, "operator");
+        public Criteria andReleaseNoteGreaterThan(String value) {
+            addCriterion("release_note >", value, "releaseNote");
             return (Criteria) this;
         }
 
-        public Criteria andOperatorGreaterThanOrEqualTo(String value) {
-            addCriterion("operator >=", value, "operator");
+        public Criteria andReleaseNoteGreaterThanOrEqualTo(String value) {
+            addCriterion("release_note >=", value, "releaseNote");
             return (Criteria) this;
         }
 
-        public Criteria andOperatorLessThan(String value) {
-            addCriterion("operator <", value, "operator");
+        public Criteria andReleaseNoteLessThan(String value) {
+            addCriterion("release_note <", value, "releaseNote");
             return (Criteria) this;
         }
 
-        public Criteria andOperatorLessThanOrEqualTo(String value) {
-            addCriterion("operator <=", value, "operator");
+        public Criteria andReleaseNoteLessThanOrEqualTo(String value) {
+            addCriterion("release_note <=", value, "releaseNote");
             return (Criteria) this;
         }
 
-        public Criteria andOperatorLike(String value) {
-            addCriterion("operator like", value, "operator");
+        public Criteria andReleaseNoteLike(String value) {
+            addCriterion("release_note like", value, "releaseNote");
             return (Criteria) this;
         }
 
-        public Criteria andOperatorNotLike(String value) {
-            addCriterion("operator not like", value, "operator");
+        public Criteria andReleaseNoteNotLike(String value) {
+            addCriterion("release_note not like", value, "releaseNote");
             return (Criteria) this;
         }
 
-        public Criteria andOperatorIn(List<String> values) {
-            addCriterion("operator in", values, "operator");
+        public Criteria andReleaseNoteIn(List<String> values) {
+            addCriterion("release_note in", values, "releaseNote");
             return (Criteria) this;
         }
 
-        public Criteria andOperatorNotIn(List<String> values) {
-            addCriterion("operator not in", values, "operator");
+        public Criteria andReleaseNoteNotIn(List<String> values) {
+            addCriterion("release_note not in", values, "releaseNote");
             return (Criteria) this;
         }
 
-        public Criteria andOperatorBetween(String value1, String value2) {
-            addCriterion("operator between", value1, value2, "operator");
+        public Criteria andReleaseNoteBetween(String value1, String value2) {
+            addCriterion("release_note between", value1, value2, "releaseNote");
             return (Criteria) this;
         }
 
-        public Criteria andOperatorNotBetween(String value1, String value2) {
-            addCriterion("operator not between", value1, value2, "operator");
+        public Criteria andReleaseNoteNotBetween(String value1, String value2) {
+            addCriterion("release_note not between", value1, value2, "releaseNote");
             return (Criteria) this;
         }
 
@@ -305,76 +305,6 @@ public class SwChangeLogExample {
             return (Criteria) this;
         }
 
-        public Criteria andReleaseNoteIsNull() {
-            addCriterion("release_note is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andReleaseNoteIsNotNull() {
-            addCriterion("release_note is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andReleaseNoteEqualTo(String value) {
-            addCriterion("release_note =", value, "releaseNote");
-            return (Criteria) this;
-        }
-
-        public Criteria andReleaseNoteNotEqualTo(String value) {
-            addCriterion("release_note <>", value, "releaseNote");
-            return (Criteria) this;
-        }
-
-        public Criteria andReleaseNoteGreaterThan(String value) {
-            addCriterion("release_note >", value, "releaseNote");
-            return (Criteria) this;
-        }
-
-        public Criteria andReleaseNoteGreaterThanOrEqualTo(String value) {
-            addCriterion("release_note >=", value, "releaseNote");
-            return (Criteria) this;
-        }
-
-        public Criteria andReleaseNoteLessThan(String value) {
-            addCriterion("release_note <", value, "releaseNote");
-            return (Criteria) this;
-        }
-
-        public Criteria andReleaseNoteLessThanOrEqualTo(String value) {
-            addCriterion("release_note <=", value, "releaseNote");
-            return (Criteria) this;
-        }
-
-        public Criteria andReleaseNoteLike(String value) {
-            addCriterion("release_note like", value, "releaseNote");
-            return (Criteria) this;
-        }
-
-        public Criteria andReleaseNoteNotLike(String value) {
-            addCriterion("release_note not like", value, "releaseNote");
-            return (Criteria) this;
-        }
-
-        public Criteria andReleaseNoteIn(List<String> values) {
-            addCriterion("release_note in", values, "releaseNote");
-            return (Criteria) this;
-        }
-
-        public Criteria andReleaseNoteNotIn(List<String> values) {
-            addCriterion("release_note not in", values, "releaseNote");
-            return (Criteria) this;
-        }
-
-        public Criteria andReleaseNoteBetween(String value1, String value2) {
-            addCriterion("release_note between", value1, value2, "releaseNote");
-            return (Criteria) this;
-        }
-
-        public Criteria andReleaseNoteNotBetween(String value1, String value2) {
-            addCriterion("release_note not between", value1, value2, "releaseNote");
-            return (Criteria) this;
-        }
-
         public Criteria andCreateTimeIsNull() {
             addCriterion("create_time is null");
             return (Criteria) this;
@@ -432,6 +362,146 @@ public class SwChangeLogExample {
 
         public Criteria andCreateTimeNotBetween(LocalDateTime value1, LocalDateTime value2) {
             addCriterion("create_time not between", value1, value2, "createTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andOperatorIsNull() {
+            addCriterion("operator is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andOperatorIsNotNull() {
+            addCriterion("operator is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andOperatorEqualTo(String value) {
+            addCriterion("operator =", value, "operator");
+            return (Criteria) this;
+        }
+
+        public Criteria andOperatorNotEqualTo(String value) {
+            addCriterion("operator <>", value, "operator");
+            return (Criteria) this;
+        }
+
+        public Criteria andOperatorGreaterThan(String value) {
+            addCriterion("operator >", value, "operator");
+            return (Criteria) this;
+        }
+
+        public Criteria andOperatorGreaterThanOrEqualTo(String value) {
+            addCriterion("operator >=", value, "operator");
+            return (Criteria) this;
+        }
+
+        public Criteria andOperatorLessThan(String value) {
+            addCriterion("operator <", value, "operator");
+            return (Criteria) this;
+        }
+
+        public Criteria andOperatorLessThanOrEqualTo(String value) {
+            addCriterion("operator <=", value, "operator");
+            return (Criteria) this;
+        }
+
+        public Criteria andOperatorLike(String value) {
+            addCriterion("operator like", value, "operator");
+            return (Criteria) this;
+        }
+
+        public Criteria andOperatorNotLike(String value) {
+            addCriterion("operator not like", value, "operator");
+            return (Criteria) this;
+        }
+
+        public Criteria andOperatorIn(List<String> values) {
+            addCriterion("operator in", values, "operator");
+            return (Criteria) this;
+        }
+
+        public Criteria andOperatorNotIn(List<String> values) {
+            addCriterion("operator not in", values, "operator");
+            return (Criteria) this;
+        }
+
+        public Criteria andOperatorBetween(String value1, String value2) {
+            addCriterion("operator between", value1, value2, "operator");
+            return (Criteria) this;
+        }
+
+        public Criteria andOperatorNotBetween(String value1, String value2) {
+            addCriterion("operator not between", value1, value2, "operator");
+            return (Criteria) this;
+        }
+
+        public Criteria andLastUpdaterIsNull() {
+            addCriterion("last_updater is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andLastUpdaterIsNotNull() {
+            addCriterion("last_updater is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andLastUpdaterEqualTo(String value) {
+            addCriterion("last_updater =", value, "lastUpdater");
+            return (Criteria) this;
+        }
+
+        public Criteria andLastUpdaterNotEqualTo(String value) {
+            addCriterion("last_updater <>", value, "lastUpdater");
+            return (Criteria) this;
+        }
+
+        public Criteria andLastUpdaterGreaterThan(String value) {
+            addCriterion("last_updater >", value, "lastUpdater");
+            return (Criteria) this;
+        }
+
+        public Criteria andLastUpdaterGreaterThanOrEqualTo(String value) {
+            addCriterion("last_updater >=", value, "lastUpdater");
+            return (Criteria) this;
+        }
+
+        public Criteria andLastUpdaterLessThan(String value) {
+            addCriterion("last_updater <", value, "lastUpdater");
+            return (Criteria) this;
+        }
+
+        public Criteria andLastUpdaterLessThanOrEqualTo(String value) {
+            addCriterion("last_updater <=", value, "lastUpdater");
+            return (Criteria) this;
+        }
+
+        public Criteria andLastUpdaterLike(String value) {
+            addCriterion("last_updater like", value, "lastUpdater");
+            return (Criteria) this;
+        }
+
+        public Criteria andLastUpdaterNotLike(String value) {
+            addCriterion("last_updater not like", value, "lastUpdater");
+            return (Criteria) this;
+        }
+
+        public Criteria andLastUpdaterIn(List<String> values) {
+            addCriterion("last_updater in", values, "lastUpdater");
+            return (Criteria) this;
+        }
+
+        public Criteria andLastUpdaterNotIn(List<String> values) {
+            addCriterion("last_updater not in", values, "lastUpdater");
+            return (Criteria) this;
+        }
+
+        public Criteria andLastUpdaterBetween(String value1, String value2) {
+            addCriterion("last_updater between", value1, value2, "lastUpdater");
+            return (Criteria) this;
+        }
+
+        public Criteria andLastUpdaterNotBetween(String value1, String value2) {
+            addCriterion("last_updater not between", value1, value2, "lastUpdater");
             return (Criteria) this;
         }
 
@@ -495,8 +565,8 @@ public class SwChangeLogExample {
             return (Criteria) this;
         }
 
-        public Criteria andOperatorLikeInsensitive(String value) {
-            addCriterion("upper(operator) like", value.toUpperCase(), "operator");
+        public Criteria andReleaseNoteLikeInsensitive(String value) {
+            addCriterion("upper(release_note) like", value.toUpperCase(), "releaseNote");
             return (Criteria) this;
         }
 
@@ -505,8 +575,13 @@ public class SwChangeLogExample {
             return (Criteria) this;
         }
 
-        public Criteria andReleaseNoteLikeInsensitive(String value) {
-            addCriterion("upper(release_note) like", value.toUpperCase(), "releaseNote");
+        public Criteria andOperatorLikeInsensitive(String value) {
+            addCriterion("upper(operator) like", value.toUpperCase(), "operator");
+            return (Criteria) this;
+        }
+
+        public Criteria andLastUpdaterLikeInsensitive(String value) {
+            addCriterion("upper(last_updater) like", value.toUpperCase(), "lastUpdater");
             return (Criteria) this;
         }
     }

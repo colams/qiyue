@@ -28,20 +28,24 @@ public class SwChangeLogSqlProvider {
         SQL sql = new SQL();
         sql.INSERT_INTO("sw_change_log");
         
-        if (record.getOperator() != null) {
-            sql.VALUES("operator", "#{operator,jdbcType=VARCHAR}");
+        if (record.getReleaseNote() != null) {
+            sql.VALUES("release_note", "#{releaseNote,jdbcType=VARCHAR}");
         }
         
         if (record.getReleaseVersion() != null) {
             sql.VALUES("release_version", "#{releaseVersion,jdbcType=VARCHAR}");
         }
         
-        if (record.getReleaseNote() != null) {
-            sql.VALUES("release_note", "#{releaseNote,jdbcType=VARCHAR}");
-        }
-        
         if (record.getCreateTime() != null) {
             sql.VALUES("create_time", "#{createTime,jdbcType=TIMESTAMP}");
+        }
+        
+        if (record.getOperator() != null) {
+            sql.VALUES("operator", "#{operator,jdbcType=VARCHAR}");
+        }
+        
+        if (record.getLastUpdater() != null) {
+            sql.VALUES("last_updater", "#{lastUpdater,jdbcType=VARCHAR}");
         }
         
         if (record.getDatetimeLastchange() != null) {
@@ -58,10 +62,11 @@ public class SwChangeLogSqlProvider {
         } else {
             sql.SELECT("id");
         }
-        sql.SELECT("operator");
-        sql.SELECT("release_version");
         sql.SELECT("release_note");
+        sql.SELECT("release_version");
         sql.SELECT("create_time");
+        sql.SELECT("operator");
+        sql.SELECT("last_updater");
         sql.SELECT("datetime_lastchange");
         sql.FROM("sw_change_log");
         applyWhere(sql, example, false);
@@ -84,20 +89,24 @@ public class SwChangeLogSqlProvider {
             sql.SET("id = #{record.id,jdbcType=INTEGER}");
         }
         
-        if (record.getOperator() != null) {
-            sql.SET("operator = #{record.operator,jdbcType=VARCHAR}");
+        if (record.getReleaseNote() != null) {
+            sql.SET("release_note = #{record.releaseNote,jdbcType=VARCHAR}");
         }
         
         if (record.getReleaseVersion() != null) {
             sql.SET("release_version = #{record.releaseVersion,jdbcType=VARCHAR}");
         }
         
-        if (record.getReleaseNote() != null) {
-            sql.SET("release_note = #{record.releaseNote,jdbcType=VARCHAR}");
-        }
-        
         if (record.getCreateTime() != null) {
             sql.SET("create_time = #{record.createTime,jdbcType=TIMESTAMP}");
+        }
+        
+        if (record.getOperator() != null) {
+            sql.SET("operator = #{record.operator,jdbcType=VARCHAR}");
+        }
+        
+        if (record.getLastUpdater() != null) {
+            sql.SET("last_updater = #{record.lastUpdater,jdbcType=VARCHAR}");
         }
         
         if (record.getDatetimeLastchange() != null) {
@@ -113,10 +122,11 @@ public class SwChangeLogSqlProvider {
         sql.UPDATE("sw_change_log");
         
         sql.SET("id = #{record.id,jdbcType=INTEGER}");
-        sql.SET("operator = #{record.operator,jdbcType=VARCHAR}");
-        sql.SET("release_version = #{record.releaseVersion,jdbcType=VARCHAR}");
         sql.SET("release_note = #{record.releaseNote,jdbcType=VARCHAR}");
+        sql.SET("release_version = #{record.releaseVersion,jdbcType=VARCHAR}");
         sql.SET("create_time = #{record.createTime,jdbcType=TIMESTAMP}");
+        sql.SET("operator = #{record.operator,jdbcType=VARCHAR}");
+        sql.SET("last_updater = #{record.lastUpdater,jdbcType=VARCHAR}");
         sql.SET("datetime_lastchange = #{record.datetimeLastchange,jdbcType=TIMESTAMP}");
         
         SwChangeLogExample example = (SwChangeLogExample) parameter.get("example");
@@ -128,20 +138,24 @@ public class SwChangeLogSqlProvider {
         SQL sql = new SQL();
         sql.UPDATE("sw_change_log");
         
-        if (record.getOperator() != null) {
-            sql.SET("operator = #{operator,jdbcType=VARCHAR}");
+        if (record.getReleaseNote() != null) {
+            sql.SET("release_note = #{releaseNote,jdbcType=VARCHAR}");
         }
         
         if (record.getReleaseVersion() != null) {
             sql.SET("release_version = #{releaseVersion,jdbcType=VARCHAR}");
         }
         
-        if (record.getReleaseNote() != null) {
-            sql.SET("release_note = #{releaseNote,jdbcType=VARCHAR}");
-        }
-        
         if (record.getCreateTime() != null) {
             sql.SET("create_time = #{createTime,jdbcType=TIMESTAMP}");
+        }
+        
+        if (record.getOperator() != null) {
+            sql.SET("operator = #{operator,jdbcType=VARCHAR}");
+        }
+        
+        if (record.getLastUpdater() != null) {
+            sql.SET("last_updater = #{lastUpdater,jdbcType=VARCHAR}");
         }
         
         if (record.getDatetimeLastchange() != null) {

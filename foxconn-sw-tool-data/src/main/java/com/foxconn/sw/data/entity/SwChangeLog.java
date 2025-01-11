@@ -5,13 +5,15 @@ import java.time.LocalDateTime;
 public class SwChangeLog {
     private Integer id;
 
-    private String operator;
+    private String releaseNote;
 
     private String releaseVersion;
 
-    private String releaseNote;
-
     private LocalDateTime createTime;
+
+    private String operator;
+
+    private String lastUpdater;
 
     private LocalDateTime datetimeLastchange;
 
@@ -28,17 +30,17 @@ public class SwChangeLog {
         this.id = id;
     }
 
-    public String getOperator() {
-        return operator;
+    public String getReleaseNote() {
+        return releaseNote;
     }
 
-    public SwChangeLog withOperator(String operator) {
-        this.setOperator(operator);
+    public SwChangeLog withReleaseNote(String releaseNote) {
+        this.setReleaseNote(releaseNote);
         return this;
     }
 
-    public void setOperator(String operator) {
-        this.operator = operator == null ? null : operator.trim();
+    public void setReleaseNote(String releaseNote) {
+        this.releaseNote = releaseNote == null ? null : releaseNote.trim();
     }
 
     public String getReleaseVersion() {
@@ -54,19 +56,6 @@ public class SwChangeLog {
         this.releaseVersion = releaseVersion == null ? null : releaseVersion.trim();
     }
 
-    public String getReleaseNote() {
-        return releaseNote;
-    }
-
-    public SwChangeLog withReleaseNote(String releaseNote) {
-        this.setReleaseNote(releaseNote);
-        return this;
-    }
-
-    public void setReleaseNote(String releaseNote) {
-        this.releaseNote = releaseNote == null ? null : releaseNote.trim();
-    }
-
     public LocalDateTime getCreateTime() {
         return createTime;
     }
@@ -78,6 +67,32 @@ public class SwChangeLog {
 
     public void setCreateTime(LocalDateTime createTime) {
         this.createTime = createTime;
+    }
+
+    public String getOperator() {
+        return operator;
+    }
+
+    public SwChangeLog withOperator(String operator) {
+        this.setOperator(operator);
+        return this;
+    }
+
+    public void setOperator(String operator) {
+        this.operator = operator == null ? null : operator.trim();
+    }
+
+    public String getLastUpdater() {
+        return lastUpdater;
+    }
+
+    public SwChangeLog withLastUpdater(String lastUpdater) {
+        this.setLastUpdater(lastUpdater);
+        return this;
+    }
+
+    public void setLastUpdater(String lastUpdater) {
+        this.lastUpdater = lastUpdater == null ? null : lastUpdater.trim();
     }
 
     public LocalDateTime getDatetimeLastchange() {
