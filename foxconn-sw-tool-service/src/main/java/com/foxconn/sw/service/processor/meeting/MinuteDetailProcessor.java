@@ -1,25 +1,20 @@
 package com.foxconn.sw.service.processor.meeting;
 
 import com.foxconn.sw.business.SwAppendResourceBusiness;
-import com.foxconn.sw.business.meeting.MeetingBusiness;
-import com.foxconn.sw.business.meeting.MeetingCycleDetailBusiness;
-import com.foxconn.sw.business.meeting.SwMeetingMinutesBusiness;
-import com.foxconn.sw.business.meeting.SwMeetingMinutesMembersBusiness;
+import com.foxconn.sw.business.meeting.*;
 import com.foxconn.sw.data.constants.enums.MeetingRoleFlagEnums;
 import com.foxconn.sw.data.dto.communal.MeetingDateTimeVo;
 import com.foxconn.sw.data.dto.entity.meeting.MeetingMinuteItemVo;
 import com.foxconn.sw.data.dto.entity.meeting.MeetingMinuteVo;
+import com.foxconn.sw.data.dto.enums.MeetingItemTypeEnums;
 import com.foxconn.sw.data.dto.request.meeting.MinuteDetailParams;
 import com.foxconn.sw.data.dto.response.meeting.MeetingMinuteDetailVo;
-import com.foxconn.sw.data.entity.SwMeeting;
-import com.foxconn.sw.data.entity.SwMeetingCycleDetail;
-import com.foxconn.sw.data.entity.SwMeetingMinutes;
-import com.foxconn.sw.data.entity.SwMeetingMinutesMembers;
+import com.foxconn.sw.data.entity.*;
 import com.foxconn.sw.service.processor.utils.EmployeeUtils;
+import com.google.common.collect.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -42,6 +37,8 @@ public class MinuteDetailProcessor {
     SwMeetingMinutesMembersBusiness minutesMembersBusiness;
     @Autowired
     EmployeeUtils employeeUtils;
+    @Autowired
+    SwMeetingMinutesDetailBusiness minutesDetailBusiness;
 
 
     public MeetingMinuteDetailVo minuteDetail(MinuteDetailParams data) {
@@ -62,28 +59,48 @@ public class MinuteDetailProcessor {
         MeetingMinuteVo minuteVo = new MeetingMinuteVo();
         minuteVo.setMeetingID(meetingID);
         minuteVo.setMeetingRoomKey(optional.map(e -> e.getRoom()).orElse(meeting.getRoom()));
-        minuteVo.setDateTimeVo(null);
-        minuteVo.setChairman(null);
-        minuteVo.setRecorder(null);
-        minuteVo.setMembers(null);
+        minuteVo.setDateTimeVo(new MeetingDateTimeVo("2024-09-12", "16:00", "17:00"));
+        minuteVo.setChairman("G1658973");
+        minuteVo.setRecorder("G1658973");
+        minuteVo.setMembers(Lists.newArrayList("G1658973"));
         minuteVo.setMeetingTitle(optional.map(e -> e.getTitle()).orElse(meeting.getTitle()));
-        minuteVo.setResourceIds(null);
-
-
+        minuteVo.setResourceIds(appendResourceBusiness.getAppendResourcesVo(meeting.getResourceIds()));
         MeetingMinuteDetailVo vo = new MeetingMinuteDetailVo();
         vo.setMinuteVo(minuteVo);
         return vo;
     }
 
     private MeetingMinuteDetailVo map2Detail(SwMeetingMinutes meetingMinutes) {
+        List<SwMeetingMinutesDetail> minutesDetails = minutesDetailBusiness.queryMeetingMinuteDetail(meetingMinutes.getId());
+
         MeetingMinuteVo minuteVo = map2MinuteVo(meetingMinutes);
-        List<MeetingMinuteItemVo> decisionVo = new ArrayList<>();
-        List<MeetingMinuteItemVo> otherVo = new ArrayList<>();
+        List<MeetingMinuteItemVo> decisionVo = getMinuteItems(minutesDetails, MeetingItemTypeEnums.Decision);
+        List<MeetingMinuteItemVo> otherVo = getMinuteItems(minutesDetails, MeetingItemTypeEnums.Other);
 
         MeetingMinuteDetailVo vo = new MeetingMinuteDetailVo();
         vo.setMinuteVo(minuteVo);
         vo.setDecisionVo(decisionVo);
         vo.setOtherVo(otherVo);
+        return vo;
+    }
+
+    private List<MeetingMinuteItemVo> getMinuteItems(List<SwMeetingMinutesDetail> minutesDetails, MeetingItemTypeEnums other) {
+        return Optional.ofNullable(minutesDetails).orElse(Lists.newArrayList())
+                .stream()
+                .filter(e -> other.getCode().equalsIgnoreCase(e.getItemType()))
+                .map(e -> map2MinuteDetail(e))
+                .collect(Collectors.toList());
+    }
+
+    private MeetingMinuteItemVo map2MinuteDetail(SwMeetingMinutesDetail e) {
+        MeetingMinuteItemVo vo = new MeetingMinuteItemVo();
+        vo.setId(e.getId());
+        vo.setIndex(e.getIndexNo());
+        vo.setItemTitle(e.getItem());
+        vo.setDirector(e.getDirectEno());
+        vo.setDueDate(e.getDueDate());
+        vo.setStatus(e.getStatus());
+        vo.setRemark(e.getRemark());
         return vo;
     }
 
@@ -107,7 +124,6 @@ public class MinuteDetailProcessor {
     }
 
     private List<String> getMembersByRoles(List<SwMeetingMinutesMembers> members, MeetingRoleFlagEnums recorder) {
-        List<String> employeeNo = new ArrayList<>();
         return members.stream().filter(e -> recorder.test(e.getRole()))
                 .map(e -> e.getEmployeeNo())
                 .collect(Collectors.toList());

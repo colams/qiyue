@@ -28,11 +28,11 @@ public class MeetMinuteProcessor {
         SwMeetingMinutes meetingMinutes = toMeetingMinutes(minuteParams.getMinuteVo());
         List<SwMeetingMinutesDetail> detailList = new ArrayList<>();
         toMinutesDetail(minuteParams.getDecisionVo(),
-                MeetingItemTypeEnums.Decision.getCode(),
+                MeetingItemTypeEnums.Decision,
                 detailList);
         toMinutesDetail(
                 minuteParams.getDecisionVo(),
-                MeetingItemTypeEnums.Other.getCode(),
+                MeetingItemTypeEnums.Other,
                 detailList);
 
         Long meetingMinutesId = meetingMinutesBusiness.insertOrUpdate(meetingMinutes);
@@ -43,7 +43,7 @@ public class MeetMinuteProcessor {
 
 
     private void toMinutesDetail(List<MeetingMinuteItemVo> itemVos,
-                                 String itemType,
+                                 MeetingItemTypeEnums itemType,
                                  List<SwMeetingMinutesDetail> otherVo) {
         if (CollectionUtils.isEmpty(itemVos)) {
             return;
@@ -52,7 +52,7 @@ public class MeetMinuteProcessor {
         List<SwMeetingMinutesDetail> result = itemVos.stream().map(e -> {
             SwMeetingMinutesDetail detail = new SwMeetingMinutesDetail();
             detail.setId(e.getId());
-            detail.setItemType(itemType);
+            detail.setItemType(itemType.getCode());
             detail.setIndexNo(e.getIndex());
             detail.setItem(e.getItemTitle());
             detail.setDirectEno(e.getDirector());

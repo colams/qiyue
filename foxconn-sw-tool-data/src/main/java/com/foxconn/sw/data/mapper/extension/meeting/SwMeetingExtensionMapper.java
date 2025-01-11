@@ -102,8 +102,8 @@ public interface SwMeetingExtensionMapper extends SwMeetingMapper {
             "<if test='data.value!=null and data.value!=\"\"' >",
             " case when c.title is not null and c.title != '' then c.title else s.title end like CONCAT('%', #{data.value,jdbcType=VARCHAR}, '%') ",
             "</if> ",
-            "and ((s.meeting_date != '' and s.meeting_date &gt;= #{searchStart,jdbcType=VARCHAR} and s.meeting_date &lt;= #{searchEnd,jdbcType=VARCHAR}) or ",
-            "   (s.meeting_date = '' and (s.cycle_expire &gt;= #{searchEnd,jdbcType=VARCHAR} or s.cycle_expire='')))",
+            "and ((s.cycle ='' and s.meeting_date &gt;= #{searchStart,jdbcType=VARCHAR} and s.meeting_date &lt;= #{searchEnd,jdbcType=VARCHAR}) or ",
+            "   (s.cycle !='' and (s.cycle_expire &gt;= #{searchEnd,jdbcType=VARCHAR} or s.cycle_expire='')))",
             "</script>"
     })
     @Results({

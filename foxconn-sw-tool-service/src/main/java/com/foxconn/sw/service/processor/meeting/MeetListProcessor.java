@@ -28,6 +28,7 @@ import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.format.TextStyle;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 import java.util.stream.Collectors;
@@ -67,6 +68,11 @@ public class MeetListProcessor {
             if (!CollectionUtils.isEmpty(list)) {
                 vos.addAll(list);
             }
+        });
+
+
+        Collections.sort(vos, (a, b) -> {
+            return a.getMeetingDateVo().getMeetingDate().compareTo(b.getMeetingDateVo().getMeetingDate());
         });
 
         MeetListVo vo = new MeetListVo();
@@ -156,7 +162,7 @@ public class MeetListProcessor {
             return searchEndDate;
         }
 
-        LocalDate t = LocalDate.now();
+        LocalDate t = LocalDate.now().plusWeeks(1);
 
         DayOfWeek currentDayOfWeek = t.getDayOfWeek();
         // 计算距离周一的天数差
