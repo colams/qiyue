@@ -3,11 +3,13 @@ package com.foxconn.sw.business;
 import com.foxconn.sw.common.constanst.Constants;
 import com.foxconn.sw.common.utils.ConvertUtils;
 import com.foxconn.sw.common.utils.DomainRetrieval;
+import com.foxconn.sw.common.utils.JsonUtils;
 import com.foxconn.sw.data.dto.entity.ResourceVo;
 import com.foxconn.sw.data.entity.SwAppendResource;
 import com.foxconn.sw.data.entity.SwAppendResourceExample;
 import com.foxconn.sw.data.mapper.extension.SwAppendResourceExtensionMapper;
 import com.google.common.collect.Lists;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
@@ -80,5 +82,16 @@ public class SwAppendResourceBusiness {
         resource.setOriginName(originName);
         appendResourceExtensionMapper.insertSelective(resource);
         return resource.getId();
+    }
+
+    public List<ResourceVo> getAppendResourcesVo(String resourceIds) {
+        if (StringUtils.isEmpty(resourceIds)) {
+            return Lists.newArrayList();
+        }
+        List<Integer> resources = JsonUtils.deserialize(resourceIds, List.class, Integer.class);
+        if (CollectionUtils.isEmpty(resources)) {
+            return Lists.newArrayList();
+        }
+        return getAppendResourcesVo(resources);
     }
 }

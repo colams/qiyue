@@ -56,6 +56,10 @@ public class SwMeetingMinutesSqlProvider {
             sql.VALUES("webex_url", "#{webexUrl,jdbcType=VARCHAR}");
         }
         
+        if (record.getResourceIds() != null) {
+            sql.VALUES("resource_ids", "#{resourceIds,jdbcType=VARCHAR}");
+        }
+        
         if (record.getCreateTime() != null) {
             sql.VALUES("create_time", "#{createTime,jdbcType=TIMESTAMP}");
         }
@@ -81,6 +85,7 @@ public class SwMeetingMinutesSqlProvider {
         sql.SELECT("start_time");
         sql.SELECT("end_time");
         sql.SELECT("webex_url");
+        sql.SELECT("resource_ids");
         sql.SELECT("create_time");
         sql.SELECT("datetime_lastchange");
         sql.FROM("sw_meeting_minutes");
@@ -132,6 +137,10 @@ public class SwMeetingMinutesSqlProvider {
             sql.SET("webex_url = #{record.webexUrl,jdbcType=VARCHAR}");
         }
         
+        if (record.getResourceIds() != null) {
+            sql.SET("resource_ids = #{record.resourceIds,jdbcType=VARCHAR}");
+        }
+        
         if (record.getCreateTime() != null) {
             sql.SET("create_time = #{record.createTime,jdbcType=TIMESTAMP}");
         }
@@ -156,6 +165,7 @@ public class SwMeetingMinutesSqlProvider {
         sql.SET("start_time = #{record.startTime,jdbcType=VARCHAR}");
         sql.SET("end_time = #{record.endTime,jdbcType=VARCHAR}");
         sql.SET("webex_url = #{record.webexUrl,jdbcType=VARCHAR}");
+        sql.SET("resource_ids = #{record.resourceIds,jdbcType=VARCHAR}");
         sql.SET("create_time = #{record.createTime,jdbcType=TIMESTAMP}");
         sql.SET("datetime_lastchange = #{record.datetimeLastchange,jdbcType=TIMESTAMP}");
         
@@ -194,6 +204,10 @@ public class SwMeetingMinutesSqlProvider {
         
         if (record.getWebexUrl() != null) {
             sql.SET("webex_url = #{webexUrl,jdbcType=VARCHAR}");
+        }
+        
+        if (record.getResourceIds() != null) {
+            sql.SET("resource_ids = #{resourceIds,jdbcType=VARCHAR}");
         }
         
         if (record.getCreateTime() != null) {

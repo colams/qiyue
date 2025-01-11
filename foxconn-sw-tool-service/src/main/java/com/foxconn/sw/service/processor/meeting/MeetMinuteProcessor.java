@@ -27,11 +27,10 @@ public class MeetMinuteProcessor {
 
         SwMeetingMinutes meetingMinutes = toMeetingMinutes(minuteParams.getMinuteVo());
         List<SwMeetingMinutesDetail> detailList = new ArrayList<>();
-        toMinutesDetail(minuteParams.getMinuteVo(),
-                minuteParams.getDecisionVo(),
+        toMinutesDetail(minuteParams.getDecisionVo(),
                 MeetingItemTypeEnums.Decision.getCode(),
                 detailList);
-        toMinutesDetail(minuteParams.getMinuteVo(),
+        toMinutesDetail(
                 minuteParams.getDecisionVo(),
                 MeetingItemTypeEnums.Other.getCode(),
                 detailList);
@@ -43,8 +42,7 @@ public class MeetMinuteProcessor {
     }
 
 
-    private void toMinutesDetail(MeetingMinuteVo vo,
-                                 List<MeetingMinuteItemVo> itemVos,
+    private void toMinutesDetail(List<MeetingMinuteItemVo> itemVos,
                                  String itemType,
                                  List<SwMeetingMinutesDetail> otherVo) {
         if (CollectionUtils.isEmpty(itemVos)) {

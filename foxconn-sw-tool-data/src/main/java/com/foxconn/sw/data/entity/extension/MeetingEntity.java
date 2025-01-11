@@ -5,6 +5,8 @@ public class MeetingEntity {
     private Integer meetingId;
     private String title;
     private String cycle;
+    private String cycleStart;
+    private String cycleExpire;
     private String startTime;
     private String endTime;
     private String room;
@@ -32,6 +34,22 @@ public class MeetingEntity {
 
     public void setCycle(String cycle) {
         this.cycle = cycle;
+    }
+
+    public String getCycleStart() {
+        return cycleStart;
+    }
+
+    public void setCycleStart(String cycleStart) {
+        this.cycleStart = cycleStart;
+    }
+
+    public String getCycleExpire() {
+        return cycleExpire;
+    }
+
+    public void setCycleExpire(String cycleExpire) {
+        this.cycleExpire = cycleExpire;
     }
 
     public String getStartTime() {

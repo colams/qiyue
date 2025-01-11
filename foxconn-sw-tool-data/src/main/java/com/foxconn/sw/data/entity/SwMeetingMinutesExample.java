@@ -645,6 +645,76 @@ public class SwMeetingMinutesExample {
             return (Criteria) this;
         }
 
+        public Criteria andResourceIdsIsNull() {
+            addCriterion("resource_ids is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andResourceIdsIsNotNull() {
+            addCriterion("resource_ids is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andResourceIdsEqualTo(String value) {
+            addCriterion("resource_ids =", value, "resourceIds");
+            return (Criteria) this;
+        }
+
+        public Criteria andResourceIdsNotEqualTo(String value) {
+            addCriterion("resource_ids <>", value, "resourceIds");
+            return (Criteria) this;
+        }
+
+        public Criteria andResourceIdsGreaterThan(String value) {
+            addCriterion("resource_ids >", value, "resourceIds");
+            return (Criteria) this;
+        }
+
+        public Criteria andResourceIdsGreaterThanOrEqualTo(String value) {
+            addCriterion("resource_ids >=", value, "resourceIds");
+            return (Criteria) this;
+        }
+
+        public Criteria andResourceIdsLessThan(String value) {
+            addCriterion("resource_ids <", value, "resourceIds");
+            return (Criteria) this;
+        }
+
+        public Criteria andResourceIdsLessThanOrEqualTo(String value) {
+            addCriterion("resource_ids <=", value, "resourceIds");
+            return (Criteria) this;
+        }
+
+        public Criteria andResourceIdsLike(String value) {
+            addCriterion("resource_ids like", value, "resourceIds");
+            return (Criteria) this;
+        }
+
+        public Criteria andResourceIdsNotLike(String value) {
+            addCriterion("resource_ids not like", value, "resourceIds");
+            return (Criteria) this;
+        }
+
+        public Criteria andResourceIdsIn(List<String> values) {
+            addCriterion("resource_ids in", values, "resourceIds");
+            return (Criteria) this;
+        }
+
+        public Criteria andResourceIdsNotIn(List<String> values) {
+            addCriterion("resource_ids not in", values, "resourceIds");
+            return (Criteria) this;
+        }
+
+        public Criteria andResourceIdsBetween(String value1, String value2) {
+            addCriterion("resource_ids between", value1, value2, "resourceIds");
+            return (Criteria) this;
+        }
+
+        public Criteria andResourceIdsNotBetween(String value1, String value2) {
+            addCriterion("resource_ids not between", value1, value2, "resourceIds");
+            return (Criteria) this;
+        }
+
         public Criteria andCreateTimeIsNull() {
             addCriterion("create_time is null");
             return (Criteria) this;
@@ -792,6 +862,11 @@ public class SwMeetingMinutesExample {
 
         public Criteria andWebexUrlLikeInsensitive(String value) {
             addCriterion("upper(webex_url) like", value.toUpperCase(), "webexUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andResourceIdsLikeInsensitive(String value) {
+            addCriterion("upper(resource_ids) like", value.toUpperCase(), "resourceIds");
             return (Criteria) this;
         }
     }

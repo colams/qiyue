@@ -103,13 +103,15 @@ public interface SwMeetingExtensionMapper extends SwMeetingMapper {
             " case when c.title is not null and c.title != '' then c.title else s.title end like CONCAT('%', #{data.value,jdbcType=VARCHAR}, '%') ",
             "</if> ",
             "and ((s.meeting_date != '' and s.meeting_date &gt;= #{searchStart,jdbcType=VARCHAR} and s.meeting_date &lt;= #{searchEnd,jdbcType=VARCHAR}) or ",
-            "   (s.meeting_date = '' and s.cycle_start &lt;= #{searchStart,jdbcType=VARCHAR} and (s.cycle_expire &gt;= #{searchEnd,jdbcType=VARCHAR} or s.cycle_expire='')))",
+            "   (s.meeting_date = '' and (s.cycle_expire &gt;= #{searchEnd,jdbcType=VARCHAR} or s.cycle_expire='')))",
             "</script>"
     })
     @Results({
             @Result(column = "meetingId", property = "meetingId", jdbcType = JdbcType.INTEGER),
             @Result(column = "title", property = "title", jdbcType = JdbcType.VARCHAR),
             @Result(column = "cycle", property = "cycle", jdbcType = JdbcType.VARCHAR),
+            @Result(column = "cycle_start", property = "cycleStart", jdbcType = JdbcType.VARCHAR),
+            @Result(column = "cycle_expire", property = "cycleExpire", jdbcType = JdbcType.VARCHAR),
             @Result(column = "start_time", property = "startTime", jdbcType = JdbcType.VARCHAR),
             @Result(column = "end_time", property = "endTime", jdbcType = JdbcType.VARCHAR),
             @Result(column = "room", property = "room", jdbcType = JdbcType.VARCHAR),

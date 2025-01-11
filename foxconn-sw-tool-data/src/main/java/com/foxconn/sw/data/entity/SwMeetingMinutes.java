@@ -19,6 +19,8 @@ public class SwMeetingMinutes {
 
     private String webexUrl;
 
+    private String resourceIds;
+
     private LocalDateTime createTime;
 
     private LocalDateTime datetimeLastchange;
@@ -125,6 +127,19 @@ public class SwMeetingMinutes {
 
     public void setWebexUrl(String webexUrl) {
         this.webexUrl = webexUrl == null ? null : webexUrl.trim();
+    }
+
+    public String getResourceIds() {
+        return resourceIds;
+    }
+
+    public SwMeetingMinutes withResourceIds(String resourceIds) {
+        this.setResourceIds(resourceIds);
+        return this;
+    }
+
+    public void setResourceIds(String resourceIds) {
+        this.resourceIds = resourceIds == null ? null : resourceIds.trim();
     }
 
     public LocalDateTime getCreateTime() {

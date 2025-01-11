@@ -1,6 +1,7 @@
 package com.foxconn.sw.data.dto.entity.meeting;
 
 import com.foxconn.sw.data.dto.communal.MeetingDateTimeVo;
+import com.foxconn.sw.data.dto.entity.ResourceVo;
 
 import java.util.List;
 
@@ -14,7 +15,7 @@ public class MeetingMinuteVo {
     private String recorder;
     private List<String> members;
     private String meetingTitle;
-    private List<Long> resourceIds;
+    private List<ResourceVo> resourceIds;
 
     public Long getId() {
         return id;
@@ -80,11 +81,11 @@ public class MeetingMinuteVo {
         this.meetingTitle = meetingTitle;
     }
 
-    public List<Long> getResourceIds() {
+    public List<ResourceVo> getResourceIds() {
         return resourceIds;
     }
 
-    public void setResourceIds(List<Long> resourceIds) {
+    public void setResourceIds(List<ResourceVo> resourceIds) {
         this.resourceIds = resourceIds;
     }
 }

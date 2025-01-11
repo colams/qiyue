@@ -93,15 +93,6 @@ public class MeetingController {
     }
 
     @Permission
-    @Operation(summary = "会议时间线", tags = "meet.2")
-    @ApiResponse(responseCode = "0", description = "成功码")
-    @PostMapping("/meetingLine")
-    public Response<List<MeetingLineVo>> meetingLine(@Valid @RequestBody Request<IntegerParams> request) {
-        List<MeetingLineVo> vos = meetingLineProcessor.meetingLines(request.getData().getParams());
-        return ResponseUtils.success(vos, request.getTraceId());
-    }
-
-    @Permission
     @Operation(summary = "会议列表查询", tags = "meet.2")
     @ApiResponse(responseCode = "0", description = "成功码")
     @PostMapping("/meetList")
@@ -111,12 +102,12 @@ public class MeetingController {
     }
 
     @Permission
-    @Operation(summary = "会议记录总结", tags = "meet.2")
+    @Operation(summary = "会议时间线", tags = "meet.2")
     @ApiResponse(responseCode = "0", description = "成功码")
-    @PostMapping("/meetMinute")
-    public Response<Boolean> meetMinute(@Valid @RequestBody Request<MeetingMinuteParams> request) {
-        Boolean result = meetMinuteProcessor.meetMinute(request.getData());
-        return ResponseUtils.success(result, request.getTraceId());
+    @PostMapping("/meetingLine")
+    public Response<List<MeetingLineVo>> meetingLine(@Valid @RequestBody Request<IntegerParams> request) {
+        List<MeetingLineVo> vos = meetingLineProcessor.meetingLines(request.getData().getParams());
+        return ResponseUtils.success(vos, request.getTraceId());
     }
 
     @Permission
@@ -127,5 +118,17 @@ public class MeetingController {
         MeetingMinuteDetailVo vo = minuteDetailProcessor.minuteDetail(request.getData());
         return ResponseUtils.success(vo, request.getTraceId());
     }
+
+
+    @Permission
+    @Operation(summary = "会议记录总结", tags = "meet.2")
+    @ApiResponse(responseCode = "0", description = "成功码")
+    @PostMapping("/meetMinute")
+    public Response<Boolean> meetMinute(@Valid @RequestBody Request<MeetingMinuteParams> request) {
+        Boolean result = meetMinuteProcessor.meetMinute(request.getData());
+        return ResponseUtils.success(result, request.getTraceId());
+    }
+
+
 
 }

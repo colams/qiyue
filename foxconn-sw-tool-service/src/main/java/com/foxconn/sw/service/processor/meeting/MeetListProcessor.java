@@ -59,7 +59,9 @@ public class MeetListProcessor {
             if (CollectionUtils.isEmpty(cycles)) {
                 list = map2MeetingV2Vo(e);
             } else {
-                list = map2MeetingV2Vo(e, cycles, searchStartDate, searchEndDate);
+                String startDate = searchStartDate.compareTo(e.getCycleStart()) >= 0 ? searchStartDate : e.getCycleStart();
+                String endDate = searchEndDate.compareTo(e.getCycleExpire()) >= 0 && StringUtils.isNotEmpty(e.getCycleExpire()) ? e.getCycleExpire() : searchEndDate;
+                list = map2MeetingV2Vo(e, cycles, startDate, endDate);
             }
 
             if (!CollectionUtils.isEmpty(list)) {
@@ -82,7 +84,7 @@ public class MeetListProcessor {
         LocalDate startDate = LocalDateExtUtils.toLocalDate(searchStartDate);
         LocalDate endDate = LocalDateExtUtils.toLocalDate(searchEndDate);
 
-        while (endDate.isAfter(startDate)) {
+        while (endDate.compareTo(startDate) >= 0) {
             int week = startDate.getDayOfWeek().getValue();
             if (cycles.contains(week)) {
                 MeetingV2Vo vo = map2MeetingV2Vo(meetingEntity, startDate);
@@ -104,8 +106,8 @@ public class MeetListProcessor {
         MeetingDateTimeVo meetingDateTimeVo = new MeetingDateTimeVo();
         meetingDateTimeVo.setWeekInfo(startDate.getDayOfWeek().getDisplayName(TextStyle.SHORT, Locale.getDefault()));
         meetingDateTimeVo.setMeetingDate(LocalDateExtUtils.toString(startDate));
-        meetingDateTimeVo.setStartTime(meetingDateTimeVo.getStartTime());
-        meetingDateTimeVo.setEndTime(meetingDateTimeVo.getEndTime());
+        meetingDateTimeVo.setStartTime(meetingEntity.getStartTime());
+        meetingDateTimeVo.setEndTime(meetingEntity.getEndTime());
 
 
         List<SwMeetingMember> members = memberBusiness.queryMeetingMember(meetingEntity.getMeetingId());
@@ -150,12 +152,11 @@ public class MeetListProcessor {
     }
 
     private String getEndSunday(String searchEndDate) {
-        LocalDate t;
-        if (StringUtils.isEmpty(searchEndDate)) {
-            t = LocalDate.now().plusWeeks(1);
-        } else {
-            t = LocalDateExtUtils.toLocalDate(searchEndDate);
+        if (StringUtils.isNotEmpty(searchEndDate)) {
+            return searchEndDate;
         }
+
+        LocalDate t = LocalDate.now();
 
         DayOfWeek currentDayOfWeek = t.getDayOfWeek();
         // 计算距离周一的天数差
@@ -166,12 +167,11 @@ public class MeetListProcessor {
     }
 
     private String getCurrentMonday(String searchStartDate) {
-        LocalDate t;
-        if (StringUtils.isEmpty(searchStartDate)) {
-            t = LocalDate.now();
-        } else {
-            t = LocalDateExtUtils.toLocalDate(searchStartDate);
+        if (StringUtils.isNotEmpty(searchStartDate)) {
+            return searchStartDate;
         }
+
+        LocalDate t = LocalDate.now();
         DayOfWeek currentDayOfWeek = t.getDayOfWeek();
         // 计算距离周一的天数差
         int daysUntilMonday = currentDayOfWeek.getValue() - DayOfWeek.MONDAY.getValue();
