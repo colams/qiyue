@@ -1,6 +1,6 @@
 package com.foxconn.sw.service.processor.meeting.utils;
 
-import com.foxconn.sw.common.context.RequestContext;
+import com.foxconn.sw.data.context.RequestContext;
 import com.foxconn.sw.data.dto.communal.MeetingMemberEnoVo;
 import com.foxconn.sw.data.entity.SwMeetingMember;
 import com.google.common.collect.Lists;

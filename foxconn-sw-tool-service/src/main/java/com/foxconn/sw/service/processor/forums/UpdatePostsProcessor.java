@@ -5,7 +5,7 @@ import com.foxconn.sw.business.forums.ForumBbsCommentBusiness;
 import com.foxconn.sw.business.forums.ForumParticipantBusiness;
 import com.foxconn.sw.business.forums.ForumPostsAttachmentBusiness;
 import com.foxconn.sw.common.constanst.NumberConstants;
-import com.foxconn.sw.common.context.RequestContext;
+import com.foxconn.sw.data.context.RequestContext;
 import com.foxconn.sw.data.dto.entity.universal.IntegerParams;
 import com.foxconn.sw.data.dto.request.forums.DeletePostsParams;
 import com.foxconn.sw.data.dto.request.forums.UpdateAttachParams;

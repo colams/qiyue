@@ -1,7 +1,7 @@
 package com.foxconn.sw.service.processor.system;
 
 import com.foxconn.sw.business.system.SwChangeLogBusiness;
-import com.foxconn.sw.common.context.RequestContext;
+import com.foxconn.sw.data.context.RequestContext;
 import com.foxconn.sw.common.utils.IntegerExtUtils;
 import com.foxconn.sw.data.dto.request.system.CreateChangeLogParams;
 import com.foxconn.sw.data.dto.request.system.UpdateChangeLogParams;

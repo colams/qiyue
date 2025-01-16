@@ -1,6 +1,6 @@
 package com.foxconn.sw.business;
 
-import com.foxconn.sw.common.context.RequestContext;
+import com.foxconn.sw.data.context.RequestContext;
 import com.foxconn.sw.data.constants.enums.ModuleEnums;
 import com.foxconn.sw.data.entity.SwReadStatus;
 import com.foxconn.sw.data.entity.SwReadStatusExample;

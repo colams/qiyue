@@ -1,13 +1,15 @@
 package com.foxconn.sw.service.aspects;
 
 import com.foxconn.sw.business.LogBusiness;
-import com.foxconn.sw.common.context.RequestContext;
 import com.foxconn.sw.common.utils.JsonUtils;
 import com.foxconn.sw.common.utils.ServletUtils;
+import com.foxconn.sw.data.context.RequestContext;
 import com.foxconn.sw.data.dto.Request;
 import com.foxconn.sw.data.dto.Response;
+import com.foxconn.sw.data.dto.entity.acount.LoginParams;
 import com.foxconn.sw.data.dto.entity.acount.UserInfo;
 import com.foxconn.sw.service.processor.user.CommonUserUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -35,12 +37,12 @@ public class PermissionAspect {
     @Autowired
     private ServletUtils servletUtils;
 
-    @Pointcut("@annotation(com.foxconn.sw.service.aspects.Permission)")
+    @Pointcut("@annotation(org.springframework.web.bind.annotation.PostMapping)")
     private void checkPermission() {
     }
 
-    @Around("checkPermission() && @annotation(permission) && args(request,..)")
-    public Object aroundAdvice(ProceedingJoinPoint joinPoint, Permission permission, Object request) throws Throwable {
+    @Around("checkPermission() && args(request,..)")
+    public Object aroundAdvice(ProceedingJoinPoint joinPoint, Object request) throws Throwable {
         Object retValue = null;
         StopWatch stopWatch = new StopWatch();
         try {
@@ -66,7 +68,16 @@ public class PermissionAspect {
         } else {
             request = JsonUtils.deserialize((String) obj, Request.class);
         }
-        if (Objects.nonNull(request.getHead()) && Objects.nonNull(request.getHead())) {
+
+        if (request.getData() instanceof LoginParams) {
+            RequestContext.put(RequestContext.ContextKey.EmployeeNo, ((LoginParams) request.getData()).getEmployeeNo());
+        } else {
+            RequestContext.put(RequestContext.ContextKey.EmployeeNo, request.getHead().getToken());
+        }
+
+        if (Objects.nonNull(request)
+                && Objects.nonNull(request.getHead())
+                && StringUtils.isNotEmpty(request.getHead().getToken())) {
             UserInfo userInfo = commonUserUtils.queryUserInfo(request.getHead().getToken());
             String nameEmployeeNo = String.format("%s(%s)", userInfo.getEmployeeName(), userInfo.getEmployeeNo());
             RequestContext.put(RequestContext.ContextKey.USER_INFO, userInfo);
@@ -75,6 +86,8 @@ public class PermissionAspect {
             RequestContext.put(RequestContext.ContextKey.OperateType, signatureName);
             RequestContext.put(RequestContext.ContextKey.TraceID, request.getTraceId());
         }
+
+
     }
 
     private void logParam(ProceedingJoinPoint joinPoint, Object retValue, long intervals, String ip, Object request) {

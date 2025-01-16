@@ -1,6 +1,6 @@
 package com.foxconn.sw.service.processor.report;
 
-import com.foxconn.sw.common.context.RequestContext;
+import com.foxconn.sw.data.context.RequestContext;
 import com.foxconn.sw.business.report.SwWorkReportBusiness;
 import com.foxconn.sw.common.utils.JsonUtils;
 import com.foxconn.sw.data.dto.entity.oa.WorkReportParams;

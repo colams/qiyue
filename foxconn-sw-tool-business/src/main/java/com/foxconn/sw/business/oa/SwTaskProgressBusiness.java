@@ -1,7 +1,7 @@
 package com.foxconn.sw.business.oa;
 
 import com.foxconn.sw.business.SwAppendResourceBusiness;
-import com.foxconn.sw.common.context.RequestContext;
+import com.foxconn.sw.data.context.RequestContext;
 import com.foxconn.sw.common.utils.ConvertUtils;
 import com.foxconn.sw.data.constants.enums.TaskOperateType;
 import com.foxconn.sw.data.dto.entity.ResourceVo;

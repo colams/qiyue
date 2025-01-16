@@ -57,12 +57,6 @@ public class UserBusiness {
         return userInfo;
     }
 
-    public String getUserAvatar(String employeeID) {
-        UserInfo userInfo = sysUserExtensionMapper.queryUserInfo(employeeID);
-        return resourceBusiness.getResourceUrl(userInfo.getAvatarID());
-    }
-
-
     public List<EmployeeVo> queryEmployees(EmployeeParams employeeParams) {
         return sysUserExtensionMapper.queryEmployees(employeeParams);
     }

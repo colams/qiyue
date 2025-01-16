@@ -1,6 +1,6 @@
 package com.foxconn.sw.service.utils;
 
-import com.foxconn.sw.common.context.RequestContext;
+import com.foxconn.sw.data.context.RequestContext;
 import com.foxconn.sw.common.utils.DateTimeUtils;
 import com.foxconn.sw.common.utils.WeekUtils;
 import com.foxconn.sw.common.constanst.NumberConstants;

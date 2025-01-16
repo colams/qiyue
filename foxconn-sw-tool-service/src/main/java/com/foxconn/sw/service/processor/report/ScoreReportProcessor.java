@@ -1,6 +1,6 @@
 package com.foxconn.sw.service.processor.report;
 
-import com.foxconn.sw.common.context.RequestContext;
+import com.foxconn.sw.data.context.RequestContext;
 import com.foxconn.sw.business.report.SwWorkReportScoreBusiness;
 import com.foxconn.sw.data.dto.request.report.ScoreParams;
 import com.foxconn.sw.data.entity.SwWorkReportScore;

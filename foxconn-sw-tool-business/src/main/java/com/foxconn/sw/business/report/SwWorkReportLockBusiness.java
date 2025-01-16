@@ -1,6 +1,6 @@
 package com.foxconn.sw.business.report;
 
-import com.foxconn.sw.common.context.RequestContext;
+import com.foxconn.sw.data.context.RequestContext;
 import com.foxconn.sw.data.entity.SwWorkReportLock;
 import com.foxconn.sw.data.mapper.extension.oa.SwWorkReportLockExtensionMapper;
 import org.springframework.beans.factory.annotation.Autowired;

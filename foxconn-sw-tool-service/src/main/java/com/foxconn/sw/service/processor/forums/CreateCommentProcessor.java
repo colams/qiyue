@@ -2,7 +2,7 @@ package com.foxconn.sw.service.processor.forums;
 
 import com.foxconn.sw.business.forums.ForumBbsCommentBusiness;
 import com.foxconn.sw.business.forums.ForumPostsAttachmentBusiness;
-import com.foxconn.sw.common.context.RequestContext;
+import com.foxconn.sw.data.context.RequestContext;
 import com.foxconn.sw.data.dto.request.forums.CommentsParams;
 import com.foxconn.sw.data.entity.ForumBbsComment;
 import org.springframework.beans.factory.annotation.Autowired;

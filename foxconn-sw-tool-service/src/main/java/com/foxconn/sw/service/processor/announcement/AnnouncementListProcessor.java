@@ -1,7 +1,7 @@
 package com.foxconn.sw.service.processor.announcement;
 
 import com.foxconn.sw.business.AnnouncementBusiness;
-import com.foxconn.sw.common.context.RequestContext;
+import com.foxconn.sw.data.context.RequestContext;
 import com.foxconn.sw.common.utils.IntegerExtUtils;
 import com.foxconn.sw.common.utils.LocalDateExtUtils;
 import com.foxconn.sw.data.dto.request.announcement.AnnouncementParams;

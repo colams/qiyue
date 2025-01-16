@@ -1,4 +1,4 @@
-package com.foxconn.sw.common.context;
+package com.foxconn.sw.data.context;
 
 import java.util.HashMap;
 import java.util.Map;

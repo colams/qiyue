@@ -1,7 +1,7 @@
 
 package com.foxconn.sw.business.collaboration;
 
-import com.foxconn.sw.common.context.RequestContext;
+import com.foxconn.sw.data.context.RequestContext;
 import com.foxconn.sw.data.entity.SwCollaborationDetail;
 import com.foxconn.sw.data.entity.SwCollaborationDetailLog;
 import com.foxconn.sw.data.entity.SwCollaborationDetailLogExample;

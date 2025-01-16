@@ -2,7 +2,7 @@ package com.foxconn.sw.business.collaboration;
 
 import com.foxconn.sw.business.SwAppendResourceBusiness;
 import com.foxconn.sw.business.oa.SwTaskProgressBusiness;
-import com.foxconn.sw.common.context.RequestContext;
+import com.foxconn.sw.data.context.RequestContext;
 import com.foxconn.sw.common.utils.ConvertUtils;
 import com.foxconn.sw.common.utils.ExcelUtils;
 import com.foxconn.sw.common.utils.FilePathUtils;

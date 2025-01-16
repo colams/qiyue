@@ -1,6 +1,6 @@
 package com.foxconn.sw.business.system;
 
-import com.foxconn.sw.common.context.RequestContext;
+import com.foxconn.sw.data.context.RequestContext;
 import com.foxconn.sw.common.utils.IntegerExtUtils;
 import com.foxconn.sw.data.dto.entity.system.DepartmentVo;
 import com.foxconn.sw.data.entity.SwDepartment;

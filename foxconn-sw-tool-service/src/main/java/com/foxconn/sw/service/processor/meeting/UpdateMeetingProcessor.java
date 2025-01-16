@@ -5,7 +5,7 @@ import com.foxconn.sw.business.meeting.MeetingCycleDetailBusiness;
 import com.foxconn.sw.business.meeting.MeetingMemberBusiness;
 import com.foxconn.sw.business.meeting.utils.CycleUtils;
 import com.foxconn.sw.common.constanst.NumberConstants;
-import com.foxconn.sw.common.context.RequestContext;
+import com.foxconn.sw.data.context.RequestContext;
 import com.foxconn.sw.common.utils.JsonUtils;
 import com.foxconn.sw.data.dto.request.meeting.UpdateMeetingParams;
 import com.foxconn.sw.data.entity.SwMeeting;

@@ -42,9 +42,8 @@ public class LoginProcessor {
         UserInfo userInfo = userBusiness.queryUserInfo(employeeNo);
         SwUserLogin userLogin = userLoginBusiness.queryLoginStateByName(employeeNo, now);
 
-        String token = UUIDUtils.getUuid();
+        String token = UUIDUtils.getUuid() + "#" + employeeNo;
         LocalDateTime expireTime = now.plusHours(24 * 7);
-
 
         LoginStateVo vo;
         if (Objects.nonNull(userLogin)) {
