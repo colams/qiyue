@@ -32,6 +32,7 @@ public class SubordinateProcessor {
             vo.setName(e.getName());
             vo.setEmployeeNo(e.getEmployeeNo());
             vo.setPinyin(PinyinUtils.toPinyin(e.getName()));
+            vo.setInnerEmail(e.getInnerEmail());
             vo.setDepartmentId(e.getDepartmentId());
             vo.setDepartments(getDepartmentList(e.getDepartmentId()));
             return vo;

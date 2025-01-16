@@ -16,6 +16,8 @@ public class EmployeeVo {
 
     private String departmentName;
 
+    private String innerEmail;
+
     private String firstLetter;
 
     private String pinyin;
@@ -68,6 +70,14 @@ public class EmployeeVo {
 
     public void setDepartmentName(String departmentName) {
         this.departmentName = departmentName;
+    }
+
+    public String getInnerEmail() {
+        return innerEmail;
+    }
+
+    public void setInnerEmail(String innerEmail) {
+        this.innerEmail = innerEmail;
     }
 
     public String getFirstLetter() {

@@ -16,7 +16,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
 
-import java.util.*;
+import java.util.Collections;
+import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Component
@@ -26,21 +29,12 @@ public class EmployeeBusiness {
     @Autowired
     DepartmentBusiness departmentBusiness;
 
-    private static List<SwEmployee> employeeList = new ArrayList<>();
 
     public List<SwEmployee> getEmployeeList() {
-        if (!CollectionUtils.isEmpty(employeeList)) {
-            return employeeList;
-        }
-        return init();
-    }
-
-    private List<SwEmployee> init() {
         SwEmployeeExample example = new SwEmployeeExample();
         SwEmployeeExample.Criteria criteria = example.createCriteria();
         criteria.andStatusEqualTo(0);
-        employeeList = employeeExtensionMapper.selectByExample(example);
-        return employeeList;
+        return employeeExtensionMapper.selectByExample(example);
     }
 
     public SwEmployee save(SwEmployee employee) {
@@ -48,7 +42,6 @@ public class EmployeeBusiness {
         if (!result) {
             throw new BizException(AccountExceptionCode.CREATE_EMPLOYEE_EXCEPTION);
         }
-        init();
         return employee;
     }
 
@@ -86,7 +79,6 @@ public class EmployeeBusiness {
 
     public boolean updateEmployee(SwEmployee updateEmployee) {
         boolean res = employeeExtensionMapper.updateByPrimaryKeySelective(updateEmployee) > 0;
-        init();
         return res;
     }
 
@@ -221,7 +213,7 @@ public class EmployeeBusiness {
     }
 
     public String convertEmployeeNo(String employeeNo) {
-        return employeeList.stream()
+        return getEmployeeList().stream()
                 .filter(e -> employeeNo.equalsIgnoreCase(e.getAssistant()))
                 .map(e -> e.getEmployeeNo())
                 .findFirst()

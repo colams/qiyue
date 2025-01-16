@@ -3,6 +3,7 @@ package com.foxconn.sw.service.processor.acount;
 import com.foxconn.sw.business.account.UserBusiness;
 import com.foxconn.sw.business.account.UserLoginBusiness;
 import com.foxconn.sw.business.system.EmployeeBusiness;
+import com.foxconn.sw.common.constanst.NumberConstants;
 import com.foxconn.sw.common.utils.DateTimeUtils;
 import com.foxconn.sw.common.utils.IntegerExtUtils;
 import com.foxconn.sw.common.utils.SecurityUtils;
@@ -41,6 +42,8 @@ public class EmployeeManagerProcessor {
         employee.setName(data.getName());
         employee.setDepartmentId(data.getDepartmentId());
         employee.setInnerEmail(data.getInnerEmail());
+        employee.setEmployeeNo(data.getEmployeeNo());
+        employee.setIsComplete(NumberConstants.ZERO);
         return employeeBusiness.insertOrUpdate(employee) > 0;
     }
 
