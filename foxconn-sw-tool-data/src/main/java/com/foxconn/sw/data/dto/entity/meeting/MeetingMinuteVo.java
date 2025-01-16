@@ -16,6 +16,7 @@ public class MeetingMinuteVo {
     private String recorder;
     private List<String> members;
     private String meetingTitle;
+    private String meetingRoomKey;
     private List<ResourceVo> resourceIds;
 
     public Long getId() {
@@ -88,5 +89,13 @@ public class MeetingMinuteVo {
 
     public void setResourceIds(List<ResourceVo> resourceIds) {
         this.resourceIds = resourceIds;
+    }
+
+    public String getMeetingRoomKey() {
+        return meetingRoomKey;
+    }
+
+    public void setMeetingRoomKey(String meetingRoomKey) {
+        this.meetingRoomKey = meetingRoomKey;
     }
 }

@@ -1,13 +1,14 @@
-package com.foxconn.sw.service.service.impl;
+package com.foxconn.sw.service.processor;
 
 import com.foxconn.sw.common.utils.UUIDUtils;
-import com.foxconn.sw.service.service.SseEmitterService;
-import lombok.extern.slf4j.Slf4j;
+import com.foxconn.sw.data.dto.request.sse.SseMsgParams;
 import org.apache.commons.collections4.MapUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
 import java.io.IOException;
@@ -15,9 +16,10 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Consumer;
 
-@Slf4j
-@Service
-public class SseEmitterServiceImpl implements SseEmitterService {
+@Component
+public class SseEmitterProcessor {
+
+    private static final Logger log = LoggerFactory.getLogger(SseEmitterProcessor.class);
 
     /**
      * 容器，保存连接，用于输出返回 ;可使用其他方法实现
@@ -30,7 +32,6 @@ public class SseEmitterServiceImpl implements SseEmitterService {
      *
      * @param clientId 客户端ID
      */
-    @Override
     public SseEmitter getSseEmitterByClientId(String clientId) {
         return sseCache.get(clientId);
     }
@@ -41,7 +42,6 @@ public class SseEmitterServiceImpl implements SseEmitterService {
      *
      * @param clientId 客户端ID
      */
-    @Override
     public SseEmitter createConnect(String clientId) {
         // 设置超时时间，0表示不过期。默认30秒，超过时间未完成会抛出异常：AsyncRequestTimeoutException
         SseEmitter sseEmitter = new SseEmitter(0L);
@@ -65,64 +65,29 @@ public class SseEmitterServiceImpl implements SseEmitterService {
     }
 
     /**
-     * 发送消息给所有客户端
-     *
-     * @param msg 消息内容
-     */
-    @Override
-    public void sendMessageToAllClient(String msg) {
-        if (MapUtils.isEmpty(sseCache)) {
-            return;
-        }
-        // 判断发送的消息是否为空
-
-        for (Map.Entry<String, SseEmitter> entry : sseCache.entrySet()) {
-//            MessageVo messageVo = new MessageVo();
-//            messageVo.setClientId(entry.getKey());
-//            messageVo.setData(msg);
-//            sendMsgToClientByClientId(entry.getKey(), null, entry.getValue());
-        }
-
-    }
-
-    /**
-     * 给指定客户端发送消息
-     *
-     * @param clientId 客户端ID
-     * @param msg      消息内容
-     */
-    @Override
-    public void sendMessageToOneClient(String clientId, String msg) {
-//        MessageVo messageVo = new MessageVo(clientId, msg);
-//        sendMsgToClientByClientId(clientId, null, sseCache.get(clientId));
-    }
-
-    /**
      * 关闭连接
      *
      * @param clientId 客户端ID
      */
-    @Override
-    public void closeConnect(String clientId) {
+    public String closeConnect(String clientId) {
         SseEmitter sseEmitter = sseCache.get(clientId);
         if (sseEmitter != null) {
             sseEmitter.complete();
             removeUser(clientId);
         }
+        return "成功";
     }
 
     /**
      * 推送消息到客户端
      * 此处做了推送失败后，重试推送机制，可根据自己业务进行修改
-     *
-     * @param clientId  客户端ID
-     * @param  sseEmitter 推送信息，此处结合具体业务，定义自己的返回值即可
      **/
-    private void sendMsgToClientByClientId(String clientId, SseEmitter sseEmitter) {
+    public String sendMessage(SseMsgParams data) throws IOException {
+        String clientId = data.getToken();
+        SseEmitter sseEmitter = sseCache.get(clientId);
         if (sseEmitter == null) {
-//            log.error("推送消息失败：客户端{}未创建长链接,失败消息:{}",
-//                    clientId, messageVo.toString());
-            return;
+            log.error("推送消息失败：客户端{}未创建长链接,失败消息:{}", clientId, data.getMessage());
+            return "失敗";
         }
         SseEmitter.SseEventBuilder sendData = SseEmitter.event().id(String.valueOf(HttpStatus.OK))
                 .data(null, MediaType.APPLICATION_JSON);
@@ -136,7 +101,7 @@ public class SseEmitterServiceImpl implements SseEmitterService {
             for (int i = 0; i < 5; i++) {
                 try {
                     Thread.sleep(10000);
-                    sseEmitter = sseCache.get(clientId);
+                    sseEmitter = sseCache.get(data.getToken());
                     if (sseEmitter == null) {
                         log.error("{}的第{}次消息重推失败，未创建长链接", clientId, i + 1);
                         continue;
@@ -147,9 +112,10 @@ public class SseEmitterServiceImpl implements SseEmitterService {
                     continue;
                 }
                 log.info("{}的第{}次消息重推成功,{}", clientId, i + 1, "");
-                return;
+                return "推送結束";
             }
         }
+        return "success";
     }
 
 

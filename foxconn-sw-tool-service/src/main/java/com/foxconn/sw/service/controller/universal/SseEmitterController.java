@@ -1,11 +1,18 @@
 package com.foxconn.sw.service.controller.universal;
 
 import com.foxconn.sw.data.dto.Request;
+import com.foxconn.sw.data.dto.Response;
+import com.foxconn.sw.data.dto.entity.universal.StringParams;
+import com.foxconn.sw.data.dto.request.sse.SseMsgParams;
+import com.foxconn.sw.service.processor.SseEmitterProcessor;
+import com.foxconn.sw.service.utils.ResponseUtils;
 import jakarta.validation.Valid;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
+import java.io.IOException;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -13,24 +20,26 @@ import java.util.concurrent.ConcurrentHashMap;
 @RequestMapping("api/sse")
 public class SseEmitterController {
 
-    private static Map<String, SseEmitter> sseEmitterMap = new ConcurrentHashMap<>();
+    @Autowired
+    SseEmitterProcessor sseEmitterProcessor;
 
-    @GetMapping("/createConnect")
-    public SseEmitter createConnect(@Valid @RequestBody Request request) {
-        SseEmitter sseEmitter = new SseEmitter(0L);
-
-        sseEmitter.onCompletion(() -> {
-
-        });
-
-        sseEmitter.onTimeout(() -> {
-
-        });
-
-        sseEmitterMap.put("", sseEmitter);
-
-        return sseEmitter;
+    @PostMapping("/connect")
+    public SseEmitter connect(@Valid @RequestBody Request request) {
+        return sseEmitterProcessor.createConnect(request.getHead().getToken());
     }
+
+    @PostMapping("/sendMsg")
+    public Response<String> sendMsg(@Valid @RequestBody Request<SseMsgParams> request) throws IOException {
+        String result = sseEmitterProcessor.sendMessage(request.getData());
+        return ResponseUtils.success(result, request.getTraceId());
+    }
+
+    @PostMapping("/close")
+    public Response<String> close(@RequestBody Request<StringParams> request) {
+        String result = sseEmitterProcessor.closeConnect(request.getData().getParams());
+        return ResponseUtils.success(result, request.getTraceId());
+    }
+
 
     @GetMapping(path = "/stream-sse", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
     public SseEmitter handleSse() {
@@ -54,14 +63,7 @@ public class SseEmitterController {
 
     @PostMapping("/broadcast")
     public void sendMessageToAllClient(@RequestBody(required = false) String msg) {
-    }
 
-//    @PostMapping("/sendMessage")
-//    public void sendMessageToOneClient() {
-//    }
-
-    @GetMapping("/closeConnect")
-    public void closeConnect(@RequestParam(required = true) String clientId) {
     }
 
 }
