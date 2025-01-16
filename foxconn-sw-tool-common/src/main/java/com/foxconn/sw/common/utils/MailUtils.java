@@ -10,15 +10,20 @@ import java.util.ArrayList;
 
 /**
  * 公司邮件发送类
+ * rayplus-oa@mail.foxconn.com
+ * Password.123
+ * 服務:
+ * 伺服器IP地址 主10.134.28.97：25
+ * SMTP伺服器 備10.134.99.130:25
  */
 public class MailUtils {
     private static final Logger logger = LoggerFactory.getLogger(MailUtils.class);
 
-    private static final String HOST = "smtp.mail.foxconn.com";//邮件服务器的SMTP地址，可选，默认为smtp.<发件人邮箱后缀>
+    private static final String HOST = "10.134.28.97";//邮件服务器的SMTP地址，可选，默认为smtp.<发件人邮箱后缀>
     private static final int PORT = 25;// 邮件服务器的SMTP端口，可选，默认25,110,485
-    private static final String FROM = "zhan-teng.zhang@mail.foxconn.com";//发件人（必须正确，否则发送失败）
-    private static final String USER = "zhan-teng.zhang";//用户名，默认为发件人邮箱前缀
-    private static final String PASS = "SMTP_PASS";//密码（注意，某些邮箱需要为SMTP服务单独设置授权码)
+    private static final String FROM = "rayplus-oa@mail.foxconn.com";//发件人（必须正确，否则发送失败）
+    private static final String USER = "rayplus-oa";//用户名，默认为发件人邮箱前缀
+    private static final String PASS = "Password.123";//密码（注意，某些邮箱需要为SMTP服务单独设置授权码)
 
 
     public static MailAccount getMailCount() {
