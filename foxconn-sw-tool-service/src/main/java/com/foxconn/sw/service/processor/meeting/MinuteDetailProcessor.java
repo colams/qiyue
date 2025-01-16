@@ -60,7 +60,7 @@ public class MinuteDetailProcessor {
 
         MeetingMinuteVo minuteVo = new MeetingMinuteVo();
         minuteVo.setMeetingID(meetingID);
-        minuteVo.setMeetingRoomKey(optional.map(e -> e.getRoom()).orElse(meeting.getRoom()));
+        minuteVo.setRoomVo(getRoomVo(optional.map(e -> e.getRoom()).orElse(meeting.getRoom())));
         minuteVo.setDateTimeVo(new MeetingDateTimeVo(meetingDate,
                 optional.map(e -> e.getStartTime()).orElse(meeting.getStartTime()),
                 optional.map(e -> e.getEndTime()).orElse(meeting.getEndTime())));
