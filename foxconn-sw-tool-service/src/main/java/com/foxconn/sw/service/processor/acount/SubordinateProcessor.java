@@ -2,8 +2,8 @@ package com.foxconn.sw.service.processor.acount;
 
 import com.foxconn.sw.business.system.DepartmentBusiness;
 import com.foxconn.sw.business.system.EmployeeBusiness;
-import com.foxconn.sw.data.context.RequestContext;
 import com.foxconn.sw.common.utils.PinyinUtils;
+import com.foxconn.sw.data.context.RequestContext;
 import com.foxconn.sw.data.dto.entity.acount.EmployeeVo;
 import com.foxconn.sw.data.entity.SwDepartment;
 import com.foxconn.sw.data.entity.SwEmployee;
@@ -35,6 +35,7 @@ public class SubordinateProcessor {
             vo.setInnerEmail(e.getInnerEmail());
             vo.setDepartmentId(e.getDepartmentId());
             vo.setDepartments(getDepartmentList(e.getDepartmentId()));
+            vo.setStatus(e.getStatus());
             return vo;
         }).collect(Collectors.toList());
     }

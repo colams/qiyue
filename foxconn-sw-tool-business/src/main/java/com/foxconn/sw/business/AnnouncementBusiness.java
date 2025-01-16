@@ -1,12 +1,12 @@
 package com.foxconn.sw.business;
 
 import com.foxconn.sw.business.mapper.AnnouncementMapper;
-import com.foxconn.sw.data.dto.entity.universal.IntegerParams;
 import com.foxconn.sw.data.dto.request.announcement.AnnouncementListParams;
 import com.foxconn.sw.data.dto.response.announcement.AnnouncementListVo;
 import com.foxconn.sw.data.entity.SwAnnouncement;
 import com.foxconn.sw.data.entity.SwAnnouncementExample;
 import com.foxconn.sw.data.mapper.extension.SwAnnouncementExtensionMapper;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -23,7 +23,9 @@ public class AnnouncementBusiness {
         SwAnnouncementExample example = new SwAnnouncementExample();
         SwAnnouncementExample.Criteria criteria = example.createCriteria();
         criteria.andStatusEqualTo(announcementParams.getStatus().getCode());
-        criteria.andTitleLike(String.format("%%s%", announcementParams.getTitle()));
+        if (StringUtils.isNotEmpty(announcementParams.getTitle())) {
+            criteria.andTitleLike("%" + announcementParams.getTitle() + "%");
+        }
         example.setOrderByClause(" create_time desc ");
         List<SwAnnouncement> swAnnouncements = announcementExtensionMapper.selectByExample(example);
         return AnnouncementMapper.INSTANCE.toAnnouncementVos(swAnnouncements);

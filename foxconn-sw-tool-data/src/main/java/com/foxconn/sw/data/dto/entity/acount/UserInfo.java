@@ -18,6 +18,8 @@ public class UserInfo {
 
     private Integer isComplete;
 
+    private Integer status;
+
     public String getEmployeeNo() {
         return employeeNo;
     }
@@ -80,5 +82,13 @@ public class UserInfo {
 
     public void setIsComplete(Integer isComplete) {
         this.isComplete = isComplete;
+    }
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
     }
 }

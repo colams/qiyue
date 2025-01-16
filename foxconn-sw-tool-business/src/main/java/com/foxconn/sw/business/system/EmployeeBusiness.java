@@ -127,6 +127,7 @@ public class EmployeeBusiness {
                     vo.setName(e.getName());
                     vo.setEmployeeNo(e.getEmployeeNo());
                     vo.setPinyin(PinyinUtils.toPinyin(e.getName()));
+                    vo.setStatus(e.getStatus());
                     return vo;
                 })
                 .findFirst()
