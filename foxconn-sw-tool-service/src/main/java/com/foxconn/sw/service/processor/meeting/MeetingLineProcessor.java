@@ -17,6 +17,7 @@ import org.springframework.util.CollectionUtils;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -51,9 +52,14 @@ public class MeetingLineProcessor {
         String startDate = result.stream()
                 .max((e, f) -> e.getMeetingDate().compareTo(f.getMeetingDate()))
                 .map(e -> e.getMeetingDate())
-                .orElse("");
+                .orElse(LocalDateExtUtils.toString(LocalDate.now()));
         List<MeetingLineVo> futures = getFutures(meeting, startDate);
         result.addAll(futures);
+
+        Collections.sort(result, (a, b) -> {
+            return b.getMeetingDate().compareTo(a.getMeetingDate());
+        });
+
         return result;
     }
 

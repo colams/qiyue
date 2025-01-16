@@ -31,7 +31,7 @@ public class MeetMinuteProcessor {
                 MeetingItemTypeEnums.Decision,
                 detailList);
         toMinutesDetail(
-                minuteParams.getDecisionVo(),
+                minuteParams.getOtherVo(),
                 MeetingItemTypeEnums.Other,
                 detailList);
 

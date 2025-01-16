@@ -59,7 +59,9 @@ public class MinuteDetailProcessor {
         MeetingMinuteVo minuteVo = new MeetingMinuteVo();
         minuteVo.setMeetingID(meetingID);
         minuteVo.setMeetingRoomKey(optional.map(e -> e.getRoom()).orElse(meeting.getRoom()));
-        minuteVo.setDateTimeVo(new MeetingDateTimeVo("2024-09-12", "16:00", "17:00"));
+        minuteVo.setDateTimeVo(new MeetingDateTimeVo(meetingDate,
+                optional.map(e -> e.getStartTime()).orElse(meeting.getStartTime()),
+                optional.map(e -> e.getEndTime()).orElse(meeting.getEndTime())));
         minuteVo.setChairman("G1658973");
         minuteVo.setRecorder("G1658973");
         minuteVo.setMembers(Lists.newArrayList("G1658973"));
@@ -108,6 +110,7 @@ public class MinuteDetailProcessor {
         List<SwMeetingMinutesMembers> members = minutesMembersBusiness.queryMeetingMinuteMember(meetingMinutes.getId());
 
         MeetingMinuteVo vo = new MeetingMinuteVo();
+        vo.setId(meetingMinutes.getId());
         vo.setMeetingID(meetingMinutes.getMeetingId());
         vo.setMeetingRoomKey(meetingMinutes.getRoom());
         vo.setDateTimeVo(new MeetingDateTimeVo(meetingMinutes.getMeetingDate(),
