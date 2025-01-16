@@ -2,6 +2,7 @@ package com.foxconn.sw.data.dto.entity.meeting;
 
 import com.foxconn.sw.data.dto.communal.MeetingDateTimeVo;
 import com.foxconn.sw.data.dto.entity.ResourceVo;
+import com.foxconn.sw.data.dto.entity.universal.OptionsVo;
 
 import java.util.List;
 
@@ -9,7 +10,7 @@ public class MeetingMinuteVo {
 
     private Long id;
     private Integer meetingID;
-    private String meetingRoomKey;
+    private OptionsVo roomVo;
     private MeetingDateTimeVo dateTimeVo;
     private String chairman;
     private String recorder;
@@ -33,12 +34,12 @@ public class MeetingMinuteVo {
         this.meetingID = meetingID;
     }
 
-    public String getMeetingRoomKey() {
-        return meetingRoomKey;
+    public OptionsVo getRoomVo() {
+        return roomVo;
     }
 
-    public void setMeetingRoomKey(String meetingRoomKey) {
-        this.meetingRoomKey = meetingRoomKey;
+    public void setRoomVo(OptionsVo roomVo) {
+        this.roomVo = roomVo;
     }
 
     public MeetingDateTimeVo getDateTimeVo() {

@@ -6,10 +6,12 @@ import com.foxconn.sw.data.constants.enums.MeetingRoleFlagEnums;
 import com.foxconn.sw.data.dto.communal.MeetingDateTimeVo;
 import com.foxconn.sw.data.dto.entity.meeting.MeetingMinuteItemVo;
 import com.foxconn.sw.data.dto.entity.meeting.MeetingMinuteVo;
+import com.foxconn.sw.data.dto.entity.universal.OptionsVo;
 import com.foxconn.sw.data.dto.enums.MeetingItemTypeEnums;
 import com.foxconn.sw.data.dto.request.meeting.MinuteDetailParams;
 import com.foxconn.sw.data.dto.response.meeting.MeetingMinuteDetailVo;
 import com.foxconn.sw.data.entity.*;
+import com.foxconn.sw.service.processor.MeetingRoomConfig;
 import com.foxconn.sw.service.processor.utils.EmployeeUtils;
 import com.google.common.collect.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -112,7 +114,7 @@ public class MinuteDetailProcessor {
         MeetingMinuteVo vo = new MeetingMinuteVo();
         vo.setId(meetingMinutes.getId());
         vo.setMeetingID(meetingMinutes.getMeetingId());
-        vo.setMeetingRoomKey(meetingMinutes.getRoom());
+        vo.setRoomVo(getRoomVo(meetingMinutes.getRoom()));
         vo.setDateTimeVo(new MeetingDateTimeVo(meetingMinutes.getMeetingDate(),
                 meetingMinutes.getStartTime(),
                 meetingMinutes.getEndTime()));
@@ -124,6 +126,11 @@ public class MinuteDetailProcessor {
         vo.setResourceIds(appendResourceBusiness.getAppendResourcesVo(meetingMinutes.getResourceIds()));
 
         return vo;
+    }
+
+
+    private OptionsVo getRoomVo(String roomKey) {
+        return new OptionsVo(roomKey, MeetingRoomConfig.getText(roomKey));
     }
 
     private List<String> getMembersByRoles(List<SwMeetingMinutesMembers> members, MeetingRoleFlagEnums recorder) {
