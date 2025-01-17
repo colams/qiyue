@@ -38,10 +38,10 @@ public class SwMeetingMinutesBusiness {
 
 
     public Long insertOrUpdate(SwMeetingMinute meetingMinutes) {
-        int effectCount;
+
         if (Objects.nonNull(meetingMinutes.getId()) && meetingMinutes.getId() > 0) {
-            effectCount = meetingMinutesExtensionMapper.updateByPrimaryKeySelective(meetingMinutes);
-            return Long.valueOf(effectCount);
+            int effectCount = meetingMinutesExtensionMapper.updateByPrimaryKeySelective(meetingMinutes);
+            return effectCount > 0 ? meetingMinutes.getId() : 0;
         } else {
             meetingMinutesExtensionMapper.insertSelective(meetingMinutes);
             return meetingMinutes.getId();

@@ -61,7 +61,7 @@ public class MeetMinuteProcessor {
         }
 
         if (StringUtils.isNotEmpty(minuteVo.getRecorder())) {
-            hashMap.put(minuteVo.getChairman(), MeetingRoleFlagEnums.Recorder.initFlag());
+            hashMap.put(minuteVo.getRecorder(), MeetingRoleFlagEnums.Recorder.initFlag());
         }
 
         if (!CollectionUtils.isEmpty(minuteVo.getMembers())) {
@@ -92,7 +92,7 @@ public class MeetMinuteProcessor {
             boolean oldData = Optional.ofNullable(meetingMemberList)
                     .orElse(Lists.newArrayList())
                     .stream()
-                    .anyMatch(e -> e.getEmployeeNo().equalsIgnoreCase(e.getEmployeeNo()));
+                    .anyMatch(e -> e.getEmployeeNo().equalsIgnoreCase(entry.getKey()));
             if (!oldData) {
                 SwMeetingMinuteMember member = new SwMeetingMinuteMember();
                 member.setRole(entry.getValue());

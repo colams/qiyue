@@ -2,7 +2,9 @@ package com.foxconn.sw.service.processor.meeting;
 
 import com.foxconn.sw.business.SwAppendResourceBusiness;
 import com.foxconn.sw.business.meeting.*;
+import com.foxconn.sw.common.constanst.NumberConstants;
 import com.foxconn.sw.data.constants.enums.MeetingRoleFlagEnums;
+import com.foxconn.sw.data.context.RequestContext;
 import com.foxconn.sw.data.dto.communal.MeetingDateTimeVo;
 import com.foxconn.sw.data.dto.entity.meeting.MeetingMinuteItemVo;
 import com.foxconn.sw.data.dto.entity.meeting.MeetingMinuteVo;
@@ -18,6 +20,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -41,6 +44,8 @@ public class MinuteDetailProcessor {
     EmployeeUtils employeeUtils;
     @Autowired
     SwMeetingMinutesDetailBusiness minutesDetailBusiness;
+    @Autowired
+    MeetingMemberBusiness meetingMemberBusiness;
 
 
     public MeetingMinuteDetailVo minuteDetail(MinuteDetailParams data) {
@@ -57,6 +62,13 @@ public class MinuteDetailProcessor {
     private MeetingMinuteDetailVo initDefault(Integer meetingID, String meetingDate) {
         SwMeeting meeting = meetingBusiness.getMeetingByID(meetingID);
         Optional<SwMeetingCycleDetail> optional = meetingCycleDetailBusiness.queryCycleDetailEntityWithDate(meetingID, meetingDate);
+        List<SwMeetingMember> meetingMembers = meetingMemberBusiness.queryMeetingMember(meetingID);
+        Map<Integer, List<SwMeetingMember>> hashMap = meetingMembers.stream()
+                .collect(Collectors.groupingBy(SwMeetingMember::getMeetingDetailId));
+        List<SwMeetingMember> members = Lists.newArrayList();
+        if (optional.isPresent()) {
+            members = hashMap.getOrDefault(optional.get().getId(), hashMap.get(NumberConstants.ZERO));
+        }
 
         MeetingMinuteVo minuteVo = new MeetingMinuteVo();
         minuteVo.setMeetingID(meetingID);
@@ -64,9 +76,9 @@ public class MinuteDetailProcessor {
         minuteVo.setDateTimeVo(new MeetingDateTimeVo(meetingDate,
                 optional.map(e -> e.getStartTime()).orElse(meeting.getStartTime()),
                 optional.map(e -> e.getEndTime()).orElse(meeting.getEndTime())));
-        minuteVo.setChairman("G1658973");
-        minuteVo.setRecorder("G1658973");
-        minuteVo.setMembers(Lists.newArrayList("G1658973"));
+        minuteVo.setChairman(members.stream().filter(e -> Chairman_Flag.test(e.getRole())).map(SwMeetingMember::getEmployeeNo).collect(Collectors.toList()).get(0));
+        minuteVo.setRecorder(RequestContext.getEmployeeNo());
+        minuteVo.setMembers(members.stream().filter(e -> Member_Flag.test(e.getRole())).map(SwMeetingMember::getEmployeeNo).collect(Collectors.toList()));
         minuteVo.setMeetingTitle(optional.map(e -> e.getTitle()).orElse(meeting.getTitle()));
         minuteVo.setResourceIds(appendResourceBusiness.getAppendResourcesVo(meeting.getResourceIds()));
         MeetingMinuteDetailVo vo = new MeetingMinuteDetailVo();
