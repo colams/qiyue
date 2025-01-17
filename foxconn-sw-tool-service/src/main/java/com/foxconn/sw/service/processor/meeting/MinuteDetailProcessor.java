@@ -20,9 +20,10 @@ import com.google.common.collect.Lists;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.util.CollectionUtils;
 
+import java.util.Comparator;
 import java.util.List;
-import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -64,12 +65,26 @@ public class MinuteDetailProcessor {
     private MeetingMinuteDetailVo initDefault(Integer meetingID, String meetingDate) {
         SwMeeting meeting = meetingBusiness.getMeetingByID(meetingID);
         Optional<SwMeetingCycleDetail> optional = meetingCycleDetailBusiness.queryCycleDetailEntityWithDate(meetingID, meetingDate);
+        Integer detailId = optional.map(e -> e.getId()).orElse(NumberConstants.ZERO);
         List<SwMeetingMember> meetingMembers = meetingMemberBusiness.queryMeetingMember(meetingID);
-        Map<Integer, List<SwMeetingMember>> hashMap = meetingMembers.stream()
-                .collect(Collectors.groupingBy(SwMeetingMember::getMeetingDetailId));
-        List<SwMeetingMember> members = Lists.newArrayList();
-        if (optional.isPresent()) {
-            members = hashMap.getOrDefault(optional.get().getId(), hashMap.get(NumberConstants.ZERO));
+        SwMeetingMember chairEntity = meetingMembers.stream().filter(e -> Chairman_Flag.test(e.getRole()))
+                .filter(e -> e.getMeetingDetailId().equals(NumberConstants.ZERO) || e.getMeetingDetailId().equals(detailId))
+                .sorted(Comparator.comparing(SwMeetingMember::getMeetingDetailId))
+                .findFirst()
+                .get();
+
+        List<SwMeetingMember> members = meetingMembers
+                .stream()
+                .filter(e -> e.getMeetingDetailId().equals(detailId))
+                .filter(e -> Member_Flag.test(e.getRole()))
+                .collect(Collectors.toList());
+
+        if (CollectionUtils.isEmpty(members)) {
+            members = meetingMembers
+                    .stream()
+                    .filter(e -> e.getMeetingDetailId().equals(NumberConstants.ZERO))
+                    .filter(e -> Member_Flag.test(e.getRole()))
+                    .collect(Collectors.toList());
         }
 
         MeetingMinuteVo minuteVo = new MeetingMinuteVo();
@@ -78,7 +93,7 @@ public class MinuteDetailProcessor {
         minuteVo.setDateTimeVo(new MeetingDateTimeVo(meetingDate,
                 optional.map(e -> e.getStartTime()).orElse(meeting.getStartTime()),
                 optional.map(e -> e.getEndTime()).orElse(meeting.getEndTime())));
-        minuteVo.setChairman(members.stream().filter(e -> Chairman_Flag.test(e.getRole())).map(SwMeetingMember::getEmployeeNo).collect(Collectors.toList()).get(0));
+        minuteVo.setChairman(chairEntity.getEmployeeNo());
         minuteVo.setRecorder(RequestContext.getEmployeeNo());
         minuteVo.setMembers(members.stream().filter(e -> Member_Flag.test(e.getRole())).map(SwMeetingMember::getEmployeeNo).collect(Collectors.toList()));
         minuteVo.setMeetingTitle(optional.map(e -> e.getTitle()).orElse(meeting.getTitle()));

@@ -47,7 +47,7 @@ public class PermissionAspect {
         StopWatch stopWatch = new StopWatch();
         try {
             stopWatch.start();
-            contextInit(request, joinPoint.getSignature().getName());
+            contextInit(request, joinPoint);
             retValue = joinPoint.proceed();
             stopWatch.stop();
         } catch (Throwable throwable) {
@@ -61,33 +61,44 @@ public class PermissionAspect {
     }
 
 
-    private void contextInit(Object obj, String signatureName) {
-        Request request;
-        if (obj instanceof Request) {
-            request = (Request) obj;
+    private void contextInit(Object obj, ProceedingJoinPoint joinPoint) {
+        String signatureName = joinPoint.getSignature().getName();
+        String traceId = "";
+        String token = "";
+        if ("upload".equalsIgnoreCase(signatureName)) {
+            token = joinPoint.getArgs()[2].toString();
+            traceId = token;
         } else {
-            request = JsonUtils.deserialize((String) obj, Request.class);
+
+            Request request;
+            if (obj instanceof Request) {
+                request = (Request) obj;
+            } else {
+                request = JsonUtils.deserialize((String) obj, Request.class);
+            }
+
+            if (request.getData() instanceof LoginParams) {
+                RequestContext.put(RequestContext.ContextKey.EmployeeNo, ((LoginParams) request.getData()).getEmployeeNo());
+            } else {
+                RequestContext.put(RequestContext.ContextKey.EmployeeNo, request.getHead().getToken());
+            }
+            if (Objects.nonNull(request)
+                    && Objects.nonNull(request.getHead())
+                    && StringUtils.isNotEmpty(request.getHead().getToken())) {
+                token = request.getHead().getToken();
+                traceId = request.getTraceId();
+            }
         }
 
-        if (request.getData() instanceof LoginParams) {
-            RequestContext.put(RequestContext.ContextKey.EmployeeNo, ((LoginParams) request.getData()).getEmployeeNo());
-        } else {
-            RequestContext.put(RequestContext.ContextKey.EmployeeNo, request.getHead().getToken());
-        }
-
-        if (Objects.nonNull(request)
-                && Objects.nonNull(request.getHead())
-                && StringUtils.isNotEmpty(request.getHead().getToken())) {
-            UserInfo userInfo = commonUserUtils.queryUserInfo(request.getHead().getToken());
+        if (StringUtils.isNotEmpty(token)) {
+            UserInfo userInfo = commonUserUtils.queryUserInfo(token);
             String nameEmployeeNo = String.format("%s(%s)", userInfo.getEmployeeName(), userInfo.getEmployeeNo());
             RequestContext.put(RequestContext.ContextKey.USER_INFO, userInfo);
             RequestContext.put(RequestContext.ContextKey.NameEmployeeNo, nameEmployeeNo);
             RequestContext.put(RequestContext.ContextKey.EmployeeNo, userInfo.getEmployeeNo());
             RequestContext.put(RequestContext.ContextKey.OperateType, signatureName);
-            RequestContext.put(RequestContext.ContextKey.TraceID, request.getTraceId());
+            RequestContext.put(RequestContext.ContextKey.TraceID, traceId);
         }
-
-
     }
 
     private void logParam(ProceedingJoinPoint joinPoint, Object retValue, long intervals, String ip, Object request) {

@@ -88,6 +88,7 @@ public class CommonController {
     @PostMapping("/upload")
     public Response<List<UploadResult>> upload(@RequestParam("file") MultipartFile[] file,
                                                @RequestParam("uploadType") String uploadType,
+                                               @RequestParam("token") String token,
                                                @RequestParam(name = "request", required = false) String reqJson)
             throws FileNotFoundException {
         List<UploadResult> results = uploadProcessor.uploadFiles(file, uploadType, reqJson);
