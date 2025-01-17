@@ -17,7 +17,7 @@ public class MeetingMinuteVo {
     private List<String> members;
     private String meetingTitle;
     private String meetingRoomKey;
-    private List<ResourceVo> resourceIds;
+    private List<Integer> resourceIds;
 
     public Long getId() {
         return id;
@@ -83,11 +83,11 @@ public class MeetingMinuteVo {
         this.meetingTitle = meetingTitle;
     }
 
-    public List<ResourceVo> getResourceIds() {
+    public List<Integer> getResourceIds() {
         return resourceIds;
     }
 
-    public void setResourceIds(List<ResourceVo> resourceIds) {
+    public void setResourceIds(List<Integer> resourceIds) {
         this.resourceIds = resourceIds;
     }
 

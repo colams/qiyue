@@ -4,6 +4,7 @@ import com.foxconn.sw.business.meeting.SwMeetingMinutesBusiness;
 import com.foxconn.sw.business.meeting.SwMeetingMinutesDetailBusiness;
 import com.foxconn.sw.business.meeting.SwMeetingMinutesMembersBusiness;
 import com.foxconn.sw.common.constanst.NumberConstants;
+import com.foxconn.sw.common.utils.JsonUtils;
 import com.foxconn.sw.data.constants.enums.MeetingRoleFlagEnums;
 import com.foxconn.sw.data.dto.entity.meeting.MeetingMinuteItemVo;
 import com.foxconn.sw.data.dto.entity.meeting.MeetingMinuteVo;
@@ -137,6 +138,9 @@ public class MeetMinuteProcessor {
         meetingMinutes.setMeetingDate(vo.getDateTimeVo().getMeetingDate());
         meetingMinutes.setStartTime(vo.getDateTimeVo().getStartTime());
         meetingMinutes.setEndTime(vo.getDateTimeVo().getEndTime());
+        if (!CollectionUtils.isEmpty(vo.getResourceIds())) {
+            meetingMinutes.setResourceIds(JsonUtils.serialize(vo.getResourceIds()));
+        }
         return meetingMinutes;
 
     }
