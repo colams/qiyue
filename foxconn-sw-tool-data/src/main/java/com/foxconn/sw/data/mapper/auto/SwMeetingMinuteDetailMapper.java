@@ -1,7 +1,7 @@
 package com.foxconn.sw.data.mapper.auto;
 
-import com.foxconn.sw.data.entity.SwMeetingMinutesDetail;
-import com.foxconn.sw.data.entity.SwMeetingMinutesDetailExample;
+import com.foxconn.sw.data.entity.SwMeetingMinuteDetail;
+import com.foxconn.sw.data.entity.SwMeetingMinuteDetailExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.DeleteProvider;
@@ -20,21 +20,21 @@ import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.type.JdbcType;
 
 @Mapper
-public interface SwMeetingMinutesDetailMapper {
-    @SelectProvider(type=SwMeetingMinutesDetailSqlProvider.class, method="countByExample")
-    long countByExample(SwMeetingMinutesDetailExample example);
+public interface SwMeetingMinuteDetailMapper {
+    @SelectProvider(type=SwMeetingMinuteDetailSqlProvider.class, method="countByExample")
+    long countByExample(SwMeetingMinuteDetailExample example);
 
-    @DeleteProvider(type=SwMeetingMinutesDetailSqlProvider.class, method="deleteByExample")
-    int deleteByExample(SwMeetingMinutesDetailExample example);
+    @DeleteProvider(type=SwMeetingMinuteDetailSqlProvider.class, method="deleteByExample")
+    int deleteByExample(SwMeetingMinuteDetailExample example);
 
     @Delete({
-        "delete from sw_meeting_minutes_detail",
+        "delete from sw_meeting_minute_detail",
         "where id = #{id,jdbcType=BIGINT}"
     })
     int deleteByPrimaryKey(Long id);
 
     @Insert({
-        "insert into sw_meeting_minutes_detail (meeting_minutes_id, item_type, ",
+        "insert into sw_meeting_minute_detail (meeting_minutes_id, item_type, ",
         "index_no, item, direct_eno, ",
         "due_date, status, ",
         "is_delete, remark, ",
@@ -46,13 +46,13 @@ public interface SwMeetingMinutesDetailMapper {
         "#{createTime,jdbcType=TIMESTAMP}, #{datetimeLastchange,jdbcType=TIMESTAMP})"
     })
     @SelectKey(statement="SELECT LAST_INSERT_ID()", keyProperty="id", before=false, resultType=Long.class)
-    int insert(SwMeetingMinutesDetail record);
+    int insert(SwMeetingMinuteDetail record);
 
-    @InsertProvider(type=SwMeetingMinutesDetailSqlProvider.class, method="insertSelective")
+    @InsertProvider(type=SwMeetingMinuteDetailSqlProvider.class, method="insertSelective")
     @SelectKey(statement="SELECT LAST_INSERT_ID()", keyProperty="id", before=false, resultType=Long.class)
-    int insertSelective(SwMeetingMinutesDetail record);
+    int insertSelective(SwMeetingMinuteDetail record);
 
-    @SelectProvider(type=SwMeetingMinutesDetailSqlProvider.class, method="selectByExample")
+    @SelectProvider(type=SwMeetingMinuteDetailSqlProvider.class, method="selectByExample")
     @Results({
         @Result(column="id", property="id", jdbcType=JdbcType.BIGINT, id=true),
         @Result(column="meeting_minutes_id", property="meetingMinutesId", jdbcType=JdbcType.BIGINT),
@@ -67,9 +67,9 @@ public interface SwMeetingMinutesDetailMapper {
         @Result(column="create_time", property="createTime", jdbcType=JdbcType.TIMESTAMP),
         @Result(column="datetime_lastchange", property="datetimeLastchange", jdbcType=JdbcType.TIMESTAMP)
     })
-    List<SwMeetingMinutesDetail> selectByExampleWithRowbounds(SwMeetingMinutesDetailExample example, RowBounds rowBounds);
+    List<SwMeetingMinuteDetail> selectByExampleWithRowbounds(SwMeetingMinuteDetailExample example, RowBounds rowBounds);
 
-    @SelectProvider(type=SwMeetingMinutesDetailSqlProvider.class, method="selectByExample")
+    @SelectProvider(type=SwMeetingMinuteDetailSqlProvider.class, method="selectByExample")
     @Results({
         @Result(column="id", property="id", jdbcType=JdbcType.BIGINT, id=true),
         @Result(column="meeting_minutes_id", property="meetingMinutesId", jdbcType=JdbcType.BIGINT),
@@ -84,13 +84,13 @@ public interface SwMeetingMinutesDetailMapper {
         @Result(column="create_time", property="createTime", jdbcType=JdbcType.TIMESTAMP),
         @Result(column="datetime_lastchange", property="datetimeLastchange", jdbcType=JdbcType.TIMESTAMP)
     })
-    List<SwMeetingMinutesDetail> selectByExample(SwMeetingMinutesDetailExample example);
+    List<SwMeetingMinuteDetail> selectByExample(SwMeetingMinuteDetailExample example);
 
     @Select({
         "select",
         "id, meeting_minutes_id, item_type, index_no, item, direct_eno, due_date, status, ",
         "is_delete, remark, create_time, datetime_lastchange",
-        "from sw_meeting_minutes_detail",
+        "from sw_meeting_minute_detail",
         "where id = #{id,jdbcType=BIGINT}"
     })
     @Results({
@@ -107,19 +107,19 @@ public interface SwMeetingMinutesDetailMapper {
         @Result(column="create_time", property="createTime", jdbcType=JdbcType.TIMESTAMP),
         @Result(column="datetime_lastchange", property="datetimeLastchange", jdbcType=JdbcType.TIMESTAMP)
     })
-    SwMeetingMinutesDetail selectByPrimaryKey(Long id);
+    SwMeetingMinuteDetail selectByPrimaryKey(Long id);
 
-    @UpdateProvider(type=SwMeetingMinutesDetailSqlProvider.class, method="updateByExampleSelective")
-    int updateByExampleSelective(@Param("record") SwMeetingMinutesDetail record, @Param("example") SwMeetingMinutesDetailExample example);
+    @UpdateProvider(type=SwMeetingMinuteDetailSqlProvider.class, method="updateByExampleSelective")
+    int updateByExampleSelective(@Param("record") SwMeetingMinuteDetail record, @Param("example") SwMeetingMinuteDetailExample example);
 
-    @UpdateProvider(type=SwMeetingMinutesDetailSqlProvider.class, method="updateByExample")
-    int updateByExample(@Param("record") SwMeetingMinutesDetail record, @Param("example") SwMeetingMinutesDetailExample example);
+    @UpdateProvider(type=SwMeetingMinuteDetailSqlProvider.class, method="updateByExample")
+    int updateByExample(@Param("record") SwMeetingMinuteDetail record, @Param("example") SwMeetingMinuteDetailExample example);
 
-    @UpdateProvider(type=SwMeetingMinutesDetailSqlProvider.class, method="updateByPrimaryKeySelective")
-    int updateByPrimaryKeySelective(SwMeetingMinutesDetail record);
+    @UpdateProvider(type=SwMeetingMinuteDetailSqlProvider.class, method="updateByPrimaryKeySelective")
+    int updateByPrimaryKeySelective(SwMeetingMinuteDetail record);
 
     @Update({
-        "update sw_meeting_minutes_detail",
+        "update sw_meeting_minute_detail",
         "set meeting_minutes_id = #{meetingMinutesId,jdbcType=BIGINT},",
           "item_type = #{itemType,jdbcType=VARCHAR},",
           "index_no = #{indexNo,jdbcType=INTEGER},",
@@ -133,5 +133,5 @@ public interface SwMeetingMinutesDetailMapper {
           "datetime_lastchange = #{datetimeLastchange,jdbcType=TIMESTAMP}",
         "where id = #{id,jdbcType=BIGINT}"
     })
-    int updateByPrimaryKey(SwMeetingMinutesDetail record);
+    int updateByPrimaryKey(SwMeetingMinuteDetail record);
 }

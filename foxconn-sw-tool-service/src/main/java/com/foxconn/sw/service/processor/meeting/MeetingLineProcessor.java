@@ -8,7 +8,7 @@ import com.foxconn.sw.common.utils.LocalDateExtUtils;
 import com.foxconn.sw.data.dto.entity.ResourceVo;
 import com.foxconn.sw.data.dto.response.meeting.MeetingLineVo;
 import com.foxconn.sw.data.entity.SwMeeting;
-import com.foxconn.sw.data.entity.SwMeetingMinutes;
+import com.foxconn.sw.data.entity.SwMeetingMinute;
 import com.google.common.collect.Lists;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,7 +43,7 @@ public class MeetingLineProcessor {
         }
 
         List<MeetingLineVo> result = Lists.newArrayList();
-        List<SwMeetingMinutes> meetingMinutes = meetingMinutesBusiness.queryMeetingMinuteByMeetingId(meetingId);
+        List<SwMeetingMinute> meetingMinutes = meetingMinutesBusiness.queryMeetingMinuteByMeetingId(meetingId);
         if (!CollectionUtils.isEmpty(meetingMinutes)) {
             result = meetingMinutes.stream().map(e -> {
                 return map2MeetingLine(e);
@@ -85,7 +85,7 @@ public class MeetingLineProcessor {
         return meetingLineVos;
     }
 
-    private MeetingLineVo map2MeetingLine(SwMeetingMinutes e) {
+    private MeetingLineVo map2MeetingLine(SwMeetingMinute e) {
         List<ResourceVo> resourceVos = appendResourceBusiness.getAppendResourcesVo(e.getResourceIds());
         MeetingLineVo meetingLineVo = new MeetingLineVo();
         meetingLineVo.setMeetingId(e.getMeetingId());

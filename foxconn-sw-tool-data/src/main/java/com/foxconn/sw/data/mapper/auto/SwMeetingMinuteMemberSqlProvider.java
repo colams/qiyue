@@ -1,32 +1,32 @@
 package com.foxconn.sw.data.mapper.auto;
 
-import com.foxconn.sw.data.entity.SwMeetingMinutesMembers;
-import com.foxconn.sw.data.entity.SwMeetingMinutesMembersExample.Criteria;
-import com.foxconn.sw.data.entity.SwMeetingMinutesMembersExample.Criterion;
-import com.foxconn.sw.data.entity.SwMeetingMinutesMembersExample;
+import com.foxconn.sw.data.entity.SwMeetingMinuteMember;
+import com.foxconn.sw.data.entity.SwMeetingMinuteMemberExample.Criteria;
+import com.foxconn.sw.data.entity.SwMeetingMinuteMemberExample.Criterion;
+import com.foxconn.sw.data.entity.SwMeetingMinuteMemberExample;
 import java.util.List;
 import java.util.Map;
 import org.apache.ibatis.jdbc.SQL;
 
-public class SwMeetingMinutesMembersSqlProvider {
+public class SwMeetingMinuteMemberSqlProvider {
 
-    public String countByExample(SwMeetingMinutesMembersExample example) {
+    public String countByExample(SwMeetingMinuteMemberExample example) {
         SQL sql = new SQL();
-        sql.SELECT("count(*)").FROM("sw_meeting_minutes_members");
+        sql.SELECT("count(*)").FROM("sw_meeting_minute_member");
         applyWhere(sql, example, false);
         return sql.toString();
     }
 
-    public String deleteByExample(SwMeetingMinutesMembersExample example) {
+    public String deleteByExample(SwMeetingMinuteMemberExample example) {
         SQL sql = new SQL();
-        sql.DELETE_FROM("sw_meeting_minutes_members");
+        sql.DELETE_FROM("sw_meeting_minute_member");
         applyWhere(sql, example, false);
         return sql.toString();
     }
 
-    public String insertSelective(SwMeetingMinutesMembers record) {
+    public String insertSelective(SwMeetingMinuteMember record) {
         SQL sql = new SQL();
-        sql.INSERT_INTO("sw_meeting_minutes_members");
+        sql.INSERT_INTO("sw_meeting_minute_member");
         
         if (record.getMmId() != null) {
             sql.VALUES("mm_id", "#{mmId,jdbcType=BIGINT}");
@@ -59,7 +59,7 @@ public class SwMeetingMinutesMembersSqlProvider {
         return sql.toString();
     }
 
-    public String selectByExample(SwMeetingMinutesMembersExample example) {
+    public String selectByExample(SwMeetingMinuteMemberExample example) {
         SQL sql = new SQL();
         if (example != null && example.isDistinct()) {
             sql.SELECT_DISTINCT("id");
@@ -73,7 +73,7 @@ public class SwMeetingMinutesMembersSqlProvider {
         sql.SELECT("is_delete");
         sql.SELECT("create_time");
         sql.SELECT("datetime_lastchange");
-        sql.FROM("sw_meeting_minutes_members");
+        sql.FROM("sw_meeting_minute_member");
         applyWhere(sql, example, false);
         
         if (example != null && example.getOrderByClause() != null) {
@@ -84,11 +84,11 @@ public class SwMeetingMinutesMembersSqlProvider {
     }
 
     public String updateByExampleSelective(Map<String, Object> parameter) {
-        SwMeetingMinutesMembers record = (SwMeetingMinutesMembers) parameter.get("record");
-        SwMeetingMinutesMembersExample example = (SwMeetingMinutesMembersExample) parameter.get("example");
+        SwMeetingMinuteMember record = (SwMeetingMinuteMember) parameter.get("record");
+        SwMeetingMinuteMemberExample example = (SwMeetingMinuteMemberExample) parameter.get("example");
         
         SQL sql = new SQL();
-        sql.UPDATE("sw_meeting_minutes_members");
+        sql.UPDATE("sw_meeting_minute_member");
         
         if (record.getId() != null) {
             sql.SET("id = #{record.id,jdbcType=INTEGER}");
@@ -128,7 +128,7 @@ public class SwMeetingMinutesMembersSqlProvider {
 
     public String updateByExample(Map<String, Object> parameter) {
         SQL sql = new SQL();
-        sql.UPDATE("sw_meeting_minutes_members");
+        sql.UPDATE("sw_meeting_minute_member");
         
         sql.SET("id = #{record.id,jdbcType=INTEGER}");
         sql.SET("mm_id = #{record.mmId,jdbcType=BIGINT}");
@@ -139,14 +139,14 @@ public class SwMeetingMinutesMembersSqlProvider {
         sql.SET("create_time = #{record.createTime,jdbcType=TIMESTAMP}");
         sql.SET("datetime_lastchange = #{record.datetimeLastchange,jdbcType=TIMESTAMP}");
         
-        SwMeetingMinutesMembersExample example = (SwMeetingMinutesMembersExample) parameter.get("example");
+        SwMeetingMinuteMemberExample example = (SwMeetingMinuteMemberExample) parameter.get("example");
         applyWhere(sql, example, true);
         return sql.toString();
     }
 
-    public String updateByPrimaryKeySelective(SwMeetingMinutesMembers record) {
+    public String updateByPrimaryKeySelective(SwMeetingMinuteMember record) {
         SQL sql = new SQL();
-        sql.UPDATE("sw_meeting_minutes_members");
+        sql.UPDATE("sw_meeting_minute_member");
         
         if (record.getMmId() != null) {
             sql.SET("mm_id = #{mmId,jdbcType=BIGINT}");
@@ -181,7 +181,7 @@ public class SwMeetingMinutesMembersSqlProvider {
         return sql.toString();
     }
 
-    protected void applyWhere(SQL sql, SwMeetingMinutesMembersExample example, boolean includeExamplePhrase) {
+    protected void applyWhere(SQL sql, SwMeetingMinuteMemberExample example, boolean includeExamplePhrase) {
         if (example == null) {
             return;
         }

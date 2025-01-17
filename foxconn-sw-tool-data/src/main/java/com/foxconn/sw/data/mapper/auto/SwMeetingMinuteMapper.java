@@ -1,7 +1,7 @@
 package com.foxconn.sw.data.mapper.auto;
 
-import com.foxconn.sw.data.entity.SwMeetingMinutes;
-import com.foxconn.sw.data.entity.SwMeetingMinutesExample;
+import com.foxconn.sw.data.entity.SwMeetingMinute;
+import com.foxconn.sw.data.entity.SwMeetingMinuteExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.DeleteProvider;
@@ -20,21 +20,21 @@ import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.type.JdbcType;
 
 @Mapper
-public interface SwMeetingMinutesMapper {
-    @SelectProvider(type=SwMeetingMinutesSqlProvider.class, method="countByExample")
-    long countByExample(SwMeetingMinutesExample example);
+public interface SwMeetingMinuteMapper {
+    @SelectProvider(type=SwMeetingMinuteSqlProvider.class, method="countByExample")
+    long countByExample(SwMeetingMinuteExample example);
 
-    @DeleteProvider(type=SwMeetingMinutesSqlProvider.class, method="deleteByExample")
-    int deleteByExample(SwMeetingMinutesExample example);
+    @DeleteProvider(type=SwMeetingMinuteSqlProvider.class, method="deleteByExample")
+    int deleteByExample(SwMeetingMinuteExample example);
 
     @Delete({
-        "delete from sw_meeting_minutes",
+        "delete from sw_meeting_minute",
         "where id = #{id,jdbcType=BIGINT}"
     })
     int deleteByPrimaryKey(Long id);
 
     @Insert({
-        "insert into sw_meeting_minutes (meeting_id, room, ",
+        "insert into sw_meeting_minute (meeting_id, room, ",
         "title, meeting_date, ",
         "start_time, end_time, ",
         "webex_url, resource_ids, ",
@@ -46,13 +46,13 @@ public interface SwMeetingMinutesMapper {
         "#{createTime,jdbcType=TIMESTAMP}, #{datetimeLastchange,jdbcType=TIMESTAMP})"
     })
     @SelectKey(statement="SELECT LAST_INSERT_ID()", keyProperty="id", before=false, resultType=Long.class)
-    int insert(SwMeetingMinutes record);
+    int insert(SwMeetingMinute record);
 
-    @InsertProvider(type=SwMeetingMinutesSqlProvider.class, method="insertSelective")
+    @InsertProvider(type=SwMeetingMinuteSqlProvider.class, method="insertSelective")
     @SelectKey(statement="SELECT LAST_INSERT_ID()", keyProperty="id", before=false, resultType=Long.class)
-    int insertSelective(SwMeetingMinutes record);
+    int insertSelective(SwMeetingMinute record);
 
-    @SelectProvider(type=SwMeetingMinutesSqlProvider.class, method="selectByExample")
+    @SelectProvider(type=SwMeetingMinuteSqlProvider.class, method="selectByExample")
     @Results({
         @Result(column="id", property="id", jdbcType=JdbcType.BIGINT, id=true),
         @Result(column="meeting_id", property="meetingId", jdbcType=JdbcType.INTEGER),
@@ -66,9 +66,9 @@ public interface SwMeetingMinutesMapper {
         @Result(column="create_time", property="createTime", jdbcType=JdbcType.TIMESTAMP),
         @Result(column="datetime_lastchange", property="datetimeLastchange", jdbcType=JdbcType.TIMESTAMP)
     })
-    List<SwMeetingMinutes> selectByExampleWithRowbounds(SwMeetingMinutesExample example, RowBounds rowBounds);
+    List<SwMeetingMinute> selectByExampleWithRowbounds(SwMeetingMinuteExample example, RowBounds rowBounds);
 
-    @SelectProvider(type=SwMeetingMinutesSqlProvider.class, method="selectByExample")
+    @SelectProvider(type=SwMeetingMinuteSqlProvider.class, method="selectByExample")
     @Results({
         @Result(column="id", property="id", jdbcType=JdbcType.BIGINT, id=true),
         @Result(column="meeting_id", property="meetingId", jdbcType=JdbcType.INTEGER),
@@ -82,13 +82,13 @@ public interface SwMeetingMinutesMapper {
         @Result(column="create_time", property="createTime", jdbcType=JdbcType.TIMESTAMP),
         @Result(column="datetime_lastchange", property="datetimeLastchange", jdbcType=JdbcType.TIMESTAMP)
     })
-    List<SwMeetingMinutes> selectByExample(SwMeetingMinutesExample example);
+    List<SwMeetingMinute> selectByExample(SwMeetingMinuteExample example);
 
     @Select({
         "select",
         "id, meeting_id, room, title, meeting_date, start_time, end_time, webex_url, ",
         "resource_ids, create_time, datetime_lastchange",
-        "from sw_meeting_minutes",
+        "from sw_meeting_minute",
         "where id = #{id,jdbcType=BIGINT}"
     })
     @Results({
@@ -104,19 +104,19 @@ public interface SwMeetingMinutesMapper {
         @Result(column="create_time", property="createTime", jdbcType=JdbcType.TIMESTAMP),
         @Result(column="datetime_lastchange", property="datetimeLastchange", jdbcType=JdbcType.TIMESTAMP)
     })
-    SwMeetingMinutes selectByPrimaryKey(Long id);
+    SwMeetingMinute selectByPrimaryKey(Long id);
 
-    @UpdateProvider(type=SwMeetingMinutesSqlProvider.class, method="updateByExampleSelective")
-    int updateByExampleSelective(@Param("record") SwMeetingMinutes record, @Param("example") SwMeetingMinutesExample example);
+    @UpdateProvider(type=SwMeetingMinuteSqlProvider.class, method="updateByExampleSelective")
+    int updateByExampleSelective(@Param("record") SwMeetingMinute record, @Param("example") SwMeetingMinuteExample example);
 
-    @UpdateProvider(type=SwMeetingMinutesSqlProvider.class, method="updateByExample")
-    int updateByExample(@Param("record") SwMeetingMinutes record, @Param("example") SwMeetingMinutesExample example);
+    @UpdateProvider(type=SwMeetingMinuteSqlProvider.class, method="updateByExample")
+    int updateByExample(@Param("record") SwMeetingMinute record, @Param("example") SwMeetingMinuteExample example);
 
-    @UpdateProvider(type=SwMeetingMinutesSqlProvider.class, method="updateByPrimaryKeySelective")
-    int updateByPrimaryKeySelective(SwMeetingMinutes record);
+    @UpdateProvider(type=SwMeetingMinuteSqlProvider.class, method="updateByPrimaryKeySelective")
+    int updateByPrimaryKeySelective(SwMeetingMinute record);
 
     @Update({
-        "update sw_meeting_minutes",
+        "update sw_meeting_minute",
         "set meeting_id = #{meetingId,jdbcType=INTEGER},",
           "room = #{room,jdbcType=VARCHAR},",
           "title = #{title,jdbcType=VARCHAR},",
@@ -129,5 +129,5 @@ public interface SwMeetingMinutesMapper {
           "datetime_lastchange = #{datetimeLastchange,jdbcType=TIMESTAMP}",
         "where id = #{id,jdbcType=BIGINT}"
     })
-    int updateByPrimaryKey(SwMeetingMinutes record);
+    int updateByPrimaryKey(SwMeetingMinute record);
 }

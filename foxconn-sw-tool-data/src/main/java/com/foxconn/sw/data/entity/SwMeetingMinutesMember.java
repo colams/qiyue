@@ -2,7 +2,7 @@ package com.foxconn.sw.data.entity;
 
 import java.time.LocalDateTime;
 
-public class SwMeetingMinutesMembers {
+public class SwMeetingMinutesMember {
     private Integer id;
 
     private Long mmId;
@@ -23,7 +23,7 @@ public class SwMeetingMinutesMembers {
         return id;
     }
 
-    public SwMeetingMinutesMembers withId(Integer id) {
+    public SwMeetingMinutesMember withId(Integer id) {
         this.setId(id);
         return this;
     }
@@ -36,7 +36,7 @@ public class SwMeetingMinutesMembers {
         return mmId;
     }
 
-    public SwMeetingMinutesMembers withMmId(Long mmId) {
+    public SwMeetingMinutesMember withMmId(Long mmId) {
         this.setMmId(mmId);
         return this;
     }
@@ -49,7 +49,7 @@ public class SwMeetingMinutesMembers {
         return employeeNo;
     }
 
-    public SwMeetingMinutesMembers withEmployeeNo(String employeeNo) {
+    public SwMeetingMinutesMember withEmployeeNo(String employeeNo) {
         this.setEmployeeNo(employeeNo);
         return this;
     }
@@ -62,7 +62,7 @@ public class SwMeetingMinutesMembers {
         return role;
     }
 
-    public SwMeetingMinutesMembers withRole(Integer role) {
+    public SwMeetingMinutesMember withRole(Integer role) {
         this.setRole(role);
         return this;
     }
@@ -75,7 +75,7 @@ public class SwMeetingMinutesMembers {
         return name;
     }
 
-    public SwMeetingMinutesMembers withName(String name) {
+    public SwMeetingMinutesMember withName(String name) {
         this.setName(name);
         return this;
     }
@@ -88,7 +88,7 @@ public class SwMeetingMinutesMembers {
         return isDelete;
     }
 
-    public SwMeetingMinutesMembers withIsDelete(Integer isDelete) {
+    public SwMeetingMinutesMember withIsDelete(Integer isDelete) {
         this.setIsDelete(isDelete);
         return this;
     }
@@ -101,7 +101,7 @@ public class SwMeetingMinutesMembers {
         return createTime;
     }
 
-    public SwMeetingMinutesMembers withCreateTime(LocalDateTime createTime) {
+    public SwMeetingMinutesMember withCreateTime(LocalDateTime createTime) {
         this.setCreateTime(createTime);
         return this;
     }
@@ -114,7 +114,7 @@ public class SwMeetingMinutesMembers {
         return datetimeLastchange;
     }
 
-    public SwMeetingMinutesMembers withDatetimeLastchange(LocalDateTime datetimeLastchange) {
+    public SwMeetingMinutesMember withDatetimeLastchange(LocalDateTime datetimeLastchange) {
         this.setDatetimeLastchange(datetimeLastchange);
         return this;
     }

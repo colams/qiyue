@@ -4,14 +4,14 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SwMeetingMinutesMembersExample {
+public class SwMeetingMinuteMemberExample {
     protected String orderByClause;
 
     protected boolean distinct;
 
     protected List<Criteria> oredCriteria;
 
-    public SwMeetingMinutesMembersExample() {
+    public SwMeetingMinuteMemberExample() {
         oredCriteria = new ArrayList<Criteria>();
     }
 

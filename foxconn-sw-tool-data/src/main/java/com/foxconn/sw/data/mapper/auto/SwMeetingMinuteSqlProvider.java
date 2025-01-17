@@ -1,67 +1,63 @@
 package com.foxconn.sw.data.mapper.auto;
 
-import com.foxconn.sw.data.entity.SwMeetingMinutesDetail;
-import com.foxconn.sw.data.entity.SwMeetingMinutesDetailExample.Criteria;
-import com.foxconn.sw.data.entity.SwMeetingMinutesDetailExample.Criterion;
-import com.foxconn.sw.data.entity.SwMeetingMinutesDetailExample;
+import com.foxconn.sw.data.entity.SwMeetingMinute;
+import com.foxconn.sw.data.entity.SwMeetingMinuteExample.Criteria;
+import com.foxconn.sw.data.entity.SwMeetingMinuteExample.Criterion;
+import com.foxconn.sw.data.entity.SwMeetingMinuteExample;
 import java.util.List;
 import java.util.Map;
 import org.apache.ibatis.jdbc.SQL;
 
-public class SwMeetingMinutesDetailSqlProvider {
+public class SwMeetingMinuteSqlProvider {
 
-    public String countByExample(SwMeetingMinutesDetailExample example) {
+    public String countByExample(SwMeetingMinuteExample example) {
         SQL sql = new SQL();
-        sql.SELECT("count(*)").FROM("sw_meeting_minutes_detail");
+        sql.SELECT("count(*)").FROM("sw_meeting_minute");
         applyWhere(sql, example, false);
         return sql.toString();
     }
 
-    public String deleteByExample(SwMeetingMinutesDetailExample example) {
+    public String deleteByExample(SwMeetingMinuteExample example) {
         SQL sql = new SQL();
-        sql.DELETE_FROM("sw_meeting_minutes_detail");
+        sql.DELETE_FROM("sw_meeting_minute");
         applyWhere(sql, example, false);
         return sql.toString();
     }
 
-    public String insertSelective(SwMeetingMinutesDetail record) {
+    public String insertSelective(SwMeetingMinute record) {
         SQL sql = new SQL();
-        sql.INSERT_INTO("sw_meeting_minutes_detail");
+        sql.INSERT_INTO("sw_meeting_minute");
         
-        if (record.getMeetingMinutesId() != null) {
-            sql.VALUES("meeting_minutes_id", "#{meetingMinutesId,jdbcType=BIGINT}");
+        if (record.getMeetingId() != null) {
+            sql.VALUES("meeting_id", "#{meetingId,jdbcType=INTEGER}");
         }
         
-        if (record.getItemType() != null) {
-            sql.VALUES("item_type", "#{itemType,jdbcType=VARCHAR}");
+        if (record.getRoom() != null) {
+            sql.VALUES("room", "#{room,jdbcType=VARCHAR}");
         }
         
-        if (record.getIndexNo() != null) {
-            sql.VALUES("index_no", "#{indexNo,jdbcType=INTEGER}");
+        if (record.getTitle() != null) {
+            sql.VALUES("title", "#{title,jdbcType=VARCHAR}");
         }
         
-        if (record.getItem() != null) {
-            sql.VALUES("item", "#{item,jdbcType=VARCHAR}");
+        if (record.getMeetingDate() != null) {
+            sql.VALUES("meeting_date", "#{meetingDate,jdbcType=VARCHAR}");
         }
         
-        if (record.getDirectEno() != null) {
-            sql.VALUES("direct_eno", "#{directEno,jdbcType=VARCHAR}");
+        if (record.getStartTime() != null) {
+            sql.VALUES("start_time", "#{startTime,jdbcType=VARCHAR}");
         }
         
-        if (record.getDueDate() != null) {
-            sql.VALUES("due_date", "#{dueDate,jdbcType=VARCHAR}");
+        if (record.getEndTime() != null) {
+            sql.VALUES("end_time", "#{endTime,jdbcType=VARCHAR}");
         }
         
-        if (record.getStatus() != null) {
-            sql.VALUES("status", "#{status,jdbcType=VARCHAR}");
+        if (record.getWebexUrl() != null) {
+            sql.VALUES("webex_url", "#{webexUrl,jdbcType=VARCHAR}");
         }
         
-        if (record.getIsDelete() != null) {
-            sql.VALUES("is_delete", "#{isDelete,jdbcType=INTEGER}");
-        }
-        
-        if (record.getRemark() != null) {
-            sql.VALUES("remark", "#{remark,jdbcType=VARCHAR}");
+        if (record.getResourceIds() != null) {
+            sql.VALUES("resource_ids", "#{resourceIds,jdbcType=VARCHAR}");
         }
         
         if (record.getCreateTime() != null) {
@@ -75,25 +71,24 @@ public class SwMeetingMinutesDetailSqlProvider {
         return sql.toString();
     }
 
-    public String selectByExample(SwMeetingMinutesDetailExample example) {
+    public String selectByExample(SwMeetingMinuteExample example) {
         SQL sql = new SQL();
         if (example != null && example.isDistinct()) {
             sql.SELECT_DISTINCT("id");
         } else {
             sql.SELECT("id");
         }
-        sql.SELECT("meeting_minutes_id");
-        sql.SELECT("item_type");
-        sql.SELECT("index_no");
-        sql.SELECT("item");
-        sql.SELECT("direct_eno");
-        sql.SELECT("due_date");
-        sql.SELECT("status");
-        sql.SELECT("is_delete");
-        sql.SELECT("remark");
+        sql.SELECT("meeting_id");
+        sql.SELECT("room");
+        sql.SELECT("title");
+        sql.SELECT("meeting_date");
+        sql.SELECT("start_time");
+        sql.SELECT("end_time");
+        sql.SELECT("webex_url");
+        sql.SELECT("resource_ids");
         sql.SELECT("create_time");
         sql.SELECT("datetime_lastchange");
-        sql.FROM("sw_meeting_minutes_detail");
+        sql.FROM("sw_meeting_minute");
         applyWhere(sql, example, false);
         
         if (example != null && example.getOrderByClause() != null) {
@@ -104,50 +99,46 @@ public class SwMeetingMinutesDetailSqlProvider {
     }
 
     public String updateByExampleSelective(Map<String, Object> parameter) {
-        SwMeetingMinutesDetail record = (SwMeetingMinutesDetail) parameter.get("record");
-        SwMeetingMinutesDetailExample example = (SwMeetingMinutesDetailExample) parameter.get("example");
+        SwMeetingMinute record = (SwMeetingMinute) parameter.get("record");
+        SwMeetingMinuteExample example = (SwMeetingMinuteExample) parameter.get("example");
         
         SQL sql = new SQL();
-        sql.UPDATE("sw_meeting_minutes_detail");
+        sql.UPDATE("sw_meeting_minute");
         
         if (record.getId() != null) {
             sql.SET("id = #{record.id,jdbcType=BIGINT}");
         }
         
-        if (record.getMeetingMinutesId() != null) {
-            sql.SET("meeting_minutes_id = #{record.meetingMinutesId,jdbcType=BIGINT}");
+        if (record.getMeetingId() != null) {
+            sql.SET("meeting_id = #{record.meetingId,jdbcType=INTEGER}");
         }
         
-        if (record.getItemType() != null) {
-            sql.SET("item_type = #{record.itemType,jdbcType=VARCHAR}");
+        if (record.getRoom() != null) {
+            sql.SET("room = #{record.room,jdbcType=VARCHAR}");
         }
         
-        if (record.getIndexNo() != null) {
-            sql.SET("index_no = #{record.indexNo,jdbcType=INTEGER}");
+        if (record.getTitle() != null) {
+            sql.SET("title = #{record.title,jdbcType=VARCHAR}");
         }
         
-        if (record.getItem() != null) {
-            sql.SET("item = #{record.item,jdbcType=VARCHAR}");
+        if (record.getMeetingDate() != null) {
+            sql.SET("meeting_date = #{record.meetingDate,jdbcType=VARCHAR}");
         }
         
-        if (record.getDirectEno() != null) {
-            sql.SET("direct_eno = #{record.directEno,jdbcType=VARCHAR}");
+        if (record.getStartTime() != null) {
+            sql.SET("start_time = #{record.startTime,jdbcType=VARCHAR}");
         }
         
-        if (record.getDueDate() != null) {
-            sql.SET("due_date = #{record.dueDate,jdbcType=VARCHAR}");
+        if (record.getEndTime() != null) {
+            sql.SET("end_time = #{record.endTime,jdbcType=VARCHAR}");
         }
         
-        if (record.getStatus() != null) {
-            sql.SET("status = #{record.status,jdbcType=VARCHAR}");
+        if (record.getWebexUrl() != null) {
+            sql.SET("webex_url = #{record.webexUrl,jdbcType=VARCHAR}");
         }
         
-        if (record.getIsDelete() != null) {
-            sql.SET("is_delete = #{record.isDelete,jdbcType=INTEGER}");
-        }
-        
-        if (record.getRemark() != null) {
-            sql.SET("remark = #{record.remark,jdbcType=VARCHAR}");
+        if (record.getResourceIds() != null) {
+            sql.SET("resource_ids = #{record.resourceIds,jdbcType=VARCHAR}");
         }
         
         if (record.getCreateTime() != null) {
@@ -164,64 +155,59 @@ public class SwMeetingMinutesDetailSqlProvider {
 
     public String updateByExample(Map<String, Object> parameter) {
         SQL sql = new SQL();
-        sql.UPDATE("sw_meeting_minutes_detail");
+        sql.UPDATE("sw_meeting_minute");
         
         sql.SET("id = #{record.id,jdbcType=BIGINT}");
-        sql.SET("meeting_minutes_id = #{record.meetingMinutesId,jdbcType=BIGINT}");
-        sql.SET("item_type = #{record.itemType,jdbcType=VARCHAR}");
-        sql.SET("index_no = #{record.indexNo,jdbcType=INTEGER}");
-        sql.SET("item = #{record.item,jdbcType=VARCHAR}");
-        sql.SET("direct_eno = #{record.directEno,jdbcType=VARCHAR}");
-        sql.SET("due_date = #{record.dueDate,jdbcType=VARCHAR}");
-        sql.SET("status = #{record.status,jdbcType=VARCHAR}");
-        sql.SET("is_delete = #{record.isDelete,jdbcType=INTEGER}");
-        sql.SET("remark = #{record.remark,jdbcType=VARCHAR}");
+        sql.SET("meeting_id = #{record.meetingId,jdbcType=INTEGER}");
+        sql.SET("room = #{record.room,jdbcType=VARCHAR}");
+        sql.SET("title = #{record.title,jdbcType=VARCHAR}");
+        sql.SET("meeting_date = #{record.meetingDate,jdbcType=VARCHAR}");
+        sql.SET("start_time = #{record.startTime,jdbcType=VARCHAR}");
+        sql.SET("end_time = #{record.endTime,jdbcType=VARCHAR}");
+        sql.SET("webex_url = #{record.webexUrl,jdbcType=VARCHAR}");
+        sql.SET("resource_ids = #{record.resourceIds,jdbcType=VARCHAR}");
         sql.SET("create_time = #{record.createTime,jdbcType=TIMESTAMP}");
         sql.SET("datetime_lastchange = #{record.datetimeLastchange,jdbcType=TIMESTAMP}");
         
-        SwMeetingMinutesDetailExample example = (SwMeetingMinutesDetailExample) parameter.get("example");
+        SwMeetingMinuteExample example = (SwMeetingMinuteExample) parameter.get("example");
         applyWhere(sql, example, true);
         return sql.toString();
     }
 
-    public String updateByPrimaryKeySelective(SwMeetingMinutesDetail record) {
+    public String updateByPrimaryKeySelective(SwMeetingMinute record) {
         SQL sql = new SQL();
-        sql.UPDATE("sw_meeting_minutes_detail");
+        sql.UPDATE("sw_meeting_minute");
         
-        if (record.getMeetingMinutesId() != null) {
-            sql.SET("meeting_minutes_id = #{meetingMinutesId,jdbcType=BIGINT}");
+        if (record.getMeetingId() != null) {
+            sql.SET("meeting_id = #{meetingId,jdbcType=INTEGER}");
         }
         
-        if (record.getItemType() != null) {
-            sql.SET("item_type = #{itemType,jdbcType=VARCHAR}");
+        if (record.getRoom() != null) {
+            sql.SET("room = #{room,jdbcType=VARCHAR}");
         }
         
-        if (record.getIndexNo() != null) {
-            sql.SET("index_no = #{indexNo,jdbcType=INTEGER}");
+        if (record.getTitle() != null) {
+            sql.SET("title = #{title,jdbcType=VARCHAR}");
         }
         
-        if (record.getItem() != null) {
-            sql.SET("item = #{item,jdbcType=VARCHAR}");
+        if (record.getMeetingDate() != null) {
+            sql.SET("meeting_date = #{meetingDate,jdbcType=VARCHAR}");
         }
         
-        if (record.getDirectEno() != null) {
-            sql.SET("direct_eno = #{directEno,jdbcType=VARCHAR}");
+        if (record.getStartTime() != null) {
+            sql.SET("start_time = #{startTime,jdbcType=VARCHAR}");
         }
         
-        if (record.getDueDate() != null) {
-            sql.SET("due_date = #{dueDate,jdbcType=VARCHAR}");
+        if (record.getEndTime() != null) {
+            sql.SET("end_time = #{endTime,jdbcType=VARCHAR}");
         }
         
-        if (record.getStatus() != null) {
-            sql.SET("status = #{status,jdbcType=VARCHAR}");
+        if (record.getWebexUrl() != null) {
+            sql.SET("webex_url = #{webexUrl,jdbcType=VARCHAR}");
         }
         
-        if (record.getIsDelete() != null) {
-            sql.SET("is_delete = #{isDelete,jdbcType=INTEGER}");
-        }
-        
-        if (record.getRemark() != null) {
-            sql.SET("remark = #{remark,jdbcType=VARCHAR}");
+        if (record.getResourceIds() != null) {
+            sql.SET("resource_ids = #{resourceIds,jdbcType=VARCHAR}");
         }
         
         if (record.getCreateTime() != null) {
@@ -237,7 +223,7 @@ public class SwMeetingMinutesDetailSqlProvider {
         return sql.toString();
     }
 
-    protected void applyWhere(SQL sql, SwMeetingMinutesDetailExample example, boolean includeExamplePhrase) {
+    protected void applyWhere(SQL sql, SwMeetingMinuteExample example, boolean includeExamplePhrase) {
         if (example == null) {
             return;
         }

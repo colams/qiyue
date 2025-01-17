@@ -44,7 +44,7 @@ public class MinuteDetailProcessor {
 
 
     public MeetingMinuteDetailVo minuteDetail(MinuteDetailParams data) {
-        SwMeetingMinutes meetingMinutes = meetingMinutesBusiness.queryMeetingMinute(data.getMeetingID(), data.getMeetingDate());
+        SwMeetingMinute meetingMinutes = meetingMinutesBusiness.queryMeetingMinute(data.getMeetingID(), data.getMeetingDate());
         MeetingMinuteDetailVo vo;
         if (Objects.nonNull(meetingMinutes)) {
             vo = map2Detail(meetingMinutes);
@@ -74,8 +74,8 @@ public class MinuteDetailProcessor {
         return vo;
     }
 
-    private MeetingMinuteDetailVo map2Detail(SwMeetingMinutes meetingMinutes) {
-        List<SwMeetingMinutesDetail> minutesDetails = minutesDetailBusiness.queryMeetingMinuteDetail(meetingMinutes.getId());
+    private MeetingMinuteDetailVo map2Detail(SwMeetingMinute meetingMinutes) {
+        List<SwMeetingMinuteDetail> minutesDetails = minutesDetailBusiness.queryMeetingMinuteDetail(meetingMinutes.getId());
 
         MeetingMinuteVo minuteVo = map2MinuteVo(meetingMinutes);
         List<MeetingMinuteItemVo> decisionVo = getMinuteItems(minutesDetails, MeetingItemTypeEnums.Decision);
@@ -88,7 +88,7 @@ public class MinuteDetailProcessor {
         return vo;
     }
 
-    private List<MeetingMinuteItemVo> getMinuteItems(List<SwMeetingMinutesDetail> minutesDetails, MeetingItemTypeEnums other) {
+    private List<MeetingMinuteItemVo> getMinuteItems(List<SwMeetingMinuteDetail> minutesDetails, MeetingItemTypeEnums other) {
         return Optional.ofNullable(minutesDetails).orElse(Lists.newArrayList())
                 .stream()
                 .filter(e -> other.getCode().equalsIgnoreCase(e.getItemType()))
@@ -96,7 +96,7 @@ public class MinuteDetailProcessor {
                 .collect(Collectors.toList());
     }
 
-    private MeetingMinuteItemVo map2MinuteDetail(SwMeetingMinutesDetail e) {
+    private MeetingMinuteItemVo map2MinuteDetail(SwMeetingMinuteDetail e) {
         MeetingMinuteItemVo vo = new MeetingMinuteItemVo();
         vo.setId(e.getId());
         vo.setIndex(e.getIndexNo());
@@ -108,8 +108,8 @@ public class MinuteDetailProcessor {
         return vo;
     }
 
-    private MeetingMinuteVo map2MinuteVo(SwMeetingMinutes meetingMinutes) {
-        List<SwMeetingMinutesMembers> members = minutesMembersBusiness.queryMeetingMinuteMember(meetingMinutes.getId());
+    private MeetingMinuteVo map2MinuteVo(SwMeetingMinute meetingMinutes) {
+        List<SwMeetingMinuteMember> members = minutesMembersBusiness.queryMeetingMinuteMember(meetingMinutes.getId());
 
         MeetingMinuteVo vo = new MeetingMinuteVo();
         vo.setId(meetingMinutes.getId());
@@ -133,14 +133,14 @@ public class MinuteDetailProcessor {
         return new OptionsVo(roomKey, MeetingRoomConfig.getText(roomKey));
     }
 
-    private List<String> getMembersByRoles(List<SwMeetingMinutesMembers> members, MeetingRoleFlagEnums recorder) {
+    private List<String> getMembersByRoles(List<SwMeetingMinuteMember> members, MeetingRoleFlagEnums recorder) {
         return members.stream().filter(e -> recorder.test(e.getRole()))
                 .map(e -> e.getEmployeeNo())
                 .collect(Collectors.toList());
     }
 
 
-    private String getMembersByRole(List<SwMeetingMinutesMembers> members, MeetingRoleFlagEnums recorder) {
+    private String getMembersByRole(List<SwMeetingMinuteMember> members, MeetingRoleFlagEnums recorder) {
         return members.stream().filter(e -> recorder.test(e.getRole()))
                 .map(e -> e.getEmployeeNo())
                 .findFirst()

@@ -2,7 +2,7 @@ package com.foxconn.sw.data.entity;
 
 import java.time.LocalDateTime;
 
-public class SwMeetingMinutesDetail {
+public class SwMeetingMinuteDetail {
     private Long id;
 
     private Long meetingMinutesId;
@@ -31,7 +31,7 @@ public class SwMeetingMinutesDetail {
         return id;
     }
 
-    public SwMeetingMinutesDetail withId(Long id) {
+    public SwMeetingMinuteDetail withId(Long id) {
         this.setId(id);
         return this;
     }
@@ -44,7 +44,7 @@ public class SwMeetingMinutesDetail {
         return meetingMinutesId;
     }
 
-    public SwMeetingMinutesDetail withMeetingMinutesId(Long meetingMinutesId) {
+    public SwMeetingMinuteDetail withMeetingMinutesId(Long meetingMinutesId) {
         this.setMeetingMinutesId(meetingMinutesId);
         return this;
     }
@@ -57,7 +57,7 @@ public class SwMeetingMinutesDetail {
         return itemType;
     }
 
-    public SwMeetingMinutesDetail withItemType(String itemType) {
+    public SwMeetingMinuteDetail withItemType(String itemType) {
         this.setItemType(itemType);
         return this;
     }
@@ -70,7 +70,7 @@ public class SwMeetingMinutesDetail {
         return indexNo;
     }
 
-    public SwMeetingMinutesDetail withIndexNo(Integer indexNo) {
+    public SwMeetingMinuteDetail withIndexNo(Integer indexNo) {
         this.setIndexNo(indexNo);
         return this;
     }
@@ -83,7 +83,7 @@ public class SwMeetingMinutesDetail {
         return item;
     }
 
-    public SwMeetingMinutesDetail withItem(String item) {
+    public SwMeetingMinuteDetail withItem(String item) {
         this.setItem(item);
         return this;
     }
@@ -96,7 +96,7 @@ public class SwMeetingMinutesDetail {
         return directEno;
     }
 
-    public SwMeetingMinutesDetail withDirectEno(String directEno) {
+    public SwMeetingMinuteDetail withDirectEno(String directEno) {
         this.setDirectEno(directEno);
         return this;
     }
@@ -109,7 +109,7 @@ public class SwMeetingMinutesDetail {
         return dueDate;
     }
 
-    public SwMeetingMinutesDetail withDueDate(String dueDate) {
+    public SwMeetingMinuteDetail withDueDate(String dueDate) {
         this.setDueDate(dueDate);
         return this;
     }
@@ -122,7 +122,7 @@ public class SwMeetingMinutesDetail {
         return status;
     }
 
-    public SwMeetingMinutesDetail withStatus(String status) {
+    public SwMeetingMinuteDetail withStatus(String status) {
         this.setStatus(status);
         return this;
     }
@@ -135,7 +135,7 @@ public class SwMeetingMinutesDetail {
         return isDelete;
     }
 
-    public SwMeetingMinutesDetail withIsDelete(Integer isDelete) {
+    public SwMeetingMinuteDetail withIsDelete(Integer isDelete) {
         this.setIsDelete(isDelete);
         return this;
     }
@@ -148,7 +148,7 @@ public class SwMeetingMinutesDetail {
         return remark;
     }
 
-    public SwMeetingMinutesDetail withRemark(String remark) {
+    public SwMeetingMinuteDetail withRemark(String remark) {
         this.setRemark(remark);
         return this;
     }
@@ -161,7 +161,7 @@ public class SwMeetingMinutesDetail {
         return createTime;
     }
 
-    public SwMeetingMinutesDetail withCreateTime(LocalDateTime createTime) {
+    public SwMeetingMinuteDetail withCreateTime(LocalDateTime createTime) {
         this.setCreateTime(createTime);
         return this;
     }
@@ -174,7 +174,7 @@ public class SwMeetingMinutesDetail {
         return datetimeLastchange;
     }
 
-    public SwMeetingMinutesDetail withDatetimeLastchange(LocalDateTime datetimeLastchange) {
+    public SwMeetingMinuteDetail withDatetimeLastchange(LocalDateTime datetimeLastchange) {
         this.setDatetimeLastchange(datetimeLastchange);
         return this;
     }

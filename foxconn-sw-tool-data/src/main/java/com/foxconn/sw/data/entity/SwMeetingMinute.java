@@ -2,7 +2,7 @@ package com.foxconn.sw.data.entity;
 
 import java.time.LocalDateTime;
 
-public class SwMeetingMinutes {
+public class SwMeetingMinute {
     private Long id;
 
     private Integer meetingId;
@@ -29,7 +29,7 @@ public class SwMeetingMinutes {
         return id;
     }
 
-    public SwMeetingMinutes withId(Long id) {
+    public SwMeetingMinute withId(Long id) {
         this.setId(id);
         return this;
     }
@@ -42,7 +42,7 @@ public class SwMeetingMinutes {
         return meetingId;
     }
 
-    public SwMeetingMinutes withMeetingId(Integer meetingId) {
+    public SwMeetingMinute withMeetingId(Integer meetingId) {
         this.setMeetingId(meetingId);
         return this;
     }
@@ -55,7 +55,7 @@ public class SwMeetingMinutes {
         return room;
     }
 
-    public SwMeetingMinutes withRoom(String room) {
+    public SwMeetingMinute withRoom(String room) {
         this.setRoom(room);
         return this;
     }
@@ -68,7 +68,7 @@ public class SwMeetingMinutes {
         return title;
     }
 
-    public SwMeetingMinutes withTitle(String title) {
+    public SwMeetingMinute withTitle(String title) {
         this.setTitle(title);
         return this;
     }
@@ -81,7 +81,7 @@ public class SwMeetingMinutes {
         return meetingDate;
     }
 
-    public SwMeetingMinutes withMeetingDate(String meetingDate) {
+    public SwMeetingMinute withMeetingDate(String meetingDate) {
         this.setMeetingDate(meetingDate);
         return this;
     }
@@ -94,7 +94,7 @@ public class SwMeetingMinutes {
         return startTime;
     }
 
-    public SwMeetingMinutes withStartTime(String startTime) {
+    public SwMeetingMinute withStartTime(String startTime) {
         this.setStartTime(startTime);
         return this;
     }
@@ -107,7 +107,7 @@ public class SwMeetingMinutes {
         return endTime;
     }
 
-    public SwMeetingMinutes withEndTime(String endTime) {
+    public SwMeetingMinute withEndTime(String endTime) {
         this.setEndTime(endTime);
         return this;
     }
@@ -120,7 +120,7 @@ public class SwMeetingMinutes {
         return webexUrl;
     }
 
-    public SwMeetingMinutes withWebexUrl(String webexUrl) {
+    public SwMeetingMinute withWebexUrl(String webexUrl) {
         this.setWebexUrl(webexUrl);
         return this;
     }
@@ -133,7 +133,7 @@ public class SwMeetingMinutes {
         return resourceIds;
     }
 
-    public SwMeetingMinutes withResourceIds(String resourceIds) {
+    public SwMeetingMinute withResourceIds(String resourceIds) {
         this.setResourceIds(resourceIds);
         return this;
     }
@@ -146,7 +146,7 @@ public class SwMeetingMinutes {
         return createTime;
     }
 
-    public SwMeetingMinutes withCreateTime(LocalDateTime createTime) {
+    public SwMeetingMinute withCreateTime(LocalDateTime createTime) {
         this.setCreateTime(createTime);
         return this;
     }
@@ -159,7 +159,7 @@ public class SwMeetingMinutes {
         return datetimeLastchange;
     }
 
-    public SwMeetingMinutes withDatetimeLastchange(LocalDateTime datetimeLastchange) {
+    public SwMeetingMinute withDatetimeLastchange(LocalDateTime datetimeLastchange) {
         this.setDatetimeLastchange(datetimeLastchange);
         return this;
     }
