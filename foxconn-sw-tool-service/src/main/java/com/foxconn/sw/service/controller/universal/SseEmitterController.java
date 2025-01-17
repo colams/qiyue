@@ -13,8 +13,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
 import java.io.IOException;
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 
 @RestController
 @RequestMapping("api/sse")
@@ -23,9 +21,10 @@ public class SseEmitterController {
     @Autowired
     SseEmitterProcessor sseEmitterProcessor;
 
-    @PostMapping("/connect")
-    public SseEmitter connect(@Valid @RequestBody Request request) {
-        return sseEmitterProcessor.createConnect(request.getHead().getToken());
+    @GetMapping("/connect/{token}")
+    public SseEmitter connect(@PathVariable String token) {
+        SseEmitter sseEmitter = sseEmitterProcessor.createConnect(token);
+        return sseEmitter;
     }
 
     @PostMapping("/sendMsg")

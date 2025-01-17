@@ -2,7 +2,7 @@ package com.foxconn.sw.service.processor;
 
 import com.foxconn.sw.common.utils.UUIDUtils;
 import com.foxconn.sw.data.dto.request.sse.SseMsgParams;
-import org.apache.commons.collections4.MapUtils;
+import com.foxconn.sw.service.SseEmitterUTF8;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,7 +24,7 @@ public class SseEmitterProcessor {
     /**
      * 容器，保存连接，用于输出返回 ;可使用其他方法实现
      */
-    private static final Map<String, SseEmitter> sseCache = new ConcurrentHashMap<>();
+    private static final Map<String, SseEmitterUTF8> sseCache = new ConcurrentHashMap<>();
 
 
     /**
@@ -32,7 +32,7 @@ public class SseEmitterProcessor {
      *
      * @param clientId 客户端ID
      */
-    public SseEmitter getSseEmitterByClientId(String clientId) {
+    public SseEmitterUTF8 getSseEmitterByClientId(String clientId) {
         return sseCache.get(clientId);
     }
 
@@ -42,9 +42,9 @@ public class SseEmitterProcessor {
      *
      * @param clientId 客户端ID
      */
-    public SseEmitter createConnect(String clientId) {
+    public SseEmitterUTF8 createConnect(String clientId) {
         // 设置超时时间，0表示不过期。默认30秒，超过时间未完成会抛出异常：AsyncRequestTimeoutException
-        SseEmitter sseEmitter = new SseEmitter(0L);
+        SseEmitterUTF8 sseEmitter = new SseEmitterUTF8(0L);
         // 是否需要给客户端推送ID
         if (StringUtils.isBlank(clientId)) {
             clientId = UUIDUtils.getUuid();
@@ -89,10 +89,10 @@ public class SseEmitterProcessor {
             log.error("推送消息失败：客户端{}未创建长链接,失败消息:{}", clientId, data.getMessage());
             return "失敗";
         }
-        SseEmitter.SseEventBuilder sendData = SseEmitter.event().id(String.valueOf(HttpStatus.OK))
-                .data(null, MediaType.APPLICATION_JSON);
+//        SseEmitter.SseEventBuilder sendData = SseEmitter.event().id(String.valueOf(HttpStatus.OK))
+//                .data(data.getMessage(), MediaType.APPLICATION_JSON);
         try {
-            sseEmitter.send(sendData);
+            sseEmitter.send(data.getMessage());
         } catch (IOException e) {
             // 推送消息失败，记录错误日志，进行重推
             log.error("推送消息失败：{},尝试进行重推", "null");
@@ -106,7 +106,7 @@ public class SseEmitterProcessor {
                         log.error("{}的第{}次消息重推失败，未创建长链接", clientId, i + 1);
                         continue;
                     }
-                    sseEmitter.send(sendData);
+                    sseEmitter.send(data.getMessage());
                 } catch (Exception ex) {
                     log.error("{}的第{}次消息重推失败", clientId, i + 1, ex);
                     continue;
