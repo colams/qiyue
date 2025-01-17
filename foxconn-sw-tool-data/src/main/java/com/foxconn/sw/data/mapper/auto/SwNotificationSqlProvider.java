@@ -28,16 +28,16 @@ public class SwNotificationSqlProvider {
         SQL sql = new SQL();
         sql.INSERT_INTO("sw_notification");
         
+        if (record.getMsgType() != null) {
+            sql.VALUES("msg_type", "#{msgType,jdbcType=VARCHAR}");
+        }
+        
         if (record.getContent() != null) {
             sql.VALUES("content", "#{content,jdbcType=VARCHAR}");
         }
         
-        if (record.getConsumer() != null) {
-            sql.VALUES("consumer", "#{consumer,jdbcType=VARCHAR}");
-        }
-        
-        if (record.getStatus() != null) {
-            sql.VALUES("status", "#{status,jdbcType=INTEGER}");
+        if (record.getReceiver() != null) {
+            sql.VALUES("receiver", "#{receiver,jdbcType=VARCHAR}");
         }
         
         if (record.getCreateTime() != null) {
@@ -58,9 +58,9 @@ public class SwNotificationSqlProvider {
         } else {
             sql.SELECT("id");
         }
+        sql.SELECT("msg_type");
         sql.SELECT("content");
-        sql.SELECT("consumer");
-        sql.SELECT("status");
+        sql.SELECT("receiver");
         sql.SELECT("create_time");
         sql.SELECT("datetime_lastchange");
         sql.FROM("sw_notification");
@@ -81,19 +81,19 @@ public class SwNotificationSqlProvider {
         sql.UPDATE("sw_notification");
         
         if (record.getId() != null) {
-            sql.SET("id = #{record.id,jdbcType=INTEGER}");
+            sql.SET("id = #{record.id,jdbcType=BIGINT}");
+        }
+        
+        if (record.getMsgType() != null) {
+            sql.SET("msg_type = #{record.msgType,jdbcType=VARCHAR}");
         }
         
         if (record.getContent() != null) {
             sql.SET("content = #{record.content,jdbcType=VARCHAR}");
         }
         
-        if (record.getConsumer() != null) {
-            sql.SET("consumer = #{record.consumer,jdbcType=VARCHAR}");
-        }
-        
-        if (record.getStatus() != null) {
-            sql.SET("status = #{record.status,jdbcType=INTEGER}");
+        if (record.getReceiver() != null) {
+            sql.SET("receiver = #{record.receiver,jdbcType=VARCHAR}");
         }
         
         if (record.getCreateTime() != null) {
@@ -112,10 +112,10 @@ public class SwNotificationSqlProvider {
         SQL sql = new SQL();
         sql.UPDATE("sw_notification");
         
-        sql.SET("id = #{record.id,jdbcType=INTEGER}");
+        sql.SET("id = #{record.id,jdbcType=BIGINT}");
+        sql.SET("msg_type = #{record.msgType,jdbcType=VARCHAR}");
         sql.SET("content = #{record.content,jdbcType=VARCHAR}");
-        sql.SET("consumer = #{record.consumer,jdbcType=VARCHAR}");
-        sql.SET("status = #{record.status,jdbcType=INTEGER}");
+        sql.SET("receiver = #{record.receiver,jdbcType=VARCHAR}");
         sql.SET("create_time = #{record.createTime,jdbcType=TIMESTAMP}");
         sql.SET("datetime_lastchange = #{record.datetimeLastchange,jdbcType=TIMESTAMP}");
         
@@ -128,16 +128,16 @@ public class SwNotificationSqlProvider {
         SQL sql = new SQL();
         sql.UPDATE("sw_notification");
         
+        if (record.getMsgType() != null) {
+            sql.SET("msg_type = #{msgType,jdbcType=VARCHAR}");
+        }
+        
         if (record.getContent() != null) {
             sql.SET("content = #{content,jdbcType=VARCHAR}");
         }
         
-        if (record.getConsumer() != null) {
-            sql.SET("consumer = #{consumer,jdbcType=VARCHAR}");
-        }
-        
-        if (record.getStatus() != null) {
-            sql.SET("status = #{status,jdbcType=INTEGER}");
+        if (record.getReceiver() != null) {
+            sql.SET("receiver = #{receiver,jdbcType=VARCHAR}");
         }
         
         if (record.getCreateTime() != null) {
@@ -148,7 +148,7 @@ public class SwNotificationSqlProvider {
             sql.SET("datetime_lastchange = #{datetimeLastchange,jdbcType=TIMESTAMP}");
         }
         
-        sql.WHERE("id = #{id,jdbcType=INTEGER}");
+        sql.WHERE("id = #{id,jdbcType=BIGINT}");
         
         return sql.toString();
     }

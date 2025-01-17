@@ -29,31 +29,31 @@ public interface SwNotificationMapper {
 
     @Delete({
         "delete from sw_notification",
-        "where id = #{id,jdbcType=INTEGER}"
+        "where id = #{id,jdbcType=BIGINT}"
     })
-    int deleteByPrimaryKey(Integer id);
+    int deleteByPrimaryKey(Long id);
 
     @Insert({
-        "insert into sw_notification (content, consumer, ",
-        "status, create_time, ",
+        "insert into sw_notification (msg_type, content, ",
+        "receiver, create_time, ",
         "datetime_lastchange)",
-        "values (#{content,jdbcType=VARCHAR}, #{consumer,jdbcType=VARCHAR}, ",
-        "#{status,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, ",
+        "values (#{msgType,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR}, ",
+        "#{receiver,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, ",
         "#{datetimeLastchange,jdbcType=TIMESTAMP})"
     })
-    @SelectKey(statement="SELECT LAST_INSERT_ID()", keyProperty="id", before=false, resultType=Integer.class)
+    @SelectKey(statement="SELECT LAST_INSERT_ID()", keyProperty="id", before=false, resultType=Long.class)
     int insert(SwNotification record);
 
     @InsertProvider(type=SwNotificationSqlProvider.class, method="insertSelective")
-    @SelectKey(statement="SELECT LAST_INSERT_ID()", keyProperty="id", before=false, resultType=Integer.class)
+    @SelectKey(statement="SELECT LAST_INSERT_ID()", keyProperty="id", before=false, resultType=Long.class)
     int insertSelective(SwNotification record);
 
     @SelectProvider(type=SwNotificationSqlProvider.class, method="selectByExample")
     @Results({
-        @Result(column="id", property="id", jdbcType=JdbcType.INTEGER, id=true),
+        @Result(column="id", property="id", jdbcType=JdbcType.BIGINT, id=true),
+        @Result(column="msg_type", property="msgType", jdbcType=JdbcType.VARCHAR),
         @Result(column="content", property="content", jdbcType=JdbcType.VARCHAR),
-        @Result(column="consumer", property="consumer", jdbcType=JdbcType.VARCHAR),
-        @Result(column="status", property="status", jdbcType=JdbcType.INTEGER),
+        @Result(column="receiver", property="receiver", jdbcType=JdbcType.VARCHAR),
         @Result(column="create_time", property="createTime", jdbcType=JdbcType.TIMESTAMP),
         @Result(column="datetime_lastchange", property="datetimeLastchange", jdbcType=JdbcType.TIMESTAMP)
     })
@@ -61,10 +61,10 @@ public interface SwNotificationMapper {
 
     @SelectProvider(type=SwNotificationSqlProvider.class, method="selectByExample")
     @Results({
-        @Result(column="id", property="id", jdbcType=JdbcType.INTEGER, id=true),
+        @Result(column="id", property="id", jdbcType=JdbcType.BIGINT, id=true),
+        @Result(column="msg_type", property="msgType", jdbcType=JdbcType.VARCHAR),
         @Result(column="content", property="content", jdbcType=JdbcType.VARCHAR),
-        @Result(column="consumer", property="consumer", jdbcType=JdbcType.VARCHAR),
-        @Result(column="status", property="status", jdbcType=JdbcType.INTEGER),
+        @Result(column="receiver", property="receiver", jdbcType=JdbcType.VARCHAR),
         @Result(column="create_time", property="createTime", jdbcType=JdbcType.TIMESTAMP),
         @Result(column="datetime_lastchange", property="datetimeLastchange", jdbcType=JdbcType.TIMESTAMP)
     })
@@ -72,19 +72,19 @@ public interface SwNotificationMapper {
 
     @Select({
         "select",
-        "id, content, consumer, status, create_time, datetime_lastchange",
+        "id, msg_type, content, receiver, create_time, datetime_lastchange",
         "from sw_notification",
-        "where id = #{id,jdbcType=INTEGER}"
+        "where id = #{id,jdbcType=BIGINT}"
     })
     @Results({
-        @Result(column="id", property="id", jdbcType=JdbcType.INTEGER, id=true),
+        @Result(column="id", property="id", jdbcType=JdbcType.BIGINT, id=true),
+        @Result(column="msg_type", property="msgType", jdbcType=JdbcType.VARCHAR),
         @Result(column="content", property="content", jdbcType=JdbcType.VARCHAR),
-        @Result(column="consumer", property="consumer", jdbcType=JdbcType.VARCHAR),
-        @Result(column="status", property="status", jdbcType=JdbcType.INTEGER),
+        @Result(column="receiver", property="receiver", jdbcType=JdbcType.VARCHAR),
         @Result(column="create_time", property="createTime", jdbcType=JdbcType.TIMESTAMP),
         @Result(column="datetime_lastchange", property="datetimeLastchange", jdbcType=JdbcType.TIMESTAMP)
     })
-    SwNotification selectByPrimaryKey(Integer id);
+    SwNotification selectByPrimaryKey(Long id);
 
     @UpdateProvider(type=SwNotificationSqlProvider.class, method="updateByExampleSelective")
     int updateByExampleSelective(@Param("record") SwNotification record, @Param("example") SwNotificationExample example);
@@ -97,12 +97,12 @@ public interface SwNotificationMapper {
 
     @Update({
         "update sw_notification",
-        "set content = #{content,jdbcType=VARCHAR},",
-          "consumer = #{consumer,jdbcType=VARCHAR},",
-          "status = #{status,jdbcType=INTEGER},",
+        "set msg_type = #{msgType,jdbcType=VARCHAR},",
+          "content = #{content,jdbcType=VARCHAR},",
+          "receiver = #{receiver,jdbcType=VARCHAR},",
           "create_time = #{createTime,jdbcType=TIMESTAMP},",
           "datetime_lastchange = #{datetimeLastchange,jdbcType=TIMESTAMP}",
-        "where id = #{id,jdbcType=INTEGER}"
+        "where id = #{id,jdbcType=BIGINT}"
     })
     int updateByPrimaryKey(SwNotification record);
 }

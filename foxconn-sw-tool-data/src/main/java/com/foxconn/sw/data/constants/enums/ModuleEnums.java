@@ -1,24 +1,25 @@
 package com.foxconn.sw.data.constants.enums;
 
-import com.foxconn.sw.data.exception.BizException;
-
-import static com.foxconn.sw.data.constants.enums.retcode.RetCode.ENUM_CONVERT_ERROR;
-
 public enum ModuleEnums {
 
-    ALL(0, "所有"),
-    Forum(1, "论坛"),
-    Task(2, "工作任務"),
+    Forum(1, "论坛", "forum_bbs_comment"),
+    Task(2, "工作任務", "sw_task"),
+    Notification(3, "通知消息", "sw_notification"),
 
     ;
 
-    ModuleEnums(int code, String name) {
+    ModuleEnums(int code, String name, String tableName) {
         this.code = code;
         this.name = name;
+        this.tableName = tableName;
     }
 
     private int code;
     private String name;
+    /**
+     * 关联表信息
+     */
+    private String tableName;
 
     public int getCode() {
         return code;
@@ -28,14 +29,12 @@ public enum ModuleEnums {
         return name;
     }
 
+    public String getTableName() {
+        return tableName;
+    }
 
-    public static ModuleEnums getEnumByCode(Integer code) {
-        for (ModuleEnums enums : ModuleEnums.values()) {
-            if (enums.getCode() == code) {
-                return enums;
-            }
-        }
-        throw new BizException(ENUM_CONVERT_ERROR);
+    public void setTableName(String tableName) {
+        this.tableName = tableName;
     }
 
 }

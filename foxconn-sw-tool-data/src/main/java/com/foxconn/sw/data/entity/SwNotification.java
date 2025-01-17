@@ -3,29 +3,42 @@ package com.foxconn.sw.data.entity;
 import java.time.LocalDateTime;
 
 public class SwNotification {
-    private Integer id;
+    private Long id;
+
+    private String msgType;
 
     private String content;
 
-    private String consumer;
-
-    private Integer status;
+    private String receiver;
 
     private LocalDateTime createTime;
 
     private LocalDateTime datetimeLastchange;
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public SwNotification withId(Integer id) {
+    public SwNotification withId(Long id) {
         this.setId(id);
         return this;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getMsgType() {
+        return msgType;
+    }
+
+    public SwNotification withMsgType(String msgType) {
+        this.setMsgType(msgType);
+        return this;
+    }
+
+    public void setMsgType(String msgType) {
+        this.msgType = msgType == null ? null : msgType.trim();
     }
 
     public String getContent() {
@@ -41,30 +54,17 @@ public class SwNotification {
         this.content = content == null ? null : content.trim();
     }
 
-    public String getConsumer() {
-        return consumer;
+    public String getReceiver() {
+        return receiver;
     }
 
-    public SwNotification withConsumer(String consumer) {
-        this.setConsumer(consumer);
+    public SwNotification withReceiver(String receiver) {
+        this.setReceiver(receiver);
         return this;
     }
 
-    public void setConsumer(String consumer) {
-        this.consumer = consumer == null ? null : consumer.trim();
-    }
-
-    public Integer getStatus() {
-        return status;
-    }
-
-    public SwNotification withStatus(Integer status) {
-        this.setStatus(status);
-        return this;
-    }
-
-    public void setStatus(Integer status) {
-        this.status = status;
+    public void setReceiver(String receiver) {
+        this.receiver = receiver == null ? null : receiver.trim();
     }
 
     public LocalDateTime getCreateTime() {
