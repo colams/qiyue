@@ -3,6 +3,7 @@ package com.foxconn.sw.service.processor.meeting;
 import com.foxconn.sw.business.SwAppendResourceBusiness;
 import com.foxconn.sw.business.meeting.*;
 import com.foxconn.sw.common.constanst.NumberConstants;
+import com.foxconn.sw.common.utils.JsonUtils;
 import com.foxconn.sw.data.constants.enums.MeetingRoleFlagEnums;
 import com.foxconn.sw.data.context.RequestContext;
 import com.foxconn.sw.data.dto.communal.MeetingDateTimeVo;
@@ -16,6 +17,7 @@ import com.foxconn.sw.data.entity.*;
 import com.foxconn.sw.service.processor.MeetingRoomConfig;
 import com.foxconn.sw.service.processor.utils.EmployeeUtils;
 import com.google.common.collect.Lists;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -80,9 +82,13 @@ public class MinuteDetailProcessor {
         minuteVo.setRecorder(RequestContext.getEmployeeNo());
         minuteVo.setMembers(members.stream().filter(e -> Member_Flag.test(e.getRole())).map(SwMeetingMember::getEmployeeNo).collect(Collectors.toList()));
         minuteVo.setMeetingTitle(optional.map(e -> e.getTitle()).orElse(meeting.getTitle()));
-        minuteVo.setResourceIds(appendResourceBusiness.getAppendResourcesVo(meeting.getResourceIds()));
+        if (StringUtils.isNotEmpty(meeting.getResourceIds())) {
+            minuteVo.setResourceIds(JsonUtils.deserialize(meeting.getResourceIds(), List.class, Integer.class));
+        }
+
         MeetingMinuteDetailVo vo = new MeetingMinuteDetailVo();
         vo.setMinuteVo(minuteVo);
+        vo.setResourceVos(appendResourceBusiness.getAppendResourcesVo(meeting.getResourceIds()));
         return vo;
     }
 
@@ -97,6 +103,7 @@ public class MinuteDetailProcessor {
         vo.setMinuteVo(minuteVo);
         vo.setDecisionVo(decisionVo);
         vo.setOtherVo(otherVo);
+        vo.setResourceVos(appendResourceBusiness.getAppendResourcesVo(meetingMinutes.getResourceIds()));
         return vo;
     }
 
@@ -135,7 +142,9 @@ public class MinuteDetailProcessor {
         vo.setChairman(getMembersByRole(members, Chairman_Flag));
         vo.setRecorder(getMembersByRole(members, Recorder));
         vo.setMembers(getMembersByRoles(members, Member_Flag));
-        vo.setResourceIds(appendResourceBusiness.getAppendResourcesVo(meetingMinutes.getResourceIds()));
+        if (StringUtils.isNotEmpty(meetingMinutes.getResourceIds())) {
+            vo.setResourceIds(JsonUtils.deserialize(meetingMinutes.getResourceIds(), List.class, Integer.class));
+        }
 
         return vo;
     }
