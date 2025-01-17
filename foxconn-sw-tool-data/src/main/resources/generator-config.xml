@@ -183,6 +183,9 @@
         <table tableName="sw_notification">
             <generatedKey column="id" identity="true" sqlStatement="mysql"/>
         </table>
+        <table tableName="sw_notification_status">
+            <generatedKey column="id" identity="true" sqlStatement="mysql"/>
+        </table>
         <table tableName="sw_project">
             <generatedKey column="id" identity="true" sqlStatement="mysql"/>
         </table>
