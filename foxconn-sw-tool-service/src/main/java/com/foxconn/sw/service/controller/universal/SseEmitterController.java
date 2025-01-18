@@ -39,7 +39,7 @@ public class SseEmitterController {
 
     @ApiResponse(responseCode = "0", description = "成功码")
     @PostMapping("/allUser")
-    public Response<List<EmitterUserVo>> allUser(@Valid @RequestBody Request request) throws IOException {
+    public Response<List<EmitterUserVo>> allUser(@Valid @RequestBody Request request) {
         List<EmitterUserVo> result = sseEmitterProcessor.allUser();
         return ResponseUtils.success(result, request.getTraceId());
     }
