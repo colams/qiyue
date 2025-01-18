@@ -108,7 +108,7 @@ public class SseEmitterProcessor {
      * 推送消息到客户端
      * 此处做了推送失败后，重试推送机制，可根据自己业务进行修改
      **/
-    public String sendMessage(String token, String message) throws IOException {
+    public String sendMessage(String token, String message) {
         String clientId = token;
         SseEmitter sseEmitter = sseCache.get(clientId);
         String result = "failed";
@@ -116,6 +116,7 @@ public class SseEmitterProcessor {
             log.error("推送消息失败：客户端{}未创建长链接,失败消息:{}", clientId, message);
             return result;
         }
+
         try {
 
             SseEmitter.SseEventBuilder sendData = SseEmitter
@@ -124,9 +125,13 @@ public class SseEmitterProcessor {
                     .data(message);
             sseEmitter.send(sendData);
             result = "success";
+        } catch (IllegalStateException e) {
+            // 推送消息失败，记录错误日志，进行重推
+            log.error("sendMessage IllegalStateException", e);
+            sseCache.remove(token);
         } catch (IOException e) {
             // 推送消息失败，记录错误日志，进行重推
-            log.error("sendMessage", e);
+            log.error("sendMessage IOException", e);
         }
         return result;
     }
