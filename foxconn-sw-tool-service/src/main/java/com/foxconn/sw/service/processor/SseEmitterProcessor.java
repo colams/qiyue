@@ -111,37 +111,24 @@ public class SseEmitterProcessor {
     public String sendMessage(String token, String message) throws IOException {
         String clientId = token;
         SseEmitter sseEmitter = sseCache.get(clientId);
+        String result = "failed";
         if (sseEmitter == null) {
             log.error("推送消息失败：客户端{}未创建长链接,失败消息:{}", clientId, message);
-            return "失敗";
+            return result;
         }
-//        SseEmitter.SseEventBuilder sendData = SseEmitter.event().id(String.valueOf(HttpStatus.OK))
-//                .data(data.getMessage(), MediaType.APPLICATION_JSON);
         try {
-            sseEmitter.send(message);
+
+            SseEmitter.SseEventBuilder sendData = SseEmitter
+                    .event()
+                    .id(String.valueOf(HttpStatus.OK))
+                    .data(message);
+            sseEmitter.send(sendData);
+            result = "success";
         } catch (IOException e) {
             // 推送消息失败，记录错误日志，进行重推
-            log.error("推送消息失败：{},尝试进行重推", "null");
-            boolean isSuccess = true;
-            // 推送消息失败后，每隔10s推送一次，推送5次
-            for (int i = 0; i < 5; i++) {
-                try {
-                    Thread.sleep(10000);
-                    sseEmitter = sseCache.get(clientId);
-                    if (sseEmitter == null) {
-                        log.error("{}的第{}次消息重推失败，未创建长链接", clientId, i + 1);
-                        continue;
-                    }
-                    sseEmitter.send(message);
-                } catch (Exception ex) {
-                    log.error("{}的第{}次消息重推失败", clientId, i + 1, ex);
-                    continue;
-                }
-                log.info("{}的第{}次消息重推成功,{}", clientId, i + 1, "");
-                return "推送結束";
-            }
+            log.error("sendMessage", e);
         }
-        return "success";
+        return result;
     }
 
 
