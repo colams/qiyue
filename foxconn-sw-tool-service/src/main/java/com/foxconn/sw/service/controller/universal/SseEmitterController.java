@@ -4,8 +4,10 @@ import com.foxconn.sw.data.dto.Request;
 import com.foxconn.sw.data.dto.Response;
 import com.foxconn.sw.data.dto.entity.universal.StringParams;
 import com.foxconn.sw.data.dto.request.sse.SseMsgParams;
+import com.foxconn.sw.data.dto.response.sse.EmitterUserVo;
 import com.foxconn.sw.service.processor.SseEmitterProcessor;
 import com.foxconn.sw.service.utils.ResponseUtils;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
 import java.io.IOException;
+import java.util.List;
 
 @RestController
 @RequestMapping("api/sse")
@@ -27,12 +30,22 @@ public class SseEmitterController {
         return sseEmitter;
     }
 
+    @ApiResponse(responseCode = "0", description = "成功码")
     @PostMapping("/sendMsg")
     public Response<String> sendMsg(@Valid @RequestBody Request<SseMsgParams> request) throws IOException {
         String result = sseEmitterProcessor.sendMessage(request.getData());
         return ResponseUtils.success(result, request.getTraceId());
     }
 
+    @ApiResponse(responseCode = "0", description = "成功码")
+    @PostMapping("/allUser")
+    public Response<List<EmitterUserVo>> allUser(@Valid @RequestBody Request request) throws IOException {
+        List<EmitterUserVo> result = sseEmitterProcessor.allUser();
+        return ResponseUtils.success(result, request.getTraceId());
+    }
+
+
+    @ApiResponse(responseCode = "0", description = "成功码")
     @PostMapping("/close")
     public Response<String> close(@RequestBody Request<StringParams> request) {
         String result = sseEmitterProcessor.closeConnect(request.getData().getParams());
