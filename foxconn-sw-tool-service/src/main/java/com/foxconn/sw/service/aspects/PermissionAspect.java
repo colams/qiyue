@@ -98,6 +98,7 @@ public class PermissionAspect {
             RequestContext.put(RequestContext.ContextKey.EmployeeNo, userInfo.getEmployeeNo());
             RequestContext.put(RequestContext.ContextKey.OperateType, signatureName);
             RequestContext.put(RequestContext.ContextKey.TraceID, traceId);
+            RequestContext.put(RequestContext.ContextKey.Token, token);
         }
     }
 

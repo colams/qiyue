@@ -42,11 +42,16 @@ public class RequestContext {
         contextHolder.remove();
     }
 
+    public static String getToken() {
+        return (String) get(ContextKey.Token);
+    }
+
     public interface ContextKey {
         String USER_INFO = "userInfo";
         String NameEmployeeNo = "nameEmployeeNo";
         String EmployeeNo = "employeeNo";
         String OperateType = "operateType";
         String TraceID = "traceId";
+        String Token = "token";
     }
 }
