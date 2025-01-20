@@ -5,10 +5,10 @@ import com.foxconn.sw.business.forums.ForumBbsBusiness;
 import com.foxconn.sw.business.forums.ForumFavoriteBusiness;
 import com.foxconn.sw.business.forums.ForumParticipantBusiness;
 import com.foxconn.sw.business.forums.ForumPostsAttachmentBusiness;
-import com.foxconn.sw.data.context.RequestContext;
 import com.foxconn.sw.common.utils.ConvertUtils;
 import com.foxconn.sw.common.utils.DomainRetrieval;
 import com.foxconn.sw.common.utils.FilePathUtils;
+import com.foxconn.sw.data.context.RequestContext;
 import com.foxconn.sw.data.dto.entity.forums.BbsDetailVo;
 import com.foxconn.sw.data.dto.entity.forums.ForumsParticipantVo;
 import com.foxconn.sw.data.dto.entity.forums.PostsResourceVo;
@@ -59,6 +59,7 @@ public class PostsDetailProcessor {
         }
         bbsDetailVo.setCollectionStatus(favoriteBusiness.queryCollectionStatus(forumBbs.getId()));
         bbsDetailVo.setCanDel(RequestContext.getEmployeeNo().equalsIgnoreCase(forumBbs.getAuthorNo()));
+        bbsDetailVo.setStatus(forumBbs.getStatus());
         return bbsDetailVo;
     }
 
