@@ -113,7 +113,6 @@ public class ForumController {
         return ResponseUtils.success(result, request.getTraceId());
     }
 
-
     @Permission
     @Operation(summary = "删除帖子", tags = TagsConstants.FORUMS)
     @ApiResponse(responseCode = "0", description = "成功码")
@@ -129,6 +128,15 @@ public class ForumController {
     @PostMapping("/hidden")
     public Response<Boolean> hidden(@Valid @RequestBody Request<IntegerParams> request) {
         boolean result = updatePostsProcessor.hidden(request.getData());
+        return ResponseUtils.success(result, request.getTraceId());
+    }
+
+    @Permission
+    @Operation(summary = "更新状态", tags = TagsConstants.FORUMS)
+    @ApiResponse(responseCode = "0", description = "成功码")
+    @PostMapping("/updateStatus")
+    public Response<Boolean> updateStatus(@Valid @RequestBody Request<UpdateStatusParams> request) {
+        boolean result = updatePostsProcessor.updateStatus(request.getData());
         return ResponseUtils.success(result, request.getTraceId());
     }
 }

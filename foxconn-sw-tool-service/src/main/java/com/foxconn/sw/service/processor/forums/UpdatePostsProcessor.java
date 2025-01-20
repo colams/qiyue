@@ -9,7 +9,9 @@ import com.foxconn.sw.data.context.RequestContext;
 import com.foxconn.sw.data.dto.entity.universal.IntegerParams;
 import com.foxconn.sw.data.dto.request.forums.DeletePostsParams;
 import com.foxconn.sw.data.dto.request.forums.UpdateAttachParams;
+import com.foxconn.sw.data.dto.request.forums.UpdateStatusParams;
 import com.foxconn.sw.data.entity.ForumAttachment;
+import com.foxconn.sw.data.entity.ForumBbs;
 import com.foxconn.sw.data.entity.ForumParticipant;
 import com.foxconn.sw.data.exception.BizException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -74,5 +76,16 @@ public class UpdatePostsProcessor {
         updateEntity.setId(participant.getId());
         updateEntity.setHidden(participant.getHidden().equals(NumberConstants.ZERO) ? NumberConstants.ONE : NumberConstants.ZERO);
         return participantBusiness.update(updateEntity);
+    }
+
+    public boolean updateStatus(UpdateStatusParams data) {
+        ForumBbs forumBbs = forumBbsBusiness.getForumBbs(data.getId().intValue());
+        if (Objects.isNull(forumBbs)) {
+            throw new BizException(4, "成员信息查询失败，请重试");
+        }
+        ForumBbs updateEntity = new ForumBbs();
+        updateEntity.setId(forumBbs.getId());
+        updateEntity.setStatus(forumBbs.getStatus().equalsIgnoreCase("F") ? "F" : "");
+        return forumBbsBusiness.updatePosts(forumBbs);
     }
 }

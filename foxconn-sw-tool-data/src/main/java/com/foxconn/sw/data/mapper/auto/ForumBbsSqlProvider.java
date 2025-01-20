@@ -40,6 +40,10 @@ public class ForumBbsSqlProvider {
             sql.VALUES("author_no", "#{authorNo,jdbcType=VARCHAR}");
         }
         
+        if (record.getStatus() != null) {
+            sql.VALUES("status", "#{status,jdbcType=VARCHAR}");
+        }
+        
         if (record.getIsDelete() != null) {
             sql.VALUES("is_delete", "#{isDelete,jdbcType=INTEGER}");
         }
@@ -65,6 +69,7 @@ public class ForumBbsSqlProvider {
         sql.SELECT("project");
         sql.SELECT("title");
         sql.SELECT("author_no");
+        sql.SELECT("status");
         sql.SELECT("is_delete");
         sql.SELECT("create_time");
         sql.SELECT("datetime_lastchange");
@@ -101,6 +106,10 @@ public class ForumBbsSqlProvider {
             sql.SET("author_no = #{record.authorNo,jdbcType=VARCHAR}");
         }
         
+        if (record.getStatus() != null) {
+            sql.SET("status = #{record.status,jdbcType=VARCHAR}");
+        }
+        
         if (record.getIsDelete() != null) {
             sql.SET("is_delete = #{record.isDelete,jdbcType=INTEGER}");
         }
@@ -125,6 +134,7 @@ public class ForumBbsSqlProvider {
         sql.SET("project = #{record.project,jdbcType=VARCHAR}");
         sql.SET("title = #{record.title,jdbcType=VARCHAR}");
         sql.SET("author_no = #{record.authorNo,jdbcType=VARCHAR}");
+        sql.SET("status = #{record.status,jdbcType=VARCHAR}");
         sql.SET("is_delete = #{record.isDelete,jdbcType=INTEGER}");
         sql.SET("create_time = #{record.createTime,jdbcType=TIMESTAMP}");
         sql.SET("datetime_lastchange = #{record.datetimeLastchange,jdbcType=TIMESTAMP}");
@@ -148,6 +158,10 @@ public class ForumBbsSqlProvider {
         
         if (record.getAuthorNo() != null) {
             sql.SET("author_no = #{authorNo,jdbcType=VARCHAR}");
+        }
+        
+        if (record.getStatus() != null) {
+            sql.SET("status = #{status,jdbcType=VARCHAR}");
         }
         
         if (record.getIsDelete() != null) {

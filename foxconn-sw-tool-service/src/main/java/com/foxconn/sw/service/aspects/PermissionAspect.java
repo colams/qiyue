@@ -9,6 +9,9 @@ import com.foxconn.sw.data.dto.Response;
 import com.foxconn.sw.data.dto.entity.acount.LoginParams;
 import com.foxconn.sw.data.dto.entity.acount.UserInfo;
 import com.foxconn.sw.service.processor.user.CommonUserUtils;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import org.apache.commons.lang3.StringUtils;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
@@ -36,6 +39,10 @@ public class PermissionAspect {
     LogBusiness logBusiness;
     @Autowired
     private ServletUtils servletUtils;
+    @Autowired
+    HttpServletRequest servletRequest;
+    @Autowired
+    HttpServletResponse servletResponse;
 
     @Pointcut("@annotation(org.springframework.web.bind.annotation.PostMapping)")
     private void checkPermission() {
@@ -49,6 +56,7 @@ public class PermissionAspect {
             stopWatch.start();
             contextInit(request, joinPoint);
             retValue = joinPoint.proceed();
+            writeCookie();
             stopWatch.stop();
         } catch (Throwable throwable) {
             logger.warn("call service throwable", throwable);
@@ -61,10 +69,28 @@ public class PermissionAspect {
     }
 
 
+    private void readCookie() {
+        Cookie[] cookies = servletRequest.getCookies();
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                System.out.println(cookie.getValue());
+            }
+        }
+    }
+
+    private void writeCookie() {
+        Cookie myCookie = new Cookie("myCookieName", "myCookieValue");
+        myCookie.setMaxAge(60 * 60 * 24 * 7); // 设置cookie有效期为1小时
+        myCookie.setPath("/"); // 设置cookie在所有路径下有效
+        servletResponse.addCookie(myCookie); // 将cookie添加到响应中
+    }
+
+
     private void contextInit(Object obj, ProceedingJoinPoint joinPoint) {
         String signatureName = joinPoint.getSignature().getName();
         String traceId = "";
         String token = "";
+
         if ("upload".equalsIgnoreCase(signatureName)) {
             token = joinPoint.getArgs()[2].toString();
             traceId = token;
