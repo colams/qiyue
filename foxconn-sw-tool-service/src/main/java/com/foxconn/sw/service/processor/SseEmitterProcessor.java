@@ -30,17 +30,6 @@ public class SseEmitterProcessor {
      */
     private static final Map<String, SseEmitterUTF8> sseCache = new ConcurrentHashMap<>();
 
-
-    /**
-     * 根据客户端id获取SseEmitter对象
-     *
-     * @param clientId 客户端ID
-     */
-    public SseEmitterUTF8 getSseEmitterByClientId(String clientId) {
-        return sseCache.get(clientId);
-    }
-
-
     /**
      * 创建连接
      *
@@ -118,7 +107,6 @@ public class SseEmitterProcessor {
         }
 
         try {
-
             SseEmitter.SseEventBuilder sendData = SseEmitter
                     .event()
                     .id(String.valueOf(HttpStatus.OK))
@@ -128,7 +116,8 @@ public class SseEmitterProcessor {
         } catch (IllegalStateException e) {
             // 推送消息失败，记录错误日志，进行重推
             log.error("sendMessage IllegalStateException", e);
-            sseCache.remove(token);
+            sseEmitter.complete();
+            removeUser(clientId);
         } catch (IOException e) {
             // 推送消息失败，记录错误日志，进行重推
             log.error("sendMessage IOException", e);
@@ -208,5 +197,4 @@ public class SseEmitterProcessor {
         sseCache.remove(clientId);
         log.info("SseEmitterServiceImpl[removeUser]:移除用户：{}", clientId);
     }
-
 }
