@@ -115,53 +115,123 @@ public class SwNotificationExample {
             return (Criteria) this;
         }
 
-        public Criteria andIdEqualTo(Integer value) {
+        public Criteria andIdEqualTo(Long value) {
             addCriterion("id =", value, "id");
             return (Criteria) this;
         }
 
-        public Criteria andIdNotEqualTo(Integer value) {
+        public Criteria andIdNotEqualTo(Long value) {
             addCriterion("id <>", value, "id");
             return (Criteria) this;
         }
 
-        public Criteria andIdGreaterThan(Integer value) {
+        public Criteria andIdGreaterThan(Long value) {
             addCriterion("id >", value, "id");
             return (Criteria) this;
         }
 
-        public Criteria andIdGreaterThanOrEqualTo(Integer value) {
+        public Criteria andIdGreaterThanOrEqualTo(Long value) {
             addCriterion("id >=", value, "id");
             return (Criteria) this;
         }
 
-        public Criteria andIdLessThan(Integer value) {
+        public Criteria andIdLessThan(Long value) {
             addCriterion("id <", value, "id");
             return (Criteria) this;
         }
 
-        public Criteria andIdLessThanOrEqualTo(Integer value) {
+        public Criteria andIdLessThanOrEqualTo(Long value) {
             addCriterion("id <=", value, "id");
             return (Criteria) this;
         }
 
-        public Criteria andIdIn(List<Integer> values) {
+        public Criteria andIdIn(List<Long> values) {
             addCriterion("id in", values, "id");
             return (Criteria) this;
         }
 
-        public Criteria andIdNotIn(List<Integer> values) {
+        public Criteria andIdNotIn(List<Long> values) {
             addCriterion("id not in", values, "id");
             return (Criteria) this;
         }
 
-        public Criteria andIdBetween(Integer value1, Integer value2) {
+        public Criteria andIdBetween(Long value1, Long value2) {
             addCriterion("id between", value1, value2, "id");
             return (Criteria) this;
         }
 
-        public Criteria andIdNotBetween(Integer value1, Integer value2) {
+        public Criteria andIdNotBetween(Long value1, Long value2) {
             addCriterion("id not between", value1, value2, "id");
+            return (Criteria) this;
+        }
+
+        public Criteria andMsgTypeIsNull() {
+            addCriterion("msg_type is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andMsgTypeIsNotNull() {
+            addCriterion("msg_type is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andMsgTypeEqualTo(String value) {
+            addCriterion("msg_type =", value, "msgType");
+            return (Criteria) this;
+        }
+
+        public Criteria andMsgTypeNotEqualTo(String value) {
+            addCriterion("msg_type <>", value, "msgType");
+            return (Criteria) this;
+        }
+
+        public Criteria andMsgTypeGreaterThan(String value) {
+            addCriterion("msg_type >", value, "msgType");
+            return (Criteria) this;
+        }
+
+        public Criteria andMsgTypeGreaterThanOrEqualTo(String value) {
+            addCriterion("msg_type >=", value, "msgType");
+            return (Criteria) this;
+        }
+
+        public Criteria andMsgTypeLessThan(String value) {
+            addCriterion("msg_type <", value, "msgType");
+            return (Criteria) this;
+        }
+
+        public Criteria andMsgTypeLessThanOrEqualTo(String value) {
+            addCriterion("msg_type <=", value, "msgType");
+            return (Criteria) this;
+        }
+
+        public Criteria andMsgTypeLike(String value) {
+            addCriterion("msg_type like", value, "msgType");
+            return (Criteria) this;
+        }
+
+        public Criteria andMsgTypeNotLike(String value) {
+            addCriterion("msg_type not like", value, "msgType");
+            return (Criteria) this;
+        }
+
+        public Criteria andMsgTypeIn(List<String> values) {
+            addCriterion("msg_type in", values, "msgType");
+            return (Criteria) this;
+        }
+
+        public Criteria andMsgTypeNotIn(List<String> values) {
+            addCriterion("msg_type not in", values, "msgType");
+            return (Criteria) this;
+        }
+
+        public Criteria andMsgTypeBetween(String value1, String value2) {
+            addCriterion("msg_type between", value1, value2, "msgType");
+            return (Criteria) this;
+        }
+
+        public Criteria andMsgTypeNotBetween(String value1, String value2) {
+            addCriterion("msg_type not between", value1, value2, "msgType");
             return (Criteria) this;
         }
 
@@ -235,133 +305,73 @@ public class SwNotificationExample {
             return (Criteria) this;
         }
 
-        public Criteria andConsumerIsNull() {
-            addCriterion("consumer is null");
+        public Criteria andReceiverIsNull() {
+            addCriterion("receiver is null");
             return (Criteria) this;
         }
 
-        public Criteria andConsumerIsNotNull() {
-            addCriterion("consumer is not null");
+        public Criteria andReceiverIsNotNull() {
+            addCriterion("receiver is not null");
             return (Criteria) this;
         }
 
-        public Criteria andConsumerEqualTo(String value) {
-            addCriterion("consumer =", value, "consumer");
+        public Criteria andReceiverEqualTo(String value) {
+            addCriterion("receiver =", value, "receiver");
             return (Criteria) this;
         }
 
-        public Criteria andConsumerNotEqualTo(String value) {
-            addCriterion("consumer <>", value, "consumer");
+        public Criteria andReceiverNotEqualTo(String value) {
+            addCriterion("receiver <>", value, "receiver");
             return (Criteria) this;
         }
 
-        public Criteria andConsumerGreaterThan(String value) {
-            addCriterion("consumer >", value, "consumer");
+        public Criteria andReceiverGreaterThan(String value) {
+            addCriterion("receiver >", value, "receiver");
             return (Criteria) this;
         }
 
-        public Criteria andConsumerGreaterThanOrEqualTo(String value) {
-            addCriterion("consumer >=", value, "consumer");
+        public Criteria andReceiverGreaterThanOrEqualTo(String value) {
+            addCriterion("receiver >=", value, "receiver");
             return (Criteria) this;
         }
 
-        public Criteria andConsumerLessThan(String value) {
-            addCriterion("consumer <", value, "consumer");
+        public Criteria andReceiverLessThan(String value) {
+            addCriterion("receiver <", value, "receiver");
             return (Criteria) this;
         }
 
-        public Criteria andConsumerLessThanOrEqualTo(String value) {
-            addCriterion("consumer <=", value, "consumer");
+        public Criteria andReceiverLessThanOrEqualTo(String value) {
+            addCriterion("receiver <=", value, "receiver");
             return (Criteria) this;
         }
 
-        public Criteria andConsumerLike(String value) {
-            addCriterion("consumer like", value, "consumer");
+        public Criteria andReceiverLike(String value) {
+            addCriterion("receiver like", value, "receiver");
             return (Criteria) this;
         }
 
-        public Criteria andConsumerNotLike(String value) {
-            addCriterion("consumer not like", value, "consumer");
+        public Criteria andReceiverNotLike(String value) {
+            addCriterion("receiver not like", value, "receiver");
             return (Criteria) this;
         }
 
-        public Criteria andConsumerIn(List<String> values) {
-            addCriterion("consumer in", values, "consumer");
+        public Criteria andReceiverIn(List<String> values) {
+            addCriterion("receiver in", values, "receiver");
             return (Criteria) this;
         }
 
-        public Criteria andConsumerNotIn(List<String> values) {
-            addCriterion("consumer not in", values, "consumer");
+        public Criteria andReceiverNotIn(List<String> values) {
+            addCriterion("receiver not in", values, "receiver");
             return (Criteria) this;
         }
 
-        public Criteria andConsumerBetween(String value1, String value2) {
-            addCriterion("consumer between", value1, value2, "consumer");
+        public Criteria andReceiverBetween(String value1, String value2) {
+            addCriterion("receiver between", value1, value2, "receiver");
             return (Criteria) this;
         }
 
-        public Criteria andConsumerNotBetween(String value1, String value2) {
-            addCriterion("consumer not between", value1, value2, "consumer");
-            return (Criteria) this;
-        }
-
-        public Criteria andStatusIsNull() {
-            addCriterion("status is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andStatusIsNotNull() {
-            addCriterion("status is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andStatusEqualTo(Integer value) {
-            addCriterion("status =", value, "status");
-            return (Criteria) this;
-        }
-
-        public Criteria andStatusNotEqualTo(Integer value) {
-            addCriterion("status <>", value, "status");
-            return (Criteria) this;
-        }
-
-        public Criteria andStatusGreaterThan(Integer value) {
-            addCriterion("status >", value, "status");
-            return (Criteria) this;
-        }
-
-        public Criteria andStatusGreaterThanOrEqualTo(Integer value) {
-            addCriterion("status >=", value, "status");
-            return (Criteria) this;
-        }
-
-        public Criteria andStatusLessThan(Integer value) {
-            addCriterion("status <", value, "status");
-            return (Criteria) this;
-        }
-
-        public Criteria andStatusLessThanOrEqualTo(Integer value) {
-            addCriterion("status <=", value, "status");
-            return (Criteria) this;
-        }
-
-        public Criteria andStatusIn(List<Integer> values) {
-            addCriterion("status in", values, "status");
-            return (Criteria) this;
-        }
-
-        public Criteria andStatusNotIn(List<Integer> values) {
-            addCriterion("status not in", values, "status");
-            return (Criteria) this;
-        }
-
-        public Criteria andStatusBetween(Integer value1, Integer value2) {
-            addCriterion("status between", value1, value2, "status");
-            return (Criteria) this;
-        }
-
-        public Criteria andStatusNotBetween(Integer value1, Integer value2) {
-            addCriterion("status not between", value1, value2, "status");
+        public Criteria andReceiverNotBetween(String value1, String value2) {
+            addCriterion("receiver not between", value1, value2, "receiver");
             return (Criteria) this;
         }
 
@@ -485,13 +495,18 @@ public class SwNotificationExample {
             return (Criteria) this;
         }
 
+        public Criteria andMsgTypeLikeInsensitive(String value) {
+            addCriterion("upper(msg_type) like", value.toUpperCase(), "msgType");
+            return (Criteria) this;
+        }
+
         public Criteria andContentLikeInsensitive(String value) {
             addCriterion("upper(content) like", value.toUpperCase(), "content");
             return (Criteria) this;
         }
 
-        public Criteria andConsumerLikeInsensitive(String value) {
-            addCriterion("upper(consumer) like", value.toUpperCase(), "consumer");
+        public Criteria andReceiverLikeInsensitive(String value) {
+            addCriterion("upper(receiver) like", value.toUpperCase(), "receiver");
             return (Criteria) this;
         }
     }

@@ -1,9 +1,14 @@
 package com.foxconn.sw.service.processor.forums;
 
 import com.foxconn.sw.business.SwAppendResourceBusiness;
-import com.foxconn.sw.business.forums.*;
-import com.foxconn.sw.common.context.RequestContext;
+import com.foxconn.sw.business.forums.ForumBbsBusiness;
+import com.foxconn.sw.business.forums.ForumFavoriteBusiness;
+import com.foxconn.sw.business.forums.ForumParticipantBusiness;
+import com.foxconn.sw.business.forums.ForumPostsAttachmentBusiness;
+import com.foxconn.sw.data.context.RequestContext;
 import com.foxconn.sw.common.utils.ConvertUtils;
+import com.foxconn.sw.common.utils.DomainRetrieval;
+import com.foxconn.sw.common.utils.FilePathUtils;
 import com.foxconn.sw.data.dto.entity.forums.BbsDetailVo;
 import com.foxconn.sw.data.dto.entity.forums.ForumsParticipantVo;
 import com.foxconn.sw.data.dto.entity.forums.PostsResourceVo;
@@ -35,6 +40,8 @@ public class PostsDetailProcessor {
     ForumPostsAttachmentBusiness postsAttachmentBusiness;
     @Autowired
     ForumFavoriteBusiness favoriteBusiness;
+    @Autowired
+    FilePathUtils filePathUtils;
 
     public BbsDetailVo detailV2(IntegerParams data) {
         ForumBbs forumBbs = forumBbsBusiness.getForumBbs(data.getParams());
@@ -78,6 +85,7 @@ public class PostsDetailProcessor {
             resourceVo.setName(e.getOriginName());
             resourceVo.setUrl(ConvertUtils.urlPreFix(e.getId(), e.getFilePath()));
             resourceVo.setOperator(employeeUtils.mapEmployee(e.getOperator()));
+            resourceVo.setViewUrl(String.format("%s/upload/%s/%s", DomainRetrieval.getDomain(), e.getUploadType(), e.getFilePath()));
             resourceVos.add(resourceVo);
         });
         return resourceVos;

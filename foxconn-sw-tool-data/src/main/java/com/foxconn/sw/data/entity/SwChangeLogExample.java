@@ -165,6 +165,206 @@ public class SwChangeLogExample {
             return (Criteria) this;
         }
 
+        public Criteria andReleaseNoteIsNull() {
+            addCriterion("release_note is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andReleaseNoteIsNotNull() {
+            addCriterion("release_note is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andReleaseNoteEqualTo(String value) {
+            addCriterion("release_note =", value, "releaseNote");
+            return (Criteria) this;
+        }
+
+        public Criteria andReleaseNoteNotEqualTo(String value) {
+            addCriterion("release_note <>", value, "releaseNote");
+            return (Criteria) this;
+        }
+
+        public Criteria andReleaseNoteGreaterThan(String value) {
+            addCriterion("release_note >", value, "releaseNote");
+            return (Criteria) this;
+        }
+
+        public Criteria andReleaseNoteGreaterThanOrEqualTo(String value) {
+            addCriterion("release_note >=", value, "releaseNote");
+            return (Criteria) this;
+        }
+
+        public Criteria andReleaseNoteLessThan(String value) {
+            addCriterion("release_note <", value, "releaseNote");
+            return (Criteria) this;
+        }
+
+        public Criteria andReleaseNoteLessThanOrEqualTo(String value) {
+            addCriterion("release_note <=", value, "releaseNote");
+            return (Criteria) this;
+        }
+
+        public Criteria andReleaseNoteLike(String value) {
+            addCriterion("release_note like", value, "releaseNote");
+            return (Criteria) this;
+        }
+
+        public Criteria andReleaseNoteNotLike(String value) {
+            addCriterion("release_note not like", value, "releaseNote");
+            return (Criteria) this;
+        }
+
+        public Criteria andReleaseNoteIn(List<String> values) {
+            addCriterion("release_note in", values, "releaseNote");
+            return (Criteria) this;
+        }
+
+        public Criteria andReleaseNoteNotIn(List<String> values) {
+            addCriterion("release_note not in", values, "releaseNote");
+            return (Criteria) this;
+        }
+
+        public Criteria andReleaseNoteBetween(String value1, String value2) {
+            addCriterion("release_note between", value1, value2, "releaseNote");
+            return (Criteria) this;
+        }
+
+        public Criteria andReleaseNoteNotBetween(String value1, String value2) {
+            addCriterion("release_note not between", value1, value2, "releaseNote");
+            return (Criteria) this;
+        }
+
+        public Criteria andReleaseVersionIsNull() {
+            addCriterion("release_version is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andReleaseVersionIsNotNull() {
+            addCriterion("release_version is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andReleaseVersionEqualTo(String value) {
+            addCriterion("release_version =", value, "releaseVersion");
+            return (Criteria) this;
+        }
+
+        public Criteria andReleaseVersionNotEqualTo(String value) {
+            addCriterion("release_version <>", value, "releaseVersion");
+            return (Criteria) this;
+        }
+
+        public Criteria andReleaseVersionGreaterThan(String value) {
+            addCriterion("release_version >", value, "releaseVersion");
+            return (Criteria) this;
+        }
+
+        public Criteria andReleaseVersionGreaterThanOrEqualTo(String value) {
+            addCriterion("release_version >=", value, "releaseVersion");
+            return (Criteria) this;
+        }
+
+        public Criteria andReleaseVersionLessThan(String value) {
+            addCriterion("release_version <", value, "releaseVersion");
+            return (Criteria) this;
+        }
+
+        public Criteria andReleaseVersionLessThanOrEqualTo(String value) {
+            addCriterion("release_version <=", value, "releaseVersion");
+            return (Criteria) this;
+        }
+
+        public Criteria andReleaseVersionLike(String value) {
+            addCriterion("release_version like", value, "releaseVersion");
+            return (Criteria) this;
+        }
+
+        public Criteria andReleaseVersionNotLike(String value) {
+            addCriterion("release_version not like", value, "releaseVersion");
+            return (Criteria) this;
+        }
+
+        public Criteria andReleaseVersionIn(List<String> values) {
+            addCriterion("release_version in", values, "releaseVersion");
+            return (Criteria) this;
+        }
+
+        public Criteria andReleaseVersionNotIn(List<String> values) {
+            addCriterion("release_version not in", values, "releaseVersion");
+            return (Criteria) this;
+        }
+
+        public Criteria andReleaseVersionBetween(String value1, String value2) {
+            addCriterion("release_version between", value1, value2, "releaseVersion");
+            return (Criteria) this;
+        }
+
+        public Criteria andReleaseVersionNotBetween(String value1, String value2) {
+            addCriterion("release_version not between", value1, value2, "releaseVersion");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreateTimeIsNull() {
+            addCriterion("create_time is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreateTimeIsNotNull() {
+            addCriterion("create_time is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreateTimeEqualTo(LocalDateTime value) {
+            addCriterion("create_time =", value, "createTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreateTimeNotEqualTo(LocalDateTime value) {
+            addCriterion("create_time <>", value, "createTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreateTimeGreaterThan(LocalDateTime value) {
+            addCriterion("create_time >", value, "createTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreateTimeGreaterThanOrEqualTo(LocalDateTime value) {
+            addCriterion("create_time >=", value, "createTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreateTimeLessThan(LocalDateTime value) {
+            addCriterion("create_time <", value, "createTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreateTimeLessThanOrEqualTo(LocalDateTime value) {
+            addCriterion("create_time <=", value, "createTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreateTimeIn(List<LocalDateTime> values) {
+            addCriterion("create_time in", values, "createTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreateTimeNotIn(List<LocalDateTime> values) {
+            addCriterion("create_time not in", values, "createTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreateTimeBetween(LocalDateTime value1, LocalDateTime value2) {
+            addCriterion("create_time between", value1, value2, "createTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreateTimeNotBetween(LocalDateTime value1, LocalDateTime value2) {
+            addCriterion("create_time not between", value1, value2, "createTime");
+            return (Criteria) this;
+        }
+
         public Criteria andOperatorIsNull() {
             addCriterion("operator is null");
             return (Criteria) this;
@@ -235,133 +435,73 @@ public class SwChangeLogExample {
             return (Criteria) this;
         }
 
-        public Criteria andRemarkIsNull() {
-            addCriterion("remark is null");
+        public Criteria andLastUpdaterIsNull() {
+            addCriterion("last_updater is null");
             return (Criteria) this;
         }
 
-        public Criteria andRemarkIsNotNull() {
-            addCriterion("remark is not null");
+        public Criteria andLastUpdaterIsNotNull() {
+            addCriterion("last_updater is not null");
             return (Criteria) this;
         }
 
-        public Criteria andRemarkEqualTo(String value) {
-            addCriterion("remark =", value, "remark");
+        public Criteria andLastUpdaterEqualTo(String value) {
+            addCriterion("last_updater =", value, "lastUpdater");
             return (Criteria) this;
         }
 
-        public Criteria andRemarkNotEqualTo(String value) {
-            addCriterion("remark <>", value, "remark");
+        public Criteria andLastUpdaterNotEqualTo(String value) {
+            addCriterion("last_updater <>", value, "lastUpdater");
             return (Criteria) this;
         }
 
-        public Criteria andRemarkGreaterThan(String value) {
-            addCriterion("remark >", value, "remark");
+        public Criteria andLastUpdaterGreaterThan(String value) {
+            addCriterion("last_updater >", value, "lastUpdater");
             return (Criteria) this;
         }
 
-        public Criteria andRemarkGreaterThanOrEqualTo(String value) {
-            addCriterion("remark >=", value, "remark");
+        public Criteria andLastUpdaterGreaterThanOrEqualTo(String value) {
+            addCriterion("last_updater >=", value, "lastUpdater");
             return (Criteria) this;
         }
 
-        public Criteria andRemarkLessThan(String value) {
-            addCriterion("remark <", value, "remark");
+        public Criteria andLastUpdaterLessThan(String value) {
+            addCriterion("last_updater <", value, "lastUpdater");
             return (Criteria) this;
         }
 
-        public Criteria andRemarkLessThanOrEqualTo(String value) {
-            addCriterion("remark <=", value, "remark");
+        public Criteria andLastUpdaterLessThanOrEqualTo(String value) {
+            addCriterion("last_updater <=", value, "lastUpdater");
             return (Criteria) this;
         }
 
-        public Criteria andRemarkLike(String value) {
-            addCriterion("remark like", value, "remark");
+        public Criteria andLastUpdaterLike(String value) {
+            addCriterion("last_updater like", value, "lastUpdater");
             return (Criteria) this;
         }
 
-        public Criteria andRemarkNotLike(String value) {
-            addCriterion("remark not like", value, "remark");
+        public Criteria andLastUpdaterNotLike(String value) {
+            addCriterion("last_updater not like", value, "lastUpdater");
             return (Criteria) this;
         }
 
-        public Criteria andRemarkIn(List<String> values) {
-            addCriterion("remark in", values, "remark");
+        public Criteria andLastUpdaterIn(List<String> values) {
+            addCriterion("last_updater in", values, "lastUpdater");
             return (Criteria) this;
         }
 
-        public Criteria andRemarkNotIn(List<String> values) {
-            addCriterion("remark not in", values, "remark");
+        public Criteria andLastUpdaterNotIn(List<String> values) {
+            addCriterion("last_updater not in", values, "lastUpdater");
             return (Criteria) this;
         }
 
-        public Criteria andRemarkBetween(String value1, String value2) {
-            addCriterion("remark between", value1, value2, "remark");
+        public Criteria andLastUpdaterBetween(String value1, String value2) {
+            addCriterion("last_updater between", value1, value2, "lastUpdater");
             return (Criteria) this;
         }
 
-        public Criteria andRemarkNotBetween(String value1, String value2) {
-            addCriterion("remark not between", value1, value2, "remark");
-            return (Criteria) this;
-        }
-
-        public Criteria andCreateTimeIsNull() {
-            addCriterion("create_time is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andCreateTimeIsNotNull() {
-            addCriterion("create_time is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andCreateTimeEqualTo(LocalDateTime value) {
-            addCriterion("create_time =", value, "createTime");
-            return (Criteria) this;
-        }
-
-        public Criteria andCreateTimeNotEqualTo(LocalDateTime value) {
-            addCriterion("create_time <>", value, "createTime");
-            return (Criteria) this;
-        }
-
-        public Criteria andCreateTimeGreaterThan(LocalDateTime value) {
-            addCriterion("create_time >", value, "createTime");
-            return (Criteria) this;
-        }
-
-        public Criteria andCreateTimeGreaterThanOrEqualTo(LocalDateTime value) {
-            addCriterion("create_time >=", value, "createTime");
-            return (Criteria) this;
-        }
-
-        public Criteria andCreateTimeLessThan(LocalDateTime value) {
-            addCriterion("create_time <", value, "createTime");
-            return (Criteria) this;
-        }
-
-        public Criteria andCreateTimeLessThanOrEqualTo(LocalDateTime value) {
-            addCriterion("create_time <=", value, "createTime");
-            return (Criteria) this;
-        }
-
-        public Criteria andCreateTimeIn(List<LocalDateTime> values) {
-            addCriterion("create_time in", values, "createTime");
-            return (Criteria) this;
-        }
-
-        public Criteria andCreateTimeNotIn(List<LocalDateTime> values) {
-            addCriterion("create_time not in", values, "createTime");
-            return (Criteria) this;
-        }
-
-        public Criteria andCreateTimeBetween(LocalDateTime value1, LocalDateTime value2) {
-            addCriterion("create_time between", value1, value2, "createTime");
-            return (Criteria) this;
-        }
-
-        public Criteria andCreateTimeNotBetween(LocalDateTime value1, LocalDateTime value2) {
-            addCriterion("create_time not between", value1, value2, "createTime");
+        public Criteria andLastUpdaterNotBetween(String value1, String value2) {
+            addCriterion("last_updater not between", value1, value2, "lastUpdater");
             return (Criteria) this;
         }
 
@@ -425,13 +565,23 @@ public class SwChangeLogExample {
             return (Criteria) this;
         }
 
+        public Criteria andReleaseNoteLikeInsensitive(String value) {
+            addCriterion("upper(release_note) like", value.toUpperCase(), "releaseNote");
+            return (Criteria) this;
+        }
+
+        public Criteria andReleaseVersionLikeInsensitive(String value) {
+            addCriterion("upper(release_version) like", value.toUpperCase(), "releaseVersion");
+            return (Criteria) this;
+        }
+
         public Criteria andOperatorLikeInsensitive(String value) {
             addCriterion("upper(operator) like", value.toUpperCase(), "operator");
             return (Criteria) this;
         }
 
-        public Criteria andRemarkLikeInsensitive(String value) {
-            addCriterion("upper(remark) like", value.toUpperCase(), "remark");
+        public Criteria andLastUpdaterLikeInsensitive(String value) {
+            addCriterion("upper(last_updater) like", value.toUpperCase(), "lastUpdater");
             return (Criteria) this;
         }
     }

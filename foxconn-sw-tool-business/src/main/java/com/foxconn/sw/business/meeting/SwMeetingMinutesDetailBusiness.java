@@ -1,9 +1,9 @@
 package com.foxconn.sw.business.meeting;
 
 import com.foxconn.sw.common.constanst.NumberConstants;
-import com.foxconn.sw.data.entity.SwMeetingMinutesDetail;
-import com.foxconn.sw.data.entity.SwMeetingMinutesDetailExample;
-import com.foxconn.sw.data.mapper.extension.meeting.SwMeetingMinutesDetailExtensionMapper;
+import com.foxconn.sw.data.entity.SwMeetingMinuteDetail;
+import com.foxconn.sw.data.entity.SwMeetingMinuteDetailExample;
+import com.foxconn.sw.data.mapper.extension.meeting.SwMeetingMinuteDetailExtensionMapper;
 import org.apache.ibatis.session.ExecutorType;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -16,23 +16,23 @@ import java.util.List;
 public class SwMeetingMinutesDetailBusiness {
 
     @Autowired
-    SwMeetingMinutesDetailExtensionMapper meetingMinutesDetailExtensionMapper;
+    SwMeetingMinuteDetailExtensionMapper meetingMinutesDetailExtensionMapper;
     @Autowired
     SqlSessionFactory sqlSessionFactory;
 
-    public List<SwMeetingMinutesDetail> queryMeetingMinuteDetail(Long meetingMinutesId) {
-        SwMeetingMinutesDetailExample example = new SwMeetingMinutesDetailExample();
-        SwMeetingMinutesDetailExample.Criteria criteria = example.createCriteria();
+    public List<SwMeetingMinuteDetail> queryMeetingMinuteDetail(Long meetingMinutesId) {
+        SwMeetingMinuteDetailExample example = new SwMeetingMinuteDetailExample();
+        SwMeetingMinuteDetailExample.Criteria criteria = example.createCriteria();
         criteria.andMeetingMinutesIdEqualTo(meetingMinutesId);
         criteria.andIsDeleteEqualTo(NumberConstants.ZERO);
         return meetingMinutesDetailExtensionMapper.selectByExample(example);
     }
 
 
-    public boolean batchInsert(List<SwMeetingMinutesDetail> detailList, Long meetingMinutesId) {
+    public boolean batchInsert(List<SwMeetingMinuteDetail> detailList, Long meetingMinutesId) {
         SqlSession sqlSession = sqlSessionFactory.openSession(ExecutorType.BATCH, false);
-        SwMeetingMinutesDetailExtensionMapper mapper = sqlSession.getMapper(SwMeetingMinutesDetailExtensionMapper.class);
-        for (SwMeetingMinutesDetail minutesDetail : detailList) {
+        SwMeetingMinuteDetailExtensionMapper mapper = sqlSession.getMapper(SwMeetingMinuteDetailExtensionMapper.class);
+        for (SwMeetingMinuteDetail minutesDetail : detailList) {
             minutesDetail.setMeetingMinutesId(meetingMinutesId);
             mapper.insertSelective(minutesDetail);
         }

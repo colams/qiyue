@@ -7,7 +7,7 @@ import com.foxconn.sw.business.collaboration.CollaborationUserBusiness;
 import com.foxconn.sw.business.oa.SwTaskBusiness;
 import com.foxconn.sw.business.oa.SwTaskEmployeeRelationBusiness;
 import com.foxconn.sw.business.system.EmployeeBusiness;
-import com.foxconn.sw.common.context.RequestContext;
+import com.foxconn.sw.data.context.RequestContext;
 import com.foxconn.sw.common.utils.FilePathUtils;
 import com.foxconn.sw.data.constants.enums.TaskRoleFlagEnums;
 import com.foxconn.sw.data.constants.enums.oa.TaskStatusEnums;
@@ -110,12 +110,12 @@ public class CollaborationDetailProcessor {
         for (Map.Entry<Integer, List<SwCollaborationDetail>> entry : mapsList.entrySet()) {
             Map<String, Object> objectMap = new HashMap<>();
             list.add(objectMap);
-            int index = 0;
             objectMap.put("rowIndex", entry.getKey());
-            for (SwCollaborationDetail collaborationDetail : entry.getValue()) {
+            for (int i = 0; i < entry.getValue().size(); i++) {
+                SwCollaborationDetail collaborationDetail = entry.getValue().get(i);
                 SwCollaborationDetailSpare detailSpare = collaborationDetailSpareBusiness.
                         getCollaborationDetail(collaborationDetail.getId());
-                objectMap.put(header.get(index++), CollaborationDetailMapper
+                objectMap.put(header.get(i++), CollaborationDetailMapper
                         .CollaborationDetail2ItemValue(collaborationDetail, detailSpare, isCc));
             }
         }

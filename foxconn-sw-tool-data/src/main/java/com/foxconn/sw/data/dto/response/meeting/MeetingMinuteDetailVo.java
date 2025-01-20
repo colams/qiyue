@@ -1,5 +1,6 @@
 package com.foxconn.sw.data.dto.response.meeting;
 
+import com.foxconn.sw.data.dto.entity.ResourceVo;
 import com.foxconn.sw.data.dto.entity.meeting.MeetingMinuteItemVo;
 import com.foxconn.sw.data.dto.entity.meeting.MeetingMinuteVo;
 
@@ -10,6 +11,7 @@ public class MeetingMinuteDetailVo {
     private MeetingMinuteVo minuteVo;
     private List<MeetingMinuteItemVo> decisionVo;
     private List<MeetingMinuteItemVo> otherVo;
+    private List<ResourceVo> resourceVos;
 
     public MeetingMinuteVo getMinuteVo() {
         return minuteVo;
@@ -33,5 +35,13 @@ public class MeetingMinuteDetailVo {
 
     public void setOtherVo(List<MeetingMinuteItemVo> otherVo) {
         this.otherVo = otherVo;
+    }
+
+    public List<ResourceVo> getResourceVos() {
+        return resourceVos;
+    }
+
+    public void setResourceVos(List<ResourceVo> resourceVos) {
+        this.resourceVos = resourceVos;
     }
 }

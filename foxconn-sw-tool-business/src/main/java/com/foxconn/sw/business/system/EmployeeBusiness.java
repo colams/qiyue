@@ -1,6 +1,6 @@
 package com.foxconn.sw.business.system;
 
-import com.foxconn.sw.common.constanst.NumberConstants;
+import com.foxconn.sw.common.utils.IntegerExtUtils;
 import com.foxconn.sw.common.utils.PinyinUtils;
 import com.foxconn.sw.data.constants.enums.retcode.AccountExceptionCode;
 import com.foxconn.sw.data.dto.entity.acount.AddressBookParams;
@@ -16,39 +16,32 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
 
-import java.util.*;
+import java.util.Collections;
+import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Component
 public class EmployeeBusiness {
     @Autowired
-    SwEmployeeExtensionMapper swEmployeeExtensionMapper;
+    SwEmployeeExtensionMapper employeeExtensionMapper;
     @Autowired
     DepartmentBusiness departmentBusiness;
 
-    private static List<SwEmployee> employeeList = new ArrayList<>();
 
     public List<SwEmployee> getEmployeeList() {
-        if (!CollectionUtils.isEmpty(employeeList)) {
-            return employeeList;
-        }
-        return init();
-    }
-
-    private List<SwEmployee> init() {
         SwEmployeeExample example = new SwEmployeeExample();
         SwEmployeeExample.Criteria criteria = example.createCriteria();
         criteria.andStatusEqualTo(0);
-        employeeList = swEmployeeExtensionMapper.selectByExample(example);
-        return employeeList;
+        return employeeExtensionMapper.selectByExample(example);
     }
 
     public SwEmployee save(SwEmployee employee) {
-        boolean result = swEmployeeExtensionMapper.insertSelective(employee) > 0;
+        boolean result = employeeExtensionMapper.insertSelective(employee) > 0;
         if (!result) {
             throw new BizException(AccountExceptionCode.CREATE_EMPLOYEE_EXCEPTION);
         }
-        init();
         return employee;
     }
 
@@ -64,7 +57,7 @@ public class EmployeeBusiness {
     }
 
     public List<EmployeeVo> getEmployeesByLevel() {
-        List<EmployeeVo> vos = swEmployeeExtensionMapper.getEmployeesByLevel();
+        List<EmployeeVo> vos = employeeExtensionMapper.getEmployeesByLevel();
         Collections.sort(vos, (a, b) -> {
             a.setFirstLetter(PinyinUtils.firstLetter(a.getName()));
             b.setFirstLetter(PinyinUtils.firstLetter(b.getName()));
@@ -85,8 +78,7 @@ public class EmployeeBusiness {
     }
 
     public boolean updateEmployee(SwEmployee updateEmployee) {
-        boolean res = swEmployeeExtensionMapper.updateByPrimaryKeySelective(updateEmployee) > 0;
-        init();
+        boolean res = employeeExtensionMapper.updateByPrimaryKeySelective(updateEmployee) > 0;
         return res;
     }
 
@@ -105,7 +97,7 @@ public class EmployeeBusiness {
         }
         criteria.andStatusEqualTo(0);
         example.setOrderByClause(" department_id ,post_id,employee_no ");
-        List<SwEmployee> employees = swEmployeeExtensionMapper.selectByExample(example);
+        List<SwEmployee> employees = employeeExtensionMapper.selectByExample(example);
         return employees;
     }
 
@@ -114,7 +106,7 @@ public class EmployeeBusiness {
         SwEmployeeExample.Criteria criteria = example.createCriteria();
         criteria.andEmployeeNoEqualTo(eNo);
         example.setOrderByClause(" department_id ,post_id,employee_no ");
-        List<SwEmployee> employees = swEmployeeExtensionMapper.selectByExample(example);
+        List<SwEmployee> employees = employeeExtensionMapper.selectByExample(example);
         if (CollectionUtils.isEmpty(employees)) {
             return null;
         }
@@ -126,7 +118,7 @@ public class EmployeeBusiness {
         SwEmployeeExample.Criteria criteria = example.createCriteria();
         criteria.andEmployeeNoEqualTo(eNo);
         example.setOrderByClause(" department_id ,post_id,employee_no ");
-        List<SwEmployee> employees = swEmployeeExtensionMapper.selectByExample(example);
+        List<SwEmployee> employees = employeeExtensionMapper.selectByExample(example);
         return Optional.ofNullable(employees)
                 .orElse(Lists.newArrayList())
                 .stream()
@@ -135,6 +127,7 @@ public class EmployeeBusiness {
                     vo.setName(e.getName());
                     vo.setEmployeeNo(e.getEmployeeNo());
                     vo.setPinyin(PinyinUtils.toPinyin(e.getName()));
+                    vo.setStatus(e.getStatus());
                     return vo;
                 })
                 .findFirst()
@@ -221,11 +214,19 @@ public class EmployeeBusiness {
     }
 
     public String convertEmployeeNo(String employeeNo) {
-        return employeeList.stream()
+        return getEmployeeList().stream()
                 .filter(e -> employeeNo.equalsIgnoreCase(e.getAssistant()))
                 .map(e -> e.getEmployeeNo())
                 .findFirst()
                 .orElse(employeeNo);
     }
 
+    public Integer insertOrUpdate(SwEmployee employee) {
+        if (IntegerExtUtils.isPk(employee.getId())) {
+            return employeeExtensionMapper.updateByPrimaryKeySelective(employee);
+        } else {
+            employeeExtensionMapper.insertSelective(employee);
+            return employee.getId();
+        }
+    }
 }

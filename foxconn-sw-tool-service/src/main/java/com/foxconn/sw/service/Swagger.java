@@ -72,7 +72,9 @@ public class Swagger {
         String[] paths = new String[]{
                 "/api/" + TagsConstants.UNIVERSAL + "/**",
                 "/api/property/**",
-                "/api/feedback/**"
+                "/api/feedback/**",
+                "/api/sse/**"
+
         };
         return createGroupedOpenApi(TagsConstants.UNIVERSAL, paths);
     }
@@ -90,7 +92,7 @@ public class Swagger {
                 String.format(API_PREFIX, "property"),
                 String.format(API_PREFIX, "basic"),
                 String.format(API_PREFIX, "sse"),
-
+                String.format(API_PREFIX, "changelog"),
         };
         return createGroupedOpenApi(TagsConstants.SYSTEM, paths);
     }

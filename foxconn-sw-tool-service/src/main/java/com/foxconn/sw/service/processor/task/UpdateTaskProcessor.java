@@ -1,7 +1,7 @@
 package com.foxconn.sw.service.processor.task;
 
 import com.foxconn.sw.business.oa.*;
-import com.foxconn.sw.common.context.RequestContext;
+import com.foxconn.sw.data.context.RequestContext;
 import com.foxconn.sw.common.utils.ObjectCompare;
 import com.foxconn.sw.data.constants.enums.TaskRoleFlagEnums;
 import com.foxconn.sw.data.constants.enums.oa.TaskStatusEnums;
@@ -43,6 +43,7 @@ public class UpdateTaskProcessor {
         hashMap.put("deadLine", "任務截止時間");
         hashMap.put("description", "需求描述");
         hashMap.put("watcher", "關注人");
+        hashMap.put("title", "標題");
     }
 
     public boolean updateTask(UpdateTaskParams taskParams) {

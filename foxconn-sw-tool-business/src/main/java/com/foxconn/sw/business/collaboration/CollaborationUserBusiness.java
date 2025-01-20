@@ -2,7 +2,7 @@ package com.foxconn.sw.business.collaboration;
 
 import com.foxconn.sw.business.SwAppendResourceBusiness;
 import com.foxconn.sw.business.oa.SwTaskProgressBusiness;
-import com.foxconn.sw.common.context.RequestContext;
+import com.foxconn.sw.data.context.RequestContext;
 import com.foxconn.sw.common.utils.ConvertUtils;
 import com.foxconn.sw.common.utils.ExcelUtils;
 import com.foxconn.sw.common.utils.FilePathUtils;
@@ -118,7 +118,7 @@ public class CollaborationUserBusiness {
         resourceVo.setId(appendResource.getId());
         resourceVo.setName(appendResource.getOriginName());
         resourceVo.setUrl(ConvertUtils.urlPreFix(appendResource.getId(), appendResource.getFilePath()));
-        resourceVo.setFilePath(filePathUtils.getFilePath(appendResource.getUploadType()) + appendResource.getFilePath());
+//        resourceVo.setFilePath(filePathUtils.getFilePath(appendResource.getUploadType()) + appendResource.getFilePath());
         return resourceVo;
     }
 

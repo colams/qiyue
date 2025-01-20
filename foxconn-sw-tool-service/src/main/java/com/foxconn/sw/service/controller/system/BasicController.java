@@ -3,12 +3,15 @@ package com.foxconn.sw.service.controller.system;
 import com.foxconn.sw.data.constants.TagsConstants;
 import com.foxconn.sw.data.dto.Request;
 import com.foxconn.sw.data.dto.Response;
+import com.foxconn.sw.data.dto.entity.oa.OAOptionVo;
 import com.foxconn.sw.data.dto.entity.system.DepartmentVo;
 import com.foxconn.sw.data.dto.entity.universal.OptionsVo;
+import com.foxconn.sw.data.dto.request.system.OptionParams;
 import com.foxconn.sw.data.dto.response.basic.DepartAndEmployeeOptionVo;
 import com.foxconn.sw.service.aspects.Permission;
 import com.foxconn.sw.service.processor.department.GetDepartListProcessor;
 import com.foxconn.sw.service.processor.system.MeetingRoomProcessor;
+import com.foxconn.sw.service.processor.universal.OptionListProcessor;
 import com.foxconn.sw.service.utils.ResponseUtils;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -28,6 +31,8 @@ public class BasicController {
     MeetingRoomProcessor meetingRoom;
     @Autowired
     GetDepartListProcessor getDepartListProcessor;
+    @Autowired
+    OptionListProcessor optionListProcessor;
 
     @Operation(summary = "所有部门信息树", tags = TagsConstants.SYSTEM)
     @ApiResponse(responseCode = "0", description = "成功码")

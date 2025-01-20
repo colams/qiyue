@@ -5,7 +5,7 @@ import com.foxconn.sw.business.group.SwCustomGroupFavoriteBusiness;
 import com.foxconn.sw.business.group.SwCustomGroupMemberBusiness;
 import com.foxconn.sw.business.group.SwCustomGroupOperateBusiness;
 import com.foxconn.sw.common.constanst.NumberConstants;
-import com.foxconn.sw.common.context.RequestContext;
+import com.foxconn.sw.data.context.RequestContext;
 import com.foxconn.sw.data.dto.PageEntity;
 import com.foxconn.sw.data.dto.PageParams;
 import com.foxconn.sw.data.dto.entity.acount.EmployeeVo;

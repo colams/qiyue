@@ -4,6 +4,7 @@ import com.foxconn.sw.business.account.UserBusiness;
 import com.foxconn.sw.business.account.UserLoginBusiness;
 import com.foxconn.sw.common.utils.UUIDUtils;
 import com.foxconn.sw.data.constants.enums.retcode.AccountExceptionCode;
+import com.foxconn.sw.data.context.RequestContext;
 import com.foxconn.sw.data.dto.entity.acount.LoginParams;
 import com.foxconn.sw.data.dto.entity.acount.LoginStateVo;
 import com.foxconn.sw.data.dto.entity.acount.UserInfo;
@@ -42,9 +43,8 @@ public class LoginProcessor {
         UserInfo userInfo = userBusiness.queryUserInfo(employeeNo);
         SwUserLogin userLogin = userLoginBusiness.queryLoginStateByName(employeeNo, now);
 
-        String token = UUIDUtils.getUuid();
+        String token = UUIDUtils.getUuid() + "^" + employeeNo;
         LocalDateTime expireTime = now.plusHours(24 * 7);
-
 
         LoginStateVo vo;
         if (Objects.nonNull(userLogin)) {
@@ -60,5 +60,9 @@ public class LoginProcessor {
         return vo;
     }
 
-
+    public Boolean loginOut() {
+        String token = RequestContext.getToken();
+        SwUserLogin userLogin = userLoginBusiness.queryLoginUser(token);
+        return userLoginBusiness.updateExpireTime(userLogin.getId(), LocalDateTime.now().plusSeconds(10));
+    }
 }

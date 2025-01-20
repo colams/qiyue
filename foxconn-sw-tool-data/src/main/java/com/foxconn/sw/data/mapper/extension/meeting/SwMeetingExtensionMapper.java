@@ -2,6 +2,7 @@ package com.foxconn.sw.data.mapper.extension.meeting;
 
 import com.foxconn.sw.data.dto.request.meeting.ListMeetingV2Params;
 import com.foxconn.sw.data.entity.SwMeeting;
+import com.foxconn.sw.data.entity.extension.MeetingEntity;
 import com.foxconn.sw.data.entity.extension.SwMeetingExtension;
 import com.foxconn.sw.data.mapper.auto.SwMeetingMapper;
 import org.apache.ibatis.annotations.Param;
@@ -58,7 +59,7 @@ public interface SwMeetingExtensionMapper extends SwMeetingMapper {
             "where status = 0 and smm.is_delete = 0",
             "and smm.employee_no = #{employeeNo,jdbcType=VARCHAR}",
             "and sm.create_time &gt;= #{createTime,jdbcType=VARCHAR}",
-//            "and ((sm.cycle_start <= #{nowDate,jdbcType=VARCHAR} and (sm.cycle_expire >= #{nowDate,jdbcType=VARCHAR} ||sm.cycle_expire = '' || sm.cycle_expire is null )) or (meeting_date >= #{startDate,jdbcType=VARCHAR} and meeting_date < #{endDate,jdbcType=VARCHAR}))",
+//   "and ((sm.cycle_start <= #{nowDate,jdbcType=VARCHAR} and (sm.cycle_expire >= #{nowDate,jdbcType=VARCHAR} ||sm.cycle_expire = '' || sm.cycle_expire is null )) or (meeting_date >= #{startDate,jdbcType=VARCHAR} and meeting_date < #{endDate,jdbcType=VARCHAR}))",
             "<if test='data.value!=null and data.value!=\"\"' >",
             " and sm.title like CONCAT('%', #{data.value,jdbcType=VARCHAR}, '%') ",
             "</if> ",
@@ -80,4 +81,45 @@ public interface SwMeetingExtensionMapper extends SwMeetingMapper {
             @Result(column = "create_time", property = "createTime", jdbcType = JdbcType.TIMESTAMP),
     })
     List<SwMeetingExtension> selectMeetingList(@Param("employeeNo") String employeeNo, @Param("createTime") LocalDateTime createTime, @Param("data") ListMeetingV2Params data);
+
+
+    @Select({"<script>",
+            "select s.id meetingId, ",
+            "s.title, ",
+            "s.cycle, ",
+            "s.start_time, ",
+            "s.end_time, ",
+            "s.meeting_date, ",
+            "s.cycle_start, ",
+            "s.cycle_expire, ",
+            "s.room, ",
+            "s.meeting_date",
+            "from sw_meeting s ",
+            " inner join sw_meeting_member m on s.id = m.meeting_id",
+            "where s.status = 0 ",
+            "and m.is_delete = 0 ",
+            "and m.employee_no = #{employeeNo,jdbcType=VARCHAR} ",
+            "<if test='data.value!=null and data.value!=\"\"' >",
+            "and s.title like CONCAT('%', #{data.value,jdbcType=VARCHAR}, '%') ",
+            "</if> ",
+            "and ((s.cycle ='' and s.meeting_date &gt;= #{searchStart,jdbcType=VARCHAR} and s.meeting_date &lt;= #{searchEnd,jdbcType=VARCHAR}) or ",
+            "   (s.cycle !='' and (s.cycle_expire &gt;= #{searchEnd,jdbcType=VARCHAR} or s.cycle_expire='')))",
+            "</script>"
+    })
+    @Results({
+            @Result(column = "meetingId", property = "meetingId", jdbcType = JdbcType.INTEGER),
+            @Result(column = "title", property = "title", jdbcType = JdbcType.VARCHAR),
+            @Result(column = "cycle", property = "cycle", jdbcType = JdbcType.VARCHAR),
+            @Result(column = "cycle_start", property = "cycleStart", jdbcType = JdbcType.VARCHAR),
+            @Result(column = "cycle_expire", property = "cycleExpire", jdbcType = JdbcType.VARCHAR),
+            @Result(column = "start_time", property = "startTime", jdbcType = JdbcType.VARCHAR),
+            @Result(column = "end_time", property = "endTime", jdbcType = JdbcType.VARCHAR),
+            @Result(column = "room", property = "room", jdbcType = JdbcType.VARCHAR),
+            @Result(column = "meeting_date", property = "meetingDate", jdbcType = JdbcType.VARCHAR),
+    })
+    List<MeetingEntity> selectMeetingList2(@Param("employeeNo") String employeeNo,
+                                           @Param("searchStart") String searchStart,
+                                           @Param("searchEnd") String searchEnd,
+                                           @Param("data") ListMeetingV2Params data);
+
 }

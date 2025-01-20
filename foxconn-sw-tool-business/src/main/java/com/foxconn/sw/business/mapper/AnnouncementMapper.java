@@ -1,6 +1,6 @@
 package com.foxconn.sw.business.mapper;
 
-import com.foxconn.sw.data.dto.entity.universal.SwAnnouncementDto;
+import com.foxconn.sw.data.dto.response.announcement.AnnouncementListVo;
 import com.foxconn.sw.data.entity.SwAnnouncement;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
@@ -12,8 +12,8 @@ public interface AnnouncementMapper {
 
     AnnouncementMapper INSTANCE = Mappers.getMapper(AnnouncementMapper.class);
 
-    List<SwAnnouncementDto> toAnnouncementDtos(List<SwAnnouncement> swAnnouncements);
+    List<AnnouncementListVo> toAnnouncementVos(List<SwAnnouncement> swAnnouncements);
 
-    SwAnnouncementDto toAnnouncement(SwAnnouncement swAnnouncements);
+    AnnouncementListVo toAnnouncement(SwAnnouncement swAnnouncements);
 
 }

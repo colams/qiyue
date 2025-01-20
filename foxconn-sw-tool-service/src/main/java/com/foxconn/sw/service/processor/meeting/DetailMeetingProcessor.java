@@ -1,7 +1,7 @@
 package com.foxconn.sw.service.processor.meeting;
 
 import com.foxconn.sw.business.SwAppendResourceBusiness;
-import com.foxconn.sw.common.context.RequestContext;
+import com.foxconn.sw.data.context.RequestContext;
 import com.foxconn.sw.business.meeting.MeetingBusiness;
 import com.foxconn.sw.business.meeting.MeetingCycleDetailBusiness;
 import com.foxconn.sw.business.meeting.MeetingMemberBusiness;

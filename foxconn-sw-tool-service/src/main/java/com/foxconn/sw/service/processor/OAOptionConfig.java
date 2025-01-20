@@ -112,7 +112,7 @@ public class OAOptionConfig {
 
     public static List<OptionsVo> initTaskType(String params) {
         List<OptionsVo> optionsVos = new ArrayList<>();
-        if (params.equalsIgnoreCase("capex")){
+        if (params.equalsIgnoreCase("capex")) {
             addOptionVo("6-2", "協作任務", optionsVos);
             addOptionVo("Capex", "Capex", optionsVos);
             return optionsVos;
@@ -235,7 +235,7 @@ public class OAOptionConfig {
                 "GB",
                 "Prespa"));
         map.put("Nan-A", Lists.newArrayList("Nan-A"));
-        map.put("Others", Lists.newArrayList("系統開發", "Others"));
+        map.put("Others", Lists.newArrayList("系統開發", "MIL", "Others"));
 
         List<OptionsVo> optionsVos = new ArrayList<>();
 

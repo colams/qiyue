@@ -1,13 +1,18 @@
 package com.foxconn.sw.service.aspects;
 
 import com.foxconn.sw.business.LogBusiness;
-import com.foxconn.sw.common.context.RequestContext;
 import com.foxconn.sw.common.utils.JsonUtils;
 import com.foxconn.sw.common.utils.ServletUtils;
+import com.foxconn.sw.data.context.RequestContext;
 import com.foxconn.sw.data.dto.Request;
 import com.foxconn.sw.data.dto.Response;
+import com.foxconn.sw.data.dto.entity.acount.LoginParams;
 import com.foxconn.sw.data.dto.entity.acount.UserInfo;
 import com.foxconn.sw.service.processor.user.CommonUserUtils;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import org.apache.commons.lang3.StringUtils;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -34,19 +39,24 @@ public class PermissionAspect {
     LogBusiness logBusiness;
     @Autowired
     private ServletUtils servletUtils;
+    @Autowired
+    HttpServletRequest servletRequest;
+    @Autowired
+    HttpServletResponse servletResponse;
 
-    @Pointcut("@annotation(com.foxconn.sw.service.aspects.Permission)")
+    @Pointcut("@annotation(org.springframework.web.bind.annotation.PostMapping)")
     private void checkPermission() {
     }
 
-    @Around("checkPermission() && @annotation(permission) && args(request,..)")
-    public Object aroundAdvice(ProceedingJoinPoint joinPoint, Permission permission, Object request) throws Throwable {
+    @Around("checkPermission() && args(request,..)")
+    public Object aroundAdvice(ProceedingJoinPoint joinPoint, Object request) throws Throwable {
         Object retValue = null;
         StopWatch stopWatch = new StopWatch();
         try {
             stopWatch.start();
-            contextInit(request, joinPoint.getSignature().getName());
+            contextInit(request, joinPoint);
             retValue = joinPoint.proceed();
+            writeCookie();
             stopWatch.stop();
         } catch (Throwable throwable) {
             logger.warn("call service throwable", throwable);
@@ -59,21 +69,62 @@ public class PermissionAspect {
     }
 
 
-    private void contextInit(Object obj, String signatureName) {
-        Request request;
-        if (obj instanceof Request) {
-            request = (Request) obj;
-        } else {
-            request = JsonUtils.deserialize((String) obj, Request.class);
+    private void readCookie() {
+        Cookie[] cookies = servletRequest.getCookies();
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                System.out.println(cookie.getValue());
+            }
         }
-        if (Objects.nonNull(request.getHead()) && Objects.nonNull(request.getHead())) {
-            UserInfo userInfo = commonUserUtils.queryUserInfo(request.getHead().getToken());
+    }
+
+    private void writeCookie() {
+        Cookie myCookie = new Cookie("myCookieName", "myCookieValue");
+        myCookie.setMaxAge(60 * 60 * 24 * 7); // 设置cookie有效期为1小时
+        myCookie.setPath("/"); // 设置cookie在所有路径下有效
+        servletResponse.addCookie(myCookie); // 将cookie添加到响应中
+    }
+
+
+    private void contextInit(Object obj, ProceedingJoinPoint joinPoint) {
+        String signatureName = joinPoint.getSignature().getName();
+        String traceId = "";
+        String token = "";
+
+        if ("upload".equalsIgnoreCase(signatureName)) {
+            token = joinPoint.getArgs()[2].toString();
+            traceId = token;
+        } else {
+
+            Request request;
+            if (obj instanceof Request) {
+                request = (Request) obj;
+            } else {
+                request = JsonUtils.deserialize((String) obj, Request.class);
+            }
+
+            if (request.getData() instanceof LoginParams) {
+                RequestContext.put(RequestContext.ContextKey.EmployeeNo, ((LoginParams) request.getData()).getEmployeeNo());
+            } else {
+                RequestContext.put(RequestContext.ContextKey.EmployeeNo, request.getHead().getToken());
+            }
+            if (Objects.nonNull(request)
+                    && Objects.nonNull(request.getHead())
+                    && StringUtils.isNotEmpty(request.getHead().getToken())) {
+                token = request.getHead().getToken();
+                traceId = request.getTraceId();
+            }
+        }
+
+        if (StringUtils.isNotEmpty(token)) {
+            UserInfo userInfo = commonUserUtils.queryUserInfo(token);
             String nameEmployeeNo = String.format("%s(%s)", userInfo.getEmployeeName(), userInfo.getEmployeeNo());
             RequestContext.put(RequestContext.ContextKey.USER_INFO, userInfo);
             RequestContext.put(RequestContext.ContextKey.NameEmployeeNo, nameEmployeeNo);
             RequestContext.put(RequestContext.ContextKey.EmployeeNo, userInfo.getEmployeeNo());
             RequestContext.put(RequestContext.ContextKey.OperateType, signatureName);
-            RequestContext.put(RequestContext.ContextKey.TraceID, request.getTraceId());
+            RequestContext.put(RequestContext.ContextKey.TraceID, traceId);
+            RequestContext.put(RequestContext.ContextKey.Token, token);
         }
     }
 

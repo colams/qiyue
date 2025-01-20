@@ -2,7 +2,7 @@ package com.foxconn.sw.service.processor.acount;
 
 import com.foxconn.sw.business.SwAppendResourceBusiness;
 import com.foxconn.sw.business.account.UserBusiness;
-import com.foxconn.sw.common.context.RequestContext;
+import com.foxconn.sw.data.context.RequestContext;
 import com.foxconn.sw.common.utils.FilePathUtils;
 import com.foxconn.sw.common.utils.UploadUtils;
 import com.foxconn.sw.data.constants.enums.retcode.RetCode;

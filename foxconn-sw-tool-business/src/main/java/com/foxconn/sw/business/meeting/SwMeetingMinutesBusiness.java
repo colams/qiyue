@@ -1,8 +1,8 @@
 package com.foxconn.sw.business.meeting;
 
-import com.foxconn.sw.data.entity.SwMeetingMinutes;
-import com.foxconn.sw.data.entity.SwMeetingMinutesExample;
-import com.foxconn.sw.data.mapper.extension.meeting.SwMeetingMinutesExtensionMapper;
+import com.foxconn.sw.data.entity.SwMeetingMinute;
+import com.foxconn.sw.data.entity.SwMeetingMinuteExample;
+import com.foxconn.sw.data.mapper.extension.meeting.SwMeetingMinuteExtensionMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
@@ -14,22 +14,22 @@ import java.util.Objects;
 public class SwMeetingMinutesBusiness {
 
     @Autowired
-    SwMeetingMinutesExtensionMapper meetingMinutesExtensionMapper;
+    SwMeetingMinuteExtensionMapper meetingMinutesExtensionMapper;
 
-    public List<SwMeetingMinutes> queryMeetingMinuteByMeetingId(Integer meetingID) {
-        SwMeetingMinutesExample example = new SwMeetingMinutesExample();
-        SwMeetingMinutesExample.Criteria criteria = example.createCriteria();
+    public List<SwMeetingMinute> queryMeetingMinuteByMeetingId(Integer meetingID) {
+        SwMeetingMinuteExample example = new SwMeetingMinuteExample();
+        SwMeetingMinuteExample.Criteria criteria = example.createCriteria();
         criteria.andMeetingIdEqualTo(meetingID.intValue());
-        List<SwMeetingMinutes> minutesList = meetingMinutesExtensionMapper.selectByExample(example);
+        List<SwMeetingMinute> minutesList = meetingMinutesExtensionMapper.selectByExample(example);
         return minutesList;
     }
 
-    public SwMeetingMinutes queryMeetingMinute(Integer meetingID, String meetingDate) {
-        SwMeetingMinutesExample example = new SwMeetingMinutesExample();
-        SwMeetingMinutesExample.Criteria criteria = example.createCriteria();
+    public SwMeetingMinute queryMeetingMinute(Integer meetingID, String meetingDate) {
+        SwMeetingMinuteExample example = new SwMeetingMinuteExample();
+        SwMeetingMinuteExample.Criteria criteria = example.createCriteria();
         criteria.andMeetingDateEqualTo(meetingDate);
         criteria.andMeetingIdEqualTo(meetingID);
-        List<SwMeetingMinutes> minutesList = meetingMinutesExtensionMapper.selectByExample(example);
+        List<SwMeetingMinute> minutesList = meetingMinutesExtensionMapper.selectByExample(example);
         if (CollectionUtils.isEmpty(minutesList)) {
             return null;
         }
@@ -37,11 +37,11 @@ public class SwMeetingMinutesBusiness {
     }
 
 
-    public Long insertOrUpdate(SwMeetingMinutes meetingMinutes) {
-        int effectCount;
+    public Long insertOrUpdate(SwMeetingMinute meetingMinutes) {
+
         if (Objects.nonNull(meetingMinutes.getId()) && meetingMinutes.getId() > 0) {
-            effectCount = meetingMinutesExtensionMapper.updateByPrimaryKeySelective(meetingMinutes);
-            return Long.valueOf(effectCount);
+            int effectCount = meetingMinutesExtensionMapper.updateByPrimaryKeySelective(meetingMinutes);
+            return effectCount > 0 ? meetingMinutes.getId() : 0;
         } else {
             meetingMinutesExtensionMapper.insertSelective(meetingMinutes);
             return meetingMinutes.getId();

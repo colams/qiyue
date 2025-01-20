@@ -31,6 +31,20 @@ public class SwDocument {
 
     private String content;
 
+    private String workType;
+
+    private String mainType;
+
+    private String subType;
+
+    private String mainPart;
+
+    private String supplier;
+
+    private String source;
+
+    private String deadLine;
+
     private Integer isDelete;
 
     private LocalDateTime createTime;
@@ -217,6 +231,97 @@ public class SwDocument {
 
     public void setContent(String content) {
         this.content = content == null ? null : content.trim();
+    }
+
+    public String getWorkType() {
+        return workType;
+    }
+
+    public SwDocument withWorkType(String workType) {
+        this.setWorkType(workType);
+        return this;
+    }
+
+    public void setWorkType(String workType) {
+        this.workType = workType == null ? null : workType.trim();
+    }
+
+    public String getMainType() {
+        return mainType;
+    }
+
+    public SwDocument withMainType(String mainType) {
+        this.setMainType(mainType);
+        return this;
+    }
+
+    public void setMainType(String mainType) {
+        this.mainType = mainType == null ? null : mainType.trim();
+    }
+
+    public String getSubType() {
+        return subType;
+    }
+
+    public SwDocument withSubType(String subType) {
+        this.setSubType(subType);
+        return this;
+    }
+
+    public void setSubType(String subType) {
+        this.subType = subType == null ? null : subType.trim();
+    }
+
+    public String getMainPart() {
+        return mainPart;
+    }
+
+    public SwDocument withMainPart(String mainPart) {
+        this.setMainPart(mainPart);
+        return this;
+    }
+
+    public void setMainPart(String mainPart) {
+        this.mainPart = mainPart == null ? null : mainPart.trim();
+    }
+
+    public String getSupplier() {
+        return supplier;
+    }
+
+    public SwDocument withSupplier(String supplier) {
+        this.setSupplier(supplier);
+        return this;
+    }
+
+    public void setSupplier(String supplier) {
+        this.supplier = supplier == null ? null : supplier.trim();
+    }
+
+    public String getSource() {
+        return source;
+    }
+
+    public SwDocument withSource(String source) {
+        this.setSource(source);
+        return this;
+    }
+
+    public void setSource(String source) {
+        this.source = source == null ? null : source.trim();
+    }
+
+    public String getDeadLine() {
+        return deadLine;
+    }
+
+    public SwDocument withDeadLine(String deadLine) {
+        this.setDeadLine(deadLine);
+        return this;
+    }
+
+    public void setDeadLine(String deadLine) {
+        this.deadLine = deadLine == null ? null : deadLine.trim();
     }
 
     public Integer getIsDelete() {

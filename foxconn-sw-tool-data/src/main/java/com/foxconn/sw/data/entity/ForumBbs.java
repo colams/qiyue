@@ -11,6 +11,8 @@ public class ForumBbs {
 
     private String authorNo;
 
+    private String status;
+
     private Integer isDelete;
 
     private LocalDateTime createTime;
@@ -67,6 +69,19 @@ public class ForumBbs {
 
     public void setAuthorNo(String authorNo) {
         this.authorNo = authorNo == null ? null : authorNo.trim();
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public ForumBbs withStatus(String status) {
+        this.setStatus(status);
+        return this;
+    }
+
+    public void setStatus(String status) {
+        this.status = status == null ? null : status.trim();
     }
 
     public Integer getIsDelete() {

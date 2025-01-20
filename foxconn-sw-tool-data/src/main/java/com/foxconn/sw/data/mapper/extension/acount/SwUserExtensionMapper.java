@@ -13,7 +13,7 @@ import java.util.List;
 
 @Repository
 public interface SwUserExtensionMapper extends SwUserMapper {
-    @Select({"select su.employee_no,se.name,sd.name as departName,su.avatar_id,se.manager_level,se.is_complete " +
+    @Select({"select su.employee_no,se.name,sd.name as departName,su.avatar_id,se.manager_level,se.is_complete,se.status " +
             "from sw_user su " +
             "    inner join sw_employee se on su.employee_no=se.employee_no " +
             "    left join sw_department sd on se.department_id=sd.id " +
@@ -27,6 +27,7 @@ public interface SwUserExtensionMapper extends SwUserMapper {
             @Result(column = "avatar_id", property = "avatarID", jdbcType = JdbcType.INTEGER),
             @Result(column = "manager_level", property = "managerLevel", jdbcType = JdbcType.INTEGER),
             @Result(column = "is_complete", property = "isComplete", jdbcType = JdbcType.INTEGER),
+            @Result(column = "status", property = "status", jdbcType = JdbcType.INTEGER),
     })
     UserInfo queryUserInfo(String employeeNo);
 

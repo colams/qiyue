@@ -1,6 +1,5 @@
 package com.foxconn.sw.common.aspects;
 
-import com.foxconn.sw.common.context.RequestContext;
 import com.foxconn.sw.common.utils.ServletUtils;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
@@ -47,7 +46,7 @@ public class MetricAspect {
     private void metric(ProceedingJoinPoint joinPoint, long intervals, String ip) {
         try {
             String operateName = joinPoint.getSignature().getName();
-            logger.info(String.format("%s metric intervals ===  %s : %s", RequestContext.getTraceID(), operateName, intervals));
+            logger.info(String.format("%s metric intervals ===  %s : %s", ip, operateName, intervals));
         } catch (Exception e) {
             logger.error(e.getMessage(), e);
         }

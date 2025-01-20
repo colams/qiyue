@@ -2,7 +2,7 @@ package com.foxconn.sw.service.processor.collaboration;
 
 import com.foxconn.sw.business.collaboration.CollaborationDetailBusiness;
 import com.foxconn.sw.business.collaboration.CollaborationDetailSpareBusiness;
-import com.foxconn.sw.common.context.RequestContext;
+import com.foxconn.sw.data.context.RequestContext;
 import com.foxconn.sw.data.dto.request.collaboration.CollaborationUpdateRowParams;
 import com.foxconn.sw.data.dto.request.collaboration.cell.CellVo;
 import com.foxconn.sw.data.entity.SwCollaborationDetail;

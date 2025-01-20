@@ -1,6 +1,6 @@
 package com.foxconn.sw.service.processor;
 
-import com.foxconn.sw.common.context.RequestContext;
+import com.foxconn.sw.data.context.RequestContext;
 import com.foxconn.sw.business.system.DepartmentBusiness;
 import com.foxconn.sw.business.system.EmployeeBusiness;
 import com.foxconn.sw.data.entity.SwDepartment;

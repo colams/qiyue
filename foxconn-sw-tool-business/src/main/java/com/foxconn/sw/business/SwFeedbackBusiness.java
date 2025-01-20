@@ -1,7 +1,7 @@
 package com.foxconn.sw.business;
 
 import com.foxconn.sw.common.constanst.NumberConstants;
-import com.foxconn.sw.common.context.RequestContext;
+import com.foxconn.sw.data.context.RequestContext;
 import com.foxconn.sw.data.dto.PageParams;
 import com.foxconn.sw.data.dto.request.feedback.FeedBackConditionParams;
 import com.foxconn.sw.data.entity.SwFeedback;

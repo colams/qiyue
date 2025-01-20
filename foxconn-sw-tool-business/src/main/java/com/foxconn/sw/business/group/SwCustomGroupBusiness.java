@@ -1,7 +1,7 @@
 package com.foxconn.sw.business.group;
 
 import com.foxconn.sw.common.constanst.NumberConstants;
-import com.foxconn.sw.common.context.RequestContext;
+import com.foxconn.sw.data.context.RequestContext;
 import com.foxconn.sw.data.dto.request.group.UpdateGroupParams;
 import com.foxconn.sw.data.entity.SwCustomGroup;
 import com.foxconn.sw.data.entity.SwCustomGroupExample;

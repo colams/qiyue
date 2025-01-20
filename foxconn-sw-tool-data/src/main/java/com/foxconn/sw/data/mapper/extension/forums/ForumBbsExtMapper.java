@@ -69,9 +69,7 @@ public interface ForumBbsExtMapper extends ForumBbsMapper {
 
     @Select({"<script> " +
             "select b.* from forum_bbs b ",
-            "<if test='isAdmin!=1'>",
             "inner join forum_participant p on b.id=p.posts_id and p.is_delete=0 ",
-            "</if> ",
             "where b.is_delete=0 ",
             "<if test='title!=null and title!=\"\"' >",
             " and b.title like #{title,jdbcType=VARCHAR} ",
@@ -79,9 +77,8 @@ public interface ForumBbsExtMapper extends ForumBbsMapper {
             "<if test='owner!=null and owner!=\"\"' >",
             " and b.author_no=#{owner,jdbcType=VARCHAR} ",
             "</if> ",
-            "<if test='isAdmin!=1'>",
             "and p.employee_no=#{currentUser,jdbcType=VARCHAR}",
-            "</if> ",
+            "and p.hidden=#{hiddenStatus,jdbcType=INTEGER}",
             "order by b.create_time desc",
             "LIMIT #{start,jdbcType=INTEGER} , #{pageSize,jdbcType=INTEGER} ",
             " </script> "
@@ -97,6 +94,7 @@ public interface ForumBbsExtMapper extends ForumBbsMapper {
                                     @Param("currentUser") String currentUser,
                                     @Param("owner") String owner,
                                     @Param("title") String title,
+                                    @Param("hiddenStatus") Integer hiddenStatus,
                                     @Param("start") int start,
                                     @Param("pageSize") int pageSize);
 }

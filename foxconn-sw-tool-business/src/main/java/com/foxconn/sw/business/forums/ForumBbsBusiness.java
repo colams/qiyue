@@ -1,6 +1,6 @@
 package com.foxconn.sw.business.forums;
 
-import com.foxconn.sw.common.context.RequestContext;
+import com.foxconn.sw.data.context.RequestContext;
 import com.foxconn.sw.data.dto.enums.PostsCategoryEnums;
 import com.foxconn.sw.data.dto.request.forums.PostsParams;
 import com.foxconn.sw.data.entity.ForumBbs;
@@ -42,9 +42,10 @@ public class ForumBbsBusiness {
         }
 
         String owner = PostsCategoryEnums.MyPosts.equals(postsType) ? RequestContext.getEmployeeNo() : null;
+        Integer hiddenStatus = PostsCategoryEnums.Hidden.equals(postsType) ? 1 : 0;
         String title = StringUtils.isNotEmpty(words) ? "%" + words + "%" : null;
 
-        return forumBbsExtMapper.selectByKeyWords(isAdmin, RequestContext.getEmployeeNo(), owner, title, start, pageSize);
+        return forumBbsExtMapper.selectByKeyWords(isAdmin, RequestContext.getEmployeeNo(), owner, title, hiddenStatus, start, pageSize);
     }
 
     public Long getPostsCount(PostsCategoryEnums postsType, String words) {

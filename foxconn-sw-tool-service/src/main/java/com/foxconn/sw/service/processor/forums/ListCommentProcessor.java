@@ -4,7 +4,7 @@ import com.foxconn.sw.business.SwReadStatusBusiness;
 import com.foxconn.sw.business.forums.ForumBbsBusiness;
 import com.foxconn.sw.business.forums.ForumBbsCommentBusiness;
 import com.foxconn.sw.common.constanst.NumberConstants;
-import com.foxconn.sw.common.context.RequestContext;
+import com.foxconn.sw.data.context.RequestContext;
 import com.foxconn.sw.common.utils.DateTimeUtils;
 import com.foxconn.sw.data.constants.enums.ModuleEnums;
 import com.foxconn.sw.data.dto.PageEntity;

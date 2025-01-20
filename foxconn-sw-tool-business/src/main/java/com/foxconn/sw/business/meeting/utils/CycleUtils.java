@@ -1,7 +1,7 @@
 package com.foxconn.sw.business.meeting.utils;
 
 import com.foxconn.sw.common.utils.JsonUtils;
-import com.foxconn.sw.common.utils.StringExtUtils;
+import com.foxconn.sw.common.utils.LocalDateExtUtils;
 import com.foxconn.sw.data.dto.communal.CycleMeetingVo;
 import com.foxconn.sw.data.entity.SwMeeting;
 import org.apache.commons.lang3.StringUtils;
@@ -17,7 +17,7 @@ public class CycleUtils {
             meeting.setCycleExpire(cycleMeetingVo.getCycleExpire());
             if (StringUtils.isEmpty(cycleMeetingVo.getCycleStart())) {
                 if (StringUtils.isEmpty(meeting.getMeetingDate())) {
-                    meeting.setCycleStart(StringExtUtils.toString(LocalDate.now()));
+                    meeting.setCycleStart(LocalDateExtUtils.toString(LocalDate.now()));
                 } else {
                     meeting.setCycleStart(meeting.getMeetingDate());
                 }

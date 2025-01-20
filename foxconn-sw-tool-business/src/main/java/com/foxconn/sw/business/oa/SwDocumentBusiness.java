@@ -3,7 +3,7 @@ package com.foxconn.sw.business.oa;
 import com.foxconn.sw.business.system.EmployeeBusiness;
 import com.foxconn.sw.common.constanst.Constants;
 import com.foxconn.sw.common.constanst.NumberConstants;
-import com.foxconn.sw.common.context.RequestContext;
+import com.foxconn.sw.data.context.RequestContext;
 import com.foxconn.sw.data.dto.request.document.CreateDocParams;
 import com.foxconn.sw.data.dto.request.document.CreatePersonalDocParams;
 import com.foxconn.sw.data.dto.request.document.DeleteDocParams;
@@ -39,6 +39,15 @@ public class SwDocumentBusiness {
         document.setResourceId(data.getResourceID());
         document.setDisableDown(data.getDisableDown());
         document.setAuthor(data.getAuthor());
+
+        document.setWorkType(data.getWorkType());
+        document.setMainType(data.getMainType());
+        document.setSubType(data.getSubType());
+        document.setMainPart(data.getMainPart());
+        document.setSupplier(data.getSupplier());
+        document.setSource(data.getSource());
+        document.setDeadLine(data.getDeadLine());
+
         documentMapper.insertSelective(document);
         return document.getId();
     }

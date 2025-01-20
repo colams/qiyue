@@ -4,7 +4,7 @@ import com.foxconn.sw.business.oa.SwDocumentBusiness;
 import com.foxconn.sw.business.oa.SwDocumentHistoryBusiness;
 import com.foxconn.sw.business.oa.SwDocumentPermissionBusiness;
 import com.foxconn.sw.business.system.DepartmentBusiness;
-import com.foxconn.sw.common.context.RequestContext;
+import com.foxconn.sw.data.context.RequestContext;
 import com.foxconn.sw.data.dto.entity.universal.IntegerParams;
 import com.foxconn.sw.data.dto.request.document.*;
 import com.foxconn.sw.data.entity.SwDocument;

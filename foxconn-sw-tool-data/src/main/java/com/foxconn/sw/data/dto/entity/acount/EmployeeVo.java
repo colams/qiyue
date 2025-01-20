@@ -16,11 +16,15 @@ public class EmployeeVo {
 
     private String departmentName;
 
+    private String innerEmail;
+
     private String firstLetter;
 
     private String pinyin;
 
     private String avatar;
+
+    private Integer status;
 
     public Integer getId() {
         return id;
@@ -70,6 +74,14 @@ public class EmployeeVo {
         this.departmentName = departmentName;
     }
 
+    public String getInnerEmail() {
+        return innerEmail;
+    }
+
+    public void setInnerEmail(String innerEmail) {
+        this.innerEmail = innerEmail;
+    }
+
     public String getFirstLetter() {
         return firstLetter;
     }
@@ -92,5 +104,13 @@ public class EmployeeVo {
 
     public void setAvatar(String avatar) {
         this.avatar = avatar;
+    }
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
     }
 }

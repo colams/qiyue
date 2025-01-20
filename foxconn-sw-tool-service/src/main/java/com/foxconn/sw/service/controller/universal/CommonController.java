@@ -82,12 +82,12 @@ public class CommonController {
                 .body(resource);
     }
 
-    @CrossOrigin
     @Operation(summary = "上传文件new", tags = TagsConstants.UNIVERSAL)
     @ApiResponse(responseCode = "0", description = "成功码")
     @PostMapping("/upload")
     public Response<List<UploadResult>> upload(@RequestParam("file") MultipartFile[] file,
                                                @RequestParam("uploadType") String uploadType,
+                                               @RequestParam("token") String token,
                                                @RequestParam(name = "request", required = false) String reqJson)
             throws FileNotFoundException {
         List<UploadResult> results = uploadProcessor.uploadFiles(file, uploadType, reqJson);

@@ -1,7 +1,7 @@
 package com.foxconn.sw.business.collaboration;
 
 import com.foxconn.sw.common.constanst.NumberConstants;
-import com.foxconn.sw.common.context.RequestContext;
+import com.foxconn.sw.data.context.RequestContext;
 import com.foxconn.sw.data.entity.SwCollaborationDetailSpare;
 import com.foxconn.sw.data.entity.SwCollaborationDetailSpareExample;
 import com.foxconn.sw.data.mapper.extension.collaboration.SwCollaborationDetailSpareExtensionMapper;

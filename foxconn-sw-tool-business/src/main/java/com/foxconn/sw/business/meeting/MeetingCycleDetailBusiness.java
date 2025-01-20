@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 @Component
 public class MeetingCycleDetailBusiness {
@@ -39,6 +40,12 @@ public class MeetingCycleDetailBusiness {
         criteria.andMeetingDateEqualTo(meetingDate);
         return meetingCycleDetailMapper.selectByExample(example);
     }
+
+    public Optional<SwMeetingCycleDetail> queryCycleDetailEntityWithDate(Integer meetingID, String meetingDate) {
+        List<SwMeetingCycleDetail> detailList = queryCycleDetailWithDate(meetingID, meetingDate);
+        return detailList.stream().findFirst();
+    }
+
 
     public boolean addCycleCancelDate(String deleteDate, SwMeeting meeting) {
         SwMeetingCycleDetail detail = new SwMeetingCycleDetail();

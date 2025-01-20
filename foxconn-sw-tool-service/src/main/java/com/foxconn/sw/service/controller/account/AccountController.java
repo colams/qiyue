@@ -6,7 +6,7 @@ import com.foxconn.sw.data.dto.Response;
 import com.foxconn.sw.data.dto.entity.acount.LoginParams;
 import com.foxconn.sw.data.dto.entity.acount.LoginStateVo;
 import com.foxconn.sw.data.dto.entity.acount.UserBriefParams;
-import com.foxconn.sw.data.dto.request.account.CreateAccountParams;
+import com.foxconn.sw.service.processor.SseEmitterProcessor;
 import com.foxconn.sw.service.processor.acount.LoginProcessor;
 import com.foxconn.sw.service.processor.acount.RegisterProcessor;
 import com.foxconn.sw.service.processor.acount.ResetPwdProcessor;
@@ -30,6 +30,8 @@ public class AccountController {
     RegisterProcessor registerProcessor;
     @Autowired
     ResetPwdProcessor resetPwdProcessor;
+    @Autowired
+    SseEmitterProcessor sseEmitterProcessor;
 
 
     @Operation(summary = "注册账号", tags = TagsConstants.ACCOUNT)
@@ -37,14 +39,6 @@ public class AccountController {
     @PostMapping("/register")
     public Response<LoginStateVo> register(@Valid @RequestBody Request<UserBriefParams> request) {
         LoginStateVo result = registerProcessor.register(request.getData());
-        return ResponseUtils.success(result, request.getTraceId());
-    }
-
-    @Operation(summary = "注册账号", tags = TagsConstants.ACCOUNT)
-    @ApiResponse(responseCode = "0", description = "成功码")
-    @PostMapping("/create")
-    public Response<Boolean> createAccount(@Valid @RequestBody Request<CreateAccountParams> request) {
-        Boolean result = registerProcessor.createAccount(request.getData());
         return ResponseUtils.success(result, request.getTraceId());
     }
 
@@ -61,6 +55,17 @@ public class AccountController {
     @PostMapping("/login")
     public Response login(@Valid @RequestBody Request<LoginParams> request) {
         LoginStateVo result = loginProcessor.login(request.getData());
+        return ResponseUtils.success(result, request.getTraceId());
+    }
+
+    @Operation(summary = "登出", tags = TagsConstants.ACCOUNT)
+    @ApiResponse(responseCode = "0", description = "成功码")
+    @PostMapping("/loginOut")
+    public Response<Boolean> loginOut(@Valid @RequestBody Request request) {
+        Boolean result = loginProcessor.loginOut();
+        if (result) {
+            sseEmitterProcessor.closeConnect(request.getHead().getToken());
+        }
         return ResponseUtils.success(result, request.getTraceId());
     }
 }

@@ -167,13 +167,13 @@
         <table tableName="sw_meeting_member">
             <generatedKey column="id" identity="true" sqlStatement="mysql"/>
         </table>
-        <table tableName="sw_meeting_minutes">
+        <table tableName="sw_meeting_minute">
             <generatedKey column="id" identity="true" sqlStatement="mysql"/>
         </table>
-        <table tableName="sw_meeting_minutes_detail">
+        <table tableName="sw_meeting_minute_detail">
             <generatedKey column="id" identity="true" sqlStatement="mysql"/>
         </table>
-        <table tableName="sw_meeting_minutes_members">
+        <table tableName="sw_meeting_minute_member">
             <generatedKey column="id" identity="true" sqlStatement="mysql"/>
         </table>
 
@@ -181,6 +181,9 @@
             <generatedKey column="id" identity="true" sqlStatement="mysql"/>
         </table>
         <table tableName="sw_notification">
+            <generatedKey column="id" identity="true" sqlStatement="mysql"/>
+        </table>
+        <table tableName="sw_notification_status">
             <generatedKey column="id" identity="true" sqlStatement="mysql"/>
         </table>
         <table tableName="sw_project">

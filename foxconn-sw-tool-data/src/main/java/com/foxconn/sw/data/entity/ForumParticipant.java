@@ -11,6 +11,8 @@ public class ForumParticipant {
 
     private Integer isRead;
 
+    private Integer hidden;
+
     private Integer isDelete;
 
     private LocalDateTime createTime;
@@ -67,6 +69,19 @@ public class ForumParticipant {
 
     public void setIsRead(Integer isRead) {
         this.isRead = isRead;
+    }
+
+    public Integer getHidden() {
+        return hidden;
+    }
+
+    public ForumParticipant withHidden(Integer hidden) {
+        this.setHidden(hidden);
+        return this;
+    }
+
+    public void setHidden(Integer hidden) {
+        this.hidden = hidden;
     }
 
     public Integer getIsDelete() {

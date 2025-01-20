@@ -4,7 +4,7 @@ import com.foxconn.sw.business.forums.ForumBbsBusiness;
 import com.foxconn.sw.business.forums.ForumBbsCommentBusiness;
 import com.foxconn.sw.business.forums.ForumParticipantBusiness;
 import com.foxconn.sw.business.forums.ForumPostsAttachmentBusiness;
-import com.foxconn.sw.common.context.RequestContext;
+import com.foxconn.sw.data.context.RequestContext;
 import com.foxconn.sw.data.dto.request.forums.PostsParams;
 import com.foxconn.sw.data.entity.ForumBbsComment;
 import org.springframework.beans.factory.annotation.Autowired;

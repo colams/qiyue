@@ -6,7 +6,7 @@ import com.foxconn.sw.business.oa.SwDocumentBusiness;
 import com.foxconn.sw.business.oa.SwDocumentHistoryBusiness;
 import com.foxconn.sw.business.oa.SwDocumentPermissionBusiness;
 import com.foxconn.sw.business.system.EmployeeBusiness;
-import com.foxconn.sw.common.context.RequestContext;
+import com.foxconn.sw.data.context.RequestContext;
 import com.foxconn.sw.common.utils.ConvertUtils;
 import com.foxconn.sw.common.utils.DateTimeUtils;
 import com.foxconn.sw.data.dto.entity.acount.EmployeeVo;

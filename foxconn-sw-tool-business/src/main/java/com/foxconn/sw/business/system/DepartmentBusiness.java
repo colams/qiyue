@@ -1,6 +1,7 @@
 package com.foxconn.sw.business.system;
 
-import com.foxconn.sw.common.context.RequestContext;
+import com.foxconn.sw.data.context.RequestContext;
+import com.foxconn.sw.common.utils.IntegerExtUtils;
 import com.foxconn.sw.data.dto.entity.system.DepartmentVo;
 import com.foxconn.sw.data.entity.SwDepartment;
 import com.foxconn.sw.data.entity.SwDepartmentExample;
@@ -57,7 +58,7 @@ public class DepartmentBusiness {
 
         for (DepartmentVo departmentVo : departmentVoMap.values()) {
             Integer parentId = departmentVo.getParentId();
-            if (parentId == null || parentId == 0) {
+            if (!IntegerExtUtils.isPk(parentId)) {
                 rootDeparts.add(departmentVo);
                 buildSubTree(departmentVo, departmentVoMap);
             }
@@ -73,7 +74,7 @@ public class DepartmentBusiness {
 
         for (DepartmentVo menu : menuMap.values()) {
             Integer parentId = menu.getParentId();
-            if (parentId != null && parentId == parentMenu.getId()) {
+            if (parentId != null && parentId.equals(parentMenu.getId())) {
                 parentMenu.getChildren().add(menu);
                 buildSubTree(menu, menuMap);
             }
@@ -99,7 +100,7 @@ public class DepartmentBusiness {
 
         List<Integer> subVoIds = vos
                 .stream()
-                .filter(e -> type == 0 ? e.getId() == currId : e.getParentId() == currId)
+                .filter(e -> type == 0 ? e.getId().equals(currId) : e.getParentId().equals(currId))
                 .map(DepartmentVo::getId)
                 .collect(Collectors.toList());
         if (CollectionUtils.isEmpty(subVoIds)) {
@@ -182,7 +183,7 @@ public class DepartmentBusiness {
         departmentList.addAll(directDepartments);
         List<SwDepartment> temps = departments.stream()
                 .filter(e -> directDepartments.stream()
-                        .anyMatch(ed -> e.getParentId() == ed.getId()))
+                        .anyMatch(ed -> e.getParentId().equals(ed.getId())))
                 .collect(Collectors.toList());
         if (CollectionUtils.isEmpty(temps)) {
             return departmentList;

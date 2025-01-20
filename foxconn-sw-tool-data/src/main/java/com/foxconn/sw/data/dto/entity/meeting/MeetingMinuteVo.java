@@ -1,6 +1,8 @@
 package com.foxconn.sw.data.dto.entity.meeting;
 
 import com.foxconn.sw.data.dto.communal.MeetingDateTimeVo;
+import com.foxconn.sw.data.dto.entity.ResourceVo;
+import com.foxconn.sw.data.dto.entity.universal.OptionsVo;
 
 import java.util.List;
 
@@ -8,13 +10,14 @@ public class MeetingMinuteVo {
 
     private Long id;
     private Integer meetingID;
-    private String meetingRoomKey;
+    private OptionsVo roomVo;
     private MeetingDateTimeVo dateTimeVo;
     private String chairman;
     private String recorder;
     private List<String> members;
     private String meetingTitle;
-    private List<Long> resourceIds;
+    private String meetingRoomKey;
+    private List<Integer> resourceIds;
 
     public Long getId() {
         return id;
@@ -32,12 +35,12 @@ public class MeetingMinuteVo {
         this.meetingID = meetingID;
     }
 
-    public String getMeetingRoomKey() {
-        return meetingRoomKey;
+    public OptionsVo getRoomVo() {
+        return roomVo;
     }
 
-    public void setMeetingRoomKey(String meetingRoomKey) {
-        this.meetingRoomKey = meetingRoomKey;
+    public void setRoomVo(OptionsVo roomVo) {
+        this.roomVo = roomVo;
     }
 
     public MeetingDateTimeVo getDateTimeVo() {
@@ -80,11 +83,19 @@ public class MeetingMinuteVo {
         this.meetingTitle = meetingTitle;
     }
 
-    public List<Long> getResourceIds() {
+    public List<Integer> getResourceIds() {
         return resourceIds;
     }
 
-    public void setResourceIds(List<Long> resourceIds) {
+    public void setResourceIds(List<Integer> resourceIds) {
         this.resourceIds = resourceIds;
+    }
+
+    public String getMeetingRoomKey() {
+        return meetingRoomKey;
+    }
+
+    public void setMeetingRoomKey(String meetingRoomKey) {
+        this.meetingRoomKey = meetingRoomKey;
     }
 }

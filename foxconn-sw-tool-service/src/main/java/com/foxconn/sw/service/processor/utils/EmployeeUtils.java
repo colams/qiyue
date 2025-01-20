@@ -34,6 +34,7 @@ public class EmployeeUtils {
             employeeVo.setName(userInfo.getEmployeeName());
             employeeVo.setDepartmentName(userInfo.getDepartName());
             employeeVo.setAvatar(userInfo.getAvatar());
+            employeeVo.setStatus(userInfo.getStatus());
         }
 
         return employeeVo;
