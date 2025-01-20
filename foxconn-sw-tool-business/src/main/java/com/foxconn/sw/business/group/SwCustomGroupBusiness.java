@@ -41,14 +41,7 @@ public class SwCustomGroupBusiness {
      * @return
      */
     public List<SwCustomGroup> listOwnerGroup(String keywords) {
-        SwCustomGroupExample example = new SwCustomGroupExample();
-        SwCustomGroupExample.Criteria criteria = example.createCriteria();
-        criteria.andOwnerEqualTo(RequestContext.getEmployeeNo());
-        criteria.andIsDeleteEqualTo(NumberConstants.ZERO);
-        if (StringUtils.isNotEmpty(keywords)) {
-            criteria.andNameLike(String.format("%%%s%%", keywords));
-        }
-        return customGroupExtMapper.selectByExample(example);
+        return customGroupExtMapper.selectManagerGroups(RequestContext.getEmployeeNo(), keywords);
     }
 
     /**

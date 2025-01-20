@@ -5,7 +5,6 @@ import com.foxconn.sw.business.group.SwCustomGroupFavoriteBusiness;
 import com.foxconn.sw.business.group.SwCustomGroupMemberBusiness;
 import com.foxconn.sw.business.group.SwCustomGroupOperateBusiness;
 import com.foxconn.sw.common.constanst.NumberConstants;
-import com.foxconn.sw.data.context.RequestContext;
 import com.foxconn.sw.data.dto.PageEntity;
 import com.foxconn.sw.data.dto.PageParams;
 import com.foxconn.sw.data.dto.entity.acount.EmployeeVo;
@@ -102,9 +101,12 @@ public class GroupListProcessor {
      */
     private List<GroupBriefVo> listOwnerGroup(String keywords) {
         List<SwCustomGroup> list = customGroupBusiness.listOwnerGroup(keywords);
-        EmployeeVo owner = employeeUtils.mapEmployee(RequestContext.getEmployeeNo());
         return Optional.ofNullable(list).orElse(Lists.newArrayList())
-                .stream().map(e -> CommonUtils.map(e, owner))
+                .stream().map(e ->
+                {
+                    EmployeeVo owner = employeeUtils.mapEmployee(e.getOwner());
+                    return CommonUtils.map(e, owner);
+                })
                 .collect(Collectors.toList());
     }
 }
