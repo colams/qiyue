@@ -92,8 +92,10 @@ public class PermissionAspect {
         String token = "";
 
         if ("upload".equalsIgnoreCase(signatureName)) {
-            token = joinPoint.getArgs()[2].toString();
-            traceId = token;
+            if (Objects.nonNull(joinPoint.getArgs()[2])) {
+                token = joinPoint.getArgs()[2].toString();
+                traceId = token;
+            }
         } else {
 
             Request request;
