@@ -54,7 +54,7 @@ public class SseEmitterProcessor {
         log.info("创建新的sse连接，当前用户：{}    累计用户:{}", clientId, sseCache.size());
         try {
             // 注册成功返回用户信息
-            sseEmitter.send(SseEmitter.event().id(String.valueOf(HttpStatus.CREATED)).data(clientId, MediaType.APPLICATION_JSON));
+            sseEmitter.send(SseEmitter.event().id(String.valueOf(HttpStatus.CREATED)).data("welcome back", MediaType.APPLICATION_JSON));
         } catch (IOException e) {
             log.error("创建长链接异常，客户端ID:{}   异常信息:{}", clientId, e.getMessage());
         }
