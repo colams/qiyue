@@ -19,6 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -58,7 +59,7 @@ public class ListPostsProcessor {
 
         Long count = forumBbsBusiness.getPostsCount(data.getParams().getPostsType(),
                 data.getParams().getWords());
-
+        Collections.sort(listVo, (a, b) -> b.getNewCount().compareTo(a.getNewCount()));
         PageEntity entity = new PageEntity(count, listVo);
         return entity;
     }

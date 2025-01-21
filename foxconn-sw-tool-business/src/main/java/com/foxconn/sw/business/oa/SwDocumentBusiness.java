@@ -107,11 +107,12 @@ public class SwDocumentBusiness {
         return documentMapper.updateByPrimaryKeySelective(document) > 0;
     }
 
-    public boolean hasSameFile(CreateDocParams params) {
+    public boolean hasSameFile(CreateDocParams params, Integer fileType) {
         SwDocumentExample example = new SwDocumentExample();
         SwDocumentExample.Criteria criteria = example.createCriteria();
         criteria.andDocumentNameEqualTo(params.getFileName());
         criteria.andIsDeleteEqualTo(NumberConstants.ZERO);
+        criteria.andFileTypeEqualTo(fileType);
         List<SwDocument> documents = documentMapper.selectByExample(example);
         return !CollectionUtils.isEmpty(documents);
     }

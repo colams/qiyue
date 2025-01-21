@@ -61,7 +61,7 @@ public class BbsListVo {
         this.discussantVo = discussantVo;
     }
 
-    public int getNewCount() {
+    public Integer getNewCount() {
         return newCount;
     }
 
