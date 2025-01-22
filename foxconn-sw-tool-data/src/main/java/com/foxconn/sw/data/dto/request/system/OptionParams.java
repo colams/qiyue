@@ -6,14 +6,14 @@ import java.util.List;
 
 public class OptionParams {
 
-    private List<OptionsEnums> optionsEnums;
+    private OptionsEnums optionsEnums;
     private String secondaryValue;
 
-    public List<OptionsEnums> getOptionsEnums() {
+    public OptionsEnums getOptionsEnums() {
         return optionsEnums;
     }
 
-    public void setOptionsEnums(List<OptionsEnums> optionsEnums) {
+    public void setOptionsEnums(OptionsEnums optionsEnums) {
         this.optionsEnums = optionsEnums;
     }
 
