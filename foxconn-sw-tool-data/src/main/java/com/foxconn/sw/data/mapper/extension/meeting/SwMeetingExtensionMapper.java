@@ -103,7 +103,7 @@ public interface SwMeetingExtensionMapper extends SwMeetingMapper {
             "and s.title like CONCAT('%', #{data.value,jdbcType=VARCHAR}, '%') ",
             "</if> ",
             "and ((s.cycle ='' and s.meeting_date &gt;= #{searchStart,jdbcType=VARCHAR} and s.meeting_date &lt;= #{searchEnd,jdbcType=VARCHAR}) or ",
-            "   (s.cycle !='' and (s.cycle_expire &gt;= #{searchEnd,jdbcType=VARCHAR} or s.cycle_expire='')))",
+            "   (s.cycle !='' and (s.cycle_expire &gt;= #{searchStart,jdbcType=VARCHAR} or s.cycle_expire='')))",
             "</script>"
     })
     @Results({

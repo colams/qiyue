@@ -4,7 +4,7 @@ import com.foxconn.sw.data.exception.BizException;
 
 import static com.foxconn.sw.data.constants.enums.retcode.RetCode.ENUM_CONVERT_ERROR;
 
-public enum WorkTypeEnums {
+public enum WorkTypeEnums implements IUniverseCode {
     Work("work", "工作文件"),
     Non_Work("non_work", "非工作文件"),
     ;

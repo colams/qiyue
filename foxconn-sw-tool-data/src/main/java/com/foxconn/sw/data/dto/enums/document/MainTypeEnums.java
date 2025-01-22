@@ -4,7 +4,7 @@ import com.foxconn.sw.data.exception.BizException;
 
 import static com.foxconn.sw.data.constants.enums.retcode.RetCode.ENUM_CONVERT_ERROR;
 
-public enum MainTypeEnums {
+public enum MainTypeEnums implements IUniverseCode {
     Project("project", "工程類"),
     HR("HR", "人資行政類"),
     BusinessAndMarket("BM", "業務市場類"),

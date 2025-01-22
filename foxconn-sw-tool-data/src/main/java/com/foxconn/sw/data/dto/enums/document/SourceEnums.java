@@ -4,7 +4,7 @@ import com.foxconn.sw.data.exception.BizException;
 
 import static com.foxconn.sw.data.constants.enums.retcode.RetCode.ENUM_CONVERT_ERROR;
 
-public enum SourceEnums {
+public enum SourceEnums implements IUniverseCode {
 
     Internal("Internal"),
     Customer("Customer"),

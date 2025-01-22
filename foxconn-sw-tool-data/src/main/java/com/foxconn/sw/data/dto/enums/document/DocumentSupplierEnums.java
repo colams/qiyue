@@ -4,7 +4,7 @@ import com.foxconn.sw.data.exception.BizException;
 
 import static com.foxconn.sw.data.constants.enums.retcode.RetCode.ENUM_CONVERT_ERROR;
 
-public enum DocumentSupplierEnums {
+public enum DocumentSupplierEnums implements IUniverseCode {
 
     None("None"),
     MTM("MTM"),

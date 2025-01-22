@@ -8,7 +8,7 @@ import java.util.List;
 import static com.foxconn.sw.data.constants.enums.retcode.RetCode.ENUM_CONVERT_ERROR;
 import static com.foxconn.sw.data.dto.enums.document.MainTypeEnums.*;
 
-public enum SubTypeEnums {
+public enum SubTypeEnums implements IUniverseCode  {
 
     Team_Roster("Team Roster", Project),
     DFM("DFM", Project),
@@ -111,16 +111,16 @@ public enum SubTypeEnums {
     ;
 
 
-    SubTypeEnums(String label, MainTypeEnums mainTypeEnums) {
-        this.label = label;
+    SubTypeEnums(String code, MainTypeEnums mainTypeEnums) {
+        this.code = code;
         this.mainTypeEnums = mainTypeEnums;
     }
 
-    private String label;
+    private String code;
     private MainTypeEnums mainTypeEnums;
 
-    public String getLabel() {
-        return label;
+    public String getCode() {
+        return code;
     }
 
     public MainTypeEnums getMainTypeEnums() {
