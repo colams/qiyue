@@ -62,7 +62,7 @@ public class PermissionAspect {
             logger.warn("call service throwable", throwable);
             throw throwable;
         } finally {
-            logParam(joinPoint, retValue, stopWatch.getTotalTimeMillis(), servletUtils.getRemoteIp(), request);
+            logParam(joinPoint, stopWatch.getTotalTimeMillis(), servletUtils.getRemoteIp(), request);
             RequestContext.remove();
         }
         return retValue;
@@ -130,16 +130,8 @@ public class PermissionAspect {
         }
     }
 
-    private void logParam(ProceedingJoinPoint joinPoint, Object retValue, long intervals, String ip, Object request) {
+    private void logParam(ProceedingJoinPoint joinPoint, long intervals, String ip, Object request) {
         try {
-            String message = "logParam ============ retValue:";
-            if (retValue instanceof Response && ((Response) retValue).getCode() != 0) {
-                message += JsonUtils.serialize(retValue);
-            } else {
-                message += "----------";
-            }
-
-            logger.info(message);
             String operator = RequestContext.getEmployeeNo();
             String operateType = joinPoint.getTarget().getClass().getSimpleName() + "." + joinPoint.getSignature().getName();
             String remark = JsonUtils.serialize(request);

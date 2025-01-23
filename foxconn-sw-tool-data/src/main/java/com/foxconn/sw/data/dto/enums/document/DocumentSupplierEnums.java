@@ -39,16 +39,20 @@ public enum DocumentSupplierEnums implements IUniverseCode {
 
     ;
 
-    DocumentSupplierEnums(String code) {
-        this.code = code;
+    DocumentSupplierEnums(String name) {
+        this.name = name;
     }
 
-    private String code;
+    private String name;
 
+    public String getName() {
+        return name();
+    }
+
+    @Override
     public String getCode() {
-        return code;
+        return name();
     }
-
 
     public static DocumentSupplierEnums getEnumByCode(String code) {
         for (DocumentSupplierEnums enums : DocumentSupplierEnums.values()) {

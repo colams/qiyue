@@ -111,16 +111,21 @@ public enum SubTypeEnums implements IUniverseCode  {
     ;
 
 
-    SubTypeEnums(String code, MainTypeEnums mainTypeEnums) {
-        this.code = code;
+    SubTypeEnums(String name, MainTypeEnums mainTypeEnums) {
+        this.name = name;
         this.mainTypeEnums = mainTypeEnums;
     }
 
-    private String code;
+    private String name;
     private MainTypeEnums mainTypeEnums;
 
     public String getCode() {
-        return code;
+        return name();
+    }
+
+    @Override
+    public String getName() {
+        return name;
     }
 
     public MainTypeEnums getMainTypeEnums() {

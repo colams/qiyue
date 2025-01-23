@@ -6,6 +6,7 @@ public class OptionsVo {
 
     private String key;
     private String text;
+    private String extra;
 
     private List<OptionsVo> optionsVos;
 
@@ -37,6 +38,14 @@ public class OptionsVo {
 
     public void setKey(String key) {
         this.key = key;
+    }
+
+    public String getExtra() {
+        return extra;
+    }
+
+    public void setExtra(String extra) {
+        this.extra = extra;
     }
 
     public List<OptionsVo> getOptionsVos() {

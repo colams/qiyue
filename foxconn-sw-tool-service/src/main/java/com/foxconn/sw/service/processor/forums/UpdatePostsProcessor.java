@@ -14,6 +14,7 @@ import com.foxconn.sw.data.entity.ForumAttachment;
 import com.foxconn.sw.data.entity.ForumBbs;
 import com.foxconn.sw.data.entity.ForumParticipant;
 import com.foxconn.sw.data.exception.BizException;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
@@ -85,7 +86,11 @@ public class UpdatePostsProcessor {
         }
         ForumBbs updateEntity = new ForumBbs();
         updateEntity.setId(forumBbs.getId());
-        updateEntity.setStatus(forumBbs.getStatus().equalsIgnoreCase("F") ? "F" : "");
+        if (StringUtils.isNotEmpty(forumBbs.getStatus())) {
+            updateEntity.setStatus("");
+        } else {
+            updateEntity.setStatus("F");
+        }
         return forumBbsBusiness.updatePosts(forumBbs);
     }
 }

@@ -36,6 +36,11 @@ public class GetOptionsProcessor {
         vos.add(init(SourceEnums.class.getSimpleName(), SourceEnums.values()));
         vos.add(init(SubTypeEnums.class.getSimpleName(), SubTypeEnums.values()));
         vos.add(init(WorkTypeEnums.class.getSimpleName(), WorkTypeEnums.values()));
+
+        vos.add(init(IssueModeEnums.class.getSimpleName(), IssueModeEnums.values()));
+        vos.add(init(PhraseEnums.class.getSimpleName(), PhraseEnums.values()));
+        vos.add(init(ProcessEnums.class.getSimpleName(), ProcessEnums.values()));
+
         return vos;
     }
 
@@ -45,8 +50,11 @@ public class GetOptionsProcessor {
         vo.setOptionsVoList(Lists.newArrayList());
         for (IUniverseCode value : values) {
             OptionsVo optionsVo = new OptionsVo();
-            optionsVo.setText(value.getCode());
+            optionsVo.setText(value.getName());
             optionsVo.setKey(value.getCode());
+            if (simpleName.equalsIgnoreCase(SubTypeEnums.class.getSimpleName())) {
+                optionsVo.setExtra(((SubTypeEnums) value).getMainTypeEnums().getCode());
+            }
             vo.getOptionsVoList().add(optionsVo);
         }
         return vo;

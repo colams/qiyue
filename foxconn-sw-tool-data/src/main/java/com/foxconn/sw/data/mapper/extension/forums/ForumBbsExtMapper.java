@@ -43,31 +43,6 @@ public interface ForumBbsExtMapper extends ForumBbsMapper {
                                @Param("pageSize") int pageSize);
 
     @Select({"<script> " +
-            "select count(1) from forum_bbs b inner join forum_favorite f on " +
-            "b.id=f.posts_id " +
-            "where f.is_valid=1 and b.is_delete=0 and f.operator=#{operator,jdbcType=VARCHAR}" +
-            "<if test='words!=null and words!=\"\"' >",
-            " and b.title like CONCAT('%', #{words,jdbcType=VARCHAR}, '%') ",
-            "</if> ",
-            " </script> "
-    })
-    Long getFavoriteBbsCount(@Param("words") String words, @Param("operator") String operator);
-
-
-    @Select({"<script> " +
-            "select count(1) from forum_bbs  ",
-            "where is_delete=0 ",
-            "<if test='words!=null and words!=\"\"' >",
-            " and title like CONCAT('%', #{words,jdbcType=VARCHAR}, '%') ",
-            "</if> ",
-            "<if test='employeeNo!=null and employeeNo!=\"\"' >",
-            " and author_no=#{employeeNo,jdbcType=VARCHAR}",
-            "</if> ",
-            " </script> "
-    })
-    Long selectBbsCount(@Param("words") String words, @Param("employeeNo") String employeeNo);
-
-    @Select({"<script> " +
             "select b.* from forum_bbs b ",
             "inner join forum_participant p on b.id=p.posts_id and p.is_delete=0 ",
             "where b.is_delete=0 ",
@@ -97,4 +72,30 @@ public interface ForumBbsExtMapper extends ForumBbsMapper {
                                     @Param("hiddenStatus") Integer hiddenStatus,
                                     @Param("start") int start,
                                     @Param("pageSize") int pageSize);
+
+    @Select({"<script> " +
+            "select count(1) from forum_bbs b inner join forum_favorite f on " +
+            "b.id=f.posts_id " +
+            "where f.is_valid=1 and b.is_delete=0 and f.operator=#{operator,jdbcType=VARCHAR}" +
+            "<if test='words!=null and words!=\"\"' >",
+            " and b.title like CONCAT('%', #{words,jdbcType=VARCHAR}, '%') ",
+            "</if> ",
+            " </script> "
+    })
+    Long getFavoriteBbsCount(@Param("words") String words, @Param("operator") String operator);
+
+
+    @Select({"<script> " +
+            "select count(1) from forum_bbs  ",
+            "where is_delete=0 ",
+            "<if test='words!=null and words!=\"\"' >",
+            " and title like CONCAT('%', #{words,jdbcType=VARCHAR}, '%') ",
+            "</if> ",
+            "<if test='employeeNo!=null and employeeNo!=\"\"' >",
+            " and author_no=#{employeeNo,jdbcType=VARCHAR}",
+            "</if> ",
+            " </script> "
+    })
+    Long selectBbsCount(@Param("words") String words, @Param("employeeNo") String employeeNo);
+
 }
