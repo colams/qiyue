@@ -101,7 +101,7 @@ public enum SubTypeEnums implements IUniverseCode  {
     FACA("FACA", Intellectual_Property),
     Lesson_learned("Lesson learned", Intellectual_Property),
 
-    Supplier_related("關務物流相關", Supply_Chain),
+    Supplier_related("供應商相關", Supply_Chain),
     Customs_logistics_related("關務物流相關", Supply_Chain),
 
     Default_File_Template("/", File_Template),
