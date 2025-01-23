@@ -445,6 +445,126 @@ public class SwAppendResourceExample {
             return (Criteria) this;
         }
 
+        public Criteria andSizeIsNull() {
+            addCriterion("size is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andSizeIsNotNull() {
+            addCriterion("size is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andSizeEqualTo(Integer value) {
+            addCriterion("size =", value, "size");
+            return (Criteria) this;
+        }
+
+        public Criteria andSizeNotEqualTo(Integer value) {
+            addCriterion("size <>", value, "size");
+            return (Criteria) this;
+        }
+
+        public Criteria andSizeGreaterThan(Integer value) {
+            addCriterion("size >", value, "size");
+            return (Criteria) this;
+        }
+
+        public Criteria andSizeGreaterThanOrEqualTo(Integer value) {
+            addCriterion("size >=", value, "size");
+            return (Criteria) this;
+        }
+
+        public Criteria andSizeLessThan(Integer value) {
+            addCriterion("size <", value, "size");
+            return (Criteria) this;
+        }
+
+        public Criteria andSizeLessThanOrEqualTo(Integer value) {
+            addCriterion("size <=", value, "size");
+            return (Criteria) this;
+        }
+
+        public Criteria andSizeIn(List<Integer> values) {
+            addCriterion("size in", values, "size");
+            return (Criteria) this;
+        }
+
+        public Criteria andSizeNotIn(List<Integer> values) {
+            addCriterion("size not in", values, "size");
+            return (Criteria) this;
+        }
+
+        public Criteria andSizeBetween(Integer value1, Integer value2) {
+            addCriterion("size between", value1, value2, "size");
+            return (Criteria) this;
+        }
+
+        public Criteria andSizeNotBetween(Integer value1, Integer value2) {
+            addCriterion("size not between", value1, value2, "size");
+            return (Criteria) this;
+        }
+
+        public Criteria andTopIsNull() {
+            addCriterion("top is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andTopIsNotNull() {
+            addCriterion("top is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andTopEqualTo(Integer value) {
+            addCriterion("top =", value, "top");
+            return (Criteria) this;
+        }
+
+        public Criteria andTopNotEqualTo(Integer value) {
+            addCriterion("top <>", value, "top");
+            return (Criteria) this;
+        }
+
+        public Criteria andTopGreaterThan(Integer value) {
+            addCriterion("top >", value, "top");
+            return (Criteria) this;
+        }
+
+        public Criteria andTopGreaterThanOrEqualTo(Integer value) {
+            addCriterion("top >=", value, "top");
+            return (Criteria) this;
+        }
+
+        public Criteria andTopLessThan(Integer value) {
+            addCriterion("top <", value, "top");
+            return (Criteria) this;
+        }
+
+        public Criteria andTopLessThanOrEqualTo(Integer value) {
+            addCriterion("top <=", value, "top");
+            return (Criteria) this;
+        }
+
+        public Criteria andTopIn(List<Integer> values) {
+            addCriterion("top in", values, "top");
+            return (Criteria) this;
+        }
+
+        public Criteria andTopNotIn(List<Integer> values) {
+            addCriterion("top not in", values, "top");
+            return (Criteria) this;
+        }
+
+        public Criteria andTopBetween(Integer value1, Integer value2) {
+            addCriterion("top between", value1, value2, "top");
+            return (Criteria) this;
+        }
+
+        public Criteria andTopNotBetween(Integer value1, Integer value2) {
+            addCriterion("top not between", value1, value2, "top");
+            return (Criteria) this;
+        }
+
         public Criteria andIsDeleteIsNull() {
             addCriterion("is_delete is null");
             return (Criteria) this;

@@ -18,6 +18,14 @@ public class AnnouncementListVo {
 
     private String createTime;
 
+    private String updateTime;
+
+    private Boolean canUpdate;
+
+    private Boolean canDelete;
+
+    private String expiryDate;
+
     public Integer getId() {
         return id;
     }
@@ -64,5 +72,37 @@ public class AnnouncementListVo {
 
     public void setCreateTime(String createTime) {
         this.createTime = createTime;
+    }
+
+    public String getUpdateTime() {
+        return updateTime;
+    }
+
+    public void setUpdateTime(String updateTime) {
+        this.updateTime = updateTime;
+    }
+
+    public Boolean getCanUpdate() {
+        return canUpdate;
+    }
+
+    public void setCanUpdate(Boolean canUpdate) {
+        this.canUpdate = canUpdate;
+    }
+
+    public Boolean getCanDelete() {
+        return canDelete;
+    }
+
+    public void setCanDelete(Boolean canDelete) {
+        this.canDelete = canDelete;
+    }
+
+    public String getExpiryDate() {
+        return expiryDate;
+    }
+
+    public void setExpiryDate(String expiryDate) {
+        this.expiryDate = expiryDate;
     }
 }

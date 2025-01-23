@@ -44,6 +44,14 @@ public class SwAppendResourceSqlProvider {
             sql.VALUES("operator", "#{operator,jdbcType=VARCHAR}");
         }
         
+        if (record.getSize() != null) {
+            sql.VALUES("size", "#{size,jdbcType=INTEGER}");
+        }
+        
+        if (record.getTop() != null) {
+            sql.VALUES("top", "#{top,jdbcType=INTEGER}");
+        }
+        
         if (record.getIsDelete() != null) {
             sql.VALUES("is_delete", "#{isDelete,jdbcType=INTEGER}");
         }
@@ -70,6 +78,8 @@ public class SwAppendResourceSqlProvider {
         sql.SELECT("file_path");
         sql.SELECT("upload_type");
         sql.SELECT("operator");
+        sql.SELECT("size");
+        sql.SELECT("top");
         sql.SELECT("is_delete");
         sql.SELECT("create_time");
         sql.SELECT("datetime_lastchange");
@@ -110,6 +120,14 @@ public class SwAppendResourceSqlProvider {
             sql.SET("operator = #{record.operator,jdbcType=VARCHAR}");
         }
         
+        if (record.getSize() != null) {
+            sql.SET("size = #{record.size,jdbcType=INTEGER}");
+        }
+        
+        if (record.getTop() != null) {
+            sql.SET("top = #{record.top,jdbcType=INTEGER}");
+        }
+        
         if (record.getIsDelete() != null) {
             sql.SET("is_delete = #{record.isDelete,jdbcType=INTEGER}");
         }
@@ -135,6 +153,8 @@ public class SwAppendResourceSqlProvider {
         sql.SET("file_path = #{record.filePath,jdbcType=VARCHAR}");
         sql.SET("upload_type = #{record.uploadType,jdbcType=VARCHAR}");
         sql.SET("operator = #{record.operator,jdbcType=VARCHAR}");
+        sql.SET("size = #{record.size,jdbcType=INTEGER}");
+        sql.SET("top = #{record.top,jdbcType=INTEGER}");
         sql.SET("is_delete = #{record.isDelete,jdbcType=INTEGER}");
         sql.SET("create_time = #{record.createTime,jdbcType=TIMESTAMP}");
         sql.SET("datetime_lastchange = #{record.datetimeLastchange,jdbcType=TIMESTAMP}");
@@ -162,6 +182,14 @@ public class SwAppendResourceSqlProvider {
         
         if (record.getOperator() != null) {
             sql.SET("operator = #{operator,jdbcType=VARCHAR}");
+        }
+        
+        if (record.getSize() != null) {
+            sql.SET("size = #{size,jdbcType=INTEGER}");
+        }
+        
+        if (record.getTop() != null) {
+            sql.SET("top = #{top,jdbcType=INTEGER}");
         }
         
         if (record.getIsDelete() != null) {
