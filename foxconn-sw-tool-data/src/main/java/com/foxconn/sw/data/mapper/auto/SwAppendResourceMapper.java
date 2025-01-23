@@ -36,11 +36,11 @@ public interface SwAppendResourceMapper {
     @Insert({
         "insert into sw_append_resource (origin_name, file_path, ",
         "upload_type, operator, ",
-        "size, top, is_delete, ",
+        "size, is_delete, ",
         "create_time, datetime_lastchange)",
         "values (#{originName,jdbcType=VARCHAR}, #{filePath,jdbcType=VARCHAR}, ",
         "#{uploadType,jdbcType=VARCHAR}, #{operator,jdbcType=VARCHAR}, ",
-        "#{size,jdbcType=INTEGER}, #{top,jdbcType=INTEGER}, #{isDelete,jdbcType=INTEGER}, ",
+        "#{size,jdbcType=INTEGER}, #{isDelete,jdbcType=INTEGER}, ",
         "#{createTime,jdbcType=TIMESTAMP}, #{datetimeLastchange,jdbcType=TIMESTAMP})"
     })
     @SelectKey(statement="SELECT LAST_INSERT_ID()", keyProperty="id", before=false, resultType=Integer.class)
@@ -58,7 +58,6 @@ public interface SwAppendResourceMapper {
         @Result(column="upload_type", property="uploadType", jdbcType=JdbcType.VARCHAR),
         @Result(column="operator", property="operator", jdbcType=JdbcType.VARCHAR),
         @Result(column="size", property="size", jdbcType=JdbcType.INTEGER),
-        @Result(column="top", property="top", jdbcType=JdbcType.INTEGER),
         @Result(column="is_delete", property="isDelete", jdbcType=JdbcType.INTEGER),
         @Result(column="create_time", property="createTime", jdbcType=JdbcType.TIMESTAMP),
         @Result(column="datetime_lastchange", property="datetimeLastchange", jdbcType=JdbcType.TIMESTAMP)
@@ -73,7 +72,6 @@ public interface SwAppendResourceMapper {
         @Result(column="upload_type", property="uploadType", jdbcType=JdbcType.VARCHAR),
         @Result(column="operator", property="operator", jdbcType=JdbcType.VARCHAR),
         @Result(column="size", property="size", jdbcType=JdbcType.INTEGER),
-        @Result(column="top", property="top", jdbcType=JdbcType.INTEGER),
         @Result(column="is_delete", property="isDelete", jdbcType=JdbcType.INTEGER),
         @Result(column="create_time", property="createTime", jdbcType=JdbcType.TIMESTAMP),
         @Result(column="datetime_lastchange", property="datetimeLastchange", jdbcType=JdbcType.TIMESTAMP)
@@ -82,7 +80,7 @@ public interface SwAppendResourceMapper {
 
     @Select({
         "select",
-        "id, origin_name, file_path, upload_type, operator, size, top, is_delete, create_time, ",
+        "id, origin_name, file_path, upload_type, operator, size, is_delete, create_time, ",
         "datetime_lastchange",
         "from sw_append_resource",
         "where id = #{id,jdbcType=INTEGER}"
@@ -94,7 +92,6 @@ public interface SwAppendResourceMapper {
         @Result(column="upload_type", property="uploadType", jdbcType=JdbcType.VARCHAR),
         @Result(column="operator", property="operator", jdbcType=JdbcType.VARCHAR),
         @Result(column="size", property="size", jdbcType=JdbcType.INTEGER),
-        @Result(column="top", property="top", jdbcType=JdbcType.INTEGER),
         @Result(column="is_delete", property="isDelete", jdbcType=JdbcType.INTEGER),
         @Result(column="create_time", property="createTime", jdbcType=JdbcType.TIMESTAMP),
         @Result(column="datetime_lastchange", property="datetimeLastchange", jdbcType=JdbcType.TIMESTAMP)
@@ -117,7 +114,6 @@ public interface SwAppendResourceMapper {
           "upload_type = #{uploadType,jdbcType=VARCHAR},",
           "operator = #{operator,jdbcType=VARCHAR},",
           "size = #{size,jdbcType=INTEGER},",
-          "top = #{top,jdbcType=INTEGER},",
           "is_delete = #{isDelete,jdbcType=INTEGER},",
           "create_time = #{createTime,jdbcType=TIMESTAMP},",
           "datetime_lastchange = #{datetimeLastchange,jdbcType=TIMESTAMP}",
