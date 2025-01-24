@@ -49,14 +49,7 @@ public class CustomExceptionHandler implements AsyncConfigurer {
 
     @ExceptionHandler(ClientAbortException.class)
     public void handleClientAbortException(ClientAbortException e) {
-        String requestUri = servletRequest.getRequestURI();
-        if (requestUri.startsWith("/upload/")) {
-            // 静态资源请求，只记录日志，不进行其他处理
-            log.warn("handleClientAbortException，Client aborted the connection for static resource: {}", e);
-        } else {
-            // 非静态资源请求，可以进行其他处理
-            log.warn("handleClientAbortException，Client aborted the connection", e);
-        }
+        log.debug("Client aborted the connection", e.getMessage());
     }
 
     /**
