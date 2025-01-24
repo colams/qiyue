@@ -1,10 +1,7 @@
 package com.foxconn.sw.service.controller.universal;
 
 import com.foxconn.sw.business.SwAppendResourceBusiness;
-import com.foxconn.sw.common.utils.DateTimeUtils;
-import com.foxconn.sw.common.utils.ExecToolUtils;
-import com.foxconn.sw.common.utils.FilePathUtils;
-import com.foxconn.sw.common.utils.UUIDUtils;
+import com.foxconn.sw.common.utils.*;
 import com.foxconn.sw.data.constants.TagsConstants;
 import com.foxconn.sw.data.constants.enums.retcode.RetCode;
 import com.foxconn.sw.data.dto.Request;
@@ -162,7 +159,14 @@ public class CommonController {
         outputStream.write(resource);
         outputStream.close();
         return ResponseEntity.ok().body(null);
+    }
 
+    @Operation(summary = "郵件發送接口", tags = TagsConstants.UNIVERSAL)
+    @ApiResponse(responseCode = "0", description = "成功码")
+    @PostMapping("/mail")
+    public ResponseEntity mailUtils() {
+        MailUtils.sendEnclosureEmail();
+        return ResponseEntity.ok("success");
     }
 
 
