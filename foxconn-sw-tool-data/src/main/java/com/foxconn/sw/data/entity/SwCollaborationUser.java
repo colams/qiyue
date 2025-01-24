@@ -13,8 +13,6 @@ public class SwCollaborationUser {
 
     private Integer status;
 
-    private Integer bgStatus;
-
     private LocalDateTime createTime;
 
     private LocalDateTime datetimeLastchange;
@@ -82,19 +80,6 @@ public class SwCollaborationUser {
 
     public void setStatus(Integer status) {
         this.status = status;
-    }
-
-    public Integer getBgStatus() {
-        return bgStatus;
-    }
-
-    public SwCollaborationUser withBgStatus(Integer bgStatus) {
-        this.setBgStatus(bgStatus);
-        return this;
-    }
-
-    public void setBgStatus(Integer bgStatus) {
-        this.bgStatus = bgStatus;
     }
 
     public LocalDateTime getCreateTime() {

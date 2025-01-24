@@ -32,6 +32,7 @@ public interface AnnouncementMapper {
         announcementListVo.setExpiryDate(swAnnouncements.getExpiryDate());
         announcementListVo.setCreateTime(DateTimeUtils.format(swAnnouncements.getCreateTime()));
         announcementListVo.setUpdateTime(DateTimeUtils.format(swAnnouncements.getDatetimeLastchange()));
+        announcementListVo.setTop(swAnnouncements.getTop());
         return announcementListVo;
     }
 }

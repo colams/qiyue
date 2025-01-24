@@ -26,6 +26,8 @@ public class AnnouncementListVo {
 
     private String expiryDate;
 
+    private Integer top;
+
     public Integer getId() {
         return id;
     }
@@ -104,5 +106,13 @@ public class AnnouncementListVo {
 
     public void setExpiryDate(String expiryDate) {
         this.expiryDate = expiryDate;
+    }
+
+    public Integer getTop() {
+        return top;
+    }
+
+    public void setTop(Integer top) {
+        this.top = top;
     }
 }

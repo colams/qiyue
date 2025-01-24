@@ -2,11 +2,13 @@ package com.foxconn.sw.service.processor.collaboration;
 
 import com.foxconn.sw.business.collaboration.CollaborationDetailBusiness;
 import com.foxconn.sw.business.collaboration.CollaborationDetailSpareBusiness;
+import com.foxconn.sw.business.collaboration.CollaborationUserBusiness;
 import com.foxconn.sw.data.context.RequestContext;
 import com.foxconn.sw.data.dto.request.collaboration.CollaborationUpdateRowParams;
 import com.foxconn.sw.data.dto.request.collaboration.cell.CellVo;
 import com.foxconn.sw.data.entity.SwCollaborationDetail;
 import com.foxconn.sw.data.entity.SwCollaborationDetailSpare;
+import com.foxconn.sw.data.entity.SwCollaborationUser;
 import com.foxconn.sw.data.exception.BizException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -21,6 +23,8 @@ public class CollaborationUpdateRowProcessor {
     @Autowired
     CollaborationDetailBusiness collaborationDetailBusiness;
     @Autowired
+    CollaborationUserBusiness collaborationUserBusiness;
+    @Autowired
     CollaborationDetailSpareBusiness collaborationDetailSpareBusiness;
 
     public Boolean createRow(CollaborationUpdateRowParams data) {
@@ -31,9 +35,21 @@ public class CollaborationUpdateRowProcessor {
             new BizException(4, "max 處理失敗，若重試仍失敗，請聯繫開發人員");
         }
 
+        List<SwCollaborationUser> collaborationUsers = collaborationUserBusiness
+                .queryCollaborationUser(data.getTaskID());
+
+        long scuId = detailList.get(0).getScuId();
+        if (collaborationUsers.size() > 1) {
+            SwCollaborationUser collaborationUser = new SwCollaborationUser();
+            collaborationUser.setTaskId(data.getTaskID());
+            collaborationUser.setEmployeeNo(RequestContext.getEmployeeNo());
+            collaborationUserBusiness.insertCollaborationUser(collaborationUser);
+            scuId = collaborationUser.getId();
+        }
+
         for (CellVo cellVo : data.getCellVoList()) {
             SwCollaborationDetail insertDetail = new SwCollaborationDetail();
-            insertDetail.setScuId(detailList.get(0).getScuId());
+            insertDetail.setScuId(scuId);
             insertDetail.setRowIndex(data.getRowIndex());
             insertDetail.setColIndex(cellVo.getColIndex());
             insertDetail.setItem(cellVo.getItem());
@@ -50,7 +66,7 @@ public class CollaborationUpdateRowProcessor {
 
         batchUpdateDetails(detailList, data.getRowIndex());
 
-        return false;
+        return true;
     }
 
     private void batchUpdateDetails(List<SwCollaborationDetail> allDetailList, int rowIndex) {
