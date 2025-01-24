@@ -8,7 +8,6 @@ public class ResourceVo {
     private String name;
     private String url;
     private String viewUrl;
-//    private String filePath;
     private EmployeeVo operator;
 
     public Integer getId() {

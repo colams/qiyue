@@ -2,7 +2,6 @@ package com.foxconn.sw.service.processor.universal;
 
 import com.foxconn.sw.data.dto.entity.oa.OAOptionVo;
 import com.foxconn.sw.data.dto.entity.universal.StringParams;
-import com.foxconn.sw.data.dto.request.system.OptionParams;
 import com.foxconn.sw.service.processor.OAOptionConfig;
 import org.springframework.stereotype.Component;
 

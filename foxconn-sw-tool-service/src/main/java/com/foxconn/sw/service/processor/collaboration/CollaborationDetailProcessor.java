@@ -7,12 +7,13 @@ import com.foxconn.sw.business.collaboration.CollaborationUserBusiness;
 import com.foxconn.sw.business.oa.SwTaskBusiness;
 import com.foxconn.sw.business.oa.SwTaskEmployeeRelationBusiness;
 import com.foxconn.sw.business.system.EmployeeBusiness;
-import com.foxconn.sw.data.context.RequestContext;
 import com.foxconn.sw.common.utils.FilePathUtils;
 import com.foxconn.sw.data.constants.enums.TaskRoleFlagEnums;
 import com.foxconn.sw.data.constants.enums.oa.TaskStatusEnums;
+import com.foxconn.sw.data.context.RequestContext;
 import com.foxconn.sw.data.dto.entity.ResourceVo;
 import com.foxconn.sw.data.dto.entity.acount.EmployeeVo;
+import com.foxconn.sw.data.dto.entity.collaboration.CollaborationItemValue;
 import com.foxconn.sw.data.dto.entity.collaboration.CollaborationVo;
 import com.foxconn.sw.data.dto.entity.oa.CapexParamsVo;
 import com.foxconn.sw.data.dto.request.collaboration.CollaborationDetailParams;
@@ -115,7 +116,7 @@ public class CollaborationDetailProcessor {
                 SwCollaborationDetail collaborationDetail = entry.getValue().get(i);
                 SwCollaborationDetailSpare detailSpare = collaborationDetailSpareBusiness.
                         getCollaborationDetail(collaborationDetail.getId());
-                objectMap.put(header.get(i++), CollaborationDetailMapper
+                objectMap.put(header.get(i), CollaborationDetailMapper
                         .CollaborationDetail2ItemValue(collaborationDetail, detailSpare, isCc));
             }
         }
@@ -190,7 +191,17 @@ public class CollaborationDetailProcessor {
         Map<String, Object> map = new HashMap<>();
         int colIndex = 0;
         for (String head : headers) {
-            map.put(head, CollaborationDetailMapper.CollaborationDetail2ItemValue(isCc, colIndex++, rowindex));
+            SwCollaborationDetail detail = new SwCollaborationDetail();
+            detail.setScuId(collaborationUser.getId());
+            detail.setRowIndex(rowindex);
+            detail.setColIndex(colIndex);
+            detail.setItem(head);
+            detail.setItemValue("");
+            collaborationDetail.updateOrInsert(detail);
+
+            CollaborationItemValue itemValue = CollaborationDetailMapper.CollaborationDetail2ItemValue(isCc, colIndex, rowindex, detail.getId());
+            map.put(head, itemValue);
+            colIndex++;
         }
         map.put("id", collaborationUser.getId());
         map.put("status", collaborationUser.getStatus());
@@ -211,8 +222,9 @@ public class CollaborationDetailProcessor {
         vo.setEmployeeNo(employee.getEmployeeNo());
 
         Map<String, Object> map = new HashMap<>();
-        for (SwCollaborationDetail detail : swCollaborationDetails.stream()
-                .filter(e -> e.getRowIndex() <= 1).collect(Collectors.toList())) {
+//        for (SwCollaborationDetail detail : swCollaborationDetails.stream()
+//                .filter(e -> e.getRowIndex() <= 1).collect(Collectors.toList())) {
+        for (SwCollaborationDetail detail : swCollaborationDetails) {
 
             SwCollaborationDetailSpare detailSpare = collaborationDetailSpareBusiness.getCollaborationDetail(detail.getId());
             map.put(detail.getItem(), CollaborationDetailMapper.CollaborationDetail2ItemValue(detail, detailSpare, isCc));

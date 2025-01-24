@@ -4,29 +4,40 @@ import com.foxconn.sw.data.exception.BizException;
 
 import static com.foxconn.sw.data.constants.enums.retcode.RetCode.ENUM_CONVERT_ERROR;
 
-public enum WorkTypeEnums implements IUniverseCode {
-    Work( "工作文件"),
-    Non_Work( "非工作文件"),
+public enum PhraseEnums implements IUniverseCode {
+    C7("C7"),
+    C6("C6"),
+    C5("C5"),
+    C4("C4"),
+    C3("C3"),
+    C3_1("C3.1"),
+    C2("C2"),
+    AVB("AVB"),
+    OVB("OVB"),
+    PRB("PRB"),
+    PPRB("PPRB"),
+    PVT("PVT"),
+    MP("MP"),
     ;
 
-    WorkTypeEnums(String name) {
+    PhraseEnums(String name) {
         this.name = name;
     }
 
     private String name;
-
-    public String getCode() {
-        return name();
-    }
 
     @Override
     public String getName() {
         return name;
     }
 
+    @Override
+    public String getCode() {
+        return name();
+    }
 
-    public static WorkTypeEnums getEnumByCode(String code) {
-        for (WorkTypeEnums enums : WorkTypeEnums.values()) {
+    public static PhraseEnums getEnumByCode(String code) {
+        for (PhraseEnums enums : PhraseEnums.values()) {
             if (enums.getCode().equalsIgnoreCase(code)) {
                 return enums;
             }

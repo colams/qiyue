@@ -2,6 +2,7 @@ package com.foxconn.sw.service.processor;
 
 import com.foxconn.sw.common.utils.UUIDUtils;
 import com.foxconn.sw.data.dto.request.sse.SseMsgParams;
+import com.foxconn.sw.data.dto.response.sse.EmitterAllUserVo;
 import com.foxconn.sw.data.dto.response.sse.EmitterUserVo;
 import com.foxconn.sw.service.SseEmitterUTF8;
 import com.google.common.collect.Lists;
@@ -41,7 +42,7 @@ public class SseEmitterProcessor {
         }
 
         // 设置超时时间，0表示不过期。默认30秒，超过时间未完成会抛出异常：AsyncRequestTimeoutException
-        SseEmitterUTF8 sseEmitter = new SseEmitterUTF8(0L);
+        SseEmitterUTF8 sseEmitter = new SseEmitterUTF8(60 * 5L);
         // 是否需要给客户端推送ID
         if (StringUtils.isBlank(clientId)) {
             clientId = UUIDUtils.getUuid();
@@ -126,15 +127,18 @@ public class SseEmitterProcessor {
     }
 
 
-    public List<EmitterUserVo> allUser() {
+    public EmitterAllUserVo allUser() {
         List<String> tokens = sseCache.keySet().stream().toList();
-        return tokens.stream().map(e -> {
+        List<EmitterUserVo> users = tokens.stream().map(e -> {
                     EmitterUserVo vo = new EmitterUserVo();
                     vo.setToken(e);
-                    vo.setEmployeeNo(e);
+                    if (e.indexOf("^") > 0) {
+                        vo.setEmployeeNo(e.split("\\^")[1]);
+                    }
                     return vo;
                 })
                 .collect(Collectors.toList());
+        return new EmitterAllUserVo(users.size(), users);
     }
 
 

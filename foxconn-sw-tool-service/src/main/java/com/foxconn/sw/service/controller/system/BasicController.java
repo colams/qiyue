@@ -3,10 +3,8 @@ package com.foxconn.sw.service.controller.system;
 import com.foxconn.sw.data.constants.TagsConstants;
 import com.foxconn.sw.data.dto.Request;
 import com.foxconn.sw.data.dto.Response;
-import com.foxconn.sw.data.dto.entity.oa.OAOptionVo;
 import com.foxconn.sw.data.dto.entity.system.DepartmentVo;
 import com.foxconn.sw.data.dto.entity.universal.OptionsVo;
-import com.foxconn.sw.data.dto.request.system.OptionParams;
 import com.foxconn.sw.data.dto.response.basic.DepartAndEmployeeOptionVo;
 import com.foxconn.sw.service.aspects.Permission;
 import com.foxconn.sw.service.processor.department.GetDepartListProcessor;
@@ -68,4 +66,5 @@ public class BasicController {
         DepartAndEmployeeOptionVo departmentVos = null;
         return ResponseUtils.success(departmentVos, request.getTraceId());
     }
+
 }

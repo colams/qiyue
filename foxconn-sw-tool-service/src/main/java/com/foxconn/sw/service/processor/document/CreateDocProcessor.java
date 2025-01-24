@@ -4,6 +4,7 @@ import com.foxconn.sw.business.oa.SwDocumentBusiness;
 import com.foxconn.sw.business.oa.SwDocumentHistoryBusiness;
 import com.foxconn.sw.business.oa.SwDocumentPermissionBusiness;
 import com.foxconn.sw.business.system.DepartmentBusiness;
+import com.foxconn.sw.common.constanst.NumberConstants;
 import com.foxconn.sw.data.context.RequestContext;
 import com.foxconn.sw.data.dto.entity.universal.IntegerParams;
 import com.foxconn.sw.data.dto.request.document.*;
@@ -37,7 +38,7 @@ public class CreateDocProcessor {
             throw new BizException(4, "参数错误，缺少资源文件");
         }
 
-        boolean sameFile = documentBusiness.hasSameFile(params);
+        boolean sameFile = documentBusiness.hasSameFile(params, NumberConstants.ZERO);
         if (sameFile) {
             throw new BizException(1, "存在重複文件！");
         }

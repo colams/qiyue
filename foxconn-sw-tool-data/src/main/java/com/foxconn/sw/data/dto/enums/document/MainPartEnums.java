@@ -4,7 +4,7 @@ import com.foxconn.sw.data.exception.BizException;
 
 import static com.foxconn.sw.data.constants.enums.retcode.RetCode.ENUM_CONVERT_ERROR;
 
-public enum MainPartEnums {
+public enum MainPartEnums implements IUniverseCode {
 
     None("None"),
     Flex("Flex"),
@@ -29,14 +29,19 @@ public enum MainPartEnums {
     Other("Other"),
     ;
 
-    MainPartEnums(String code) {
-        this.code = code;
+    MainPartEnums(String name) {
+        this.name = name;
     }
 
-    private String code;
+    private String name;
 
+    public String getName() {
+        return name;
+    }
+
+    @Override
     public String getCode() {
-        return code;
+        return name();
     }
 
 

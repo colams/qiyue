@@ -4,6 +4,7 @@ import com.foxconn.sw.data.dto.Request;
 import com.foxconn.sw.data.dto.Response;
 import com.foxconn.sw.data.dto.entity.universal.StringParams;
 import com.foxconn.sw.data.dto.request.sse.SseMsgParams;
+import com.foxconn.sw.data.dto.response.sse.EmitterAllUserVo;
 import com.foxconn.sw.data.dto.response.sse.EmitterUserVo;
 import com.foxconn.sw.service.processor.SseEmitterProcessor;
 import com.foxconn.sw.service.utils.ResponseUtils;
@@ -39,8 +40,8 @@ public class SseEmitterController {
 
     @ApiResponse(responseCode = "0", description = "成功码")
     @PostMapping("/allUser")
-    public Response<List<EmitterUserVo>> allUser(@Valid @RequestBody Request request) {
-        List<EmitterUserVo> result = sseEmitterProcessor.allUser();
+    public Response<EmitterAllUserVo> allUser(@Valid @RequestBody Request request) {
+        EmitterAllUserVo result = sseEmitterProcessor.allUser();
         return ResponseUtils.success(result, request.getTraceId());
     }
 

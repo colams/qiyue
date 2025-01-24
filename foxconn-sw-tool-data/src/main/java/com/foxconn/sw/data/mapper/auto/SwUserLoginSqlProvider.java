@@ -40,6 +40,10 @@ public class SwUserLoginSqlProvider {
             sql.VALUES("expire_time", "#{expireTime,jdbcType=TIMESTAMP}");
         }
         
+        if (record.getIp() != null) {
+            sql.VALUES("ip", "#{ip,jdbcType=VARCHAR}");
+        }
+        
         if (record.getCreateTime() != null) {
             sql.VALUES("create_time", "#{createTime,jdbcType=TIMESTAMP}");
         }
@@ -61,6 +65,7 @@ public class SwUserLoginSqlProvider {
         sql.SELECT("employee_no");
         sql.SELECT("token");
         sql.SELECT("expire_time");
+        sql.SELECT("ip");
         sql.SELECT("create_time");
         sql.SELECT("datetime_lastchange");
         sql.FROM("sw_user_login");
@@ -96,6 +101,10 @@ public class SwUserLoginSqlProvider {
             sql.SET("expire_time = #{record.expireTime,jdbcType=TIMESTAMP}");
         }
         
+        if (record.getIp() != null) {
+            sql.SET("ip = #{record.ip,jdbcType=VARCHAR}");
+        }
+        
         if (record.getCreateTime() != null) {
             sql.SET("create_time = #{record.createTime,jdbcType=TIMESTAMP}");
         }
@@ -116,6 +125,7 @@ public class SwUserLoginSqlProvider {
         sql.SET("employee_no = #{record.employeeNo,jdbcType=VARCHAR}");
         sql.SET("token = #{record.token,jdbcType=VARCHAR}");
         sql.SET("expire_time = #{record.expireTime,jdbcType=TIMESTAMP}");
+        sql.SET("ip = #{record.ip,jdbcType=VARCHAR}");
         sql.SET("create_time = #{record.createTime,jdbcType=TIMESTAMP}");
         sql.SET("datetime_lastchange = #{record.datetimeLastchange,jdbcType=TIMESTAMP}");
         
@@ -138,6 +148,10 @@ public class SwUserLoginSqlProvider {
         
         if (record.getExpireTime() != null) {
             sql.SET("expire_time = #{expireTime,jdbcType=TIMESTAMP}");
+        }
+        
+        if (record.getIp() != null) {
+            sql.SET("ip = #{ip,jdbcType=VARCHAR}");
         }
         
         if (record.getCreateTime() != null) {

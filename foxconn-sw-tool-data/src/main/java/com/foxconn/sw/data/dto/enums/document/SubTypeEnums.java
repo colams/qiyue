@@ -8,7 +8,7 @@ import java.util.List;
 import static com.foxconn.sw.data.constants.enums.retcode.RetCode.ENUM_CONVERT_ERROR;
 import static com.foxconn.sw.data.dto.enums.document.MainTypeEnums.*;
 
-public enum SubTypeEnums {
+public enum SubTypeEnums implements IUniverseCode  {
 
     Team_Roster("Team Roster", Project),
     DFM("DFM", Project),
@@ -101,7 +101,7 @@ public enum SubTypeEnums {
     FACA("FACA", Intellectual_Property),
     Lesson_learned("Lesson learned", Intellectual_Property),
 
-    Supplier_related("關務物流相關", Supply_Chain),
+    Supplier_related("供應商相關", Supply_Chain),
     Customs_logistics_related("關務物流相關", Supply_Chain),
 
     Default_File_Template("/", File_Template),
@@ -111,16 +111,21 @@ public enum SubTypeEnums {
     ;
 
 
-    SubTypeEnums(String label, MainTypeEnums mainTypeEnums) {
-        this.label = label;
+    SubTypeEnums(String name, MainTypeEnums mainTypeEnums) {
+        this.name = name;
         this.mainTypeEnums = mainTypeEnums;
     }
 
-    private String label;
+    private String name;
     private MainTypeEnums mainTypeEnums;
 
-    public String getLabel() {
-        return label;
+    public String getCode() {
+        return name();
+    }
+
+    @Override
+    public String getName() {
+        return name;
     }
 
     public MainTypeEnums getMainTypeEnums() {

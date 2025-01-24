@@ -6,6 +6,7 @@ import com.foxconn.sw.business.forums.ForumFavoriteBusiness;
 import com.foxconn.sw.business.forums.ForumParticipantBusiness;
 import com.foxconn.sw.business.forums.ForumPostsAttachmentBusiness;
 import com.foxconn.sw.common.utils.ConvertUtils;
+import com.foxconn.sw.common.utils.DateTimeUtils;
 import com.foxconn.sw.common.utils.DomainRetrieval;
 import com.foxconn.sw.common.utils.FilePathUtils;
 import com.foxconn.sw.data.context.RequestContext;
@@ -86,6 +87,7 @@ public class PostsDetailProcessor {
             resourceVo.setName(e.getOriginName());
             resourceVo.setUrl(ConvertUtils.urlPreFix(e.getId(), e.getFilePath()));
             resourceVo.setOperator(employeeUtils.mapEmployee(e.getOperator()));
+            resourceVo.setCreateTime(DateTimeUtils.format(e.getCreateTime()));
             resourceVo.setViewUrl(String.format("%s/upload/%s/%s", DomainRetrieval.getDomain(), e.getUploadType(), e.getFilePath()));
             resourceVos.add(resourceVo);
         });

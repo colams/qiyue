@@ -7,17 +7,23 @@ public class SwAnnouncement {
 
     private String title;
 
+    private String category;
+
     private String expiryDate;
 
     private String status;
 
     private String content;
 
-    private Integer isDelete;
+    private Integer top;
 
     private String operator;
 
     private String lastUpdater;
+
+    private String resourceids;
+
+    private Integer isDelete;
 
     private LocalDateTime createTime;
 
@@ -47,6 +53,19 @@ public class SwAnnouncement {
 
     public void setTitle(String title) {
         this.title = title == null ? null : title.trim();
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public SwAnnouncement withCategory(String category) {
+        this.setCategory(category);
+        return this;
+    }
+
+    public void setCategory(String category) {
+        this.category = category == null ? null : category.trim();
     }
 
     public String getExpiryDate() {
@@ -88,17 +107,17 @@ public class SwAnnouncement {
         this.content = content == null ? null : content.trim();
     }
 
-    public Integer getIsDelete() {
-        return isDelete;
+    public Integer getTop() {
+        return top;
     }
 
-    public SwAnnouncement withIsDelete(Integer isDelete) {
-        this.setIsDelete(isDelete);
+    public SwAnnouncement withTop(Integer top) {
+        this.setTop(top);
         return this;
     }
 
-    public void setIsDelete(Integer isDelete) {
-        this.isDelete = isDelete;
+    public void setTop(Integer top) {
+        this.top = top;
     }
 
     public String getOperator() {
@@ -125,6 +144,32 @@ public class SwAnnouncement {
 
     public void setLastUpdater(String lastUpdater) {
         this.lastUpdater = lastUpdater == null ? null : lastUpdater.trim();
+    }
+
+    public String getResourceids() {
+        return resourceids;
+    }
+
+    public SwAnnouncement withResourceids(String resourceids) {
+        this.setResourceids(resourceids);
+        return this;
+    }
+
+    public void setResourceids(String resourceids) {
+        this.resourceids = resourceids == null ? null : resourceids.trim();
+    }
+
+    public Integer getIsDelete() {
+        return isDelete;
+    }
+
+    public SwAnnouncement withIsDelete(Integer isDelete) {
+        this.setIsDelete(isDelete);
+        return this;
+    }
+
+    public void setIsDelete(Integer isDelete) {
+        this.isDelete = isDelete;
     }
 
     public LocalDateTime getCreateTime() {

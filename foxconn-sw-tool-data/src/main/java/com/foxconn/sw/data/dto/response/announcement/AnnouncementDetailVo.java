@@ -1,5 +1,9 @@
 package com.foxconn.sw.data.dto.response.announcement;
 
+import com.foxconn.sw.data.dto.entity.ResourceVo;
+
+import java.util.List;
+
 public class AnnouncementDetailVo {
 
     private Integer id;
@@ -7,6 +11,15 @@ public class AnnouncementDetailVo {
     private String content;
     private String operator;
     private String releaseDate;
+    private List<ResourceVo> resourceVos;
+
+
+    private String category;
+
+    private String expiryDate;
+
+    private Integer top;
+
 
     public Integer getId() {
         return id;
@@ -46,5 +59,37 @@ public class AnnouncementDetailVo {
 
     public void setReleaseDate(String releaseDate) {
         this.releaseDate = releaseDate;
+    }
+
+    public List<ResourceVo> getResourceVos() {
+        return resourceVos;
+    }
+
+    public void setResourceVos(List<ResourceVo> resourceVos) {
+        this.resourceVos = resourceVos;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
+    public String getExpiryDate() {
+        return expiryDate;
+    }
+
+    public void setExpiryDate(String expiryDate) {
+        this.expiryDate = expiryDate;
+    }
+
+    public Integer getTop() {
+        return top;
+    }
+
+    public void setTop(Integer top) {
+        this.top = top;
     }
 }

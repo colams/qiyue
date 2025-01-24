@@ -10,11 +10,14 @@ import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 import com.fasterxml.jackson.module.paramnames.ParameterNamesModule;
+import com.google.common.collect.Lists;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
+import java.util.Optional;
 
 public class JsonUtils {
 
@@ -32,6 +35,10 @@ public class JsonUtils {
             logger.warn("jackson序列化异常", var2);
             return "";
         }
+    }
+
+    public static String serializeList(List value) {
+        return serialize(Optional.ofNullable(value).orElse(Lists.newArrayList()));
     }
 
     public static <T> T deserialize(String jsonString, Class<T> cls) {

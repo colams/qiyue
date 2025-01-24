@@ -6,11 +6,15 @@ import com.foxconn.sw.data.dto.Response;
 import com.foxconn.sw.data.dto.entity.document.DocumentDetailVo;
 import com.foxconn.sw.data.dto.entity.document.DocumentVo;
 import com.foxconn.sw.data.dto.entity.document.HistoryVo;
+import com.foxconn.sw.data.dto.entity.oa.OAOptionVo;
+import com.foxconn.sw.data.dto.entity.system.OptionClassVo;
 import com.foxconn.sw.data.dto.entity.universal.IntegerParams;
 import com.foxconn.sw.data.dto.request.document.*;
+import com.foxconn.sw.data.dto.request.system.OptionParams;
 import com.foxconn.sw.service.aspects.Permission;
 import com.foxconn.sw.service.processor.document.CreateDocProcessor;
 import com.foxconn.sw.service.processor.document.DetailDocProcessor;
+import com.foxconn.sw.service.processor.document.GetOptionsProcessor;
 import com.foxconn.sw.service.processor.document.ListDocProcessor;
 import com.foxconn.sw.service.utils.ResponseUtils;
 import io.swagger.v3.oas.annotations.Operation;
@@ -34,6 +38,8 @@ public class DocumentController {
     ListDocProcessor listDoc;
     @Autowired
     DetailDocProcessor detailDoc;
+    @Autowired
+    GetOptionsProcessor getOptionsProcessor;
 
     @Permission
     @Operation(summary = "新增文档信息", tags = TagsConstants.DOCUMENT)
@@ -116,12 +122,13 @@ public class DocumentController {
         return ResponseUtils.success(result, request.getTraceId());
     }
 
-//    @Permission
-//    @Operation(summary = "OA 分类信息", tags = TagsConstants.OA)
-//    @ApiResponse(responseCode = "0", description = "成功码")
-//    @PostMapping("/optionList")
-//    public Response<OAOptionVo> optionList(@Valid @RequestBody Request<OptionParams> request) {
-//        OAOptionVo result = optionListProcessor.getOptions2(request.getData());
-//        return ResponseUtils.success(result, request.getTraceId());
-//    }
+    @Permission
+    @Operation(summary = "选项获取接口", tags = TagsConstants.SYSTEM)
+    @ApiResponse(responseCode = "0", description = "成功码")
+    @PostMapping("/getOptions")
+    public Response<List<OptionClassVo>> getOptions(@Valid @RequestBody Request<List<OptionParams>> request) {
+        List<OptionClassVo> vos = getOptionsProcessor.getOptions(request.getData());
+        return ResponseUtils.success(vos, request.getTraceId());
+    }
+
 }

@@ -7,6 +7,7 @@ import com.foxconn.sw.data.dto.Response;
 import com.foxconn.sw.data.exception.BizException;
 import com.foxconn.sw.service.utils.ResponseUtils;
 import jakarta.servlet.http.HttpServletRequest;
+import org.apache.catalina.connector.ClientAbortException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.aop.interceptor.AsyncUncaughtExceptionHandler;
@@ -44,6 +45,11 @@ public class CustomExceptionHandler implements AsyncConfigurer {
     public Response abstractApiException(BizException e) {
         log.warn("abstractApiException =========== " + servletRequest.getRequestURL(), e);
         return ResponseUtils.failure(e.getCode(), e.getMessage(), UUIDUtils.getUuid());
+    }
+
+    @ExceptionHandler(ClientAbortException.class)
+    public void handleClientAbortException(ClientAbortException e) {
+        log.debug("Client aborted the connection", e.getMessage());
     }
 
     /**

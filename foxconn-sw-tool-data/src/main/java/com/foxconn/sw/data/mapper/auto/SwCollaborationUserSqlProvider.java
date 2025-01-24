@@ -44,10 +44,6 @@ public class SwCollaborationUserSqlProvider {
             sql.VALUES("status", "#{status,jdbcType=INTEGER}");
         }
         
-        if (record.getBgStatus() != null) {
-            sql.VALUES("bg_status", "#{bgStatus,jdbcType=INTEGER}");
-        }
-        
         if (record.getCreateTime() != null) {
             sql.VALUES("create_time", "#{createTime,jdbcType=TIMESTAMP}");
         }
@@ -70,7 +66,6 @@ public class SwCollaborationUserSqlProvider {
         sql.SELECT("employee_no");
         sql.SELECT("is_delete");
         sql.SELECT("status");
-        sql.SELECT("bg_status");
         sql.SELECT("create_time");
         sql.SELECT("datetime_lastchange");
         sql.FROM("sw_collaboration_user");
@@ -110,10 +105,6 @@ public class SwCollaborationUserSqlProvider {
             sql.SET("status = #{record.status,jdbcType=INTEGER}");
         }
         
-        if (record.getBgStatus() != null) {
-            sql.SET("bg_status = #{record.bgStatus,jdbcType=INTEGER}");
-        }
-        
         if (record.getCreateTime() != null) {
             sql.SET("create_time = #{record.createTime,jdbcType=TIMESTAMP}");
         }
@@ -135,7 +126,6 @@ public class SwCollaborationUserSqlProvider {
         sql.SET("employee_no = #{record.employeeNo,jdbcType=VARCHAR}");
         sql.SET("is_delete = #{record.isDelete,jdbcType=INTEGER}");
         sql.SET("status = #{record.status,jdbcType=INTEGER}");
-        sql.SET("bg_status = #{record.bgStatus,jdbcType=INTEGER}");
         sql.SET("create_time = #{record.createTime,jdbcType=TIMESTAMP}");
         sql.SET("datetime_lastchange = #{record.datetimeLastchange,jdbcType=TIMESTAMP}");
         
@@ -162,10 +152,6 @@ public class SwCollaborationUserSqlProvider {
         
         if (record.getStatus() != null) {
             sql.SET("status = #{status,jdbcType=INTEGER}");
-        }
-        
-        if (record.getBgStatus() != null) {
-            sql.SET("bg_status = #{bgStatus,jdbcType=INTEGER}");
         }
         
         if (record.getCreateTime() != null) {

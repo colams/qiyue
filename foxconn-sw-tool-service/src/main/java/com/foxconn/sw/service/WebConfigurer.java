@@ -51,6 +51,8 @@ public class WebConfigurer implements WebMvcConfigurer, WebServerFactoryCustomiz
         String RESULT_PATH = configReader.readPropertyValue(ConfigReader.ConfigKey.TOOL_RESULT);
         String GUIDE_PATH = configReader.readPropertyValue(ConfigReader.ConfigKey.TOOL_GUIDE);
 
+        registry.addResourceHandler("/favicon.ico")
+                .addResourceLocations(ResourceUtils.CLASSPATH_URL_PREFIX + "/static/");
         registry.addResourceHandler("/static/**")
                 .addResourceLocations(ResourceUtils.CLASSPATH_URL_PREFIX + "/static/");
 

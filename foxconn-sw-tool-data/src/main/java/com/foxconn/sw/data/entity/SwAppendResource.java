@@ -13,6 +13,8 @@ public class SwAppendResource {
 
     private String operator;
 
+    private Integer size;
+
     private Integer isDelete;
 
     private LocalDateTime createTime;
@@ -82,6 +84,19 @@ public class SwAppendResource {
 
     public void setOperator(String operator) {
         this.operator = operator == null ? null : operator.trim();
+    }
+
+    public Integer getSize() {
+        return size;
+    }
+
+    public SwAppendResource withSize(Integer size) {
+        this.setSize(size);
+        return this;
+    }
+
+    public void setSize(Integer size) {
+        this.size = size;
     }
 
     public Integer getIsDelete() {
