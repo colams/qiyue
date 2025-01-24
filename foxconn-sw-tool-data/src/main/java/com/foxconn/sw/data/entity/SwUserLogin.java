@@ -11,6 +11,8 @@ public class SwUserLogin {
 
     private LocalDateTime expireTime;
 
+    private String ip;
+
     private LocalDateTime createTime;
 
     private LocalDateTime datetimeLastchange;
@@ -65,6 +67,19 @@ public class SwUserLogin {
 
     public void setExpireTime(LocalDateTime expireTime) {
         this.expireTime = expireTime;
+    }
+
+    public String getIp() {
+        return ip;
+    }
+
+    public SwUserLogin withIp(String ip) {
+        this.setIp(ip);
+        return this;
+    }
+
+    public void setIp(String ip) {
+        this.ip = ip == null ? null : ip.trim();
     }
 
     public LocalDateTime getCreateTime() {

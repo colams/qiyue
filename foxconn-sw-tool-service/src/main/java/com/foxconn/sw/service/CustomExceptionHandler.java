@@ -7,6 +7,7 @@ import com.foxconn.sw.data.dto.Response;
 import com.foxconn.sw.data.exception.BizException;
 import com.foxconn.sw.service.utils.ResponseUtils;
 import jakarta.servlet.http.HttpServletRequest;
+import org.apache.catalina.connector.ClientAbortException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.aop.interceptor.AsyncUncaughtExceptionHandler;
@@ -44,6 +45,18 @@ public class CustomExceptionHandler implements AsyncConfigurer {
     public Response abstractApiException(BizException e) {
         log.warn("abstractApiException =========== " + servletRequest.getRequestURL(), e);
         return ResponseUtils.failure(e.getCode(), e.getMessage(), UUIDUtils.getUuid());
+    }
+
+    @ExceptionHandler(ClientAbortException.class)
+    public void handleClientAbortException(ClientAbortException e) {
+        String requestUri = servletRequest.getRequestURI();
+        if (requestUri.startsWith("/upload/")) {
+            // 静态资源请求，只记录日志，不进行其他处理
+            log.warn("handleClientAbortException，Client aborted the connection for static resource: {}", e);
+        } else {
+            // 非静态资源请求，可以进行其他处理
+            log.warn("handleClientAbortException，Client aborted the connection", e);
+        }
     }
 
     /**

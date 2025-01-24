@@ -2,6 +2,7 @@ package com.foxconn.sw.service.processor;
 
 import com.foxconn.sw.common.utils.UUIDUtils;
 import com.foxconn.sw.data.dto.request.sse.SseMsgParams;
+import com.foxconn.sw.data.dto.response.sse.EmitterAllUserVo;
 import com.foxconn.sw.data.dto.response.sse.EmitterUserVo;
 import com.foxconn.sw.service.SseEmitterUTF8;
 import com.google.common.collect.Lists;
@@ -126,15 +127,18 @@ public class SseEmitterProcessor {
     }
 
 
-    public List<EmitterUserVo> allUser() {
+    public EmitterAllUserVo allUser() {
         List<String> tokens = sseCache.keySet().stream().toList();
-        return tokens.stream().map(e -> {
+        List<EmitterUserVo> users = tokens.stream().map(e -> {
                     EmitterUserVo vo = new EmitterUserVo();
                     vo.setToken(e);
-                    vo.setEmployeeNo(e);
+                    if (e.indexOf("^") > 0) {
+                        vo.setEmployeeNo(e.split("\\^")[1]);
+                    }
                     return vo;
                 })
                 .collect(Collectors.toList());
+        return new EmitterAllUserVo(users.size(), users);
     }
 
 

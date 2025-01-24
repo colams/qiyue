@@ -1,5 +1,6 @@
 package com.foxconn.sw.business.account;
 
+import com.foxconn.sw.common.utils.ServletUtils;
 import com.foxconn.sw.data.entity.SwUserLogin;
 import com.foxconn.sw.data.entity.SwUserLoginExample;
 import com.foxconn.sw.data.mapper.extension.acount.SwUserLoginExtensionMapper;
@@ -16,6 +17,8 @@ public class UserLoginBusiness {
 
     @Resource
     SwUserLoginExtensionMapper userLoginExtensionMapper;
+    @Resource
+    ServletUtils servletUtils;
 
     /**
      * 保存用户登录态
@@ -30,6 +33,7 @@ public class UserLoginBusiness {
         userLogin.setEmployeeNo(employeeId);
         userLogin.setToken(token);
         userLogin.setExpireTime(expireTime);
+        userLogin.setIp(servletUtils.getRemoteIp());
         int count = userLoginExtensionMapper.insertSelective(userLogin);
         return count > 0;
     }
@@ -64,6 +68,7 @@ public class UserLoginBusiness {
         SwUserLogin newLogin = new SwUserLogin();
         newLogin.setId(id);
         newLogin.setExpireTime(expireTime);
+        newLogin.setIp(servletUtils.getRemoteIp());
         return userLoginExtensionMapper.updateByPrimaryKeySelective(newLogin) > 0;
     }
 
