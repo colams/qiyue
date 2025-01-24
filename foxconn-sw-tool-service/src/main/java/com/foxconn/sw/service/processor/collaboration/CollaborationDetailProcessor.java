@@ -13,6 +13,7 @@ import com.foxconn.sw.data.constants.enums.oa.TaskStatusEnums;
 import com.foxconn.sw.data.context.RequestContext;
 import com.foxconn.sw.data.dto.entity.ResourceVo;
 import com.foxconn.sw.data.dto.entity.acount.EmployeeVo;
+import com.foxconn.sw.data.dto.entity.collaboration.CollaborationItemValue;
 import com.foxconn.sw.data.dto.entity.collaboration.CollaborationVo;
 import com.foxconn.sw.data.dto.entity.oa.CapexParamsVo;
 import com.foxconn.sw.data.dto.request.collaboration.CollaborationDetailParams;
@@ -190,7 +191,17 @@ public class CollaborationDetailProcessor {
         Map<String, Object> map = new HashMap<>();
         int colIndex = 0;
         for (String head : headers) {
-            map.put(head, CollaborationDetailMapper.CollaborationDetail2ItemValue(isCc, colIndex++, rowindex));
+            SwCollaborationDetail detail = new SwCollaborationDetail();
+            detail.setScuId(collaborationUser.getId());
+            detail.setRowIndex(rowindex);
+            detail.setColIndex(colIndex);
+            detail.setItem(head);
+            detail.setItemValue("");
+            collaborationDetail.updateOrInsert(detail);
+
+            CollaborationItemValue itemValue = CollaborationDetailMapper.CollaborationDetail2ItemValue(isCc, colIndex, rowindex, detail.getId());
+            map.put(head, itemValue);
+            colIndex++;
         }
         map.put("id", collaborationUser.getId());
         map.put("status", collaborationUser.getStatus());

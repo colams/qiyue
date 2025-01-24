@@ -26,12 +26,12 @@ public class CollaborationDetailMapper {
         return itemValue;
     }
 
-    public static CollaborationItemValue CollaborationDetail2ItemValue(boolean isCc, int colIndex, int rowIndex) {
+    public static CollaborationItemValue CollaborationDetail2ItemValue(boolean isCc, int colIndex, int rowIndex, long detailID) {
         CollaborationItemValue itemValue = new CollaborationItemValue();
         itemValue.setCurrentValue("");
         itemValue.setSpareValue("");
         itemValue.setUpdateTime("");
-        // itemValue.setDetailId(0);
+        itemValue.setDetailId(detailID);
         itemValue.setRowIndex(rowIndex);
         itemValue.setColIndex(colIndex);
         itemValue.setAuthorized(isCc ? "" : "true");
