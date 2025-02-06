@@ -4,19 +4,27 @@ import com.foxconn.sw.data.entity.SwCustomGroup;
 import com.foxconn.sw.data.entity.SwCustomGroupExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Delete;
+import org.apache.ibatis.annotations.DeleteProvider;
 import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.InsertProvider;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.ResultMap;
+import org.apache.ibatis.annotations.Result;
+import org.apache.ibatis.annotations.Results;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.SelectKey;
+import org.apache.ibatis.annotations.SelectProvider;
 import org.apache.ibatis.annotations.Update;
+import org.apache.ibatis.annotations.UpdateProvider;
 import org.apache.ibatis.session.RowBounds;
+import org.apache.ibatis.type.JdbcType;
 
 @Mapper
 public interface SwCustomGroupMapper {
+    @SelectProvider(type=SwCustomGroupSqlProvider.class, method="countByExample")
     long countByExample(SwCustomGroupExample example);
 
+    @DeleteProvider(type=SwCustomGroupSqlProvider.class, method="deleteByExample")
     int deleteByExample(SwCustomGroupExample example);
 
     @Delete({
@@ -38,10 +46,36 @@ public interface SwCustomGroupMapper {
     @SelectKey(statement="SELECT LAST_INSERT_ID()", keyProperty="id", before=false, resultType=Integer.class)
     int insert(SwCustomGroup record);
 
+    @InsertProvider(type=SwCustomGroupSqlProvider.class, method="insertSelective")
+    @SelectKey(statement="SELECT LAST_INSERT_ID()", keyProperty="id", before=false, resultType=Integer.class)
     int insertSelective(SwCustomGroup record);
 
+    @SelectProvider(type=SwCustomGroupSqlProvider.class, method="selectByExample")
+    @Results({
+        @Result(column="id", property="id", jdbcType=JdbcType.INTEGER, id=true),
+        @Result(column="name", property="name", jdbcType=JdbcType.VARCHAR),
+        @Result(column="owner", property="owner", jdbcType=JdbcType.VARCHAR),
+        @Result(column="group_type", property="groupType", jdbcType=JdbcType.INTEGER),
+        @Result(column="is_private", property="isPrivate", jdbcType=JdbcType.INTEGER),
+        @Result(column="description", property="description", jdbcType=JdbcType.VARCHAR),
+        @Result(column="is_delete", property="isDelete", jdbcType=JdbcType.INTEGER),
+        @Result(column="create_time", property="createTime", jdbcType=JdbcType.TIMESTAMP),
+        @Result(column="datetime_lastchange", property="datetimeLastchange", jdbcType=JdbcType.TIMESTAMP)
+    })
     List<SwCustomGroup> selectByExampleWithRowbounds(SwCustomGroupExample example, RowBounds rowBounds);
 
+    @SelectProvider(type=SwCustomGroupSqlProvider.class, method="selectByExample")
+    @Results({
+        @Result(column="id", property="id", jdbcType=JdbcType.INTEGER, id=true),
+        @Result(column="name", property="name", jdbcType=JdbcType.VARCHAR),
+        @Result(column="owner", property="owner", jdbcType=JdbcType.VARCHAR),
+        @Result(column="group_type", property="groupType", jdbcType=JdbcType.INTEGER),
+        @Result(column="is_private", property="isPrivate", jdbcType=JdbcType.INTEGER),
+        @Result(column="description", property="description", jdbcType=JdbcType.VARCHAR),
+        @Result(column="is_delete", property="isDelete", jdbcType=JdbcType.INTEGER),
+        @Result(column="create_time", property="createTime", jdbcType=JdbcType.TIMESTAMP),
+        @Result(column="datetime_lastchange", property="datetimeLastchange", jdbcType=JdbcType.TIMESTAMP)
+    })
     List<SwCustomGroup> selectByExample(SwCustomGroupExample example);
 
     @Select({
@@ -51,13 +85,26 @@ public interface SwCustomGroupMapper {
         "from sw_custom_group",
         "where id = #{id,jdbcType=INTEGER}"
     })
-    @ResultMap("com.foxconn.sw.data.mapper.auto.SwCustomGroupMapper.BaseResultMap")
+    @Results({
+        @Result(column="id", property="id", jdbcType=JdbcType.INTEGER, id=true),
+        @Result(column="name", property="name", jdbcType=JdbcType.VARCHAR),
+        @Result(column="owner", property="owner", jdbcType=JdbcType.VARCHAR),
+        @Result(column="group_type", property="groupType", jdbcType=JdbcType.INTEGER),
+        @Result(column="is_private", property="isPrivate", jdbcType=JdbcType.INTEGER),
+        @Result(column="description", property="description", jdbcType=JdbcType.VARCHAR),
+        @Result(column="is_delete", property="isDelete", jdbcType=JdbcType.INTEGER),
+        @Result(column="create_time", property="createTime", jdbcType=JdbcType.TIMESTAMP),
+        @Result(column="datetime_lastchange", property="datetimeLastchange", jdbcType=JdbcType.TIMESTAMP)
+    })
     SwCustomGroup selectByPrimaryKey(Integer id);
 
+    @UpdateProvider(type=SwCustomGroupSqlProvider.class, method="updateByExampleSelective")
     int updateByExampleSelective(@Param("record") SwCustomGroup record, @Param("example") SwCustomGroupExample example);
 
+    @UpdateProvider(type=SwCustomGroupSqlProvider.class, method="updateByExample")
     int updateByExample(@Param("record") SwCustomGroup record, @Param("example") SwCustomGroupExample example);
 
+    @UpdateProvider(type=SwCustomGroupSqlProvider.class, method="updateByPrimaryKeySelective")
     int updateByPrimaryKeySelective(SwCustomGroup record);
 
     @Update({

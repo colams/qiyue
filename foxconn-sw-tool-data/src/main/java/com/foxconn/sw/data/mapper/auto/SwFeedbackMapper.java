@@ -4,19 +4,27 @@ import com.foxconn.sw.data.entity.SwFeedback;
 import com.foxconn.sw.data.entity.SwFeedbackExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Delete;
+import org.apache.ibatis.annotations.DeleteProvider;
 import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.InsertProvider;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.ResultMap;
+import org.apache.ibatis.annotations.Result;
+import org.apache.ibatis.annotations.Results;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.SelectKey;
+import org.apache.ibatis.annotations.SelectProvider;
 import org.apache.ibatis.annotations.Update;
+import org.apache.ibatis.annotations.UpdateProvider;
 import org.apache.ibatis.session.RowBounds;
+import org.apache.ibatis.type.JdbcType;
 
 @Mapper
 public interface SwFeedbackMapper {
+    @SelectProvider(type=SwFeedbackSqlProvider.class, method="countByExample")
     long countByExample(SwFeedbackExample example);
 
+    @DeleteProvider(type=SwFeedbackSqlProvider.class, method="deleteByExample")
     int deleteByExample(SwFeedbackExample example);
 
     @Delete({
@@ -40,14 +48,74 @@ public interface SwFeedbackMapper {
     @SelectKey(statement="SELECT LAST_INSERT_ID()", keyProperty="id", before=false, resultType=Integer.class)
     int insert(SwFeedback record);
 
+    @InsertProvider(type=SwFeedbackSqlProvider.class, method="insertSelective")
+    @SelectKey(statement="SELECT LAST_INSERT_ID()", keyProperty="id", before=false, resultType=Integer.class)
     int insertSelective(SwFeedback record);
 
+    @SelectProvider(type=SwFeedbackSqlProvider.class, method="selectByExampleWithBLOBs")
+    @Results({
+        @Result(column="id", property="id", jdbcType=JdbcType.INTEGER, id=true),
+        @Result(column="employee_no", property="employeeNo", jdbcType=JdbcType.VARCHAR),
+        @Result(column="title", property="title", jdbcType=JdbcType.VARCHAR),
+        @Result(column="remark", property="remark", jdbcType=JdbcType.VARCHAR),
+        @Result(column="contact", property="contact", jdbcType=JdbcType.VARCHAR),
+        @Result(column="ip", property="ip", jdbcType=JdbcType.VARCHAR),
+        @Result(column="status", property="status", jdbcType=JdbcType.INTEGER),
+        @Result(column="finish_time", property="finishTime", jdbcType=JdbcType.TIMESTAMP),
+        @Result(column="close_time", property="closeTime", jdbcType=JdbcType.TIMESTAMP),
+        @Result(column="create_time", property="createTime", jdbcType=JdbcType.TIMESTAMP),
+        @Result(column="datetime_lastchange", property="datetimeLastchange", jdbcType=JdbcType.TIMESTAMP),
+        @Result(column="content", property="content", jdbcType=JdbcType.LONGVARCHAR)
+    })
     List<SwFeedback> selectByExampleWithBLOBsWithRowbounds(SwFeedbackExample example, RowBounds rowBounds);
 
+    @SelectProvider(type=SwFeedbackSqlProvider.class, method="selectByExampleWithBLOBs")
+    @Results({
+        @Result(column="id", property="id", jdbcType=JdbcType.INTEGER, id=true),
+        @Result(column="employee_no", property="employeeNo", jdbcType=JdbcType.VARCHAR),
+        @Result(column="title", property="title", jdbcType=JdbcType.VARCHAR),
+        @Result(column="remark", property="remark", jdbcType=JdbcType.VARCHAR),
+        @Result(column="contact", property="contact", jdbcType=JdbcType.VARCHAR),
+        @Result(column="ip", property="ip", jdbcType=JdbcType.VARCHAR),
+        @Result(column="status", property="status", jdbcType=JdbcType.INTEGER),
+        @Result(column="finish_time", property="finishTime", jdbcType=JdbcType.TIMESTAMP),
+        @Result(column="close_time", property="closeTime", jdbcType=JdbcType.TIMESTAMP),
+        @Result(column="create_time", property="createTime", jdbcType=JdbcType.TIMESTAMP),
+        @Result(column="datetime_lastchange", property="datetimeLastchange", jdbcType=JdbcType.TIMESTAMP),
+        @Result(column="content", property="content", jdbcType=JdbcType.LONGVARCHAR)
+    })
     List<SwFeedback> selectByExampleWithBLOBs(SwFeedbackExample example);
 
+    @SelectProvider(type=SwFeedbackSqlProvider.class, method="selectByExample")
+    @Results({
+        @Result(column="id", property="id", jdbcType=JdbcType.INTEGER, id=true),
+        @Result(column="employee_no", property="employeeNo", jdbcType=JdbcType.VARCHAR),
+        @Result(column="title", property="title", jdbcType=JdbcType.VARCHAR),
+        @Result(column="remark", property="remark", jdbcType=JdbcType.VARCHAR),
+        @Result(column="contact", property="contact", jdbcType=JdbcType.VARCHAR),
+        @Result(column="ip", property="ip", jdbcType=JdbcType.VARCHAR),
+        @Result(column="status", property="status", jdbcType=JdbcType.INTEGER),
+        @Result(column="finish_time", property="finishTime", jdbcType=JdbcType.TIMESTAMP),
+        @Result(column="close_time", property="closeTime", jdbcType=JdbcType.TIMESTAMP),
+        @Result(column="create_time", property="createTime", jdbcType=JdbcType.TIMESTAMP),
+        @Result(column="datetime_lastchange", property="datetimeLastchange", jdbcType=JdbcType.TIMESTAMP)
+    })
     List<SwFeedback> selectByExampleWithRowbounds(SwFeedbackExample example, RowBounds rowBounds);
 
+    @SelectProvider(type=SwFeedbackSqlProvider.class, method="selectByExample")
+    @Results({
+        @Result(column="id", property="id", jdbcType=JdbcType.INTEGER, id=true),
+        @Result(column="employee_no", property="employeeNo", jdbcType=JdbcType.VARCHAR),
+        @Result(column="title", property="title", jdbcType=JdbcType.VARCHAR),
+        @Result(column="remark", property="remark", jdbcType=JdbcType.VARCHAR),
+        @Result(column="contact", property="contact", jdbcType=JdbcType.VARCHAR),
+        @Result(column="ip", property="ip", jdbcType=JdbcType.VARCHAR),
+        @Result(column="status", property="status", jdbcType=JdbcType.INTEGER),
+        @Result(column="finish_time", property="finishTime", jdbcType=JdbcType.TIMESTAMP),
+        @Result(column="close_time", property="closeTime", jdbcType=JdbcType.TIMESTAMP),
+        @Result(column="create_time", property="createTime", jdbcType=JdbcType.TIMESTAMP),
+        @Result(column="datetime_lastchange", property="datetimeLastchange", jdbcType=JdbcType.TIMESTAMP)
+    })
     List<SwFeedback> selectByExample(SwFeedbackExample example);
 
     @Select({
@@ -57,15 +125,32 @@ public interface SwFeedbackMapper {
         "from sw_feedback",
         "where id = #{id,jdbcType=INTEGER}"
     })
-    @ResultMap("com.foxconn.sw.data.mapper.auto.SwFeedbackMapper.ResultMapWithBLOBs")
+    @Results({
+        @Result(column="id", property="id", jdbcType=JdbcType.INTEGER, id=true),
+        @Result(column="employee_no", property="employeeNo", jdbcType=JdbcType.VARCHAR),
+        @Result(column="title", property="title", jdbcType=JdbcType.VARCHAR),
+        @Result(column="remark", property="remark", jdbcType=JdbcType.VARCHAR),
+        @Result(column="contact", property="contact", jdbcType=JdbcType.VARCHAR),
+        @Result(column="ip", property="ip", jdbcType=JdbcType.VARCHAR),
+        @Result(column="status", property="status", jdbcType=JdbcType.INTEGER),
+        @Result(column="finish_time", property="finishTime", jdbcType=JdbcType.TIMESTAMP),
+        @Result(column="close_time", property="closeTime", jdbcType=JdbcType.TIMESTAMP),
+        @Result(column="create_time", property="createTime", jdbcType=JdbcType.TIMESTAMP),
+        @Result(column="datetime_lastchange", property="datetimeLastchange", jdbcType=JdbcType.TIMESTAMP),
+        @Result(column="content", property="content", jdbcType=JdbcType.LONGVARCHAR)
+    })
     SwFeedback selectByPrimaryKey(Integer id);
 
+    @UpdateProvider(type=SwFeedbackSqlProvider.class, method="updateByExampleSelective")
     int updateByExampleSelective(@Param("record") SwFeedback record, @Param("example") SwFeedbackExample example);
 
+    @UpdateProvider(type=SwFeedbackSqlProvider.class, method="updateByExampleWithBLOBs")
     int updateByExampleWithBLOBs(@Param("record") SwFeedback record, @Param("example") SwFeedbackExample example);
 
+    @UpdateProvider(type=SwFeedbackSqlProvider.class, method="updateByExample")
     int updateByExample(@Param("record") SwFeedback record, @Param("example") SwFeedbackExample example);
 
+    @UpdateProvider(type=SwFeedbackSqlProvider.class, method="updateByPrimaryKeySelective")
     int updateByPrimaryKeySelective(SwFeedback record);
 
     @Update({

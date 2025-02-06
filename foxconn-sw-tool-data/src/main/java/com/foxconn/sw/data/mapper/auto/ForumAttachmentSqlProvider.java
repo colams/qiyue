@@ -10,20 +10,6 @@ import org.apache.ibatis.jdbc.SQL;
 
 public class ForumAttachmentSqlProvider {
 
-    public String countByExample(ForumAttachmentExample example) {
-        SQL sql = new SQL();
-        sql.SELECT("count(*)").FROM("forum_attachment");
-        applyWhere(sql, example, false);
-        return sql.toString();
-    }
-
-    public String deleteByExample(ForumAttachmentExample example) {
-        SQL sql = new SQL();
-        sql.DELETE_FROM("forum_attachment");
-        applyWhere(sql, example, false);
-        return sql.toString();
-    }
-
     public String insertSelective(ForumAttachment record) {
         SQL sql = new SQL();
         sql.INSERT_INTO("forum_attachment");

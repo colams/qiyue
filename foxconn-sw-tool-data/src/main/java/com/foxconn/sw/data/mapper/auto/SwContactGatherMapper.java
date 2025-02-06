@@ -4,19 +4,27 @@ import com.foxconn.sw.data.entity.SwContactGather;
 import com.foxconn.sw.data.entity.SwContactGatherExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Delete;
+import org.apache.ibatis.annotations.DeleteProvider;
 import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.InsertProvider;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.ResultMap;
+import org.apache.ibatis.annotations.Result;
+import org.apache.ibatis.annotations.Results;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.SelectKey;
+import org.apache.ibatis.annotations.SelectProvider;
 import org.apache.ibatis.annotations.Update;
+import org.apache.ibatis.annotations.UpdateProvider;
 import org.apache.ibatis.session.RowBounds;
+import org.apache.ibatis.type.JdbcType;
 
 @Mapper
 public interface SwContactGatherMapper {
+    @SelectProvider(type=SwContactGatherSqlProvider.class, method="countByExample")
     long countByExample(SwContactGatherExample example);
 
+    @DeleteProvider(type=SwContactGatherSqlProvider.class, method="deleteByExample")
     int deleteByExample(SwContactGatherExample example);
 
     @Delete({
@@ -36,10 +44,30 @@ public interface SwContactGatherMapper {
     @SelectKey(statement="SELECT LAST_INSERT_ID()", keyProperty="id", before=false, resultType=Integer.class)
     int insert(SwContactGather record);
 
+    @InsertProvider(type=SwContactGatherSqlProvider.class, method="insertSelective")
+    @SelectKey(statement="SELECT LAST_INSERT_ID()", keyProperty="id", before=false, resultType=Integer.class)
     int insertSelective(SwContactGather record);
 
+    @SelectProvider(type=SwContactGatherSqlProvider.class, method="selectByExample")
+    @Results({
+        @Result(column="id", property="id", jdbcType=JdbcType.INTEGER, id=true),
+        @Result(column="employee_no", property="employeeNo", jdbcType=JdbcType.VARCHAR),
+        @Result(column="gather_employee_no", property="gatherEmployeeNo", jdbcType=JdbcType.VARCHAR),
+        @Result(column="status", property="status", jdbcType=JdbcType.INTEGER),
+        @Result(column="create_time", property="createTime", jdbcType=JdbcType.TIMESTAMP),
+        @Result(column="datetime_lastchange", property="datetimeLastchange", jdbcType=JdbcType.TIMESTAMP)
+    })
     List<SwContactGather> selectByExampleWithRowbounds(SwContactGatherExample example, RowBounds rowBounds);
 
+    @SelectProvider(type=SwContactGatherSqlProvider.class, method="selectByExample")
+    @Results({
+        @Result(column="id", property="id", jdbcType=JdbcType.INTEGER, id=true),
+        @Result(column="employee_no", property="employeeNo", jdbcType=JdbcType.VARCHAR),
+        @Result(column="gather_employee_no", property="gatherEmployeeNo", jdbcType=JdbcType.VARCHAR),
+        @Result(column="status", property="status", jdbcType=JdbcType.INTEGER),
+        @Result(column="create_time", property="createTime", jdbcType=JdbcType.TIMESTAMP),
+        @Result(column="datetime_lastchange", property="datetimeLastchange", jdbcType=JdbcType.TIMESTAMP)
+    })
     List<SwContactGather> selectByExample(SwContactGatherExample example);
 
     @Select({
@@ -48,13 +76,23 @@ public interface SwContactGatherMapper {
         "from sw_contact_gather",
         "where id = #{id,jdbcType=INTEGER}"
     })
-    @ResultMap("com.foxconn.sw.data.mapper.auto.SwContactGatherMapper.BaseResultMap")
+    @Results({
+        @Result(column="id", property="id", jdbcType=JdbcType.INTEGER, id=true),
+        @Result(column="employee_no", property="employeeNo", jdbcType=JdbcType.VARCHAR),
+        @Result(column="gather_employee_no", property="gatherEmployeeNo", jdbcType=JdbcType.VARCHAR),
+        @Result(column="status", property="status", jdbcType=JdbcType.INTEGER),
+        @Result(column="create_time", property="createTime", jdbcType=JdbcType.TIMESTAMP),
+        @Result(column="datetime_lastchange", property="datetimeLastchange", jdbcType=JdbcType.TIMESTAMP)
+    })
     SwContactGather selectByPrimaryKey(Integer id);
 
+    @UpdateProvider(type=SwContactGatherSqlProvider.class, method="updateByExampleSelective")
     int updateByExampleSelective(@Param("record") SwContactGather record, @Param("example") SwContactGatherExample example);
 
+    @UpdateProvider(type=SwContactGatherSqlProvider.class, method="updateByExample")
     int updateByExample(@Param("record") SwContactGather record, @Param("example") SwContactGatherExample example);
 
+    @UpdateProvider(type=SwContactGatherSqlProvider.class, method="updateByPrimaryKeySelective")
     int updateByPrimaryKeySelective(SwContactGather record);
 
     @Update({

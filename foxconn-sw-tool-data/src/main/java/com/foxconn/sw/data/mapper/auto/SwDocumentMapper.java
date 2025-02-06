@@ -4,19 +4,27 @@ import com.foxconn.sw.data.entity.SwDocument;
 import com.foxconn.sw.data.entity.SwDocumentExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Delete;
+import org.apache.ibatis.annotations.DeleteProvider;
 import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.InsertProvider;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.ResultMap;
+import org.apache.ibatis.annotations.Result;
+import org.apache.ibatis.annotations.Results;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.SelectKey;
+import org.apache.ibatis.annotations.SelectProvider;
 import org.apache.ibatis.annotations.Update;
+import org.apache.ibatis.annotations.UpdateProvider;
 import org.apache.ibatis.session.RowBounds;
+import org.apache.ibatis.type.JdbcType;
 
 @Mapper
 public interface SwDocumentMapper {
+    @SelectProvider(type=SwDocumentSqlProvider.class, method="countByExample")
     long countByExample(SwDocumentExample example);
 
+    @DeleteProvider(type=SwDocumentSqlProvider.class, method="deleteByExample")
     int deleteByExample(SwDocumentExample example);
 
     @Delete({
@@ -54,10 +62,66 @@ public interface SwDocumentMapper {
     @SelectKey(statement="SELECT LAST_INSERT_ID()", keyProperty="id", before=false, resultType=Integer.class)
     int insert(SwDocument record);
 
+    @InsertProvider(type=SwDocumentSqlProvider.class, method="insertSelective")
+    @SelectKey(statement="SELECT LAST_INSERT_ID()", keyProperty="id", before=false, resultType=Integer.class)
     int insertSelective(SwDocument record);
 
+    @SelectProvider(type=SwDocumentSqlProvider.class, method="selectByExample")
+    @Results({
+        @Result(column="id", property="id", jdbcType=JdbcType.INTEGER, id=true),
+        @Result(column="document_name", property="documentName", jdbcType=JdbcType.VARCHAR),
+        @Result(column="file_version", property="fileVersion", jdbcType=JdbcType.VARCHAR),
+        @Result(column="category", property="category", jdbcType=JdbcType.VARCHAR),
+        @Result(column="department", property="department", jdbcType=JdbcType.INTEGER),
+        @Result(column="project", property="project", jdbcType=JdbcType.VARCHAR),
+        @Result(column="secret_level", property="secretLevel", jdbcType=JdbcType.INTEGER),
+        @Result(column="expire_date", property="expireDate", jdbcType=JdbcType.VARCHAR),
+        @Result(column="disable_down", property="disableDown", jdbcType=JdbcType.INTEGER),
+        @Result(column="resource_id", property="resourceId", jdbcType=JdbcType.INTEGER),
+        @Result(column="author", property="author", jdbcType=JdbcType.VARCHAR),
+        @Result(column="creator", property="creator", jdbcType=JdbcType.VARCHAR),
+        @Result(column="file_type", property="fileType", jdbcType=JdbcType.INTEGER),
+        @Result(column="content", property="content", jdbcType=JdbcType.VARCHAR),
+        @Result(column="work_type", property="workType", jdbcType=JdbcType.VARCHAR),
+        @Result(column="main_type", property="mainType", jdbcType=JdbcType.VARCHAR),
+        @Result(column="sub_type", property="subType", jdbcType=JdbcType.VARCHAR),
+        @Result(column="main_part", property="mainPart", jdbcType=JdbcType.VARCHAR),
+        @Result(column="supplier", property="supplier", jdbcType=JdbcType.VARCHAR),
+        @Result(column="source", property="source", jdbcType=JdbcType.VARCHAR),
+        @Result(column="dead_line", property="deadLine", jdbcType=JdbcType.VARCHAR),
+        @Result(column="is_delete", property="isDelete", jdbcType=JdbcType.INTEGER),
+        @Result(column="create_time", property="createTime", jdbcType=JdbcType.TIMESTAMP),
+        @Result(column="datetime_lastchange", property="datetimeLastchange", jdbcType=JdbcType.TIMESTAMP)
+    })
     List<SwDocument> selectByExampleWithRowbounds(SwDocumentExample example, RowBounds rowBounds);
 
+    @SelectProvider(type=SwDocumentSqlProvider.class, method="selectByExample")
+    @Results({
+        @Result(column="id", property="id", jdbcType=JdbcType.INTEGER, id=true),
+        @Result(column="document_name", property="documentName", jdbcType=JdbcType.VARCHAR),
+        @Result(column="file_version", property="fileVersion", jdbcType=JdbcType.VARCHAR),
+        @Result(column="category", property="category", jdbcType=JdbcType.VARCHAR),
+        @Result(column="department", property="department", jdbcType=JdbcType.INTEGER),
+        @Result(column="project", property="project", jdbcType=JdbcType.VARCHAR),
+        @Result(column="secret_level", property="secretLevel", jdbcType=JdbcType.INTEGER),
+        @Result(column="expire_date", property="expireDate", jdbcType=JdbcType.VARCHAR),
+        @Result(column="disable_down", property="disableDown", jdbcType=JdbcType.INTEGER),
+        @Result(column="resource_id", property="resourceId", jdbcType=JdbcType.INTEGER),
+        @Result(column="author", property="author", jdbcType=JdbcType.VARCHAR),
+        @Result(column="creator", property="creator", jdbcType=JdbcType.VARCHAR),
+        @Result(column="file_type", property="fileType", jdbcType=JdbcType.INTEGER),
+        @Result(column="content", property="content", jdbcType=JdbcType.VARCHAR),
+        @Result(column="work_type", property="workType", jdbcType=JdbcType.VARCHAR),
+        @Result(column="main_type", property="mainType", jdbcType=JdbcType.VARCHAR),
+        @Result(column="sub_type", property="subType", jdbcType=JdbcType.VARCHAR),
+        @Result(column="main_part", property="mainPart", jdbcType=JdbcType.VARCHAR),
+        @Result(column="supplier", property="supplier", jdbcType=JdbcType.VARCHAR),
+        @Result(column="source", property="source", jdbcType=JdbcType.VARCHAR),
+        @Result(column="dead_line", property="deadLine", jdbcType=JdbcType.VARCHAR),
+        @Result(column="is_delete", property="isDelete", jdbcType=JdbcType.INTEGER),
+        @Result(column="create_time", property="createTime", jdbcType=JdbcType.TIMESTAMP),
+        @Result(column="datetime_lastchange", property="datetimeLastchange", jdbcType=JdbcType.TIMESTAMP)
+    })
     List<SwDocument> selectByExample(SwDocumentExample example);
 
     @Select({
@@ -69,13 +133,41 @@ public interface SwDocumentMapper {
         "from sw_document",
         "where id = #{id,jdbcType=INTEGER}"
     })
-    @ResultMap("com.foxconn.sw.data.mapper.auto.SwDocumentMapper.BaseResultMap")
+    @Results({
+        @Result(column="id", property="id", jdbcType=JdbcType.INTEGER, id=true),
+        @Result(column="document_name", property="documentName", jdbcType=JdbcType.VARCHAR),
+        @Result(column="file_version", property="fileVersion", jdbcType=JdbcType.VARCHAR),
+        @Result(column="category", property="category", jdbcType=JdbcType.VARCHAR),
+        @Result(column="department", property="department", jdbcType=JdbcType.INTEGER),
+        @Result(column="project", property="project", jdbcType=JdbcType.VARCHAR),
+        @Result(column="secret_level", property="secretLevel", jdbcType=JdbcType.INTEGER),
+        @Result(column="expire_date", property="expireDate", jdbcType=JdbcType.VARCHAR),
+        @Result(column="disable_down", property="disableDown", jdbcType=JdbcType.INTEGER),
+        @Result(column="resource_id", property="resourceId", jdbcType=JdbcType.INTEGER),
+        @Result(column="author", property="author", jdbcType=JdbcType.VARCHAR),
+        @Result(column="creator", property="creator", jdbcType=JdbcType.VARCHAR),
+        @Result(column="file_type", property="fileType", jdbcType=JdbcType.INTEGER),
+        @Result(column="content", property="content", jdbcType=JdbcType.VARCHAR),
+        @Result(column="work_type", property="workType", jdbcType=JdbcType.VARCHAR),
+        @Result(column="main_type", property="mainType", jdbcType=JdbcType.VARCHAR),
+        @Result(column="sub_type", property="subType", jdbcType=JdbcType.VARCHAR),
+        @Result(column="main_part", property="mainPart", jdbcType=JdbcType.VARCHAR),
+        @Result(column="supplier", property="supplier", jdbcType=JdbcType.VARCHAR),
+        @Result(column="source", property="source", jdbcType=JdbcType.VARCHAR),
+        @Result(column="dead_line", property="deadLine", jdbcType=JdbcType.VARCHAR),
+        @Result(column="is_delete", property="isDelete", jdbcType=JdbcType.INTEGER),
+        @Result(column="create_time", property="createTime", jdbcType=JdbcType.TIMESTAMP),
+        @Result(column="datetime_lastchange", property="datetimeLastchange", jdbcType=JdbcType.TIMESTAMP)
+    })
     SwDocument selectByPrimaryKey(Integer id);
 
+    @UpdateProvider(type=SwDocumentSqlProvider.class, method="updateByExampleSelective")
     int updateByExampleSelective(@Param("record") SwDocument record, @Param("example") SwDocumentExample example);
 
+    @UpdateProvider(type=SwDocumentSqlProvider.class, method="updateByExample")
     int updateByExample(@Param("record") SwDocument record, @Param("example") SwDocumentExample example);
 
+    @UpdateProvider(type=SwDocumentSqlProvider.class, method="updateByPrimaryKeySelective")
     int updateByPrimaryKeySelective(SwDocument record);
 
     @Update({
