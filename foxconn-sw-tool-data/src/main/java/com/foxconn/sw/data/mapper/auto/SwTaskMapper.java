@@ -4,27 +4,19 @@ import com.foxconn.sw.data.entity.SwTask;
 import com.foxconn.sw.data.entity.SwTaskExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Delete;
-import org.apache.ibatis.annotations.DeleteProvider;
 import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.InsertProvider;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Result;
-import org.apache.ibatis.annotations.Results;
+import org.apache.ibatis.annotations.ResultMap;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.SelectKey;
-import org.apache.ibatis.annotations.SelectProvider;
 import org.apache.ibatis.annotations.Update;
-import org.apache.ibatis.annotations.UpdateProvider;
 import org.apache.ibatis.session.RowBounds;
-import org.apache.ibatis.type.JdbcType;
 
 @Mapper
 public interface SwTaskMapper {
-    @SelectProvider(type=SwTaskSqlProvider.class, method="countByExample")
     long countByExample(SwTaskExample example);
 
-    @DeleteProvider(type=SwTaskSqlProvider.class, method="deleteByExample")
     int deleteByExample(SwTaskExample example);
 
     @Delete({
@@ -58,110 +50,14 @@ public interface SwTaskMapper {
     @SelectKey(statement="SELECT LAST_INSERT_ID()", keyProperty="id", before=false, resultType=Integer.class)
     int insert(SwTask record);
 
-    @InsertProvider(type=SwTaskSqlProvider.class, method="insertSelective")
-    @SelectKey(statement="SELECT LAST_INSERT_ID()", keyProperty="id", before=false, resultType=Integer.class)
     int insertSelective(SwTask record);
 
-    @SelectProvider(type=SwTaskSqlProvider.class, method="selectByExampleWithBLOBs")
-    @Results({
-        @Result(column="id", property="id", jdbcType=JdbcType.INTEGER, id=true),
-        @Result(column="task_no", property="taskNo", jdbcType=JdbcType.BIGINT),
-        @Result(column="top_category", property="topCategory", jdbcType=JdbcType.VARCHAR),
-        @Result(column="category", property="category", jdbcType=JdbcType.VARCHAR),
-        @Result(column="title", property="title", jdbcType=JdbcType.VARCHAR),
-        @Result(column="top_project", property="topProject", jdbcType=JdbcType.VARCHAR),
-        @Result(column="project", property="project", jdbcType=JdbcType.VARCHAR),
-        @Result(column="level", property="level", jdbcType=JdbcType.INTEGER),
-        @Result(column="progress_percent", property="progressPercent", jdbcType=JdbcType.INTEGER),
-        @Result(column="status", property="status", jdbcType=JdbcType.INTEGER),
-        @Result(column="reject_status", property="rejectStatus", jdbcType=JdbcType.INTEGER),
-        @Result(column="proposer_eid", property="proposerEid", jdbcType=JdbcType.VARCHAR),
-        @Result(column="manager_eid", property="managerEid", jdbcType=JdbcType.VARCHAR),
-        @Result(column="handle_eid", property="handleEid", jdbcType=JdbcType.VARCHAR),
-        @Result(column="dead_line", property="deadLine", jdbcType=JdbcType.VARCHAR),
-        @Result(column="reflection", property="reflection", jdbcType=JdbcType.VARCHAR),
-        @Result(column="parent_id", property="parentId", jdbcType=JdbcType.INTEGER),
-        @Result(column="finish_time", property="finishTime", jdbcType=JdbcType.VARCHAR),
-        @Result(column="create_time", property="createTime", jdbcType=JdbcType.TIMESTAMP),
-        @Result(column="datetime_lastchange", property="datetimeLastchange", jdbcType=JdbcType.TIMESTAMP),
-        @Result(column="description", property="description", jdbcType=JdbcType.LONGVARCHAR)
-    })
     List<SwTask> selectByExampleWithBLOBsWithRowbounds(SwTaskExample example, RowBounds rowBounds);
 
-    @SelectProvider(type=SwTaskSqlProvider.class, method="selectByExampleWithBLOBs")
-    @Results({
-        @Result(column="id", property="id", jdbcType=JdbcType.INTEGER, id=true),
-        @Result(column="task_no", property="taskNo", jdbcType=JdbcType.BIGINT),
-        @Result(column="top_category", property="topCategory", jdbcType=JdbcType.VARCHAR),
-        @Result(column="category", property="category", jdbcType=JdbcType.VARCHAR),
-        @Result(column="title", property="title", jdbcType=JdbcType.VARCHAR),
-        @Result(column="top_project", property="topProject", jdbcType=JdbcType.VARCHAR),
-        @Result(column="project", property="project", jdbcType=JdbcType.VARCHAR),
-        @Result(column="level", property="level", jdbcType=JdbcType.INTEGER),
-        @Result(column="progress_percent", property="progressPercent", jdbcType=JdbcType.INTEGER),
-        @Result(column="status", property="status", jdbcType=JdbcType.INTEGER),
-        @Result(column="reject_status", property="rejectStatus", jdbcType=JdbcType.INTEGER),
-        @Result(column="proposer_eid", property="proposerEid", jdbcType=JdbcType.VARCHAR),
-        @Result(column="manager_eid", property="managerEid", jdbcType=JdbcType.VARCHAR),
-        @Result(column="handle_eid", property="handleEid", jdbcType=JdbcType.VARCHAR),
-        @Result(column="dead_line", property="deadLine", jdbcType=JdbcType.VARCHAR),
-        @Result(column="reflection", property="reflection", jdbcType=JdbcType.VARCHAR),
-        @Result(column="parent_id", property="parentId", jdbcType=JdbcType.INTEGER),
-        @Result(column="finish_time", property="finishTime", jdbcType=JdbcType.VARCHAR),
-        @Result(column="create_time", property="createTime", jdbcType=JdbcType.TIMESTAMP),
-        @Result(column="datetime_lastchange", property="datetimeLastchange", jdbcType=JdbcType.TIMESTAMP),
-        @Result(column="description", property="description", jdbcType=JdbcType.LONGVARCHAR)
-    })
     List<SwTask> selectByExampleWithBLOBs(SwTaskExample example);
 
-    @SelectProvider(type=SwTaskSqlProvider.class, method="selectByExample")
-    @Results({
-        @Result(column="id", property="id", jdbcType=JdbcType.INTEGER, id=true),
-        @Result(column="task_no", property="taskNo", jdbcType=JdbcType.BIGINT),
-        @Result(column="top_category", property="topCategory", jdbcType=JdbcType.VARCHAR),
-        @Result(column="category", property="category", jdbcType=JdbcType.VARCHAR),
-        @Result(column="title", property="title", jdbcType=JdbcType.VARCHAR),
-        @Result(column="top_project", property="topProject", jdbcType=JdbcType.VARCHAR),
-        @Result(column="project", property="project", jdbcType=JdbcType.VARCHAR),
-        @Result(column="level", property="level", jdbcType=JdbcType.INTEGER),
-        @Result(column="progress_percent", property="progressPercent", jdbcType=JdbcType.INTEGER),
-        @Result(column="status", property="status", jdbcType=JdbcType.INTEGER),
-        @Result(column="reject_status", property="rejectStatus", jdbcType=JdbcType.INTEGER),
-        @Result(column="proposer_eid", property="proposerEid", jdbcType=JdbcType.VARCHAR),
-        @Result(column="manager_eid", property="managerEid", jdbcType=JdbcType.VARCHAR),
-        @Result(column="handle_eid", property="handleEid", jdbcType=JdbcType.VARCHAR),
-        @Result(column="dead_line", property="deadLine", jdbcType=JdbcType.VARCHAR),
-        @Result(column="reflection", property="reflection", jdbcType=JdbcType.VARCHAR),
-        @Result(column="parent_id", property="parentId", jdbcType=JdbcType.INTEGER),
-        @Result(column="finish_time", property="finishTime", jdbcType=JdbcType.VARCHAR),
-        @Result(column="create_time", property="createTime", jdbcType=JdbcType.TIMESTAMP),
-        @Result(column="datetime_lastchange", property="datetimeLastchange", jdbcType=JdbcType.TIMESTAMP)
-    })
     List<SwTask> selectByExampleWithRowbounds(SwTaskExample example, RowBounds rowBounds);
 
-    @SelectProvider(type=SwTaskSqlProvider.class, method="selectByExample")
-    @Results({
-        @Result(column="id", property="id", jdbcType=JdbcType.INTEGER, id=true),
-        @Result(column="task_no", property="taskNo", jdbcType=JdbcType.BIGINT),
-        @Result(column="top_category", property="topCategory", jdbcType=JdbcType.VARCHAR),
-        @Result(column="category", property="category", jdbcType=JdbcType.VARCHAR),
-        @Result(column="title", property="title", jdbcType=JdbcType.VARCHAR),
-        @Result(column="top_project", property="topProject", jdbcType=JdbcType.VARCHAR),
-        @Result(column="project", property="project", jdbcType=JdbcType.VARCHAR),
-        @Result(column="level", property="level", jdbcType=JdbcType.INTEGER),
-        @Result(column="progress_percent", property="progressPercent", jdbcType=JdbcType.INTEGER),
-        @Result(column="status", property="status", jdbcType=JdbcType.INTEGER),
-        @Result(column="reject_status", property="rejectStatus", jdbcType=JdbcType.INTEGER),
-        @Result(column="proposer_eid", property="proposerEid", jdbcType=JdbcType.VARCHAR),
-        @Result(column="manager_eid", property="managerEid", jdbcType=JdbcType.VARCHAR),
-        @Result(column="handle_eid", property="handleEid", jdbcType=JdbcType.VARCHAR),
-        @Result(column="dead_line", property="deadLine", jdbcType=JdbcType.VARCHAR),
-        @Result(column="reflection", property="reflection", jdbcType=JdbcType.VARCHAR),
-        @Result(column="parent_id", property="parentId", jdbcType=JdbcType.INTEGER),
-        @Result(column="finish_time", property="finishTime", jdbcType=JdbcType.VARCHAR),
-        @Result(column="create_time", property="createTime", jdbcType=JdbcType.TIMESTAMP),
-        @Result(column="datetime_lastchange", property="datetimeLastchange", jdbcType=JdbcType.TIMESTAMP)
-    })
     List<SwTask> selectByExample(SwTaskExample example);
 
     @Select({
@@ -172,41 +68,15 @@ public interface SwTaskMapper {
         "from sw_task",
         "where id = #{id,jdbcType=INTEGER}"
     })
-    @Results({
-        @Result(column="id", property="id", jdbcType=JdbcType.INTEGER, id=true),
-        @Result(column="task_no", property="taskNo", jdbcType=JdbcType.BIGINT),
-        @Result(column="top_category", property="topCategory", jdbcType=JdbcType.VARCHAR),
-        @Result(column="category", property="category", jdbcType=JdbcType.VARCHAR),
-        @Result(column="title", property="title", jdbcType=JdbcType.VARCHAR),
-        @Result(column="top_project", property="topProject", jdbcType=JdbcType.VARCHAR),
-        @Result(column="project", property="project", jdbcType=JdbcType.VARCHAR),
-        @Result(column="level", property="level", jdbcType=JdbcType.INTEGER),
-        @Result(column="progress_percent", property="progressPercent", jdbcType=JdbcType.INTEGER),
-        @Result(column="status", property="status", jdbcType=JdbcType.INTEGER),
-        @Result(column="reject_status", property="rejectStatus", jdbcType=JdbcType.INTEGER),
-        @Result(column="proposer_eid", property="proposerEid", jdbcType=JdbcType.VARCHAR),
-        @Result(column="manager_eid", property="managerEid", jdbcType=JdbcType.VARCHAR),
-        @Result(column="handle_eid", property="handleEid", jdbcType=JdbcType.VARCHAR),
-        @Result(column="dead_line", property="deadLine", jdbcType=JdbcType.VARCHAR),
-        @Result(column="reflection", property="reflection", jdbcType=JdbcType.VARCHAR),
-        @Result(column="parent_id", property="parentId", jdbcType=JdbcType.INTEGER),
-        @Result(column="finish_time", property="finishTime", jdbcType=JdbcType.VARCHAR),
-        @Result(column="create_time", property="createTime", jdbcType=JdbcType.TIMESTAMP),
-        @Result(column="datetime_lastchange", property="datetimeLastchange", jdbcType=JdbcType.TIMESTAMP),
-        @Result(column="description", property="description", jdbcType=JdbcType.LONGVARCHAR)
-    })
+    @ResultMap("com.foxconn.sw.data.mapper.auto.SwTaskMapper.ResultMapWithBLOBs")
     SwTask selectByPrimaryKey(Integer id);
 
-    @UpdateProvider(type=SwTaskSqlProvider.class, method="updateByExampleSelective")
     int updateByExampleSelective(@Param("record") SwTask record, @Param("example") SwTaskExample example);
 
-    @UpdateProvider(type=SwTaskSqlProvider.class, method="updateByExampleWithBLOBs")
     int updateByExampleWithBLOBs(@Param("record") SwTask record, @Param("example") SwTaskExample example);
 
-    @UpdateProvider(type=SwTaskSqlProvider.class, method="updateByExample")
     int updateByExample(@Param("record") SwTask record, @Param("example") SwTaskExample example);
 
-    @UpdateProvider(type=SwTaskSqlProvider.class, method="updateByPrimaryKeySelective")
     int updateByPrimaryKeySelective(SwTask record);
 
     @Update({

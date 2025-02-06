@@ -4,27 +4,19 @@ import com.foxconn.sw.data.entity.SwWorkReportScore;
 import com.foxconn.sw.data.entity.SwWorkReportScoreExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Delete;
-import org.apache.ibatis.annotations.DeleteProvider;
 import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.InsertProvider;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Result;
-import org.apache.ibatis.annotations.Results;
+import org.apache.ibatis.annotations.ResultMap;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.SelectKey;
-import org.apache.ibatis.annotations.SelectProvider;
 import org.apache.ibatis.annotations.Update;
-import org.apache.ibatis.annotations.UpdateProvider;
 import org.apache.ibatis.session.RowBounds;
-import org.apache.ibatis.type.JdbcType;
 
 @Mapper
 public interface SwWorkReportScoreMapper {
-    @SelectProvider(type=SwWorkReportScoreSqlProvider.class, method="countByExample")
     long countByExample(SwWorkReportScoreExample example);
 
-    @DeleteProvider(type=SwWorkReportScoreSqlProvider.class, method="deleteByExample")
     int deleteByExample(SwWorkReportScoreExample example);
 
     @Delete({
@@ -44,32 +36,10 @@ public interface SwWorkReportScoreMapper {
     @SelectKey(statement="SELECT LAST_INSERT_ID()", keyProperty="id", before=false, resultType=Integer.class)
     int insert(SwWorkReportScore record);
 
-    @InsertProvider(type=SwWorkReportScoreSqlProvider.class, method="insertSelective")
-    @SelectKey(statement="SELECT LAST_INSERT_ID()", keyProperty="id", before=false, resultType=Integer.class)
     int insertSelective(SwWorkReportScore record);
 
-    @SelectProvider(type=SwWorkReportScoreSqlProvider.class, method="selectByExample")
-    @Results({
-        @Result(column="id", property="id", jdbcType=JdbcType.INTEGER, id=true),
-        @Result(column="employee_no", property="employeeNo", jdbcType=JdbcType.VARCHAR),
-        @Result(column="year_week", property="yearWeek", jdbcType=JdbcType.VARCHAR),
-        @Result(column="score", property="score", jdbcType=JdbcType.INTEGER),
-        @Result(column="operator", property="operator", jdbcType=JdbcType.VARCHAR),
-        @Result(column="create_time", property="createTime", jdbcType=JdbcType.TIMESTAMP),
-        @Result(column="datetime_lastchange", property="datetimeLastchange", jdbcType=JdbcType.TIMESTAMP)
-    })
     List<SwWorkReportScore> selectByExampleWithRowbounds(SwWorkReportScoreExample example, RowBounds rowBounds);
 
-    @SelectProvider(type=SwWorkReportScoreSqlProvider.class, method="selectByExample")
-    @Results({
-        @Result(column="id", property="id", jdbcType=JdbcType.INTEGER, id=true),
-        @Result(column="employee_no", property="employeeNo", jdbcType=JdbcType.VARCHAR),
-        @Result(column="year_week", property="yearWeek", jdbcType=JdbcType.VARCHAR),
-        @Result(column="score", property="score", jdbcType=JdbcType.INTEGER),
-        @Result(column="operator", property="operator", jdbcType=JdbcType.VARCHAR),
-        @Result(column="create_time", property="createTime", jdbcType=JdbcType.TIMESTAMP),
-        @Result(column="datetime_lastchange", property="datetimeLastchange", jdbcType=JdbcType.TIMESTAMP)
-    })
     List<SwWorkReportScore> selectByExample(SwWorkReportScoreExample example);
 
     @Select({
@@ -78,24 +48,13 @@ public interface SwWorkReportScoreMapper {
         "from sw_work_report_score",
         "where id = #{id,jdbcType=INTEGER}"
     })
-    @Results({
-        @Result(column="id", property="id", jdbcType=JdbcType.INTEGER, id=true),
-        @Result(column="employee_no", property="employeeNo", jdbcType=JdbcType.VARCHAR),
-        @Result(column="year_week", property="yearWeek", jdbcType=JdbcType.VARCHAR),
-        @Result(column="score", property="score", jdbcType=JdbcType.INTEGER),
-        @Result(column="operator", property="operator", jdbcType=JdbcType.VARCHAR),
-        @Result(column="create_time", property="createTime", jdbcType=JdbcType.TIMESTAMP),
-        @Result(column="datetime_lastchange", property="datetimeLastchange", jdbcType=JdbcType.TIMESTAMP)
-    })
+    @ResultMap("com.foxconn.sw.data.mapper.auto.SwWorkReportScoreMapper.BaseResultMap")
     SwWorkReportScore selectByPrimaryKey(Integer id);
 
-    @UpdateProvider(type=SwWorkReportScoreSqlProvider.class, method="updateByExampleSelective")
     int updateByExampleSelective(@Param("record") SwWorkReportScore record, @Param("example") SwWorkReportScoreExample example);
 
-    @UpdateProvider(type=SwWorkReportScoreSqlProvider.class, method="updateByExample")
     int updateByExample(@Param("record") SwWorkReportScore record, @Param("example") SwWorkReportScoreExample example);
 
-    @UpdateProvider(type=SwWorkReportScoreSqlProvider.class, method="updateByPrimaryKeySelective")
     int updateByPrimaryKeySelective(SwWorkReportScore record);
 
     @Update({

@@ -57,17 +57,17 @@
             <property name="delegate" value="org.mybatis.generator.internal.LegacyJavaModelGenerator"/>
         </javaModelGenerator>
 
-        <!--<sqlMapGenerator targetPackage="cn.colams.dal.mapper"-->
-        <!--targetProject="src\main\resources\">-->
-        <!--<property name="enableSubPackages" value="false"/>-->
-        <!--</sqlMapGenerator>-->
+        <sqlMapGenerator targetPackage="com.foxconn.sw.data.mapper"
+                         targetProject="src\main\resources\">
+            <property name="enableSubPackages" value="false"/>
+        </sqlMapGenerator>
 
         <!--<javaClientGenerator type="XMLMAPPER" targetPackage="cn.colams.dal.dao"-->
         <!--targetProject="src\main\java">-->
         <!--<property name="enableSubPackages" value="true"/>-->
         <!--</javaClientGenerator>-->
         <!--type:{ANNOTATEDMAPPER(纯注解 Mapper), MIXEDMAPPER(混合), XMLMAPPER(纯xml, myBatis作者亲自说用这个的)}-->
-        <javaClientGenerator type="ANNOTATEDMAPPER" targetPackage="com.foxconn.sw.data.mapper.auto"
+        <javaClientGenerator type="MIXEDMAPPER" targetPackage="com.foxconn.sw.data.mapper.auto"
                              targetProject="src\main\java">
             <property name="enableSubPackages" value="false"/>
         </javaClientGenerator>

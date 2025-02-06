@@ -1,0 +1,604 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.foxconn.sw.data.mapper.auto.SwTaskEmployeeRelationMapper">
+  <resultMap id="BaseResultMap" type="com.foxconn.sw.data.entity.SwTaskEmployeeRelation">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="task_id" jdbcType="INTEGER" property="taskId" />
+    <result column="employee_no" jdbcType="VARCHAR" property="employeeNo" />
+    <result column="prev_id" jdbcType="INTEGER" property="prevId" />
+    <result column="role_flag" jdbcType="INTEGER" property="roleFlag" />
+    <result column="is_active" jdbcType="INTEGER" property="isActive" />
+    <result column="is_inspector" jdbcType="INTEGER" property="isInspector" />
+    <result column="is_read" jdbcType="INTEGER" property="isRead" />
+    <result column="process_status" jdbcType="INTEGER" property="processStatus" />
+    <result column="is_delete" jdbcType="INTEGER" property="isDelete" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="datetime_lastchange" jdbcType="TIMESTAMP" property="datetimeLastchange" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, task_id, employee_no, prev_id, role_flag, is_active, is_inspector, is_read, process_status, 
+    is_delete, create_time, datetime_lastchange
+  </sql>
+  <select id="selectByExample" parameterType="com.foxconn.sw.data.entity.SwTaskEmployeeRelationExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from sw_task_employee_relation
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="com.foxconn.sw.data.entity.SwTaskEmployeeRelationExample">
+    delete from sw_task_employee_relation
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insertSelective" parameterType="com.foxconn.sw.data.entity.SwTaskEmployeeRelation">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into sw_task_employee_relation
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="taskId != null">
+        task_id,
+      </if>
+      <if test="employeeNo != null">
+        employee_no,
+      </if>
+      <if test="prevId != null">
+        prev_id,
+      </if>
+      <if test="roleFlag != null">
+        role_flag,
+      </if>
+      <if test="isActive != null">
+        is_active,
+      </if>
+      <if test="isInspector != null">
+        is_inspector,
+      </if>
+      <if test="isRead != null">
+        is_read,
+      </if>
+      <if test="processStatus != null">
+        process_status,
+      </if>
+      <if test="isDelete != null">
+        is_delete,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="datetimeLastchange != null">
+        datetime_lastchange,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="taskId != null">
+        #{taskId,jdbcType=INTEGER},
+      </if>
+      <if test="employeeNo != null">
+        #{employeeNo,jdbcType=VARCHAR},
+      </if>
+      <if test="prevId != null">
+        #{prevId,jdbcType=INTEGER},
+      </if>
+      <if test="roleFlag != null">
+        #{roleFlag,jdbcType=INTEGER},
+      </if>
+      <if test="isActive != null">
+        #{isActive,jdbcType=INTEGER},
+      </if>
+      <if test="isInspector != null">
+        #{isInspector,jdbcType=INTEGER},
+      </if>
+      <if test="isRead != null">
+        #{isRead,jdbcType=INTEGER},
+      </if>
+      <if test="processStatus != null">
+        #{processStatus,jdbcType=INTEGER},
+      </if>
+      <if test="isDelete != null">
+        #{isDelete,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="datetimeLastchange != null">
+        #{datetimeLastchange,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.foxconn.sw.data.entity.SwTaskEmployeeRelationExample" resultType="java.lang.Long">
+    select count(*) from sw_task_employee_relation
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update sw_task_employee_relation
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.taskId != null">
+        task_id = #{record.taskId,jdbcType=INTEGER},
+      </if>
+      <if test="record.employeeNo != null">
+        employee_no = #{record.employeeNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.prevId != null">
+        prev_id = #{record.prevId,jdbcType=INTEGER},
+      </if>
+      <if test="record.roleFlag != null">
+        role_flag = #{record.roleFlag,jdbcType=INTEGER},
+      </if>
+      <if test="record.isActive != null">
+        is_active = #{record.isActive,jdbcType=INTEGER},
+      </if>
+      <if test="record.isInspector != null">
+        is_inspector = #{record.isInspector,jdbcType=INTEGER},
+      </if>
+      <if test="record.isRead != null">
+        is_read = #{record.isRead,jdbcType=INTEGER},
+      </if>
+      <if test="record.processStatus != null">
+        process_status = #{record.processStatus,jdbcType=INTEGER},
+      </if>
+      <if test="record.isDelete != null">
+        is_delete = #{record.isDelete,jdbcType=INTEGER},
+      </if>
+      <if test="record.createTime != null">
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.datetimeLastchange != null">
+        datetime_lastchange = #{record.datetimeLastchange,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update sw_task_employee_relation
+    set id = #{record.id,jdbcType=INTEGER},
+      task_id = #{record.taskId,jdbcType=INTEGER},
+      employee_no = #{record.employeeNo,jdbcType=VARCHAR},
+      prev_id = #{record.prevId,jdbcType=INTEGER},
+      role_flag = #{record.roleFlag,jdbcType=INTEGER},
+      is_active = #{record.isActive,jdbcType=INTEGER},
+      is_inspector = #{record.isInspector,jdbcType=INTEGER},
+      is_read = #{record.isRead,jdbcType=INTEGER},
+      process_status = #{record.processStatus,jdbcType=INTEGER},
+      is_delete = #{record.isDelete,jdbcType=INTEGER},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      datetime_lastchange = #{record.datetimeLastchange,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.foxconn.sw.data.entity.SwTaskEmployeeRelation">
+    update sw_task_employee_relation
+    <set>
+      <if test="taskId != null">
+        task_id = #{taskId,jdbcType=INTEGER},
+      </if>
+      <if test="employeeNo != null">
+        employee_no = #{employeeNo,jdbcType=VARCHAR},
+      </if>
+      <if test="prevId != null">
+        prev_id = #{prevId,jdbcType=INTEGER},
+      </if>
+      <if test="roleFlag != null">
+        role_flag = #{roleFlag,jdbcType=INTEGER},
+      </if>
+      <if test="isActive != null">
+        is_active = #{isActive,jdbcType=INTEGER},
+      </if>
+      <if test="isInspector != null">
+        is_inspector = #{isInspector,jdbcType=INTEGER},
+      </if>
+      <if test="isRead != null">
+        is_read = #{isRead,jdbcType=INTEGER},
+      </if>
+      <if test="processStatus != null">
+        process_status = #{processStatus,jdbcType=INTEGER},
+      </if>
+      <if test="isDelete != null">
+        is_delete = #{isDelete,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="datetimeLastchange != null">
+        datetime_lastchange = #{datetimeLastchange,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByExampleWithRowbounds" parameterType="com.foxconn.sw.data.entity.SwTaskEmployeeRelationExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from sw_task_employee_relation
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExampleWithRowbounds" parameterType="com.foxconn.sw.data.entity.SwTaskEmployeeRelationExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from sw_task_employee_relation
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <resultMap id="BaseResultMap" type="com.foxconn.sw.data.entity.SwTaskEmployeeRelation">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="task_id" jdbcType="INTEGER" property="taskId" />
+    <result column="employee_no" jdbcType="VARCHAR" property="employeeNo" />
+    <result column="prev_id" jdbcType="INTEGER" property="prevId" />
+    <result column="role_flag" jdbcType="INTEGER" property="roleFlag" />
+    <result column="is_active" jdbcType="INTEGER" property="isActive" />
+    <result column="is_inspector" jdbcType="INTEGER" property="isInspector" />
+    <result column="is_read" jdbcType="INTEGER" property="isRead" />
+    <result column="process_status" jdbcType="INTEGER" property="processStatus" />
+    <result column="is_delete" jdbcType="INTEGER" property="isDelete" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="datetime_lastchange" jdbcType="TIMESTAMP" property="datetimeLastchange" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, task_id, employee_no, prev_id, role_flag, is_active, is_inspector, is_read, process_status, 
+    is_delete, create_time, datetime_lastchange
+  </sql>
+  <select id="selectByExample" parameterType="com.foxconn.sw.data.entity.SwTaskEmployeeRelationExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from sw_task_employee_relation
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="com.foxconn.sw.data.entity.SwTaskEmployeeRelationExample">
+    delete from sw_task_employee_relation
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insertSelective" parameterType="com.foxconn.sw.data.entity.SwTaskEmployeeRelation">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into sw_task_employee_relation
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="taskId != null">
+        task_id,
+      </if>
+      <if test="employeeNo != null">
+        employee_no,
+      </if>
+      <if test="prevId != null">
+        prev_id,
+      </if>
+      <if test="roleFlag != null">
+        role_flag,
+      </if>
+      <if test="isActive != null">
+        is_active,
+      </if>
+      <if test="isInspector != null">
+        is_inspector,
+      </if>
+      <if test="isRead != null">
+        is_read,
+      </if>
+      <if test="processStatus != null">
+        process_status,
+      </if>
+      <if test="isDelete != null">
+        is_delete,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="datetimeLastchange != null">
+        datetime_lastchange,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="taskId != null">
+        #{taskId,jdbcType=INTEGER},
+      </if>
+      <if test="employeeNo != null">
+        #{employeeNo,jdbcType=VARCHAR},
+      </if>
+      <if test="prevId != null">
+        #{prevId,jdbcType=INTEGER},
+      </if>
+      <if test="roleFlag != null">
+        #{roleFlag,jdbcType=INTEGER},
+      </if>
+      <if test="isActive != null">
+        #{isActive,jdbcType=INTEGER},
+      </if>
+      <if test="isInspector != null">
+        #{isInspector,jdbcType=INTEGER},
+      </if>
+      <if test="isRead != null">
+        #{isRead,jdbcType=INTEGER},
+      </if>
+      <if test="processStatus != null">
+        #{processStatus,jdbcType=INTEGER},
+      </if>
+      <if test="isDelete != null">
+        #{isDelete,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="datetimeLastchange != null">
+        #{datetimeLastchange,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.foxconn.sw.data.entity.SwTaskEmployeeRelationExample" resultType="java.lang.Long">
+    select count(*) from sw_task_employee_relation
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update sw_task_employee_relation
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.taskId != null">
+        task_id = #{record.taskId,jdbcType=INTEGER},
+      </if>
+      <if test="record.employeeNo != null">
+        employee_no = #{record.employeeNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.prevId != null">
+        prev_id = #{record.prevId,jdbcType=INTEGER},
+      </if>
+      <if test="record.roleFlag != null">
+        role_flag = #{record.roleFlag,jdbcType=INTEGER},
+      </if>
+      <if test="record.isActive != null">
+        is_active = #{record.isActive,jdbcType=INTEGER},
+      </if>
+      <if test="record.isInspector != null">
+        is_inspector = #{record.isInspector,jdbcType=INTEGER},
+      </if>
+      <if test="record.isRead != null">
+        is_read = #{record.isRead,jdbcType=INTEGER},
+      </if>
+      <if test="record.processStatus != null">
+        process_status = #{record.processStatus,jdbcType=INTEGER},
+      </if>
+      <if test="record.isDelete != null">
+        is_delete = #{record.isDelete,jdbcType=INTEGER},
+      </if>
+      <if test="record.createTime != null">
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.datetimeLastchange != null">
+        datetime_lastchange = #{record.datetimeLastchange,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update sw_task_employee_relation
+    set id = #{record.id,jdbcType=INTEGER},
+      task_id = #{record.taskId,jdbcType=INTEGER},
+      employee_no = #{record.employeeNo,jdbcType=VARCHAR},
+      prev_id = #{record.prevId,jdbcType=INTEGER},
+      role_flag = #{record.roleFlag,jdbcType=INTEGER},
+      is_active = #{record.isActive,jdbcType=INTEGER},
+      is_inspector = #{record.isInspector,jdbcType=INTEGER},
+      is_read = #{record.isRead,jdbcType=INTEGER},
+      process_status = #{record.processStatus,jdbcType=INTEGER},
+      is_delete = #{record.isDelete,jdbcType=INTEGER},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      datetime_lastchange = #{record.datetimeLastchange,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.foxconn.sw.data.entity.SwTaskEmployeeRelation">
+    update sw_task_employee_relation
+    <set>
+      <if test="taskId != null">
+        task_id = #{taskId,jdbcType=INTEGER},
+      </if>
+      <if test="employeeNo != null">
+        employee_no = #{employeeNo,jdbcType=VARCHAR},
+      </if>
+      <if test="prevId != null">
+        prev_id = #{prevId,jdbcType=INTEGER},
+      </if>
+      <if test="roleFlag != null">
+        role_flag = #{roleFlag,jdbcType=INTEGER},
+      </if>
+      <if test="isActive != null">
+        is_active = #{isActive,jdbcType=INTEGER},
+      </if>
+      <if test="isInspector != null">
+        is_inspector = #{isInspector,jdbcType=INTEGER},
+      </if>
+      <if test="isRead != null">
+        is_read = #{isRead,jdbcType=INTEGER},
+      </if>
+      <if test="processStatus != null">
+        process_status = #{processStatus,jdbcType=INTEGER},
+      </if>
+      <if test="isDelete != null">
+        is_delete = #{isDelete,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="datetimeLastchange != null">
+        datetime_lastchange = #{datetimeLastchange,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByExampleWithRowbounds" parameterType="com.foxconn.sw.data.entity.SwTaskEmployeeRelationExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from sw_task_employee_relation
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+</mapper>

@@ -4,27 +4,19 @@ import com.foxconn.sw.data.entity.SwToolRunResult;
 import com.foxconn.sw.data.entity.SwToolRunResultExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Delete;
-import org.apache.ibatis.annotations.DeleteProvider;
 import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.InsertProvider;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Result;
-import org.apache.ibatis.annotations.Results;
+import org.apache.ibatis.annotations.ResultMap;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.SelectKey;
-import org.apache.ibatis.annotations.SelectProvider;
 import org.apache.ibatis.annotations.Update;
-import org.apache.ibatis.annotations.UpdateProvider;
 import org.apache.ibatis.session.RowBounds;
-import org.apache.ibatis.type.JdbcType;
 
 @Mapper
 public interface SwToolRunResultMapper {
-    @SelectProvider(type=SwToolRunResultSqlProvider.class, method="countByExample")
     long countByExample(SwToolRunResultExample example);
 
-    @DeleteProvider(type=SwToolRunResultSqlProvider.class, method="deleteByExample")
     int deleteByExample(SwToolRunResultExample example);
 
     @Delete({
@@ -44,32 +36,10 @@ public interface SwToolRunResultMapper {
     @SelectKey(statement="SELECT LAST_INSERT_ID()", keyProperty="id", before=false, resultType=Integer.class)
     int insert(SwToolRunResult record);
 
-    @InsertProvider(type=SwToolRunResultSqlProvider.class, method="insertSelective")
-    @SelectKey(statement="SELECT LAST_INSERT_ID()", keyProperty="id", before=false, resultType=Integer.class)
     int insertSelective(SwToolRunResult record);
 
-    @SelectProvider(type=SwToolRunResultSqlProvider.class, method="selectByExample")
-    @Results({
-        @Result(column="id", property="id", jdbcType=JdbcType.INTEGER, id=true),
-        @Result(column="operator", property="operator", jdbcType=JdbcType.VARCHAR),
-        @Result(column="tool_name", property="toolName", jdbcType=JdbcType.VARCHAR),
-        @Result(column="run_result", property="runResult", jdbcType=JdbcType.VARCHAR),
-        @Result(column="intervals", property="intervals", jdbcType=JdbcType.BIGINT),
-        @Result(column="remark", property="remark", jdbcType=JdbcType.VARCHAR),
-        @Result(column="create_time", property="createTime", jdbcType=JdbcType.TIMESTAMP)
-    })
     List<SwToolRunResult> selectByExampleWithRowbounds(SwToolRunResultExample example, RowBounds rowBounds);
 
-    @SelectProvider(type=SwToolRunResultSqlProvider.class, method="selectByExample")
-    @Results({
-        @Result(column="id", property="id", jdbcType=JdbcType.INTEGER, id=true),
-        @Result(column="operator", property="operator", jdbcType=JdbcType.VARCHAR),
-        @Result(column="tool_name", property="toolName", jdbcType=JdbcType.VARCHAR),
-        @Result(column="run_result", property="runResult", jdbcType=JdbcType.VARCHAR),
-        @Result(column="intervals", property="intervals", jdbcType=JdbcType.BIGINT),
-        @Result(column="remark", property="remark", jdbcType=JdbcType.VARCHAR),
-        @Result(column="create_time", property="createTime", jdbcType=JdbcType.TIMESTAMP)
-    })
     List<SwToolRunResult> selectByExample(SwToolRunResultExample example);
 
     @Select({
@@ -78,24 +48,13 @@ public interface SwToolRunResultMapper {
         "from sw_tool_run_result",
         "where id = #{id,jdbcType=INTEGER}"
     })
-    @Results({
-        @Result(column="id", property="id", jdbcType=JdbcType.INTEGER, id=true),
-        @Result(column="operator", property="operator", jdbcType=JdbcType.VARCHAR),
-        @Result(column="tool_name", property="toolName", jdbcType=JdbcType.VARCHAR),
-        @Result(column="run_result", property="runResult", jdbcType=JdbcType.VARCHAR),
-        @Result(column="intervals", property="intervals", jdbcType=JdbcType.BIGINT),
-        @Result(column="remark", property="remark", jdbcType=JdbcType.VARCHAR),
-        @Result(column="create_time", property="createTime", jdbcType=JdbcType.TIMESTAMP)
-    })
+    @ResultMap("com.foxconn.sw.data.mapper.auto.SwToolRunResultMapper.BaseResultMap")
     SwToolRunResult selectByPrimaryKey(Integer id);
 
-    @UpdateProvider(type=SwToolRunResultSqlProvider.class, method="updateByExampleSelective")
     int updateByExampleSelective(@Param("record") SwToolRunResult record, @Param("example") SwToolRunResultExample example);
 
-    @UpdateProvider(type=SwToolRunResultSqlProvider.class, method="updateByExample")
     int updateByExample(@Param("record") SwToolRunResult record, @Param("example") SwToolRunResultExample example);
 
-    @UpdateProvider(type=SwToolRunResultSqlProvider.class, method="updateByPrimaryKeySelective")
     int updateByPrimaryKeySelective(SwToolRunResult record);
 
     @Update({
