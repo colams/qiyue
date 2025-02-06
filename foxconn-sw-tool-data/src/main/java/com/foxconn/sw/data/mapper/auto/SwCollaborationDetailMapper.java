@@ -4,17 +4,24 @@ import com.foxconn.sw.data.entity.SwCollaborationDetail;
 import com.foxconn.sw.data.entity.SwCollaborationDetailExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Delete;
+import org.apache.ibatis.annotations.DeleteProvider;
 import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.InsertProvider;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.ResultMap;
+import org.apache.ibatis.annotations.Result;
+import org.apache.ibatis.annotations.Results;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.SelectKey;
+import org.apache.ibatis.annotations.SelectProvider;
 import org.apache.ibatis.annotations.Update;
+import org.apache.ibatis.annotations.UpdateProvider;
 import org.apache.ibatis.session.RowBounds;
+import org.apache.ibatis.type.JdbcType;
 
 @Mapper
 public interface SwCollaborationDetailMapper {
+    @DeleteProvider(type=SwCollaborationDetailSqlProvider.class, method="deleteByExample")
     int deleteByExample(SwCollaborationDetailExample example);
 
     @Delete({
@@ -36,10 +43,36 @@ public interface SwCollaborationDetailMapper {
     @SelectKey(statement="SELECT LAST_INSERT_ID()", keyProperty="id", before=false, resultType=Long.class)
     int insert(SwCollaborationDetail record);
 
+    @InsertProvider(type=SwCollaborationDetailSqlProvider.class, method="insertSelective")
+    @SelectKey(statement="SELECT LAST_INSERT_ID()", keyProperty="id", before=false, resultType=Long.class)
     int insertSelective(SwCollaborationDetail record);
 
+    @SelectProvider(type=SwCollaborationDetailSqlProvider.class, method="selectByExample")
+    @Results({
+        @Result(column="id", property="id", jdbcType=JdbcType.BIGINT, id=true),
+        @Result(column="scu_id", property="scuId", jdbcType=JdbcType.BIGINT),
+        @Result(column="row_index", property="rowIndex", jdbcType=JdbcType.INTEGER),
+        @Result(column="col_index", property="colIndex", jdbcType=JdbcType.INTEGER),
+        @Result(column="item", property="item", jdbcType=JdbcType.VARCHAR),
+        @Result(column="item_value", property="itemValue", jdbcType=JdbcType.VARCHAR),
+        @Result(column="create_time", property="createTime", jdbcType=JdbcType.TIMESTAMP),
+        @Result(column="datetime_lastchange", property="datetimeLastchange", jdbcType=JdbcType.TIMESTAMP),
+        @Result(column="spare_value", property="spareValue", jdbcType=JdbcType.VARCHAR)
+    })
     List<SwCollaborationDetail> selectByExampleWithRowbounds(SwCollaborationDetailExample example, RowBounds rowBounds);
 
+    @SelectProvider(type=SwCollaborationDetailSqlProvider.class, method="selectByExample")
+    @Results({
+        @Result(column="id", property="id", jdbcType=JdbcType.BIGINT, id=true),
+        @Result(column="scu_id", property="scuId", jdbcType=JdbcType.BIGINT),
+        @Result(column="row_index", property="rowIndex", jdbcType=JdbcType.INTEGER),
+        @Result(column="col_index", property="colIndex", jdbcType=JdbcType.INTEGER),
+        @Result(column="item", property="item", jdbcType=JdbcType.VARCHAR),
+        @Result(column="item_value", property="itemValue", jdbcType=JdbcType.VARCHAR),
+        @Result(column="create_time", property="createTime", jdbcType=JdbcType.TIMESTAMP),
+        @Result(column="datetime_lastchange", property="datetimeLastchange", jdbcType=JdbcType.TIMESTAMP),
+        @Result(column="spare_value", property="spareValue", jdbcType=JdbcType.VARCHAR)
+    })
     List<SwCollaborationDetail> selectByExample(SwCollaborationDetailExample example);
 
     @Select({
@@ -49,13 +82,26 @@ public interface SwCollaborationDetailMapper {
         "from sw_collaboration_detail",
         "where id = #{id,jdbcType=BIGINT}"
     })
-    @ResultMap("com.foxconn.sw.data.mapper.auto.SwCollaborationDetailMapper.BaseResultMap")
+    @Results({
+        @Result(column="id", property="id", jdbcType=JdbcType.BIGINT, id=true),
+        @Result(column="scu_id", property="scuId", jdbcType=JdbcType.BIGINT),
+        @Result(column="row_index", property="rowIndex", jdbcType=JdbcType.INTEGER),
+        @Result(column="col_index", property="colIndex", jdbcType=JdbcType.INTEGER),
+        @Result(column="item", property="item", jdbcType=JdbcType.VARCHAR),
+        @Result(column="item_value", property="itemValue", jdbcType=JdbcType.VARCHAR),
+        @Result(column="create_time", property="createTime", jdbcType=JdbcType.TIMESTAMP),
+        @Result(column="datetime_lastchange", property="datetimeLastchange", jdbcType=JdbcType.TIMESTAMP),
+        @Result(column="spare_value", property="spareValue", jdbcType=JdbcType.VARCHAR)
+    })
     SwCollaborationDetail selectByPrimaryKey(Long id);
 
+    @UpdateProvider(type=SwCollaborationDetailSqlProvider.class, method="updateByExampleSelective")
     int updateByExampleSelective(@Param("record") SwCollaborationDetail record, @Param("example") SwCollaborationDetailExample example);
 
+    @UpdateProvider(type=SwCollaborationDetailSqlProvider.class, method="updateByExample")
     int updateByExample(@Param("record") SwCollaborationDetail record, @Param("example") SwCollaborationDetailExample example);
 
+    @UpdateProvider(type=SwCollaborationDetailSqlProvider.class, method="updateByPrimaryKeySelective")
     int updateByPrimaryKeySelective(SwCollaborationDetail record);
 
     @Update({

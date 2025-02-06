@@ -10,6 +10,13 @@ import org.apache.ibatis.jdbc.SQL;
 
 public class SwContactGatherSqlProvider {
 
+    public String deleteByExample(SwContactGatherExample example) {
+        SQL sql = new SQL();
+        sql.DELETE_FROM("sw_contact_gather");
+        applyWhere(sql, example, false);
+        return sql.toString();
+    }
+
     public String insertSelective(SwContactGather record) {
         SQL sql = new SQL();
         sql.INSERT_INTO("sw_contact_gather");

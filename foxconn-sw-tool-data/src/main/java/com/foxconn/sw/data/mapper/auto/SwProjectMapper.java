@@ -4,17 +4,24 @@ import com.foxconn.sw.data.entity.SwProject;
 import com.foxconn.sw.data.entity.SwProjectExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Delete;
+import org.apache.ibatis.annotations.DeleteProvider;
 import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.InsertProvider;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.ResultMap;
+import org.apache.ibatis.annotations.Result;
+import org.apache.ibatis.annotations.Results;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.SelectKey;
+import org.apache.ibatis.annotations.SelectProvider;
 import org.apache.ibatis.annotations.Update;
+import org.apache.ibatis.annotations.UpdateProvider;
 import org.apache.ibatis.session.RowBounds;
+import org.apache.ibatis.type.JdbcType;
 
 @Mapper
 public interface SwProjectMapper {
+    @DeleteProvider(type=SwProjectSqlProvider.class, method="deleteByExample")
     int deleteByExample(SwProjectExample example);
 
     @Delete({
@@ -42,10 +49,48 @@ public interface SwProjectMapper {
     @SelectKey(statement="SELECT LAST_INSERT_ID()", keyProperty="id", before=false, resultType=Integer.class)
     int insert(SwProject record);
 
+    @InsertProvider(type=SwProjectSqlProvider.class, method="insertSelective")
+    @SelectKey(statement="SELECT LAST_INSERT_ID()", keyProperty="id", before=false, resultType=Integer.class)
     int insertSelective(SwProject record);
 
+    @SelectProvider(type=SwProjectSqlProvider.class, method="selectByExample")
+    @Results({
+        @Result(column="id", property="id", jdbcType=JdbcType.INTEGER, id=true),
+        @Result(column="years", property="years", jdbcType=JdbcType.INTEGER),
+        @Result(column="project_code", property="projectCode", jdbcType=JdbcType.VARCHAR),
+        @Result(column="customer_name", property="customerName", jdbcType=JdbcType.VARCHAR),
+        @Result(column="full_name", property="fullName", jdbcType=JdbcType.VARCHAR),
+        @Result(column="manufacturing_model", property="manufacturingModel", jdbcType=JdbcType.VARCHAR),
+        @Result(column="status", property="status", jdbcType=JdbcType.VARCHAR),
+        @Result(column="rfq_time", property="rfqTime", jdbcType=JdbcType.VARCHAR),
+        @Result(column="customer", property="customer", jdbcType=JdbcType.VARCHAR),
+        @Result(column="customer_part_no", property="customerPartNo", jdbcType=JdbcType.VARCHAR),
+        @Result(column="application", property="application", jdbcType=JdbcType.VARCHAR),
+        @Result(column="operator", property="operator", jdbcType=JdbcType.VARCHAR),
+        @Result(column="is_delete", property="isDelete", jdbcType=JdbcType.INTEGER),
+        @Result(column="create_time", property="createTime", jdbcType=JdbcType.TIMESTAMP),
+        @Result(column="datetime_lastchange", property="datetimeLastchange", jdbcType=JdbcType.TIMESTAMP)
+    })
     List<SwProject> selectByExampleWithRowbounds(SwProjectExample example, RowBounds rowBounds);
 
+    @SelectProvider(type=SwProjectSqlProvider.class, method="selectByExample")
+    @Results({
+        @Result(column="id", property="id", jdbcType=JdbcType.INTEGER, id=true),
+        @Result(column="years", property="years", jdbcType=JdbcType.INTEGER),
+        @Result(column="project_code", property="projectCode", jdbcType=JdbcType.VARCHAR),
+        @Result(column="customer_name", property="customerName", jdbcType=JdbcType.VARCHAR),
+        @Result(column="full_name", property="fullName", jdbcType=JdbcType.VARCHAR),
+        @Result(column="manufacturing_model", property="manufacturingModel", jdbcType=JdbcType.VARCHAR),
+        @Result(column="status", property="status", jdbcType=JdbcType.VARCHAR),
+        @Result(column="rfq_time", property="rfqTime", jdbcType=JdbcType.VARCHAR),
+        @Result(column="customer", property="customer", jdbcType=JdbcType.VARCHAR),
+        @Result(column="customer_part_no", property="customerPartNo", jdbcType=JdbcType.VARCHAR),
+        @Result(column="application", property="application", jdbcType=JdbcType.VARCHAR),
+        @Result(column="operator", property="operator", jdbcType=JdbcType.VARCHAR),
+        @Result(column="is_delete", property="isDelete", jdbcType=JdbcType.INTEGER),
+        @Result(column="create_time", property="createTime", jdbcType=JdbcType.TIMESTAMP),
+        @Result(column="datetime_lastchange", property="datetimeLastchange", jdbcType=JdbcType.TIMESTAMP)
+    })
     List<SwProject> selectByExample(SwProjectExample example);
 
     @Select({
@@ -56,13 +101,32 @@ public interface SwProjectMapper {
         "from sw_project",
         "where id = #{id,jdbcType=INTEGER}"
     })
-    @ResultMap("com.foxconn.sw.data.mapper.auto.SwProjectMapper.BaseResultMap")
+    @Results({
+        @Result(column="id", property="id", jdbcType=JdbcType.INTEGER, id=true),
+        @Result(column="years", property="years", jdbcType=JdbcType.INTEGER),
+        @Result(column="project_code", property="projectCode", jdbcType=JdbcType.VARCHAR),
+        @Result(column="customer_name", property="customerName", jdbcType=JdbcType.VARCHAR),
+        @Result(column="full_name", property="fullName", jdbcType=JdbcType.VARCHAR),
+        @Result(column="manufacturing_model", property="manufacturingModel", jdbcType=JdbcType.VARCHAR),
+        @Result(column="status", property="status", jdbcType=JdbcType.VARCHAR),
+        @Result(column="rfq_time", property="rfqTime", jdbcType=JdbcType.VARCHAR),
+        @Result(column="customer", property="customer", jdbcType=JdbcType.VARCHAR),
+        @Result(column="customer_part_no", property="customerPartNo", jdbcType=JdbcType.VARCHAR),
+        @Result(column="application", property="application", jdbcType=JdbcType.VARCHAR),
+        @Result(column="operator", property="operator", jdbcType=JdbcType.VARCHAR),
+        @Result(column="is_delete", property="isDelete", jdbcType=JdbcType.INTEGER),
+        @Result(column="create_time", property="createTime", jdbcType=JdbcType.TIMESTAMP),
+        @Result(column="datetime_lastchange", property="datetimeLastchange", jdbcType=JdbcType.TIMESTAMP)
+    })
     SwProject selectByPrimaryKey(Integer id);
 
+    @UpdateProvider(type=SwProjectSqlProvider.class, method="updateByExampleSelective")
     int updateByExampleSelective(@Param("record") SwProject record, @Param("example") SwProjectExample example);
 
+    @UpdateProvider(type=SwProjectSqlProvider.class, method="updateByExample")
     int updateByExample(@Param("record") SwProject record, @Param("example") SwProjectExample example);
 
+    @UpdateProvider(type=SwProjectSqlProvider.class, method="updateByPrimaryKeySelective")
     int updateByPrimaryKeySelective(SwProject record);
 
     @Update({

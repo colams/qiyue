@@ -10,6 +10,13 @@ import org.apache.ibatis.jdbc.SQL;
 
 public class SwTaskSqlProvider {
 
+    public String deleteByExample(SwTaskExample example) {
+        SQL sql = new SQL();
+        sql.DELETE_FROM("sw_task");
+        applyWhere(sql, example, false);
+        return sql.toString();
+    }
+
     public String insertSelective(SwTask record) {
         SQL sql = new SQL();
         sql.INSERT_INTO("sw_task");

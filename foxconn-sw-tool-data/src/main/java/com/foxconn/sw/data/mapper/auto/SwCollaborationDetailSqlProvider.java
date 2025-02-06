@@ -10,6 +10,13 @@ import org.apache.ibatis.jdbc.SQL;
 
 public class SwCollaborationDetailSqlProvider {
 
+    public String deleteByExample(SwCollaborationDetailExample example) {
+        SQL sql = new SQL();
+        sql.DELETE_FROM("sw_collaboration_detail");
+        applyWhere(sql, example, false);
+        return sql.toString();
+    }
+
     public String insertSelective(SwCollaborationDetail record) {
         SQL sql = new SQL();
         sql.INSERT_INTO("sw_collaboration_detail");

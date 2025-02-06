@@ -4,17 +4,24 @@ import com.foxconn.sw.data.entity.SwTools;
 import com.foxconn.sw.data.entity.SwToolsExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Delete;
+import org.apache.ibatis.annotations.DeleteProvider;
 import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.InsertProvider;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.ResultMap;
+import org.apache.ibatis.annotations.Result;
+import org.apache.ibatis.annotations.Results;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.SelectKey;
+import org.apache.ibatis.annotations.SelectProvider;
 import org.apache.ibatis.annotations.Update;
+import org.apache.ibatis.annotations.UpdateProvider;
 import org.apache.ibatis.session.RowBounds;
+import org.apache.ibatis.type.JdbcType;
 
 @Mapper
 public interface SwToolsMapper {
+    @DeleteProvider(type=SwToolsSqlProvider.class, method="deleteByExample")
     int deleteByExample(SwToolsExample example);
 
     @Delete({
@@ -42,10 +49,46 @@ public interface SwToolsMapper {
     @SelectKey(statement="SELECT LAST_INSERT_ID()", keyProperty="id", before=false, resultType=Integer.class)
     int insert(SwTools record);
 
+    @InsertProvider(type=SwToolsSqlProvider.class, method="insertSelective")
+    @SelectKey(statement="SELECT LAST_INSERT_ID()", keyProperty="id", before=false, resultType=Integer.class)
     int insertSelective(SwTools record);
 
+    @SelectProvider(type=SwToolsSqlProvider.class, method="selectByExample")
+    @Results({
+        @Result(column="id", property="id", jdbcType=JdbcType.INTEGER, id=true),
+        @Result(column="tool_name", property="toolName", jdbcType=JdbcType.VARCHAR),
+        @Result(column="tool_icon", property="toolIcon", jdbcType=JdbcType.VARCHAR),
+        @Result(column="property_id", property="propertyId", jdbcType=JdbcType.INTEGER),
+        @Result(column="version_no", property="versionNo", jdbcType=JdbcType.VARCHAR),
+        @Result(column="file_path", property="filePath", jdbcType=JdbcType.VARCHAR),
+        @Result(column="resource_id", property="resourceId", jdbcType=JdbcType.INTEGER),
+        @Result(column="tool_size", property="toolSize", jdbcType=JdbcType.DOUBLE),
+        @Result(column="introduction", property="introduction", jdbcType=JdbcType.VARCHAR),
+        @Result(column="update_content", property="updateContent", jdbcType=JdbcType.VARCHAR),
+        @Result(column="use_guide", property="useGuide", jdbcType=JdbcType.VARCHAR),
+        @Result(column="operator", property="operator", jdbcType=JdbcType.VARCHAR),
+        @Result(column="create_time", property="createTime", jdbcType=JdbcType.TIMESTAMP),
+        @Result(column="datetime_lastchange", property="datetimeLastchange", jdbcType=JdbcType.TIMESTAMP)
+    })
     List<SwTools> selectByExampleWithRowbounds(SwToolsExample example, RowBounds rowBounds);
 
+    @SelectProvider(type=SwToolsSqlProvider.class, method="selectByExample")
+    @Results({
+        @Result(column="id", property="id", jdbcType=JdbcType.INTEGER, id=true),
+        @Result(column="tool_name", property="toolName", jdbcType=JdbcType.VARCHAR),
+        @Result(column="tool_icon", property="toolIcon", jdbcType=JdbcType.VARCHAR),
+        @Result(column="property_id", property="propertyId", jdbcType=JdbcType.INTEGER),
+        @Result(column="version_no", property="versionNo", jdbcType=JdbcType.VARCHAR),
+        @Result(column="file_path", property="filePath", jdbcType=JdbcType.VARCHAR),
+        @Result(column="resource_id", property="resourceId", jdbcType=JdbcType.INTEGER),
+        @Result(column="tool_size", property="toolSize", jdbcType=JdbcType.DOUBLE),
+        @Result(column="introduction", property="introduction", jdbcType=JdbcType.VARCHAR),
+        @Result(column="update_content", property="updateContent", jdbcType=JdbcType.VARCHAR),
+        @Result(column="use_guide", property="useGuide", jdbcType=JdbcType.VARCHAR),
+        @Result(column="operator", property="operator", jdbcType=JdbcType.VARCHAR),
+        @Result(column="create_time", property="createTime", jdbcType=JdbcType.TIMESTAMP),
+        @Result(column="datetime_lastchange", property="datetimeLastchange", jdbcType=JdbcType.TIMESTAMP)
+    })
     List<SwTools> selectByExample(SwToolsExample example);
 
     @Select({
@@ -55,13 +98,31 @@ public interface SwToolsMapper {
         "from sw_tools",
         "where id = #{id,jdbcType=INTEGER}"
     })
-    @ResultMap("com.foxconn.sw.data.mapper.auto.SwToolsMapper.BaseResultMap")
+    @Results({
+        @Result(column="id", property="id", jdbcType=JdbcType.INTEGER, id=true),
+        @Result(column="tool_name", property="toolName", jdbcType=JdbcType.VARCHAR),
+        @Result(column="tool_icon", property="toolIcon", jdbcType=JdbcType.VARCHAR),
+        @Result(column="property_id", property="propertyId", jdbcType=JdbcType.INTEGER),
+        @Result(column="version_no", property="versionNo", jdbcType=JdbcType.VARCHAR),
+        @Result(column="file_path", property="filePath", jdbcType=JdbcType.VARCHAR),
+        @Result(column="resource_id", property="resourceId", jdbcType=JdbcType.INTEGER),
+        @Result(column="tool_size", property="toolSize", jdbcType=JdbcType.DOUBLE),
+        @Result(column="introduction", property="introduction", jdbcType=JdbcType.VARCHAR),
+        @Result(column="update_content", property="updateContent", jdbcType=JdbcType.VARCHAR),
+        @Result(column="use_guide", property="useGuide", jdbcType=JdbcType.VARCHAR),
+        @Result(column="operator", property="operator", jdbcType=JdbcType.VARCHAR),
+        @Result(column="create_time", property="createTime", jdbcType=JdbcType.TIMESTAMP),
+        @Result(column="datetime_lastchange", property="datetimeLastchange", jdbcType=JdbcType.TIMESTAMP)
+    })
     SwTools selectByPrimaryKey(Integer id);
 
+    @UpdateProvider(type=SwToolsSqlProvider.class, method="updateByExampleSelective")
     int updateByExampleSelective(@Param("record") SwTools record, @Param("example") SwToolsExample example);
 
+    @UpdateProvider(type=SwToolsSqlProvider.class, method="updateByExample")
     int updateByExample(@Param("record") SwTools record, @Param("example") SwToolsExample example);
 
+    @UpdateProvider(type=SwToolsSqlProvider.class, method="updateByPrimaryKeySelective")
     int updateByPrimaryKeySelective(SwTools record);
 
     @Update({

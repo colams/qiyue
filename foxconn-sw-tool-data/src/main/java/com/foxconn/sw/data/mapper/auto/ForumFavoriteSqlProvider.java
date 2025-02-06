@@ -10,6 +10,13 @@ import org.apache.ibatis.jdbc.SQL;
 
 public class ForumFavoriteSqlProvider {
 
+    public String deleteByExample(ForumFavoriteExample example) {
+        SQL sql = new SQL();
+        sql.DELETE_FROM("forum_favorite");
+        applyWhere(sql, example, false);
+        return sql.toString();
+    }
+
     public String insertSelective(ForumFavorite record) {
         SQL sql = new SQL();
         sql.INSERT_INTO("forum_favorite");

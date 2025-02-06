@@ -10,6 +10,13 @@ import org.apache.ibatis.jdbc.SQL;
 
 public class SwUserSqlProvider {
 
+    public String deleteByExample(SwUserExample example) {
+        SQL sql = new SQL();
+        sql.DELETE_FROM("sw_user");
+        applyWhere(sql, example, false);
+        return sql.toString();
+    }
+
     public String insertSelective(SwUser record) {
         SQL sql = new SQL();
         sql.INSERT_INTO("sw_user");

@@ -10,6 +10,13 @@ import org.apache.ibatis.jdbc.SQL;
 
 public class SwCapexSetSqlProvider {
 
+    public String deleteByExample(SwCapexSetExample example) {
+        SQL sql = new SQL();
+        sql.DELETE_FROM("sw_capex_set");
+        applyWhere(sql, example, false);
+        return sql.toString();
+    }
+
     public String insertSelective(SwCapexSet record) {
         SQL sql = new SQL();
         sql.INSERT_INTO("sw_capex_set");

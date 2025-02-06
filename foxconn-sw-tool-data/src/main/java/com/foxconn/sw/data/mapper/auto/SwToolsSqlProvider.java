@@ -10,6 +10,13 @@ import org.apache.ibatis.jdbc.SQL;
 
 public class SwToolsSqlProvider {
 
+    public String deleteByExample(SwToolsExample example) {
+        SQL sql = new SQL();
+        sql.DELETE_FROM("sw_tools");
+        applyWhere(sql, example, false);
+        return sql.toString();
+    }
+
     public String insertSelective(SwTools record) {
         SQL sql = new SQL();
         sql.INSERT_INTO("sw_tools");

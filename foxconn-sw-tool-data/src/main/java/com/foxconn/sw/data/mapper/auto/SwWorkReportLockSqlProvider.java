@@ -10,6 +10,13 @@ import org.apache.ibatis.jdbc.SQL;
 
 public class SwWorkReportLockSqlProvider {
 
+    public String deleteByExample(SwWorkReportLockExample example) {
+        SQL sql = new SQL();
+        sql.DELETE_FROM("sw_work_report_lock");
+        applyWhere(sql, example, false);
+        return sql.toString();
+    }
+
     public String insertSelective(SwWorkReportLock record) {
         SQL sql = new SQL();
         sql.INSERT_INTO("sw_work_report_lock");

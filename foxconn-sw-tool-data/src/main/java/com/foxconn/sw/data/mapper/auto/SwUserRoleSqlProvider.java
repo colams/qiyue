@@ -10,6 +10,13 @@ import org.apache.ibatis.jdbc.SQL;
 
 public class SwUserRoleSqlProvider {
 
+    public String deleteByExample(SwUserRoleExample example) {
+        SQL sql = new SQL();
+        sql.DELETE_FROM("sw_user_role");
+        applyWhere(sql, example, false);
+        return sql.toString();
+    }
+
     public String insertSelective(SwUserRole record) {
         SQL sql = new SQL();
         sql.INSERT_INTO("sw_user_role");

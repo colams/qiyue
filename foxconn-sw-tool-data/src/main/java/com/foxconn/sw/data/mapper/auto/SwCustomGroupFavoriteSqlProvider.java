@@ -10,6 +10,13 @@ import org.apache.ibatis.jdbc.SQL;
 
 public class SwCustomGroupFavoriteSqlProvider {
 
+    public String deleteByExample(SwCustomGroupFavoriteExample example) {
+        SQL sql = new SQL();
+        sql.DELETE_FROM("sw_custom_group_favorite");
+        applyWhere(sql, example, false);
+        return sql.toString();
+    }
+
     public String insertSelective(SwCustomGroupFavorite record) {
         SQL sql = new SQL();
         sql.INSERT_INTO("sw_custom_group_favorite");

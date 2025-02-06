@@ -5,6 +5,7 @@ import com.foxconn.sw.data.dto.enums.PostsCategoryEnums;
 import com.foxconn.sw.data.dto.request.forums.PostsParams;
 import com.foxconn.sw.data.entity.ForumBbs;
 import com.foxconn.sw.data.entity.ForumBbsExample;
+import com.foxconn.sw.data.entity.extension.ForumBbsExtension;
 import com.foxconn.sw.data.mapper.extension.forums.ForumBbsExtMapper;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +29,7 @@ public class ForumBbsBusiness {
         return forumBbs.getId();
     }
 
-    public List<ForumBbs> queryPosts(PostsCategoryEnums postsType, String words, Integer pageSize, Integer currentPage) {
+    public List<ForumBbsExtension> queryPosts(PostsCategoryEnums postsType, String words, Integer pageSize, Integer currentPage) {
 
         Integer isAdmin = RequestContext.getEmployeeNo().equalsIgnoreCase("G1658973") ? 1 : 0;
         int start = (currentPage - 1) * pageSize;

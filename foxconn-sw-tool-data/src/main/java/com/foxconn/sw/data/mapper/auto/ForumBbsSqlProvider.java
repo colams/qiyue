@@ -10,6 +10,13 @@ import org.apache.ibatis.jdbc.SQL;
 
 public class ForumBbsSqlProvider {
 
+    public String deleteByExample(ForumBbsExample example) {
+        SQL sql = new SQL();
+        sql.DELETE_FROM("forum_bbs");
+        applyWhere(sql, example, false);
+        return sql.toString();
+    }
+
     public String insertSelective(ForumBbs record) {
         SQL sql = new SQL();
         sql.INSERT_INTO("forum_bbs");

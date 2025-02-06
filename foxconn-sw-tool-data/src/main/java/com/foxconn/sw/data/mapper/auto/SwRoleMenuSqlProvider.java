@@ -10,6 +10,13 @@ import org.apache.ibatis.jdbc.SQL;
 
 public class SwRoleMenuSqlProvider {
 
+    public String deleteByExample(SwRoleMenuExample example) {
+        SQL sql = new SQL();
+        sql.DELETE_FROM("sw_role_menu");
+        applyWhere(sql, example, false);
+        return sql.toString();
+    }
+
     public String insertSelective(SwRoleMenu record) {
         SQL sql = new SQL();
         sql.INSERT_INTO("sw_role_menu");

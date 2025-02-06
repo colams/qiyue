@@ -10,6 +10,13 @@ import org.apache.ibatis.jdbc.SQL;
 
 public class SwMeetingMinuteDetailSqlProvider {
 
+    public String deleteByExample(SwMeetingMinuteDetailExample example) {
+        SQL sql = new SQL();
+        sql.DELETE_FROM("sw_meeting_minute_detail");
+        applyWhere(sql, example, false);
+        return sql.toString();
+    }
+
     public String insertSelective(SwMeetingMinuteDetail record) {
         SQL sql = new SQL();
         sql.INSERT_INTO("sw_meeting_minute_detail");
