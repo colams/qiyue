@@ -5,7 +5,6 @@ import com.foxconn.sw.common.utils.JsonUtils;
 import com.foxconn.sw.common.utils.ServletUtils;
 import com.foxconn.sw.data.context.RequestContext;
 import com.foxconn.sw.data.dto.Request;
-import com.foxconn.sw.data.dto.Response;
 import com.foxconn.sw.data.dto.entity.acount.LoginParams;
 import com.foxconn.sw.data.dto.entity.acount.UserInfo;
 import com.foxconn.sw.service.processor.user.CommonUserUtils;
@@ -105,17 +104,20 @@ public class PermissionAspect {
                 request = JsonUtils.deserialize((String) obj, Request.class);
             }
 
-            if (request.getData() instanceof LoginParams) {
-                RequestContext.put(RequestContext.ContextKey.EmployeeNo, ((LoginParams) request.getData()).getEmployeeNo());
-            } else {
-                RequestContext.put(RequestContext.ContextKey.EmployeeNo, request.getHead().getToken());
-            }
             if (Objects.nonNull(request)
                     && Objects.nonNull(request.getHead())
                     && StringUtils.isNotEmpty(request.getHead().getToken())) {
                 token = request.getHead().getToken();
                 traceId = request.getTraceId();
             }
+
+            if (request.getData() instanceof LoginParams) {
+                token = "";
+                RequestContext.put(RequestContext.ContextKey.EmployeeNo, ((LoginParams) request.getData()).getEmployeeNo());
+            } else {
+                RequestContext.put(RequestContext.ContextKey.EmployeeNo, request.getHead().getToken());
+            }
+
         }
 
         if (StringUtils.isNotEmpty(token)) {

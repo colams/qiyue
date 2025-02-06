@@ -5,7 +5,6 @@ import com.foxconn.sw.data.dto.Response;
 import com.foxconn.sw.data.dto.entity.universal.StringParams;
 import com.foxconn.sw.data.dto.request.sse.SseMsgParams;
 import com.foxconn.sw.data.dto.response.sse.EmitterAllUserVo;
-import com.foxconn.sw.data.dto.response.sse.EmitterUserVo;
 import com.foxconn.sw.service.processor.SseEmitterProcessor;
 import com.foxconn.sw.service.utils.ResponseUtils;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -16,7 +15,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
 import java.io.IOException;
-import java.util.List;
 
 @RestController
 @RequestMapping("api/sse")

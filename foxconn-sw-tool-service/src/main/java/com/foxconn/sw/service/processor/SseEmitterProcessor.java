@@ -42,7 +42,7 @@ public class SseEmitterProcessor {
         }
 
         // 设置超时时间，0表示不过期。默认30秒，超过时间未完成会抛出异常：AsyncRequestTimeoutException
-        SseEmitterUTF8 sseEmitter = new SseEmitterUTF8(60 * 5L);
+        SseEmitterUTF8 sseEmitter = new SseEmitterUTF8(10 * 60 * 1000L); // 设置10分钟超时
         // 是否需要给客户端推送ID
         if (StringUtils.isBlank(clientId)) {
             clientId = UUIDUtils.getUuid();
