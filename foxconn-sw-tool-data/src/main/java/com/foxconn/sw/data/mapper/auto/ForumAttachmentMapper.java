@@ -3,22 +3,26 @@ package com.foxconn.sw.data.mapper.auto;
 import com.foxconn.sw.data.entity.ForumAttachment;
 import com.foxconn.sw.data.entity.ForumAttachmentExample;
 import java.util.List;
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.InsertProvider;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Result;
-import org.apache.ibatis.annotations.Results;
+import org.apache.ibatis.annotations.ResultMap;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.SelectKey;
-import org.apache.ibatis.annotations.SelectProvider;
 import org.apache.ibatis.annotations.Update;
-import org.apache.ibatis.annotations.UpdateProvider;
 import org.apache.ibatis.session.RowBounds;
-import org.apache.ibatis.type.JdbcType;
 
 @Mapper
 public interface ForumAttachmentMapper {
+    int deleteByExample(ForumAttachmentExample example);
+
+    @Delete({
+        "delete from forum_attachment",
+        "where id = #{id,jdbcType=INTEGER}"
+    })
+    int deleteByPrimaryKey(Integer id);
+
     @Insert({
         "insert into forum_attachment (fb_id, comment_id, ",
         "resource_id, is_delete, ",
@@ -30,32 +34,10 @@ public interface ForumAttachmentMapper {
     @SelectKey(statement="SELECT LAST_INSERT_ID()", keyProperty="id", before=false, resultType=Integer.class)
     int insert(ForumAttachment record);
 
-    @InsertProvider(type=ForumAttachmentSqlProvider.class, method="insertSelective")
-    @SelectKey(statement="SELECT LAST_INSERT_ID()", keyProperty="id", before=false, resultType=Integer.class)
     int insertSelective(ForumAttachment record);
 
-    @SelectProvider(type=ForumAttachmentSqlProvider.class, method="selectByExample")
-    @Results({
-        @Result(column="id", property="id", jdbcType=JdbcType.INTEGER, id=true),
-        @Result(column="fb_id", property="fbId", jdbcType=JdbcType.INTEGER),
-        @Result(column="comment_id", property="commentId", jdbcType=JdbcType.INTEGER),
-        @Result(column="resource_id", property="resourceId", jdbcType=JdbcType.INTEGER),
-        @Result(column="is_delete", property="isDelete", jdbcType=JdbcType.INTEGER),
-        @Result(column="create_time", property="createTime", jdbcType=JdbcType.TIMESTAMP),
-        @Result(column="datatime_lastchange", property="datatimeLastchange", jdbcType=JdbcType.TIMESTAMP)
-    })
     List<ForumAttachment> selectByExampleWithRowbounds(ForumAttachmentExample example, RowBounds rowBounds);
 
-    @SelectProvider(type=ForumAttachmentSqlProvider.class, method="selectByExample")
-    @Results({
-        @Result(column="id", property="id", jdbcType=JdbcType.INTEGER, id=true),
-        @Result(column="fb_id", property="fbId", jdbcType=JdbcType.INTEGER),
-        @Result(column="comment_id", property="commentId", jdbcType=JdbcType.INTEGER),
-        @Result(column="resource_id", property="resourceId", jdbcType=JdbcType.INTEGER),
-        @Result(column="is_delete", property="isDelete", jdbcType=JdbcType.INTEGER),
-        @Result(column="create_time", property="createTime", jdbcType=JdbcType.TIMESTAMP),
-        @Result(column="datatime_lastchange", property="datatimeLastchange", jdbcType=JdbcType.TIMESTAMP)
-    })
     List<ForumAttachment> selectByExample(ForumAttachmentExample example);
 
     @Select({
@@ -64,24 +46,13 @@ public interface ForumAttachmentMapper {
         "from forum_attachment",
         "where id = #{id,jdbcType=INTEGER}"
     })
-    @Results({
-        @Result(column="id", property="id", jdbcType=JdbcType.INTEGER, id=true),
-        @Result(column="fb_id", property="fbId", jdbcType=JdbcType.INTEGER),
-        @Result(column="comment_id", property="commentId", jdbcType=JdbcType.INTEGER),
-        @Result(column="resource_id", property="resourceId", jdbcType=JdbcType.INTEGER),
-        @Result(column="is_delete", property="isDelete", jdbcType=JdbcType.INTEGER),
-        @Result(column="create_time", property="createTime", jdbcType=JdbcType.TIMESTAMP),
-        @Result(column="datatime_lastchange", property="datatimeLastchange", jdbcType=JdbcType.TIMESTAMP)
-    })
+    @ResultMap("com.foxconn.sw.data.mapper.auto.ForumAttachmentMapper.BaseResultMap")
     ForumAttachment selectByPrimaryKey(Integer id);
 
-    @UpdateProvider(type=ForumAttachmentSqlProvider.class, method="updateByExampleSelective")
     int updateByExampleSelective(@Param("record") ForumAttachment record, @Param("example") ForumAttachmentExample example);
 
-    @UpdateProvider(type=ForumAttachmentSqlProvider.class, method="updateByExample")
     int updateByExample(@Param("record") ForumAttachment record, @Param("example") ForumAttachmentExample example);
 
-    @UpdateProvider(type=ForumAttachmentSqlProvider.class, method="updateByPrimaryKeySelective")
     int updateByPrimaryKeySelective(ForumAttachment record);
 
     @Update({

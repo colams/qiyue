@@ -1,0 +1,2758 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.foxconn.sw.data.mapper.auto.SwDocumentMapper">
+  <resultMap id="BaseResultMap" type="com.foxconn.sw.data.entity.SwDocument">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="document_name" jdbcType="VARCHAR" property="documentName" />
+    <result column="file_version" jdbcType="VARCHAR" property="fileVersion" />
+    <result column="category" jdbcType="VARCHAR" property="category" />
+    <result column="department" jdbcType="INTEGER" property="department" />
+    <result column="project" jdbcType="VARCHAR" property="project" />
+    <result column="secret_level" jdbcType="INTEGER" property="secretLevel" />
+    <result column="expire_date" jdbcType="VARCHAR" property="expireDate" />
+    <result column="disable_down" jdbcType="INTEGER" property="disableDown" />
+    <result column="resource_id" jdbcType="INTEGER" property="resourceId" />
+    <result column="author" jdbcType="VARCHAR" property="author" />
+    <result column="creator" jdbcType="VARCHAR" property="creator" />
+    <result column="file_type" jdbcType="INTEGER" property="fileType" />
+    <result column="content" jdbcType="VARCHAR" property="content" />
+    <result column="work_type" jdbcType="VARCHAR" property="workType" />
+    <result column="main_type" jdbcType="VARCHAR" property="mainType" />
+    <result column="sub_type" jdbcType="VARCHAR" property="subType" />
+    <result column="main_part" jdbcType="VARCHAR" property="mainPart" />
+    <result column="supplier" jdbcType="VARCHAR" property="supplier" />
+    <result column="source" jdbcType="VARCHAR" property="source" />
+    <result column="dead_line" jdbcType="VARCHAR" property="deadLine" />
+    <result column="is_delete" jdbcType="INTEGER" property="isDelete" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="datetime_lastchange" jdbcType="TIMESTAMP" property="datetimeLastchange" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, document_name, file_version, category, department, project, secret_level, expire_date, 
+    disable_down, resource_id, author, creator, file_type, content, work_type, main_type, 
+    sub_type, main_part, supplier, source, dead_line, is_delete, create_time, datetime_lastchange
+  </sql>
+  <select id="selectByExample" parameterType="com.foxconn.sw.data.entity.SwDocumentExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from sw_document
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="com.foxconn.sw.data.entity.SwDocumentExample">
+    delete from sw_document
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insertSelective" parameterType="com.foxconn.sw.data.entity.SwDocument">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into sw_document
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="documentName != null">
+        document_name,
+      </if>
+      <if test="fileVersion != null">
+        file_version,
+      </if>
+      <if test="category != null">
+        category,
+      </if>
+      <if test="department != null">
+        department,
+      </if>
+      <if test="project != null">
+        project,
+      </if>
+      <if test="secretLevel != null">
+        secret_level,
+      </if>
+      <if test="expireDate != null">
+        expire_date,
+      </if>
+      <if test="disableDown != null">
+        disable_down,
+      </if>
+      <if test="resourceId != null">
+        resource_id,
+      </if>
+      <if test="author != null">
+        author,
+      </if>
+      <if test="creator != null">
+        creator,
+      </if>
+      <if test="fileType != null">
+        file_type,
+      </if>
+      <if test="content != null">
+        content,
+      </if>
+      <if test="workType != null">
+        work_type,
+      </if>
+      <if test="mainType != null">
+        main_type,
+      </if>
+      <if test="subType != null">
+        sub_type,
+      </if>
+      <if test="mainPart != null">
+        main_part,
+      </if>
+      <if test="supplier != null">
+        supplier,
+      </if>
+      <if test="source != null">
+        source,
+      </if>
+      <if test="deadLine != null">
+        dead_line,
+      </if>
+      <if test="isDelete != null">
+        is_delete,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="datetimeLastchange != null">
+        datetime_lastchange,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="documentName != null">
+        #{documentName,jdbcType=VARCHAR},
+      </if>
+      <if test="fileVersion != null">
+        #{fileVersion,jdbcType=VARCHAR},
+      </if>
+      <if test="category != null">
+        #{category,jdbcType=VARCHAR},
+      </if>
+      <if test="department != null">
+        #{department,jdbcType=INTEGER},
+      </if>
+      <if test="project != null">
+        #{project,jdbcType=VARCHAR},
+      </if>
+      <if test="secretLevel != null">
+        #{secretLevel,jdbcType=INTEGER},
+      </if>
+      <if test="expireDate != null">
+        #{expireDate,jdbcType=VARCHAR},
+      </if>
+      <if test="disableDown != null">
+        #{disableDown,jdbcType=INTEGER},
+      </if>
+      <if test="resourceId != null">
+        #{resourceId,jdbcType=INTEGER},
+      </if>
+      <if test="author != null">
+        #{author,jdbcType=VARCHAR},
+      </if>
+      <if test="creator != null">
+        #{creator,jdbcType=VARCHAR},
+      </if>
+      <if test="fileType != null">
+        #{fileType,jdbcType=INTEGER},
+      </if>
+      <if test="content != null">
+        #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="workType != null">
+        #{workType,jdbcType=VARCHAR},
+      </if>
+      <if test="mainType != null">
+        #{mainType,jdbcType=VARCHAR},
+      </if>
+      <if test="subType != null">
+        #{subType,jdbcType=VARCHAR},
+      </if>
+      <if test="mainPart != null">
+        #{mainPart,jdbcType=VARCHAR},
+      </if>
+      <if test="supplier != null">
+        #{supplier,jdbcType=VARCHAR},
+      </if>
+      <if test="source != null">
+        #{source,jdbcType=VARCHAR},
+      </if>
+      <if test="deadLine != null">
+        #{deadLine,jdbcType=VARCHAR},
+      </if>
+      <if test="isDelete != null">
+        #{isDelete,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="datetimeLastchange != null">
+        #{datetimeLastchange,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByExampleSelective" parameterType="map">
+    update sw_document
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.documentName != null">
+        document_name = #{record.documentName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fileVersion != null">
+        file_version = #{record.fileVersion,jdbcType=VARCHAR},
+      </if>
+      <if test="record.category != null">
+        category = #{record.category,jdbcType=VARCHAR},
+      </if>
+      <if test="record.department != null">
+        department = #{record.department,jdbcType=INTEGER},
+      </if>
+      <if test="record.project != null">
+        project = #{record.project,jdbcType=VARCHAR},
+      </if>
+      <if test="record.secretLevel != null">
+        secret_level = #{record.secretLevel,jdbcType=INTEGER},
+      </if>
+      <if test="record.expireDate != null">
+        expire_date = #{record.expireDate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.disableDown != null">
+        disable_down = #{record.disableDown,jdbcType=INTEGER},
+      </if>
+      <if test="record.resourceId != null">
+        resource_id = #{record.resourceId,jdbcType=INTEGER},
+      </if>
+      <if test="record.author != null">
+        author = #{record.author,jdbcType=VARCHAR},
+      </if>
+      <if test="record.creator != null">
+        creator = #{record.creator,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fileType != null">
+        file_type = #{record.fileType,jdbcType=INTEGER},
+      </if>
+      <if test="record.content != null">
+        content = #{record.content,jdbcType=VARCHAR},
+      </if>
+      <if test="record.workType != null">
+        work_type = #{record.workType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mainType != null">
+        main_type = #{record.mainType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.subType != null">
+        sub_type = #{record.subType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mainPart != null">
+        main_part = #{record.mainPart,jdbcType=VARCHAR},
+      </if>
+      <if test="record.supplier != null">
+        supplier = #{record.supplier,jdbcType=VARCHAR},
+      </if>
+      <if test="record.source != null">
+        source = #{record.source,jdbcType=VARCHAR},
+      </if>
+      <if test="record.deadLine != null">
+        dead_line = #{record.deadLine,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isDelete != null">
+        is_delete = #{record.isDelete,jdbcType=INTEGER},
+      </if>
+      <if test="record.createTime != null">
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.datetimeLastchange != null">
+        datetime_lastchange = #{record.datetimeLastchange,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update sw_document
+    set id = #{record.id,jdbcType=INTEGER},
+      document_name = #{record.documentName,jdbcType=VARCHAR},
+      file_version = #{record.fileVersion,jdbcType=VARCHAR},
+      category = #{record.category,jdbcType=VARCHAR},
+      department = #{record.department,jdbcType=INTEGER},
+      project = #{record.project,jdbcType=VARCHAR},
+      secret_level = #{record.secretLevel,jdbcType=INTEGER},
+      expire_date = #{record.expireDate,jdbcType=VARCHAR},
+      disable_down = #{record.disableDown,jdbcType=INTEGER},
+      resource_id = #{record.resourceId,jdbcType=INTEGER},
+      author = #{record.author,jdbcType=VARCHAR},
+      creator = #{record.creator,jdbcType=VARCHAR},
+      file_type = #{record.fileType,jdbcType=INTEGER},
+      content = #{record.content,jdbcType=VARCHAR},
+      work_type = #{record.workType,jdbcType=VARCHAR},
+      main_type = #{record.mainType,jdbcType=VARCHAR},
+      sub_type = #{record.subType,jdbcType=VARCHAR},
+      main_part = #{record.mainPart,jdbcType=VARCHAR},
+      supplier = #{record.supplier,jdbcType=VARCHAR},
+      source = #{record.source,jdbcType=VARCHAR},
+      dead_line = #{record.deadLine,jdbcType=VARCHAR},
+      is_delete = #{record.isDelete,jdbcType=INTEGER},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      datetime_lastchange = #{record.datetimeLastchange,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.foxconn.sw.data.entity.SwDocument">
+    update sw_document
+    <set>
+      <if test="documentName != null">
+        document_name = #{documentName,jdbcType=VARCHAR},
+      </if>
+      <if test="fileVersion != null">
+        file_version = #{fileVersion,jdbcType=VARCHAR},
+      </if>
+      <if test="category != null">
+        category = #{category,jdbcType=VARCHAR},
+      </if>
+      <if test="department != null">
+        department = #{department,jdbcType=INTEGER},
+      </if>
+      <if test="project != null">
+        project = #{project,jdbcType=VARCHAR},
+      </if>
+      <if test="secretLevel != null">
+        secret_level = #{secretLevel,jdbcType=INTEGER},
+      </if>
+      <if test="expireDate != null">
+        expire_date = #{expireDate,jdbcType=VARCHAR},
+      </if>
+      <if test="disableDown != null">
+        disable_down = #{disableDown,jdbcType=INTEGER},
+      </if>
+      <if test="resourceId != null">
+        resource_id = #{resourceId,jdbcType=INTEGER},
+      </if>
+      <if test="author != null">
+        author = #{author,jdbcType=VARCHAR},
+      </if>
+      <if test="creator != null">
+        creator = #{creator,jdbcType=VARCHAR},
+      </if>
+      <if test="fileType != null">
+        file_type = #{fileType,jdbcType=INTEGER},
+      </if>
+      <if test="content != null">
+        content = #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="workType != null">
+        work_type = #{workType,jdbcType=VARCHAR},
+      </if>
+      <if test="mainType != null">
+        main_type = #{mainType,jdbcType=VARCHAR},
+      </if>
+      <if test="subType != null">
+        sub_type = #{subType,jdbcType=VARCHAR},
+      </if>
+      <if test="mainPart != null">
+        main_part = #{mainPart,jdbcType=VARCHAR},
+      </if>
+      <if test="supplier != null">
+        supplier = #{supplier,jdbcType=VARCHAR},
+      </if>
+      <if test="source != null">
+        source = #{source,jdbcType=VARCHAR},
+      </if>
+      <if test="deadLine != null">
+        dead_line = #{deadLine,jdbcType=VARCHAR},
+      </if>
+      <if test="isDelete != null">
+        is_delete = #{isDelete,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="datetimeLastchange != null">
+        datetime_lastchange = #{datetimeLastchange,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByExampleWithRowbounds" parameterType="com.foxconn.sw.data.entity.SwDocumentExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from sw_document
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExampleWithRowbounds" parameterType="com.foxconn.sw.data.entity.SwDocumentExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from sw_document
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <resultMap id="BaseResultMap" type="com.foxconn.sw.data.entity.SwDocument">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="document_name" jdbcType="VARCHAR" property="documentName" />
+    <result column="file_version" jdbcType="VARCHAR" property="fileVersion" />
+    <result column="category" jdbcType="VARCHAR" property="category" />
+    <result column="department" jdbcType="INTEGER" property="department" />
+    <result column="project" jdbcType="VARCHAR" property="project" />
+    <result column="secret_level" jdbcType="INTEGER" property="secretLevel" />
+    <result column="expire_date" jdbcType="VARCHAR" property="expireDate" />
+    <result column="disable_down" jdbcType="INTEGER" property="disableDown" />
+    <result column="resource_id" jdbcType="INTEGER" property="resourceId" />
+    <result column="author" jdbcType="VARCHAR" property="author" />
+    <result column="creator" jdbcType="VARCHAR" property="creator" />
+    <result column="file_type" jdbcType="INTEGER" property="fileType" />
+    <result column="content" jdbcType="VARCHAR" property="content" />
+    <result column="work_type" jdbcType="VARCHAR" property="workType" />
+    <result column="main_type" jdbcType="VARCHAR" property="mainType" />
+    <result column="sub_type" jdbcType="VARCHAR" property="subType" />
+    <result column="main_part" jdbcType="VARCHAR" property="mainPart" />
+    <result column="supplier" jdbcType="VARCHAR" property="supplier" />
+    <result column="source" jdbcType="VARCHAR" property="source" />
+    <result column="dead_line" jdbcType="VARCHAR" property="deadLine" />
+    <result column="is_delete" jdbcType="INTEGER" property="isDelete" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="datetime_lastchange" jdbcType="TIMESTAMP" property="datetimeLastchange" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, document_name, file_version, category, department, project, secret_level, expire_date, 
+    disable_down, resource_id, author, creator, file_type, content, work_type, main_type, 
+    sub_type, main_part, supplier, source, dead_line, is_delete, create_time, datetime_lastchange
+  </sql>
+  <select id="selectByExample" parameterType="com.foxconn.sw.data.entity.SwDocumentExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from sw_document
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="com.foxconn.sw.data.entity.SwDocumentExample">
+    delete from sw_document
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insertSelective" parameterType="com.foxconn.sw.data.entity.SwDocument">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into sw_document
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="documentName != null">
+        document_name,
+      </if>
+      <if test="fileVersion != null">
+        file_version,
+      </if>
+      <if test="category != null">
+        category,
+      </if>
+      <if test="department != null">
+        department,
+      </if>
+      <if test="project != null">
+        project,
+      </if>
+      <if test="secretLevel != null">
+        secret_level,
+      </if>
+      <if test="expireDate != null">
+        expire_date,
+      </if>
+      <if test="disableDown != null">
+        disable_down,
+      </if>
+      <if test="resourceId != null">
+        resource_id,
+      </if>
+      <if test="author != null">
+        author,
+      </if>
+      <if test="creator != null">
+        creator,
+      </if>
+      <if test="fileType != null">
+        file_type,
+      </if>
+      <if test="content != null">
+        content,
+      </if>
+      <if test="workType != null">
+        work_type,
+      </if>
+      <if test="mainType != null">
+        main_type,
+      </if>
+      <if test="subType != null">
+        sub_type,
+      </if>
+      <if test="mainPart != null">
+        main_part,
+      </if>
+      <if test="supplier != null">
+        supplier,
+      </if>
+      <if test="source != null">
+        source,
+      </if>
+      <if test="deadLine != null">
+        dead_line,
+      </if>
+      <if test="isDelete != null">
+        is_delete,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="datetimeLastchange != null">
+        datetime_lastchange,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="documentName != null">
+        #{documentName,jdbcType=VARCHAR},
+      </if>
+      <if test="fileVersion != null">
+        #{fileVersion,jdbcType=VARCHAR},
+      </if>
+      <if test="category != null">
+        #{category,jdbcType=VARCHAR},
+      </if>
+      <if test="department != null">
+        #{department,jdbcType=INTEGER},
+      </if>
+      <if test="project != null">
+        #{project,jdbcType=VARCHAR},
+      </if>
+      <if test="secretLevel != null">
+        #{secretLevel,jdbcType=INTEGER},
+      </if>
+      <if test="expireDate != null">
+        #{expireDate,jdbcType=VARCHAR},
+      </if>
+      <if test="disableDown != null">
+        #{disableDown,jdbcType=INTEGER},
+      </if>
+      <if test="resourceId != null">
+        #{resourceId,jdbcType=INTEGER},
+      </if>
+      <if test="author != null">
+        #{author,jdbcType=VARCHAR},
+      </if>
+      <if test="creator != null">
+        #{creator,jdbcType=VARCHAR},
+      </if>
+      <if test="fileType != null">
+        #{fileType,jdbcType=INTEGER},
+      </if>
+      <if test="content != null">
+        #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="workType != null">
+        #{workType,jdbcType=VARCHAR},
+      </if>
+      <if test="mainType != null">
+        #{mainType,jdbcType=VARCHAR},
+      </if>
+      <if test="subType != null">
+        #{subType,jdbcType=VARCHAR},
+      </if>
+      <if test="mainPart != null">
+        #{mainPart,jdbcType=VARCHAR},
+      </if>
+      <if test="supplier != null">
+        #{supplier,jdbcType=VARCHAR},
+      </if>
+      <if test="source != null">
+        #{source,jdbcType=VARCHAR},
+      </if>
+      <if test="deadLine != null">
+        #{deadLine,jdbcType=VARCHAR},
+      </if>
+      <if test="isDelete != null">
+        #{isDelete,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="datetimeLastchange != null">
+        #{datetimeLastchange,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByExampleSelective" parameterType="map">
+    update sw_document
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.documentName != null">
+        document_name = #{record.documentName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fileVersion != null">
+        file_version = #{record.fileVersion,jdbcType=VARCHAR},
+      </if>
+      <if test="record.category != null">
+        category = #{record.category,jdbcType=VARCHAR},
+      </if>
+      <if test="record.department != null">
+        department = #{record.department,jdbcType=INTEGER},
+      </if>
+      <if test="record.project != null">
+        project = #{record.project,jdbcType=VARCHAR},
+      </if>
+      <if test="record.secretLevel != null">
+        secret_level = #{record.secretLevel,jdbcType=INTEGER},
+      </if>
+      <if test="record.expireDate != null">
+        expire_date = #{record.expireDate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.disableDown != null">
+        disable_down = #{record.disableDown,jdbcType=INTEGER},
+      </if>
+      <if test="record.resourceId != null">
+        resource_id = #{record.resourceId,jdbcType=INTEGER},
+      </if>
+      <if test="record.author != null">
+        author = #{record.author,jdbcType=VARCHAR},
+      </if>
+      <if test="record.creator != null">
+        creator = #{record.creator,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fileType != null">
+        file_type = #{record.fileType,jdbcType=INTEGER},
+      </if>
+      <if test="record.content != null">
+        content = #{record.content,jdbcType=VARCHAR},
+      </if>
+      <if test="record.workType != null">
+        work_type = #{record.workType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mainType != null">
+        main_type = #{record.mainType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.subType != null">
+        sub_type = #{record.subType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mainPart != null">
+        main_part = #{record.mainPart,jdbcType=VARCHAR},
+      </if>
+      <if test="record.supplier != null">
+        supplier = #{record.supplier,jdbcType=VARCHAR},
+      </if>
+      <if test="record.source != null">
+        source = #{record.source,jdbcType=VARCHAR},
+      </if>
+      <if test="record.deadLine != null">
+        dead_line = #{record.deadLine,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isDelete != null">
+        is_delete = #{record.isDelete,jdbcType=INTEGER},
+      </if>
+      <if test="record.createTime != null">
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.datetimeLastchange != null">
+        datetime_lastchange = #{record.datetimeLastchange,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update sw_document
+    set id = #{record.id,jdbcType=INTEGER},
+      document_name = #{record.documentName,jdbcType=VARCHAR},
+      file_version = #{record.fileVersion,jdbcType=VARCHAR},
+      category = #{record.category,jdbcType=VARCHAR},
+      department = #{record.department,jdbcType=INTEGER},
+      project = #{record.project,jdbcType=VARCHAR},
+      secret_level = #{record.secretLevel,jdbcType=INTEGER},
+      expire_date = #{record.expireDate,jdbcType=VARCHAR},
+      disable_down = #{record.disableDown,jdbcType=INTEGER},
+      resource_id = #{record.resourceId,jdbcType=INTEGER},
+      author = #{record.author,jdbcType=VARCHAR},
+      creator = #{record.creator,jdbcType=VARCHAR},
+      file_type = #{record.fileType,jdbcType=INTEGER},
+      content = #{record.content,jdbcType=VARCHAR},
+      work_type = #{record.workType,jdbcType=VARCHAR},
+      main_type = #{record.mainType,jdbcType=VARCHAR},
+      sub_type = #{record.subType,jdbcType=VARCHAR},
+      main_part = #{record.mainPart,jdbcType=VARCHAR},
+      supplier = #{record.supplier,jdbcType=VARCHAR},
+      source = #{record.source,jdbcType=VARCHAR},
+      dead_line = #{record.deadLine,jdbcType=VARCHAR},
+      is_delete = #{record.isDelete,jdbcType=INTEGER},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      datetime_lastchange = #{record.datetimeLastchange,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.foxconn.sw.data.entity.SwDocument">
+    update sw_document
+    <set>
+      <if test="documentName != null">
+        document_name = #{documentName,jdbcType=VARCHAR},
+      </if>
+      <if test="fileVersion != null">
+        file_version = #{fileVersion,jdbcType=VARCHAR},
+      </if>
+      <if test="category != null">
+        category = #{category,jdbcType=VARCHAR},
+      </if>
+      <if test="department != null">
+        department = #{department,jdbcType=INTEGER},
+      </if>
+      <if test="project != null">
+        project = #{project,jdbcType=VARCHAR},
+      </if>
+      <if test="secretLevel != null">
+        secret_level = #{secretLevel,jdbcType=INTEGER},
+      </if>
+      <if test="expireDate != null">
+        expire_date = #{expireDate,jdbcType=VARCHAR},
+      </if>
+      <if test="disableDown != null">
+        disable_down = #{disableDown,jdbcType=INTEGER},
+      </if>
+      <if test="resourceId != null">
+        resource_id = #{resourceId,jdbcType=INTEGER},
+      </if>
+      <if test="author != null">
+        author = #{author,jdbcType=VARCHAR},
+      </if>
+      <if test="creator != null">
+        creator = #{creator,jdbcType=VARCHAR},
+      </if>
+      <if test="fileType != null">
+        file_type = #{fileType,jdbcType=INTEGER},
+      </if>
+      <if test="content != null">
+        content = #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="workType != null">
+        work_type = #{workType,jdbcType=VARCHAR},
+      </if>
+      <if test="mainType != null">
+        main_type = #{mainType,jdbcType=VARCHAR},
+      </if>
+      <if test="subType != null">
+        sub_type = #{subType,jdbcType=VARCHAR},
+      </if>
+      <if test="mainPart != null">
+        main_part = #{mainPart,jdbcType=VARCHAR},
+      </if>
+      <if test="supplier != null">
+        supplier = #{supplier,jdbcType=VARCHAR},
+      </if>
+      <if test="source != null">
+        source = #{source,jdbcType=VARCHAR},
+      </if>
+      <if test="deadLine != null">
+        dead_line = #{deadLine,jdbcType=VARCHAR},
+      </if>
+      <if test="isDelete != null">
+        is_delete = #{isDelete,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="datetimeLastchange != null">
+        datetime_lastchange = #{datetimeLastchange,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByExampleWithRowbounds" parameterType="com.foxconn.sw.data.entity.SwDocumentExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from sw_document
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <resultMap id="BaseResultMap" type="com.foxconn.sw.data.entity.SwDocument">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="document_name" jdbcType="VARCHAR" property="documentName" />
+    <result column="file_version" jdbcType="VARCHAR" property="fileVersion" />
+    <result column="category" jdbcType="VARCHAR" property="category" />
+    <result column="department" jdbcType="INTEGER" property="department" />
+    <result column="project" jdbcType="VARCHAR" property="project" />
+    <result column="secret_level" jdbcType="INTEGER" property="secretLevel" />
+    <result column="expire_date" jdbcType="VARCHAR" property="expireDate" />
+    <result column="disable_down" jdbcType="INTEGER" property="disableDown" />
+    <result column="resource_id" jdbcType="INTEGER" property="resourceId" />
+    <result column="author" jdbcType="VARCHAR" property="author" />
+    <result column="creator" jdbcType="VARCHAR" property="creator" />
+    <result column="file_type" jdbcType="INTEGER" property="fileType" />
+    <result column="content" jdbcType="VARCHAR" property="content" />
+    <result column="work_type" jdbcType="VARCHAR" property="workType" />
+    <result column="main_type" jdbcType="VARCHAR" property="mainType" />
+    <result column="sub_type" jdbcType="VARCHAR" property="subType" />
+    <result column="main_part" jdbcType="VARCHAR" property="mainPart" />
+    <result column="supplier" jdbcType="VARCHAR" property="supplier" />
+    <result column="source" jdbcType="VARCHAR" property="source" />
+    <result column="dead_line" jdbcType="VARCHAR" property="deadLine" />
+    <result column="is_delete" jdbcType="INTEGER" property="isDelete" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="datetime_lastchange" jdbcType="TIMESTAMP" property="datetimeLastchange" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, document_name, file_version, category, department, project, secret_level, expire_date, 
+    disable_down, resource_id, author, creator, file_type, content, work_type, main_type, 
+    sub_type, main_part, supplier, source, dead_line, is_delete, create_time, datetime_lastchange
+  </sql>
+  <select id="selectByExample" parameterType="com.foxconn.sw.data.entity.SwDocumentExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from sw_document
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <insert id="insertSelective" parameterType="com.foxconn.sw.data.entity.SwDocument">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into sw_document
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="documentName != null">
+        document_name,
+      </if>
+      <if test="fileVersion != null">
+        file_version,
+      </if>
+      <if test="category != null">
+        category,
+      </if>
+      <if test="department != null">
+        department,
+      </if>
+      <if test="project != null">
+        project,
+      </if>
+      <if test="secretLevel != null">
+        secret_level,
+      </if>
+      <if test="expireDate != null">
+        expire_date,
+      </if>
+      <if test="disableDown != null">
+        disable_down,
+      </if>
+      <if test="resourceId != null">
+        resource_id,
+      </if>
+      <if test="author != null">
+        author,
+      </if>
+      <if test="creator != null">
+        creator,
+      </if>
+      <if test="fileType != null">
+        file_type,
+      </if>
+      <if test="content != null">
+        content,
+      </if>
+      <if test="workType != null">
+        work_type,
+      </if>
+      <if test="mainType != null">
+        main_type,
+      </if>
+      <if test="subType != null">
+        sub_type,
+      </if>
+      <if test="mainPart != null">
+        main_part,
+      </if>
+      <if test="supplier != null">
+        supplier,
+      </if>
+      <if test="source != null">
+        source,
+      </if>
+      <if test="deadLine != null">
+        dead_line,
+      </if>
+      <if test="isDelete != null">
+        is_delete,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="datetimeLastchange != null">
+        datetime_lastchange,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="documentName != null">
+        #{documentName,jdbcType=VARCHAR},
+      </if>
+      <if test="fileVersion != null">
+        #{fileVersion,jdbcType=VARCHAR},
+      </if>
+      <if test="category != null">
+        #{category,jdbcType=VARCHAR},
+      </if>
+      <if test="department != null">
+        #{department,jdbcType=INTEGER},
+      </if>
+      <if test="project != null">
+        #{project,jdbcType=VARCHAR},
+      </if>
+      <if test="secretLevel != null">
+        #{secretLevel,jdbcType=INTEGER},
+      </if>
+      <if test="expireDate != null">
+        #{expireDate,jdbcType=VARCHAR},
+      </if>
+      <if test="disableDown != null">
+        #{disableDown,jdbcType=INTEGER},
+      </if>
+      <if test="resourceId != null">
+        #{resourceId,jdbcType=INTEGER},
+      </if>
+      <if test="author != null">
+        #{author,jdbcType=VARCHAR},
+      </if>
+      <if test="creator != null">
+        #{creator,jdbcType=VARCHAR},
+      </if>
+      <if test="fileType != null">
+        #{fileType,jdbcType=INTEGER},
+      </if>
+      <if test="content != null">
+        #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="workType != null">
+        #{workType,jdbcType=VARCHAR},
+      </if>
+      <if test="mainType != null">
+        #{mainType,jdbcType=VARCHAR},
+      </if>
+      <if test="subType != null">
+        #{subType,jdbcType=VARCHAR},
+      </if>
+      <if test="mainPart != null">
+        #{mainPart,jdbcType=VARCHAR},
+      </if>
+      <if test="supplier != null">
+        #{supplier,jdbcType=VARCHAR},
+      </if>
+      <if test="source != null">
+        #{source,jdbcType=VARCHAR},
+      </if>
+      <if test="deadLine != null">
+        #{deadLine,jdbcType=VARCHAR},
+      </if>
+      <if test="isDelete != null">
+        #{isDelete,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="datetimeLastchange != null">
+        #{datetimeLastchange,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByExampleSelective" parameterType="map">
+    update sw_document
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.documentName != null">
+        document_name = #{record.documentName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fileVersion != null">
+        file_version = #{record.fileVersion,jdbcType=VARCHAR},
+      </if>
+      <if test="record.category != null">
+        category = #{record.category,jdbcType=VARCHAR},
+      </if>
+      <if test="record.department != null">
+        department = #{record.department,jdbcType=INTEGER},
+      </if>
+      <if test="record.project != null">
+        project = #{record.project,jdbcType=VARCHAR},
+      </if>
+      <if test="record.secretLevel != null">
+        secret_level = #{record.secretLevel,jdbcType=INTEGER},
+      </if>
+      <if test="record.expireDate != null">
+        expire_date = #{record.expireDate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.disableDown != null">
+        disable_down = #{record.disableDown,jdbcType=INTEGER},
+      </if>
+      <if test="record.resourceId != null">
+        resource_id = #{record.resourceId,jdbcType=INTEGER},
+      </if>
+      <if test="record.author != null">
+        author = #{record.author,jdbcType=VARCHAR},
+      </if>
+      <if test="record.creator != null">
+        creator = #{record.creator,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fileType != null">
+        file_type = #{record.fileType,jdbcType=INTEGER},
+      </if>
+      <if test="record.content != null">
+        content = #{record.content,jdbcType=VARCHAR},
+      </if>
+      <if test="record.workType != null">
+        work_type = #{record.workType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mainType != null">
+        main_type = #{record.mainType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.subType != null">
+        sub_type = #{record.subType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mainPart != null">
+        main_part = #{record.mainPart,jdbcType=VARCHAR},
+      </if>
+      <if test="record.supplier != null">
+        supplier = #{record.supplier,jdbcType=VARCHAR},
+      </if>
+      <if test="record.source != null">
+        source = #{record.source,jdbcType=VARCHAR},
+      </if>
+      <if test="record.deadLine != null">
+        dead_line = #{record.deadLine,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isDelete != null">
+        is_delete = #{record.isDelete,jdbcType=INTEGER},
+      </if>
+      <if test="record.createTime != null">
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.datetimeLastchange != null">
+        datetime_lastchange = #{record.datetimeLastchange,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update sw_document
+    set id = #{record.id,jdbcType=INTEGER},
+      document_name = #{record.documentName,jdbcType=VARCHAR},
+      file_version = #{record.fileVersion,jdbcType=VARCHAR},
+      category = #{record.category,jdbcType=VARCHAR},
+      department = #{record.department,jdbcType=INTEGER},
+      project = #{record.project,jdbcType=VARCHAR},
+      secret_level = #{record.secretLevel,jdbcType=INTEGER},
+      expire_date = #{record.expireDate,jdbcType=VARCHAR},
+      disable_down = #{record.disableDown,jdbcType=INTEGER},
+      resource_id = #{record.resourceId,jdbcType=INTEGER},
+      author = #{record.author,jdbcType=VARCHAR},
+      creator = #{record.creator,jdbcType=VARCHAR},
+      file_type = #{record.fileType,jdbcType=INTEGER},
+      content = #{record.content,jdbcType=VARCHAR},
+      work_type = #{record.workType,jdbcType=VARCHAR},
+      main_type = #{record.mainType,jdbcType=VARCHAR},
+      sub_type = #{record.subType,jdbcType=VARCHAR},
+      main_part = #{record.mainPart,jdbcType=VARCHAR},
+      supplier = #{record.supplier,jdbcType=VARCHAR},
+      source = #{record.source,jdbcType=VARCHAR},
+      dead_line = #{record.deadLine,jdbcType=VARCHAR},
+      is_delete = #{record.isDelete,jdbcType=INTEGER},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      datetime_lastchange = #{record.datetimeLastchange,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.foxconn.sw.data.entity.SwDocument">
+    update sw_document
+    <set>
+      <if test="documentName != null">
+        document_name = #{documentName,jdbcType=VARCHAR},
+      </if>
+      <if test="fileVersion != null">
+        file_version = #{fileVersion,jdbcType=VARCHAR},
+      </if>
+      <if test="category != null">
+        category = #{category,jdbcType=VARCHAR},
+      </if>
+      <if test="department != null">
+        department = #{department,jdbcType=INTEGER},
+      </if>
+      <if test="project != null">
+        project = #{project,jdbcType=VARCHAR},
+      </if>
+      <if test="secretLevel != null">
+        secret_level = #{secretLevel,jdbcType=INTEGER},
+      </if>
+      <if test="expireDate != null">
+        expire_date = #{expireDate,jdbcType=VARCHAR},
+      </if>
+      <if test="disableDown != null">
+        disable_down = #{disableDown,jdbcType=INTEGER},
+      </if>
+      <if test="resourceId != null">
+        resource_id = #{resourceId,jdbcType=INTEGER},
+      </if>
+      <if test="author != null">
+        author = #{author,jdbcType=VARCHAR},
+      </if>
+      <if test="creator != null">
+        creator = #{creator,jdbcType=VARCHAR},
+      </if>
+      <if test="fileType != null">
+        file_type = #{fileType,jdbcType=INTEGER},
+      </if>
+      <if test="content != null">
+        content = #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="workType != null">
+        work_type = #{workType,jdbcType=VARCHAR},
+      </if>
+      <if test="mainType != null">
+        main_type = #{mainType,jdbcType=VARCHAR},
+      </if>
+      <if test="subType != null">
+        sub_type = #{subType,jdbcType=VARCHAR},
+      </if>
+      <if test="mainPart != null">
+        main_part = #{mainPart,jdbcType=VARCHAR},
+      </if>
+      <if test="supplier != null">
+        supplier = #{supplier,jdbcType=VARCHAR},
+      </if>
+      <if test="source != null">
+        source = #{source,jdbcType=VARCHAR},
+      </if>
+      <if test="deadLine != null">
+        dead_line = #{deadLine,jdbcType=VARCHAR},
+      </if>
+      <if test="isDelete != null">
+        is_delete = #{isDelete,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="datetimeLastchange != null">
+        datetime_lastchange = #{datetimeLastchange,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByExampleWithRowbounds" parameterType="com.foxconn.sw.data.entity.SwDocumentExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from sw_document
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExampleWithRowbounds" parameterType="com.foxconn.sw.data.entity.SwDocumentExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from sw_document
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <resultMap id="BaseResultMap" type="com.foxconn.sw.data.entity.SwDocument">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="document_name" jdbcType="VARCHAR" property="documentName" />
+    <result column="file_version" jdbcType="VARCHAR" property="fileVersion" />
+    <result column="category" jdbcType="VARCHAR" property="category" />
+    <result column="department" jdbcType="INTEGER" property="department" />
+    <result column="project" jdbcType="VARCHAR" property="project" />
+    <result column="secret_level" jdbcType="INTEGER" property="secretLevel" />
+    <result column="expire_date" jdbcType="VARCHAR" property="expireDate" />
+    <result column="disable_down" jdbcType="INTEGER" property="disableDown" />
+    <result column="resource_id" jdbcType="INTEGER" property="resourceId" />
+    <result column="author" jdbcType="VARCHAR" property="author" />
+    <result column="creator" jdbcType="VARCHAR" property="creator" />
+    <result column="file_type" jdbcType="INTEGER" property="fileType" />
+    <result column="content" jdbcType="VARCHAR" property="content" />
+    <result column="work_type" jdbcType="VARCHAR" property="workType" />
+    <result column="main_type" jdbcType="VARCHAR" property="mainType" />
+    <result column="sub_type" jdbcType="VARCHAR" property="subType" />
+    <result column="main_part" jdbcType="VARCHAR" property="mainPart" />
+    <result column="supplier" jdbcType="VARCHAR" property="supplier" />
+    <result column="source" jdbcType="VARCHAR" property="source" />
+    <result column="dead_line" jdbcType="VARCHAR" property="deadLine" />
+    <result column="is_delete" jdbcType="INTEGER" property="isDelete" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="datetime_lastchange" jdbcType="TIMESTAMP" property="datetimeLastchange" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, document_name, file_version, category, department, project, secret_level, expire_date, 
+    disable_down, resource_id, author, creator, file_type, content, work_type, main_type, 
+    sub_type, main_part, supplier, source, dead_line, is_delete, create_time, datetime_lastchange
+  </sql>
+  <select id="selectByExample" parameterType="com.foxconn.sw.data.entity.SwDocumentExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from sw_document
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <insert id="insertSelective" parameterType="com.foxconn.sw.data.entity.SwDocument">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into sw_document
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="documentName != null">
+        document_name,
+      </if>
+      <if test="fileVersion != null">
+        file_version,
+      </if>
+      <if test="category != null">
+        category,
+      </if>
+      <if test="department != null">
+        department,
+      </if>
+      <if test="project != null">
+        project,
+      </if>
+      <if test="secretLevel != null">
+        secret_level,
+      </if>
+      <if test="expireDate != null">
+        expire_date,
+      </if>
+      <if test="disableDown != null">
+        disable_down,
+      </if>
+      <if test="resourceId != null">
+        resource_id,
+      </if>
+      <if test="author != null">
+        author,
+      </if>
+      <if test="creator != null">
+        creator,
+      </if>
+      <if test="fileType != null">
+        file_type,
+      </if>
+      <if test="content != null">
+        content,
+      </if>
+      <if test="workType != null">
+        work_type,
+      </if>
+      <if test="mainType != null">
+        main_type,
+      </if>
+      <if test="subType != null">
+        sub_type,
+      </if>
+      <if test="mainPart != null">
+        main_part,
+      </if>
+      <if test="supplier != null">
+        supplier,
+      </if>
+      <if test="source != null">
+        source,
+      </if>
+      <if test="deadLine != null">
+        dead_line,
+      </if>
+      <if test="isDelete != null">
+        is_delete,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="datetimeLastchange != null">
+        datetime_lastchange,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="documentName != null">
+        #{documentName,jdbcType=VARCHAR},
+      </if>
+      <if test="fileVersion != null">
+        #{fileVersion,jdbcType=VARCHAR},
+      </if>
+      <if test="category != null">
+        #{category,jdbcType=VARCHAR},
+      </if>
+      <if test="department != null">
+        #{department,jdbcType=INTEGER},
+      </if>
+      <if test="project != null">
+        #{project,jdbcType=VARCHAR},
+      </if>
+      <if test="secretLevel != null">
+        #{secretLevel,jdbcType=INTEGER},
+      </if>
+      <if test="expireDate != null">
+        #{expireDate,jdbcType=VARCHAR},
+      </if>
+      <if test="disableDown != null">
+        #{disableDown,jdbcType=INTEGER},
+      </if>
+      <if test="resourceId != null">
+        #{resourceId,jdbcType=INTEGER},
+      </if>
+      <if test="author != null">
+        #{author,jdbcType=VARCHAR},
+      </if>
+      <if test="creator != null">
+        #{creator,jdbcType=VARCHAR},
+      </if>
+      <if test="fileType != null">
+        #{fileType,jdbcType=INTEGER},
+      </if>
+      <if test="content != null">
+        #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="workType != null">
+        #{workType,jdbcType=VARCHAR},
+      </if>
+      <if test="mainType != null">
+        #{mainType,jdbcType=VARCHAR},
+      </if>
+      <if test="subType != null">
+        #{subType,jdbcType=VARCHAR},
+      </if>
+      <if test="mainPart != null">
+        #{mainPart,jdbcType=VARCHAR},
+      </if>
+      <if test="supplier != null">
+        #{supplier,jdbcType=VARCHAR},
+      </if>
+      <if test="source != null">
+        #{source,jdbcType=VARCHAR},
+      </if>
+      <if test="deadLine != null">
+        #{deadLine,jdbcType=VARCHAR},
+      </if>
+      <if test="isDelete != null">
+        #{isDelete,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="datetimeLastchange != null">
+        #{datetimeLastchange,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByExampleSelective" parameterType="map">
+    update sw_document
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.documentName != null">
+        document_name = #{record.documentName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fileVersion != null">
+        file_version = #{record.fileVersion,jdbcType=VARCHAR},
+      </if>
+      <if test="record.category != null">
+        category = #{record.category,jdbcType=VARCHAR},
+      </if>
+      <if test="record.department != null">
+        department = #{record.department,jdbcType=INTEGER},
+      </if>
+      <if test="record.project != null">
+        project = #{record.project,jdbcType=VARCHAR},
+      </if>
+      <if test="record.secretLevel != null">
+        secret_level = #{record.secretLevel,jdbcType=INTEGER},
+      </if>
+      <if test="record.expireDate != null">
+        expire_date = #{record.expireDate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.disableDown != null">
+        disable_down = #{record.disableDown,jdbcType=INTEGER},
+      </if>
+      <if test="record.resourceId != null">
+        resource_id = #{record.resourceId,jdbcType=INTEGER},
+      </if>
+      <if test="record.author != null">
+        author = #{record.author,jdbcType=VARCHAR},
+      </if>
+      <if test="record.creator != null">
+        creator = #{record.creator,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fileType != null">
+        file_type = #{record.fileType,jdbcType=INTEGER},
+      </if>
+      <if test="record.content != null">
+        content = #{record.content,jdbcType=VARCHAR},
+      </if>
+      <if test="record.workType != null">
+        work_type = #{record.workType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mainType != null">
+        main_type = #{record.mainType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.subType != null">
+        sub_type = #{record.subType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mainPart != null">
+        main_part = #{record.mainPart,jdbcType=VARCHAR},
+      </if>
+      <if test="record.supplier != null">
+        supplier = #{record.supplier,jdbcType=VARCHAR},
+      </if>
+      <if test="record.source != null">
+        source = #{record.source,jdbcType=VARCHAR},
+      </if>
+      <if test="record.deadLine != null">
+        dead_line = #{record.deadLine,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isDelete != null">
+        is_delete = #{record.isDelete,jdbcType=INTEGER},
+      </if>
+      <if test="record.createTime != null">
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.datetimeLastchange != null">
+        datetime_lastchange = #{record.datetimeLastchange,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update sw_document
+    set id = #{record.id,jdbcType=INTEGER},
+      document_name = #{record.documentName,jdbcType=VARCHAR},
+      file_version = #{record.fileVersion,jdbcType=VARCHAR},
+      category = #{record.category,jdbcType=VARCHAR},
+      department = #{record.department,jdbcType=INTEGER},
+      project = #{record.project,jdbcType=VARCHAR},
+      secret_level = #{record.secretLevel,jdbcType=INTEGER},
+      expire_date = #{record.expireDate,jdbcType=VARCHAR},
+      disable_down = #{record.disableDown,jdbcType=INTEGER},
+      resource_id = #{record.resourceId,jdbcType=INTEGER},
+      author = #{record.author,jdbcType=VARCHAR},
+      creator = #{record.creator,jdbcType=VARCHAR},
+      file_type = #{record.fileType,jdbcType=INTEGER},
+      content = #{record.content,jdbcType=VARCHAR},
+      work_type = #{record.workType,jdbcType=VARCHAR},
+      main_type = #{record.mainType,jdbcType=VARCHAR},
+      sub_type = #{record.subType,jdbcType=VARCHAR},
+      main_part = #{record.mainPart,jdbcType=VARCHAR},
+      supplier = #{record.supplier,jdbcType=VARCHAR},
+      source = #{record.source,jdbcType=VARCHAR},
+      dead_line = #{record.deadLine,jdbcType=VARCHAR},
+      is_delete = #{record.isDelete,jdbcType=INTEGER},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      datetime_lastchange = #{record.datetimeLastchange,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.foxconn.sw.data.entity.SwDocument">
+    update sw_document
+    <set>
+      <if test="documentName != null">
+        document_name = #{documentName,jdbcType=VARCHAR},
+      </if>
+      <if test="fileVersion != null">
+        file_version = #{fileVersion,jdbcType=VARCHAR},
+      </if>
+      <if test="category != null">
+        category = #{category,jdbcType=VARCHAR},
+      </if>
+      <if test="department != null">
+        department = #{department,jdbcType=INTEGER},
+      </if>
+      <if test="project != null">
+        project = #{project,jdbcType=VARCHAR},
+      </if>
+      <if test="secretLevel != null">
+        secret_level = #{secretLevel,jdbcType=INTEGER},
+      </if>
+      <if test="expireDate != null">
+        expire_date = #{expireDate,jdbcType=VARCHAR},
+      </if>
+      <if test="disableDown != null">
+        disable_down = #{disableDown,jdbcType=INTEGER},
+      </if>
+      <if test="resourceId != null">
+        resource_id = #{resourceId,jdbcType=INTEGER},
+      </if>
+      <if test="author != null">
+        author = #{author,jdbcType=VARCHAR},
+      </if>
+      <if test="creator != null">
+        creator = #{creator,jdbcType=VARCHAR},
+      </if>
+      <if test="fileType != null">
+        file_type = #{fileType,jdbcType=INTEGER},
+      </if>
+      <if test="content != null">
+        content = #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="workType != null">
+        work_type = #{workType,jdbcType=VARCHAR},
+      </if>
+      <if test="mainType != null">
+        main_type = #{mainType,jdbcType=VARCHAR},
+      </if>
+      <if test="subType != null">
+        sub_type = #{subType,jdbcType=VARCHAR},
+      </if>
+      <if test="mainPart != null">
+        main_part = #{mainPart,jdbcType=VARCHAR},
+      </if>
+      <if test="supplier != null">
+        supplier = #{supplier,jdbcType=VARCHAR},
+      </if>
+      <if test="source != null">
+        source = #{source,jdbcType=VARCHAR},
+      </if>
+      <if test="deadLine != null">
+        dead_line = #{deadLine,jdbcType=VARCHAR},
+      </if>
+      <if test="isDelete != null">
+        is_delete = #{isDelete,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="datetimeLastchange != null">
+        datetime_lastchange = #{datetimeLastchange,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByExampleWithRowbounds" parameterType="com.foxconn.sw.data.entity.SwDocumentExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from sw_document
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <resultMap id="BaseResultMap" type="com.foxconn.sw.data.entity.SwDocument">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="document_name" jdbcType="VARCHAR" property="documentName" />
+    <result column="file_version" jdbcType="VARCHAR" property="fileVersion" />
+    <result column="category" jdbcType="VARCHAR" property="category" />
+    <result column="department" jdbcType="INTEGER" property="department" />
+    <result column="project" jdbcType="VARCHAR" property="project" />
+    <result column="secret_level" jdbcType="INTEGER" property="secretLevel" />
+    <result column="expire_date" jdbcType="VARCHAR" property="expireDate" />
+    <result column="disable_down" jdbcType="INTEGER" property="disableDown" />
+    <result column="resource_id" jdbcType="INTEGER" property="resourceId" />
+    <result column="author" jdbcType="VARCHAR" property="author" />
+    <result column="creator" jdbcType="VARCHAR" property="creator" />
+    <result column="file_type" jdbcType="INTEGER" property="fileType" />
+    <result column="content" jdbcType="VARCHAR" property="content" />
+    <result column="work_type" jdbcType="VARCHAR" property="workType" />
+    <result column="main_type" jdbcType="VARCHAR" property="mainType" />
+    <result column="sub_type" jdbcType="VARCHAR" property="subType" />
+    <result column="main_part" jdbcType="VARCHAR" property="mainPart" />
+    <result column="supplier" jdbcType="VARCHAR" property="supplier" />
+    <result column="source" jdbcType="VARCHAR" property="source" />
+    <result column="dead_line" jdbcType="VARCHAR" property="deadLine" />
+    <result column="is_delete" jdbcType="INTEGER" property="isDelete" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="datetime_lastchange" jdbcType="TIMESTAMP" property="datetimeLastchange" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, document_name, file_version, category, department, project, secret_level, expire_date, 
+    disable_down, resource_id, author, creator, file_type, content, work_type, main_type, 
+    sub_type, main_part, supplier, source, dead_line, is_delete, create_time, datetime_lastchange
+  </sql>
+  <select id="selectByExample" parameterType="com.foxconn.sw.data.entity.SwDocumentExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from sw_document
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <insert id="insertSelective" parameterType="com.foxconn.sw.data.entity.SwDocument">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into sw_document
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="documentName != null">
+        document_name,
+      </if>
+      <if test="fileVersion != null">
+        file_version,
+      </if>
+      <if test="category != null">
+        category,
+      </if>
+      <if test="department != null">
+        department,
+      </if>
+      <if test="project != null">
+        project,
+      </if>
+      <if test="secretLevel != null">
+        secret_level,
+      </if>
+      <if test="expireDate != null">
+        expire_date,
+      </if>
+      <if test="disableDown != null">
+        disable_down,
+      </if>
+      <if test="resourceId != null">
+        resource_id,
+      </if>
+      <if test="author != null">
+        author,
+      </if>
+      <if test="creator != null">
+        creator,
+      </if>
+      <if test="fileType != null">
+        file_type,
+      </if>
+      <if test="content != null">
+        content,
+      </if>
+      <if test="workType != null">
+        work_type,
+      </if>
+      <if test="mainType != null">
+        main_type,
+      </if>
+      <if test="subType != null">
+        sub_type,
+      </if>
+      <if test="mainPart != null">
+        main_part,
+      </if>
+      <if test="supplier != null">
+        supplier,
+      </if>
+      <if test="source != null">
+        source,
+      </if>
+      <if test="deadLine != null">
+        dead_line,
+      </if>
+      <if test="isDelete != null">
+        is_delete,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="datetimeLastchange != null">
+        datetime_lastchange,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="documentName != null">
+        #{documentName,jdbcType=VARCHAR},
+      </if>
+      <if test="fileVersion != null">
+        #{fileVersion,jdbcType=VARCHAR},
+      </if>
+      <if test="category != null">
+        #{category,jdbcType=VARCHAR},
+      </if>
+      <if test="department != null">
+        #{department,jdbcType=INTEGER},
+      </if>
+      <if test="project != null">
+        #{project,jdbcType=VARCHAR},
+      </if>
+      <if test="secretLevel != null">
+        #{secretLevel,jdbcType=INTEGER},
+      </if>
+      <if test="expireDate != null">
+        #{expireDate,jdbcType=VARCHAR},
+      </if>
+      <if test="disableDown != null">
+        #{disableDown,jdbcType=INTEGER},
+      </if>
+      <if test="resourceId != null">
+        #{resourceId,jdbcType=INTEGER},
+      </if>
+      <if test="author != null">
+        #{author,jdbcType=VARCHAR},
+      </if>
+      <if test="creator != null">
+        #{creator,jdbcType=VARCHAR},
+      </if>
+      <if test="fileType != null">
+        #{fileType,jdbcType=INTEGER},
+      </if>
+      <if test="content != null">
+        #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="workType != null">
+        #{workType,jdbcType=VARCHAR},
+      </if>
+      <if test="mainType != null">
+        #{mainType,jdbcType=VARCHAR},
+      </if>
+      <if test="subType != null">
+        #{subType,jdbcType=VARCHAR},
+      </if>
+      <if test="mainPart != null">
+        #{mainPart,jdbcType=VARCHAR},
+      </if>
+      <if test="supplier != null">
+        #{supplier,jdbcType=VARCHAR},
+      </if>
+      <if test="source != null">
+        #{source,jdbcType=VARCHAR},
+      </if>
+      <if test="deadLine != null">
+        #{deadLine,jdbcType=VARCHAR},
+      </if>
+      <if test="isDelete != null">
+        #{isDelete,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="datetimeLastchange != null">
+        #{datetimeLastchange,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByExampleSelective" parameterType="map">
+    update sw_document
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.documentName != null">
+        document_name = #{record.documentName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fileVersion != null">
+        file_version = #{record.fileVersion,jdbcType=VARCHAR},
+      </if>
+      <if test="record.category != null">
+        category = #{record.category,jdbcType=VARCHAR},
+      </if>
+      <if test="record.department != null">
+        department = #{record.department,jdbcType=INTEGER},
+      </if>
+      <if test="record.project != null">
+        project = #{record.project,jdbcType=VARCHAR},
+      </if>
+      <if test="record.secretLevel != null">
+        secret_level = #{record.secretLevel,jdbcType=INTEGER},
+      </if>
+      <if test="record.expireDate != null">
+        expire_date = #{record.expireDate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.disableDown != null">
+        disable_down = #{record.disableDown,jdbcType=INTEGER},
+      </if>
+      <if test="record.resourceId != null">
+        resource_id = #{record.resourceId,jdbcType=INTEGER},
+      </if>
+      <if test="record.author != null">
+        author = #{record.author,jdbcType=VARCHAR},
+      </if>
+      <if test="record.creator != null">
+        creator = #{record.creator,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fileType != null">
+        file_type = #{record.fileType,jdbcType=INTEGER},
+      </if>
+      <if test="record.content != null">
+        content = #{record.content,jdbcType=VARCHAR},
+      </if>
+      <if test="record.workType != null">
+        work_type = #{record.workType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mainType != null">
+        main_type = #{record.mainType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.subType != null">
+        sub_type = #{record.subType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mainPart != null">
+        main_part = #{record.mainPart,jdbcType=VARCHAR},
+      </if>
+      <if test="record.supplier != null">
+        supplier = #{record.supplier,jdbcType=VARCHAR},
+      </if>
+      <if test="record.source != null">
+        source = #{record.source,jdbcType=VARCHAR},
+      </if>
+      <if test="record.deadLine != null">
+        dead_line = #{record.deadLine,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isDelete != null">
+        is_delete = #{record.isDelete,jdbcType=INTEGER},
+      </if>
+      <if test="record.createTime != null">
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.datetimeLastchange != null">
+        datetime_lastchange = #{record.datetimeLastchange,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update sw_document
+    set id = #{record.id,jdbcType=INTEGER},
+      document_name = #{record.documentName,jdbcType=VARCHAR},
+      file_version = #{record.fileVersion,jdbcType=VARCHAR},
+      category = #{record.category,jdbcType=VARCHAR},
+      department = #{record.department,jdbcType=INTEGER},
+      project = #{record.project,jdbcType=VARCHAR},
+      secret_level = #{record.secretLevel,jdbcType=INTEGER},
+      expire_date = #{record.expireDate,jdbcType=VARCHAR},
+      disable_down = #{record.disableDown,jdbcType=INTEGER},
+      resource_id = #{record.resourceId,jdbcType=INTEGER},
+      author = #{record.author,jdbcType=VARCHAR},
+      creator = #{record.creator,jdbcType=VARCHAR},
+      file_type = #{record.fileType,jdbcType=INTEGER},
+      content = #{record.content,jdbcType=VARCHAR},
+      work_type = #{record.workType,jdbcType=VARCHAR},
+      main_type = #{record.mainType,jdbcType=VARCHAR},
+      sub_type = #{record.subType,jdbcType=VARCHAR},
+      main_part = #{record.mainPart,jdbcType=VARCHAR},
+      supplier = #{record.supplier,jdbcType=VARCHAR},
+      source = #{record.source,jdbcType=VARCHAR},
+      dead_line = #{record.deadLine,jdbcType=VARCHAR},
+      is_delete = #{record.isDelete,jdbcType=INTEGER},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      datetime_lastchange = #{record.datetimeLastchange,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.foxconn.sw.data.entity.SwDocument">
+    update sw_document
+    <set>
+      <if test="documentName != null">
+        document_name = #{documentName,jdbcType=VARCHAR},
+      </if>
+      <if test="fileVersion != null">
+        file_version = #{fileVersion,jdbcType=VARCHAR},
+      </if>
+      <if test="category != null">
+        category = #{category,jdbcType=VARCHAR},
+      </if>
+      <if test="department != null">
+        department = #{department,jdbcType=INTEGER},
+      </if>
+      <if test="project != null">
+        project = #{project,jdbcType=VARCHAR},
+      </if>
+      <if test="secretLevel != null">
+        secret_level = #{secretLevel,jdbcType=INTEGER},
+      </if>
+      <if test="expireDate != null">
+        expire_date = #{expireDate,jdbcType=VARCHAR},
+      </if>
+      <if test="disableDown != null">
+        disable_down = #{disableDown,jdbcType=INTEGER},
+      </if>
+      <if test="resourceId != null">
+        resource_id = #{resourceId,jdbcType=INTEGER},
+      </if>
+      <if test="author != null">
+        author = #{author,jdbcType=VARCHAR},
+      </if>
+      <if test="creator != null">
+        creator = #{creator,jdbcType=VARCHAR},
+      </if>
+      <if test="fileType != null">
+        file_type = #{fileType,jdbcType=INTEGER},
+      </if>
+      <if test="content != null">
+        content = #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="workType != null">
+        work_type = #{workType,jdbcType=VARCHAR},
+      </if>
+      <if test="mainType != null">
+        main_type = #{mainType,jdbcType=VARCHAR},
+      </if>
+      <if test="subType != null">
+        sub_type = #{subType,jdbcType=VARCHAR},
+      </if>
+      <if test="mainPart != null">
+        main_part = #{mainPart,jdbcType=VARCHAR},
+      </if>
+      <if test="supplier != null">
+        supplier = #{supplier,jdbcType=VARCHAR},
+      </if>
+      <if test="source != null">
+        source = #{source,jdbcType=VARCHAR},
+      </if>
+      <if test="deadLine != null">
+        dead_line = #{deadLine,jdbcType=VARCHAR},
+      </if>
+      <if test="isDelete != null">
+        is_delete = #{isDelete,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="datetimeLastchange != null">
+        datetime_lastchange = #{datetimeLastchange,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByExampleWithRowbounds" parameterType="com.foxconn.sw.data.entity.SwDocumentExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from sw_document
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExampleWithRowbounds" parameterType="com.foxconn.sw.data.entity.SwDocumentExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from sw_document
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <resultMap id="BaseResultMap" type="com.foxconn.sw.data.entity.SwDocument">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="document_name" jdbcType="VARCHAR" property="documentName" />
+    <result column="file_version" jdbcType="VARCHAR" property="fileVersion" />
+    <result column="category" jdbcType="VARCHAR" property="category" />
+    <result column="department" jdbcType="INTEGER" property="department" />
+    <result column="project" jdbcType="VARCHAR" property="project" />
+    <result column="secret_level" jdbcType="INTEGER" property="secretLevel" />
+    <result column="expire_date" jdbcType="VARCHAR" property="expireDate" />
+    <result column="disable_down" jdbcType="INTEGER" property="disableDown" />
+    <result column="resource_id" jdbcType="INTEGER" property="resourceId" />
+    <result column="author" jdbcType="VARCHAR" property="author" />
+    <result column="creator" jdbcType="VARCHAR" property="creator" />
+    <result column="file_type" jdbcType="INTEGER" property="fileType" />
+    <result column="content" jdbcType="VARCHAR" property="content" />
+    <result column="work_type" jdbcType="VARCHAR" property="workType" />
+    <result column="main_type" jdbcType="VARCHAR" property="mainType" />
+    <result column="sub_type" jdbcType="VARCHAR" property="subType" />
+    <result column="main_part" jdbcType="VARCHAR" property="mainPart" />
+    <result column="supplier" jdbcType="VARCHAR" property="supplier" />
+    <result column="source" jdbcType="VARCHAR" property="source" />
+    <result column="dead_line" jdbcType="VARCHAR" property="deadLine" />
+    <result column="is_delete" jdbcType="INTEGER" property="isDelete" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="datetime_lastchange" jdbcType="TIMESTAMP" property="datetimeLastchange" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, document_name, file_version, category, department, project, secret_level, expire_date, 
+    disable_down, resource_id, author, creator, file_type, content, work_type, main_type, 
+    sub_type, main_part, supplier, source, dead_line, is_delete, create_time, datetime_lastchange
+  </sql>
+  <select id="selectByExample" parameterType="com.foxconn.sw.data.entity.SwDocumentExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from sw_document
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <insert id="insertSelective" parameterType="com.foxconn.sw.data.entity.SwDocument">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into sw_document
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="documentName != null">
+        document_name,
+      </if>
+      <if test="fileVersion != null">
+        file_version,
+      </if>
+      <if test="category != null">
+        category,
+      </if>
+      <if test="department != null">
+        department,
+      </if>
+      <if test="project != null">
+        project,
+      </if>
+      <if test="secretLevel != null">
+        secret_level,
+      </if>
+      <if test="expireDate != null">
+        expire_date,
+      </if>
+      <if test="disableDown != null">
+        disable_down,
+      </if>
+      <if test="resourceId != null">
+        resource_id,
+      </if>
+      <if test="author != null">
+        author,
+      </if>
+      <if test="creator != null">
+        creator,
+      </if>
+      <if test="fileType != null">
+        file_type,
+      </if>
+      <if test="content != null">
+        content,
+      </if>
+      <if test="workType != null">
+        work_type,
+      </if>
+      <if test="mainType != null">
+        main_type,
+      </if>
+      <if test="subType != null">
+        sub_type,
+      </if>
+      <if test="mainPart != null">
+        main_part,
+      </if>
+      <if test="supplier != null">
+        supplier,
+      </if>
+      <if test="source != null">
+        source,
+      </if>
+      <if test="deadLine != null">
+        dead_line,
+      </if>
+      <if test="isDelete != null">
+        is_delete,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="datetimeLastchange != null">
+        datetime_lastchange,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="documentName != null">
+        #{documentName,jdbcType=VARCHAR},
+      </if>
+      <if test="fileVersion != null">
+        #{fileVersion,jdbcType=VARCHAR},
+      </if>
+      <if test="category != null">
+        #{category,jdbcType=VARCHAR},
+      </if>
+      <if test="department != null">
+        #{department,jdbcType=INTEGER},
+      </if>
+      <if test="project != null">
+        #{project,jdbcType=VARCHAR},
+      </if>
+      <if test="secretLevel != null">
+        #{secretLevel,jdbcType=INTEGER},
+      </if>
+      <if test="expireDate != null">
+        #{expireDate,jdbcType=VARCHAR},
+      </if>
+      <if test="disableDown != null">
+        #{disableDown,jdbcType=INTEGER},
+      </if>
+      <if test="resourceId != null">
+        #{resourceId,jdbcType=INTEGER},
+      </if>
+      <if test="author != null">
+        #{author,jdbcType=VARCHAR},
+      </if>
+      <if test="creator != null">
+        #{creator,jdbcType=VARCHAR},
+      </if>
+      <if test="fileType != null">
+        #{fileType,jdbcType=INTEGER},
+      </if>
+      <if test="content != null">
+        #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="workType != null">
+        #{workType,jdbcType=VARCHAR},
+      </if>
+      <if test="mainType != null">
+        #{mainType,jdbcType=VARCHAR},
+      </if>
+      <if test="subType != null">
+        #{subType,jdbcType=VARCHAR},
+      </if>
+      <if test="mainPart != null">
+        #{mainPart,jdbcType=VARCHAR},
+      </if>
+      <if test="supplier != null">
+        #{supplier,jdbcType=VARCHAR},
+      </if>
+      <if test="source != null">
+        #{source,jdbcType=VARCHAR},
+      </if>
+      <if test="deadLine != null">
+        #{deadLine,jdbcType=VARCHAR},
+      </if>
+      <if test="isDelete != null">
+        #{isDelete,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="datetimeLastchange != null">
+        #{datetimeLastchange,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByExampleSelective" parameterType="map">
+    update sw_document
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.documentName != null">
+        document_name = #{record.documentName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fileVersion != null">
+        file_version = #{record.fileVersion,jdbcType=VARCHAR},
+      </if>
+      <if test="record.category != null">
+        category = #{record.category,jdbcType=VARCHAR},
+      </if>
+      <if test="record.department != null">
+        department = #{record.department,jdbcType=INTEGER},
+      </if>
+      <if test="record.project != null">
+        project = #{record.project,jdbcType=VARCHAR},
+      </if>
+      <if test="record.secretLevel != null">
+        secret_level = #{record.secretLevel,jdbcType=INTEGER},
+      </if>
+      <if test="record.expireDate != null">
+        expire_date = #{record.expireDate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.disableDown != null">
+        disable_down = #{record.disableDown,jdbcType=INTEGER},
+      </if>
+      <if test="record.resourceId != null">
+        resource_id = #{record.resourceId,jdbcType=INTEGER},
+      </if>
+      <if test="record.author != null">
+        author = #{record.author,jdbcType=VARCHAR},
+      </if>
+      <if test="record.creator != null">
+        creator = #{record.creator,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fileType != null">
+        file_type = #{record.fileType,jdbcType=INTEGER},
+      </if>
+      <if test="record.content != null">
+        content = #{record.content,jdbcType=VARCHAR},
+      </if>
+      <if test="record.workType != null">
+        work_type = #{record.workType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mainType != null">
+        main_type = #{record.mainType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.subType != null">
+        sub_type = #{record.subType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mainPart != null">
+        main_part = #{record.mainPart,jdbcType=VARCHAR},
+      </if>
+      <if test="record.supplier != null">
+        supplier = #{record.supplier,jdbcType=VARCHAR},
+      </if>
+      <if test="record.source != null">
+        source = #{record.source,jdbcType=VARCHAR},
+      </if>
+      <if test="record.deadLine != null">
+        dead_line = #{record.deadLine,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isDelete != null">
+        is_delete = #{record.isDelete,jdbcType=INTEGER},
+      </if>
+      <if test="record.createTime != null">
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.datetimeLastchange != null">
+        datetime_lastchange = #{record.datetimeLastchange,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update sw_document
+    set id = #{record.id,jdbcType=INTEGER},
+      document_name = #{record.documentName,jdbcType=VARCHAR},
+      file_version = #{record.fileVersion,jdbcType=VARCHAR},
+      category = #{record.category,jdbcType=VARCHAR},
+      department = #{record.department,jdbcType=INTEGER},
+      project = #{record.project,jdbcType=VARCHAR},
+      secret_level = #{record.secretLevel,jdbcType=INTEGER},
+      expire_date = #{record.expireDate,jdbcType=VARCHAR},
+      disable_down = #{record.disableDown,jdbcType=INTEGER},
+      resource_id = #{record.resourceId,jdbcType=INTEGER},
+      author = #{record.author,jdbcType=VARCHAR},
+      creator = #{record.creator,jdbcType=VARCHAR},
+      file_type = #{record.fileType,jdbcType=INTEGER},
+      content = #{record.content,jdbcType=VARCHAR},
+      work_type = #{record.workType,jdbcType=VARCHAR},
+      main_type = #{record.mainType,jdbcType=VARCHAR},
+      sub_type = #{record.subType,jdbcType=VARCHAR},
+      main_part = #{record.mainPart,jdbcType=VARCHAR},
+      supplier = #{record.supplier,jdbcType=VARCHAR},
+      source = #{record.source,jdbcType=VARCHAR},
+      dead_line = #{record.deadLine,jdbcType=VARCHAR},
+      is_delete = #{record.isDelete,jdbcType=INTEGER},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      datetime_lastchange = #{record.datetimeLastchange,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.foxconn.sw.data.entity.SwDocument">
+    update sw_document
+    <set>
+      <if test="documentName != null">
+        document_name = #{documentName,jdbcType=VARCHAR},
+      </if>
+      <if test="fileVersion != null">
+        file_version = #{fileVersion,jdbcType=VARCHAR},
+      </if>
+      <if test="category != null">
+        category = #{category,jdbcType=VARCHAR},
+      </if>
+      <if test="department != null">
+        department = #{department,jdbcType=INTEGER},
+      </if>
+      <if test="project != null">
+        project = #{project,jdbcType=VARCHAR},
+      </if>
+      <if test="secretLevel != null">
+        secret_level = #{secretLevel,jdbcType=INTEGER},
+      </if>
+      <if test="expireDate != null">
+        expire_date = #{expireDate,jdbcType=VARCHAR},
+      </if>
+      <if test="disableDown != null">
+        disable_down = #{disableDown,jdbcType=INTEGER},
+      </if>
+      <if test="resourceId != null">
+        resource_id = #{resourceId,jdbcType=INTEGER},
+      </if>
+      <if test="author != null">
+        author = #{author,jdbcType=VARCHAR},
+      </if>
+      <if test="creator != null">
+        creator = #{creator,jdbcType=VARCHAR},
+      </if>
+      <if test="fileType != null">
+        file_type = #{fileType,jdbcType=INTEGER},
+      </if>
+      <if test="content != null">
+        content = #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="workType != null">
+        work_type = #{workType,jdbcType=VARCHAR},
+      </if>
+      <if test="mainType != null">
+        main_type = #{mainType,jdbcType=VARCHAR},
+      </if>
+      <if test="subType != null">
+        sub_type = #{subType,jdbcType=VARCHAR},
+      </if>
+      <if test="mainPart != null">
+        main_part = #{mainPart,jdbcType=VARCHAR},
+      </if>
+      <if test="supplier != null">
+        supplier = #{supplier,jdbcType=VARCHAR},
+      </if>
+      <if test="source != null">
+        source = #{source,jdbcType=VARCHAR},
+      </if>
+      <if test="deadLine != null">
+        dead_line = #{deadLine,jdbcType=VARCHAR},
+      </if>
+      <if test="isDelete != null">
+        is_delete = #{isDelete,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="datetimeLastchange != null">
+        datetime_lastchange = #{datetimeLastchange,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByExampleWithRowbounds" parameterType="com.foxconn.sw.data.entity.SwDocumentExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from sw_document
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+</mapper>

@@ -3,22 +3,26 @@ package com.foxconn.sw.data.mapper.auto;
 import com.foxconn.sw.data.entity.SwTaskEvaluation;
 import com.foxconn.sw.data.entity.SwTaskEvaluationExample;
 import java.util.List;
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.InsertProvider;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Result;
-import org.apache.ibatis.annotations.Results;
+import org.apache.ibatis.annotations.ResultMap;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.SelectKey;
-import org.apache.ibatis.annotations.SelectProvider;
 import org.apache.ibatis.annotations.Update;
-import org.apache.ibatis.annotations.UpdateProvider;
 import org.apache.ibatis.session.RowBounds;
-import org.apache.ibatis.type.JdbcType;
 
 @Mapper
 public interface SwTaskEvaluationMapper {
+    int deleteByExample(SwTaskEvaluationExample example);
+
+    @Delete({
+        "delete from sw_task_evaluation",
+        "where id = #{id,jdbcType=INTEGER}"
+    })
+    int deleteByPrimaryKey(Integer id);
+
     @Insert({
         "insert into sw_task_evaluation (task_id, operator, ",
         "completion, efficiency, ",
@@ -32,34 +36,10 @@ public interface SwTaskEvaluationMapper {
     @SelectKey(statement="SELECT LAST_INSERT_ID()", keyProperty="id", before=false, resultType=Integer.class)
     int insert(SwTaskEvaluation record);
 
-    @InsertProvider(type=SwTaskEvaluationSqlProvider.class, method="insertSelective")
-    @SelectKey(statement="SELECT LAST_INSERT_ID()", keyProperty="id", before=false, resultType=Integer.class)
     int insertSelective(SwTaskEvaluation record);
 
-    @SelectProvider(type=SwTaskEvaluationSqlProvider.class, method="selectByExample")
-    @Results({
-        @Result(column="id", property="id", jdbcType=JdbcType.INTEGER, id=true),
-        @Result(column="task_id", property="taskId", jdbcType=JdbcType.INTEGER),
-        @Result(column="operator", property="operator", jdbcType=JdbcType.VARCHAR),
-        @Result(column="completion", property="completion", jdbcType=JdbcType.INTEGER),
-        @Result(column="efficiency", property="efficiency", jdbcType=JdbcType.INTEGER),
-        @Result(column="quality", property="quality", jdbcType=JdbcType.INTEGER),
-        @Result(column="content", property="content", jdbcType=JdbcType.VARCHAR),
-        @Result(column="create_time", property="createTime", jdbcType=JdbcType.TIMESTAMP)
-    })
     List<SwTaskEvaluation> selectByExampleWithRowbounds(SwTaskEvaluationExample example, RowBounds rowBounds);
 
-    @SelectProvider(type=SwTaskEvaluationSqlProvider.class, method="selectByExample")
-    @Results({
-        @Result(column="id", property="id", jdbcType=JdbcType.INTEGER, id=true),
-        @Result(column="task_id", property="taskId", jdbcType=JdbcType.INTEGER),
-        @Result(column="operator", property="operator", jdbcType=JdbcType.VARCHAR),
-        @Result(column="completion", property="completion", jdbcType=JdbcType.INTEGER),
-        @Result(column="efficiency", property="efficiency", jdbcType=JdbcType.INTEGER),
-        @Result(column="quality", property="quality", jdbcType=JdbcType.INTEGER),
-        @Result(column="content", property="content", jdbcType=JdbcType.VARCHAR),
-        @Result(column="create_time", property="createTime", jdbcType=JdbcType.TIMESTAMP)
-    })
     List<SwTaskEvaluation> selectByExample(SwTaskEvaluationExample example);
 
     @Select({
@@ -68,25 +48,13 @@ public interface SwTaskEvaluationMapper {
         "from sw_task_evaluation",
         "where id = #{id,jdbcType=INTEGER}"
     })
-    @Results({
-        @Result(column="id", property="id", jdbcType=JdbcType.INTEGER, id=true),
-        @Result(column="task_id", property="taskId", jdbcType=JdbcType.INTEGER),
-        @Result(column="operator", property="operator", jdbcType=JdbcType.VARCHAR),
-        @Result(column="completion", property="completion", jdbcType=JdbcType.INTEGER),
-        @Result(column="efficiency", property="efficiency", jdbcType=JdbcType.INTEGER),
-        @Result(column="quality", property="quality", jdbcType=JdbcType.INTEGER),
-        @Result(column="content", property="content", jdbcType=JdbcType.VARCHAR),
-        @Result(column="create_time", property="createTime", jdbcType=JdbcType.TIMESTAMP)
-    })
+    @ResultMap("com.foxconn.sw.data.mapper.auto.SwTaskEvaluationMapper.BaseResultMap")
     SwTaskEvaluation selectByPrimaryKey(Integer id);
 
-    @UpdateProvider(type=SwTaskEvaluationSqlProvider.class, method="updateByExampleSelective")
     int updateByExampleSelective(@Param("record") SwTaskEvaluation record, @Param("example") SwTaskEvaluationExample example);
 
-    @UpdateProvider(type=SwTaskEvaluationSqlProvider.class, method="updateByExample")
     int updateByExample(@Param("record") SwTaskEvaluation record, @Param("example") SwTaskEvaluationExample example);
 
-    @UpdateProvider(type=SwTaskEvaluationSqlProvider.class, method="updateByPrimaryKeySelective")
     int updateByPrimaryKeySelective(SwTaskEvaluation record);
 
     @Update({

@@ -3,22 +3,26 @@ package com.foxconn.sw.data.mapper.auto;
 import com.foxconn.sw.data.entity.SwTaskEmployeeRelation;
 import com.foxconn.sw.data.entity.SwTaskEmployeeRelationExample;
 import java.util.List;
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.InsertProvider;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Result;
-import org.apache.ibatis.annotations.Results;
+import org.apache.ibatis.annotations.ResultMap;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.SelectKey;
-import org.apache.ibatis.annotations.SelectProvider;
 import org.apache.ibatis.annotations.Update;
-import org.apache.ibatis.annotations.UpdateProvider;
 import org.apache.ibatis.session.RowBounds;
-import org.apache.ibatis.type.JdbcType;
 
 @Mapper
 public interface SwTaskEmployeeRelationMapper {
+    int deleteByExample(SwTaskEmployeeRelationExample example);
+
+    @Delete({
+        "delete from sw_task_employee_relation",
+        "where id = #{id,jdbcType=INTEGER}"
+    })
+    int deleteByPrimaryKey(Integer id);
+
     @Insert({
         "insert into sw_task_employee_relation (task_id, employee_no, ",
         "prev_id, role_flag, ",
@@ -36,42 +40,10 @@ public interface SwTaskEmployeeRelationMapper {
     @SelectKey(statement="SELECT LAST_INSERT_ID()", keyProperty="id", before=false, resultType=Integer.class)
     int insert(SwTaskEmployeeRelation record);
 
-    @InsertProvider(type=SwTaskEmployeeRelationSqlProvider.class, method="insertSelective")
-    @SelectKey(statement="SELECT LAST_INSERT_ID()", keyProperty="id", before=false, resultType=Integer.class)
     int insertSelective(SwTaskEmployeeRelation record);
 
-    @SelectProvider(type=SwTaskEmployeeRelationSqlProvider.class, method="selectByExample")
-    @Results({
-        @Result(column="id", property="id", jdbcType=JdbcType.INTEGER, id=true),
-        @Result(column="task_id", property="taskId", jdbcType=JdbcType.INTEGER),
-        @Result(column="employee_no", property="employeeNo", jdbcType=JdbcType.VARCHAR),
-        @Result(column="prev_id", property="prevId", jdbcType=JdbcType.INTEGER),
-        @Result(column="role_flag", property="roleFlag", jdbcType=JdbcType.INTEGER),
-        @Result(column="is_active", property="isActive", jdbcType=JdbcType.INTEGER),
-        @Result(column="is_inspector", property="isInspector", jdbcType=JdbcType.INTEGER),
-        @Result(column="is_read", property="isRead", jdbcType=JdbcType.INTEGER),
-        @Result(column="process_status", property="processStatus", jdbcType=JdbcType.INTEGER),
-        @Result(column="is_delete", property="isDelete", jdbcType=JdbcType.INTEGER),
-        @Result(column="create_time", property="createTime", jdbcType=JdbcType.TIMESTAMP),
-        @Result(column="datetime_lastchange", property="datetimeLastchange", jdbcType=JdbcType.TIMESTAMP)
-    })
     List<SwTaskEmployeeRelation> selectByExampleWithRowbounds(SwTaskEmployeeRelationExample example, RowBounds rowBounds);
 
-    @SelectProvider(type=SwTaskEmployeeRelationSqlProvider.class, method="selectByExample")
-    @Results({
-        @Result(column="id", property="id", jdbcType=JdbcType.INTEGER, id=true),
-        @Result(column="task_id", property="taskId", jdbcType=JdbcType.INTEGER),
-        @Result(column="employee_no", property="employeeNo", jdbcType=JdbcType.VARCHAR),
-        @Result(column="prev_id", property="prevId", jdbcType=JdbcType.INTEGER),
-        @Result(column="role_flag", property="roleFlag", jdbcType=JdbcType.INTEGER),
-        @Result(column="is_active", property="isActive", jdbcType=JdbcType.INTEGER),
-        @Result(column="is_inspector", property="isInspector", jdbcType=JdbcType.INTEGER),
-        @Result(column="is_read", property="isRead", jdbcType=JdbcType.INTEGER),
-        @Result(column="process_status", property="processStatus", jdbcType=JdbcType.INTEGER),
-        @Result(column="is_delete", property="isDelete", jdbcType=JdbcType.INTEGER),
-        @Result(column="create_time", property="createTime", jdbcType=JdbcType.TIMESTAMP),
-        @Result(column="datetime_lastchange", property="datetimeLastchange", jdbcType=JdbcType.TIMESTAMP)
-    })
     List<SwTaskEmployeeRelation> selectByExample(SwTaskEmployeeRelationExample example);
 
     @Select({
@@ -81,29 +53,13 @@ public interface SwTaskEmployeeRelationMapper {
         "from sw_task_employee_relation",
         "where id = #{id,jdbcType=INTEGER}"
     })
-    @Results({
-        @Result(column="id", property="id", jdbcType=JdbcType.INTEGER, id=true),
-        @Result(column="task_id", property="taskId", jdbcType=JdbcType.INTEGER),
-        @Result(column="employee_no", property="employeeNo", jdbcType=JdbcType.VARCHAR),
-        @Result(column="prev_id", property="prevId", jdbcType=JdbcType.INTEGER),
-        @Result(column="role_flag", property="roleFlag", jdbcType=JdbcType.INTEGER),
-        @Result(column="is_active", property="isActive", jdbcType=JdbcType.INTEGER),
-        @Result(column="is_inspector", property="isInspector", jdbcType=JdbcType.INTEGER),
-        @Result(column="is_read", property="isRead", jdbcType=JdbcType.INTEGER),
-        @Result(column="process_status", property="processStatus", jdbcType=JdbcType.INTEGER),
-        @Result(column="is_delete", property="isDelete", jdbcType=JdbcType.INTEGER),
-        @Result(column="create_time", property="createTime", jdbcType=JdbcType.TIMESTAMP),
-        @Result(column="datetime_lastchange", property="datetimeLastchange", jdbcType=JdbcType.TIMESTAMP)
-    })
+    @ResultMap("com.foxconn.sw.data.mapper.auto.SwTaskEmployeeRelationMapper.BaseResultMap")
     SwTaskEmployeeRelation selectByPrimaryKey(Integer id);
 
-    @UpdateProvider(type=SwTaskEmployeeRelationSqlProvider.class, method="updateByExampleSelective")
     int updateByExampleSelective(@Param("record") SwTaskEmployeeRelation record, @Param("example") SwTaskEmployeeRelationExample example);
 
-    @UpdateProvider(type=SwTaskEmployeeRelationSqlProvider.class, method="updateByExample")
     int updateByExample(@Param("record") SwTaskEmployeeRelation record, @Param("example") SwTaskEmployeeRelationExample example);
 
-    @UpdateProvider(type=SwTaskEmployeeRelationSqlProvider.class, method="updateByPrimaryKeySelective")
     int updateByPrimaryKeySelective(SwTaskEmployeeRelation record);
 
     @Update({
