@@ -34,11 +34,11 @@ public interface ForumParticipantMapper {
     int deleteByPrimaryKey(Integer id);
 
     @Insert({
-        "insert into forum_participant (posts_id, employee_no, ",
+        "insert into forum_participant (fb_id, employee_no, ",
         "is_read, hidden, ",
         "is_delete, create_time, ",
         "datetime_lastchange)",
-        "values (#{postsId,jdbcType=INTEGER}, #{employeeNo,jdbcType=VARCHAR}, ",
+        "values (#{fbId,jdbcType=INTEGER}, #{employeeNo,jdbcType=VARCHAR}, ",
         "#{isRead,jdbcType=INTEGER}, #{hidden,jdbcType=INTEGER}, ",
         "#{isDelete,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, ",
         "#{datetimeLastchange,jdbcType=TIMESTAMP})"
@@ -53,7 +53,7 @@ public interface ForumParticipantMapper {
     @SelectProvider(type=ForumParticipantSqlProvider.class, method="selectByExample")
     @Results({
         @Result(column="id", property="id", jdbcType=JdbcType.INTEGER, id=true),
-        @Result(column="posts_id", property="postsId", jdbcType=JdbcType.INTEGER),
+        @Result(column="fb_id", property="fbId", jdbcType=JdbcType.INTEGER),
         @Result(column="employee_no", property="employeeNo", jdbcType=JdbcType.VARCHAR),
         @Result(column="is_read", property="isRead", jdbcType=JdbcType.INTEGER),
         @Result(column="hidden", property="hidden", jdbcType=JdbcType.INTEGER),
@@ -66,7 +66,7 @@ public interface ForumParticipantMapper {
     @SelectProvider(type=ForumParticipantSqlProvider.class, method="selectByExample")
     @Results({
         @Result(column="id", property="id", jdbcType=JdbcType.INTEGER, id=true),
-        @Result(column="posts_id", property="postsId", jdbcType=JdbcType.INTEGER),
+        @Result(column="fb_id", property="fbId", jdbcType=JdbcType.INTEGER),
         @Result(column="employee_no", property="employeeNo", jdbcType=JdbcType.VARCHAR),
         @Result(column="is_read", property="isRead", jdbcType=JdbcType.INTEGER),
         @Result(column="hidden", property="hidden", jdbcType=JdbcType.INTEGER),
@@ -78,13 +78,13 @@ public interface ForumParticipantMapper {
 
     @Select({
         "select",
-        "id, posts_id, employee_no, is_read, hidden, is_delete, create_time, datetime_lastchange",
+        "id, fb_id, employee_no, is_read, hidden, is_delete, create_time, datetime_lastchange",
         "from forum_participant",
         "where id = #{id,jdbcType=INTEGER}"
     })
     @Results({
         @Result(column="id", property="id", jdbcType=JdbcType.INTEGER, id=true),
-        @Result(column="posts_id", property="postsId", jdbcType=JdbcType.INTEGER),
+        @Result(column="fb_id", property="fbId", jdbcType=JdbcType.INTEGER),
         @Result(column="employee_no", property="employeeNo", jdbcType=JdbcType.VARCHAR),
         @Result(column="is_read", property="isRead", jdbcType=JdbcType.INTEGER),
         @Result(column="hidden", property="hidden", jdbcType=JdbcType.INTEGER),
@@ -105,7 +105,7 @@ public interface ForumParticipantMapper {
 
     @Update({
         "update forum_participant",
-        "set posts_id = #{postsId,jdbcType=INTEGER},",
+        "set fb_id = #{fbId,jdbcType=INTEGER},",
           "employee_no = #{employeeNo,jdbcType=VARCHAR},",
           "is_read = #{isRead,jdbcType=INTEGER},",
           "hidden = #{hidden,jdbcType=INTEGER},",

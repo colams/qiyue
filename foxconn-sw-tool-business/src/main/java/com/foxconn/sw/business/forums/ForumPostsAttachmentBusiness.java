@@ -17,7 +17,7 @@ public class ForumPostsAttachmentBusiness {
     public boolean insertPostsAttachment(Integer postsID, List<Integer> resourceIDs) {
         resourceIDs.forEach(e -> {
             ForumAttachment postsAttachment = new ForumAttachment();
-            postsAttachment.setPostsId(postsID);
+            postsAttachment.setFbId(postsID);
             postsAttachment.setResourceId(e);
             forumAttachmentExtMapper.insertSelective(postsAttachment);
         });
@@ -27,7 +27,7 @@ public class ForumPostsAttachmentBusiness {
     public boolean insertPostsAttachment(Integer postsID, Integer commentId, List<Integer> resourceIDs) {
         resourceIDs.forEach(e -> {
             ForumAttachment postsAttachment = new ForumAttachment();
-            postsAttachment.setPostsId(postsID);
+            postsAttachment.setFbId(postsID);
             postsAttachment.setCommentId(commentId);
             postsAttachment.setResourceId(e);
             forumAttachmentExtMapper.insertSelective(postsAttachment);
@@ -38,7 +38,7 @@ public class ForumPostsAttachmentBusiness {
     public List<ForumAttachment> selectPostsAttachment(Integer postsID) {
         ForumAttachmentExample example = new ForumAttachmentExample();
         ForumAttachmentExample.Criteria criteria = example.createCriteria();
-        criteria.andPostsIdEqualTo(postsID);
+        criteria.andFbIdEqualTo(postsID);
         criteria.andIsDeleteEqualTo(0);
         return forumAttachmentExtMapper.selectByExample(example);
     }

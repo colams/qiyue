@@ -15,8 +15,8 @@ import java.util.List;
 public interface ForumBbsExtMapper extends ForumBbsMapper {
 
     @Select({"<script> " +
-            "select b.* from forum_bbs b inner join forum_favorite f on b.id=f.posts_id ",
-            "inner join forum_participant p on b.id=p.posts_id and p.is_delete=0",
+            "select b.* from forum_bbs b inner join forum_favorite f on b.id=f.fb_id ",
+            "inner join forum_participant p on b.id=p.fb_id and p.is_delete=0",
             "where f.is_valid=1 ",
             "and b.is_delete=0 ",
             "and f.operator=#{operator,jdbcType=VARCHAR}",
@@ -44,7 +44,7 @@ public interface ForumBbsExtMapper extends ForumBbsMapper {
 
     @Select({"<script> " +
             "select b.* from forum_bbs b ",
-            "inner join forum_participant p on b.id=p.posts_id and p.is_delete=0 ",
+            "inner join forum_participant p on b.id=p.fb_id and p.is_delete=0 ",
             "where b.is_delete=0 ",
             "<if test='title!=null and title!=\"\"' >",
             " and b.title like #{title,jdbcType=VARCHAR} ",
@@ -75,7 +75,7 @@ public interface ForumBbsExtMapper extends ForumBbsMapper {
 
     @Select({"<script> " +
             "select count(1) from forum_bbs b inner join forum_favorite f on " +
-            "b.id=f.posts_id " +
+            "b.id=f.fb_id " +
             "where f.is_valid=1 and b.is_delete=0 and f.operator=#{operator,jdbcType=VARCHAR}" +
             "<if test='words!=null and words!=\"\"' >",
             " and b.title like CONCAT('%', #{words,jdbcType=VARCHAR}, '%') ",

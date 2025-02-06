@@ -5,7 +5,7 @@ import java.time.LocalDateTime;
 public class ForumParticipant {
     private Integer id;
 
-    private Integer postsId;
+    private Integer fbId;
 
     private String employeeNo;
 
@@ -32,17 +32,17 @@ public class ForumParticipant {
         this.id = id;
     }
 
-    public Integer getPostsId() {
-        return postsId;
+    public Integer getFbId() {
+        return fbId;
     }
 
-    public ForumParticipant withPostsId(Integer postsId) {
-        this.setPostsId(postsId);
+    public ForumParticipant withFbId(Integer fbId) {
+        this.setFbId(fbId);
         return this;
     }
 
-    public void setPostsId(Integer postsId) {
-        this.postsId = postsId;
+    public void setFbId(Integer fbId) {
+        this.fbId = fbId;
     }
 
     public String getEmployeeNo() {

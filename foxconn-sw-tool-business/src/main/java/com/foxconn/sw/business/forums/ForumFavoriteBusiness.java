@@ -24,7 +24,7 @@ public class ForumFavoriteBusiness {
         ForumFavoriteExample example = new ForumFavoriteExample();
         ForumFavoriteExample.Criteria criteria = example.createCriteria();
         criteria.andOperatorEqualTo(RequestContext.getEmployeeNo());
-        criteria.andPostsIdEqualTo(id);
+        criteria.andFbIdEqualTo(id);
         List<ForumFavorite> favorites = forumFavoriteExtMapper.selectByExample(example);
 
         ForumFavorite favorite = Optional.ofNullable(favorites)
@@ -34,7 +34,7 @@ public class ForumFavoriteBusiness {
                 .orElse(new ForumFavorite());
 
         favorite.setOperator(RequestContext.getEmployeeNo());
-        favorite.setPostsId(id);
+        favorite.setFbId(id);
         favorite.setIsValid(NumberConstants.ONE.equals(favorite.getIsValid()) ? 0 : 1);
 
         if (Objects.nonNull(favorite.getId()) && favorite.getId() > 0) {
@@ -50,7 +50,7 @@ public class ForumFavoriteBusiness {
     public Integer queryCollectionStatus(Integer postsID) {
         ForumFavoriteExample example = new ForumFavoriteExample();
         ForumFavoriteExample.Criteria criteria = example.createCriteria();
-        criteria.andPostsIdEqualTo(postsID);
+        criteria.andFbIdEqualTo(postsID);
         criteria.andOperatorEqualTo(RequestContext.getEmployeeNo());
         List<ForumFavorite> favorites = forumFavoriteExtMapper.selectByExample(example);
         return Optional.ofNullable(favorites)
@@ -65,7 +65,7 @@ public class ForumFavoriteBusiness {
 
         ForumFavoriteExample example = new ForumFavoriteExample();
         ForumFavoriteExample.Criteria criteria = example.createCriteria();
-        criteria.andPostsIdEqualTo(id);
+        criteria.andFbIdEqualTo(id);
         return forumFavoriteExtMapper.selectByExample(example);
     }
 

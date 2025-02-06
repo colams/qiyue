@@ -28,8 +28,8 @@ public class ForumAttachmentSqlProvider {
         SQL sql = new SQL();
         sql.INSERT_INTO("forum_attachment");
         
-        if (record.getPostsId() != null) {
-            sql.VALUES("posts_id", "#{postsId,jdbcType=INTEGER}");
+        if (record.getFbId() != null) {
+            sql.VALUES("fb_id", "#{fbId,jdbcType=INTEGER}");
         }
         
         if (record.getCommentId() != null) {
@@ -62,7 +62,7 @@ public class ForumAttachmentSqlProvider {
         } else {
             sql.SELECT("id");
         }
-        sql.SELECT("posts_id");
+        sql.SELECT("fb_id");
         sql.SELECT("comment_id");
         sql.SELECT("resource_id");
         sql.SELECT("is_delete");
@@ -89,8 +89,8 @@ public class ForumAttachmentSqlProvider {
             sql.SET("id = #{record.id,jdbcType=INTEGER}");
         }
         
-        if (record.getPostsId() != null) {
-            sql.SET("posts_id = #{record.postsId,jdbcType=INTEGER}");
+        if (record.getFbId() != null) {
+            sql.SET("fb_id = #{record.fbId,jdbcType=INTEGER}");
         }
         
         if (record.getCommentId() != null) {
@@ -122,7 +122,7 @@ public class ForumAttachmentSqlProvider {
         sql.UPDATE("forum_attachment");
         
         sql.SET("id = #{record.id,jdbcType=INTEGER}");
-        sql.SET("posts_id = #{record.postsId,jdbcType=INTEGER}");
+        sql.SET("fb_id = #{record.fbId,jdbcType=INTEGER}");
         sql.SET("comment_id = #{record.commentId,jdbcType=INTEGER}");
         sql.SET("resource_id = #{record.resourceId,jdbcType=INTEGER}");
         sql.SET("is_delete = #{record.isDelete,jdbcType=INTEGER}");
@@ -138,8 +138,8 @@ public class ForumAttachmentSqlProvider {
         SQL sql = new SQL();
         sql.UPDATE("forum_attachment");
         
-        if (record.getPostsId() != null) {
-            sql.SET("posts_id = #{postsId,jdbcType=INTEGER}");
+        if (record.getFbId() != null) {
+            sql.SET("fb_id = #{fbId,jdbcType=INTEGER}");
         }
         
         if (record.getCommentId() != null) {

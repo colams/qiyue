@@ -28,11 +28,6 @@ public class ForumBbsBusiness {
         return forumBbs.getId();
     }
 
-    public int createPosts(ForumBbs forumBbs) {
-        forumBbsExtMapper.insertSelective(forumBbs);
-        return forumBbs.getId();
-    }
-
     public List<ForumBbs> queryPosts(PostsCategoryEnums postsType, String words, Integer pageSize, Integer currentPage) {
 
         Integer isAdmin = RequestContext.getEmployeeNo().equalsIgnoreCase("G1658973") ? 1 : 0;
