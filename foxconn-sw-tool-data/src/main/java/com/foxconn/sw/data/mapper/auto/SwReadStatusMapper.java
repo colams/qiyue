@@ -3,8 +3,6 @@ package com.foxconn.sw.data.mapper.auto;
 import com.foxconn.sw.data.entity.SwReadStatus;
 import com.foxconn.sw.data.entity.SwReadStatusExample;
 import java.util.List;
-import org.apache.ibatis.annotations.Delete;
-import org.apache.ibatis.annotations.DeleteProvider;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.InsertProvider;
 import org.apache.ibatis.annotations.Mapper;
@@ -21,18 +19,6 @@ import org.apache.ibatis.type.JdbcType;
 
 @Mapper
 public interface SwReadStatusMapper {
-    @SelectProvider(type=SwReadStatusSqlProvider.class, method="countByExample")
-    long countByExample(SwReadStatusExample example);
-
-    @DeleteProvider(type=SwReadStatusSqlProvider.class, method="deleteByExample")
-    int deleteByExample(SwReadStatusExample example);
-
-    @Delete({
-        "delete from sw_read_status",
-        "where id = #{id,jdbcType=INTEGER}"
-    })
-    int deleteByPrimaryKey(Integer id);
-
     @Insert({
         "insert into sw_read_status (module_type, foreign_id, ",
         "employee_no, is_read, ",

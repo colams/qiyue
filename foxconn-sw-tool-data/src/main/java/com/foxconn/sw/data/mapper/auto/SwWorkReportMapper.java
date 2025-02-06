@@ -3,8 +3,6 @@ package com.foxconn.sw.data.mapper.auto;
 import com.foxconn.sw.data.entity.SwWorkReport;
 import com.foxconn.sw.data.entity.SwWorkReportExample;
 import java.util.List;
-import org.apache.ibatis.annotations.Delete;
-import org.apache.ibatis.annotations.DeleteProvider;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.InsertProvider;
 import org.apache.ibatis.annotations.Mapper;
@@ -21,18 +19,6 @@ import org.apache.ibatis.type.JdbcType;
 
 @Mapper
 public interface SwWorkReportMapper {
-    @SelectProvider(type=SwWorkReportSqlProvider.class, method="countByExample")
-    long countByExample(SwWorkReportExample example);
-
-    @DeleteProvider(type=SwWorkReportSqlProvider.class, method="deleteByExample")
-    int deleteByExample(SwWorkReportExample example);
-
-    @Delete({
-        "delete from sw_work_report",
-        "where id = #{id,jdbcType=INTEGER}"
-    })
-    int deleteByPrimaryKey(Integer id);
-
     @Insert({
         "insert into sw_work_report (report_type, employee_no, ",
         "year_week, week, ",

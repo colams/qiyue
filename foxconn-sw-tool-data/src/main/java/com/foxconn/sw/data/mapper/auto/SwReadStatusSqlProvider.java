@@ -10,20 +10,6 @@ import org.apache.ibatis.jdbc.SQL;
 
 public class SwReadStatusSqlProvider {
 
-    public String countByExample(SwReadStatusExample example) {
-        SQL sql = new SQL();
-        sql.SELECT("count(*)").FROM("sw_read_status");
-        applyWhere(sql, example, false);
-        return sql.toString();
-    }
-
-    public String deleteByExample(SwReadStatusExample example) {
-        SQL sql = new SQL();
-        sql.DELETE_FROM("sw_read_status");
-        applyWhere(sql, example, false);
-        return sql.toString();
-    }
-
     public String insertSelective(SwReadStatus record) {
         SQL sql = new SQL();
         sql.INSERT_INTO("sw_read_status");

@@ -3,8 +3,6 @@ package com.foxconn.sw.data.mapper.auto;
 import com.foxconn.sw.data.entity.SwProject;
 import com.foxconn.sw.data.entity.SwProjectExample;
 import java.util.List;
-import org.apache.ibatis.annotations.Delete;
-import org.apache.ibatis.annotations.DeleteProvider;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.InsertProvider;
 import org.apache.ibatis.annotations.Mapper;
@@ -21,18 +19,6 @@ import org.apache.ibatis.type.JdbcType;
 
 @Mapper
 public interface SwProjectMapper {
-    @SelectProvider(type=SwProjectSqlProvider.class, method="countByExample")
-    long countByExample(SwProjectExample example);
-
-    @DeleteProvider(type=SwProjectSqlProvider.class, method="deleteByExample")
-    int deleteByExample(SwProjectExample example);
-
-    @Delete({
-        "delete from sw_project",
-        "where id = #{id,jdbcType=INTEGER}"
-    })
-    int deleteByPrimaryKey(Integer id);
-
     @Insert({
         "insert into sw_project (years, project_code, ",
         "customer_name, full_name, ",

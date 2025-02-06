@@ -3,8 +3,6 @@ package com.foxconn.sw.data.mapper.auto;
 import com.foxconn.sw.data.entity.ForumFavorite;
 import com.foxconn.sw.data.entity.ForumFavoriteExample;
 import java.util.List;
-import org.apache.ibatis.annotations.Delete;
-import org.apache.ibatis.annotations.DeleteProvider;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.InsertProvider;
 import org.apache.ibatis.annotations.Mapper;
@@ -21,18 +19,6 @@ import org.apache.ibatis.type.JdbcType;
 
 @Mapper
 public interface ForumFavoriteMapper {
-    @SelectProvider(type=ForumFavoriteSqlProvider.class, method="countByExample")
-    long countByExample(ForumFavoriteExample example);
-
-    @DeleteProvider(type=ForumFavoriteSqlProvider.class, method="deleteByExample")
-    int deleteByExample(ForumFavoriteExample example);
-
-    @Delete({
-        "delete from forum_favorite",
-        "where id = #{id,jdbcType=INTEGER}"
-    })
-    int deleteByPrimaryKey(Integer id);
-
     @Insert({
         "insert into forum_favorite (operator, fb_id, ",
         "is_valid, create_time, ",

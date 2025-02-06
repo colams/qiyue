@@ -10,20 +10,6 @@ import org.apache.ibatis.jdbc.SQL;
 
 public class SwDocumentHistorySqlProvider {
 
-    public String countByExample(SwDocumentHistoryExample example) {
-        SQL sql = new SQL();
-        sql.SELECT("count(*)").FROM("sw_document_history");
-        applyWhere(sql, example, false);
-        return sql.toString();
-    }
-
-    public String deleteByExample(SwDocumentHistoryExample example) {
-        SQL sql = new SQL();
-        sql.DELETE_FROM("sw_document_history");
-        applyWhere(sql, example, false);
-        return sql.toString();
-    }
-
     public String insertSelective(SwDocumentHistory record) {
         SQL sql = new SQL();
         sql.INSERT_INTO("sw_document_history");

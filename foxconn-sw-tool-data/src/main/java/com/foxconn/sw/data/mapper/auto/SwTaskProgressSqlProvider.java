@@ -10,20 +10,6 @@ import org.apache.ibatis.jdbc.SQL;
 
 public class SwTaskProgressSqlProvider {
 
-    public String countByExample(SwTaskProgressExample example) {
-        SQL sql = new SQL();
-        sql.SELECT("count(*)").FROM("sw_task_progress");
-        applyWhere(sql, example, false);
-        return sql.toString();
-    }
-
-    public String deleteByExample(SwTaskProgressExample example) {
-        SQL sql = new SQL();
-        sql.DELETE_FROM("sw_task_progress");
-        applyWhere(sql, example, false);
-        return sql.toString();
-    }
-
     public String insertSelective(SwTaskProgress record) {
         SQL sql = new SQL();
         sql.INSERT_INTO("sw_task_progress");

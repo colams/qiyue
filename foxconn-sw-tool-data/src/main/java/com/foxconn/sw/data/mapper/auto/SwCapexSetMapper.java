@@ -3,8 +3,6 @@ package com.foxconn.sw.data.mapper.auto;
 import com.foxconn.sw.data.entity.SwCapexSet;
 import com.foxconn.sw.data.entity.SwCapexSetExample;
 import java.util.List;
-import org.apache.ibatis.annotations.Delete;
-import org.apache.ibatis.annotations.DeleteProvider;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.InsertProvider;
 import org.apache.ibatis.annotations.Mapper;
@@ -21,18 +19,6 @@ import org.apache.ibatis.type.JdbcType;
 
 @Mapper
 public interface SwCapexSetMapper {
-    @SelectProvider(type=SwCapexSetSqlProvider.class, method="countByExample")
-    long countByExample(SwCapexSetExample example);
-
-    @DeleteProvider(type=SwCapexSetSqlProvider.class, method="deleteByExample")
-    int deleteByExample(SwCapexSetExample example);
-
-    @Delete({
-        "delete from sw_capex_set",
-        "where id = #{id,jdbcType=INTEGER}"
-    })
-    int deleteByPrimaryKey(Integer id);
-
     @Insert({
         "insert into sw_capex_set (task_id, sheet_name, ",
         "type, number, set_value, ",

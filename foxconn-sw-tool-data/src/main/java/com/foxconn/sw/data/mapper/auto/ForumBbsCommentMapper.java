@@ -3,8 +3,6 @@ package com.foxconn.sw.data.mapper.auto;
 import com.foxconn.sw.data.entity.ForumBbsComment;
 import com.foxconn.sw.data.entity.ForumBbsCommentExample;
 import java.util.List;
-import org.apache.ibatis.annotations.Delete;
-import org.apache.ibatis.annotations.DeleteProvider;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.InsertProvider;
 import org.apache.ibatis.annotations.Mapper;
@@ -21,18 +19,6 @@ import org.apache.ibatis.type.JdbcType;
 
 @Mapper
 public interface ForumBbsCommentMapper {
-    @SelectProvider(type=ForumBbsCommentSqlProvider.class, method="countByExample")
-    long countByExample(ForumBbsCommentExample example);
-
-    @DeleteProvider(type=ForumBbsCommentSqlProvider.class, method="deleteByExample")
-    int deleteByExample(ForumBbsCommentExample example);
-
-    @Delete({
-        "delete from forum_bbs_comment",
-        "where id = #{id,jdbcType=INTEGER}"
-    })
-    int deleteByPrimaryKey(Integer id);
-
     @Insert({
         "insert into forum_bbs_comment (fb_id, parent_id, ",
         "target_id, author_no, ",

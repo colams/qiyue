@@ -10,20 +10,6 @@ import org.apache.ibatis.jdbc.SQL;
 
 public class SwProjectItemSqlProvider {
 
-    public String countByExample(SwProjectItemExample example) {
-        SQL sql = new SQL();
-        sql.SELECT("count(*)").FROM("sw_project_item");
-        applyWhere(sql, example, false);
-        return sql.toString();
-    }
-
-    public String deleteByExample(SwProjectItemExample example) {
-        SQL sql = new SQL();
-        sql.DELETE_FROM("sw_project_item");
-        applyWhere(sql, example, false);
-        return sql.toString();
-    }
-
     public String insertSelective(SwProjectItem record) {
         SQL sql = new SQL();
         sql.INSERT_INTO("sw_project_item");

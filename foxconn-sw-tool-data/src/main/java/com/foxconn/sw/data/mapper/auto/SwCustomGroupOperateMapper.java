@@ -3,8 +3,6 @@ package com.foxconn.sw.data.mapper.auto;
 import com.foxconn.sw.data.entity.SwCustomGroupOperate;
 import com.foxconn.sw.data.entity.SwCustomGroupOperateExample;
 import java.util.List;
-import org.apache.ibatis.annotations.Delete;
-import org.apache.ibatis.annotations.DeleteProvider;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.InsertProvider;
 import org.apache.ibatis.annotations.Mapper;
@@ -21,18 +19,6 @@ import org.apache.ibatis.type.JdbcType;
 
 @Mapper
 public interface SwCustomGroupOperateMapper {
-    @SelectProvider(type=SwCustomGroupOperateSqlProvider.class, method="countByExample")
-    long countByExample(SwCustomGroupOperateExample example);
-
-    @DeleteProvider(type=SwCustomGroupOperateSqlProvider.class, method="deleteByExample")
-    int deleteByExample(SwCustomGroupOperateExample example);
-
-    @Delete({
-        "delete from sw_custom_group_operate",
-        "where id = #{id,jdbcType=INTEGER}"
-    })
-    int deleteByPrimaryKey(Integer id);
-
     @Insert({
         "insert into sw_custom_group_operate (custom_group_id, operator, ",
         "operate_type, remark, ",

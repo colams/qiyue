@@ -10,20 +10,6 @@ import org.apache.ibatis.jdbc.SQL;
 
 public class SwDocumentPermissionSqlProvider {
 
-    public String countByExample(SwDocumentPermissionExample example) {
-        SQL sql = new SQL();
-        sql.SELECT("count(*)").FROM("sw_document_permission");
-        applyWhere(sql, example, false);
-        return sql.toString();
-    }
-
-    public String deleteByExample(SwDocumentPermissionExample example) {
-        SQL sql = new SQL();
-        sql.DELETE_FROM("sw_document_permission");
-        applyWhere(sql, example, false);
-        return sql.toString();
-    }
-
     public String insertSelective(SwDocumentPermission record) {
         SQL sql = new SQL();
         sql.INSERT_INTO("sw_document_permission");

@@ -3,8 +3,6 @@ package com.foxconn.sw.data.mapper.auto;
 import com.foxconn.sw.data.entity.SwToolRunResult;
 import com.foxconn.sw.data.entity.SwToolRunResultExample;
 import java.util.List;
-import org.apache.ibatis.annotations.Delete;
-import org.apache.ibatis.annotations.DeleteProvider;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.InsertProvider;
 import org.apache.ibatis.annotations.Mapper;
@@ -21,18 +19,6 @@ import org.apache.ibatis.type.JdbcType;
 
 @Mapper
 public interface SwToolRunResultMapper {
-    @SelectProvider(type=SwToolRunResultSqlProvider.class, method="countByExample")
-    long countByExample(SwToolRunResultExample example);
-
-    @DeleteProvider(type=SwToolRunResultSqlProvider.class, method="deleteByExample")
-    int deleteByExample(SwToolRunResultExample example);
-
-    @Delete({
-        "delete from sw_tool_run_result",
-        "where id = #{id,jdbcType=INTEGER}"
-    })
-    int deleteByPrimaryKey(Integer id);
-
     @Insert({
         "insert into sw_tool_run_result (operator, tool_name, ",
         "run_result, intervals, ",

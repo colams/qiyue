@@ -3,7 +3,6 @@ package com.foxconn.sw.data.mapper.auto;
 import com.foxconn.sw.data.entity.ForumAttachment;
 import com.foxconn.sw.data.entity.ForumAttachmentExample;
 import java.util.List;
-import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.InsertProvider;
 import org.apache.ibatis.annotations.Mapper;
@@ -20,12 +19,6 @@ import org.apache.ibatis.type.JdbcType;
 
 @Mapper
 public interface ForumAttachmentMapper {
-    @Delete({
-        "delete from forum_attachment",
-        "where id = #{id,jdbcType=INTEGER}"
-    })
-    int deleteByPrimaryKey(Integer id);
-
     @Insert({
         "insert into forum_attachment (fb_id, comment_id, ",
         "resource_id, is_delete, ",

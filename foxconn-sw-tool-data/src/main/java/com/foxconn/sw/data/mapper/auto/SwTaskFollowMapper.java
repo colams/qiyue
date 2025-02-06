@@ -3,8 +3,6 @@ package com.foxconn.sw.data.mapper.auto;
 import com.foxconn.sw.data.entity.SwTaskFollow;
 import com.foxconn.sw.data.entity.SwTaskFollowExample;
 import java.util.List;
-import org.apache.ibatis.annotations.Delete;
-import org.apache.ibatis.annotations.DeleteProvider;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.InsertProvider;
 import org.apache.ibatis.annotations.Mapper;
@@ -21,18 +19,6 @@ import org.apache.ibatis.type.JdbcType;
 
 @Mapper
 public interface SwTaskFollowMapper {
-    @SelectProvider(type=SwTaskFollowSqlProvider.class, method="countByExample")
-    long countByExample(SwTaskFollowExample example);
-
-    @DeleteProvider(type=SwTaskFollowSqlProvider.class, method="deleteByExample")
-    int deleteByExample(SwTaskFollowExample example);
-
-    @Delete({
-        "delete from sw_task_follow",
-        "where id = #{id,jdbcType=INTEGER}"
-    })
-    int deleteByPrimaryKey(Integer id);
-
     @Insert({
         "insert into sw_task_follow (task_id, content, ",
         "status, operator, ",

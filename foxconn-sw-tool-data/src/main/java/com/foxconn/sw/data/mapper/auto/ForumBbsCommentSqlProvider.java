@@ -10,20 +10,6 @@ import org.apache.ibatis.jdbc.SQL;
 
 public class ForumBbsCommentSqlProvider {
 
-    public String countByExample(ForumBbsCommentExample example) {
-        SQL sql = new SQL();
-        sql.SELECT("count(*)").FROM("forum_bbs_comment");
-        applyWhere(sql, example, false);
-        return sql.toString();
-    }
-
-    public String deleteByExample(ForumBbsCommentExample example) {
-        SQL sql = new SQL();
-        sql.DELETE_FROM("forum_bbs_comment");
-        applyWhere(sql, example, false);
-        return sql.toString();
-    }
-
     public String insertSelective(ForumBbsComment record) {
         SQL sql = new SQL();
         sql.INSERT_INTO("forum_bbs_comment");

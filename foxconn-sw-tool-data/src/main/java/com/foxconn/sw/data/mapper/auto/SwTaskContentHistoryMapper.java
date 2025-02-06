@@ -3,8 +3,6 @@ package com.foxconn.sw.data.mapper.auto;
 import com.foxconn.sw.data.entity.SwTaskContentHistory;
 import com.foxconn.sw.data.entity.SwTaskContentHistoryExample;
 import java.util.List;
-import org.apache.ibatis.annotations.Delete;
-import org.apache.ibatis.annotations.DeleteProvider;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.InsertProvider;
 import org.apache.ibatis.annotations.Mapper;
@@ -21,18 +19,6 @@ import org.apache.ibatis.type.JdbcType;
 
 @Mapper
 public interface SwTaskContentHistoryMapper {
-    @SelectProvider(type=SwTaskContentHistorySqlProvider.class, method="countByExample")
-    long countByExample(SwTaskContentHistoryExample example);
-
-    @DeleteProvider(type=SwTaskContentHistorySqlProvider.class, method="deleteByExample")
-    int deleteByExample(SwTaskContentHistoryExample example);
-
-    @Delete({
-        "delete from sw_task_content_history",
-        "where id = #{id,jdbcType=INTEGER}"
-    })
-    int deleteByPrimaryKey(Integer id);
-
     @Insert({
         "insert into sw_task_content_history (task_id, progress_id, ",
         "operator, datetime_lastchange, ",

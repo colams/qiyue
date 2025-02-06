@@ -3,8 +3,6 @@ package com.foxconn.sw.data.mapper.auto;
 import com.foxconn.sw.data.entity.SwProperty;
 import com.foxconn.sw.data.entity.SwPropertyExample;
 import java.util.List;
-import org.apache.ibatis.annotations.Delete;
-import org.apache.ibatis.annotations.DeleteProvider;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.InsertProvider;
 import org.apache.ibatis.annotations.Mapper;
@@ -21,18 +19,6 @@ import org.apache.ibatis.type.JdbcType;
 
 @Mapper
 public interface SwPropertyMapper {
-    @SelectProvider(type=SwPropertySqlProvider.class, method="countByExample")
-    long countByExample(SwPropertyExample example);
-
-    @DeleteProvider(type=SwPropertySqlProvider.class, method="deleteByExample")
-    int deleteByExample(SwPropertyExample example);
-
-    @Delete({
-        "delete from sw_property",
-        "where id = #{id,jdbcType=INTEGER}"
-    })
-    int deleteByPrimaryKey(Integer id);
-
     @Insert({
         "insert into sw_property (category, property_name, ",
         "icon, order_by, create_time, ",

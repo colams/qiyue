@@ -3,8 +3,6 @@ package com.foxconn.sw.data.mapper.auto;
 import com.foxconn.sw.data.entity.SwWorkReportLock;
 import com.foxconn.sw.data.entity.SwWorkReportLockExample;
 import java.util.List;
-import org.apache.ibatis.annotations.Delete;
-import org.apache.ibatis.annotations.DeleteProvider;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.InsertProvider;
 import org.apache.ibatis.annotations.Mapper;
@@ -21,18 +19,6 @@ import org.apache.ibatis.type.JdbcType;
 
 @Mapper
 public interface SwWorkReportLockMapper {
-    @SelectProvider(type=SwWorkReportLockSqlProvider.class, method="countByExample")
-    long countByExample(SwWorkReportLockExample example);
-
-    @DeleteProvider(type=SwWorkReportLockSqlProvider.class, method="deleteByExample")
-    int deleteByExample(SwWorkReportLockExample example);
-
-    @Delete({
-        "delete from sw_work_report_lock",
-        "where id = #{id,jdbcType=INTEGER}"
-    })
-    int deleteByPrimaryKey(Integer id);
-
     @Insert({
         "insert into sw_work_report_lock (year_week, operator, ",
         "lock_status, create_time, ",

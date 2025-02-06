@@ -10,20 +10,6 @@ import org.apache.ibatis.jdbc.SQL;
 
 public class SwCollaborationDetailSpareSqlProvider {
 
-    public String countByExample(SwCollaborationDetailSpareExample example) {
-        SQL sql = new SQL();
-        sql.SELECT("count(*)").FROM("sw_collaboration_detail_spare");
-        applyWhere(sql, example, false);
-        return sql.toString();
-    }
-
-    public String deleteByExample(SwCollaborationDetailSpareExample example) {
-        SQL sql = new SQL();
-        sql.DELETE_FROM("sw_collaboration_detail_spare");
-        applyWhere(sql, example, false);
-        return sql.toString();
-    }
-
     public String insertSelective(SwCollaborationDetailSpare record) {
         SQL sql = new SQL();
         sql.INSERT_INTO("sw_collaboration_detail_spare");

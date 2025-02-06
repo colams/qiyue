@@ -3,8 +3,6 @@ package com.foxconn.sw.data.mapper.auto;
 import com.foxconn.sw.data.entity.TaskNoSeed;
 import com.foxconn.sw.data.entity.TaskNoSeedExample;
 import java.util.List;
-import org.apache.ibatis.annotations.Delete;
-import org.apache.ibatis.annotations.DeleteProvider;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.InsertProvider;
 import org.apache.ibatis.annotations.Mapper;
@@ -21,18 +19,6 @@ import org.apache.ibatis.type.JdbcType;
 
 @Mapper
 public interface TaskNoSeedMapper {
-    @SelectProvider(type=TaskNoSeedSqlProvider.class, method="countByExample")
-    long countByExample(TaskNoSeedExample example);
-
-    @DeleteProvider(type=TaskNoSeedSqlProvider.class, method="deleteByExample")
-    int deleteByExample(TaskNoSeedExample example);
-
-    @Delete({
-        "delete from task_no_seed",
-        "where id = #{id,jdbcType=INTEGER}"
-    })
-    int deleteByPrimaryKey(Integer id);
-
     @Insert({
         "insert into task_no_seed (seed, status, ",
         "datetime_lastchange)",

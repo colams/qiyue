@@ -3,8 +3,6 @@ package com.foxconn.sw.data.mapper.auto;
 import com.foxconn.sw.data.entity.SwCollaborationDetail;
 import com.foxconn.sw.data.entity.SwCollaborationDetailExample;
 import java.util.List;
-import org.apache.ibatis.annotations.Delete;
-import org.apache.ibatis.annotations.DeleteProvider;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.InsertProvider;
 import org.apache.ibatis.annotations.Mapper;
@@ -21,18 +19,6 @@ import org.apache.ibatis.type.JdbcType;
 
 @Mapper
 public interface SwCollaborationDetailMapper {
-    @SelectProvider(type=SwCollaborationDetailSqlProvider.class, method="countByExample")
-    long countByExample(SwCollaborationDetailExample example);
-
-    @DeleteProvider(type=SwCollaborationDetailSqlProvider.class, method="deleteByExample")
-    int deleteByExample(SwCollaborationDetailExample example);
-
-    @Delete({
-        "delete from sw_collaboration_detail",
-        "where id = #{id,jdbcType=BIGINT}"
-    })
-    int deleteByPrimaryKey(Long id);
-
     @Insert({
         "insert into sw_collaboration_detail (scu_id, row_index, ",
         "col_index, item, ",

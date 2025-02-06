@@ -3,8 +3,6 @@ package com.foxconn.sw.data.mapper.auto;
 import com.foxconn.sw.data.entity.SwNotification;
 import com.foxconn.sw.data.entity.SwNotificationExample;
 import java.util.List;
-import org.apache.ibatis.annotations.Delete;
-import org.apache.ibatis.annotations.DeleteProvider;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.InsertProvider;
 import org.apache.ibatis.annotations.Mapper;
@@ -21,18 +19,6 @@ import org.apache.ibatis.type.JdbcType;
 
 @Mapper
 public interface SwNotificationMapper {
-    @SelectProvider(type=SwNotificationSqlProvider.class, method="countByExample")
-    long countByExample(SwNotificationExample example);
-
-    @DeleteProvider(type=SwNotificationSqlProvider.class, method="deleteByExample")
-    int deleteByExample(SwNotificationExample example);
-
-    @Delete({
-        "delete from sw_notification",
-        "where id = #{id,jdbcType=BIGINT}"
-    })
-    int deleteByPrimaryKey(Long id);
-
     @Insert({
         "insert into sw_notification (msg_type, content, ",
         "receiver, create_time, ",

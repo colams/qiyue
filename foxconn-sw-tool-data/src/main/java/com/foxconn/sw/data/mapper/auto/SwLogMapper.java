@@ -3,8 +3,6 @@ package com.foxconn.sw.data.mapper.auto;
 import com.foxconn.sw.data.entity.SwLog;
 import com.foxconn.sw.data.entity.SwLogExample;
 import java.util.List;
-import org.apache.ibatis.annotations.Delete;
-import org.apache.ibatis.annotations.DeleteProvider;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.InsertProvider;
 import org.apache.ibatis.annotations.Mapper;
@@ -21,18 +19,6 @@ import org.apache.ibatis.type.JdbcType;
 
 @Mapper
 public interface SwLogMapper {
-    @SelectProvider(type=SwLogSqlProvider.class, method="countByExample")
-    long countByExample(SwLogExample example);
-
-    @DeleteProvider(type=SwLogSqlProvider.class, method="deleteByExample")
-    int deleteByExample(SwLogExample example);
-
-    @Delete({
-        "delete from sw_log",
-        "where id = #{id,jdbcType=INTEGER}"
-    })
-    int deleteByPrimaryKey(Integer id);
-
     @Insert({
         "insert into sw_log (operator, ip, ",
         "operateType, remark, ",

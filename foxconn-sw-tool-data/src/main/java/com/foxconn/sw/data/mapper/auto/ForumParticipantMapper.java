@@ -3,8 +3,6 @@ package com.foxconn.sw.data.mapper.auto;
 import com.foxconn.sw.data.entity.ForumParticipant;
 import com.foxconn.sw.data.entity.ForumParticipantExample;
 import java.util.List;
-import org.apache.ibatis.annotations.Delete;
-import org.apache.ibatis.annotations.DeleteProvider;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.InsertProvider;
 import org.apache.ibatis.annotations.Mapper;
@@ -21,18 +19,6 @@ import org.apache.ibatis.type.JdbcType;
 
 @Mapper
 public interface ForumParticipantMapper {
-    @SelectProvider(type=ForumParticipantSqlProvider.class, method="countByExample")
-    long countByExample(ForumParticipantExample example);
-
-    @DeleteProvider(type=ForumParticipantSqlProvider.class, method="deleteByExample")
-    int deleteByExample(ForumParticipantExample example);
-
-    @Delete({
-        "delete from forum_participant",
-        "where id = #{id,jdbcType=INTEGER}"
-    })
-    int deleteByPrimaryKey(Integer id);
-
     @Insert({
         "insert into forum_participant (fb_id, employee_no, ",
         "is_read, hidden, ",

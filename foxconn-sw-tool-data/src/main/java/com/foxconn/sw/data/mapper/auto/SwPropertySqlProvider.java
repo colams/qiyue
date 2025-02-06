@@ -10,20 +10,6 @@ import org.apache.ibatis.jdbc.SQL;
 
 public class SwPropertySqlProvider {
 
-    public String countByExample(SwPropertyExample example) {
-        SQL sql = new SQL();
-        sql.SELECT("count(*)").FROM("sw_property");
-        applyWhere(sql, example, false);
-        return sql.toString();
-    }
-
-    public String deleteByExample(SwPropertyExample example) {
-        SQL sql = new SQL();
-        sql.DELETE_FROM("sw_property");
-        applyWhere(sql, example, false);
-        return sql.toString();
-    }
-
     public String insertSelective(SwProperty record) {
         SQL sql = new SQL();
         sql.INSERT_INTO("sw_property");

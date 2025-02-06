@@ -3,8 +3,6 @@ package com.foxconn.sw.data.mapper.auto;
 import com.foxconn.sw.data.entity.SwFeedback;
 import com.foxconn.sw.data.entity.SwFeedbackExample;
 import java.util.List;
-import org.apache.ibatis.annotations.Delete;
-import org.apache.ibatis.annotations.DeleteProvider;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.InsertProvider;
 import org.apache.ibatis.annotations.Mapper;
@@ -21,18 +19,6 @@ import org.apache.ibatis.type.JdbcType;
 
 @Mapper
 public interface SwFeedbackMapper {
-    @SelectProvider(type=SwFeedbackSqlProvider.class, method="countByExample")
-    long countByExample(SwFeedbackExample example);
-
-    @DeleteProvider(type=SwFeedbackSqlProvider.class, method="deleteByExample")
-    int deleteByExample(SwFeedbackExample example);
-
-    @Delete({
-        "delete from sw_feedback",
-        "where id = #{id,jdbcType=INTEGER}"
-    })
-    int deleteByPrimaryKey(Integer id);
-
     @Insert({
         "insert into sw_feedback (employee_no, title, ",
         "remark, contact, ",

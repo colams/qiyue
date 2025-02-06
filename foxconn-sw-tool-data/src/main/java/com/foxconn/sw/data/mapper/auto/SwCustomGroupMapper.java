@@ -3,8 +3,6 @@ package com.foxconn.sw.data.mapper.auto;
 import com.foxconn.sw.data.entity.SwCustomGroup;
 import com.foxconn.sw.data.entity.SwCustomGroupExample;
 import java.util.List;
-import org.apache.ibatis.annotations.Delete;
-import org.apache.ibatis.annotations.DeleteProvider;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.InsertProvider;
 import org.apache.ibatis.annotations.Mapper;
@@ -21,18 +19,6 @@ import org.apache.ibatis.type.JdbcType;
 
 @Mapper
 public interface SwCustomGroupMapper {
-    @SelectProvider(type=SwCustomGroupSqlProvider.class, method="countByExample")
-    long countByExample(SwCustomGroupExample example);
-
-    @DeleteProvider(type=SwCustomGroupSqlProvider.class, method="deleteByExample")
-    int deleteByExample(SwCustomGroupExample example);
-
-    @Delete({
-        "delete from sw_custom_group",
-        "where id = #{id,jdbcType=INTEGER}"
-    })
-    int deleteByPrimaryKey(Integer id);
-
     @Insert({
         "insert into sw_custom_group (name, owner, ",
         "group_type, is_private, ",

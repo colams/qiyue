@@ -3,8 +3,6 @@ package com.foxconn.sw.data.mapper.auto;
 import com.foxconn.sw.data.entity.SwTaskProgress;
 import com.foxconn.sw.data.entity.SwTaskProgressExample;
 import java.util.List;
-import org.apache.ibatis.annotations.Delete;
-import org.apache.ibatis.annotations.DeleteProvider;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.InsertProvider;
 import org.apache.ibatis.annotations.Mapper;
@@ -21,18 +19,6 @@ import org.apache.ibatis.type.JdbcType;
 
 @Mapper
 public interface SwTaskProgressMapper {
-    @SelectProvider(type=SwTaskProgressSqlProvider.class, method="countByExample")
-    long countByExample(SwTaskProgressExample example);
-
-    @DeleteProvider(type=SwTaskProgressSqlProvider.class, method="deleteByExample")
-    int deleteByExample(SwTaskProgressExample example);
-
-    @Delete({
-        "delete from sw_task_progress",
-        "where id = #{id,jdbcType=INTEGER}"
-    })
-    int deleteByPrimaryKey(Integer id);
-
     @Insert({
         "insert into sw_task_progress (operate_type, task_id, ",
         "operate_eid, resource_ids, ",

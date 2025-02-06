@@ -3,8 +3,6 @@ package com.foxconn.sw.data.mapper.auto;
 import com.foxconn.sw.data.entity.SwDocumentPermission;
 import com.foxconn.sw.data.entity.SwDocumentPermissionExample;
 import java.util.List;
-import org.apache.ibatis.annotations.Delete;
-import org.apache.ibatis.annotations.DeleteProvider;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.InsertProvider;
 import org.apache.ibatis.annotations.Mapper;
@@ -21,18 +19,6 @@ import org.apache.ibatis.type.JdbcType;
 
 @Mapper
 public interface SwDocumentPermissionMapper {
-    @SelectProvider(type=SwDocumentPermissionSqlProvider.class, method="countByExample")
-    long countByExample(SwDocumentPermissionExample example);
-
-    @DeleteProvider(type=SwDocumentPermissionSqlProvider.class, method="deleteByExample")
-    int deleteByExample(SwDocumentPermissionExample example);
-
-    @Delete({
-        "delete from sw_document_permission",
-        "where id = #{id,jdbcType=INTEGER}"
-    })
-    int deleteByPrimaryKey(Integer id);
-
     @Insert({
         "insert into sw_document_permission (document_id, permission_type, ",
         "permission_value, extra, ",

@@ -3,8 +3,6 @@ package com.foxconn.sw.data.mapper.auto;
 import com.foxconn.sw.data.entity.SwMeetingMinute;
 import com.foxconn.sw.data.entity.SwMeetingMinuteExample;
 import java.util.List;
-import org.apache.ibatis.annotations.Delete;
-import org.apache.ibatis.annotations.DeleteProvider;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.InsertProvider;
 import org.apache.ibatis.annotations.Mapper;
@@ -21,18 +19,6 @@ import org.apache.ibatis.type.JdbcType;
 
 @Mapper
 public interface SwMeetingMinuteMapper {
-    @SelectProvider(type=SwMeetingMinuteSqlProvider.class, method="countByExample")
-    long countByExample(SwMeetingMinuteExample example);
-
-    @DeleteProvider(type=SwMeetingMinuteSqlProvider.class, method="deleteByExample")
-    int deleteByExample(SwMeetingMinuteExample example);
-
-    @Delete({
-        "delete from sw_meeting_minute",
-        "where id = #{id,jdbcType=BIGINT}"
-    })
-    int deleteByPrimaryKey(Long id);
-
     @Insert({
         "insert into sw_meeting_minute (meeting_id, room, ",
         "title, meeting_date, ",

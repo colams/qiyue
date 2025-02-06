@@ -3,8 +3,6 @@ package com.foxconn.sw.data.mapper.auto;
 import com.foxconn.sw.data.entity.SwUserRole;
 import com.foxconn.sw.data.entity.SwUserRoleExample;
 import java.util.List;
-import org.apache.ibatis.annotations.Delete;
-import org.apache.ibatis.annotations.DeleteProvider;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.InsertProvider;
 import org.apache.ibatis.annotations.Mapper;
@@ -21,18 +19,6 @@ import org.apache.ibatis.type.JdbcType;
 
 @Mapper
 public interface SwUserRoleMapper {
-    @SelectProvider(type=SwUserRoleSqlProvider.class, method="countByExample")
-    long countByExample(SwUserRoleExample example);
-
-    @DeleteProvider(type=SwUserRoleSqlProvider.class, method="deleteByExample")
-    int deleteByExample(SwUserRoleExample example);
-
-    @Delete({
-        "delete from sw_user_role",
-        "where id = #{id,jdbcType=INTEGER}"
-    })
-    int deleteByPrimaryKey(Integer id);
-
     @Insert({
         "insert into sw_user_role (user_id, role_id, ",
         "create_time, datetime_lastchange)",

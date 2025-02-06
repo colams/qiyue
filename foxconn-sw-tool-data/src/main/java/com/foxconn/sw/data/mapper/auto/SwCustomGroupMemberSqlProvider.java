@@ -10,20 +10,6 @@ import org.apache.ibatis.jdbc.SQL;
 
 public class SwCustomGroupMemberSqlProvider {
 
-    public String countByExample(SwCustomGroupMemberExample example) {
-        SQL sql = new SQL();
-        sql.SELECT("count(*)").FROM("sw_custom_group_member");
-        applyWhere(sql, example, false);
-        return sql.toString();
-    }
-
-    public String deleteByExample(SwCustomGroupMemberExample example) {
-        SQL sql = new SQL();
-        sql.DELETE_FROM("sw_custom_group_member");
-        applyWhere(sql, example, false);
-        return sql.toString();
-    }
-
     public String insertSelective(SwCustomGroupMember record) {
         SQL sql = new SQL();
         sql.INSERT_INTO("sw_custom_group_member");

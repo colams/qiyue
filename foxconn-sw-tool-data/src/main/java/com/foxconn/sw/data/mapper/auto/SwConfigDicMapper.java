@@ -3,8 +3,6 @@ package com.foxconn.sw.data.mapper.auto;
 import com.foxconn.sw.data.entity.SwConfigDic;
 import com.foxconn.sw.data.entity.SwConfigDicExample;
 import java.util.List;
-import org.apache.ibatis.annotations.Delete;
-import org.apache.ibatis.annotations.DeleteProvider;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.InsertProvider;
 import org.apache.ibatis.annotations.Mapper;
@@ -21,18 +19,6 @@ import org.apache.ibatis.type.JdbcType;
 
 @Mapper
 public interface SwConfigDicMapper {
-    @SelectProvider(type=SwConfigDicSqlProvider.class, method="countByExample")
-    long countByExample(SwConfigDicExample example);
-
-    @DeleteProvider(type=SwConfigDicSqlProvider.class, method="deleteByExample")
-    int deleteByExample(SwConfigDicExample example);
-
-    @Delete({
-        "delete from sw_config_dic",
-        "where id = #{id,jdbcType=INTEGER}"
-    })
-    int deleteByPrimaryKey(Integer id);
-
     @Insert({
         "insert into sw_config_dic (item, item_value, ",
         "is_disable, is_delete, ",

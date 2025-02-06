@@ -3,8 +3,6 @@ package com.foxconn.sw.data.mapper.auto;
 import com.foxconn.sw.data.entity.SwContactGather;
 import com.foxconn.sw.data.entity.SwContactGatherExample;
 import java.util.List;
-import org.apache.ibatis.annotations.Delete;
-import org.apache.ibatis.annotations.DeleteProvider;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.InsertProvider;
 import org.apache.ibatis.annotations.Mapper;
@@ -21,18 +19,6 @@ import org.apache.ibatis.type.JdbcType;
 
 @Mapper
 public interface SwContactGatherMapper {
-    @SelectProvider(type=SwContactGatherSqlProvider.class, method="countByExample")
-    long countByExample(SwContactGatherExample example);
-
-    @DeleteProvider(type=SwContactGatherSqlProvider.class, method="deleteByExample")
-    int deleteByExample(SwContactGatherExample example);
-
-    @Delete({
-        "delete from sw_contact_gather",
-        "where id = #{id,jdbcType=INTEGER}"
-    })
-    int deleteByPrimaryKey(Integer id);
-
     @Insert({
         "insert into sw_contact_gather (employee_no, gather_employee_no, ",
         "status, create_time, ",
