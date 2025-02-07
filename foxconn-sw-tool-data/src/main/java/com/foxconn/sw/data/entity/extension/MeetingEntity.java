@@ -11,6 +11,7 @@ public class MeetingEntity {
     private String endTime;
     private String room;
     private String meetingDate;
+    private String resources;
 
     public Integer getMeetingId() {
         return meetingId;
@@ -82,5 +83,13 @@ public class MeetingEntity {
 
     public void setMeetingDate(String meetingDate) {
         this.meetingDate = meetingDate;
+    }
+
+    public String getResources() {
+        return resources;
+    }
+
+    public void setResources(String resources) {
+        this.resources = resources;
     }
 }
