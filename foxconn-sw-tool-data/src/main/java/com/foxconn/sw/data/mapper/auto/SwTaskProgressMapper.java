@@ -21,9 +21,6 @@ import org.apache.ibatis.type.JdbcType;
 
 @Mapper
 public interface SwTaskProgressMapper {
-    @SelectProvider(type=SwTaskProgressSqlProvider.class, method="countByExample")
-    long countByExample(SwTaskProgressExample example);
-
     @DeleteProvider(type=SwTaskProgressSqlProvider.class, method="deleteByExample")
     int deleteByExample(SwTaskProgressExample example);
 

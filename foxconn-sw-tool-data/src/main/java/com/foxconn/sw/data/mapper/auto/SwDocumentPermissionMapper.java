@@ -21,9 +21,6 @@ import org.apache.ibatis.type.JdbcType;
 
 @Mapper
 public interface SwDocumentPermissionMapper {
-    @SelectProvider(type=SwDocumentPermissionSqlProvider.class, method="countByExample")
-    long countByExample(SwDocumentPermissionExample example);
-
     @DeleteProvider(type=SwDocumentPermissionSqlProvider.class, method="deleteByExample")
     int deleteByExample(SwDocumentPermissionExample example);
 

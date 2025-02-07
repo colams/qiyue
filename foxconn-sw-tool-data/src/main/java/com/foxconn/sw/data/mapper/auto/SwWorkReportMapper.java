@@ -21,9 +21,6 @@ import org.apache.ibatis.type.JdbcType;
 
 @Mapper
 public interface SwWorkReportMapper {
-    @SelectProvider(type=SwWorkReportSqlProvider.class, method="countByExample")
-    long countByExample(SwWorkReportExample example);
-
     @DeleteProvider(type=SwWorkReportSqlProvider.class, method="deleteByExample")
     int deleteByExample(SwWorkReportExample example);
 

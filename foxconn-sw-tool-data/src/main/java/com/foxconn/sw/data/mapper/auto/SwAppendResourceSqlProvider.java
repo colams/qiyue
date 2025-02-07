@@ -10,13 +10,6 @@ import org.apache.ibatis.jdbc.SQL;
 
 public class SwAppendResourceSqlProvider {
 
-    public String countByExample(SwAppendResourceExample example) {
-        SQL sql = new SQL();
-        sql.SELECT("count(*)").FROM("sw_append_resource");
-        applyWhere(sql, example, false);
-        return sql.toString();
-    }
-
     public String deleteByExample(SwAppendResourceExample example) {
         SQL sql = new SQL();
         sql.DELETE_FROM("sw_append_resource");

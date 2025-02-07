@@ -21,9 +21,6 @@ import org.apache.ibatis.type.JdbcType;
 
 @Mapper
 public interface SwDocumentHistoryMapper {
-    @SelectProvider(type=SwDocumentHistorySqlProvider.class, method="countByExample")
-    long countByExample(SwDocumentHistoryExample example);
-
     @DeleteProvider(type=SwDocumentHistorySqlProvider.class, method="deleteByExample")
     int deleteByExample(SwDocumentHistoryExample example);
 

@@ -7,7 +7,7 @@ public class ForumFavorite {
 
     private String operator;
 
-    private Integer postsId;
+    private Integer fbId;
 
     private Integer isValid;
 
@@ -41,17 +41,17 @@ public class ForumFavorite {
         this.operator = operator == null ? null : operator.trim();
     }
 
-    public Integer getPostsId() {
-        return postsId;
+    public Integer getFbId() {
+        return fbId;
     }
 
-    public ForumFavorite withPostsId(Integer postsId) {
-        this.setPostsId(postsId);
+    public ForumFavorite withFbId(Integer fbId) {
+        this.setFbId(fbId);
         return this;
     }
 
-    public void setPostsId(Integer postsId) {
-        this.postsId = postsId;
+    public void setFbId(Integer fbId) {
+        this.fbId = fbId;
     }
 
     public Integer getIsValid() {

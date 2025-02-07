@@ -21,9 +21,6 @@ import org.apache.ibatis.type.JdbcType;
 
 @Mapper
 public interface ForumBbsCommentMapper {
-    @SelectProvider(type=ForumBbsCommentSqlProvider.class, method="countByExample")
-    long countByExample(ForumBbsCommentExample example);
-
     @DeleteProvider(type=ForumBbsCommentSqlProvider.class, method="deleteByExample")
     int deleteByExample(ForumBbsCommentExample example);
 

@@ -10,13 +10,6 @@ import org.apache.ibatis.jdbc.SQL;
 
 public class ForumParticipantSqlProvider {
 
-    public String countByExample(ForumParticipantExample example) {
-        SQL sql = new SQL();
-        sql.SELECT("count(*)").FROM("forum_participant");
-        applyWhere(sql, example, false);
-        return sql.toString();
-    }
-
     public String deleteByExample(ForumParticipantExample example) {
         SQL sql = new SQL();
         sql.DELETE_FROM("forum_participant");
@@ -28,8 +21,8 @@ public class ForumParticipantSqlProvider {
         SQL sql = new SQL();
         sql.INSERT_INTO("forum_participant");
         
-        if (record.getPostsId() != null) {
-            sql.VALUES("posts_id", "#{postsId,jdbcType=INTEGER}");
+        if (record.getFbId() != null) {
+            sql.VALUES("fb_id", "#{fbId,jdbcType=INTEGER}");
         }
         
         if (record.getEmployeeNo() != null) {
@@ -66,7 +59,7 @@ public class ForumParticipantSqlProvider {
         } else {
             sql.SELECT("id");
         }
-        sql.SELECT("posts_id");
+        sql.SELECT("fb_id");
         sql.SELECT("employee_no");
         sql.SELECT("is_read");
         sql.SELECT("hidden");
@@ -94,8 +87,8 @@ public class ForumParticipantSqlProvider {
             sql.SET("id = #{record.id,jdbcType=INTEGER}");
         }
         
-        if (record.getPostsId() != null) {
-            sql.SET("posts_id = #{record.postsId,jdbcType=INTEGER}");
+        if (record.getFbId() != null) {
+            sql.SET("fb_id = #{record.fbId,jdbcType=INTEGER}");
         }
         
         if (record.getEmployeeNo() != null) {
@@ -131,7 +124,7 @@ public class ForumParticipantSqlProvider {
         sql.UPDATE("forum_participant");
         
         sql.SET("id = #{record.id,jdbcType=INTEGER}");
-        sql.SET("posts_id = #{record.postsId,jdbcType=INTEGER}");
+        sql.SET("fb_id = #{record.fbId,jdbcType=INTEGER}");
         sql.SET("employee_no = #{record.employeeNo,jdbcType=VARCHAR}");
         sql.SET("is_read = #{record.isRead,jdbcType=INTEGER}");
         sql.SET("hidden = #{record.hidden,jdbcType=INTEGER}");
@@ -148,8 +141,8 @@ public class ForumParticipantSqlProvider {
         SQL sql = new SQL();
         sql.UPDATE("forum_participant");
         
-        if (record.getPostsId() != null) {
-            sql.SET("posts_id = #{postsId,jdbcType=INTEGER}");
+        if (record.getFbId() != null) {
+            sql.SET("fb_id = #{fbId,jdbcType=INTEGER}");
         }
         
         if (record.getEmployeeNo() != null) {

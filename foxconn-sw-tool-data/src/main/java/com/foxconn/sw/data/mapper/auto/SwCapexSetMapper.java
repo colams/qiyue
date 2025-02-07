@@ -21,9 +21,6 @@ import org.apache.ibatis.type.JdbcType;
 
 @Mapper
 public interface SwCapexSetMapper {
-    @SelectProvider(type=SwCapexSetSqlProvider.class, method="countByExample")
-    long countByExample(SwCapexSetExample example);
-
     @DeleteProvider(type=SwCapexSetSqlProvider.class, method="deleteByExample")
     int deleteByExample(SwCapexSetExample example);
 

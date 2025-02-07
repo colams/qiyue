@@ -10,13 +10,6 @@ import org.apache.ibatis.jdbc.SQL;
 
 public class SwUserLoginSqlProvider {
 
-    public String countByExample(SwUserLoginExample example) {
-        SQL sql = new SQL();
-        sql.SELECT("count(*)").FROM("sw_user_login");
-        applyWhere(sql, example, false);
-        return sql.toString();
-    }
-
     public String deleteByExample(SwUserLoginExample example) {
         SQL sql = new SQL();
         sql.DELETE_FROM("sw_user_login");

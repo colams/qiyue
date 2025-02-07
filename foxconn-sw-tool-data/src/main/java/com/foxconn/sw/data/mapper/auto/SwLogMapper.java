@@ -21,9 +21,6 @@ import org.apache.ibatis.type.JdbcType;
 
 @Mapper
 public interface SwLogMapper {
-    @SelectProvider(type=SwLogSqlProvider.class, method="countByExample")
-    long countByExample(SwLogExample example);
-
     @DeleteProvider(type=SwLogSqlProvider.class, method="deleteByExample")
     int deleteByExample(SwLogExample example);
 

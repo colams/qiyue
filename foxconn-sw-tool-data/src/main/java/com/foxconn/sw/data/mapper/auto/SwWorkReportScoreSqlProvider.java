@@ -10,13 +10,6 @@ import org.apache.ibatis.jdbc.SQL;
 
 public class SwWorkReportScoreSqlProvider {
 
-    public String countByExample(SwWorkReportScoreExample example) {
-        SQL sql = new SQL();
-        sql.SELECT("count(*)").FROM("sw_work_report_score");
-        applyWhere(sql, example, false);
-        return sql.toString();
-    }
-
     public String deleteByExample(SwWorkReportScoreExample example) {
         SQL sql = new SQL();
         sql.DELETE_FROM("sw_work_report_score");

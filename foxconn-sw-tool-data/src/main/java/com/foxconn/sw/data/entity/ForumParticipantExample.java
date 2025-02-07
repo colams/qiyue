@@ -165,63 +165,63 @@ public class ForumParticipantExample {
             return (Criteria) this;
         }
 
-        public Criteria andPostsIdIsNull() {
-            addCriterion("posts_id is null");
+        public Criteria andFbIdIsNull() {
+            addCriterion("fb_id is null");
             return (Criteria) this;
         }
 
-        public Criteria andPostsIdIsNotNull() {
-            addCriterion("posts_id is not null");
+        public Criteria andFbIdIsNotNull() {
+            addCriterion("fb_id is not null");
             return (Criteria) this;
         }
 
-        public Criteria andPostsIdEqualTo(Integer value) {
-            addCriterion("posts_id =", value, "postsId");
+        public Criteria andFbIdEqualTo(Integer value) {
+            addCriterion("fb_id =", value, "fbId");
             return (Criteria) this;
         }
 
-        public Criteria andPostsIdNotEqualTo(Integer value) {
-            addCriterion("posts_id <>", value, "postsId");
+        public Criteria andFbIdNotEqualTo(Integer value) {
+            addCriterion("fb_id <>", value, "fbId");
             return (Criteria) this;
         }
 
-        public Criteria andPostsIdGreaterThan(Integer value) {
-            addCriterion("posts_id >", value, "postsId");
+        public Criteria andFbIdGreaterThan(Integer value) {
+            addCriterion("fb_id >", value, "fbId");
             return (Criteria) this;
         }
 
-        public Criteria andPostsIdGreaterThanOrEqualTo(Integer value) {
-            addCriterion("posts_id >=", value, "postsId");
+        public Criteria andFbIdGreaterThanOrEqualTo(Integer value) {
+            addCriterion("fb_id >=", value, "fbId");
             return (Criteria) this;
         }
 
-        public Criteria andPostsIdLessThan(Integer value) {
-            addCriterion("posts_id <", value, "postsId");
+        public Criteria andFbIdLessThan(Integer value) {
+            addCriterion("fb_id <", value, "fbId");
             return (Criteria) this;
         }
 
-        public Criteria andPostsIdLessThanOrEqualTo(Integer value) {
-            addCriterion("posts_id <=", value, "postsId");
+        public Criteria andFbIdLessThanOrEqualTo(Integer value) {
+            addCriterion("fb_id <=", value, "fbId");
             return (Criteria) this;
         }
 
-        public Criteria andPostsIdIn(List<Integer> values) {
-            addCriterion("posts_id in", values, "postsId");
+        public Criteria andFbIdIn(List<Integer> values) {
+            addCriterion("fb_id in", values, "fbId");
             return (Criteria) this;
         }
 
-        public Criteria andPostsIdNotIn(List<Integer> values) {
-            addCriterion("posts_id not in", values, "postsId");
+        public Criteria andFbIdNotIn(List<Integer> values) {
+            addCriterion("fb_id not in", values, "fbId");
             return (Criteria) this;
         }
 
-        public Criteria andPostsIdBetween(Integer value1, Integer value2) {
-            addCriterion("posts_id between", value1, value2, "postsId");
+        public Criteria andFbIdBetween(Integer value1, Integer value2) {
+            addCriterion("fb_id between", value1, value2, "fbId");
             return (Criteria) this;
         }
 
-        public Criteria andPostsIdNotBetween(Integer value1, Integer value2) {
-            addCriterion("posts_id not between", value1, value2, "postsId");
+        public Criteria andFbIdNotBetween(Integer value1, Integer value2) {
+            addCriterion("fb_id not between", value1, value2, "fbId");
             return (Criteria) this;
         }
 

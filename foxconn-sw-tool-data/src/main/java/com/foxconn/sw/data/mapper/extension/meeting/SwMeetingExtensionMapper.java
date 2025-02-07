@@ -93,7 +93,8 @@ public interface SwMeetingExtensionMapper extends SwMeetingMapper {
             "s.cycle_start, ",
             "s.cycle_expire, ",
             "s.room, ",
-            "s.meeting_date",
+            "s.meeting_date,",
+            "s.resource_ids",
             "from sw_meeting s ",
             " inner join sw_meeting_member m on s.id = m.meeting_id",
             "where s.status = 0 ",
@@ -116,6 +117,7 @@ public interface SwMeetingExtensionMapper extends SwMeetingMapper {
             @Result(column = "end_time", property = "endTime", jdbcType = JdbcType.VARCHAR),
             @Result(column = "room", property = "room", jdbcType = JdbcType.VARCHAR),
             @Result(column = "meeting_date", property = "meetingDate", jdbcType = JdbcType.VARCHAR),
+            @Result(column = "resource_ids", property = "resources", jdbcType = JdbcType.VARCHAR),
     })
     List<MeetingEntity> selectMeetingList2(@Param("employeeNo") String employeeNo,
                                            @Param("searchStart") String searchStart,

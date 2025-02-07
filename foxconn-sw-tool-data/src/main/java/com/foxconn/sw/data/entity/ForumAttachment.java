@@ -5,7 +5,7 @@ import java.time.LocalDateTime;
 public class ForumAttachment {
     private Integer id;
 
-    private Integer postsId;
+    private Integer fbId;
 
     private Integer commentId;
 
@@ -30,17 +30,17 @@ public class ForumAttachment {
         this.id = id;
     }
 
-    public Integer getPostsId() {
-        return postsId;
+    public Integer getFbId() {
+        return fbId;
     }
 
-    public ForumAttachment withPostsId(Integer postsId) {
-        this.setPostsId(postsId);
+    public ForumAttachment withFbId(Integer fbId) {
+        this.setFbId(fbId);
         return this;
     }
 
-    public void setPostsId(Integer postsId) {
-        this.postsId = postsId;
+    public void setFbId(Integer fbId) {
+        this.fbId = fbId;
     }
 
     public Integer getCommentId() {

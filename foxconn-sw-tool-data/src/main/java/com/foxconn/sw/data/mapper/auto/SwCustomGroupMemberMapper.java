@@ -21,9 +21,6 @@ import org.apache.ibatis.type.JdbcType;
 
 @Mapper
 public interface SwCustomGroupMemberMapper {
-    @SelectProvider(type=SwCustomGroupMemberSqlProvider.class, method="countByExample")
-    long countByExample(SwCustomGroupMemberExample example);
-
     @DeleteProvider(type=SwCustomGroupMemberSqlProvider.class, method="deleteByExample")
     int deleteByExample(SwCustomGroupMemberExample example);
 

@@ -21,9 +21,6 @@ import org.apache.ibatis.type.JdbcType;
 
 @Mapper
 public interface ForumAttachmentMapper {
-    @SelectProvider(type=ForumAttachmentSqlProvider.class, method="countByExample")
-    long countByExample(ForumAttachmentExample example);
-
     @DeleteProvider(type=ForumAttachmentSqlProvider.class, method="deleteByExample")
     int deleteByExample(ForumAttachmentExample example);
 
@@ -34,10 +31,10 @@ public interface ForumAttachmentMapper {
     int deleteByPrimaryKey(Integer id);
 
     @Insert({
-        "insert into forum_attachment (posts_id, comment_id, ",
+        "insert into forum_attachment (fb_id, comment_id, ",
         "resource_id, is_delete, ",
         "create_time, datatime_lastchange)",
-        "values (#{postsId,jdbcType=INTEGER}, #{commentId,jdbcType=INTEGER}, ",
+        "values (#{fbId,jdbcType=INTEGER}, #{commentId,jdbcType=INTEGER}, ",
         "#{resourceId,jdbcType=INTEGER}, #{isDelete,jdbcType=INTEGER}, ",
         "#{createTime,jdbcType=TIMESTAMP}, #{datatimeLastchange,jdbcType=TIMESTAMP})"
     })
@@ -51,7 +48,7 @@ public interface ForumAttachmentMapper {
     @SelectProvider(type=ForumAttachmentSqlProvider.class, method="selectByExample")
     @Results({
         @Result(column="id", property="id", jdbcType=JdbcType.INTEGER, id=true),
-        @Result(column="posts_id", property="postsId", jdbcType=JdbcType.INTEGER),
+        @Result(column="fb_id", property="fbId", jdbcType=JdbcType.INTEGER),
         @Result(column="comment_id", property="commentId", jdbcType=JdbcType.INTEGER),
         @Result(column="resource_id", property="resourceId", jdbcType=JdbcType.INTEGER),
         @Result(column="is_delete", property="isDelete", jdbcType=JdbcType.INTEGER),
@@ -63,7 +60,7 @@ public interface ForumAttachmentMapper {
     @SelectProvider(type=ForumAttachmentSqlProvider.class, method="selectByExample")
     @Results({
         @Result(column="id", property="id", jdbcType=JdbcType.INTEGER, id=true),
-        @Result(column="posts_id", property="postsId", jdbcType=JdbcType.INTEGER),
+        @Result(column="fb_id", property="fbId", jdbcType=JdbcType.INTEGER),
         @Result(column="comment_id", property="commentId", jdbcType=JdbcType.INTEGER),
         @Result(column="resource_id", property="resourceId", jdbcType=JdbcType.INTEGER),
         @Result(column="is_delete", property="isDelete", jdbcType=JdbcType.INTEGER),
@@ -74,13 +71,13 @@ public interface ForumAttachmentMapper {
 
     @Select({
         "select",
-        "id, posts_id, comment_id, resource_id, is_delete, create_time, datatime_lastchange",
+        "id, fb_id, comment_id, resource_id, is_delete, create_time, datatime_lastchange",
         "from forum_attachment",
         "where id = #{id,jdbcType=INTEGER}"
     })
     @Results({
         @Result(column="id", property="id", jdbcType=JdbcType.INTEGER, id=true),
-        @Result(column="posts_id", property="postsId", jdbcType=JdbcType.INTEGER),
+        @Result(column="fb_id", property="fbId", jdbcType=JdbcType.INTEGER),
         @Result(column="comment_id", property="commentId", jdbcType=JdbcType.INTEGER),
         @Result(column="resource_id", property="resourceId", jdbcType=JdbcType.INTEGER),
         @Result(column="is_delete", property="isDelete", jdbcType=JdbcType.INTEGER),
@@ -100,7 +97,7 @@ public interface ForumAttachmentMapper {
 
     @Update({
         "update forum_attachment",
-        "set posts_id = #{postsId,jdbcType=INTEGER},",
+        "set fb_id = #{fbId,jdbcType=INTEGER},",
           "comment_id = #{commentId,jdbcType=INTEGER},",
           "resource_id = #{resourceId,jdbcType=INTEGER},",
           "is_delete = #{isDelete,jdbcType=INTEGER},",

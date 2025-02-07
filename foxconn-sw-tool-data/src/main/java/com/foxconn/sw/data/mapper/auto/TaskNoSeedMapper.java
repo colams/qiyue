@@ -21,9 +21,6 @@ import org.apache.ibatis.type.JdbcType;
 
 @Mapper
 public interface TaskNoSeedMapper {
-    @SelectProvider(type=TaskNoSeedSqlProvider.class, method="countByExample")
-    long countByExample(TaskNoSeedExample example);
-
     @DeleteProvider(type=TaskNoSeedSqlProvider.class, method="deleteByExample")
     int deleteByExample(TaskNoSeedExample example);
 

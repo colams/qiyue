@@ -21,9 +21,6 @@ import org.apache.ibatis.type.JdbcType;
 
 @Mapper
 public interface SwFeedbackMapper {
-    @SelectProvider(type=SwFeedbackSqlProvider.class, method="countByExample")
-    long countByExample(SwFeedbackExample example);
-
     @DeleteProvider(type=SwFeedbackSqlProvider.class, method="deleteByExample")
     int deleteByExample(SwFeedbackExample example);
 

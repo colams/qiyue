@@ -21,9 +21,6 @@ import org.apache.ibatis.type.JdbcType;
 
 @Mapper
 public interface SwAppendResourceMapper {
-    @SelectProvider(type=SwAppendResourceSqlProvider.class, method="countByExample")
-    long countByExample(SwAppendResourceExample example);
-
     @DeleteProvider(type=SwAppendResourceSqlProvider.class, method="deleteByExample")
     int deleteByExample(SwAppendResourceExample example);
 

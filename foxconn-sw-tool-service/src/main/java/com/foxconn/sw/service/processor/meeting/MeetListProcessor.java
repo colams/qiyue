@@ -1,9 +1,11 @@
 package com.foxconn.sw.service.processor.meeting;
 
+import com.foxconn.sw.business.SwAppendResourceBusiness;
 import com.foxconn.sw.business.meeting.MeetingBusiness;
 import com.foxconn.sw.business.meeting.MeetingCycleDetailBusiness;
 import com.foxconn.sw.business.meeting.MeetingMemberBusiness;
 import com.foxconn.sw.common.constanst.NumberConstants;
+import com.foxconn.sw.common.utils.DateTimeUtils;
 import com.foxconn.sw.common.utils.JsonUtils;
 import com.foxconn.sw.common.utils.LocalDateExtUtils;
 import com.foxconn.sw.data.dto.communal.MeetingDateTimeVo;
@@ -26,6 +28,7 @@ import org.springframework.util.CollectionUtils;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.TextStyle;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -45,6 +48,8 @@ public class MeetListProcessor {
     EmployeeUtils employeeUtils;
     @Autowired
     MeetingCycleDetailBusiness meetingCycleDetailBusiness;
+    @Autowired
+    SwAppendResourceBusiness appendResourceBusiness;
 
 
     public MeetListVo meetList(ListMeetingV2Params data) {
@@ -148,9 +153,26 @@ public class MeetListProcessor {
         vo.setTitle(meetingEntity.getTitle());
         vo.setMeetingDateVo(meetingDateTimeVo);
         vo.setChairman(employeeVo);
-        vo.setResource(Lists.newArrayList());
-        vo.setStatusVo(new InfoColorVo(0, "待開始"));
+        vo.setResource(appendResourceBusiness.getAppendResourcesVo(meetingEntity.getResources()));
+        vo.setStatusVo(mapColorVo(meetingDateTimeVo));
         return vo;
+    }
+
+    private InfoColorVo mapColorVo(MeetingDateTimeVo meetingDateTimeVo) {
+        LocalDateTime localDateTime = LocalDateTime.now();
+        String currentDate = DateTimeUtils.formatYMD(localDateTime);
+        String nowTime = DateTimeUtils.formatHm(localDateTime);
+        if (meetingDateTimeVo.getMeetingDate().compareTo(currentDate) > 0
+                || (meetingDateTimeVo.getMeetingDate().equalsIgnoreCase(currentDate)
+                && meetingDateTimeVo.getStartTime().compareTo(nowTime) > 0)) {
+            return new InfoColorVo(2, "待開始");
+        } else if (meetingDateTimeVo.getMeetingDate().equalsIgnoreCase(currentDate)
+                && meetingDateTimeVo.getStartTime().compareTo(nowTime) <= 0
+                && meetingDateTimeVo.getEndTime().compareTo(nowTime) > 0) {
+            return new InfoColorVo(1, "进行中");
+        } else {
+            return new InfoColorVo(3, "已过期");
+        }
     }
 
     private OptionsVo getRoomVo(String roomKey) {

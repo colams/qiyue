@@ -10,13 +10,6 @@ import org.apache.ibatis.jdbc.SQL;
 
 public class SwCollaborationUserSqlProvider {
 
-    public String countByExample(SwCollaborationUserExample example) {
-        SQL sql = new SQL();
-        sql.SELECT("count(*)").FROM("sw_collaboration_user");
-        applyWhere(sql, example, false);
-        return sql.toString();
-    }
-
     public String deleteByExample(SwCollaborationUserExample example) {
         SQL sql = new SQL();
         sql.DELETE_FROM("sw_collaboration_user");

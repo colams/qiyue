@@ -10,13 +10,6 @@ import org.apache.ibatis.jdbc.SQL;
 
 public class SwTaskContentHistorySqlProvider {
 
-    public String countByExample(SwTaskContentHistoryExample example) {
-        SQL sql = new SQL();
-        sql.SELECT("count(*)").FROM("sw_task_content_history");
-        applyWhere(sql, example, false);
-        return sql.toString();
-    }
-
     public String deleteByExample(SwTaskContentHistoryExample example) {
         SQL sql = new SQL();
         sql.DELETE_FROM("sw_task_content_history");

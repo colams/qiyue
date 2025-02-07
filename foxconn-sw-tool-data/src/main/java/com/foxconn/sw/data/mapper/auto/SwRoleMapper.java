@@ -21,9 +21,6 @@ import org.apache.ibatis.type.JdbcType;
 
 @Mapper
 public interface SwRoleMapper {
-    @SelectProvider(type=SwRoleSqlProvider.class, method="countByExample")
-    long countByExample(SwRoleExample example);
-
     @DeleteProvider(type=SwRoleSqlProvider.class, method="deleteByExample")
     int deleteByExample(SwRoleExample example);
 

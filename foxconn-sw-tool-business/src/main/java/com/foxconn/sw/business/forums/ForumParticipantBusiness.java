@@ -33,7 +33,7 @@ public class ForumParticipantBusiness {
                 return;
             }
             ForumParticipant participant = new ForumParticipant();
-            participant.setPostsId(postsID);
+            participant.setFbId(postsID);
             participant.setEmployeeNo(e);
             forumParticipantExtMapper.insertSelective(participant);
         });
@@ -43,7 +43,7 @@ public class ForumParticipantBusiness {
     public List<ForumParticipant> selectParticipants(Integer id) {
         ForumParticipantExample example = new ForumParticipantExample();
         ForumParticipantExample.Criteria criteria = example.createCriteria();
-        criteria.andPostsIdEqualTo(id);
+        criteria.andFbIdEqualTo(id);
         criteria.andIsDeleteEqualTo(0);
         return forumParticipantExtMapper.selectByExample(example);
     }
@@ -51,7 +51,7 @@ public class ForumParticipantBusiness {
     public List<ForumParticipant> getBbsParticipantByEno(List<Integer> bbsIds, String employeeNo) {
         ForumParticipantExample example = new ForumParticipantExample();
         ForumParticipantExample.Criteria criteria = example.createCriteria();
-        criteria.andPostsIdIn(bbsIds);
+        criteria.andFbIdIn(bbsIds);
         criteria.andEmployeeNoEqualTo(employeeNo);
         criteria.andIsDeleteEqualTo(0);
         return forumParticipantExtMapper.selectByExample(example);
@@ -60,7 +60,7 @@ public class ForumParticipantBusiness {
     public List<ForumsParticipantVo> queryParticipants(Integer id) {
         ForumParticipantExample example = new ForumParticipantExample();
         ForumParticipantExample.Criteria criteria = example.createCriteria();
-        criteria.andPostsIdEqualTo(id);
+        criteria.andFbIdEqualTo(id);
         example.setOrderByClause(" create_time ");
         List<ForumParticipant> forumParticipants = forumParticipantExtMapper.selectByExample(example);
         return Optional.ofNullable(forumParticipants).orElse(Lists.newArrayList())
@@ -73,7 +73,7 @@ public class ForumParticipantBusiness {
     public Integer queryParticipantCount(Integer id) {
         ForumParticipantExample example = new ForumParticipantExample();
         ForumParticipantExample.Criteria criteria = example.createCriteria();
-        criteria.andPostsIdEqualTo(id);
+        criteria.andFbIdEqualTo(id);
         List<ForumParticipant> forumParticipants = forumParticipantExtMapper.selectByExample(example);
         return Optional.ofNullable(forumParticipants).orElse(Lists.newArrayList()).size();
     }
@@ -99,7 +99,7 @@ public class ForumParticipantBusiness {
     public ForumParticipant queryParticipants(Integer params, String employeeNo) {
         ForumParticipantExample example = new ForumParticipantExample();
         ForumParticipantExample.Criteria criteria = example.createCriteria();
-        criteria.andPostsIdEqualTo(params);
+        criteria.andFbIdEqualTo(params);
         criteria.andEmployeeNoEqualTo(employeeNo);
         List<ForumParticipant> forumParticipants = forumParticipantExtMapper.selectByExample(example);
         return CollectionUtils.isEmpty(forumParticipants) ? null : forumParticipants.get(0);

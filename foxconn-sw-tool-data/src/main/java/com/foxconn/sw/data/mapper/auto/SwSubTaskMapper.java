@@ -21,9 +21,6 @@ import org.apache.ibatis.type.JdbcType;
 
 @Mapper
 public interface SwSubTaskMapper {
-    @SelectProvider(type=SwSubTaskSqlProvider.class, method="countByExample")
-    long countByExample(SwSubTaskExample example);
-
     @DeleteProvider(type=SwSubTaskSqlProvider.class, method="deleteByExample")
     int deleteByExample(SwSubTaskExample example);
 

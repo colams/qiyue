@@ -21,9 +21,6 @@ import org.apache.ibatis.type.JdbcType;
 
 @Mapper
 public interface SwMeetingMemberMapper {
-    @SelectProvider(type=SwMeetingMemberSqlProvider.class, method="countByExample")
-    long countByExample(SwMeetingMemberExample example);
-
     @DeleteProvider(type=SwMeetingMemberSqlProvider.class, method="deleteByExample")
     int deleteByExample(SwMeetingMemberExample example);
 

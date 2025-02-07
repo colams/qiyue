@@ -10,13 +10,6 @@ import org.apache.ibatis.jdbc.SQL;
 
 public class SwLogSqlProvider {
 
-    public String countByExample(SwLogExample example) {
-        SQL sql = new SQL();
-        sql.SELECT("count(*)").FROM("sw_log");
-        applyWhere(sql, example, false);
-        return sql.toString();
-    }
-
     public String deleteByExample(SwLogExample example) {
         SQL sql = new SQL();
         sql.DELETE_FROM("sw_log");

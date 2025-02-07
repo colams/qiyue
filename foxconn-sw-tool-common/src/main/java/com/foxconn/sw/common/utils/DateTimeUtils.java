@@ -52,6 +52,16 @@ public class DateTimeUtils {
      *
      * @return
      */
+    public static String formatHm(LocalDateTime localDateTime) {
+        return localDateTime.format(DateTimeFormatter.ofPattern(DateTimePattern.hhMM));
+    }
+
+
+    /**
+     * 设置时间戳
+     *
+     * @return
+     */
     public static String format(String inputDate, String pattern) {
         LocalDate localDate = LocalDate.parse(inputDate);
         return localDate.format(DateTimeFormatter.ofPattern(pattern));
@@ -89,5 +99,7 @@ public class DateTimeUtils {
         String yyyyMMdd = "yyyyMMdd";
 
         String yyyyMMdd1 = "yyyy-MM-dd";
+
+        String hhMM = "HH:mm";
     }
 }

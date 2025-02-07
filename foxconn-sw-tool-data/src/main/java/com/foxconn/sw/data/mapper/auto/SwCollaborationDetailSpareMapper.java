@@ -21,9 +21,6 @@ import org.apache.ibatis.type.JdbcType;
 
 @Mapper
 public interface SwCollaborationDetailSpareMapper {
-    @SelectProvider(type=SwCollaborationDetailSpareSqlProvider.class, method="countByExample")
-    long countByExample(SwCollaborationDetailSpareExample example);
-
     @DeleteProvider(type=SwCollaborationDetailSpareSqlProvider.class, method="deleteByExample")
     int deleteByExample(SwCollaborationDetailSpareExample example);
 

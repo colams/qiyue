@@ -10,13 +10,6 @@ import org.apache.ibatis.jdbc.SQL;
 
 public class SwToolRunResultSqlProvider {
 
-    public String countByExample(SwToolRunResultExample example) {
-        SQL sql = new SQL();
-        sql.SELECT("count(*)").FROM("sw_tool_run_result");
-        applyWhere(sql, example, false);
-        return sql.toString();
-    }
-
     public String deleteByExample(SwToolRunResultExample example) {
         SQL sql = new SQL();
         sql.DELETE_FROM("sw_tool_run_result");

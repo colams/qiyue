@@ -10,13 +10,6 @@ import org.apache.ibatis.jdbc.SQL;
 
 public class SwConfigDicSqlProvider {
 
-    public String countByExample(SwConfigDicExample example) {
-        SQL sql = new SQL();
-        sql.SELECT("count(*)").FROM("sw_config_dic");
-        applyWhere(sql, example, false);
-        return sql.toString();
-    }
-
     public String deleteByExample(SwConfigDicExample example) {
         SQL sql = new SQL();
         sql.DELETE_FROM("sw_config_dic");

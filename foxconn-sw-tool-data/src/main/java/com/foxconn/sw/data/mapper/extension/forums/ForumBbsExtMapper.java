@@ -1,6 +1,7 @@
 package com.foxconn.sw.data.mapper.extension.forums;
 
 import com.foxconn.sw.data.entity.ForumBbs;
+import com.foxconn.sw.data.entity.extension.ForumBbsExtension;
 import com.foxconn.sw.data.mapper.auto.ForumBbsMapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Result;
@@ -15,8 +16,23 @@ import java.util.List;
 public interface ForumBbsExtMapper extends ForumBbsMapper {
 
     @Select({"<script> " +
-            "select b.* from forum_bbs b inner join forum_favorite f on b.id=f.posts_id ",
-            "inner join forum_participant p on b.id=p.posts_id and p.is_delete=0",
+            "select b.*,subquery.sum from forum_bbs b inner join forum_favorite f on b.id=f.fb_id ",
+            "inner join forum_participant p on b.id=p.fb_id and p.is_delete=0",
+            "left join (",
+            "    SELECT p.fb_id," +
+                    "           count(1) as sum" +
+                    "    FROM forum_participant p" +
+                    "             inner join forum_bbs_comment c",
+            "                        on p.fb_id = c.fb_id",
+            "             left join sw_read_status r on r.foreign_id = c.id ",
+            "        and r.module_type = 'Forum' ",
+            "    WHERE p.employee_no = #{operator,jdbcType=VARCHAR} ",
+            "      and c.is_delete = 0 ",
+            "      and c.parent_id = 0 ",
+            "      and c.target_id = 0 ",
+            "      and r.id is null ",
+            "    GROUP BY p.fb_id ",
+            ") subquery ON b.id = subquery.fb_id",
             "where f.is_valid=1 ",
             "and b.is_delete=0 ",
             "and f.operator=#{operator,jdbcType=VARCHAR}",
@@ -26,6 +42,7 @@ public interface ForumBbsExtMapper extends ForumBbsMapper {
             "<if test='isAdmin!=1'>",
             "and p.employee_no=#{operator,jdbcType=VARCHAR}",
             "</if> ",
+            "order by subquery.sum desc, b.id desc",
             "LIMIT #{start,jdbcType=INTEGER} , #{pageSize,jdbcType=INTEGER} ",
             " </script> "
     })
@@ -33,18 +50,34 @@ public interface ForumBbsExtMapper extends ForumBbsMapper {
             @Result(column = "id", property = "id", jdbcType = JdbcType.INTEGER, id = true),
             @Result(column = "title", property = "title", jdbcType = JdbcType.VARCHAR),
             @Result(column = "author_no", property = "authorNo", jdbcType = JdbcType.VARCHAR),
+            @Result(column = "sum", property = "sum", jdbcType = JdbcType.INTEGER),
             @Result(column = "create_time", property = "createTime", jdbcType = JdbcType.TIMESTAMP),
             @Result(column = "datetime_lastchange", property = "datetimeLastchange", jdbcType = JdbcType.TIMESTAMP),
     })
-    List<ForumBbs> favoriteBbs(@Param("isAdmin") Integer isAdmin,
-                               @Param("words") String words,
-                               @Param("operator") String operator,
-                               @Param("start") int start,
-                               @Param("pageSize") int pageSize);
+    List<ForumBbsExtension> favoriteBbs(@Param("isAdmin") Integer isAdmin,
+                                        @Param("words") String words,
+                                        @Param("operator") String operator,
+                                        @Param("start") int start,
+                                        @Param("pageSize") int pageSize);
 
     @Select({"<script> " +
-            "select b.* from forum_bbs b ",
-            "inner join forum_participant p on b.id=p.posts_id and p.is_delete=0 ",
+            "select b.*,subquery.sum from forum_bbs b ",
+            "inner join forum_participant p on b.id=p.fb_id and p.is_delete=0 ",
+            "left join (",
+            "    SELECT p.fb_id," +
+                    "           count(1) as sum" +
+                    "    FROM forum_participant p" +
+                    "             inner join forum_bbs_comment c",
+            "                        on p.fb_id = c.fb_id",
+            "             left join sw_read_status r on r.foreign_id = c.id ",
+            "        and r.module_type = 'Forum' ",
+            "    WHERE p.employee_no = #{currentUser,jdbcType=VARCHAR} ",
+            "      and c.is_delete = 0 ",
+            "      and c.parent_id = 0 ",
+            "      and c.target_id = 0 ",
+            "      and r.id is null ",
+            "    GROUP BY p.fb_id ",
+            ") subquery ON b.id = subquery.fb_id",
             "where b.is_delete=0 ",
             "<if test='title!=null and title!=\"\"' >",
             " and b.title like #{title,jdbcType=VARCHAR} ",
@@ -54,7 +87,7 @@ public interface ForumBbsExtMapper extends ForumBbsMapper {
             "</if> ",
             "and p.employee_no=#{currentUser,jdbcType=VARCHAR}",
             "and p.hidden=#{hiddenStatus,jdbcType=INTEGER}",
-            "order by b.create_time desc",
+            "order by subquery.sum desc, b.id desc",
             "LIMIT #{start,jdbcType=INTEGER} , #{pageSize,jdbcType=INTEGER} ",
             " </script> "
     })
@@ -62,10 +95,11 @@ public interface ForumBbsExtMapper extends ForumBbsMapper {
             @Result(column = "id", property = "id", jdbcType = JdbcType.INTEGER, id = true),
             @Result(column = "title", property = "title", jdbcType = JdbcType.VARCHAR),
             @Result(column = "author_no", property = "authorNo", jdbcType = JdbcType.VARCHAR),
+            @Result(column = "sum", property = "sum", jdbcType = JdbcType.INTEGER),
             @Result(column = "create_time", property = "createTime", jdbcType = JdbcType.TIMESTAMP),
             @Result(column = "lastchange_datetime", property = "lastchangeDatetime", jdbcType = JdbcType.TIMESTAMP),
     })
-    List<ForumBbs> selectByKeyWords(@Param("isAdmin") Integer isAdmin,
+    List<ForumBbsExtension> selectByKeyWords(@Param("isAdmin") Integer isAdmin,
                                     @Param("currentUser") String currentUser,
                                     @Param("owner") String owner,
                                     @Param("title") String title,
@@ -75,7 +109,7 @@ public interface ForumBbsExtMapper extends ForumBbsMapper {
 
     @Select({"<script> " +
             "select count(1) from forum_bbs b inner join forum_favorite f on " +
-            "b.id=f.posts_id " +
+            "b.id=f.fb_id " +
             "where f.is_valid=1 and b.is_delete=0 and f.operator=#{operator,jdbcType=VARCHAR}" +
             "<if test='words!=null and words!=\"\"' >",
             " and b.title like CONCAT('%', #{words,jdbcType=VARCHAR}, '%') ",

@@ -21,9 +21,6 @@ import org.apache.ibatis.type.JdbcType;
 
 @Mapper
 public interface SwNotificationMapper {
-    @SelectProvider(type=SwNotificationSqlProvider.class, method="countByExample")
-    long countByExample(SwNotificationExample example);
-
     @DeleteProvider(type=SwNotificationSqlProvider.class, method="deleteByExample")
     int deleteByExample(SwNotificationExample example);
 

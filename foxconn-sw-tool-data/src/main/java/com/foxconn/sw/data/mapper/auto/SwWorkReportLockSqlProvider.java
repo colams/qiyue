@@ -10,13 +10,6 @@ import org.apache.ibatis.jdbc.SQL;
 
 public class SwWorkReportLockSqlProvider {
 
-    public String countByExample(SwWorkReportLockExample example) {
-        SQL sql = new SQL();
-        sql.SELECT("count(*)").FROM("sw_work_report_lock");
-        applyWhere(sql, example, false);
-        return sql.toString();
-    }
-
     public String deleteByExample(SwWorkReportLockExample example) {
         SQL sql = new SQL();
         sql.DELETE_FROM("sw_work_report_lock");
