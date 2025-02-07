@@ -168,6 +168,4 @@ public class CommonController {
         MailUtils.sendEnclosureEmail();
         return ResponseEntity.ok("success");
     }
-
-
 }
