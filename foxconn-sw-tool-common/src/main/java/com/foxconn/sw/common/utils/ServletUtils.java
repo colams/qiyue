@@ -1,5 +1,6 @@
 package com.foxconn.sw.common.utils;
 
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -11,7 +12,7 @@ public class ServletUtils {
     @Autowired
     private HttpServletRequest servletRequest;
 
-    public String getRemoteIp(){
+    public String getRemoteIp() {
         String remoteAddr = "";
 
         if (servletRequest != null) {
@@ -20,8 +21,17 @@ public class ServletUtils {
                 remoteAddr = servletRequest.getRemoteAddr();
             }
         }
-
         return remoteAddr;
     }
+
+
+    public String getRequestURL() {
+        return servletRequest.getRequestURL().toString();
+    }
+
+    public Cookie[] getCookies() {
+        return servletRequest.getCookies();
+    }
+
 
 }

@@ -1,6 +1,7 @@
 package com.foxconn.sw.service;
 
 import com.foxconn.sw.common.utils.JsonUtils;
+import com.foxconn.sw.common.utils.ServletUtils;
 import com.foxconn.sw.common.utils.UUIDUtils;
 import com.foxconn.sw.data.constants.enums.retcode.RetCode;
 import com.foxconn.sw.data.dto.Response;
@@ -35,6 +36,9 @@ public class CustomExceptionHandler implements AsyncConfigurer {
     @Autowired
     private HttpServletRequest servletRequest;
 
+    @Autowired
+    private ServletUtils servletUtils;
+
     /**
      * 捕获API调用接口的异常类
      *
@@ -43,7 +47,7 @@ public class CustomExceptionHandler implements AsyncConfigurer {
      */
     @ExceptionHandler(BizException.class)
     public Response abstractApiException(BizException e) {
-        log.warn("abstractApiException =========== " + servletRequest.getRequestURL(), e);
+        log.warn("abstractApiException =========== " + servletUtils.getRemoteIp() + servletUtils.getRequestURL(), e.getMessage());
         return ResponseUtils.failure(e.getCode(), e.getMessage(), UUIDUtils.getUuid());
     }
 
@@ -60,7 +64,7 @@ public class CustomExceptionHandler implements AsyncConfigurer {
      */
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public Response handleMethodArgumentNotValidException(MethodArgumentNotValidException e) {
-        log.warn("MethodArgumentNotValidException =========== " + servletRequest.getRequestURL(), e);
+        log.warn("MethodArgumentNotValidException =========== " + servletUtils.getRemoteIp() + servletUtils.getRequestURL(), e);
         if (Objects.nonNull(e.getBindingResult()) && !CollectionUtils.isEmpty(e.getBindingResult().getAllErrors())) {
             List<String> errors = new ArrayList<>();
             e.getBindingResult().getAllErrors().forEach(error -> {
@@ -79,7 +83,7 @@ public class CustomExceptionHandler implements AsyncConfigurer {
      */
     @ExceptionHandler(Exception.class)
     public Response handleException(Exception e) {
-        log.warn("handleException =========== " + servletRequest.getRequestURL(), e);
+        log.warn("handleException =========== " + servletUtils.getRemoteIp() + servletUtils.getRequestURL(), e);
         return ResponseUtils.failure(RetCode.SYSTEM_EXCEPTION, UUIDUtils.getUuid());
     }
 
