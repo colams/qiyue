@@ -44,7 +44,12 @@ public class ValidatorAspect {
     @Around("parameterPointcut() && args(request,..)")
     public Object around(ProceedingJoinPoint joinPoint, Request request) throws Throwable {
         Object object = joinPoint.proceed();
-        logger.info(joinPoint.getTarget().getClass().getSimpleName() + "." + joinPoint.getSignature().getName() + "   =====," + servletUtils.getRemoteIp() + ",====," + request.getTraceId());
+        StringBuffer stringBuffer = new StringBuffer();
+        stringBuffer.append(joinPoint.getSignature().getName() + ".");
+        stringBuffer.append(joinPoint.getTarget().getClass().getSimpleName() + ";");
+        stringBuffer.append(request.getTraceId() + "   ");
+        stringBuffer.append(servletUtils.getRemoteIp());
+        logger.info(stringBuffer.toString());
         return object;
     }
 
