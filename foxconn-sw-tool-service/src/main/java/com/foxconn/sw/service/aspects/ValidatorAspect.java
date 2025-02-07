@@ -45,10 +45,10 @@ public class ValidatorAspect {
     public Object around(ProceedingJoinPoint joinPoint, Request request) throws Throwable {
         Object object = joinPoint.proceed();
         StringBuffer stringBuffer = new StringBuffer();
-        stringBuffer.append(joinPoint.getSignature().getName() + ".");
-        stringBuffer.append(joinPoint.getTarget().getClass().getSimpleName() + ";");
-        stringBuffer.append(request.getTraceId() + "   ");
-        stringBuffer.append(servletUtils.getRemoteIp());
+        stringBuffer.append(request.getTraceId());
+        stringBuffer.append("[" + joinPoint.getTarget().getClass().getSimpleName() + ".");
+        stringBuffer.append(joinPoint.getSignature().getName() + "]");
+        stringBuffer.append(" " + servletUtils.getRemoteIp());
         logger.info(stringBuffer.toString());
         return object;
     }
