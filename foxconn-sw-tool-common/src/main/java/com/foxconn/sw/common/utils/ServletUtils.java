@@ -13,15 +13,15 @@ public class ServletUtils {
     private HttpServletRequest servletRequest;
 
     public String getRemoteIp() {
-        String remoteAddr = "";
+        String remoteAdd = "";
 
         if (servletRequest != null) {
-            remoteAddr = servletRequest.getHeader("X-FORWARDED-FOR");
-            if (remoteAddr == null || "".equals(remoteAddr)) {
-                remoteAddr = servletRequest.getRemoteAddr();
+            remoteAdd = servletRequest.getHeader("X-FORWARDED-FOR");
+            if (remoteAdd == null || "".equals(remoteAdd)) {
+                remoteAdd = servletRequest.getRemoteAddr();
             }
         }
-        return remoteAddr;
+        return remoteAdd;
     }
 
 
