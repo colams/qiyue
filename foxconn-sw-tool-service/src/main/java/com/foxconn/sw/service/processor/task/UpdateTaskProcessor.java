@@ -77,7 +77,10 @@ public class UpdateTaskProcessor {
             }
             progressBusiness.addProcessInfo2(progress);
             if (Objects.nonNull(progress) && "description".equalsIgnoreCase(taskParams.getFieldInfo())) {
-                taskContentHistoryBusiness.insertHistory(progress.getId(), old.getId(), old.getDescription(), taskParams.getBriefTaskVo().getDescription());
+                taskContentHistoryBusiness.insertHistory(progress.getId(),
+                        old.getId(),
+                        old.getDescription(),
+                        taskParams.getBriefTaskVo().getDescription());
             }
 
             if ("description".equalsIgnoreCase(taskParams.getFieldInfo())) {
