@@ -1,10 +1,11 @@
 package com.foxconn.sw.service.processor.task;
 
 import com.foxconn.sw.business.oa.*;
-import com.foxconn.sw.data.context.RequestContext;
+import com.foxconn.sw.common.utils.ConvertUtils;
 import com.foxconn.sw.common.utils.ObjectCompare;
 import com.foxconn.sw.data.constants.enums.TaskRoleFlagEnums;
 import com.foxconn.sw.data.constants.enums.oa.TaskStatusEnums;
+import com.foxconn.sw.data.context.RequestContext;
 import com.foxconn.sw.data.dto.request.task.UpdateTaskParams;
 import com.foxconn.sw.data.entity.SwTask;
 import com.foxconn.sw.data.entity.SwTaskEmployeeRelation;
@@ -71,6 +72,9 @@ public class UpdateTaskProcessor {
             progress.setOperateEid(RequestContext.getEmployeeNo());
             progress.setProgress(0);
             progress.setContent(content);
+            if (!CollectionUtils.isEmpty(taskParams.getBriefTaskVo().getResourceIds())) {
+                progress.setResourceIds(ConvertUtils.listIntegerToString(taskParams.getBriefTaskVo().getResourceIds()));
+            }
             progressBusiness.addProcessInfo2(progress);
             if (Objects.nonNull(progress) && "description".equalsIgnoreCase(taskParams.getFieldInfo())) {
                 taskContentHistoryBusiness.insertHistory(progress.getId(), old.getId(), old.getDescription(), taskParams.getBriefTaskVo().getDescription());

@@ -15,6 +15,8 @@ public class BriefTaskVo extends SwTask {
 
     private Boolean isCollaboration;
 
+    private List<Integer> resourceIds;
+
     private List<ResourceVo> resourceVos;
 
     private List<CapexParamsVo> capexParamsVos;
@@ -42,6 +44,14 @@ public class BriefTaskVo extends SwTask {
 
     public void setManagers(List<String> managers) {
         this.managers = managers;
+    }
+
+    public List<Integer> getResourceIds() {
+        return resourceIds;
+    }
+
+    public void setResourceIds(List<Integer> resourceIds) {
+        this.resourceIds = resourceIds;
     }
 
     public List<ResourceVo> getResourceVos() {
