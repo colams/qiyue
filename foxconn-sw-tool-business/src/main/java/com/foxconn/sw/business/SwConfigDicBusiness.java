@@ -7,7 +7,6 @@ import com.foxconn.sw.data.mapper.extension.SwConfigDicExtMapper;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.util.CollectionUtils;
 
 import java.util.List;
 import java.util.Objects;
@@ -17,18 +16,6 @@ public class SwConfigDicBusiness {
 
     @Autowired
     SwConfigDicExtMapper configDicExtMapper;
-
-    public SwConfigDic getConfigDic(String item) {
-        SwConfigDicExample example = new SwConfigDicExample();
-        SwConfigDicExample.Criteria criteria = example.createCriteria();
-        criteria.andItemEqualTo(item);
-        criteria.andIsDeleteEqualTo(0);
-        List<SwConfigDic> dictionaries = configDicExtMapper.selectByExample(example);
-        if (!CollectionUtils.isEmpty(dictionaries)) {
-            return null;
-        }
-        return dictionaries.get(0);
-    }
 
     public List<SwConfigDic> queryConfigDicList(ListParams listParams) {
         SwConfigDicExample example = new SwConfigDicExample();
@@ -49,4 +36,12 @@ public class SwConfigDicBusiness {
     }
 
 
+    public Integer updateOrInsert(SwConfigDic configDic) {
+        if (Objects.isNull(configDic.getId())) {
+            configDicExtMapper.insertSelective(configDic);
+            return configDic.getId();
+        } else {
+            return configDicExtMapper.updateByPrimaryKeySelective(configDic);
+        }
+    }
 }
