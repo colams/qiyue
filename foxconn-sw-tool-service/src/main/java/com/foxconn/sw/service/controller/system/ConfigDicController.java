@@ -3,7 +3,6 @@ package com.foxconn.sw.service.controller.system;
 import com.foxconn.sw.data.dto.Request;
 import com.foxconn.sw.data.dto.request.config.ConfigDicParams;
 import com.foxconn.sw.data.dto.request.config.ListParams;
-import com.foxconn.sw.data.dto.request.config.UpdateParams;
 import com.foxconn.sw.data.entity.SwConfigDic;
 import com.foxconn.sw.service.processor.system.ConfigDicProcessor;
 import io.swagger.v3.oas.annotations.Operation;
@@ -33,19 +32,11 @@ public class ConfigDicController {
         return ResponseEntity.ok(dicList);
     }
 
-    @Operation(summary = "更新配置信息", tags = "config")
+    @Operation(summary = "保存配置信息", tags = "config")
     @ApiResponse(responseCode = "0", description = "成功码")
-    @PostMapping("/update")
-    public ResponseEntity update(@RequestBody Request<UpdateParams> request) {
-        Boolean result = configDicProcessor.update(request.getData());
-        return ResponseEntity.ok(result);
-    }
-
-    @Operation(summary = "创建配置信息", tags = "config")
-    @ApiResponse(responseCode = "0", description = "成功码")
-    @PostMapping("/create")
-    public ResponseEntity create(@RequestBody Request<ConfigDicParams> request) {
-        Boolean result = configDicProcessor.create(request.getData());
+    @PostMapping("/save")
+    public ResponseEntity save(@RequestBody Request<ConfigDicParams> request) {
+        Boolean result = configDicProcessor.save(request.getData());
         return ResponseEntity.ok(result);
     }
 }

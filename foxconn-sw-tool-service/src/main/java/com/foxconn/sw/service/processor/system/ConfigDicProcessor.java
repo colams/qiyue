@@ -20,15 +20,9 @@ public class ConfigDicProcessor {
         return configDicBusiness.queryConfigDicList(listParams);
     }
 
-    public boolean update(UpdateParams data) {
+    public Boolean save(ConfigDicParams data) {
         SwConfigDic configDic = new SwConfigDic();
         configDic.setId(data.getId());
-        configDic.setItemValue(data.getValue());
-        return configDicBusiness.updateOrInsert(configDic) > 0;
-    }
-
-    public Boolean create(ConfigDicParams data) {
-        SwConfigDic configDic = new SwConfigDic();
         configDic.setItem(data.getItem());
         configDic.setItemValue(data.getItemValue());
         return configDicBusiness.updateOrInsert(configDic) > 0;
