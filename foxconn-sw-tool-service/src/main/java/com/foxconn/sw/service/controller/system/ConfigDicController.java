@@ -41,7 +41,6 @@ public class ConfigDicController {
         return ResponseEntity.ok(result);
     }
 
-
     @Operation(summary = "创建配置信息", tags = "config")
     @ApiResponse(responseCode = "0", description = "成功码")
     @PostMapping("/create")
