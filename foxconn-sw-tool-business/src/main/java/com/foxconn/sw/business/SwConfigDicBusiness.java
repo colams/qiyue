@@ -1,5 +1,6 @@
 package com.foxconn.sw.business;
 
+import com.foxconn.sw.data.dto.request.config.ListParams;
 import com.foxconn.sw.data.entity.SwConfigDic;
 import com.foxconn.sw.data.entity.SwConfigDicExample;
 import com.foxconn.sw.data.mapper.extension.SwConfigDicExtMapper;
@@ -29,18 +30,19 @@ public class SwConfigDicBusiness {
         return dictionaries.get(0);
     }
 
-    public List<SwConfigDic> queryConfigDicList(String item, Integer isDisable) {
+    public List<SwConfigDic> queryConfigDicList(ListParams listParams) {
         SwConfigDicExample example = new SwConfigDicExample();
         SwConfigDicExample.Criteria criteria = example.createCriteria();
 
-        if (StringUtils.isNotEmpty(item)) {
-            criteria.andItemEqualTo(item);
-        }
+        if (Objects.nonNull(listParams)) {
+            if (StringUtils.isNotEmpty(listParams.getItemName())) {
+                criteria.andItemLike("%" + listParams.getItemName() + "%");
+            }
 
-        if (Objects.nonNull(isDisable)) {
-            criteria.andIsDisableEqualTo(isDisable);
+            if (Objects.nonNull(listParams.getDisable())) {
+                criteria.andIsDisableEqualTo(listParams.getDisable());
+            }
         }
-
         criteria.andIsDeleteEqualTo(0);
         List<SwConfigDic> dictionaries = configDicExtMapper.selectByExample(example);
         return dictionaries;
