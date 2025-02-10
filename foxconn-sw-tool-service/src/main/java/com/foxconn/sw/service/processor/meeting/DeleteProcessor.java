@@ -3,6 +3,7 @@ package com.foxconn.sw.service.processor.meeting;
 import com.foxconn.sw.business.meeting.MeetingBusiness;
 import com.foxconn.sw.business.meeting.MeetingCycleDetailBusiness;
 import com.foxconn.sw.business.meeting.MeetingMemberBusiness;
+import com.foxconn.sw.common.constanst.NumberConstants;
 import com.foxconn.sw.common.utils.JsonUtils;
 import com.foxconn.sw.common.utils.LocalDateExtUtils;
 import com.foxconn.sw.data.constants.enums.retcode.RetCode;
@@ -37,7 +38,7 @@ public class DeleteProcessor {
     }
 
     private boolean processByRepeat(DeleteParams data, SwMeeting meeting) {
-        if (StringUtils.isEmpty(data.getDeleteDate()) || meeting.getIsRepeat() == 0) {
+        if (StringUtils.isNotEmpty(meeting.getCycle()) && data.getOperateType().equals(NumberConstants.TWO)) {
             return meetingBusiness.updateMeetingStatus(meeting);
         } else {
             if (meeting.getMeetingDate().equalsIgnoreCase(data.getDeleteDate())) {
