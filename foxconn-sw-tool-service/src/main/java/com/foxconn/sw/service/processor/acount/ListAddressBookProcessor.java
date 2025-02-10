@@ -51,7 +51,9 @@ public class ListAddressBookProcessor {
         return Optional.ofNullable(bookVoList)
                 .orElse(Lists.newArrayList())
                 .stream()
-                .filter(e -> Objects.isNull(data.getStatus()) || data.getStatus() == 0 || data.getStatus() == e.getStatus())
+                .filter(e -> Objects.isNull(data.getStatus())
+                        || data.getStatus() == 0
+                        || data.getStatus() == e.getGatherStatus())
                 .collect(Collectors.toList());
     }
 
@@ -83,7 +85,8 @@ public class ListAddressBookProcessor {
         vo.setLandLine(e.getLandLine());
         vo.setInnerMail(e.getInnerEmail());
         vo.setOuterMail(e.getOuterMail());
-        vo.setStatus(getGatherStatus(gatherMap, e.getEmployeeNo()));
+        vo.setGatherStatus(getGatherStatus(gatherMap, e.getEmployeeNo()));
+        vo.setLeaveStatus(e.getStatus());
         return vo;
     }
 

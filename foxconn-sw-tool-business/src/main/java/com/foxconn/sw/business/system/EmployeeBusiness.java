@@ -33,7 +33,6 @@ public class EmployeeBusiness {
     public List<SwEmployee> getEmployeeList() {
         SwEmployeeExample example = new SwEmployeeExample();
         SwEmployeeExample.Criteria criteria = example.createCriteria();
-        criteria.andStatusEqualTo(0);
         return employeeExtensionMapper.selectByExample(example);
     }
 

@@ -3,7 +3,6 @@ package com.foxconn.sw.service.processor.system;
 import com.foxconn.sw.business.SwConfigDicBusiness;
 import com.foxconn.sw.data.dto.request.config.ConfigDicParams;
 import com.foxconn.sw.data.dto.request.config.ListParams;
-import com.foxconn.sw.data.dto.request.config.UpdateParams;
 import com.foxconn.sw.data.entity.SwConfigDic;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

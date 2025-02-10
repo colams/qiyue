@@ -46,7 +46,7 @@ public class ExcelAddressBookUtils {
             row.createCell(7).setCellValue(vo.getLandLine());
             row.createCell(8).setCellValue(vo.getInnerMail());
             row.createCell(9).setCellValue(vo.getOuterMail());
-            row.createCell(10).setCellValue(vo.getStatus() == 1 ? "★" : "☆");
+            row.createCell(10).setCellValue(vo.getGatherStatus() == 1 ? "★" : "☆");
         }
 
         return workbook;
