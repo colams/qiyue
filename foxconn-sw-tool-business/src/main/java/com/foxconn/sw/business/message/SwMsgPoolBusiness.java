@@ -6,7 +6,6 @@ import com.foxconn.sw.data.mapper.extension.message.SwMsgPoolExtMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Component
@@ -22,12 +21,7 @@ public class SwMsgPoolBusiness {
         return msgPoolExtMapper.insertSelective(msgPool) > 0;
     }
 
-    public List<SwMsgPool> getMsgPools() {
-        msgPoolExtMapper.selectStatus();
-
-        List<SwMsgPool> msgPools = new ArrayList<>();
-        return msgPools;
+    public List<SwMsgPool> getMsgPool2Process() {
+        return msgPoolExtMapper.select2Process();
     }
-
-
 }
