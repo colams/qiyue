@@ -1,5 +1,6 @@
 package com.foxconn.sw.service;
 
+import com.foxconn.sw.common.custom.CustomRequestWrapper;
 import com.foxconn.sw.common.utils.JsonUtils;
 import com.foxconn.sw.common.utils.ServletUtils;
 import com.foxconn.sw.common.utils.UUIDUtils;
@@ -22,6 +23,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import java.io.IOException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
@@ -83,11 +85,26 @@ public class CustomExceptionHandler implements AsyncConfigurer {
      * @return
      */
     @ExceptionHandler(Exception.class)
-    public ResponseEntity handleException(Exception e) {
-        log.warn("handleException =========== " + servletUtils.getRemoteIp() + servletUtils.getRequestURL(), e);
+    public ResponseEntity handleException(Exception e, HttpServletRequest request) throws IOException {
+        String requestBody = getRequestBody(request);
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("handleException =========== ");
+        stringBuilder.append("\r\n" + servletUtils.getRemoteIp());
+        stringBuilder.append("\r\n" + servletUtils.getRequestURL());
+        stringBuilder.append("\r\n" + requestBody);
+        log.warn(stringBuilder.toString(), e);
         return ResponseEntity.badRequest().body(RetCode.SYSTEM_EXCEPTION);
-//        return ResponseUtils.failure(RetCode.SYSTEM_EXCEPTION, UUIDUtils.getUuid());
     }
+
+    public String getRequestBody(HttpServletRequest request) throws IOException {
+        if (request instanceof CustomRequestWrapper) {
+            CustomRequestWrapper wrapper = (CustomRequestWrapper) request;
+            String requestBody = wrapper.getBody();
+            return requestBody;
+        }
+        return "";
+    }
+
 
     @Override
     public AsyncUncaughtExceptionHandler getAsyncUncaughtExceptionHandler() {
