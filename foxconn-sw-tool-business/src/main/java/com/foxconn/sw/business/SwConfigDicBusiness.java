@@ -37,7 +37,7 @@ public class SwConfigDicBusiness {
 
 
     public Integer updateOrInsert(SwConfigDic configDic) {
-        if (Objects.isNull(configDic.getId())) {
+        if (Objects.isNull(configDic.getId()) || configDic.getId() <= 0) {
             configDicExtMapper.insertSelective(configDic);
             return configDic.getId();
         } else {
