@@ -67,7 +67,7 @@
         <!--<property name="enableSubPackages" value="true"/>-->
         <!--</javaClientGenerator>-->
         <!--type:{ANNOTATEDMAPPER(纯注解 Mapper), MIXEDMAPPER(混合), XMLMAPPER(纯xml, myBatis作者亲自说用这个的)}-->
-        <javaClientGenerator type="MIXEDMAPPER" targetPackage="com.foxconn.sw.data.mapper.auto"
+        <javaClientGenerator type="ANNOTATEDMAPPER" targetPackage="com.foxconn.sw.data.mapper.auto"
                              targetProject="src\main\java">
             <property name="enableSubPackages" value="false"/>
         </javaClientGenerator>
