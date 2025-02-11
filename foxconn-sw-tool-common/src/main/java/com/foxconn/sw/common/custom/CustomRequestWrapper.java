@@ -9,10 +9,14 @@ import java.io.*;
 
 public class CustomRequestWrapper extends HttpServletRequestWrapper {
     // 用于存储请求体内容的字符串
-    private final String body;
+    private String body = "";
 
     public CustomRequestWrapper(HttpServletRequest request) throws IOException {
         super(request);
+        if (isMultipartContent(request)) {
+            return;
+        }
+
         StringBuilder stringBuilder = new StringBuilder();
         BufferedReader bufferedReader = null;
         try {
@@ -44,6 +48,12 @@ public class CustomRequestWrapper extends HttpServletRequestWrapper {
         // 将读取到的内容存储到 body 变量中
         body = stringBuilder.toString();
     }
+
+    private boolean isMultipartContent(HttpServletRequest request) {
+        String contentType = request.getContentType();
+        return contentType != null && contentType.toLowerCase().startsWith("multipart/form-data");
+    }
+
 
     @Override
     public ServletInputStream getInputStream() throws IOException {

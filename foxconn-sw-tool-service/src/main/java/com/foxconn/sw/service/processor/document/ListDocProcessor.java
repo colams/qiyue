@@ -6,9 +6,11 @@ import com.foxconn.sw.business.oa.SwDocumentBusiness;
 import com.foxconn.sw.business.oa.SwDocumentHistoryBusiness;
 import com.foxconn.sw.business.oa.SwDocumentPermissionBusiness;
 import com.foxconn.sw.business.system.EmployeeBusiness;
-import com.foxconn.sw.data.context.RequestContext;
 import com.foxconn.sw.common.utils.ConvertUtils;
 import com.foxconn.sw.common.utils.DateTimeUtils;
+import com.foxconn.sw.data.context.RequestContext;
+import com.foxconn.sw.data.dto.PageEntity;
+import com.foxconn.sw.data.dto.PageParams;
 import com.foxconn.sw.data.dto.entity.acount.EmployeeVo;
 import com.foxconn.sw.data.dto.entity.document.DocumentVo;
 import com.foxconn.sw.data.dto.entity.document.HistoryVo;
@@ -44,9 +46,10 @@ public class ListDocProcessor {
     @Autowired
     EmployeeUtils employeeUtils;
 
-    public List<DocumentVo> list(SearchDocParams data) {
+    public PageEntity<List<DocumentVo>> list(PageParams<SearchDocParams> data) {
         List<SwDocument> documents = documentBusiness.queryDocumentList(data);
-        return convert2Vo(documents);
+        Long documentCount = documentBusiness.getTotalCountByParams(data.getParams());
+        return new PageEntity(documentCount, convert2Vo(documents));
     }
 
     private List<DocumentVo> convert2Vo(List<SwDocument> documents) {

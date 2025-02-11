@@ -1,9 +1,9 @@
 package com.foxconn.sw.business.oa;
 
 import com.foxconn.sw.business.system.EmployeeBusiness;
-import com.foxconn.sw.common.constanst.Constants;
 import com.foxconn.sw.common.constanst.NumberConstants;
 import com.foxconn.sw.data.context.RequestContext;
+import com.foxconn.sw.data.dto.PageParams;
 import com.foxconn.sw.data.dto.request.document.CreateDocParams;
 import com.foxconn.sw.data.dto.request.document.CreatePersonalDocParams;
 import com.foxconn.sw.data.dto.request.document.DeleteDocParams;
@@ -11,7 +11,6 @@ import com.foxconn.sw.data.dto.request.document.SearchDocParams;
 import com.foxconn.sw.data.entity.SwDocument;
 import com.foxconn.sw.data.entity.SwDocumentExample;
 import com.foxconn.sw.data.mapper.extension.oa.SwDocumentExtensionMapper;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
@@ -67,29 +66,31 @@ public class SwDocumentBusiness {
     }
 
 
-    public List<SwDocument> queryDocumentList(SearchDocParams data) {
-        SwDocumentExample example = new SwDocumentExample();
-        SwDocumentExample.Criteria criteria = example.createCriteria();
-
-        if (StringUtils.isNotEmpty(data.getDocumentName())) {
-            criteria.andDocumentNameLike(" %" + data.getDocumentName() + "% ");
-        }
-
-        if (StringUtils.isNotEmpty(data.getPublisher())) {
-            criteria.andCreatorEqualTo(data.getPublisher());
-        }
-
-        if (StringUtils.isNotEmpty(data.getCategory())) {
-            criteria.andCategoryEqualTo(data.getCategory());
-        }
-
-        int fileType = Constants.PERSONAL.equalsIgnoreCase(data.getFileType()) ? 1 : 0;
-        if (Constants.PERSONAL.equalsIgnoreCase(data.getFileType())) {
-            criteria.andCreatorEqualTo(RequestContext.getEmployeeNo());
-        }
-
-        criteria.andFileTypeEqualTo(fileType);
-        return documentMapper.selectByExample(example);
+    public List<SwDocument> queryDocumentList(PageParams<SearchDocParams> data) {
+        int start = (data.getCurrentPage() - 1) * data.getPageSize();
+        return documentMapper.queryDocumentListPages(data.getParams(), start, data.getPageSize());
+//        SwDocumentExample example = new SwDocumentExample();
+//        SwDocumentExample.Criteria criteria = example.createCriteria();
+//
+//        if (StringUtils.isNotEmpty(data.getDocumentName())) {
+//            criteria.andDocumentNameLike(" %" + data.getDocumentName() + "% ");
+//        }
+//
+//        if (StringUtils.isNotEmpty(data.getPublisher())) {
+//            criteria.andCreatorEqualTo(data.getPublisher());
+//        }
+//
+//        if (StringUtils.isNotEmpty(data.getCategory())) {
+//            criteria.andCategoryEqualTo(data.getCategory());
+//        }
+//
+//        int fileType = Constants.PERSONAL.equalsIgnoreCase(data.getFileType()) ? 1 : 0;
+//        if (Constants.PERSONAL.equalsIgnoreCase(data.getFileType())) {
+//            criteria.andCreatorEqualTo(RequestContext.getEmployeeNo());
+//        }
+//
+//        criteria.andFileTypeEqualTo(fileType);
+//        return documentMapper.selectByExample(example);
     }
 
     public SwDocument queryDocumentByID(Integer params) {
@@ -115,5 +116,9 @@ public class SwDocumentBusiness {
         criteria.andFileTypeEqualTo(fileType);
         List<SwDocument> documents = documentMapper.selectByExample(example);
         return !CollectionUtils.isEmpty(documents);
+    }
+
+    public Long getTotalCountByParams(SearchDocParams params) {
+        return 10L;
     }
 }

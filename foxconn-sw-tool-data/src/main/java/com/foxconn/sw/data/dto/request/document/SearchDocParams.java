@@ -15,8 +15,8 @@ public class SearchDocParams {
     private boolean canDownload;
 
     private String documentName;
+    private String author;
     private String publisher;
-
 
     private String category;
 
@@ -103,6 +103,13 @@ public class SearchDocParams {
         this.category = category;
     }
 
+    public String getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
+    }
 
     public String getPublisher() {
         return publisher;
