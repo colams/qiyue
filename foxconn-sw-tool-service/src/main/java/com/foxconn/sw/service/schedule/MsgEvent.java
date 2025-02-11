@@ -19,6 +19,7 @@ public class MsgEvent extends BaseScheduling {
     @Scheduled(cron = "0/10 * * * * ?")
     public void cron() {
         try {
+            System.out.println("MsgEvent start ------------");
             List<SwMsgPool> messages = msgPoolBusiness.getMsgPool2Process();
             messages.forEach(e -> {
                 System.out.println("执行了一次：" + JsonUtils.serialize(e));
@@ -26,6 +27,7 @@ public class MsgEvent extends BaseScheduling {
         } catch (Exception e) {
             System.out.println(e);
         }
+        System.out.println("MsgEvent finish ------------");
     }
 
     @Override
