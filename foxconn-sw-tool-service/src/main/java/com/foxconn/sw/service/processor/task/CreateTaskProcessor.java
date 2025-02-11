@@ -96,6 +96,7 @@ public class CreateTaskProcessor {
 
         if (taskID > 0) {
             taskContentHistoryBusiness.insertHistory(progressId, taskID, "", task.getDescription());
+
         }
 
         return taskID;

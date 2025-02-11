@@ -14,6 +14,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.aop.interceptor.AsyncUncaughtExceptionHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.annotation.AsyncConfigurer;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.util.CollectionUtils;
@@ -82,9 +83,10 @@ public class CustomExceptionHandler implements AsyncConfigurer {
      * @return
      */
     @ExceptionHandler(Exception.class)
-    public Response handleException(Exception e) {
+    public ResponseEntity handleException(Exception e) {
         log.warn("handleException =========== " + servletUtils.getRemoteIp() + servletUtils.getRequestURL(), e);
-        return ResponseUtils.failure(RetCode.SYSTEM_EXCEPTION, UUIDUtils.getUuid());
+        return ResponseEntity.badRequest().body(RetCode.SYSTEM_EXCEPTION);
+//        return ResponseUtils.failure(RetCode.SYSTEM_EXCEPTION, UUIDUtils.getUuid());
     }
 
     @Override

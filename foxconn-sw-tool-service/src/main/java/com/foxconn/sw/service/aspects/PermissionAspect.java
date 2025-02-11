@@ -2,7 +2,9 @@ package com.foxconn.sw.service.aspects;
 
 import com.foxconn.sw.business.LogBusiness;
 import com.foxconn.sw.common.utils.JsonUtils;
+import com.foxconn.sw.common.utils.SecurityUtils;
 import com.foxconn.sw.common.utils.ServletUtils;
+import com.foxconn.sw.common.utils.UUIDUtils;
 import com.foxconn.sw.data.context.RequestContext;
 import com.foxconn.sw.data.dto.Request;
 import com.foxconn.sw.data.dto.entity.acount.LoginParams;
@@ -53,6 +55,7 @@ public class PermissionAspect {
         StopWatch stopWatch = new StopWatch();
         try {
             stopWatch.start();
+            readCookie();
             contextInit(request, joinPoint);
             retValue = joinPoint.proceed();
             writeCookie();
@@ -70,9 +73,13 @@ public class PermissionAspect {
 
     private void readCookie() {
         Cookie[] cookies = servletRequest.getCookies();
+        String s = UUIDUtils.getUuid();
         if (cookies != null) {
             for (Cookie cookie : cookies) {
-                System.out.println(cookie.getValue());
+                System.out.println(s + "  "
+                        + cookie.getName()
+                        + "："
+                        + SecurityUtils.decodeURL(cookie.getValue()));
             }
         }
     }

@@ -67,7 +67,7 @@
         <!--<property name="enableSubPackages" value="true"/>-->
         <!--</javaClientGenerator>-->
         <!--type:{ANNOTATEDMAPPER(纯注解 Mapper), MIXEDMAPPER(混合), XMLMAPPER(纯xml, myBatis作者亲自说用这个的)}-->
-        <javaClientGenerator type="ANNOTATEDMAPPER" targetPackage="com.foxconn.sw.data.mapper.auto"
+        <javaClientGenerator type="MIXEDMAPPER" targetPackage="com.foxconn.sw.data.mapper.auto"
                              targetProject="src\main\java">
             <property name="enableSubPackages" value="false"/>
         </javaClientGenerator>
@@ -214,6 +214,10 @@
         </table>
 
         <table tableName="sw_menu"
+               enableCountByExample="false">
+            <generatedKey column="id" identity="true" sqlStatement="mysql"/>
+        </table>
+        <table tableName="sw_msg_pool"
                enableCountByExample="false">
             <generatedKey column="id" identity="true" sqlStatement="mysql"/>
         </table>
