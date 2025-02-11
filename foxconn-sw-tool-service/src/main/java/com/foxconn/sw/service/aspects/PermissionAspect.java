@@ -142,9 +142,12 @@ public class PermissionAspect {
     private void logParam(ProceedingJoinPoint joinPoint, long intervals, String ip, Object request) {
         try {
             String operator = RequestContext.getEmployeeNo();
-            String operateType = joinPoint.getTarget().getClass().getSimpleName() + "." + joinPoint.getSignature().getName();
+            StringBuilder stringBuilder = new StringBuilder();
+            stringBuilder.append(joinPoint.getTarget().getClass().getSimpleName());
+            stringBuilder.append(".");
+            stringBuilder.append(joinPoint.getSignature().getName());
             String remark = JsonUtils.serialize(request);
-            logBusiness.log(operator, operateType, remark, intervals, ip);
+            logBusiness.log(operator, stringBuilder.toString(), remark, intervals, ip);
         } catch (Exception e) {
             logger.error(e.getMessage(), e);
         }
