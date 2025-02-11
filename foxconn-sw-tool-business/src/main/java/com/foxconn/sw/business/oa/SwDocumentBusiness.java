@@ -69,28 +69,6 @@ public class SwDocumentBusiness {
     public List<SwDocument> queryDocumentList(PageParams<SearchDocParams> data) {
         int start = (data.getCurrentPage() - 1) * data.getPageSize();
         return documentMapper.queryDocumentListPages(data.getParams(), start, data.getPageSize());
-//        SwDocumentExample example = new SwDocumentExample();
-//        SwDocumentExample.Criteria criteria = example.createCriteria();
-//
-//        if (StringUtils.isNotEmpty(data.getDocumentName())) {
-//            criteria.andDocumentNameLike(" %" + data.getDocumentName() + "% ");
-//        }
-//
-//        if (StringUtils.isNotEmpty(data.getPublisher())) {
-//            criteria.andCreatorEqualTo(data.getPublisher());
-//        }
-//
-//        if (StringUtils.isNotEmpty(data.getCategory())) {
-//            criteria.andCategoryEqualTo(data.getCategory());
-//        }
-//
-//        int fileType = Constants.PERSONAL.equalsIgnoreCase(data.getFileType()) ? 1 : 0;
-//        if (Constants.PERSONAL.equalsIgnoreCase(data.getFileType())) {
-//            criteria.andCreatorEqualTo(RequestContext.getEmployeeNo());
-//        }
-//
-//        criteria.andFileTypeEqualTo(fileType);
-//        return documentMapper.selectByExample(example);
     }
 
     public SwDocument queryDocumentByID(Integer params) {
