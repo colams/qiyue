@@ -23,7 +23,6 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-import java.io.IOException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
@@ -85,7 +84,7 @@ public class CustomExceptionHandler implements AsyncConfigurer {
      * @return
      */
     @ExceptionHandler(Exception.class)
-    public ResponseEntity handleException(Exception e, HttpServletRequest request) throws IOException {
+    public ResponseEntity handleException(Exception e, HttpServletRequest request) {
         String requestBody = getRequestBody(request);
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("handleException =========== ");
@@ -96,7 +95,7 @@ public class CustomExceptionHandler implements AsyncConfigurer {
         return ResponseEntity.badRequest().body(RetCode.SYSTEM_EXCEPTION);
     }
 
-    public String getRequestBody(HttpServletRequest request) throws IOException {
+    public String getRequestBody(HttpServletRequest request) {
         if (request instanceof CustomRequestWrapper) {
             CustomRequestWrapper wrapper = (CustomRequestWrapper) request;
             String requestBody = wrapper.getBody();
