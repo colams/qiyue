@@ -44,7 +44,7 @@ public class MsgEvent extends BaseScheduling {
                 relations.forEach(relation -> {
                     SwEmployee employee = employeeBusiness.selectEmployeeByENo(relation.getEmployeeNo());
                     if (StringUtils.isEmpty(employee.getInnerEmail())) {
-                        System.out.println("邮箱 为空" + employee.getEmployeeNo());
+                        System.out.println("邮箱 为空：" + employee.getEmployeeNo());
                         return;
                     }
                     MailUtils.sendTaskNotifyEmail(Lists.newArrayList(employee.getInnerEmail()));
