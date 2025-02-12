@@ -70,10 +70,11 @@
         <!--               enableCountByExample="false">-->
         <!--            <generatedKey column="id" identity="true" sqlStatement="mysql"/>-->
         <!--        </table>-->
-        <!--        <table tableName="forum_bbs"-->
-        <!--               enableCountByExample="false">-->
-        <!--            <generatedKey column="id" identity="true" sqlStatement="mysql"/>-->
-        <!--        </table>-->
+        <table tableName="forum_bbs"
+               enableCountByExample="false"
+               enableDeleteByPrimaryKey="false">
+            <generatedKey column="id" identity="true" sqlStatement="mysql"/>
+        </table>
         <!--        <table tableName="forum_bbs_comment"-->
         <!--               enableCountByExample="false">-->
         <!--            <generatedKey column="id" identity="true" sqlStatement="mysql"/>-->

@@ -13,6 +13,8 @@ public class ForumBbs {
 
     private String status;
 
+    private Integer archive;
+
     private Integer isDelete;
 
     private LocalDateTime createTime;
@@ -82,6 +84,19 @@ public class ForumBbs {
 
     public void setStatus(String status) {
         this.status = status == null ? null : status.trim();
+    }
+
+    public Integer getArchive() {
+        return archive;
+    }
+
+    public ForumBbs withArchive(Integer archive) {
+        this.setArchive(archive);
+        return this;
+    }
+
+    public void setArchive(Integer archive) {
+        this.archive = archive;
     }
 
     public Integer getIsDelete() {

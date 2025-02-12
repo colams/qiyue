@@ -3,7 +3,6 @@ package com.foxconn.sw.data.mapper.auto;
 import com.foxconn.sw.data.entity.ForumBbs;
 import com.foxconn.sw.data.entity.ForumBbsExample;
 import java.util.List;
-import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.DeleteProvider;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.InsertProvider;
@@ -24,21 +23,15 @@ public interface ForumBbsMapper {
     @DeleteProvider(type=ForumBbsSqlProvider.class, method="deleteByExample")
     int deleteByExample(ForumBbsExample example);
 
-    @Delete({
-        "delete from forum_bbs",
-        "where id = #{id,jdbcType=INTEGER}"
-    })
-    int deleteByPrimaryKey(Integer id);
-
     @Insert({
         "insert into forum_bbs (project, title, ",
         "author_no, status, ",
-        "is_delete, create_time, ",
-        "datetime_lastchange)",
+        "archive, is_delete, ",
+        "create_time, datetime_lastchange)",
         "values (#{project,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, ",
         "#{authorNo,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, ",
-        "#{isDelete,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, ",
-        "#{datetimeLastchange,jdbcType=TIMESTAMP})"
+        "#{archive,jdbcType=INTEGER}, #{isDelete,jdbcType=INTEGER}, ",
+        "#{createTime,jdbcType=TIMESTAMP}, #{datetimeLastchange,jdbcType=TIMESTAMP})"
     })
     @SelectKey(statement="SELECT LAST_INSERT_ID()", keyProperty="id", before=false, resultType=Integer.class)
     int insert(ForumBbs record);
@@ -54,6 +47,7 @@ public interface ForumBbsMapper {
         @Result(column="title", property="title", jdbcType=JdbcType.VARCHAR),
         @Result(column="author_no", property="authorNo", jdbcType=JdbcType.VARCHAR),
         @Result(column="status", property="status", jdbcType=JdbcType.VARCHAR),
+        @Result(column="archive", property="archive", jdbcType=JdbcType.INTEGER),
         @Result(column="is_delete", property="isDelete", jdbcType=JdbcType.INTEGER),
         @Result(column="create_time", property="createTime", jdbcType=JdbcType.TIMESTAMP),
         @Result(column="datetime_lastchange", property="datetimeLastchange", jdbcType=JdbcType.TIMESTAMP)
@@ -67,6 +61,7 @@ public interface ForumBbsMapper {
         @Result(column="title", property="title", jdbcType=JdbcType.VARCHAR),
         @Result(column="author_no", property="authorNo", jdbcType=JdbcType.VARCHAR),
         @Result(column="status", property="status", jdbcType=JdbcType.VARCHAR),
+        @Result(column="archive", property="archive", jdbcType=JdbcType.INTEGER),
         @Result(column="is_delete", property="isDelete", jdbcType=JdbcType.INTEGER),
         @Result(column="create_time", property="createTime", jdbcType=JdbcType.TIMESTAMP),
         @Result(column="datetime_lastchange", property="datetimeLastchange", jdbcType=JdbcType.TIMESTAMP)
@@ -75,7 +70,7 @@ public interface ForumBbsMapper {
 
     @Select({
         "select",
-        "id, project, title, author_no, status, is_delete, create_time, datetime_lastchange",
+        "id, project, title, author_no, status, archive, is_delete, create_time, datetime_lastchange",
         "from forum_bbs",
         "where id = #{id,jdbcType=INTEGER}"
     })
@@ -85,6 +80,7 @@ public interface ForumBbsMapper {
         @Result(column="title", property="title", jdbcType=JdbcType.VARCHAR),
         @Result(column="author_no", property="authorNo", jdbcType=JdbcType.VARCHAR),
         @Result(column="status", property="status", jdbcType=JdbcType.VARCHAR),
+        @Result(column="archive", property="archive", jdbcType=JdbcType.INTEGER),
         @Result(column="is_delete", property="isDelete", jdbcType=JdbcType.INTEGER),
         @Result(column="create_time", property="createTime", jdbcType=JdbcType.TIMESTAMP),
         @Result(column="datetime_lastchange", property="datetimeLastchange", jdbcType=JdbcType.TIMESTAMP)
@@ -106,6 +102,7 @@ public interface ForumBbsMapper {
           "title = #{title,jdbcType=VARCHAR},",
           "author_no = #{authorNo,jdbcType=VARCHAR},",
           "status = #{status,jdbcType=VARCHAR},",
+          "archive = #{archive,jdbcType=INTEGER},",
           "is_delete = #{isDelete,jdbcType=INTEGER},",
           "create_time = #{createTime,jdbcType=TIMESTAMP},",
           "datetime_lastchange = #{datetimeLastchange,jdbcType=TIMESTAMP}",
