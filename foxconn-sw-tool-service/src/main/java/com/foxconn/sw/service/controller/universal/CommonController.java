@@ -165,7 +165,7 @@ public class CommonController {
     @ApiResponse(responseCode = "0", description = "成功码")
     @PostMapping("/mail")
     public ResponseEntity mailUtils() {
-        MailUtils.sendEnclosureEmail();
+        MailUtils.sendEmail();
         return ResponseEntity.ok("success");
     }
 }
