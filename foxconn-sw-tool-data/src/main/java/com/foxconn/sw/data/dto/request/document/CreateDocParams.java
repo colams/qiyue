@@ -25,6 +25,11 @@ public class CreateDocParams {
     private String source;
     private String deadLine;
 
+    private String phase;
+    private String config;
+    private String issueMode;
+    private String process;
+    private String stage;
 
     public String getFileName() {
         return fileName;
@@ -176,5 +181,45 @@ public class CreateDocParams {
 
     public void setDeadLine(String deadLine) {
         this.deadLine = deadLine;
+    }
+
+    public String getPhase() {
+        return phase;
+    }
+
+    public void setPhase(String phase) {
+        this.phase = phase;
+    }
+
+    public String getConfig() {
+        return config;
+    }
+
+    public void setConfig(String config) {
+        this.config = config;
+    }
+
+    public String getIssueMode() {
+        return issueMode;
+    }
+
+    public void setIssueMode(String issueMode) {
+        this.issueMode = issueMode;
+    }
+
+    public String getProcess() {
+        return process;
+    }
+
+    public void setProcess(String process) {
+        this.process = process;
+    }
+
+    public String getStage() {
+        return stage;
+    }
+
+    public void setStage(String stage) {
+        this.stage = stage;
     }
 }

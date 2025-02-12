@@ -37,16 +37,12 @@ public class SwDocumentSqlProvider {
             sql.VALUES("department", "#{department,jdbcType=INTEGER}");
         }
         
-        if (record.getProject() != null) {
-            sql.VALUES("project", "#{project,jdbcType=VARCHAR}");
-        }
-        
         if (record.getSecretLevel() != null) {
             sql.VALUES("secret_level", "#{secretLevel,jdbcType=INTEGER}");
         }
         
-        if (record.getExpireDate() != null) {
-            sql.VALUES("expire_date", "#{expireDate,jdbcType=VARCHAR}");
+        if (record.getAuthor() != null) {
+            sql.VALUES("author", "#{author,jdbcType=VARCHAR}");
         }
         
         if (record.getDisableDown() != null) {
@@ -57,8 +53,8 @@ public class SwDocumentSqlProvider {
             sql.VALUES("resource_id", "#{resourceId,jdbcType=INTEGER}");
         }
         
-        if (record.getAuthor() != null) {
-            sql.VALUES("author", "#{author,jdbcType=VARCHAR}");
+        if (record.getSource() != null) {
+            sql.VALUES("source", "#{source,jdbcType=VARCHAR}");
         }
         
         if (record.getCreator() != null) {
@@ -93,12 +89,32 @@ public class SwDocumentSqlProvider {
             sql.VALUES("supplier", "#{supplier,jdbcType=VARCHAR}");
         }
         
-        if (record.getSource() != null) {
-            sql.VALUES("source", "#{source,jdbcType=VARCHAR}");
+        if (record.getExpireDate() != null) {
+            sql.VALUES("expire_date", "#{expireDate,jdbcType=VARCHAR}");
         }
         
-        if (record.getDeadLine() != null) {
-            sql.VALUES("dead_line", "#{deadLine,jdbcType=VARCHAR}");
+        if (record.getProject() != null) {
+            sql.VALUES("project", "#{project,jdbcType=VARCHAR}");
+        }
+        
+        if (record.getPhase() != null) {
+            sql.VALUES("phase", "#{phase,jdbcType=VARCHAR}");
+        }
+        
+        if (record.getConfig() != null) {
+            sql.VALUES("config", "#{config,jdbcType=VARCHAR}");
+        }
+        
+        if (record.getIssueMode() != null) {
+            sql.VALUES("issue_mode", "#{issueMode,jdbcType=VARCHAR}");
+        }
+        
+        if (record.getProcess() != null) {
+            sql.VALUES("process", "#{process,jdbcType=VARCHAR}");
+        }
+        
+        if (record.getStage() != null) {
+            sql.VALUES("stage", "#{stage,jdbcType=VARCHAR}");
         }
         
         if (record.getIsDelete() != null) {
@@ -127,12 +143,11 @@ public class SwDocumentSqlProvider {
         sql.SELECT("file_version");
         sql.SELECT("category");
         sql.SELECT("department");
-        sql.SELECT("project");
         sql.SELECT("secret_level");
-        sql.SELECT("expire_date");
+        sql.SELECT("author");
         sql.SELECT("disable_down");
         sql.SELECT("resource_id");
-        sql.SELECT("author");
+        sql.SELECT("source");
         sql.SELECT("creator");
         sql.SELECT("file_type");
         sql.SELECT("content");
@@ -141,8 +156,13 @@ public class SwDocumentSqlProvider {
         sql.SELECT("sub_type");
         sql.SELECT("main_part");
         sql.SELECT("supplier");
-        sql.SELECT("source");
-        sql.SELECT("dead_line");
+        sql.SELECT("expire_date");
+        sql.SELECT("project");
+        sql.SELECT("phase");
+        sql.SELECT("config");
+        sql.SELECT("issue_mode");
+        sql.SELECT("process");
+        sql.SELECT("stage");
         sql.SELECT("is_delete");
         sql.SELECT("create_time");
         sql.SELECT("datetime_lastchange");
@@ -183,16 +203,12 @@ public class SwDocumentSqlProvider {
             sql.SET("department = #{record.department,jdbcType=INTEGER}");
         }
         
-        if (record.getProject() != null) {
-            sql.SET("project = #{record.project,jdbcType=VARCHAR}");
-        }
-        
         if (record.getSecretLevel() != null) {
             sql.SET("secret_level = #{record.secretLevel,jdbcType=INTEGER}");
         }
         
-        if (record.getExpireDate() != null) {
-            sql.SET("expire_date = #{record.expireDate,jdbcType=VARCHAR}");
+        if (record.getAuthor() != null) {
+            sql.SET("author = #{record.author,jdbcType=VARCHAR}");
         }
         
         if (record.getDisableDown() != null) {
@@ -203,8 +219,8 @@ public class SwDocumentSqlProvider {
             sql.SET("resource_id = #{record.resourceId,jdbcType=INTEGER}");
         }
         
-        if (record.getAuthor() != null) {
-            sql.SET("author = #{record.author,jdbcType=VARCHAR}");
+        if (record.getSource() != null) {
+            sql.SET("source = #{record.source,jdbcType=VARCHAR}");
         }
         
         if (record.getCreator() != null) {
@@ -239,12 +255,32 @@ public class SwDocumentSqlProvider {
             sql.SET("supplier = #{record.supplier,jdbcType=VARCHAR}");
         }
         
-        if (record.getSource() != null) {
-            sql.SET("source = #{record.source,jdbcType=VARCHAR}");
+        if (record.getExpireDate() != null) {
+            sql.SET("expire_date = #{record.expireDate,jdbcType=VARCHAR}");
         }
         
-        if (record.getDeadLine() != null) {
-            sql.SET("dead_line = #{record.deadLine,jdbcType=VARCHAR}");
+        if (record.getProject() != null) {
+            sql.SET("project = #{record.project,jdbcType=VARCHAR}");
+        }
+        
+        if (record.getPhase() != null) {
+            sql.SET("phase = #{record.phase,jdbcType=VARCHAR}");
+        }
+        
+        if (record.getConfig() != null) {
+            sql.SET("config = #{record.config,jdbcType=VARCHAR}");
+        }
+        
+        if (record.getIssueMode() != null) {
+            sql.SET("issue_mode = #{record.issueMode,jdbcType=VARCHAR}");
+        }
+        
+        if (record.getProcess() != null) {
+            sql.SET("process = #{record.process,jdbcType=VARCHAR}");
+        }
+        
+        if (record.getStage() != null) {
+            sql.SET("stage = #{record.stage,jdbcType=VARCHAR}");
         }
         
         if (record.getIsDelete() != null) {
@@ -272,12 +308,11 @@ public class SwDocumentSqlProvider {
         sql.SET("file_version = #{record.fileVersion,jdbcType=VARCHAR}");
         sql.SET("category = #{record.category,jdbcType=VARCHAR}");
         sql.SET("department = #{record.department,jdbcType=INTEGER}");
-        sql.SET("project = #{record.project,jdbcType=VARCHAR}");
         sql.SET("secret_level = #{record.secretLevel,jdbcType=INTEGER}");
-        sql.SET("expire_date = #{record.expireDate,jdbcType=VARCHAR}");
+        sql.SET("author = #{record.author,jdbcType=VARCHAR}");
         sql.SET("disable_down = #{record.disableDown,jdbcType=INTEGER}");
         sql.SET("resource_id = #{record.resourceId,jdbcType=INTEGER}");
-        sql.SET("author = #{record.author,jdbcType=VARCHAR}");
+        sql.SET("source = #{record.source,jdbcType=VARCHAR}");
         sql.SET("creator = #{record.creator,jdbcType=VARCHAR}");
         sql.SET("file_type = #{record.fileType,jdbcType=INTEGER}");
         sql.SET("content = #{record.content,jdbcType=VARCHAR}");
@@ -286,8 +321,13 @@ public class SwDocumentSqlProvider {
         sql.SET("sub_type = #{record.subType,jdbcType=VARCHAR}");
         sql.SET("main_part = #{record.mainPart,jdbcType=VARCHAR}");
         sql.SET("supplier = #{record.supplier,jdbcType=VARCHAR}");
-        sql.SET("source = #{record.source,jdbcType=VARCHAR}");
-        sql.SET("dead_line = #{record.deadLine,jdbcType=VARCHAR}");
+        sql.SET("expire_date = #{record.expireDate,jdbcType=VARCHAR}");
+        sql.SET("project = #{record.project,jdbcType=VARCHAR}");
+        sql.SET("phase = #{record.phase,jdbcType=VARCHAR}");
+        sql.SET("config = #{record.config,jdbcType=VARCHAR}");
+        sql.SET("issue_mode = #{record.issueMode,jdbcType=VARCHAR}");
+        sql.SET("process = #{record.process,jdbcType=VARCHAR}");
+        sql.SET("stage = #{record.stage,jdbcType=VARCHAR}");
         sql.SET("is_delete = #{record.isDelete,jdbcType=INTEGER}");
         sql.SET("create_time = #{record.createTime,jdbcType=TIMESTAMP}");
         sql.SET("datetime_lastchange = #{record.datetimeLastchange,jdbcType=TIMESTAMP}");
@@ -317,16 +357,12 @@ public class SwDocumentSqlProvider {
             sql.SET("department = #{department,jdbcType=INTEGER}");
         }
         
-        if (record.getProject() != null) {
-            sql.SET("project = #{project,jdbcType=VARCHAR}");
-        }
-        
         if (record.getSecretLevel() != null) {
             sql.SET("secret_level = #{secretLevel,jdbcType=INTEGER}");
         }
         
-        if (record.getExpireDate() != null) {
-            sql.SET("expire_date = #{expireDate,jdbcType=VARCHAR}");
+        if (record.getAuthor() != null) {
+            sql.SET("author = #{author,jdbcType=VARCHAR}");
         }
         
         if (record.getDisableDown() != null) {
@@ -337,8 +373,8 @@ public class SwDocumentSqlProvider {
             sql.SET("resource_id = #{resourceId,jdbcType=INTEGER}");
         }
         
-        if (record.getAuthor() != null) {
-            sql.SET("author = #{author,jdbcType=VARCHAR}");
+        if (record.getSource() != null) {
+            sql.SET("source = #{source,jdbcType=VARCHAR}");
         }
         
         if (record.getCreator() != null) {
@@ -373,12 +409,32 @@ public class SwDocumentSqlProvider {
             sql.SET("supplier = #{supplier,jdbcType=VARCHAR}");
         }
         
-        if (record.getSource() != null) {
-            sql.SET("source = #{source,jdbcType=VARCHAR}");
+        if (record.getExpireDate() != null) {
+            sql.SET("expire_date = #{expireDate,jdbcType=VARCHAR}");
         }
         
-        if (record.getDeadLine() != null) {
-            sql.SET("dead_line = #{deadLine,jdbcType=VARCHAR}");
+        if (record.getProject() != null) {
+            sql.SET("project = #{project,jdbcType=VARCHAR}");
+        }
+        
+        if (record.getPhase() != null) {
+            sql.SET("phase = #{phase,jdbcType=VARCHAR}");
+        }
+        
+        if (record.getConfig() != null) {
+            sql.SET("config = #{config,jdbcType=VARCHAR}");
+        }
+        
+        if (record.getIssueMode() != null) {
+            sql.SET("issue_mode = #{issueMode,jdbcType=VARCHAR}");
+        }
+        
+        if (record.getProcess() != null) {
+            sql.SET("process = #{process,jdbcType=VARCHAR}");
+        }
+        
+        if (record.getStage() != null) {
+            sql.SET("stage = #{stage,jdbcType=VARCHAR}");
         }
         
         if (record.getIsDelete() != null) {

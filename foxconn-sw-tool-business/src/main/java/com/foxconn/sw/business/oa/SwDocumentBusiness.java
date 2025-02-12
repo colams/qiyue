@@ -2,7 +2,6 @@ package com.foxconn.sw.business.oa;
 
 import com.foxconn.sw.business.system.EmployeeBusiness;
 import com.foxconn.sw.common.constanst.NumberConstants;
-import com.foxconn.sw.common.utils.DateTimeUtils;
 import com.foxconn.sw.data.context.RequestContext;
 import com.foxconn.sw.data.dto.PageParams;
 import com.foxconn.sw.data.dto.request.document.CreateDocParams;
@@ -16,7 +15,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Component
@@ -35,7 +33,6 @@ public class SwDocumentBusiness {
         document.setProject(data.getProject());
         document.setDepartment(employeeBusiness.selectEmployeeByENo(RequestContext.getEmployeeNo()).getDepartmentId());
         document.setFileVersion(data.getFileVersion());
-        document.setExpireDate(data.getExpireDate());
         document.setCreator(RequestContext.getEmployeeNo());
         document.setResourceId(data.getResourceID());
         document.setDisableDown(data.getDisableDown());
@@ -47,7 +44,14 @@ public class SwDocumentBusiness {
         document.setMainPart(data.getMainPart());
         document.setSupplier(data.getSupplier());
         document.setSource(data.getSource());
-        document.setDeadLine(data.getDeadLine());
+//        document.setDeadLine(data.getDeadLine());
+        document.setExpireDate(data.getExpireDate());
+
+        document.setPhase(data.getPhase());
+        document.setConfig(data.getConfig());
+        document.setIssueMode(data.getIssueMode());
+        document.setProcess(data.getProcess());
+        document.setStage(data.getStage());
 
         documentMapper.insertSelective(document);
         return document.getId();

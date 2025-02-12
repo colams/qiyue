@@ -106,8 +106,14 @@ public class ListDocProcessor {
         vo.setSubType(e.getSubType());
         vo.setSupplier(e.getSupplier());
         vo.setSource(e.getSource());
-        vo.setDeadLine(e.getDeadLine());
+//        vo.setDeadLine(e.getDeadLine());
         vo.setFileSize(Optional.ofNullable(resource).map(f -> f.getSize()).orElse(0L));
+
+        vo.setPhase(e.getPhase());
+        vo.setConfig(e.getConfig());
+        vo.setIssueMode(e.getIssueMode());
+        vo.setProcess(e.getProcess());
+        vo.setStage(e.getStage());
         return vo;
     }
 
