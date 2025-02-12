@@ -5,11 +5,16 @@ import jakarta.servlet.ServletInputStream;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletRequestWrapper;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
 
 public class CustomRequestWrapper extends HttpServletRequestWrapper {
     // 用于存储请求体内容的字符串
     private String body = "";
+    private byte[] cachedBody;
+    private final String characterEncoding = "UTF-8";
 
     public CustomRequestWrapper(HttpServletRequest request) throws IOException {
         super(request);
@@ -17,36 +22,16 @@ public class CustomRequestWrapper extends HttpServletRequestWrapper {
             return;
         }
 
-        StringBuilder stringBuilder = new StringBuilder();
-        BufferedReader bufferedReader = null;
-        try {
-            // 获取请求的输入流
-            InputStream inputStream = request.getInputStream();
-            if (inputStream != null) {
-                // 使用 BufferedReader 读取输入流
-                bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
-                char[] charBuffer = new char[128];
-                int bytesRead;
-                // 循环读取输入流内容
-                while ((bytesRead = bufferedReader.read(charBuffer)) > 0) {
-                    stringBuilder.append(charBuffer, 0, bytesRead);
-                }
-            }
-        } catch (IOException ex) {
-            // 捕获并抛出读取输入流时的异常
-            throw ex;
-        } finally {
-            if (bufferedReader != null) {
-                try {
-                    // 关闭 BufferedReader
-                    bufferedReader.close();
-                } catch (IOException ex) {
-                    throw ex;
-                }
-            }
+        java.io.InputStream requestInputStream = request.getInputStream();
+        java.io.ByteArrayOutputStream byteArrayOutputStream = new java.io.ByteArrayOutputStream();
+        byte[] buffer = new byte[1024];
+        int bytesRead;
+        while ((bytesRead = requestInputStream.read(buffer)) != -1) {
+            byteArrayOutputStream.write(buffer, 0, bytesRead);
         }
-        // 将读取到的内容存储到 body 变量中
-        body = stringBuilder.toString();
+        this.cachedBody = byteArrayOutputStream.toByteArray();
+        // 将字节数组转换为字符串并缓存
+        this.body = new String(cachedBody, characterEncoding);
     }
 
     private boolean isMultipartContent(HttpServletRequest request) {
@@ -54,11 +39,15 @@ public class CustomRequestWrapper extends HttpServletRequestWrapper {
         return contentType != null && contentType.toLowerCase().startsWith("multipart/form-data");
     }
 
+    @Override
+    public String getCharacterEncoding() {
+        return "UTF-8";
+    }
 
     @Override
     public ServletInputStream getInputStream() throws IOException {
         // 将存储的请求体内容转换为 ByteArrayInputStream
-        final ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(body.getBytes());
+        final ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(cachedBody);
         return new ServletInputStream() {
             @Override
             public boolean isFinished() {
