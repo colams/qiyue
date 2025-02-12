@@ -26,6 +26,27 @@ public class DocumentVo {
     private String content;
     private Integer resourceID;
 
+
+    private String expireDate;
+
+    private Integer fileType;
+
+    private String workType;
+
+    private String mainType;
+
+    private String subType;
+
+    private String mainPart;
+
+    private String supplier;
+
+    private String source;
+
+    private String deadLine;
+
+    private Long fileSize;
+
     public Integer getDocumentID() {
         return documentID;
     }
@@ -176,5 +197,85 @@ public class DocumentVo {
 
     public void setResourceID(Integer resourceID) {
         this.resourceID = resourceID;
+    }
+
+    public String getExpireDate() {
+        return expireDate;
+    }
+
+    public void setExpireDate(String expireDate) {
+        this.expireDate = expireDate;
+    }
+
+    public Integer getFileType() {
+        return fileType;
+    }
+
+    public void setFileType(Integer fileType) {
+        this.fileType = fileType;
+    }
+
+    public String getWorkType() {
+        return workType;
+    }
+
+    public void setWorkType(String workType) {
+        this.workType = workType;
+    }
+
+    public String getMainType() {
+        return mainType;
+    }
+
+    public void setMainType(String mainType) {
+        this.mainType = mainType;
+    }
+
+    public String getSubType() {
+        return subType;
+    }
+
+    public void setSubType(String subType) {
+        this.subType = subType;
+    }
+
+    public String getMainPart() {
+        return mainPart;
+    }
+
+    public void setMainPart(String mainPart) {
+        this.mainPart = mainPart;
+    }
+
+    public String getSupplier() {
+        return supplier;
+    }
+
+    public void setSupplier(String supplier) {
+        this.supplier = supplier;
+    }
+
+    public String getSource() {
+        return source;
+    }
+
+    public void setSource(String source) {
+        this.source = source;
+    }
+
+    public String getDeadLine() {
+        return deadLine;
+    }
+
+    public void setDeadLine(String deadLine) {
+        this.deadLine = deadLine;
+    }
+
+    public Long getFileSize() {
+        return fileSize;
+    }
+
+    public void setFileSize(Long fileSize) {
+        this.fileSize = fileSize;
     }
 }

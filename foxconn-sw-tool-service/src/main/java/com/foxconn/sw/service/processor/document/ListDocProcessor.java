@@ -27,6 +27,7 @@ import org.springframework.stereotype.Component;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 @Component
 public class ListDocProcessor {
@@ -96,6 +97,17 @@ public class ListDocProcessor {
         vo.setUpdateTime(DateTimeUtils.format(e.getDatetimeLastchange()));
         vo.setContent(e.getContent());
         vo.setResourceID(e.getResourceId());
+
+        vo.setExpireDate(e.getExpireDate());
+        vo.setFileType(e.getFileType());
+        vo.setWorkType(e.getWorkType());
+        vo.setMainPart(e.getMainPart());
+        vo.setMainType(e.getMainType());
+        vo.setSubType(e.getSubType());
+        vo.setSupplier(e.getSupplier());
+        vo.setSource(e.getSource());
+        vo.setDeadLine(e.getDeadLine());
+        vo.setFileSize(Optional.ofNullable(resource.getSize()).orElse(0L));
         return vo;
     }
 
