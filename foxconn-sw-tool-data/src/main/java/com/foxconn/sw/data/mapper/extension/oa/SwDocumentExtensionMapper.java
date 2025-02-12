@@ -20,7 +20,7 @@ public interface SwDocumentExtensionMapper extends SwDocumentMapper {
             "select ",
             "id, document_name, file_version, category, department, project, secret_level, ",
             "expire_date, disable_down, resource_id, author, creator, file_type, content, ",
-            "work_type, main_type, sub_type, main_part, supplier, source, dead_line, is_delete, ",
+            "work_type, main_type, sub_type, main_part, supplier, source, is_delete, ",
             "create_time, datetime_lastchange",
             "from sw_document",
             "<where>",
@@ -76,7 +76,6 @@ public interface SwDocumentExtensionMapper extends SwDocumentMapper {
             @Result(column = "main_part", property = "mainPart", jdbcType = JdbcType.VARCHAR),
             @Result(column = "supplier", property = "supplier", jdbcType = JdbcType.VARCHAR),
             @Result(column = "source", property = "source", jdbcType = JdbcType.VARCHAR),
-            @Result(column = "dead_line", property = "deadLine", jdbcType = JdbcType.VARCHAR),
             @Result(column = "is_delete", property = "isDelete", jdbcType = JdbcType.INTEGER),
             @Result(column = "create_time", property = "createTime", jdbcType = JdbcType.TIMESTAMP),
             @Result(column = "datetime_lastchange", property = "datetimeLastchange", jdbcType = JdbcType.TIMESTAMP)

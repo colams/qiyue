@@ -12,6 +12,7 @@ public class BbsListVo {
     private EmployeeVo discussantVo;
     private boolean isRead;
     private int newCount;
+    private int archive;
 
     public Integer getId() {
         return id;
@@ -75,5 +76,13 @@ public class BbsListVo {
 
     public void setRead(boolean read) {
         isRead = read;
+    }
+
+    public int getArchive() {
+        return archive;
+    }
+
+    public void setArchive(int archive) {
+        this.archive = archive;
     }
 }

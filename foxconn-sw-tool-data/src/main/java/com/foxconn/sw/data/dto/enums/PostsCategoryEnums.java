@@ -7,6 +7,7 @@ public enum PostsCategoryEnums {
     MyPosts(1, "MyPosts", "我的帖子"),
     CollectPosts(2, "CollectPosts", "我的收藏"),
     Hidden(3, "Hidden", "隐藏"),
+    Archive(4, "Archive", "归档"),
     ;
 
     PostsCategoryEnums(int code, String enCode, String name) {

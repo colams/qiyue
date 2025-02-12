@@ -1,6 +1,5 @@
 package com.foxconn.sw.data.mapper.extension.forums;
 
-import com.foxconn.sw.data.entity.ForumBbs;
 import com.foxconn.sw.data.entity.extension.ForumBbsExtension;
 import com.foxconn.sw.data.mapper.auto.ForumBbsMapper;
 import org.apache.ibatis.annotations.Param;
@@ -87,6 +86,7 @@ public interface ForumBbsExtMapper extends ForumBbsMapper {
             "</if> ",
             "and p.employee_no=#{currentUser,jdbcType=VARCHAR}",
             "and p.hidden=#{hiddenStatus,jdbcType=INTEGER}",
+            "and p.archive=#{archive,jdbcType=INTEGER}",
             "order by subquery.sum desc, b.id desc",
             "LIMIT #{start,jdbcType=INTEGER} , #{pageSize,jdbcType=INTEGER} ",
             " </script> "
@@ -96,16 +96,18 @@ public interface ForumBbsExtMapper extends ForumBbsMapper {
             @Result(column = "title", property = "title", jdbcType = JdbcType.VARCHAR),
             @Result(column = "author_no", property = "authorNo", jdbcType = JdbcType.VARCHAR),
             @Result(column = "sum", property = "sum", jdbcType = JdbcType.INTEGER),
+            @Result(column = "archive", property = "archive", jdbcType = JdbcType.INTEGER),
             @Result(column = "create_time", property = "createTime", jdbcType = JdbcType.TIMESTAMP),
             @Result(column = "lastchange_datetime", property = "lastchangeDatetime", jdbcType = JdbcType.TIMESTAMP),
     })
     List<ForumBbsExtension> selectByKeyWords(@Param("isAdmin") Integer isAdmin,
-                                    @Param("currentUser") String currentUser,
-                                    @Param("owner") String owner,
-                                    @Param("title") String title,
-                                    @Param("hiddenStatus") Integer hiddenStatus,
-                                    @Param("start") int start,
-                                    @Param("pageSize") int pageSize);
+                                             @Param("currentUser") String currentUser,
+                                             @Param("owner") String owner,
+                                             @Param("title") String title,
+                                             @Param("hiddenStatus") Integer hiddenStatus,
+                                             @Param("archive") Integer archive,
+                                             @Param("start") int start,
+                                             @Param("pageSize") int pageSize);
 
     @Select({"<script> " +
             "select count(1) from forum_bbs b inner join forum_favorite f on " +
