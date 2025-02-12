@@ -46,9 +46,9 @@ public class ValidatorAspect {
         Object object = joinPoint.proceed();
         StringBuffer stringBuffer = new StringBuffer();
         stringBuffer.append("\t\r\n" + request.getTraceId());
-        stringBuffer.append("\t\r\n" + "[" + joinPoint.getTarget().getClass().getSimpleName() + ".");
+        stringBuffer.append("[" + joinPoint.getTarget().getClass().getSimpleName() + ".");
         stringBuffer.append(joinPoint.getSignature().getName() + "]");
-        stringBuffer.append("\t\r\n" + servletUtils.getRemoteIp());
+        stringBuffer.append(servletUtils.getRemoteIp());
         logger.info(stringBuffer.toString());
         return object;
     }
