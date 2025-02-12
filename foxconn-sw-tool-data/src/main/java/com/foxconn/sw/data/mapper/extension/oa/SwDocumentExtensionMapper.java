@@ -3,6 +3,7 @@ package com.foxconn.sw.data.mapper.extension.oa;
 import com.foxconn.sw.data.dto.request.document.SearchDocParams;
 import com.foxconn.sw.data.entity.SwDocument;
 import com.foxconn.sw.data.mapper.auto.SwDocumentMapper;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Result;
 import org.apache.ibatis.annotations.Results;
 import org.apache.ibatis.annotations.Select;
@@ -81,4 +82,37 @@ public interface SwDocumentExtensionMapper extends SwDocumentMapper {
             @Result(column = "datetime_lastchange", property = "datetimeLastchange", jdbcType = JdbcType.TIMESTAMP)
     })
     List<SwDocument> queryDocumentListPages(SearchDocParams params, Integer start, Integer pageSize);
+
+    @Select({"<script>",
+            "select count(1)",
+            "from sw_document ",
+            "<where>",
+            "<if test='params.documentName!=null and params.documentName!=\"\"' >",
+            " and document_name like CONCAT('%', #{params.documentName,jdbcType=VARCHAR}, '%') ",
+            "</if> ",
+            "<if test='params.mainType!=null and params.mainType!=\"\"' >",
+            " and main_type =#{params.mainType,jdbcType=VARCHAR} ",
+            "</if> ",
+            "<if test='params.subType!=null and params.subType!=\"\"' >",
+            " and sub_type =#{params.subType,jdbcType=VARCHAR} ",
+            "</if> ",
+            "<if test='params.mainPart!=null and params.mainPart!=\"\"' >",
+            " and main_part =#{params.mainPart,jdbcType=VARCHAR} ",
+            "</if> ",
+            "<if test='params.supplier!=null and params.supplier!=\"\"' >",
+            " and supplier =#{params.supplier,jdbcType=VARCHAR} ",
+            "</if> ",
+            "<if test='params.source!=null and params.source!=\"\"' >",
+            " and source =#{params.source,jdbcType=VARCHAR} ",
+            "</if> ",
+            "<if test='params.deadLine!=null and params.deadLine!=\"\"' >",
+//            " and source =#{params.source,jdbcType=VARCHAR} ",
+            "</if> ",
+            "<if test='params.level!=null and params.level!=\"\"' >",
+            " and secret_level =#{params.level,jdbcType=VARCHAR} ",
+            "</if> ",
+            "</where>",
+            "</script>"
+    })
+    Long getTotalCountByParams(@Param("params") SearchDocParams params);
 }

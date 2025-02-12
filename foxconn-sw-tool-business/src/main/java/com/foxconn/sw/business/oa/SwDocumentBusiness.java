@@ -2,6 +2,7 @@ package com.foxconn.sw.business.oa;
 
 import com.foxconn.sw.business.system.EmployeeBusiness;
 import com.foxconn.sw.common.constanst.NumberConstants;
+import com.foxconn.sw.common.utils.DateTimeUtils;
 import com.foxconn.sw.data.context.RequestContext;
 import com.foxconn.sw.data.dto.PageParams;
 import com.foxconn.sw.data.dto.request.document.CreateDocParams;
@@ -15,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Component
@@ -71,6 +73,11 @@ public class SwDocumentBusiness {
         return documentMapper.queryDocumentListPages(data.getParams(), start, data.getPageSize());
     }
 
+    public Long getTotalCountByParams(SearchDocParams params) {
+        return documentMapper.getTotalCountByParams(params);
+    }
+
+
     public SwDocument queryDocumentByID(Integer params) {
         return documentMapper.selectByPrimaryKey(params);
     }
@@ -94,9 +101,5 @@ public class SwDocumentBusiness {
         criteria.andFileTypeEqualTo(fileType);
         List<SwDocument> documents = documentMapper.selectByExample(example);
         return !CollectionUtils.isEmpty(documents);
-    }
-
-    public Long getTotalCountByParams(SearchDocParams params) {
-        return 10L;
     }
 }

@@ -107,7 +107,7 @@ public class ListDocProcessor {
         vo.setSupplier(e.getSupplier());
         vo.setSource(e.getSource());
         vo.setDeadLine(e.getDeadLine());
-        vo.setFileSize(Optional.ofNullable(resource.getSize()).orElse(0L));
+        vo.setFileSize(Optional.ofNullable(resource).map(f -> f.getSize()).orElse(0L));
         return vo;
     }
 
