@@ -86,7 +86,7 @@ public interface ForumBbsExtMapper extends ForumBbsMapper {
             "</if> ",
             "and p.employee_no=#{currentUser,jdbcType=VARCHAR}",
             "and p.hidden=#{hiddenStatus,jdbcType=INTEGER}",
-            "and p.archive=#{archive,jdbcType=INTEGER}",
+            "and b.archive=#{archive,jdbcType=INTEGER}",
             "order by subquery.sum desc, b.id desc",
             "LIMIT #{start,jdbcType=INTEGER} , #{pageSize,jdbcType=INTEGER} ",
             " </script> "

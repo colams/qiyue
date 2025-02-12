@@ -88,7 +88,7 @@ public class SearchDocParams {
     private String fileType;
 
     public String getDocumentName() {
-        return documentName;
+        return documentName.trim();
     }
 
     public void setDocumentName(String documentName) {
