@@ -58,7 +58,7 @@ public class ListAddressBookProcessor {
     }
 
     public AddressBookVo list(String eNo) {
-        SwEmployee employees = employeeBusiness.queryEmployeeByEno(eNo);
+        SwEmployee employees = employeeBusiness.selectEmployeeByENo(eNo);
         AddressBookVo vo = toAddressBookVo(employees, true, departmentBusiness.getDepartMap(), new HashMap<>());
         return vo;
     }

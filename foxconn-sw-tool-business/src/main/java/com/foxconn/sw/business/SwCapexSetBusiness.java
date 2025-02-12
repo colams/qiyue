@@ -76,7 +76,7 @@ public class SwCapexSetBusiness {
                 capexSetDetail2Vo.setSetValue(e.getSetValue());
                 if (!CapexSetConstants.EMPTY.equalsIgnoreCase(e.getSetValue())
                         && !CapexSetConstants.FIXED.equalsIgnoreCase(e.getSetValue())) {
-                    SwEmployee ee = employeeBusiness.queryEmployeeByEno(e.getSetValue());
+                    SwEmployee ee = employeeBusiness.selectEmployeeByENo(e.getSetValue());
                     capexSetDetail2Vo.setExtra(Optional.ofNullable(ee).map(f -> f.getName()).orElse(e.getSetValue()));
                 } else {
                     capexSetDetail2Vo.setExtra("唯讀");

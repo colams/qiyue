@@ -31,7 +31,7 @@ public class SwDocumentBusiness {
         document.setCategory(data.getCategory());
         document.setSecretLevel(data.getSecretLevel());
         document.setProject(data.getProject());
-        document.setDepartment(employeeBusiness.queryEmployeeByEno(RequestContext.getEmployeeNo()).getDepartmentId());
+        document.setDepartment(employeeBusiness.selectEmployeeByENo(RequestContext.getEmployeeNo()).getDepartmentId());
         document.setFileVersion(data.getFileVersion());
         document.setExpireDate(data.getExpireDate());
         document.setCreator(RequestContext.getEmployeeNo());
@@ -56,7 +56,7 @@ public class SwDocumentBusiness {
         document.setDocumentName(data.getFileName());
         document.setCategory(data.getCategory());
         document.setProject(data.getProject());
-        document.setDepartment(employeeBusiness.queryEmployeeByEno(RequestContext.getEmployeeNo()).getDepartmentId());
+        document.setDepartment(employeeBusiness.selectEmployeeByENo(RequestContext.getEmployeeNo()).getDepartmentId());
         document.setCreator(RequestContext.getEmployeeNo());
         document.setResourceId(data.getResourceID());
         document.setContent(data.getContent());

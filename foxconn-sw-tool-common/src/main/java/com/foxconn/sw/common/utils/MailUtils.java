@@ -7,6 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 公司邮件发送类
@@ -40,13 +41,11 @@ public class MailUtils {
     /**
      * 发送含有附件的邮件
      */
-    public static void sendEnclosureEmail() {
-        MailAccount account = getMailCount();
-        ArrayList<String> mailList = CollUtil.newArrayList("zhan-teng.zhang@mail.foxconn.com");
+    public static void sendEmail(String subject, String content, List<String> recipients, boolean isHtml) {
         String result = "";
-
         try {
-            result = MailUtil.send(account, mailList, " Mail Test", "<b>测试二维码</b><br/>", false);
+            MailAccount account = getMailCount();
+            result = MailUtil.send(account, recipients, subject, content, isHtml);
         } catch (Exception e) {
             result = e.toString();
         } finally {
@@ -54,8 +53,23 @@ public class MailUtils {
         }
     }
 
+    /**
+     * 发送含有附件的邮件
+     */
+    public static void sendEmail() {
+        ArrayList<String> mailList = CollUtil.newArrayList("zhan-teng.zhang@mail.foxconn.com");
+        sendEmail("Mail Test", "<b>测试二维码</b><br/", mailList, true);
+    }
+
+    /**
+     * 发送含有附件的邮件
+     */
+    public static void sendTaskNotifyEmail(List<String> recipients) {
+        sendEmail("任务分派邮件", "<b>您有新的任务派送到</b><br/", recipients, true);
+    }
+
 
     public static void main(String[] args) {
-        sendEnclosureEmail();
+        sendEmail();
     }
 }

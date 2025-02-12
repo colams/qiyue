@@ -44,15 +44,27 @@ public class EmployeeBusiness {
         return employee;
     }
 
-    public SwEmployee selectEmployeeByENo(String employeeNo) {
-        List<SwEmployee> swEmployees = getEmployeeList()
-                .stream()
-                .filter(e -> e.getEmployeeNo().equalsIgnoreCase(employeeNo))
-                .collect(Collectors.toList());
-        if (CollectionUtils.isEmpty(swEmployees)) {
+//    public SwEmployee selectEmployeeByENo(String employeeNo) {
+//        List<SwEmployee> swEmployees = getEmployeeList()
+//                .stream()
+//                .filter(e -> e.getEmployeeNo().equalsIgnoreCase(employeeNo))
+//                .collect(Collectors.toList());
+//        if (CollectionUtils.isEmpty(swEmployees)) {
+//            return null;
+//        }
+//        return swEmployees.get(0);
+//    }
+
+    public SwEmployee selectEmployeeByENo(String eNo) {
+        SwEmployeeExample example = new SwEmployeeExample();
+        SwEmployeeExample.Criteria criteria = example.createCriteria();
+        criteria.andEmployeeNoEqualTo(eNo);
+        example.setOrderByClause(" department_id ,post_id,employee_no ");
+        List<SwEmployee> employees = employeeExtensionMapper.selectByExample(example);
+        if (CollectionUtils.isEmpty(employees)) {
             return null;
         }
-        return swEmployees.get(0);
+        return employees.get(0);
     }
 
     public List<EmployeeVo> getEmployeesByLevel() {
@@ -100,17 +112,6 @@ public class EmployeeBusiness {
         return employees;
     }
 
-    public SwEmployee queryEmployeeByEno(String eNo) {
-        SwEmployeeExample example = new SwEmployeeExample();
-        SwEmployeeExample.Criteria criteria = example.createCriteria();
-        criteria.andEmployeeNoEqualTo(eNo);
-        example.setOrderByClause(" department_id ,post_id,employee_no ");
-        List<SwEmployee> employees = employeeExtensionMapper.selectByExample(example);
-        if (CollectionUtils.isEmpty(employees)) {
-            return null;
-        }
-        return employees.get(0);
-    }
 
     public EmployeeVo queryEmployeeVoByEno(String eNo) {
         SwEmployeeExample example = new SwEmployeeExample();
