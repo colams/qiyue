@@ -39,8 +39,8 @@ public interface SwDocumentExtensionMapper extends SwDocumentMapper {
             "<if test='params.supplier!=null and params.supplier!=\"\"' >",
             " and supplier =#{params.supplier,jdbcType=VARCHAR} ",
             "</if> ",
-            "<if test='params.fileType!=null and params.fileType!=\"\"' >",
-            " and file_type =#{params.fileType,jdbcType=VARCHAR} ",
+            "<if test='employeeNo!=null and employeeNo!=\"\"' >",
+            " and creator =#{employeeNo,jdbcType=VARCHAR} ",
             "</if> ",
             "<if test='params.source!=null and params.source!=\"\"' >",
             " and source =#{params.source,jdbcType=VARCHAR} ",
@@ -88,7 +88,7 @@ public interface SwDocumentExtensionMapper extends SwDocumentMapper {
             @Result(column = "create_time", property = "createTime", jdbcType = JdbcType.TIMESTAMP),
             @Result(column = "datetime_lastchange", property = "datetimeLastchange", jdbcType = JdbcType.TIMESTAMP)
     })
-    List<SwDocument> queryDocumentListPages(SearchDocParams params, Integer start, Integer pageSize);
+    List<SwDocument> queryDocumentListPages(SearchDocParams params, Integer start, Integer pageSize, String employeeNo);
 
     @Select({"<script>",
             "select count(1)",
@@ -109,8 +109,8 @@ public interface SwDocumentExtensionMapper extends SwDocumentMapper {
             "<if test='params.supplier!=null and params.supplier!=\"\"' >",
             " and supplier =#{params.supplier,jdbcType=VARCHAR} ",
             "</if> ",
-            "<if test='params.fileType!=null and params.fileType!=\"\"' >",
-            " and file_type =#{params.fileType,jdbcType=VARCHAR} ",
+            "<if test='employeeNo!=null and employeeNo!=\"\"' >",
+            " and creator =#{employeeNo,jdbcType=VARCHAR} ",
             "</if> ",
             "<if test='params.source!=null and params.source!=\"\"' >",
             " and source =#{params.source,jdbcType=VARCHAR} ",
@@ -124,5 +124,5 @@ public interface SwDocumentExtensionMapper extends SwDocumentMapper {
             "</where>",
             "</script>"
     })
-    Long getTotalCountByParams(@Param("params") SearchDocParams params);
+    Long getTotalCountByParams(@Param("params") SearchDocParams params, @Param("employeeNo") String employeeNo);
 }

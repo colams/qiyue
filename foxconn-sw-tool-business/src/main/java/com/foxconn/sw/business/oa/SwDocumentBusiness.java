@@ -1,6 +1,7 @@
 package com.foxconn.sw.business.oa;
 
 import com.foxconn.sw.business.system.EmployeeBusiness;
+import com.foxconn.sw.common.constanst.Constants;
 import com.foxconn.sw.common.constanst.NumberConstants;
 import com.foxconn.sw.data.context.RequestContext;
 import com.foxconn.sw.data.dto.PageParams;
@@ -74,11 +75,21 @@ public class SwDocumentBusiness {
 
     public List<SwDocument> queryDocumentList(PageParams<SearchDocParams> data) {
         int start = (data.getCurrentPage() - 1) * data.getPageSize();
-        return documentMapper.queryDocumentListPages(data.getParams(), start, data.getPageSize());
+        int fileType = Constants.PERSONAL.equalsIgnoreCase(data.getParams().getFileType()) ? 1 : 0;
+        String employeeNo = "";
+        if (Constants.PERSONAL.equalsIgnoreCase(data.getParams().getFileType())) {
+            employeeNo = RequestContext.getEmployeeNo();
+        }
+        return documentMapper.queryDocumentListPages(data.getParams(), start, data.getPageSize(), employeeNo);
     }
 
     public Long getTotalCountByParams(SearchDocParams params) {
-        return documentMapper.getTotalCountByParams(params);
+        int fileType = Constants.PERSONAL.equalsIgnoreCase(params.getFileType()) ? 1 : 0;
+        String employeeNo = "";
+        if (Constants.PERSONAL.equalsIgnoreCase(params.getFileType())) {
+            employeeNo = RequestContext.getEmployeeNo();
+        }
+        return documentMapper.getTotalCountByParams(params, employeeNo);
     }
 
 
