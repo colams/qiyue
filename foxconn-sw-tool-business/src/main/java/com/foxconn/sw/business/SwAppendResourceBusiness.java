@@ -74,12 +74,13 @@ public class SwAppendResourceBusiness {
         return String.format("%s/upload/%s/%s", domain, resource.getUploadType(), resource.getFilePath());
     }
 
-    public Integer saveResource(String filePath, String originName, String uploadType, String operator) {
+    public Integer saveResource(String filePath, String originName, String uploadType, String operator, long size) {
         SwAppendResource resource = new SwAppendResource();
         resource.setUploadType(uploadType);
         resource.setFilePath(filePath);
         resource.setOperator(operator);
         resource.setOriginName(originName);
+        resource.setSize(size);
         appendResourceExtensionMapper.insertSelective(resource);
         return resource.getId();
     }

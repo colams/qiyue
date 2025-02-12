@@ -49,7 +49,7 @@ public class UploadProcessor {
             int resourceID = 0;
 
             if (StringUtils.isNoneBlank(path)) {
-                resourceID = resourceBusiness.saveResource(path, file.getOriginalFilename(), uploadType, operator);
+                resourceID = resourceBusiness.saveResource(path, file.getOriginalFilename(), uploadType, operator, file.getSize());
             }
 
             UploadResult result = new UploadResult();

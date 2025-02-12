@@ -5,17 +5,9 @@ import com.foxconn.sw.data.entity.SwAppendResourceExample.Criteria;
 import com.foxconn.sw.data.entity.SwAppendResourceExample.Criterion;
 import com.foxconn.sw.data.entity.SwAppendResourceExample;
 import java.util.List;
-import java.util.Map;
 import org.apache.ibatis.jdbc.SQL;
 
 public class SwAppendResourceSqlProvider {
-
-    public String deleteByExample(SwAppendResourceExample example) {
-        SQL sql = new SQL();
-        sql.DELETE_FROM("sw_append_resource");
-        applyWhere(sql, example, false);
-        return sql.toString();
-    }
 
     public String insertSelective(SwAppendResource record) {
         SQL sql = new SQL();
@@ -38,7 +30,7 @@ public class SwAppendResourceSqlProvider {
         }
         
         if (record.getSize() != null) {
-            sql.VALUES("size", "#{size,jdbcType=INTEGER}");
+            sql.VALUES("size", "#{size,jdbcType=BIGINT}");
         }
         
         if (record.getIsDelete() != null) {
@@ -77,113 +69,6 @@ public class SwAppendResourceSqlProvider {
         if (example != null && example.getOrderByClause() != null) {
             sql.ORDER_BY(example.getOrderByClause());
         }
-        
-        return sql.toString();
-    }
-
-    public String updateByExampleSelective(Map<String, Object> parameter) {
-        SwAppendResource record = (SwAppendResource) parameter.get("record");
-        SwAppendResourceExample example = (SwAppendResourceExample) parameter.get("example");
-        
-        SQL sql = new SQL();
-        sql.UPDATE("sw_append_resource");
-        
-        if (record.getId() != null) {
-            sql.SET("id = #{record.id,jdbcType=INTEGER}");
-        }
-        
-        if (record.getOriginName() != null) {
-            sql.SET("origin_name = #{record.originName,jdbcType=VARCHAR}");
-        }
-        
-        if (record.getFilePath() != null) {
-            sql.SET("file_path = #{record.filePath,jdbcType=VARCHAR}");
-        }
-        
-        if (record.getUploadType() != null) {
-            sql.SET("upload_type = #{record.uploadType,jdbcType=VARCHAR}");
-        }
-        
-        if (record.getOperator() != null) {
-            sql.SET("operator = #{record.operator,jdbcType=VARCHAR}");
-        }
-        
-        if (record.getSize() != null) {
-            sql.SET("size = #{record.size,jdbcType=INTEGER}");
-        }
-        
-        if (record.getIsDelete() != null) {
-            sql.SET("is_delete = #{record.isDelete,jdbcType=INTEGER}");
-        }
-        
-        if (record.getCreateTime() != null) {
-            sql.SET("create_time = #{record.createTime,jdbcType=TIMESTAMP}");
-        }
-        
-        if (record.getDatetimeLastchange() != null) {
-            sql.SET("datetime_lastchange = #{record.datetimeLastchange,jdbcType=TIMESTAMP}");
-        }
-        
-        applyWhere(sql, example, true);
-        return sql.toString();
-    }
-
-    public String updateByExample(Map<String, Object> parameter) {
-        SQL sql = new SQL();
-        sql.UPDATE("sw_append_resource");
-        
-        sql.SET("id = #{record.id,jdbcType=INTEGER}");
-        sql.SET("origin_name = #{record.originName,jdbcType=VARCHAR}");
-        sql.SET("file_path = #{record.filePath,jdbcType=VARCHAR}");
-        sql.SET("upload_type = #{record.uploadType,jdbcType=VARCHAR}");
-        sql.SET("operator = #{record.operator,jdbcType=VARCHAR}");
-        sql.SET("size = #{record.size,jdbcType=INTEGER}");
-        sql.SET("is_delete = #{record.isDelete,jdbcType=INTEGER}");
-        sql.SET("create_time = #{record.createTime,jdbcType=TIMESTAMP}");
-        sql.SET("datetime_lastchange = #{record.datetimeLastchange,jdbcType=TIMESTAMP}");
-        
-        SwAppendResourceExample example = (SwAppendResourceExample) parameter.get("example");
-        applyWhere(sql, example, true);
-        return sql.toString();
-    }
-
-    public String updateByPrimaryKeySelective(SwAppendResource record) {
-        SQL sql = new SQL();
-        sql.UPDATE("sw_append_resource");
-        
-        if (record.getOriginName() != null) {
-            sql.SET("origin_name = #{originName,jdbcType=VARCHAR}");
-        }
-        
-        if (record.getFilePath() != null) {
-            sql.SET("file_path = #{filePath,jdbcType=VARCHAR}");
-        }
-        
-        if (record.getUploadType() != null) {
-            sql.SET("upload_type = #{uploadType,jdbcType=VARCHAR}");
-        }
-        
-        if (record.getOperator() != null) {
-            sql.SET("operator = #{operator,jdbcType=VARCHAR}");
-        }
-        
-        if (record.getSize() != null) {
-            sql.SET("size = #{size,jdbcType=INTEGER}");
-        }
-        
-        if (record.getIsDelete() != null) {
-            sql.SET("is_delete = #{isDelete,jdbcType=INTEGER}");
-        }
-        
-        if (record.getCreateTime() != null) {
-            sql.SET("create_time = #{createTime,jdbcType=TIMESTAMP}");
-        }
-        
-        if (record.getDatetimeLastchange() != null) {
-            sql.SET("datetime_lastchange = #{datetimeLastchange,jdbcType=TIMESTAMP}");
-        }
-        
-        sql.WHERE("id = #{id,jdbcType=INTEGER}");
         
         return sql.toString();
     }

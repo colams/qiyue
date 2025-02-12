@@ -55,44 +55,50 @@ public class ListDocProcessor {
     private List<DocumentVo> convert2Vo(List<SwDocument> documents) {
         List<DocumentVo> vos = new ArrayList<>();
         documents.forEach(e -> {
-            boolean isCreator = RequestContext.getEmployeeNo().equalsIgnoreCase(e.getCreator());
-            SwAppendResource resource = appendResourceBusiness.getAppendResources(e.getResourceId());
-            DocumentVo vo = new DocumentVo();
-            vo.setDocumentID(e.getId());
-            vo.setCategory(e.getCategory());
-            vo.setDocumentName(e.getDocumentName());
-            if (Objects.nonNull(resource)) {
-                vo.setDownloadUrl(ConvertUtils.urlPreFix(resource.getId(), resource.getFilePath()));
-                vo.setViewUrl(appendResourceBusiness.getResourceUrl(resource));
-            }
-            if (Integer.valueOf(0).equals(e.getSecretLevel()) || Integer.valueOf(1).equals(e.getSecretLevel())) {
-                vo.setTitle("公開");
-            } else if (Integer.valueOf(2).equals(e.getSecretLevel())) {
-                vo.setTitle("一般機密");
-            } else if (Integer.valueOf(3).equals(e.getSecretLevel())) {
-                vo.setTitle("絕對機密");
-            }
-            vo.setLevel(e.getSecretLevel());
-            vo.setProject(e.getProject());
-            vo.setFileVersion(e.getFileVersion());
-            vo.setCanView(isCreator || documentPermissionBusiness.getViewPermission(RequestContext.getEmployeeNo(), e.getId()));
-            vo.setCanDownload(isCreator || (Objects.nonNull(e.getDisableDown()) && e.getDisableDown() == 0));
-            vo.setCanUpdate(isCreator);
-            EmployeeVo employeeVo = new EmployeeVo();
-            SwEmployee ee = employeeBusiness.selectEmployeeByENo(e.getCreator());
-            employeeVo.setName(ee.getName());
-            employeeVo.setEmployeeNo(ee.getEmployeeNo());
-            employeeVo.setDepartmentId(ee.getDepartmentId());
-            vo.setAuthor(employeeUtils.mapEmployee(e.getAuthor()));
-            vo.setPublisher(employeeVo);
-            vo.setCreateTime(DateTimeUtils.format(e.getCreateTime()));
-            vo.setUpdateTime(DateTimeUtils.format(e.getDatetimeLastchange()));
-            vo.setContent(e.getContent());
-            vo.setResourceID(e.getResourceId());
+            DocumentVo vo = convertVo(e);
             vos.add(vo);
         });
         return vos;
     }
+
+    public DocumentVo convertVo(SwDocument e) {
+        boolean isCreator = RequestContext.getEmployeeNo().equalsIgnoreCase(e.getCreator());
+        SwAppendResource resource = appendResourceBusiness.getAppendResources(e.getResourceId());
+        DocumentVo vo = new DocumentVo();
+        vo.setDocumentID(e.getId());
+        vo.setCategory(e.getCategory());
+        vo.setDocumentName(e.getDocumentName());
+        if (Objects.nonNull(resource)) {
+            vo.setDownloadUrl(ConvertUtils.urlPreFix(resource.getId(), resource.getFilePath()));
+            vo.setViewUrl(appendResourceBusiness.getResourceUrl(resource));
+        }
+        if (Integer.valueOf(0).equals(e.getSecretLevel()) || Integer.valueOf(1).equals(e.getSecretLevel())) {
+            vo.setTitle("公開");
+        } else if (Integer.valueOf(2).equals(e.getSecretLevel())) {
+            vo.setTitle("一般機密");
+        } else if (Integer.valueOf(3).equals(e.getSecretLevel())) {
+            vo.setTitle("絕對機密");
+        }
+        vo.setLevel(e.getSecretLevel());
+        vo.setProject(e.getProject());
+        vo.setFileVersion(e.getFileVersion());
+        vo.setCanView(isCreator || documentPermissionBusiness.getViewPermission(RequestContext.getEmployeeNo(), e.getId()));
+        vo.setCanDownload(isCreator || (Objects.nonNull(e.getDisableDown()) && e.getDisableDown() == 0));
+        vo.setCanUpdate(isCreator);
+        EmployeeVo employeeVo = new EmployeeVo();
+        SwEmployee ee = employeeBusiness.selectEmployeeByENo(e.getCreator());
+        employeeVo.setName(ee.getName());
+        employeeVo.setEmployeeNo(ee.getEmployeeNo());
+        employeeVo.setDepartmentId(ee.getDepartmentId());
+        vo.setAuthor(employeeUtils.mapEmployee(e.getAuthor()));
+        vo.setPublisher(employeeVo);
+        vo.setCreateTime(DateTimeUtils.format(e.getCreateTime()));
+        vo.setUpdateTime(DateTimeUtils.format(e.getDatetimeLastchange()));
+        vo.setContent(e.getContent());
+        vo.setResourceID(e.getResourceId());
+        return vo;
+    }
+
 
     public List<HistoryVo> history(IntegerParams data) {
         SwDocument document = documentBusiness.queryDocumentByID(data.getParams());

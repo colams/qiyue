@@ -95,10 +95,14 @@
         <!--               enableCountByExample="false">-->
         <!--            <generatedKey column="id" identity="true" sqlStatement="mysql"/>-->
         <!--        </table>-->
-        <!--        <table tableName="sw_append_resource"-->
-        <!--               enableCountByExample="false">-->
-        <!--            <generatedKey column="id" identity="true" sqlStatement="mysql"/>-->
-        <!--        </table>-->
+        <table tableName="sw_append_resource"
+               enableCountByExample="false"
+               enableDeleteByExample="false"
+               enableUpdateByExample="false"
+               enableUpdateByPrimaryKey="false"
+               enableDeleteByPrimaryKey="false">
+            <generatedKey column="id" identity="true" sqlStatement="mysql"/>
+        </table>
         <!--        <table tableName="sw_capex_set"-->
         <!--               enableCountByExample="false">-->
         <!--            <generatedKey column="id" identity="true" sqlStatement="mysql"/>-->
