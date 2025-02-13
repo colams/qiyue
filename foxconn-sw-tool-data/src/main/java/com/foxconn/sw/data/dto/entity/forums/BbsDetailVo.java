@@ -11,6 +11,10 @@ public class BbsDetailVo {
 
     private String status;
 
+    private Integer isHidden;
+
+    private Integer isArchive;
+
     public Integer getId() {
         return id;
     }
@@ -49,5 +53,21 @@ public class BbsDetailVo {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public Integer getIsHidden() {
+        return isHidden;
+    }
+
+    public void setIsHidden(Integer isHidden) {
+        this.isHidden = isHidden;
+    }
+
+    public Integer getIsArchive() {
+        return isArchive;
+    }
+
+    public void setIsArchive(Integer isArchive) {
+        this.isArchive = isArchive;
     }
 }
