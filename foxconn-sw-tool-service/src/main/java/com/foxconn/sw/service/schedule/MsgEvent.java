@@ -1,11 +1,13 @@
 package com.foxconn.sw.service.schedule;
 
+import com.foxconn.sw.business.SwConfigDicBusiness;
 import com.foxconn.sw.business.message.SwMsgPoolBusiness;
 import com.foxconn.sw.business.oa.SwTaskEmployeeRelationBusiness;
 import com.foxconn.sw.business.system.EmployeeBusiness;
 import com.foxconn.sw.common.utils.DateTimeUtils;
 import com.foxconn.sw.common.utils.JsonUtils;
 import com.foxconn.sw.common.utils.MailUtils;
+import com.foxconn.sw.data.entity.SwConfigDic;
 import com.foxconn.sw.data.entity.SwEmployee;
 import com.foxconn.sw.data.entity.SwMsgPool;
 import com.foxconn.sw.data.entity.SwTaskEmployeeRelation;
@@ -17,6 +19,7 @@ import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Objects;
 
 import static com.foxconn.sw.common.utils.DateTimeUtils.DateTimePattern.yyyyMMddHHmmsssss;
 
@@ -29,6 +32,8 @@ public class MsgEvent extends BaseScheduling {
     SwTaskEmployeeRelationBusiness taskEmployeeRelationBusiness;
     @Autowired
     EmployeeBusiness employeeBusiness;
+    @Autowired
+    SwConfigDicBusiness configDicBusiness;
 
 
     @Scheduled(cron = "0 * * * * *")
@@ -37,18 +42,26 @@ public class MsgEvent extends BaseScheduling {
         System.out.println(times + "  MsgEvent start ------------");
         try {
             List<SwMsgPool> messages = msgPoolBusiness.getMsgPool2Process();
+            SwConfigDic configDic = configDicBusiness.queryConfigDic("create.task.msg.send");
+
+            boolean isClose = Objects.isNull(configDic) || "0".equalsIgnoreCase(configDic.getItemValue());
             messages.forEach(e -> {
                 System.out.println("执行了一次：" + JsonUtils.serialize(e));
-                Integer taskID = e.getObjectId();
-                List<SwTaskEmployeeRelation> relations = taskEmployeeRelationBusiness.getRelationsByTaskId(taskID);
-                relations.forEach(relation -> {
-                    SwEmployee employee = employeeBusiness.selectEmployeeByENo(relation.getEmployeeNo());
-                    if (StringUtils.isEmpty(employee.getInnerEmail())) {
-                        System.out.println("邮箱 为空：" + employee.getEmployeeNo());
-                        return;
-                    }
-                    MailUtils.sendTaskNotifyEmail(Lists.newArrayList(employee.getInnerEmail()));
-                });
+                if (isClose) {
+                    msgPoolBusiness.closeMsg(e);
+                } else {
+                    Integer taskID = e.getObjectId();
+                    List<SwTaskEmployeeRelation> relations = taskEmployeeRelationBusiness.getRelationsByTaskId(taskID);
+                    relations.forEach(relation -> {
+
+                        SwEmployee employee = employeeBusiness.selectEmployeeByENo(relation.getEmployeeNo());
+                        if (StringUtils.isEmpty(employee.getInnerEmail())) {
+                            System.out.println("邮箱 为空：" + employee.getEmployeeNo());
+                            return;
+                        }
+                        MailUtils.sendTaskNotifyEmail(Lists.newArrayList(employee.getInnerEmail()));
+                    });
+                }
             });
         } catch (Exception e) {
             System.out.println(e);

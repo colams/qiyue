@@ -1,5 +1,7 @@
 package com.foxconn.sw.service.controller.system;
 
+import com.foxconn.sw.data.dto.PageEntity;
+import com.foxconn.sw.data.dto.PageParams;
 import com.foxconn.sw.data.dto.Request;
 import com.foxconn.sw.data.dto.request.config.ConfigDicParams;
 import com.foxconn.sw.data.dto.request.config.ListParams;
@@ -27,8 +29,8 @@ public class ConfigDicController {
     @Operation(summary = "获取所有配置信息", tags = "config")
     @ApiResponse(responseCode = "0", description = "成功码")
     @PostMapping("/list")
-    public ResponseEntity list(@RequestBody Request<ListParams> request) {
-        List<SwConfigDic> dicList = configDicProcessor.getConfigDicList(request.getData());
+    public ResponseEntity list(@RequestBody Request<PageParams<ListParams>> request) {
+        PageEntity<List<SwConfigDic>> dicList = configDicProcessor.getConfigDicList(request.getData());
         return ResponseEntity.ok(dicList);
     }
 

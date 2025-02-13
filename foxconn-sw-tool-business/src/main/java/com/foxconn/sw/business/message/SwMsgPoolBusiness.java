@@ -24,4 +24,8 @@ public class SwMsgPoolBusiness {
     public List<SwMsgPool> getMsgPool2Process() {
         return msgPoolExtMapper.select2Process();
     }
+
+    public boolean closeMsg(SwMsgPool e) {
+        return msgPoolExtMapper.closeMsgPool(e.getId()) > 0;
+    }
 }

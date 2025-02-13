@@ -5,6 +5,7 @@ import com.foxconn.sw.data.mapper.auto.SwMsgPoolMapper;
 import org.apache.ibatis.annotations.Result;
 import org.apache.ibatis.annotations.Results;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 import org.apache.ibatis.type.JdbcType;
 import org.springframework.stereotype.Repository;
 
@@ -25,4 +26,11 @@ public interface SwMsgPoolExtMapper extends SwMsgPoolMapper {
             @Result(column = "status", property = "status", jdbcType = JdbcType.INTEGER),
     })
     List<SwMsgPool> select2Process();
+
+    @Update({
+            "update sw_msg_pool",
+            "set status = 1",
+            "where id = #{id,jdbcType=INTEGER}"
+    })
+    int closeMsgPool(Integer id);
 }

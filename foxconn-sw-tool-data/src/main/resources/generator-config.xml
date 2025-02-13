@@ -130,10 +130,14 @@
         <!--               enableCountByExample="false">-->
         <!--            <generatedKey column="id" identity="true" sqlStatement="mysql"/>-->
         <!--        </table>-->
-        <!--        <table tableName="sw_config_dic"-->
-        <!--               enableCountByExample="false">-->
-        <!--            <generatedKey column="id" identity="true" sqlStatement="mysql"/>-->
-        <!--        </table>-->
+        <table tableName="sw_config_dic"
+               enableCountByExample="false"
+               enableDeleteByExample="false"
+               enableUpdateByExample="false"
+               enableSelectByExample="false"
+               enableDeleteByPrimaryKey="false">
+            <generatedKey column="id" identity="true" sqlStatement="mysql"/>
+        </table>
         <!--        <table tableName="sw_contact_gather"-->
         <!--               enableCountByExample="false">-->
         <!--            <generatedKey column="id" identity="true" sqlStatement="mysql"/>-->

@@ -1,6 +1,8 @@
 package com.foxconn.sw.service.processor.system;
 
 import com.foxconn.sw.business.SwConfigDicBusiness;
+import com.foxconn.sw.data.dto.PageEntity;
+import com.foxconn.sw.data.dto.PageParams;
 import com.foxconn.sw.data.dto.request.config.ConfigDicParams;
 import com.foxconn.sw.data.dto.request.config.ListParams;
 import com.foxconn.sw.data.entity.SwConfigDic;
@@ -15,8 +17,10 @@ public class ConfigDicProcessor {
     @Autowired
     SwConfigDicBusiness configDicBusiness;
 
-    public List<SwConfigDic> getConfigDicList(ListParams listParams) {
-        return configDicBusiness.queryConfigDicList(listParams);
+    public PageEntity<List<SwConfigDic>> getConfigDicList(PageParams<ListParams> data) {
+        List<SwConfigDic> documents = configDicBusiness.queryConfigDicList(data);
+        Long dicCount = 0L;
+        return new PageEntity(dicCount, documents);
     }
 
     public Boolean save(ConfigDicParams data) {
