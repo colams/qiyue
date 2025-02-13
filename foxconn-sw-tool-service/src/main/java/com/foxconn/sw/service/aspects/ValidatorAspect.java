@@ -45,7 +45,7 @@ public class ValidatorAspect {
     public Object around(ProceedingJoinPoint joinPoint, Request request) throws Throwable {
         Object object = joinPoint.proceed();
         StringBuffer stringBuffer = new StringBuffer();
-        stringBuffer.append("\t\r\n" + request.getTraceId());
+        stringBuffer.append("\r\n \t \t" + request.getTraceId());
         stringBuffer.append("----[" + joinPoint.getTarget().getClass().getSimpleName() + ".");
         stringBuffer.append(joinPoint.getSignature().getName() + "]----");
         stringBuffer.append(servletUtils.getRemoteIp());

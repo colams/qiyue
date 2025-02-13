@@ -108,7 +108,7 @@ public class Swagger {
 //    }
 
     private String format(String subName) {
-        return String.format(API_PREFIX, "subName");
+        return String.format(API_PREFIX, subName);
     }
 
     private GroupedOpenApi createGroupedOpenApi(String group, String... paths) {

@@ -76,7 +76,8 @@ public class PermissionAspect {
         String s = UUIDUtils.getUuid();
         if (cookies != null) {
             for (Cookie cookie : cookies) {
-                System.out.println(s + "  "
+                System.out.println(" \t \t" +
+                        s + "  "
                         + cookie.getName()
                         + "："
                         + SecurityUtils.decodeURL(cookie.getValue()));
