@@ -45,7 +45,6 @@ public class SwDocumentBusiness {
         document.setMainPart(data.getMainPart());
         document.setSupplier(data.getSupplier());
         document.setSource(data.getSource());
-//        document.setDeadLine(data.getDeadLine());
         document.setExpireDate(data.getExpireDate());
 
         document.setPhase(data.getPhase());
