@@ -74,8 +74,8 @@ public class Swagger {
                 "/api/property/**",
                 "/api/feedback/**",
                 "/api/sse/**",
-                "/api/config/**"
-
+                "/api/config/**",
+                format("home")
         };
         return createGroupedOpenApi(TagsConstants.UNIVERSAL, paths);
     }
@@ -88,7 +88,7 @@ public class Swagger {
     @Bean
     public GroupedOpenApi systemApi() {
         String[] paths = new String[]{
-                String.format(API_PREFIX, TagsConstants.SYSTEM),
+                format(TagsConstants.SYSTEM),
                 String.format(API_PREFIX, "department"),
                 String.format(API_PREFIX, "property"),
                 String.format(API_PREFIX, "basic"),
@@ -106,6 +106,10 @@ public class Swagger {
 //        };
 //        return createGroupedOpenApi(TagsConstants.SYSTEM);
 //    }
+
+    private String format(String subName) {
+        return String.format(API_PREFIX, "subName");
+    }
 
     private GroupedOpenApi createGroupedOpenApi(String group, String... paths) {
         if (Objects.isNull(paths) || paths.length <= 0) {
