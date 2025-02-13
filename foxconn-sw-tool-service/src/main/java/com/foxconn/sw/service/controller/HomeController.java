@@ -4,6 +4,7 @@ import com.foxconn.sw.data.dto.Request;
 import com.foxconn.sw.data.dto.Response;
 import com.foxconn.sw.data.dto.entity.home.AgendaVo;
 import com.foxconn.sw.data.dto.entity.home.GeneralVo;
+import com.foxconn.sw.data.dto.entity.home.TaskScheduleVo;
 import com.foxconn.sw.service.processor.GeneralProcessor;
 import com.foxconn.sw.service.processor.MonthlyWorkProcessor;
 import com.foxconn.sw.service.utils.ResponseUtils;
@@ -40,10 +41,18 @@ public class HomeController {
 
     @Operation(summary = "我的日程信息", tags = "home")
     @ApiResponse(responseCode = "0", description = "成功码")
-    @PostMapping("/summary")
-    public Response<List<AgendaVo>> summaryWork(@Valid @RequestBody Request request) {
+    @PostMapping("/schedule")
+    public Response<List<AgendaVo>> schedule(@Valid @RequestBody Request request) {
         List<AgendaVo> agendaVoList = Lists.newArrayList();
         return ResponseUtils.success(agendaVoList, request.getTraceId());
+    }
+
+    @Operation(summary = "我的日程信息", tags = "home")
+    @ApiResponse(responseCode = "0", description = "成功码")
+    @PostMapping("/scheduleDetail")
+    public Response<List<TaskScheduleVo>> scheduleDetail(@Valid @RequestBody Request request) {
+        List<TaskScheduleVo> taskScheduleVos = Lists.newArrayList();
+        return ResponseUtils.success(taskScheduleVos, request.getTraceId());
     }
 
 
