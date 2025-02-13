@@ -10,6 +10,7 @@ import com.foxconn.sw.data.constants.enums.retcode.RetCode;
 import com.foxconn.sw.data.dto.request.meeting.DeleteParams;
 import com.foxconn.sw.data.entity.SwMeeting;
 import com.foxconn.sw.data.exception.BizException;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -37,12 +38,9 @@ public class DeleteProcessor {
     }
 
     private boolean processByRepeat(DeleteParams data, SwMeeting meeting) {
-        if (data.getOperateType().equals(NumberConstants.TWO)) {
+        if (NumberConstants.TWO.equals(data.getOperateType()) || StringUtils.isEmpty(meeting.getCycle())) {
             return meetingBusiness.updateMeetingStatus(meeting);
         } else {
-            if (meeting.getMeetingDate().equalsIgnoreCase(data.getDeleteDate())) {
-                return meetingCycleDetailBusiness.addCycleCancelDate(data.getDeleteDate(), meeting);
-            }
             List<Integer> weekOfDays = JsonUtils.deserialize(meeting.getCycle(), List.class, Integer.class);
             Integer weekOfDay = LocalDateExtUtils.toLocalDate(data.getDeleteDate()).getDayOfWeek().getValue();
             if (!weekOfDays.contains(weekOfDay)) {
@@ -51,5 +49,4 @@ public class DeleteProcessor {
             return meetingCycleDetailBusiness.addCycleCancelDate(data.getDeleteDate(), meeting);
         }
     }
-
 }
