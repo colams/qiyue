@@ -113,6 +113,9 @@ public class SwDocumentBusiness {
         criteria.andDocumentNameEqualTo(params.getFileName());
         criteria.andIsDeleteEqualTo(NumberConstants.ZERO);
         criteria.andFileTypeEqualTo(fileType);
+        if (NumberConstants.ONE.equals(fileType)) {
+            criteria.andCreatorEqualTo(RequestContext.getEmployeeNo());
+        }
         List<SwDocument> documents = documentMapper.selectByExample(example);
         return !CollectionUtils.isEmpty(documents);
     }
