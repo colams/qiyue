@@ -108,6 +108,8 @@ public class TaskBriefListVo {
 
     private boolean isRead;
 
+    private boolean hasSon;
+
     public Integer getId() {
         return id;
     }
@@ -275,5 +277,13 @@ public class TaskBriefListVo {
 
     public void setRead(boolean read) {
         isRead = read;
+    }
+
+    public boolean isHasSon() {
+        return hasSon;
+    }
+
+    public void setHasSon(boolean hasSon) {
+        this.hasSon = hasSon;
     }
 }

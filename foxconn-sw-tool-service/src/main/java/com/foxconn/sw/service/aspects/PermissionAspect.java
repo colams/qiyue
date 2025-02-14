@@ -58,7 +58,7 @@ public class PermissionAspect {
             readCookie();
             contextInit(request, joinPoint);
             retValue = joinPoint.proceed();
-            writeCookie();
+//            writeCookie();
             stopWatch.stop();
         } catch (Throwable throwable) {
             logger.warn("call service throwable", throwable);
@@ -85,12 +85,12 @@ public class PermissionAspect {
         }
     }
 
-    private void writeCookie() {
-        Cookie myCookie = new Cookie("myCookieName", "myCookieValue");
-        myCookie.setMaxAge(60 * 60 * 24 * 7); // 设置cookie有效期为1小时
-        myCookie.setPath("/"); // 设置cookie在所有路径下有效
-        servletResponse.addCookie(myCookie); // 将cookie添加到响应中
-    }
+//    private void writeCookie() {
+//        Cookie myCookie = new Cookie("myCookieName", "myCookieValue");
+//        myCookie.setMaxAge(60 * 60 * 24 * 7); // 设置cookie有效期为1小时
+//        myCookie.setPath("/"); // 设置cookie在所有路径下有效
+//        servletResponse.addCookie(myCookie); // 将cookie添加到响应中
+//    }
 
 
     private void contextInit(Object obj, ProceedingJoinPoint joinPoint) {

@@ -13,12 +13,16 @@ import com.foxconn.sw.data.entity.SwTask;
 import com.foxconn.sw.data.entity.SwTaskExample;
 import com.foxconn.sw.data.exception.BizException;
 import com.foxconn.sw.data.mapper.extension.oa.SwTaskExtensionMapper;
+import com.google.common.collect.Maps;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.util.CollectionUtils;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 @Component
 public class SwTaskBusiness {
@@ -63,6 +67,18 @@ public class SwTaskBusiness {
         criteria.andParentIdEqualTo(taskID);
         return taskExtensionMapper.selectByExample(example);
     }
+
+    public Map<Integer, List<SwTask>> getSubTaskList(List<Integer> taskID) {
+        if (CollectionUtils.isEmpty(taskID)) {
+            return Maps.newHashMap();
+        }
+        SwTaskExample example = new SwTaskExample();
+        SwTaskExample.Criteria criteria = example.createCriteria();
+        criteria.andParentIdIn(taskID);
+        List<SwTask> tasks = taskExtensionMapper.selectByExample(example);
+        return tasks.stream().collect(Collectors.groupingBy(SwTask::getId));
+    }
+
 
     public List<SwTask> listProjectFilter(PageParams<TaskParams> data, List<String> employeeNos, String proposer) {
         LocalDateTime localDateTime = LocalDateTime.now();

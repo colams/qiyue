@@ -173,7 +173,14 @@ public class CreateTaskProcessor {
     }
 
     public Integer createSubTask(SubTaskParams data) {
+        SwTask parentTask = swTaskBusiness.getTaskById(data.getParentTaskID());
+
         SwTask task = new SwTask();
+        task.setTopCategory(parentTask.getTopCategory());
+        task.setCategory(parentTask.getCategory());
+        task.setTopProject(parentTask.getProject());
+        task.setProject(parentTask.getProject());
+
         task.setTaskNo(taskNoSeedSingleton.getTaskNo());
         task.setTitle(data.getTitle());
         task.setId(data.getTaskID());
@@ -185,6 +192,8 @@ public class CreateTaskProcessor {
         task.setProgressPercent(data.getProgressPercent());
         task.setDescription(data.getDescription());
         task.setLevel(data.getLevel());
+
+
         int subTaskID = swTaskBusiness.insertOrUpdate(task);
         if (subTaskID > 0) {
             taskEmployeeRelation.addRelationAtCreate(subTaskID, Lists.newArrayList(data.getHandler()), null);

@@ -4,10 +4,10 @@ import com.foxconn.sw.business.oa.SwTaskBusiness;
 import com.foxconn.sw.business.oa.SwTaskEmployeeRelationBusiness;
 import com.foxconn.sw.business.oa.SwTaskFollowBusiness;
 import com.foxconn.sw.business.system.EmployeeBusiness;
-import com.foxconn.sw.data.context.RequestContext;
 import com.foxconn.sw.common.utils.LocalDateExtUtils;
 import com.foxconn.sw.data.constants.enums.OperateTypeEnum;
 import com.foxconn.sw.data.constants.enums.TaskRoleFlagEnums;
+import com.foxconn.sw.data.context.RequestContext;
 import com.foxconn.sw.data.dto.PageEntity;
 import com.foxconn.sw.data.dto.PageParams;
 import com.foxconn.sw.data.dto.entity.acount.EmployeeVo;
@@ -113,6 +113,9 @@ public class TaskListProcessor {
             return Lists.newArrayList();
         }
 
+        List<Integer> taskIds = tasks.stream().map(e -> e.getId()).collect(Collectors.toList());
+
+        Map<Integer, List<SwTask>> subTasks = taskBusiness.getSubTaskList(taskIds);
         List<SwTaskFollow> follows = followBusiness.queryFollow(taskIDs);
         Map<Integer, List<SwTaskFollow>> map = follows.stream().collect(Collectors.groupingBy(SwTaskFollow::getTaskId));
 
@@ -120,13 +123,14 @@ public class TaskListProcessor {
 
         assert tasks != null;
         return tasks.stream()
-                .map(e -> mapBrief(e, map, relationsMap.get(e.getId())))
+                .map(e -> mapBrief(e, map, relationsMap.get(e.getId()), subTasks.get(e.getId())))
                 .collect(Collectors.toList());
     }
 
     private TaskBriefListVo mapBrief(SwTask e,
                                      Map<Integer, List<SwTaskFollow>> map,
-                                     List<SwTaskEmployeeRelation> relations) {
+                                     List<SwTaskEmployeeRelation> relations,
+                                     List<SwTask> subTasks) {
         TaskBriefListVo vo = new TaskBriefListVo();
         vo.setId(e.getId());
         vo.setTaskNo(e.getTaskNo());
@@ -223,6 +227,7 @@ public class TaskListProcessor {
         vo.setStatusInfoVo(TaskStatusUtils.processStatus(e.getStatus(), e.getRejectStatus(), optional));
         int readStatus = optional.map(SwTaskEmployeeRelation::getIsRead).orElse(0);
         vo.setRead(readStatus != 0);
+        vo.setHasSon(Objects.nonNull(subTasks) && subTasks.size() > 0);
         return vo;
     }
 
