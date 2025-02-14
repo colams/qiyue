@@ -13,8 +13,6 @@ public class BbsDetailVo {
 
     private Integer isHidden;
 
-    private Integer isArchive;
-
     public Integer getId() {
         return id;
     }
@@ -61,13 +59,5 @@ public class BbsDetailVo {
 
     public void setIsHidden(Integer isHidden) {
         this.isHidden = isHidden;
-    }
-
-    public Integer getIsArchive() {
-        return isArchive;
-    }
-
-    public void setIsArchive(Integer isArchive) {
-        this.isArchive = isArchive;
     }
 }

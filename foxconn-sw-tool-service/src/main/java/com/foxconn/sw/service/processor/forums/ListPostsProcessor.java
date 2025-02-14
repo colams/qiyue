@@ -22,6 +22,7 @@ import org.springframework.util.CollectionUtils;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Component
@@ -79,8 +80,8 @@ public class ListPostsProcessor {
     }
 
     public Map<Integer, ForumBbsComment> getCommentIdAndBbsId(List<ForumBbsExtension> forumPosts) {
-        List<Integer> bbsIds = forumPosts.stream().map(ForumBbs::getId).collect(Collectors.toList());
-        List<ForumBbsComment> comments = forumBbsCommentBusiness.queryCommentByBbsIds(bbsIds);
+        Set<Integer> bbsIds = forumPosts.stream().map(ForumBbs::getId).collect(Collectors.toSet());
+        List<ForumBbsComment> comments = forumBbsCommentBusiness.queryCommentByBbsIds(bbsIds.stream().toList());
         return comments.stream().collect(Collectors.toMap(ForumBbsComment::getFbId, e -> e));
     }
 }

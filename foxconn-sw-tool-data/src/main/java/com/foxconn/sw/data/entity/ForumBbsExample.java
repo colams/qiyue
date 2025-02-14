@@ -445,66 +445,6 @@ public class ForumBbsExample {
             return (Criteria) this;
         }
 
-        public Criteria andArchiveIsNull() {
-            addCriterion("archive is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andArchiveIsNotNull() {
-            addCriterion("archive is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andArchiveEqualTo(Integer value) {
-            addCriterion("archive =", value, "archive");
-            return (Criteria) this;
-        }
-
-        public Criteria andArchiveNotEqualTo(Integer value) {
-            addCriterion("archive <>", value, "archive");
-            return (Criteria) this;
-        }
-
-        public Criteria andArchiveGreaterThan(Integer value) {
-            addCriterion("archive >", value, "archive");
-            return (Criteria) this;
-        }
-
-        public Criteria andArchiveGreaterThanOrEqualTo(Integer value) {
-            addCriterion("archive >=", value, "archive");
-            return (Criteria) this;
-        }
-
-        public Criteria andArchiveLessThan(Integer value) {
-            addCriterion("archive <", value, "archive");
-            return (Criteria) this;
-        }
-
-        public Criteria andArchiveLessThanOrEqualTo(Integer value) {
-            addCriterion("archive <=", value, "archive");
-            return (Criteria) this;
-        }
-
-        public Criteria andArchiveIn(List<Integer> values) {
-            addCriterion("archive in", values, "archive");
-            return (Criteria) this;
-        }
-
-        public Criteria andArchiveNotIn(List<Integer> values) {
-            addCriterion("archive not in", values, "archive");
-            return (Criteria) this;
-        }
-
-        public Criteria andArchiveBetween(Integer value1, Integer value2) {
-            addCriterion("archive between", value1, value2, "archive");
-            return (Criteria) this;
-        }
-
-        public Criteria andArchiveNotBetween(Integer value1, Integer value2) {
-            addCriterion("archive not between", value1, value2, "archive");
-            return (Criteria) this;
-        }
-
         public Criteria andIsDeleteIsNull() {
             addCriterion("is_delete is null");
             return (Criteria) this;

@@ -91,6 +91,6 @@ public class UpdatePostsProcessor {
         } else {
             updateEntity.setStatus("F");
         }
-        return forumBbsBusiness.updatePosts(forumBbs);
+        return forumBbsBusiness.updatePosts(updateEntity);
     }
 }

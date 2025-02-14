@@ -64,7 +64,6 @@ public class PostsDetailProcessor {
         bbsDetailVo.setCollectionStatus(favoriteBusiness.queryCollectionStatus(forumBbs.getId()));
         bbsDetailVo.setCanDel(RequestContext.getEmployeeNo().equalsIgnoreCase(forumBbs.getAuthorNo()));
         bbsDetailVo.setStatus(forumBbs.getStatus());
-        bbsDetailVo.setIsArchive(forumBbs.getArchive());
         bbsDetailVo.setIsHidden(participant.getHidden());
         return bbsDetailVo;
     }
