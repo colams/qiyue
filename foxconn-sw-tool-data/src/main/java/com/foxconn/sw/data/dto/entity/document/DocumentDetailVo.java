@@ -16,6 +16,7 @@ public class DocumentDetailVo {
     private String description;
     private String department;
     private String fileVersion;
+    private String fileType;
 
     private Boolean canView;
     private Integer disableDown;
@@ -119,6 +120,14 @@ public class DocumentDetailVo {
 
     public void setFileVersion(String fileVersion) {
         this.fileVersion = fileVersion;
+    }
+
+    public String getFileType() {
+        return fileType;
+    }
+
+    public void setFileType(String fileType) {
+        this.fileType = fileType;
     }
 
     public Boolean getCanView() {

@@ -3,10 +3,7 @@ package com.foxconn.sw.data.mapper.extension.oa;
 import com.foxconn.sw.data.dto.request.document.SearchDocParams;
 import com.foxconn.sw.data.entity.SwDocument;
 import com.foxconn.sw.data.mapper.auto.SwDocumentMapper;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Result;
-import org.apache.ibatis.annotations.Results;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
 import org.apache.ibatis.type.JdbcType;
 import org.springframework.stereotype.Repository;
 
@@ -131,4 +128,15 @@ public interface SwDocumentExtensionMapper extends SwDocumentMapper {
             "</script>"
     })
     Long getTotalCountByParams(@Param("params") SearchDocParams params, @Param("employeeNo") String employeeNo);
+
+    @Update({"<script>",
+            "update sw_document ",
+            "set is_delete = 1 ",
+            "where id in ",
+            "<foreach collection='documentIDs' item='id' open='(' separator=',' close=')'>",
+            "#{id,jdbcType=INTEGER}",
+            "</foreach>",
+            "</script>"
+    })
+    int deleteByDocumentIDs(List<Integer> documentIDs);
 }

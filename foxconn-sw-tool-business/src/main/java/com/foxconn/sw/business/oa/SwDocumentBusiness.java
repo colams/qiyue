@@ -83,7 +83,6 @@ public class SwDocumentBusiness {
     }
 
     public Long getTotalCountByParams(SearchDocParams params) {
-        int fileType = Constants.PERSONAL.equalsIgnoreCase(params.getFileType()) ? 1 : 0;
         String employeeNo = "";
         if (Constants.PERSONAL.equalsIgnoreCase(params.getFileType())) {
             employeeNo = RequestContext.getEmployeeNo();
@@ -97,10 +96,7 @@ public class SwDocumentBusiness {
     }
 
     public boolean delete(DeleteDocParams data) {
-        SwDocumentExample example = new SwDocumentExample();
-        SwDocumentExample.Criteria criteria = example.createCriteria();
-        criteria.andIdIn(data.getDocumentIDs());
-        return documentMapper.deleteByExample(example) > 0;
+        return documentMapper.deleteByDocumentIDs(data.getDocumentIDs()) > 0;
     }
 
     public boolean updateDocument(SwDocument document) {
