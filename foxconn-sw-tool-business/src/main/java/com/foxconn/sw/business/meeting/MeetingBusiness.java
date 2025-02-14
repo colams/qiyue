@@ -54,11 +54,11 @@ public class MeetingBusiness {
         SwMeeting updateMeeting = new SwMeeting();
         updateMeeting.setId(meeting.getId());
         updateMeeting.setStatus(2);
-        return meetingMapper.updateByPrimaryKeySelective(updateMeeting) > 1;
+        return meetingMapper.updateByPrimaryKeySelective(updateMeeting) > 0;
     }
 
     public Boolean updateMeetingDetail(SwMeeting meeting) {
-        return meetingMapper.updateByPrimaryKeySelective(meeting) > 1;
+        return meetingMapper.updateByPrimaryKeySelective(meeting) > 0;
     }
 
     public List<MeetingEntity> selectMeetingList(ListMeetingV2Params data, String searchStartDate, String searchEndDate) {

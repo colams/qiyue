@@ -1,7 +1,12 @@
 package com.foxconn.sw.data.constants.enums;
 
+/**
+ * sw_msg_pool
+ */
 public enum MsgTypeEnums {
-    TaskNotification(1, "消息处理,sw_msg_pool"),
+    CreateTask(1, "任务创建 消息"),
+    UpdateTask(2, "任务更新 消息"),
+    AssignTask(3, "任务分派 消息"),
 
     ;
 
