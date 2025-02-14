@@ -231,10 +231,15 @@
                enableDeleteByPrimaryKey="false">
             <generatedKey column="id" identity="true" sqlStatement="mysql"/>
         </table>
-        <!--        <table tableName="sw_notification"-->
-        <!--               enableCountByExample="false">-->
-        <!--            <generatedKey column="id" identity="true" sqlStatement="mysql"/>-->
-        <!--        </table>-->
+        <table tableName="sw_notification"
+               enableCountByExample="false"
+               enableDeleteByExample="false"
+               enableUpdateByExample="false"
+               enableSelectByExample="false"
+               enableUpdateByPrimaryKey="false"
+               enableDeleteByPrimaryKey="false">
+            <generatedKey column="id" identity="true" sqlStatement="mysql"/>
+        </table>
         <!--        <table tableName="sw_notification_status"-->
         <!--               enableCountByExample="false">-->
         <!--            <generatedKey column="id" identity="true" sqlStatement="mysql"/>-->
