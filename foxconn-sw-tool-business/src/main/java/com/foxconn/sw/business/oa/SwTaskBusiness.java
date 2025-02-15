@@ -76,7 +76,7 @@ public class SwTaskBusiness {
         SwTaskExample.Criteria criteria = example.createCriteria();
         criteria.andParentIdIn(taskID);
         List<SwTask> tasks = taskExtensionMapper.selectByExample(example);
-        return tasks.stream().collect(Collectors.groupingBy(SwTask::getId));
+        return tasks.stream().collect(Collectors.groupingBy(SwTask::getParentId));
     }
 
 

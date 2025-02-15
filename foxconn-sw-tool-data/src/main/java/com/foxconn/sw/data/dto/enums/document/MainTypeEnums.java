@@ -39,4 +39,13 @@ public enum MainTypeEnums implements IUniverseCode {
         throw new BizException(ENUM_CONVERT_ERROR);
     }
 
+    public static String getEnumNameByCode(String code) {
+        for (MainTypeEnums enums : MainTypeEnums.values()) {
+            if (enums.getCode().equalsIgnoreCase(code)) {
+                return enums.getName();
+            }
+        }
+        return code;
+    }
+
 }

@@ -151,4 +151,13 @@ public enum SubTypeEnums implements IUniverseCode  {
         }
         return subTypeEnumsList;
     }
+
+    public static String getEnumNameByCode(String code) {
+        for (SubTypeEnums enums : SubTypeEnums.values()) {
+            if (enums.getCode().equalsIgnoreCase(code)) {
+                return enums.getName();
+            }
+        }
+        return code;
+    }
 }

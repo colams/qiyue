@@ -15,12 +15,14 @@ import com.foxconn.sw.data.dto.entity.acount.EmployeeVo;
 import com.foxconn.sw.data.dto.entity.document.DocumentVo;
 import com.foxconn.sw.data.dto.entity.document.HistoryVo;
 import com.foxconn.sw.data.dto.entity.universal.IntegerParams;
+import com.foxconn.sw.data.dto.enums.document.*;
 import com.foxconn.sw.data.dto.request.document.SearchDocParams;
 import com.foxconn.sw.data.entity.SwAppendResource;
 import com.foxconn.sw.data.entity.SwDocument;
 import com.foxconn.sw.data.entity.SwDocumentHistory;
 import com.foxconn.sw.data.entity.SwEmployee;
 import com.foxconn.sw.service.processor.utils.EmployeeUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -100,19 +102,22 @@ public class ListDocProcessor {
 
         vo.setExpireDate(e.getExpireDate());
         vo.setFileType(e.getFileType());
-        vo.setWorkType(e.getWorkType());
-        vo.setMainPart(e.getMainPart());
-        vo.setMainType(e.getMainType());
-        vo.setSubType(e.getSubType());
+        vo.setWorkType(WorkTypeEnums.getEnumNameByCode(e.getWorkType()));
+        vo.setMainPart(MainPartEnums.getEnumNameByCode(e.getMainPart()));
+        if (StringUtils.isEmpty(e.getMainType())) {
+            vo.setMainType(e.getCategory());
+        } else {
+            vo.setMainType(MainTypeEnums.getEnumNameByCode(e.getMainType()));
+        }
+        vo.setSubType(SubTypeEnums.getEnumNameByCode(e.getSubType()));
         vo.setSupplier(e.getSupplier());
-        vo.setSource(e.getSource());
-//        vo.setDeadLine(e.getDeadLine());
+        vo.setSource(SourceEnums.getEnumNameByCode(e.getSource()));
         vo.setFileSize(Optional.ofNullable(resource).map(f -> f.getSize()).orElse(0L));
 
-        vo.setPhase(e.getPhase());
+        vo.setPhase(PhaseEnums.getEnumNameByCode(e.getPhase()));
         vo.setConfig(e.getConfig());
-        vo.setIssueMode(e.getIssueMode());
-        vo.setProcess(e.getProcess());
+        vo.setIssueMode(IssueModeEnums.getEnumNameByCode(e.getIssueMode()));
+        vo.setProcess(ProcessEnums.getEnumNameByCode(e.getProcess()));
         vo.setStage(e.getStage());
         return vo;
     }

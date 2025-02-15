@@ -5,5 +5,4 @@ public interface IUniverseCode {
     String getCode();
 
     String getName();
-
 }

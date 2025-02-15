@@ -63,5 +63,14 @@ public enum DocumentSupplierEnums implements IUniverseCode {
         throw new BizException(ENUM_CONVERT_ERROR);
     }
 
+    public static String getEnumNameByCode(String code) {
+        for (DocumentSupplierEnums enums : DocumentSupplierEnums.values()) {
+            if (enums.getCode().equalsIgnoreCase(code)) {
+                return enums.getName();
+            }
+        }
+        return code;
+    }
+
 
 }

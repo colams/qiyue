@@ -44,4 +44,14 @@ public enum PhaseEnums implements IUniverseCode {
         }
         throw new BizException(ENUM_CONVERT_ERROR);
     }
+
+
+    public static String getEnumNameByCode(String code) {
+        for (PhaseEnums enums : PhaseEnums.values()) {
+            if (enums.getCode().equalsIgnoreCase(code)) {
+                return enums.getName();
+            }
+        }
+        return code;
+    }
 }
