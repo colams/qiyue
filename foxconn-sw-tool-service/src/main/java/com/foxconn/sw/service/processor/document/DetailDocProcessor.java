@@ -83,7 +83,7 @@ public class DetailDocProcessor {
         vo.setDepartmentIDs(documentPermissionBusiness.getPermissionSet(1, e.getId()));
         vo.setEmployeeNos(documentPermissionBusiness.getPermissionSet(2, e.getId()));
         vo.setExtra(documentPermissionBusiness.getPermissionExtra(e.getId()));
-
+        vo.setExpireDate(e.getExpireDate());
         return vo;
     }
 }

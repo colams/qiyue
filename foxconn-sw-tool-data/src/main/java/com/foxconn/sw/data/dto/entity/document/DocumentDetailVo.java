@@ -38,6 +38,8 @@ public class DocumentDetailVo {
     private String deadLine;
 
 
+    private String expireDate;
+
     private List<String> departmentIDs;
     private List<String> employeeNos;
     private String extra;
@@ -280,5 +282,13 @@ public class DocumentDetailVo {
 
     public void setDeadLine(String deadLine) {
         this.deadLine = deadLine;
+    }
+
+    public String getExpireDate() {
+        return expireDate;
+    }
+
+    public void setExpireDate(String expireDate) {
+        this.expireDate = expireDate;
     }
 }
