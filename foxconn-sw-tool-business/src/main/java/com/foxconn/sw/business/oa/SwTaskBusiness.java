@@ -13,6 +13,7 @@ import com.foxconn.sw.data.entity.SwTask;
 import com.foxconn.sw.data.entity.SwTaskExample;
 import com.foxconn.sw.data.exception.BizException;
 import com.foxconn.sw.data.mapper.extension.oa.SwTaskExtensionMapper;
+import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -68,7 +69,7 @@ public class SwTaskBusiness {
         return taskExtensionMapper.selectByExample(example);
     }
 
-    public Map<Integer, List<SwTask>> getSubTaskList(List<Integer> taskID) {
+    public Map<Integer, List<SwTask>> getSubTaskMap(List<Integer> taskID) {
         if (CollectionUtils.isEmpty(taskID)) {
             return Maps.newHashMap();
         }
@@ -77,6 +78,16 @@ public class SwTaskBusiness {
         criteria.andParentIdIn(taskID);
         List<SwTask> tasks = taskExtensionMapper.selectByExample(example);
         return tasks.stream().collect(Collectors.groupingBy(SwTask::getParentId));
+    }
+
+    public List<SwTask> getSubTaskList(List<Integer> taskID) {
+        if (CollectionUtils.isEmpty(taskID)) {
+            return Lists.newArrayList();
+        }
+        SwTaskExample example = new SwTaskExample();
+        SwTaskExample.Criteria criteria = example.createCriteria();
+        criteria.andParentIdIn(taskID);
+        return taskExtensionMapper.selectByExample(example);
     }
 
 

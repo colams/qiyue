@@ -24,6 +24,7 @@ import com.foxconn.sw.data.entity.SwTaskFollow;
 import com.foxconn.sw.service.processor.user.CommonUserUtils;
 import com.foxconn.sw.service.processor.utils.*;
 import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -56,6 +57,15 @@ public class TaskListProcessor {
         List<TaskBriefListVo> briefListVos = processAfter(tasks);
         Long totalCount = taskBusiness.getTotalCountByParams(taskParams.getParams(), employeeNos, proposer);
         return new PageEntity<>(totalCount, briefListVos);
+    }
+
+    private Map<Integer, List<TaskBriefListVo>> getChildrenTask(List<Integer> taskIdList) {
+        List<SwTask> tasks = taskBusiness.getSubTaskList(taskIdList);
+        List<TaskBriefListVo> briefListVos = processAfter(tasks);
+        if (CollectionUtils.isEmpty(briefListVos)) {
+            return Maps.newConcurrentMap();
+        }
+        return briefListVos.stream().collect(Collectors.groupingBy(e -> e.getParentId()));
     }
 
     public TaskListPageVo list2(PageParams<TaskParams> taskParams) {
@@ -115,7 +125,8 @@ public class TaskListProcessor {
 
         List<Integer> taskIds = tasks.stream().map(e -> e.getId()).collect(Collectors.toList());
 
-        Map<Integer, List<SwTask>> subTasks = taskBusiness.getSubTaskList(taskIds);
+//        Map<Integer, List<SwTask>> subTasks = taskBusiness.getSubTaskMap(taskIds);
+        Map<Integer, List<TaskBriefListVo>> briefListVoMap = getChildrenTask(taskIds);
         List<SwTaskFollow> follows = followBusiness.queryFollow(taskIDs);
         Map<Integer, List<SwTaskFollow>> map = follows.stream().collect(Collectors.groupingBy(SwTaskFollow::getTaskId));
 
@@ -123,16 +134,17 @@ public class TaskListProcessor {
 
         assert tasks != null;
         return tasks.stream()
-                .map(e -> mapBrief(e, map, relationsMap.get(e.getId()), subTasks.get(e.getId())))
+                .map(e -> mapBrief(e, map, relationsMap.get(e.getId()), briefListVoMap.get(e.getId())))
                 .collect(Collectors.toList());
     }
 
     private TaskBriefListVo mapBrief(SwTask e,
                                      Map<Integer, List<SwTaskFollow>> map,
                                      List<SwTaskEmployeeRelation> relations,
-                                     List<SwTask> subTasks) {
+                                     List<TaskBriefListVo> subTasks) {
         TaskBriefListVo vo = new TaskBriefListVo();
         vo.setId(e.getId());
+        vo.setParentId(e.getParentId());
         vo.setTaskNo(e.getTaskNo());
         vo.setCategory(TaskCategoryUtils.processCategory(e.getTopCategory(), e.getCategory()));
         vo.setTitle(e.getTitle());
@@ -228,6 +240,7 @@ public class TaskListProcessor {
         int readStatus = optional.map(SwTaskEmployeeRelation::getIsRead).orElse(0);
         vo.setRead(readStatus != 0);
         vo.setHasSon(Objects.nonNull(subTasks) && subTasks.size() > 0);
+        vo.setChildren(subTasks);
         return vo;
     }
 

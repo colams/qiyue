@@ -13,7 +13,6 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -36,9 +35,9 @@ public class HomeController {
     @PostMapping("/general")
     @Operation(summary = "工作概览", tags = "home")
     @ApiResponse(responseCode = "0", description = "成功码")
-    public ResponseEntity<GeneralVo> general(@Valid @RequestBody Request request) {
+    public Response<GeneralVo> general(@Valid @RequestBody Request request) {
         GeneralVo generalVo = generalProcessor.general();
-        return ResponseEntity.ok(generalVo);
+        return ResponseUtils.success(generalVo, request.getTraceId());
     }
 
 
