@@ -44,17 +44,6 @@ public class EmployeeBusiness {
         return employee;
     }
 
-//    public SwEmployee selectEmployeeByENo(String employeeNo) {
-//        List<SwEmployee> swEmployees = getEmployeeList()
-//                .stream()
-//                .filter(e -> e.getEmployeeNo().equalsIgnoreCase(employeeNo))
-//                .collect(Collectors.toList());
-//        if (CollectionUtils.isEmpty(swEmployees)) {
-//            return null;
-//        }
-//        return swEmployees.get(0);
-//    }
-
     public SwEmployee selectEmployeeByENo(String eNo) {
         SwEmployeeExample example = new SwEmployeeExample();
         SwEmployeeExample.Criteria criteria = example.createCriteria();
