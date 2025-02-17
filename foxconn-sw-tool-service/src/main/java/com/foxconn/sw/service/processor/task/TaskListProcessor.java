@@ -161,7 +161,9 @@ public class TaskListProcessor {
         vo.setProposerVo(map(employeeBusiness.selectEmployeeByENo(e.getProposerEid())));
         vo.setCollaboration(e.getCategory().equalsIgnoreCase("6-2"));
 
-        Optional<SwTaskEmployeeRelation> optional = relations.stream()
+        Optional<SwTaskEmployeeRelation> optional = Optional.ofNullable(relations)
+                .orElse(Lists.newArrayList())
+                .stream()
                 .filter(r -> r.getTaskId().equals(e.getId()) && r.getEmployeeNo().equalsIgnoreCase(RequestContext.getEmployeeNo()))
                 .findFirst();
         if (optional.isPresent()) {
