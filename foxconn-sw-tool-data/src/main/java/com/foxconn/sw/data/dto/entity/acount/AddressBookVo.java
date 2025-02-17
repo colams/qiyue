@@ -12,7 +12,8 @@ public class AddressBookVo {
     private String landLine;
     private String innerMail;
     private String outerMail;
-    private Integer status;
+    private Integer gatherStatus;
+    private Integer leaveStatus;
 
 
     public String getSeniorDepart() {
@@ -95,11 +96,19 @@ public class AddressBookVo {
         this.outerMail = outerMail;
     }
 
-    public Integer getStatus() {
-        return status;
+    public Integer getGatherStatus() {
+        return gatherStatus;
     }
 
-    public void setStatus(Integer status) {
-        this.status = status;
+    public void setGatherStatus(Integer gatherStatus) {
+        this.gatherStatus = gatherStatus;
+    }
+
+    public Integer getLeaveStatus() {
+        return leaveStatus;
+    }
+
+    public void setLeaveStatus(Integer leaveStatus) {
+        this.leaveStatus = leaveStatus;
     }
 }

@@ -16,6 +16,7 @@ public class DocumentDetailVo {
     private String description;
     private String department;
     private String fileVersion;
+    private String fileType;
 
     private Boolean canView;
     private Integer disableDown;
@@ -36,6 +37,8 @@ public class DocumentDetailVo {
     private String source;
     private String deadLine;
 
+
+    private String expireDate;
 
     private List<String> departmentIDs;
     private List<String> employeeNos;
@@ -119,6 +122,14 @@ public class DocumentDetailVo {
 
     public void setFileVersion(String fileVersion) {
         this.fileVersion = fileVersion;
+    }
+
+    public String getFileType() {
+        return fileType;
+    }
+
+    public void setFileType(String fileType) {
+        this.fileType = fileType;
     }
 
     public Boolean getCanView() {
@@ -271,5 +282,13 @@ public class DocumentDetailVo {
 
     public void setDeadLine(String deadLine) {
         this.deadLine = deadLine;
+    }
+
+    public String getExpireDate() {
+        return expireDate;
+    }
+
+    public void setExpireDate(String expireDate) {
+        this.expireDate = expireDate;
     }
 }

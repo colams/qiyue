@@ -5,13 +5,15 @@ import com.foxconn.sw.business.TaskNoSeedSingleton;
 import com.foxconn.sw.business.collaboration.CollaborationDetailBusiness;
 import com.foxconn.sw.business.collaboration.CollaborationUserBusiness;
 import com.foxconn.sw.business.mapper.TaskMapper;
+import com.foxconn.sw.business.message.SwMsgPoolBusiness;
 import com.foxconn.sw.business.oa.*;
 import com.foxconn.sw.business.system.EmployeeBusiness;
-import com.foxconn.sw.data.context.RequestContext;
 import com.foxconn.sw.common.utils.ConvertUtils;
+import com.foxconn.sw.data.constants.enums.MsgTypeEnums;
 import com.foxconn.sw.data.constants.enums.TaskOperateType;
 import com.foxconn.sw.data.constants.enums.TaskRoleFlagEnums;
 import com.foxconn.sw.data.constants.enums.oa.RejectStatusEnum;
+import com.foxconn.sw.data.context.RequestContext;
 import com.foxconn.sw.data.dto.entity.task.TaskBriefDetailVo;
 import com.foxconn.sw.data.dto.request.task.SubTaskParams;
 import com.foxconn.sw.data.entity.*;
@@ -62,7 +64,8 @@ public class CreateTaskProcessor {
     TaskEmployeeRelationProcessor employeeRelationProcessor;
     @Autowired
     SwTaskContentHistoryBusiness taskContentHistoryBusiness;
-
+    @Autowired
+    SwMsgPoolBusiness msgPoolBusiness;
 
     public Integer createTask(TaskBriefDetailVo data) {
 
@@ -96,6 +99,7 @@ public class CreateTaskProcessor {
 
         if (taskID > 0) {
             taskContentHistoryBusiness.insertHistory(progressId, taskID, "", task.getDescription());
+            msgPoolBusiness.addMsg(MsgTypeEnums.CreateTask, taskID);
         }
 
         return taskID;
@@ -169,7 +173,14 @@ public class CreateTaskProcessor {
     }
 
     public Integer createSubTask(SubTaskParams data) {
+        SwTask parentTask = swTaskBusiness.getTaskById(data.getParentTaskID());
+
         SwTask task = new SwTask();
+        task.setTopCategory(parentTask.getTopCategory());
+        task.setCategory(parentTask.getCategory());
+        task.setTopProject(parentTask.getProject());
+        task.setProject(parentTask.getProject());
+
         task.setTaskNo(taskNoSeedSingleton.getTaskNo());
         task.setTitle(data.getTitle());
         task.setId(data.getTaskID());
@@ -181,6 +192,8 @@ public class CreateTaskProcessor {
         task.setProgressPercent(data.getProgressPercent());
         task.setDescription(data.getDescription());
         task.setLevel(data.getLevel());
+
+
         int subTaskID = swTaskBusiness.insertOrUpdate(task);
         if (subTaskID > 0) {
             taskEmployeeRelation.addRelationAtCreate(subTaskID, Lists.newArrayList(data.getHandler()), null);

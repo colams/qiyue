@@ -39,4 +39,7 @@ public class SecurityUtils {
         return output;
     }
 
+    public static String decodeURL(String input) {
+        return decodeURL(input, "UTF8");
+    }
 }

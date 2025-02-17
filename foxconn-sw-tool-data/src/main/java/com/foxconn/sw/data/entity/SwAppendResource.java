@@ -13,7 +13,7 @@ public class SwAppendResource {
 
     private String operator;
 
-    private Integer size;
+    private Long size;
 
     private Integer isDelete;
 
@@ -86,16 +86,16 @@ public class SwAppendResource {
         this.operator = operator == null ? null : operator.trim();
     }
 
-    public Integer getSize() {
+    public Long getSize() {
         return size;
     }
 
-    public SwAppendResource withSize(Integer size) {
+    public SwAppendResource withSize(Long size) {
         this.setSize(size);
         return this;
     }
 
-    public void setSize(Integer size) {
+    public void setSize(Long size) {
         this.size = size;
     }
 

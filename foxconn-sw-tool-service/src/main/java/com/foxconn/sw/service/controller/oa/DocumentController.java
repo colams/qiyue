@@ -1,12 +1,13 @@
 package com.foxconn.sw.service.controller.oa;
 
 import com.foxconn.sw.data.constants.TagsConstants;
+import com.foxconn.sw.data.dto.PageEntity;
+import com.foxconn.sw.data.dto.PageParams;
 import com.foxconn.sw.data.dto.Request;
 import com.foxconn.sw.data.dto.Response;
 import com.foxconn.sw.data.dto.entity.document.DocumentDetailVo;
 import com.foxconn.sw.data.dto.entity.document.DocumentVo;
 import com.foxconn.sw.data.dto.entity.document.HistoryVo;
-import com.foxconn.sw.data.dto.entity.oa.OAOptionVo;
 import com.foxconn.sw.data.dto.entity.system.OptionClassVo;
 import com.foxconn.sw.data.dto.entity.universal.IntegerParams;
 import com.foxconn.sw.data.dto.request.document.*;
@@ -99,8 +100,8 @@ public class DocumentController {
     @Operation(summary = "文档信息列表", tags = TagsConstants.DOCUMENT)
     @ApiResponse(responseCode = "0", description = "成功码")
     @PostMapping("/list")
-    public Response<List<DocumentVo>> list(@Valid @RequestBody Request<SearchDocParams> request) {
-        List<DocumentVo> result = listDoc.list(request.getData());
+    public Response<PageEntity<List<DocumentVo>>> list(@Valid @RequestBody Request<PageParams<SearchDocParams>> request) {
+        PageEntity<List<DocumentVo>> result = listDoc.list(request.getData());
         return ResponseUtils.success(result, request.getTraceId());
     }
 

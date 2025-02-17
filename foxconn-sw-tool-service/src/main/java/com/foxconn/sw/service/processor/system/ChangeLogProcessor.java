@@ -35,7 +35,7 @@ public class ChangeLogProcessor {
     private ChangeLogVo map2Vo(SwChangeLog e) {
         ChangeLogVo changeLogVo = new ChangeLogVo();
         changeLogVo.setId(e.getId());
-        changeLogVo.setOperator(employeeBusiness.queryEmployeeByEno(e.getLastUpdater()).getName());
+        changeLogVo.setOperator(employeeBusiness.selectEmployeeByENo(e.getLastUpdater()).getName());
         changeLogVo.setReleaseNote(e.getReleaseNote());
         changeLogVo.setCreateTime(DateTimeUtils.format(e.getCreateTime()));
         changeLogVo.setReleaseVersion(e.getReleaseVersion());

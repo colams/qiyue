@@ -3,14 +3,11 @@ package com.foxconn.sw.service.processor.announcement;
 import com.foxconn.sw.business.AnnouncementBusiness;
 import com.foxconn.sw.common.utils.IntegerExtUtils;
 import com.foxconn.sw.common.utils.JsonUtils;
-import com.foxconn.sw.common.utils.LocalDateExtUtils;
 import com.foxconn.sw.data.context.RequestContext;
 import com.foxconn.sw.data.dto.request.announcement.AnnouncementParams;
 import com.foxconn.sw.data.entity.SwAnnouncement;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
-import java.time.LocalDate;
 
 @Component
 public class AnnouncementManagerProcessor {
@@ -29,7 +26,7 @@ public class AnnouncementManagerProcessor {
             announcement.setOperator(RequestContext.getEmployeeNo());
         }
         announcement.setLastUpdater(RequestContext.getEmployeeNo());
-        announcement.setExpiryDate(LocalDateExtUtils.toString(LocalDate.now()));
+        announcement.setExpiryDate(data.getExpiryDate());
         announcement.setStatus(data.getStatus().getCode());
         announcement.setContent(data.getContent());
         announcement.setResourceids(JsonUtils.serializeList(data.getResourceIds()));

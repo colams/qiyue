@@ -13,17 +13,15 @@ public class SwDocument {
 
     private Integer department;
 
-    private String project;
-
     private Integer secretLevel;
 
-    private String expireDate;
+    private String author;
 
     private Integer disableDown;
 
     private Integer resourceId;
 
-    private String author;
+    private String source;
 
     private String creator;
 
@@ -41,9 +39,19 @@ public class SwDocument {
 
     private String supplier;
 
-    private String source;
+    private String expireDate;
 
-    private String deadLine;
+    private String project;
+
+    private String phase;
+
+    private String config;
+
+    private String issueMode;
+
+    private String process;
+
+    private String stage;
 
     private Integer isDelete;
 
@@ -116,19 +124,6 @@ public class SwDocument {
         this.department = department;
     }
 
-    public String getProject() {
-        return project;
-    }
-
-    public SwDocument withProject(String project) {
-        this.setProject(project);
-        return this;
-    }
-
-    public void setProject(String project) {
-        this.project = project == null ? null : project.trim();
-    }
-
     public Integer getSecretLevel() {
         return secretLevel;
     }
@@ -142,17 +137,17 @@ public class SwDocument {
         this.secretLevel = secretLevel;
     }
 
-    public String getExpireDate() {
-        return expireDate;
+    public String getAuthor() {
+        return author;
     }
 
-    public SwDocument withExpireDate(String expireDate) {
-        this.setExpireDate(expireDate);
+    public SwDocument withAuthor(String author) {
+        this.setAuthor(author);
         return this;
     }
 
-    public void setExpireDate(String expireDate) {
-        this.expireDate = expireDate == null ? null : expireDate.trim();
+    public void setAuthor(String author) {
+        this.author = author == null ? null : author.trim();
     }
 
     public Integer getDisableDown() {
@@ -181,17 +176,17 @@ public class SwDocument {
         this.resourceId = resourceId;
     }
 
-    public String getAuthor() {
-        return author;
+    public String getSource() {
+        return source;
     }
 
-    public SwDocument withAuthor(String author) {
-        this.setAuthor(author);
+    public SwDocument withSource(String source) {
+        this.setSource(source);
         return this;
     }
 
-    public void setAuthor(String author) {
-        this.author = author == null ? null : author.trim();
+    public void setSource(String source) {
+        this.source = source == null ? null : source.trim();
     }
 
     public String getCreator() {
@@ -298,30 +293,95 @@ public class SwDocument {
         this.supplier = supplier == null ? null : supplier.trim();
     }
 
-    public String getSource() {
-        return source;
+    public String getExpireDate() {
+        return expireDate;
     }
 
-    public SwDocument withSource(String source) {
-        this.setSource(source);
+    public SwDocument withExpireDate(String expireDate) {
+        this.setExpireDate(expireDate);
         return this;
     }
 
-    public void setSource(String source) {
-        this.source = source == null ? null : source.trim();
+    public void setExpireDate(String expireDate) {
+        this.expireDate = expireDate == null ? null : expireDate.trim();
     }
 
-    public String getDeadLine() {
-        return deadLine;
+    public String getProject() {
+        return project;
     }
 
-    public SwDocument withDeadLine(String deadLine) {
-        this.setDeadLine(deadLine);
+    public SwDocument withProject(String project) {
+        this.setProject(project);
         return this;
     }
 
-    public void setDeadLine(String deadLine) {
-        this.deadLine = deadLine == null ? null : deadLine.trim();
+    public void setProject(String project) {
+        this.project = project == null ? null : project.trim();
+    }
+
+    public String getPhase() {
+        return phase;
+    }
+
+    public SwDocument withPhase(String phase) {
+        this.setPhase(phase);
+        return this;
+    }
+
+    public void setPhase(String phase) {
+        this.phase = phase == null ? null : phase.trim();
+    }
+
+    public String getConfig() {
+        return config;
+    }
+
+    public SwDocument withConfig(String config) {
+        this.setConfig(config);
+        return this;
+    }
+
+    public void setConfig(String config) {
+        this.config = config == null ? null : config.trim();
+    }
+
+    public String getIssueMode() {
+        return issueMode;
+    }
+
+    public SwDocument withIssueMode(String issueMode) {
+        this.setIssueMode(issueMode);
+        return this;
+    }
+
+    public void setIssueMode(String issueMode) {
+        this.issueMode = issueMode == null ? null : issueMode.trim();
+    }
+
+    public String getProcess() {
+        return process;
+    }
+
+    public SwDocument withProcess(String process) {
+        this.setProcess(process);
+        return this;
+    }
+
+    public void setProcess(String process) {
+        this.process = process == null ? null : process.trim();
+    }
+
+    public String getStage() {
+        return stage;
+    }
+
+    public SwDocument withStage(String stage) {
+        this.setStage(stage);
+        return this;
+    }
+
+    public void setStage(String stage) {
+        this.stage = stage == null ? null : stage.trim();
     }
 
     public Integer getIsDelete() {

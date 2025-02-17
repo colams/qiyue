@@ -44,7 +44,12 @@ public class ValidatorAspect {
     @Around("parameterPointcut() && args(request,..)")
     public Object around(ProceedingJoinPoint joinPoint, Request request) throws Throwable {
         Object object = joinPoint.proceed();
-        logger.info(joinPoint.getTarget().getClass().getSimpleName() + "." + joinPoint.getSignature().getName() + "   =====," + servletUtils.getRemoteIp() + ",====," + request.getTraceId());
+        StringBuffer stringBuffer = new StringBuffer();
+        stringBuffer.append("\r\n \t \t" + request.getTraceId());
+        stringBuffer.append("----[" + joinPoint.getTarget().getClass().getSimpleName() + ".");
+        stringBuffer.append(joinPoint.getSignature().getName() + "]----");
+        stringBuffer.append(servletUtils.getRemoteIp());
+        logger.info(stringBuffer.toString());
         return object;
     }
 
@@ -60,9 +65,12 @@ public class ValidatorAspect {
     private void logParam(JoinPoint joinPoint, Request request, String ip) {
         try {
             String operator = ip;
-            String operateType = joinPoint.getTarget().getClass().getSimpleName() + "." + joinPoint.getSignature().getName();
+            StringBuilder stringBuilder = new StringBuilder();
+            stringBuilder.append(joinPoint.getTarget().getClass().getSimpleName());
+            stringBuilder.append(".");
+            stringBuilder.append(joinPoint.getSignature().getName());
             String remark = JsonUtils.serialize(request);
-            logBusiness.log(operator, operateType, remark, 0L, ip);
+            logBusiness.log(operator, stringBuilder.toString(), remark, 0L, ip);
         } catch (Exception e) {
             logger.error(e.getMessage(), e);
         }

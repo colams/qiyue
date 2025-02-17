@@ -61,7 +61,7 @@ public class MeetingMemberBusiness {
         meetingMember.setRole(memberMap.get(eNo));
         meetingMember.setEmployeeNo(eNo);
         meetingMember.setMeetingId(meetingID);
-        meetingMember.setName(employeeBusiness.queryEmployeeByEno(eNo).getName());
+        meetingMember.setName(employeeBusiness.selectEmployeeByENo(eNo).getName());
         return meetingMember;
     }
 

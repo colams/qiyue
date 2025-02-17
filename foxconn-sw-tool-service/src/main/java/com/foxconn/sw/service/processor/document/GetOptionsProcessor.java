@@ -38,7 +38,7 @@ public class GetOptionsProcessor {
         vos.add(init(WorkTypeEnums.class.getSimpleName(), WorkTypeEnums.values()));
 
         vos.add(init(IssueModeEnums.class.getSimpleName(), IssueModeEnums.values()));
-        vos.add(init(PhraseEnums.class.getSimpleName(), PhraseEnums.values()));
+        vos.add(init(PhaseEnums.class.getSimpleName(), PhaseEnums.values()));
         vos.add(init(ProcessEnums.class.getSimpleName(), ProcessEnums.values()));
 
         return vos;

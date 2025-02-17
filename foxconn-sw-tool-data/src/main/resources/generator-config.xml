@@ -57,270 +57,289 @@
             <property name="delegate" value="org.mybatis.generator.internal.LegacyJavaModelGenerator"/>
         </javaModelGenerator>
 
-        <sqlMapGenerator targetPackage="com.foxconn.sw.data.mapper"
+        <sqlMapGenerator targetPackage="com.foxconn.sw.data.mapper.auto"
                          targetProject="src\main\resources\">
             <property name="enableSubPackages" value="false"/>
         </sqlMapGenerator>
-
-        <!--<javaClientGenerator type="XMLMAPPER" targetPackage="cn.colams.dal.dao"-->
-        <!--targetProject="src\main\java">-->
-        <!--<property name="enableSubPackages" value="true"/>-->
-        <!--</javaClientGenerator>-->
         <!--type:{ANNOTATEDMAPPER(纯注解 Mapper), MIXEDMAPPER(混合), XMLMAPPER(纯xml, myBatis作者亲自说用这个的)}-->
         <javaClientGenerator type="ANNOTATEDMAPPER" targetPackage="com.foxconn.sw.data.mapper.auto"
                              targetProject="src\main\java">
             <property name="enableSubPackages" value="false"/>
         </javaClientGenerator>
-        <table tableName="forum_attachment"
-               enableCountByExample="false">
-            <generatedKey column="id" identity="true" sqlStatement="mysql"/>
-        </table>
+        <!--        <table tableName="forum_attachment"-->
+        <!--               enableCountByExample="false">-->
+        <!--            <generatedKey column="id" identity="true" sqlStatement="mysql"/>-->
+        <!--        </table>-->
         <table tableName="forum_bbs"
-               enableCountByExample="false">
-            <generatedKey column="id" identity="true" sqlStatement="mysql"/>
-        </table>
-        <table tableName="forum_bbs_comment"
-               enableCountByExample="false">
-            <generatedKey column="id" identity="true" sqlStatement="mysql"/>
-        </table>
-        <table tableName="forum_bbs_read"
-               enableCountByExample="false">
-            <generatedKey column="id" identity="true" sqlStatement="mysql"/>
-        </table>
-        <table tableName="forum_favorite"
-               enableCountByExample="false">
-            <generatedKey column="id" identity="true" sqlStatement="mysql"/>
-        </table>
-        <table tableName="forum_participant"
-               enableCountByExample="false">
-            <generatedKey column="id" identity="true" sqlStatement="mysql"/>
-        </table>
-
-        <table tableName="sw_announcement"
-               enableCountByExample="false">
-            <generatedKey column="id" identity="true" sqlStatement="mysql"/>
-        </table>
-        <table tableName="sw_append_resource"
-               enableCountByExample="false">
-            <generatedKey column="id" identity="true" sqlStatement="mysql"/>
-        </table>
-        <table tableName="sw_capex_set"
-               enableCountByExample="false">
-            <generatedKey column="id" identity="true" sqlStatement="mysql"/>
-        </table>
-        <table tableName="sw_change_log"
                enableCountByExample="false"
-               enableDeleteByPrimaryKey="false"
-               enableDeleteByExample="false">
+               enableDeleteByPrimaryKey="false">
             <generatedKey column="id" identity="true" sqlStatement="mysql"/>
         </table>
-        <table tableName="sw_collaboration_detail"
-               enableCountByExample="false">
+        <!--        <table tableName="forum_bbs_comment"-->
+        <!--               enableCountByExample="false">-->
+        <!--            <generatedKey column="id" identity="true" sqlStatement="mysql"/>-->
+        <!--        </table>-->
+        <!--        <table tableName="forum_bbs_read"-->
+        <!--               enableCountByExample="false">-->
+        <!--            <generatedKey column="id" identity="true" sqlStatement="mysql"/>-->
+        <!--        </table>-->
+        <!--        <table tableName="forum_favorite"-->
+        <!--               enableCountByExample="false">-->
+        <!--            <generatedKey column="id" identity="true" sqlStatement="mysql"/>-->
+        <!--        </table>-->
+        <!--        <table tableName="forum_participant"-->
+        <!--               enableCountByExample="false">-->
+        <!--            <generatedKey column="id" identity="true" sqlStatement="mysql"/>-->
+        <!--        </table>-->
+
+        <!--        <table tableName="sw_announcement"-->
+        <!--               enableCountByExample="false">-->
+        <!--            <generatedKey column="id" identity="true" sqlStatement="mysql"/>-->
+        <!--        </table>-->
+        <table tableName="sw_append_resource"
+               enableCountByExample="false"
+               enableDeleteByExample="false"
+               enableUpdateByExample="false"
+               enableUpdateByPrimaryKey="false"
+               enableDeleteByPrimaryKey="false">
             <generatedKey column="id" identity="true" sqlStatement="mysql"/>
         </table>
-        <table tableName="sw_collaboration_detail_log"
-               enableCountByExample="false">
-            <generatedKey column="id" identity="true" sqlStatement="mysql"/>
-        </table>
-        <table tableName="sw_collaboration_detail_spare"
-               enableCountByExample="false">
-            <generatedKey column="id" identity="true" sqlStatement="mysql"/>
-        </table>
-        <table tableName="sw_collaboration_user"
-               enableCountByExample="false">
-            <generatedKey column="id" identity="true" sqlStatement="mysql"/>
-        </table>
+        <!--        <table tableName="sw_capex_set"-->
+        <!--               enableCountByExample="false">-->
+        <!--            <generatedKey column="id" identity="true" sqlStatement="mysql"/>-->
+        <!--        </table>-->
+        <!--        <table tableName="sw_change_log"-->
+        <!--               enableCountByExample="false"-->
+        <!--               enableDeleteByPrimaryKey="false"-->
+        <!--               enableDeleteByExample="false">-->
+        <!--            <generatedKey column="id" identity="true" sqlStatement="mysql"/>-->
+        <!--        </table>-->
+        <!--        <table tableName="sw_collaboration_detail"-->
+        <!--               enableCountByExample="false">-->
+        <!--            <generatedKey column="id" identity="true" sqlStatement="mysql"/>-->
+        <!--        </table>-->
+        <!--        <table tableName="sw_collaboration_detail_log"-->
+        <!--               enableCountByExample="false">-->
+        <!--            <generatedKey column="id" identity="true" sqlStatement="mysql"/>-->
+        <!--        </table>-->
+        <!--        <table tableName="sw_collaboration_detail_spare"-->
+        <!--               enableCountByExample="false">-->
+        <!--            <generatedKey column="id" identity="true" sqlStatement="mysql"/>-->
+        <!--        </table>-->
+        <!--        <table tableName="sw_collaboration_user"-->
+        <!--               enableCountByExample="false">-->
+        <!--            <generatedKey column="id" identity="true" sqlStatement="mysql"/>-->
+        <!--        </table>-->
         <table tableName="sw_config_dic"
-               enableCountByExample="false">
+               enableCountByExample="false"
+               enableDeleteByExample="false"
+               enableUpdateByExample="false"
+               enableSelectByExample="false"
+               enableDeleteByPrimaryKey="false">
             <generatedKey column="id" identity="true" sqlStatement="mysql"/>
         </table>
-        <table tableName="sw_contact_gather"
-               enableCountByExample="false">
-            <generatedKey column="id" identity="true" sqlStatement="mysql"/>
-        </table>
-        <table tableName="sw_custom_group"
-               enableCountByExample="false">
-            <generatedKey column="id" identity="true" sqlStatement="mysql"/>
-        </table>
-        <table tableName="sw_custom_group_favorite"
-               enableCountByExample="false">
-            <generatedKey column="id" identity="true" sqlStatement="mysql"/>
-        </table>
-        <table tableName="sw_custom_group_member"
-               enableCountByExample="false">
-            <generatedKey column="id" identity="true" sqlStatement="mysql"/>
-        </table>
-        <table tableName="sw_custom_group_operate"
-               enableCountByExample="false">
-            <generatedKey column="id" identity="true" sqlStatement="mysql"/>
-        </table>
-        <table tableName="sw_custom_member"
-               enableCountByExample="false">
-            <generatedKey column="id" identity="true" sqlStatement="mysql"/>
-        </table>
-        <table tableName="sw_department"
-               enableCountByExample="false">
-            <generatedKey column="id" identity="true" sqlStatement="mysql"/>
-        </table>
+        <!--        <table tableName="sw_contact_gather"-->
+        <!--               enableCountByExample="false">-->
+        <!--            <generatedKey column="id" identity="true" sqlStatement="mysql"/>-->
+        <!--        </table>-->
+        <!--        <table tableName="sw_custom_group"-->
+        <!--               enableCountByExample="false">-->
+        <!--            <generatedKey column="id" identity="true" sqlStatement="mysql"/>-->
+        <!--        </table>-->
+        <!--        <table tableName="sw_custom_group_favorite"-->
+        <!--               enableCountByExample="false">-->
+        <!--            <generatedKey column="id" identity="true" sqlStatement="mysql"/>-->
+        <!--        </table>-->
+        <!--        <table tableName="sw_custom_group_member"-->
+        <!--               enableCountByExample="false">-->
+        <!--            <generatedKey column="id" identity="true" sqlStatement="mysql"/>-->
+        <!--        </table>-->
+        <!--        <table tableName="sw_custom_group_operate"-->
+        <!--               enableCountByExample="false">-->
+        <!--            <generatedKey column="id" identity="true" sqlStatement="mysql"/>-->
+        <!--        </table>-->
+        <!--        <table tableName="sw_custom_member"-->
+        <!--               enableCountByExample="false">-->
+        <!--            <generatedKey column="id" identity="true" sqlStatement="mysql"/>-->
+        <!--        </table>-->
+        <!--        <table tableName="sw_department"-->
+        <!--               enableCountByExample="false">-->
+        <!--            <generatedKey column="id" identity="true" sqlStatement="mysql"/>-->
+        <!--        </table>-->
         <table tableName="sw_document"
-               enableCountByExample="false">
+               enableCountByExample="false"
+               enableDeleteByPrimaryKey="false">
             <generatedKey column="id" identity="true" sqlStatement="mysql"/>
         </table>
-        <table tableName="sw_document_history"
-               enableCountByExample="false">
-            <generatedKey column="id" identity="true" sqlStatement="mysql"/>
-        </table>
-        <table tableName="sw_document_permission"
-               enableCountByExample="false">
-            <generatedKey column="id" identity="true" sqlStatement="mysql"/>
-        </table>
+        <!--        <table tableName="sw_document_history"-->
+        <!--               enableCountByExample="false">-->
+        <!--            <generatedKey column="id" identity="true" sqlStatement="mysql"/>-->
+        <!--        </table>-->
+        <!--        <table tableName="sw_document_permission"-->
+        <!--               enableCountByExample="false">-->
+        <!--            <generatedKey column="id" identity="true" sqlStatement="mysql"/>-->
+        <!--        </table>-->
 
-        <table tableName="sw_employee"
-               enableCountByExample="false">
-            <generatedKey column="id" identity="true" sqlStatement="mysql"/>
-        </table>
-        <table tableName="sw_feedback"
-               enableCountByExample="false">
-            <generatedKey column="id" identity="true" sqlStatement="mysql"/>
-        </table>
-        <table tableName="sw_log"
-               enableCountByExample="false">
-            <generatedKey column="id" identity="true" sqlStatement="mysql"/>
-        </table>
+        <!--        <table tableName="sw_employee"-->
+        <!--               enableCountByExample="false">-->
+        <!--            <generatedKey column="id" identity="true" sqlStatement="mysql"/>-->
+        <!--        </table>-->
+        <!--        <table tableName="sw_feedback"-->
+        <!--               enableCountByExample="false">-->
+        <!--            <generatedKey column="id" identity="true" sqlStatement="mysql"/>-->
+        <!--        </table>-->
+        <!--        <table tableName="sw_log"-->
+        <!--               enableCountByExample="false">-->
+        <!--            <generatedKey column="id" identity="true" sqlStatement="mysql"/>-->
+        <!--        </table>-->
 
-        <table tableName="sw_meeting"
-               enableCountByExample="false">
-            <generatedKey column="id" identity="true" sqlStatement="mysql"/>
-        </table>
-        <table tableName="sw_meeting_cycle_detail"
-               enableCountByExample="false">
-            <generatedKey column="id" identity="true" sqlStatement="mysql"/>
-        </table>
-        <table tableName="sw_meeting_member"
-               enableCountByExample="false">
-            <generatedKey column="id" identity="true" sqlStatement="mysql"/>
-        </table>
-        <table tableName="sw_meeting_minute"
-               enableCountByExample="false">
-            <generatedKey column="id" identity="true" sqlStatement="mysql"/>
-        </table>
-        <table tableName="sw_meeting_minute_detail"
-               enableCountByExample="false">
-            <generatedKey column="id" identity="true" sqlStatement="mysql"/>
-        </table>
-        <table tableName="sw_meeting_minute_member"
-               enableCountByExample="false">
-            <generatedKey column="id" identity="true" sqlStatement="mysql"/>
-        </table>
+        <!--        <table tableName="sw_meeting"-->
+        <!--               enableCountByExample="false">-->
+        <!--            <generatedKey column="id" identity="true" sqlStatement="mysql"/>-->
+        <!--        </table>-->
+        <!--        <table tableName="sw_meeting_cycle_detail"-->
+        <!--               enableCountByExample="false">-->
+        <!--            <generatedKey column="id" identity="true" sqlStatement="mysql"/>-->
+        <!--        </table>-->
+        <!--        <table tableName="sw_meeting_member"-->
+        <!--               enableCountByExample="false">-->
+        <!--            <generatedKey column="id" identity="true" sqlStatement="mysql"/>-->
+        <!--        </table>-->
+        <!--        <table tableName="sw_meeting_minute"-->
+        <!--               enableCountByExample="false">-->
+        <!--            <generatedKey column="id" identity="true" sqlStatement="mysql"/>-->
+        <!--        </table>-->
+        <!--        <table tableName="sw_meeting_minute_detail"-->
+        <!--               enableCountByExample="false">-->
+        <!--            <generatedKey column="id" identity="true" sqlStatement="mysql"/>-->
+        <!--        </table>-->
+        <!--        <table tableName="sw_meeting_minute_member"-->
+        <!--               enableCountByExample="false">-->
+        <!--            <generatedKey column="id" identity="true" sqlStatement="mysql"/>-->
+        <!--        </table>-->
 
-        <table tableName="sw_menu"
-               enableCountByExample="false">
+        <!--        <table tableName="sw_menu"-->
+        <!--               enableCountByExample="false">-->
+        <!--            <generatedKey column="id" identity="true" sqlStatement="mysql"/>-->
+        <!--        </table>-->
+        <table tableName="sw_msg_pool"
+               enableCountByExample="false"
+               enableDeleteByExample="false"
+               enableUpdateByExample="false"
+               enableSelectByExample="false"
+               enableUpdateByPrimaryKey="false"
+               enableDeleteByPrimaryKey="false">
             <generatedKey column="id" identity="true" sqlStatement="mysql"/>
         </table>
         <table tableName="sw_notification"
-               enableCountByExample="false">
+               enableCountByExample="false"
+               enableDeleteByExample="false"
+               enableUpdateByExample="false"
+               enableSelectByExample="false"
+               enableUpdateByPrimaryKey="false"
+               enableDeleteByPrimaryKey="false">
             <generatedKey column="id" identity="true" sqlStatement="mysql"/>
         </table>
-        <table tableName="sw_notification_status"
-               enableCountByExample="false">
-            <generatedKey column="id" identity="true" sqlStatement="mysql"/>
-        </table>
-        <table tableName="sw_project"
-               enableCountByExample="false">
-            <generatedKey column="id" identity="true" sqlStatement="mysql"/>
-        </table>
-        <table tableName="sw_project_item"
-               enableCountByExample="false">
-            <generatedKey column="id" identity="true" sqlStatement="mysql"/>
-        </table>
-        <table tableName="sw_property"
-               enableCountByExample="false">
-            <generatedKey column="id" identity="true" sqlStatement="mysql"/>
-        </table>
-        <table tableName="sw_read_status"
-               enableCountByExample="false">
-            <generatedKey column="id" identity="true" sqlStatement="mysql"/>
-        </table>
-        <table tableName="sw_role"
-               enableCountByExample="false">
-            <generatedKey column="id" identity="true" sqlStatement="mysql"/>
-        </table>
-        <table tableName="sw_role_menu"
-               enableCountByExample="false">
-            <generatedKey column="id" identity="true" sqlStatement="mysql"/>
-        </table>
-        <table tableName="sw_sub_task"
-               enableCountByExample="false">
-            <generatedKey column="id" identity="true" sqlStatement="mysql"/>
-        </table>
-        <table tableName="sw_task"
-               enableCountByExample="false">
-            <generatedKey column="id" identity="true" sqlStatement="mysql"/>
-        </table>
-        <table tableName="sw_task_content_history"
-               enableCountByExample="false">
-            <generatedKey column="id" identity="true" sqlStatement="mysql"/>
-        </table>
-        <table tableName="sw_task_employee_relation"
-               enableCountByExample="false">
-            <generatedKey column="id" identity="true" sqlStatement="mysql"/>
-        </table>
-        <table tableName="sw_task_evaluation"
-               enableCountByExample="false">
-            <generatedKey column="id" identity="true" sqlStatement="mysql"/>
-        </table>
-        <table tableName="sw_task_follow"
-               enableCountByExample="false">
-            <generatedKey column="id" identity="true" sqlStatement="mysql"/>
-        </table>
-        <table tableName="sw_task_log"
-               enableCountByExample="false">
-            <generatedKey column="id" identity="true" sqlStatement="mysql"/>
-        </table>
-        <table tableName="sw_task_progress"
-               enableCountByExample="false">
-            <generatedKey column="id" identity="true" sqlStatement="mysql"/>
-        </table>
-        <table tableName="sw_tool_run_result"
-               enableCountByExample="false">
-            <generatedKey column="id" identity="true" sqlStatement="mysql"/>
-        </table>
-        <table tableName="sw_tools"
-               enableCountByExample="false">
-            <generatedKey column="id" identity="true" sqlStatement="mysql"/>
-        </table>
-        <table tableName="sw_tools_history"
-               enableCountByExample="false">
-            <generatedKey column="id" identity="true" sqlStatement="mysql"/>
-        </table>
-        <table tableName="sw_user"
-               enableCountByExample="false">
-            <generatedKey column="id" identity="true" sqlStatement="mysql"/>
-        </table>
-        <table tableName="sw_user_login"
-               enableCountByExample="false">
-            <generatedKey column="id" identity="true" sqlStatement="mysql"/>
-        </table>
-        <table tableName="sw_user_role"
-               enableCountByExample="false">
-            <generatedKey column="id" identity="true" sqlStatement="mysql"/>
-        </table>
-        <table tableName="sw_work_report"
-               enableCountByExample="false">
-            <generatedKey column="id" identity="true" sqlStatement="mysql"/>
-        </table>
-        <table tableName="sw_work_report_lock"
-               enableCountByExample="false">
-            <generatedKey column="id" identity="true" sqlStatement="mysql"/>
-        </table>
-        <table tableName="sw_work_report_score"
-               enableCountByExample="false">
-            <generatedKey column="id" identity="true" sqlStatement="mysql"/>
-        </table>
-        <table tableName="task_no_seed"
-               enableCountByExample="false">
-            <generatedKey column="id" identity="true" sqlStatement="mysql"/>
-        </table>
+        <!--        <table tableName="sw_notification_status"-->
+        <!--               enableCountByExample="false">-->
+        <!--            <generatedKey column="id" identity="true" sqlStatement="mysql"/>-->
+        <!--        </table>-->
+        <!--        <table tableName="sw_project"-->
+        <!--               enableCountByExample="false">-->
+        <!--            <generatedKey column="id" identity="true" sqlStatement="mysql"/>-->
+        <!--        </table>-->
+        <!--        <table tableName="sw_project_item"-->
+        <!--               enableCountByExample="false">-->
+        <!--            <generatedKey column="id" identity="true" sqlStatement="mysql"/>-->
+        <!--        </table>-->
+        <!--        <table tableName="sw_property"-->
+        <!--               enableCountByExample="false">-->
+        <!--            <generatedKey column="id" identity="true" sqlStatement="mysql"/>-->
+        <!--        </table>-->
+        <!--        <table tableName="sw_read_status"-->
+        <!--               enableCountByExample="false">-->
+        <!--            <generatedKey column="id" identity="true" sqlStatement="mysql"/>-->
+        <!--        </table>-->
+        <!--        <table tableName="sw_role"-->
+        <!--               enableCountByExample="false">-->
+        <!--            <generatedKey column="id" identity="true" sqlStatement="mysql"/>-->
+        <!--        </table>-->
+        <!--        <table tableName="sw_role_menu"-->
+        <!--               enableCountByExample="false">-->
+        <!--            <generatedKey column="id" identity="true" sqlStatement="mysql"/>-->
+        <!--        </table>-->
+        <!--        <table tableName="sw_sub_task"-->
+        <!--               enableCountByExample="false">-->
+        <!--            <generatedKey column="id" identity="true" sqlStatement="mysql"/>-->
+        <!--        </table>-->
+        <!--        <table tableName="sw_task"-->
+        <!--               enableCountByExample="false">-->
+        <!--            <generatedKey column="id" identity="true" sqlStatement="mysql"/>-->
+        <!--        </table>-->
+        <!--        <table tableName="sw_task_content_history"-->
+        <!--               enableCountByExample="false">-->
+        <!--            <generatedKey column="id" identity="true" sqlStatement="mysql"/>-->
+        <!--        </table>-->
+        <!--        <table tableName="sw_task_employee_relation"-->
+        <!--               enableCountByExample="false">-->
+        <!--            <generatedKey column="id" identity="true" sqlStatement="mysql"/>-->
+        <!--        </table>-->
+        <!--        <table tableName="sw_task_evaluation"-->
+        <!--               enableCountByExample="false">-->
+        <!--            <generatedKey column="id" identity="true" sqlStatement="mysql"/>-->
+        <!--        </table>-->
+        <!--        <table tableName="sw_task_follow"-->
+        <!--               enableCountByExample="false">-->
+        <!--            <generatedKey column="id" identity="true" sqlStatement="mysql"/>-->
+        <!--        </table>-->
+        <!--        <table tableName="sw_task_log"-->
+        <!--               enableCountByExample="false">-->
+        <!--            <generatedKey column="id" identity="true" sqlStatement="mysql"/>-->
+        <!--        </table>-->
+        <!--        <table tableName="sw_task_progress"-->
+        <!--               enableCountByExample="false">-->
+        <!--            <generatedKey column="id" identity="true" sqlStatement="mysql"/>-->
+        <!--        </table>-->
+        <!--        <table tableName="sw_tool_run_result"-->
+        <!--               enableCountByExample="false">-->
+        <!--            <generatedKey column="id" identity="true" sqlStatement="mysql"/>-->
+        <!--        </table>-->
+        <!--        <table tableName="sw_tools"-->
+        <!--               enableCountByExample="false">-->
+        <!--            <generatedKey column="id" identity="true" sqlStatement="mysql"/>-->
+        <!--        </table>-->
+        <!--        <table tableName="sw_tools_history"-->
+        <!--               enableCountByExample="false">-->
+        <!--            <generatedKey column="id" identity="true" sqlStatement="mysql"/>-->
+        <!--        </table>-->
+        <!--        <table tableName="sw_user"-->
+        <!--               enableCountByExample="false">-->
+        <!--            <generatedKey column="id" identity="true" sqlStatement="mysql"/>-->
+        <!--        </table>-->
+        <!--        <table tableName="sw_user_login"-->
+        <!--               enableCountByExample="false">-->
+        <!--            <generatedKey column="id" identity="true" sqlStatement="mysql"/>-->
+        <!--        </table>-->
+        <!--        <table tableName="sw_user_role"-->
+        <!--               enableCountByExample="false">-->
+        <!--            <generatedKey column="id" identity="true" sqlStatement="mysql"/>-->
+        <!--        </table>-->
+        <!--        <table tableName="sw_work_report"-->
+        <!--               enableCountByExample="false">-->
+        <!--            <generatedKey column="id" identity="true" sqlStatement="mysql"/>-->
+        <!--        </table>-->
+        <!--        <table tableName="sw_work_report_lock"-->
+        <!--               enableCountByExample="false">-->
+        <!--            <generatedKey column="id" identity="true" sqlStatement="mysql"/>-->
+        <!--        </table>-->
+        <!--        <table tableName="sw_work_report_score"-->
+        <!--               enableCountByExample="false">-->
+        <!--            <generatedKey column="id" identity="true" sqlStatement="mysql"/>-->
+        <!--        </table>-->
+        <!--        <table tableName="task_no_seed"-->
+        <!--               enableCountByExample="false">-->
+        <!--            <generatedKey column="id" identity="true" sqlStatement="mysql"/>-->
+        <!--        </table>-->
     </context>
 
 

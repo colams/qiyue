@@ -29,7 +29,7 @@ public class AnnouncementDetailProcessor {
         detailVo.setId(announcement.getId());
         detailVo.setTitle(announcement.getTitle());
         detailVo.setContent(announcement.getContent());
-        detailVo.setOperator(employeeBusiness.queryEmployeeByEno(announcement.getLastUpdater()).getName());
+        detailVo.setOperator(employeeBusiness.selectEmployeeByENo(announcement.getLastUpdater()).getName());
         detailVo.setReleaseDate(DateTimeUtils.format(announcement.getDatetimeLastchange()));
         detailVo.setResourceVos(appendResourceBusiness.getAppendResourcesVo(announcement.getResourceids()));
         detailVo.setCategory(announcement.getCategory());

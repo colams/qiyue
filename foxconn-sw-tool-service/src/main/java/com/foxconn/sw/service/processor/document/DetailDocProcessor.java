@@ -6,10 +6,11 @@ import com.foxconn.sw.business.oa.SwDocumentBusiness;
 import com.foxconn.sw.business.oa.SwDocumentHistoryBusiness;
 import com.foxconn.sw.business.oa.SwDocumentPermissionBusiness;
 import com.foxconn.sw.business.system.EmployeeBusiness;
+import com.foxconn.sw.common.constanst.Constants;
 import com.foxconn.sw.common.constanst.NumberConstants;
-import com.foxconn.sw.data.context.RequestContext;
 import com.foxconn.sw.common.utils.ConvertUtils;
 import com.foxconn.sw.common.utils.DateTimeUtils;
+import com.foxconn.sw.data.context.RequestContext;
 import com.foxconn.sw.data.dto.entity.acount.EmployeeVo;
 import com.foxconn.sw.data.dto.entity.document.DocumentDetailVo;
 import com.foxconn.sw.data.dto.entity.universal.IntegerParams;
@@ -65,6 +66,7 @@ public class DetailDocProcessor {
         vo.setLevel(e.getSecretLevel());
         vo.setProject(e.getProject());
         vo.setFileVersion(e.getFileVersion());
+        vo.setFileType(NumberConstants.ONE.equals(e.getFileType()) ? Constants.PERSONAL : Constants.PUBLIC);
         vo.setCanView(isCreator || documentPermissionBusiness.getViewPermission(RequestContext.getEmployeeNo(), e.getId()));
         vo.setDisableDown(e.getDisableDown());
         vo.setCanUpdate(isCreator);
@@ -81,7 +83,7 @@ public class DetailDocProcessor {
         vo.setDepartmentIDs(documentPermissionBusiness.getPermissionSet(1, e.getId()));
         vo.setEmployeeNos(documentPermissionBusiness.getPermissionSet(2, e.getId()));
         vo.setExtra(documentPermissionBusiness.getPermissionExtra(e.getId()));
-
+        vo.setExpireDate(e.getExpireDate());
         return vo;
     }
 }

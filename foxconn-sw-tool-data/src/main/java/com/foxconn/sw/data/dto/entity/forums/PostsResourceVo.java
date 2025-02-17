@@ -8,6 +8,8 @@ public class PostsResourceVo extends ResourceVo {
     private Integer commentId;
     private String createTime;
 
+    private boolean canDelete;
+
     public Integer getPostsId() {
         return postsId;
     }
@@ -30,5 +32,13 @@ public class PostsResourceVo extends ResourceVo {
 
     public void setCreateTime(String createTime) {
         this.createTime = createTime;
+    }
+
+    public boolean isCanDelete() {
+        return canDelete;
+    }
+
+    public void setCanDelete(boolean canDelete) {
+        this.canDelete = canDelete;
     }
 }

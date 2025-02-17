@@ -16,6 +16,7 @@ import com.foxconn.sw.data.dto.entity.forums.PostsResourceVo;
 import com.foxconn.sw.data.dto.entity.universal.IntegerParams;
 import com.foxconn.sw.data.entity.ForumAttachment;
 import com.foxconn.sw.data.entity.ForumBbs;
+import com.foxconn.sw.data.entity.ForumParticipant;
 import com.foxconn.sw.data.entity.SwAppendResource;
 import com.foxconn.sw.service.processor.utils.EmployeeUtils;
 import com.google.common.collect.Lists;
@@ -50,6 +51,8 @@ public class PostsDetailProcessor {
     }
 
     private BbsDetailVo map2Bbs(ForumBbs forumBbs) {
+        ForumParticipant participant = forumParticipantBusiness.queryParticipants(forumBbs.getId(), RequestContext.getEmployeeNo());
+
         BbsDetailVo bbsDetailVo = new BbsDetailVo();
         bbsDetailVo.setId(forumBbs.getId());
 
@@ -61,6 +64,7 @@ public class PostsDetailProcessor {
         bbsDetailVo.setCollectionStatus(favoriteBusiness.queryCollectionStatus(forumBbs.getId()));
         bbsDetailVo.setCanDel(RequestContext.getEmployeeNo().equalsIgnoreCase(forumBbs.getAuthorNo()));
         bbsDetailVo.setStatus(forumBbs.getStatus());
+        bbsDetailVo.setIsHidden(participant.getHidden());
         return bbsDetailVo;
     }
 
@@ -69,6 +73,7 @@ public class PostsDetailProcessor {
             return Lists.newArrayList();
         }
 
+        ForumBbs forumBbs = forumBbsBusiness.getForumBbs(data.getParams());
         List<ForumAttachment> attachments = postsAttachmentBusiness.selectPostsAttachment(data.getParams());
 
         if (CollectionUtils.isEmpty(attachments)) {
@@ -89,10 +94,15 @@ public class PostsDetailProcessor {
             resourceVo.setOperator(employeeUtils.mapEmployee(e.getOperator()));
             resourceVo.setCreateTime(DateTimeUtils.format(e.getCreateTime()));
             resourceVo.setViewUrl(String.format("%s/upload/%s/%s", DomainRetrieval.getDomain(), e.getUploadType(), e.getFilePath()));
+            resourceVo.setCanDelete(getCanDeleteStatus(forumBbs.getAuthorNo(), e.getOperator()));
             resourceVos.add(resourceVo);
         });
         return resourceVos;
 
+    }
+
+    private boolean getCanDeleteStatus(String authorNo, String operator) {
+        return RequestContext.getEmployeeNo().equalsIgnoreCase(authorNo) || RequestContext.getEmployeeNo().equalsIgnoreCase(operator);
     }
 
     public List<ForumsParticipantVo> participants(IntegerParams data) {

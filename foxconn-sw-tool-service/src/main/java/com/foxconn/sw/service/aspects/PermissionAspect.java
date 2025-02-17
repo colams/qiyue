@@ -2,7 +2,9 @@ package com.foxconn.sw.service.aspects;
 
 import com.foxconn.sw.business.LogBusiness;
 import com.foxconn.sw.common.utils.JsonUtils;
+import com.foxconn.sw.common.utils.SecurityUtils;
 import com.foxconn.sw.common.utils.ServletUtils;
+import com.foxconn.sw.common.utils.UUIDUtils;
 import com.foxconn.sw.data.context.RequestContext;
 import com.foxconn.sw.data.dto.Request;
 import com.foxconn.sw.data.dto.entity.acount.LoginParams;
@@ -53,9 +55,10 @@ public class PermissionAspect {
         StopWatch stopWatch = new StopWatch();
         try {
             stopWatch.start();
+            readCookie();
             contextInit(request, joinPoint);
             retValue = joinPoint.proceed();
-            writeCookie();
+//            writeCookie();
             stopWatch.stop();
         } catch (Throwable throwable) {
             logger.warn("call service throwable", throwable);
@@ -70,19 +73,24 @@ public class PermissionAspect {
 
     private void readCookie() {
         Cookie[] cookies = servletRequest.getCookies();
+        String s = UUIDUtils.getUuid();
         if (cookies != null) {
             for (Cookie cookie : cookies) {
-                System.out.println(cookie.getValue());
+                System.out.println(" \t \t" +
+                        s + "  "
+                        + cookie.getName()
+                        + "："
+                        + SecurityUtils.decodeURL(cookie.getValue()));
             }
         }
     }
 
-    private void writeCookie() {
-        Cookie myCookie = new Cookie("myCookieName", "myCookieValue");
-        myCookie.setMaxAge(60 * 60 * 24 * 7); // 设置cookie有效期为1小时
-        myCookie.setPath("/"); // 设置cookie在所有路径下有效
-        servletResponse.addCookie(myCookie); // 将cookie添加到响应中
-    }
+//    private void writeCookie() {
+//        Cookie myCookie = new Cookie("myCookieName", "myCookieValue");
+//        myCookie.setMaxAge(60 * 60 * 24 * 7); // 设置cookie有效期为1小时
+//        myCookie.setPath("/"); // 设置cookie在所有路径下有效
+//        servletResponse.addCookie(myCookie); // 将cookie添加到响应中
+//    }
 
 
     private void contextInit(Object obj, ProceedingJoinPoint joinPoint) {
@@ -135,9 +143,12 @@ public class PermissionAspect {
     private void logParam(ProceedingJoinPoint joinPoint, long intervals, String ip, Object request) {
         try {
             String operator = RequestContext.getEmployeeNo();
-            String operateType = joinPoint.getTarget().getClass().getSimpleName() + "." + joinPoint.getSignature().getName();
+            StringBuilder stringBuilder = new StringBuilder();
+            stringBuilder.append(joinPoint.getTarget().getClass().getSimpleName());
+            stringBuilder.append(".");
+            stringBuilder.append(joinPoint.getSignature().getName());
             String remark = JsonUtils.serialize(request);
-            logBusiness.log(operator, operateType, remark, intervals, ip);
+            logBusiness.log(operator, stringBuilder.toString(), remark, intervals, ip);
         } catch (Exception e) {
             logger.error(e.getMessage(), e);
         }

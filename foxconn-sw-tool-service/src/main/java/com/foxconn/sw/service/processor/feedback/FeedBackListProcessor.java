@@ -49,7 +49,7 @@ public class FeedBackListProcessor {
         List<FeedBackVo> list = new ArrayList<>();
         feedbacks.forEach(e -> {
 
-            SwEmployee employee = employeeBusiness.queryEmployeeByEno(e.getEmployeeNo());
+            SwEmployee employee = employeeBusiness.selectEmployeeByENo(e.getEmployeeNo());
 
             FeedBackVo vo = new FeedBackVo();
             vo.setId(e.getId());

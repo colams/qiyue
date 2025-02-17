@@ -4,7 +4,7 @@ import com.foxconn.sw.data.exception.BizException;
 
 import static com.foxconn.sw.data.constants.enums.retcode.RetCode.ENUM_CONVERT_ERROR;
 
-public enum PhraseEnums implements IUniverseCode {
+public enum PhaseEnums implements IUniverseCode {
     C7("C7"),
     C6("C6"),
     C5("C5"),
@@ -20,7 +20,7 @@ public enum PhraseEnums implements IUniverseCode {
     MP("MP"),
     ;
 
-    PhraseEnums(String name) {
+    PhaseEnums(String name) {
         this.name = name;
     }
 
@@ -36,12 +36,22 @@ public enum PhraseEnums implements IUniverseCode {
         return name();
     }
 
-    public static PhraseEnums getEnumByCode(String code) {
-        for (PhraseEnums enums : PhraseEnums.values()) {
+    public static PhaseEnums getEnumByCode(String code) {
+        for (PhaseEnums enums : PhaseEnums.values()) {
             if (enums.getCode().equalsIgnoreCase(code)) {
                 return enums;
             }
         }
         throw new BizException(ENUM_CONVERT_ERROR);
+    }
+
+
+    public static String getEnumNameByCode(String code) {
+        for (PhaseEnums enums : PhaseEnums.values()) {
+            if (enums.getCode().equalsIgnoreCase(code)) {
+                return enums.getName();
+            }
+        }
+        return code;
     }
 }

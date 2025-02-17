@@ -39,20 +39,27 @@ public class ForumBbsBusiness {
 
         String owner = PostsCategoryEnums.MyPosts.equals(postsType) ? RequestContext.getEmployeeNo() : null;
         Integer hiddenStatus = PostsCategoryEnums.Hidden.equals(postsType) ? 1 : 0;
+        String status = PostsCategoryEnums.Archive.equals(postsType) ? "F" : "";
         String title = StringUtils.isNotEmpty(words) ? "%" + words + "%" : null;
 
-        return forumBbsExtMapper.selectByKeyWords(isAdmin, RequestContext.getEmployeeNo(), owner, title, hiddenStatus, start, pageSize);
+        return forumBbsExtMapper.selectByKeyWords(isAdmin,
+                RequestContext.getEmployeeNo(),
+                owner,
+                title,
+                hiddenStatus,
+                status,
+                start,
+                pageSize);
     }
 
     public Long getPostsCount(PostsCategoryEnums postsType, String words) {
         if (PostsCategoryEnums.CollectPosts.equals(postsType)) {
             return forumBbsExtMapper.getFavoriteBbsCount(words, RequestContext.getEmployeeNo());
         }
-        String employee = "";
-        if (PostsCategoryEnums.MyPosts.equals(postsType)) {
-            employee = RequestContext.getEmployeeNo();
-        }
-        return forumBbsExtMapper.selectBbsCount(words, employee);
+        String employee = PostsCategoryEnums.MyPosts.equals(postsType) ? RequestContext.getEmployeeNo() : null;
+        Integer hiddenStatus = PostsCategoryEnums.Hidden.equals(postsType) ? 1 : 0;
+        String status = PostsCategoryEnums.Archive.equals(postsType) ? "F" : "";
+        return forumBbsExtMapper.selectBbsCount(words, employee, hiddenStatus, status);
     }
 
     public ForumBbs getForumBbs(Integer params) {

@@ -54,4 +54,13 @@ public enum MainPartEnums implements IUniverseCode {
         throw new BizException(ENUM_CONVERT_ERROR);
     }
 
+    public static String getEnumNameByCode(String code) {
+        for (MainPartEnums enums : MainPartEnums.values()) {
+            if (enums.getCode().equalsIgnoreCase(code)) {
+                return enums.getName();
+            }
+        }
+        return code;
+    }
+
 }

@@ -3,6 +3,7 @@ package com.foxconn.sw.service.processor.meeting;
 import com.foxconn.sw.business.meeting.MeetingBusiness;
 import com.foxconn.sw.business.meeting.MeetingCycleDetailBusiness;
 import com.foxconn.sw.business.meeting.MeetingMemberBusiness;
+import com.foxconn.sw.common.constanst.NumberConstants;
 import com.foxconn.sw.common.utils.JsonUtils;
 import com.foxconn.sw.common.utils.LocalDateExtUtils;
 import com.foxconn.sw.data.constants.enums.retcode.RetCode;
@@ -37,12 +38,9 @@ public class DeleteProcessor {
     }
 
     private boolean processByRepeat(DeleteParams data, SwMeeting meeting) {
-        if (StringUtils.isEmpty(data.getDeleteDate()) || meeting.getIsRepeat() == 0) {
+        if (NumberConstants.TWO.equals(data.getOperateType()) || StringUtils.isEmpty(meeting.getCycle())) {
             return meetingBusiness.updateMeetingStatus(meeting);
         } else {
-            if (meeting.getMeetingDate().equalsIgnoreCase(data.getDeleteDate())) {
-                return meetingCycleDetailBusiness.addCycleCancelDate(data.getDeleteDate(), meeting);
-            }
             List<Integer> weekOfDays = JsonUtils.deserialize(meeting.getCycle(), List.class, Integer.class);
             Integer weekOfDay = LocalDateExtUtils.toLocalDate(data.getDeleteDate()).getDayOfWeek().getValue();
             if (!weekOfDays.contains(weekOfDay)) {
@@ -51,5 +49,4 @@ public class DeleteProcessor {
             return meetingCycleDetailBusiness.addCycleCancelDate(data.getDeleteDate(), meeting);
         }
     }
-
 }
