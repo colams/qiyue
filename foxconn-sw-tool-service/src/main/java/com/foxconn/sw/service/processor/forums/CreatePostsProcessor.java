@@ -10,6 +10,8 @@ import com.foxconn.sw.data.entity.ForumBbsComment;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 @Component
 public class CreatePostsProcessor {
     @Autowired
@@ -24,9 +26,14 @@ public class CreatePostsProcessor {
     public Boolean create(PostsParams data) {
         int fbID = forumBbsBusiness.createPosts(data);
         if (fbID > 0) {
+            List<String> participants = data.getParticipants();
+            if (!participants.contains(RequestContext.getEmployeeNo())) {
+                participants.add(RequestContext.getEmployeeNo());
+            }
+
             Integer commentId = saveBbsComment(fbID, data.getContent());
             postsAttachmentBusiness.insertPostsAttachment(fbID, commentId, data.getResources());
-            forumParticipantBusiness.insertForumParticipant(fbID, data.getParticipants());
+            forumParticipantBusiness.insertForumParticipant(fbID, participants);
         }
         return fbID > 0;
     }
