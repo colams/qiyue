@@ -92,7 +92,7 @@ public class CustomExceptionHandler implements AsyncConfigurer {
         stringBuilder.append("\r\n" + servletUtils.getRequestURL());
         stringBuilder.append("\r\n" + requestBody);
         log.warn(stringBuilder.toString(), e);
-        return ResponseEntity.badRequest().body(RetCode.SYSTEM_EXCEPTION);
+        return ResponseEntity.badRequest().body(RetCode.Invalid_Request.getMsg());
     }
 
     public String getRequestBody(HttpServletRequest request) {
