@@ -74,7 +74,6 @@ public class SwDocumentBusiness {
 
     public List<SwDocument> queryDocumentList(PageParams<SearchDocParams> data) {
         int start = (data.getCurrentPage() - 1) * data.getPageSize();
-        int fileType = Constants.PERSONAL.equalsIgnoreCase(data.getParams().getFileType()) ? 1 : 0;
         String employeeNo = "";
         if (Constants.PERSONAL.equalsIgnoreCase(data.getParams().getFileType())) {
             employeeNo = RequestContext.getEmployeeNo();

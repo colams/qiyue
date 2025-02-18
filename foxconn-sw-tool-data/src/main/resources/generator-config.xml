@@ -268,6 +268,16 @@
         <!--               enableCountByExample="false">-->
         <!--            <generatedKey column="id" identity="true" sqlStatement="mysql"/>-->
         <!--        </table>-->
+        <table tableName="sw_schedule_info"
+               enableSelectByPrimaryKey="false"
+               enableCountByExample="false"
+               enableDeleteByExample="false"
+               enableUpdateByExample="false"
+               enableSelectByExample="false"
+               enableUpdateByPrimaryKey="false"
+               enableDeleteByPrimaryKey="false">
+            <generatedKey column="id" identity="true" sqlStatement="mysql"/>
+        </table>
         <!--        <table tableName="sw_sub_task"-->
         <!--               enableCountByExample="false">-->
         <!--            <generatedKey column="id" identity="true" sqlStatement="mysql"/>-->
