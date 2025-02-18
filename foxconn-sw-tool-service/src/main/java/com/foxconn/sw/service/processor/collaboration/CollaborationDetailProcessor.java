@@ -171,7 +171,7 @@ public class CollaborationDetailProcessor {
             if (employeeVo1.getEmployeeNo().compareTo(employeeVo2.getEmployeeNo()) == 0) {
                 Long e1ID = (Long) e1.get("id");
                 Long e2ID = (Long) e2.get("id");
-                return e2ID.compareTo(e1ID);
+                return e1ID.compareTo(e2ID);
             }
             return employeeVo1.getEmployeeNo().compareTo(employeeVo2.getEmployeeNo());
         });
