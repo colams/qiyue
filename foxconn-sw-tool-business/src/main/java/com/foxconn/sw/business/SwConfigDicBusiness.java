@@ -1,9 +1,11 @@
 package com.foxconn.sw.business;
 
+import com.foxconn.sw.common.utils.JsonUtils;
 import com.foxconn.sw.data.dto.PageParams;
 import com.foxconn.sw.data.dto.request.config.ListParams;
 import com.foxconn.sw.data.entity.SwConfigDic;
 import com.foxconn.sw.data.mapper.extension.SwConfigDicExtMapper;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -33,4 +35,22 @@ public class SwConfigDicBusiness {
             return configDicExtMapper.updateByPrimaryKeySelective(configDic);
         }
     }
+
+    /**
+     * 获取配置信息
+     *
+     * @param configItem     配置项目 item name
+     * @param mainClazz      主类型
+     * @param parameterClazz 副类型
+     * @param <T>            返回类型
+     * @return
+     */
+    public <T> T getConfigDicValue(String configItem, Class mainClazz, Class... parameterClazz) {
+        SwConfigDic configDic = queryConfigDic(configItem);
+        if (Objects.isNull(configDic) || StringUtils.isEmpty(configDic.getItemValue())) {
+            return null;
+        }
+        return JsonUtils.deserialize(configDic.getItemValue(), mainClazz, parameterClazz);
+    }
+
 }
