@@ -40,7 +40,8 @@ public interface SwEmployeeMapper {
         "hire_date, status, ",
         "outer_work_years, outer_abc_years, ",
         "manager_level, datetime_lastchange, ",
-        "is_complete)",
+        "is_complete, stationed_place, ",
+        "identity_of_cadre)",
         "values (#{employeeNo,jdbcType=VARCHAR}, #{assistant,jdbcType=VARCHAR}, ",
         "#{name,jdbcType=VARCHAR}, #{firstName,jdbcType=VARCHAR}, ",
         "#{lastName,jdbcType=VARCHAR}, #{gender,jdbcType=VARCHAR}, ",
@@ -50,7 +51,8 @@ public interface SwEmployeeMapper {
         "#{hireDate,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, ",
         "#{outerWorkYears,jdbcType=INTEGER}, #{outerAbcYears,jdbcType=INTEGER}, ",
         "#{managerLevel,jdbcType=INTEGER}, #{datetimeLastchange,jdbcType=TIMESTAMP}, ",
-        "#{isComplete,jdbcType=INTEGER})"
+        "#{isComplete,jdbcType=INTEGER}, #{stationedPlace,jdbcType=VARCHAR}, ",
+        "#{identityOfCadre,jdbcType=VARCHAR})"
     })
     @SelectKey(statement="SELECT LAST_INSERT_ID()", keyProperty="id", before=false, resultType=Integer.class)
     int insert(SwEmployee record);
@@ -80,7 +82,9 @@ public interface SwEmployeeMapper {
         @Result(column="outer_abc_years", property="outerAbcYears", jdbcType=JdbcType.INTEGER),
         @Result(column="manager_level", property="managerLevel", jdbcType=JdbcType.INTEGER),
         @Result(column="datetime_lastchange", property="datetimeLastchange", jdbcType=JdbcType.TIMESTAMP),
-        @Result(column="is_complete", property="isComplete", jdbcType=JdbcType.INTEGER)
+        @Result(column="is_complete", property="isComplete", jdbcType=JdbcType.INTEGER),
+        @Result(column="stationed_place", property="stationedPlace", jdbcType=JdbcType.VARCHAR),
+        @Result(column="identity_of_cadre", property="identityOfCadre", jdbcType=JdbcType.VARCHAR)
     })
     List<SwEmployee> selectByExampleWithRowbounds(SwEmployeeExample example, RowBounds rowBounds);
 
@@ -105,7 +109,9 @@ public interface SwEmployeeMapper {
         @Result(column="outer_abc_years", property="outerAbcYears", jdbcType=JdbcType.INTEGER),
         @Result(column="manager_level", property="managerLevel", jdbcType=JdbcType.INTEGER),
         @Result(column="datetime_lastchange", property="datetimeLastchange", jdbcType=JdbcType.TIMESTAMP),
-        @Result(column="is_complete", property="isComplete", jdbcType=JdbcType.INTEGER)
+        @Result(column="is_complete", property="isComplete", jdbcType=JdbcType.INTEGER),
+        @Result(column="stationed_place", property="stationedPlace", jdbcType=JdbcType.VARCHAR),
+        @Result(column="identity_of_cadre", property="identityOfCadre", jdbcType=JdbcType.VARCHAR)
     })
     List<SwEmployee> selectByExample(SwEmployeeExample example);
 
@@ -113,7 +119,8 @@ public interface SwEmployeeMapper {
         "select",
         "id, employee_no, assistant, name, first_name, last_name, gender, department_id, ",
         "post_id, inner_email, outer_mail, land_line, phone_number, hire_date, status, ",
-        "outer_work_years, outer_abc_years, manager_level, datetime_lastchange, is_complete",
+        "outer_work_years, outer_abc_years, manager_level, datetime_lastchange, is_complete, ",
+        "stationed_place, identity_of_cadre",
         "from sw_employee",
         "where id = #{id,jdbcType=INTEGER}"
     })
@@ -137,7 +144,9 @@ public interface SwEmployeeMapper {
         @Result(column="outer_abc_years", property="outerAbcYears", jdbcType=JdbcType.INTEGER),
         @Result(column="manager_level", property="managerLevel", jdbcType=JdbcType.INTEGER),
         @Result(column="datetime_lastchange", property="datetimeLastchange", jdbcType=JdbcType.TIMESTAMP),
-        @Result(column="is_complete", property="isComplete", jdbcType=JdbcType.INTEGER)
+        @Result(column="is_complete", property="isComplete", jdbcType=JdbcType.INTEGER),
+        @Result(column="stationed_place", property="stationedPlace", jdbcType=JdbcType.VARCHAR),
+        @Result(column="identity_of_cadre", property="identityOfCadre", jdbcType=JdbcType.VARCHAR)
     })
     SwEmployee selectByPrimaryKey(Integer id);
 
@@ -170,7 +179,9 @@ public interface SwEmployeeMapper {
           "outer_abc_years = #{outerAbcYears,jdbcType=INTEGER},",
           "manager_level = #{managerLevel,jdbcType=INTEGER},",
           "datetime_lastchange = #{datetimeLastchange,jdbcType=TIMESTAMP},",
-          "is_complete = #{isComplete,jdbcType=INTEGER}",
+          "is_complete = #{isComplete,jdbcType=INTEGER},",
+          "stationed_place = #{stationedPlace,jdbcType=VARCHAR},",
+          "identity_of_cadre = #{identityOfCadre,jdbcType=VARCHAR}",
         "where id = #{id,jdbcType=INTEGER}"
     })
     int updateByPrimaryKey(SwEmployee record);

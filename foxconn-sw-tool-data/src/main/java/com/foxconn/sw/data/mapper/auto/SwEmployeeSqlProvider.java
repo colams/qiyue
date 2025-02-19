@@ -97,6 +97,14 @@ public class SwEmployeeSqlProvider {
             sql.VALUES("is_complete", "#{isComplete,jdbcType=INTEGER}");
         }
         
+        if (record.getStationedPlace() != null) {
+            sql.VALUES("stationed_place", "#{stationedPlace,jdbcType=VARCHAR}");
+        }
+        
+        if (record.getIdentityOfCadre() != null) {
+            sql.VALUES("identity_of_cadre", "#{identityOfCadre,jdbcType=VARCHAR}");
+        }
+        
         return sql.toString();
     }
 
@@ -126,6 +134,8 @@ public class SwEmployeeSqlProvider {
         sql.SELECT("manager_level");
         sql.SELECT("datetime_lastchange");
         sql.SELECT("is_complete");
+        sql.SELECT("stationed_place");
+        sql.SELECT("identity_of_cadre");
         sql.FROM("sw_employee");
         applyWhere(sql, example, false);
         
@@ -223,6 +233,14 @@ public class SwEmployeeSqlProvider {
             sql.SET("is_complete = #{record.isComplete,jdbcType=INTEGER}");
         }
         
+        if (record.getStationedPlace() != null) {
+            sql.SET("stationed_place = #{record.stationedPlace,jdbcType=VARCHAR}");
+        }
+        
+        if (record.getIdentityOfCadre() != null) {
+            sql.SET("identity_of_cadre = #{record.identityOfCadre,jdbcType=VARCHAR}");
+        }
+        
         applyWhere(sql, example, true);
         return sql.toString();
     }
@@ -251,6 +269,8 @@ public class SwEmployeeSqlProvider {
         sql.SET("manager_level = #{record.managerLevel,jdbcType=INTEGER}");
         sql.SET("datetime_lastchange = #{record.datetimeLastchange,jdbcType=TIMESTAMP}");
         sql.SET("is_complete = #{record.isComplete,jdbcType=INTEGER}");
+        sql.SET("stationed_place = #{record.stationedPlace,jdbcType=VARCHAR}");
+        sql.SET("identity_of_cadre = #{record.identityOfCadre,jdbcType=VARCHAR}");
         
         SwEmployeeExample example = (SwEmployeeExample) parameter.get("example");
         applyWhere(sql, example, true);
@@ -335,6 +355,14 @@ public class SwEmployeeSqlProvider {
         
         if (record.getIsComplete() != null) {
             sql.SET("is_complete = #{isComplete,jdbcType=INTEGER}");
+        }
+        
+        if (record.getStationedPlace() != null) {
+            sql.SET("stationed_place = #{stationedPlace,jdbcType=VARCHAR}");
+        }
+        
+        if (record.getIdentityOfCadre() != null) {
+            sql.SET("identity_of_cadre = #{identityOfCadre,jdbcType=VARCHAR}");
         }
         
         sql.WHERE("id = #{id,jdbcType=INTEGER}");

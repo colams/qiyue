@@ -16,8 +16,7 @@ public interface SwConfigDicExtMapper extends SwConfigDicMapper {
 
 
     @Select({"<script>",
-            "select",
-            "id, item, item_value, is_disable, is_delete, create_time, datetime_lastchange",
+            "select *",
             "from sw_config_dic",
             "<where>",
             " and is_disable=0 ",
@@ -35,6 +34,7 @@ public interface SwConfigDicExtMapper extends SwConfigDicMapper {
             @Result(column = "id", property = "id", jdbcType = JdbcType.INTEGER, id = true),
             @Result(column = "item", property = "item", jdbcType = JdbcType.VARCHAR),
             @Result(column = "item_value", property = "itemValue", jdbcType = JdbcType.VARCHAR),
+            @Result(column = "remark", property = "remark", jdbcType = JdbcType.VARCHAR),
             @Result(column = "is_disable", property = "isDisable", jdbcType = JdbcType.INTEGER),
             @Result(column = "is_delete", property = "isDelete", jdbcType = JdbcType.INTEGER),
             @Result(column = "create_time", property = "createTime", jdbcType = JdbcType.TIMESTAMP),

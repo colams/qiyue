@@ -9,6 +9,8 @@ public class SwConfigDic {
 
     private String itemValue;
 
+    private String remark;
+
     private Integer isDisable;
 
     private Integer isDelete;
@@ -54,6 +56,19 @@ public class SwConfigDic {
 
     public void setItemValue(String itemValue) {
         this.itemValue = itemValue == null ? null : itemValue.trim();
+    }
+
+    public String getRemark() {
+        return remark;
+    }
+
+    public SwConfigDic withRemark(String remark) {
+        this.setRemark(remark);
+        return this;
+    }
+
+    public void setRemark(String remark) {
+        this.remark = remark == null ? null : remark.trim();
     }
 
     public Integer getIsDisable() {

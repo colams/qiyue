@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("api/oa/project")
+@RequestMapping("api/schedule")
 public class ScheduleController {
 
     @Autowired
@@ -37,7 +37,6 @@ public class ScheduleController {
         return ResponseEntity.ok(ResponseUtils.success(scheduleId, request.getTraceId()));
     }
 
-
     @Operation(summary = "行程列表", tags = TagsConstants.TASK)
     @ApiResponse(responseCode = "0", description = "成功码")
     @PostMapping("/list")
@@ -45,6 +44,4 @@ public class ScheduleController {
         List<ScheduleListVo> list = listScheduleProcessor.list(request.getData());
         return ResponseEntity.ok(ResponseUtils.success(list, request.getTraceId()));
     }
-
-
 }

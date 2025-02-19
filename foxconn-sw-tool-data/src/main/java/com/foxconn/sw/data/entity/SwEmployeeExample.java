@@ -1415,6 +1415,146 @@ public class SwEmployeeExample {
             return (Criteria) this;
         }
 
+        public Criteria andStationedPlaceIsNull() {
+            addCriterion("stationed_place is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andStationedPlaceIsNotNull() {
+            addCriterion("stationed_place is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andStationedPlaceEqualTo(String value) {
+            addCriterion("stationed_place =", value, "stationedPlace");
+            return (Criteria) this;
+        }
+
+        public Criteria andStationedPlaceNotEqualTo(String value) {
+            addCriterion("stationed_place <>", value, "stationedPlace");
+            return (Criteria) this;
+        }
+
+        public Criteria andStationedPlaceGreaterThan(String value) {
+            addCriterion("stationed_place >", value, "stationedPlace");
+            return (Criteria) this;
+        }
+
+        public Criteria andStationedPlaceGreaterThanOrEqualTo(String value) {
+            addCriterion("stationed_place >=", value, "stationedPlace");
+            return (Criteria) this;
+        }
+
+        public Criteria andStationedPlaceLessThan(String value) {
+            addCriterion("stationed_place <", value, "stationedPlace");
+            return (Criteria) this;
+        }
+
+        public Criteria andStationedPlaceLessThanOrEqualTo(String value) {
+            addCriterion("stationed_place <=", value, "stationedPlace");
+            return (Criteria) this;
+        }
+
+        public Criteria andStationedPlaceLike(String value) {
+            addCriterion("stationed_place like", value, "stationedPlace");
+            return (Criteria) this;
+        }
+
+        public Criteria andStationedPlaceNotLike(String value) {
+            addCriterion("stationed_place not like", value, "stationedPlace");
+            return (Criteria) this;
+        }
+
+        public Criteria andStationedPlaceIn(List<String> values) {
+            addCriterion("stationed_place in", values, "stationedPlace");
+            return (Criteria) this;
+        }
+
+        public Criteria andStationedPlaceNotIn(List<String> values) {
+            addCriterion("stationed_place not in", values, "stationedPlace");
+            return (Criteria) this;
+        }
+
+        public Criteria andStationedPlaceBetween(String value1, String value2) {
+            addCriterion("stationed_place between", value1, value2, "stationedPlace");
+            return (Criteria) this;
+        }
+
+        public Criteria andStationedPlaceNotBetween(String value1, String value2) {
+            addCriterion("stationed_place not between", value1, value2, "stationedPlace");
+            return (Criteria) this;
+        }
+
+        public Criteria andIdentityOfCadreIsNull() {
+            addCriterion("identity_of_cadre is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andIdentityOfCadreIsNotNull() {
+            addCriterion("identity_of_cadre is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andIdentityOfCadreEqualTo(String value) {
+            addCriterion("identity_of_cadre =", value, "identityOfCadre");
+            return (Criteria) this;
+        }
+
+        public Criteria andIdentityOfCadreNotEqualTo(String value) {
+            addCriterion("identity_of_cadre <>", value, "identityOfCadre");
+            return (Criteria) this;
+        }
+
+        public Criteria andIdentityOfCadreGreaterThan(String value) {
+            addCriterion("identity_of_cadre >", value, "identityOfCadre");
+            return (Criteria) this;
+        }
+
+        public Criteria andIdentityOfCadreGreaterThanOrEqualTo(String value) {
+            addCriterion("identity_of_cadre >=", value, "identityOfCadre");
+            return (Criteria) this;
+        }
+
+        public Criteria andIdentityOfCadreLessThan(String value) {
+            addCriterion("identity_of_cadre <", value, "identityOfCadre");
+            return (Criteria) this;
+        }
+
+        public Criteria andIdentityOfCadreLessThanOrEqualTo(String value) {
+            addCriterion("identity_of_cadre <=", value, "identityOfCadre");
+            return (Criteria) this;
+        }
+
+        public Criteria andIdentityOfCadreLike(String value) {
+            addCriterion("identity_of_cadre like", value, "identityOfCadre");
+            return (Criteria) this;
+        }
+
+        public Criteria andIdentityOfCadreNotLike(String value) {
+            addCriterion("identity_of_cadre not like", value, "identityOfCadre");
+            return (Criteria) this;
+        }
+
+        public Criteria andIdentityOfCadreIn(List<String> values) {
+            addCriterion("identity_of_cadre in", values, "identityOfCadre");
+            return (Criteria) this;
+        }
+
+        public Criteria andIdentityOfCadreNotIn(List<String> values) {
+            addCriterion("identity_of_cadre not in", values, "identityOfCadre");
+            return (Criteria) this;
+        }
+
+        public Criteria andIdentityOfCadreBetween(String value1, String value2) {
+            addCriterion("identity_of_cadre between", value1, value2, "identityOfCadre");
+            return (Criteria) this;
+        }
+
+        public Criteria andIdentityOfCadreNotBetween(String value1, String value2) {
+            addCriterion("identity_of_cadre not between", value1, value2, "identityOfCadre");
+            return (Criteria) this;
+        }
+
         public Criteria andEmployeeNoLikeInsensitive(String value) {
             addCriterion("upper(employee_no) like", value.toUpperCase(), "employeeNo");
             return (Criteria) this;
@@ -1467,6 +1607,16 @@ public class SwEmployeeExample {
 
         public Criteria andHireDateLikeInsensitive(String value) {
             addCriterion("upper(hire_date) like", value.toUpperCase(), "hireDate");
+            return (Criteria) this;
+        }
+
+        public Criteria andStationedPlaceLikeInsensitive(String value) {
+            addCriterion("upper(stationed_place) like", value.toUpperCase(), "stationedPlace");
+            return (Criteria) this;
+        }
+
+        public Criteria andIdentityOfCadreLikeInsensitive(String value) {
+            addCriterion("upper(identity_of_cadre) like", value.toUpperCase(), "identityOfCadre");
             return (Criteria) this;
         }
     }

@@ -17,6 +17,10 @@ public class SwConfigDicSqlProvider {
             sql.VALUES("item_value", "#{itemValue,jdbcType=VARCHAR}");
         }
         
+        if (record.getRemark() != null) {
+            sql.VALUES("remark", "#{remark,jdbcType=VARCHAR}");
+        }
+        
         if (record.getIsDisable() != null) {
             sql.VALUES("is_disable", "#{isDisable,jdbcType=INTEGER}");
         }
@@ -46,6 +50,10 @@ public class SwConfigDicSqlProvider {
         
         if (record.getItemValue() != null) {
             sql.SET("item_value = #{itemValue,jdbcType=VARCHAR}");
+        }
+        
+        if (record.getRemark() != null) {
+            sql.SET("remark = #{remark,jdbcType=VARCHAR}");
         }
         
         if (record.getIsDisable() != null) {
