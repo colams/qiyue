@@ -4,6 +4,7 @@ import com.foxconn.sw.business.oa.SwTaskBusiness;
 import com.foxconn.sw.business.oa.SwTaskEmployeeRelationBusiness;
 import com.foxconn.sw.business.oa.SwTaskFollowBusiness;
 import com.foxconn.sw.business.system.EmployeeBusiness;
+import com.foxconn.sw.common.constanst.NumberConstants;
 import com.foxconn.sw.common.utils.LocalDateExtUtils;
 import com.foxconn.sw.data.constants.enums.OperateTypeEnum;
 import com.foxconn.sw.data.constants.enums.TaskRoleFlagEnums;
@@ -239,8 +240,7 @@ public class TaskListProcessor {
 
         vo.setOperateList(processOperate(e, optional));
         vo.setStatusInfoVo(TaskStatusUtils.processStatus(e.getStatus(), e.getRejectStatus(), optional));
-        int readStatus = optional.map(SwTaskEmployeeRelation::getIsRead).orElse(0);
-        vo.setRead(readStatus != 0);
+        vo.setRead(NumberConstants.ONE.equals(optional.map(SwTaskEmployeeRelation::getIsRead).orElse(0)));
         vo.setHasSon(Objects.nonNull(subTasks) && subTasks.size() > 0);
         vo.setChildren(subTasks);
         return vo;

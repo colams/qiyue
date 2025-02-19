@@ -20,13 +20,6 @@ public class WeekUtils {
     /**
      * @return Left：week，Right：year
      */
-    public static Pair<Integer, Integer> getWeekYearInfo() {
-        return getWeekYearInfo(null);
-    }
-
-    /**
-     * @return Left：week，Right：year
-     */
     public static Pair<Integer, Integer> getWeekYearInfo(String weekOfStart) {
         LocalDate date = LocalDate.now();
         if (!StringUtils.isEmpty(weekOfStart)) {
@@ -76,17 +69,6 @@ public class WeekUtils {
      * @param date 日期 如果为null 默认为请求日期
      * @return Left：week，Right：year
      */
-    public static String getWeekOfYearAndYearStr(LocalDate date) {
-        Pair<Integer, Integer> pair = WeekUtils.getWeekOfYearAndYear(date);
-        return String.format("%s%02d", pair.getRight(), pair.getLeft());
-    }
-
-    /**
-     * 根据日期获取对应的周数以及对应的年份
-     *
-     * @param date 日期 如果为null 默认为请求日期
-     * @return Left：week，Right：year
-     */
     public static Pair<Integer, Integer> getWeekOfYearAndYear(LocalDate date) {
         int weekNumber = 0;
         int year = date.getYear();
@@ -99,23 +81,10 @@ public class WeekUtils {
         return Pair.of(weekNumber, year);
     }
 
-    public static LocalDateTime getLastDayOfNextWeek(String weekOfStart) {
-        LocalDate date = LocalDate.parse(weekOfStart).plusWeeks(1);
-        LocalDate startOfWeek = date.with(TemporalAdjusters.nextOrSame(DayOfWeek.SUNDAY));
-        return LocalDateTime.of(startOfWeek, LocalTime.MAX);
-    }
-
     public static LocalDateTime getStartDayOfWeek(String weekOfStart) {
         LocalDate date = LocalDate.parse(weekOfStart);
         LocalDate startOfWeek = date.with(TemporalAdjusters.previousOrSame(DayOfWeek.MONDAY));
         return LocalDateTime.of(startOfWeek, LocalTime.MIN);
-    }
-
-
-    public static LocalDateTime getFirstDayOfYearFromDateString(String dateStr) {
-        LocalDate date = LocalDate.parse(dateStr, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-        LocalDate startDate = LocalDate.of(date.getYear(), 1, 1);
-        return LocalDateTime.of(startDate, LocalTime.MIN);
     }
 
     public static List<Integer> getWeeksOfYearInfo(String weekOfStart) {
@@ -124,5 +93,10 @@ public class WeekUtils {
         results.add(getWeekOfYearAndYear(date).getLeft());
         results.add(getWeekOfYearAndYear(date.plusWeeks(1)).getLeft());
         return results;
+    }
+
+    public static Integer getDayOfWeek() {
+        DayOfWeek dayOfWeek = LocalDate.now().getDayOfWeek();
+        return dayOfWeek.getValue();
     }
 }

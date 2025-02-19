@@ -124,4 +124,6 @@ public interface SwMeetingExtensionMapper extends SwMeetingMapper {
                                            @Param("searchEnd") String searchEnd,
                                            @Param("data") ListMeetingV2Params data);
 
+
+    Integer getMeetingCount(String employeeNo, Integer dayOfWeek);
 }

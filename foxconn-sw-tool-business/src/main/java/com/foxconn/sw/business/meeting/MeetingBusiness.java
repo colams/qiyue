@@ -1,8 +1,9 @@
 package com.foxconn.sw.business.meeting;
 
 import com.foxconn.sw.business.meeting.utils.CycleUtils;
-import com.foxconn.sw.data.context.RequestContext;
 import com.foxconn.sw.common.utils.JsonUtils;
+import com.foxconn.sw.common.utils.WeekUtils;
+import com.foxconn.sw.data.context.RequestContext;
 import com.foxconn.sw.data.dto.request.meeting.EstablishMeetingParams;
 import com.foxconn.sw.data.dto.request.meeting.ListMeetingV2Params;
 import com.foxconn.sw.data.entity.SwMeeting;
@@ -63,5 +64,11 @@ public class MeetingBusiness {
 
     public List<MeetingEntity> selectMeetingList(ListMeetingV2Params data, String searchStartDate, String searchEndDate) {
         return meetingMapper.selectMeetingList2(RequestContext.getEmployeeNo(), searchStartDate, searchEndDate, data);
+    }
+
+    public Integer getMeetingCount() {
+        Integer dayOfWeek = WeekUtils.getDayOfWeek();
+        return 0;
+//        return meetingMapper.getMeetingCount(RequestContext.getEmployeeNo(), dayOfWeek);
     }
 }

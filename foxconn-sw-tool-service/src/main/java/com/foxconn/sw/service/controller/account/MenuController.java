@@ -9,8 +9,10 @@ import com.foxconn.sw.data.dto.entity.acount.MenuParams;
 import com.foxconn.sw.data.dto.entity.acount.MenuParams2;
 import com.foxconn.sw.data.dto.entity.acount.MenuVo;
 import com.foxconn.sw.data.dto.entity.system.ModuleVo;
-import com.foxconn.sw.service.processor.acount.ListMenuProcessor;
+import com.foxconn.sw.data.dto.request.system.CreateMenuParams;
 import com.foxconn.sw.service.processor.acount.ModuleIndexProcessor;
+import com.foxconn.sw.service.processor.menu.CreateMenuProcessor;
+import com.foxconn.sw.service.processor.menu.ListMenuProcessor;
 import com.foxconn.sw.service.utils.ResponseUtils;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -18,7 +20,10 @@ import jakarta.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
@@ -33,6 +38,9 @@ public class MenuController {
     ListMenuProcessor listMenuProcessor;
     @Autowired
     ModuleIndexProcessor moduleIndexProcessor;
+    @Autowired
+    CreateMenuProcessor createMenuProcessor;
+
 
     @Operation(summary = "获取页面路由信息", tags = TagsConstants.MENU)
     @ApiResponse(responseCode = "0", description = "成功码")
@@ -65,5 +73,13 @@ public class MenuController {
     public Response<List<MenuVo>> searchMenus(@Valid @RequestBody Request<MenuParams2> request) {
         List<MenuVo> propertyVos = listMenuProcessor.searchMenus(request.getData());
         return ResponseUtils.success(propertyVos, request.getTraceId());
+    }
+
+    @Operation(summary = "获取所有菜单信息", tags = TagsConstants.MENU)
+    @ApiResponse(responseCode = "0", description = "成功码")
+    @PostMapping("/createMenu")
+    public Response createMenu(@Valid @RequestBody Request<CreateMenuParams> request) {
+        Integer menuId = createMenuProcessor.createMenu(request.getData());
+        return ResponseUtils.success(menuId, request.getTraceId());
     }
 }

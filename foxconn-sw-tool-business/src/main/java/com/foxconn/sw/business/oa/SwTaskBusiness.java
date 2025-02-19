@@ -5,6 +5,7 @@ import com.foxconn.sw.common.utils.DateTimeUtils;
 import com.foxconn.sw.data.constants.enums.oa.RejectStatusEnum;
 import com.foxconn.sw.data.constants.enums.oa.TaskStatusEnums;
 import com.foxconn.sw.data.constants.enums.retcode.RetCode;
+import com.foxconn.sw.data.context.RequestContext;
 import com.foxconn.sw.data.dto.PageParams;
 import com.foxconn.sw.data.dto.entity.task.BriefTaskVo;
 import com.foxconn.sw.data.dto.entity.task.TaskParams;
@@ -172,5 +173,17 @@ public class SwTaskBusiness {
         task.setStatus(taskStatus.getCode());
         task.setRejectStatus(rejectStatus);
         return taskExtensionMapper.updateByPrimaryKeySelective(task) > 0;
+    }
+
+    public Integer getTaskCount() {
+        return taskExtensionMapper.getTaskCount(RequestContext.getEmployeeNo());
+    }
+
+    public Integer getUnReadTaskCount() {
+        return taskExtensionMapper.getUnReadTaskCount(RequestContext.getEmployeeNo());
+    }
+
+    public Integer getCollaborationCount() {
+        return taskExtensionMapper.getCollaborationCount(RequestContext.getEmployeeNo());
     }
 }

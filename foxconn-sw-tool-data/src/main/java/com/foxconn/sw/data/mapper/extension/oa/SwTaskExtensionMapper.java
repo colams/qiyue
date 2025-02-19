@@ -354,4 +354,41 @@ public interface SwTaskExtensionMapper extends SwTaskMapper {
             @Result(column = "description", property = "description", jdbcType = JdbcType.LONGVARCHAR)
     })
     BriefTaskVo selectByTaskId(Integer id);
+
+
+    @Select({"<script>",
+            "select count(1) ",
+            "from sw_task s",
+            "     inner join sw_task_employee_relation e on s.id = e.task_id",
+            "where e.employee_no = #{employeeNo,jdbcType=VARCHAR} ",
+            "  and ((s.status in (1, 2) and e.role_flag &amp; 4 = 4) ",
+            "    or (s.status = 3 and e.role_flag &amp; 1 = 1) ",
+            "    or (s.status = 3 and e.role_flag &amp; 2 = 2))",
+            "</script>"})
+    Integer getTaskCount(String employeeNo);
+
+    @Select({"<script>",
+            "select count(1) ",
+            "from sw_task s",
+            "     inner join sw_task_employee_relation e on s.id = e.task_id",
+            "where e.employee_no = #{employeeNo,jdbcType=VARCHAR} ",
+            "  and e.is_read = 0 ",
+            "  and ((s.status in (1, 2) and e.role_flag &amp; 4 = 4) ",
+            "    or (s.status = 3 and e.role_flag &amp; 1 = 1) ",
+            "    or (s.status = 3 and e.role_flag &amp; 2 = 2))",
+            "</script>"})
+    Integer getUnReadTaskCount(String employeeNo);
+
+    @Select({"<script>",
+            "select count(1) ",
+            "from sw_task s",
+            "     inner join sw_task_employee_relation e on s.id = e.task_id",
+            "where e.employee_no = #{employeeNo,jdbcType=VARCHAR} ",
+            "  and s.project = '6-2' ",
+            "  and e.is_read = 0 ",
+            "  and ((s.status in (1, 2) and e.role_flag &amp; 4 = 4) ",
+            "    or (s.status = 3 and e.role_flag &amp; 1 = 1) ",
+            "    or (s.status = 3 and e.role_flag &amp; 2 = 2))",
+            "</script>"})
+    Integer getCollaborationCount(String employeeNo);
 }
