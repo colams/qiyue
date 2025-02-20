@@ -8,7 +8,6 @@ import com.foxconn.sw.service.config.DynamicConfigLoader;
 import jakarta.annotation.Resource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.server.WebServerFactoryCustomizer;
-import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.boot.web.servlet.server.ConfigurableServletWebServerFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -19,10 +18,7 @@ import org.springframework.util.ResourceUtils;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
-import org.springframework.web.servlet.config.annotation.CorsRegistry;
-import org.springframework.web.servlet.config.annotation.EnableWebMvc;
-import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.web.servlet.config.annotation.*;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -41,7 +37,7 @@ public class WebConfigurer implements WebMvcConfigurer, WebServerFactoryCustomiz
 
     @Override
     public void customize(ConfigurableServletWebServerFactory factory) {
-        factory.setPort(dynamicConfigLoader.getPort());
+        factory.setPort(getPort());
     }
 
     @Override
@@ -95,27 +91,65 @@ public class WebConfigurer implements WebMvcConfigurer, WebServerFactoryCustomiz
      */
     @Override
     public void addCorsMappings(CorsRegistry registry) {
-        // 添加跨域映射规则
-        registry.addMapping("/**")  // 允许所有路径的跨域请求
-                .allowedOriginPatterns("*")  // 允许来自 http://example.com 的跨域请求
-                .allowedMethods("*")  // 允许的请求方法
+        CorsRegistration registration = registry.addMapping("/**")  // 允许所有路径的跨域请求
+                .allowedMethods("GET", "POST")  // 允许的请求方法
                 .allowedHeaders("*")  // 允许所有请求头
                 .exposedHeaders("Content-Disposition")
-                .allowCredentials(true);  // 允许携带凭证（如 Cookies）
+                .allowCredentials(true)  // 允许携带凭证（如 Cookies）
+                .maxAge(3600);
+
+        // 添加跨域映射规则
+        String allowedOrigin = getAllowedOrigins();
+        if (allowedOrigin.equalsIgnoreCase("*")) {
+            registration.allowedOriginPatterns("*"); // 允许来自 http://example.com 的跨域请求
+        } else {
+            String[] origins = allowedOrigin.split(",");
+            registration.allowedOrigins(origins);  // 允许来自 http://example.com 的跨域请求
+        }
     }
 
     @Bean
-    public FilterRegistrationBean crosFilter() {
-        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+    public CorsFilter corsFilter() {
         CorsConfiguration config = new CorsConfiguration();
-        config.setAllowCredentials(true);
-        config.addAllowedOriginPattern("*");
-        config.addAllowedHeader("*");
+        String[] origins = getAllowedOrigins().split(",");
+        for (String origin : origins) {
+            if ("*" .equals(origin)) {
+                config.addAllowedOriginPattern("*");
+            } else {
+                config.addAllowedOriginPattern(origin);
+            }
+        }
         config.addAllowedMethod("*");
-        config.addExposedHeader("Content-Disposition");
+        config.addAllowedHeader("*");
+        config.setAllowCredentials(true);
+
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", config);
-        FilterRegistrationBean bean = new FilterRegistrationBean(new CorsFilter(source));
-        bean.setOrder(0);
-        return bean;
+        return new CorsFilter(source);
     }
+
+//    @Bean
+//    public FilterRegistrationBean corsFilter() {
+//        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+//        CorsConfiguration config = new CorsConfiguration();
+//        config.setAllowCredentials(true);
+//        config.addAllowedOriginPattern("*");
+//        config.addAllowedHeader("*");
+//        config.addAllowedMethod("*");
+//        config.addExposedHeader("Content-Disposition");
+//        source.registerCorsConfiguration("/**", config);
+//        FilterRegistrationBean bean = new FilterRegistrationBean(new CorsFilter(source));
+//        bean.setOrder(0);
+//        return bean;
+//    }
+
+
+    public int getPort() {
+        return dynamicConfigLoader.getIntegerProperty("server.port");
+    }
+
+    public String getAllowedOrigins() {
+        return dynamicConfigLoader.getStringProperty("cors.allowed-origins", "*");
+    }
+
 }

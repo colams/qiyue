@@ -21,33 +21,37 @@ import java.util.Properties;
 public class DynamicConfigLoader {
 
     private static final Logger logger = LoggerFactory.getLogger(DynamicConfigLoader.class);
+
+    private static Properties properties;
     @Autowired
     ConfigReader configReader;
 
-    private int port;
-
-    public int getPort() {
-        return port;
-    }
-
-    public void setPort(int port) {
-        this.port = port;
-    }
-
     @PostConstruct
     public void loadConfig() {
-        int tempPort = 0;
         try {
             String filename = configReader.readPropertyValue("app.property.config");
             FileSystemResource resource = new FileSystemResource(filename);
-            Properties properties = PropertiesLoaderUtils.loadProperties(resource);
-            if (properties.containsKey("server.port")) {
-                tempPort = Integer.parseInt(properties.getProperty("server.port"));
-            }
+            this.properties = PropertiesLoaderUtils.loadProperties(resource);
         } catch (IOException e) {
             logger.error(e.toString());
-
         }
-        setPort(tempPort == 0 ? 8080 : tempPort);
+    }
+
+    public String getStringProperty(String property) {
+        if (properties.containsKey(property)) {
+            return properties.getProperty(property);
+        }
+        return null;
+    }
+
+    public String getStringProperty(String property, String defaultValue) {
+        if (properties.containsKey(property)) {
+            return properties.getProperty(property, defaultValue);
+        }
+        return defaultValue;
+    }
+
+    public Integer getIntegerProperty(String property) {
+        return Integer.parseInt(getStringProperty(property));
     }
 }

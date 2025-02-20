@@ -27,7 +27,6 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.util.List;
 
-@CrossOrigin
 @RestController
 @RequestMapping("api/oa/report")
 public class WorkReportController {
@@ -104,7 +103,6 @@ public class WorkReportController {
     @Permission
     @Operation(summary = "導出周报信息", tags = TagsConstants.REPORT)
     @ApiResponse(responseCode = "0", description = "成功码")
-    @CrossOrigin(exposedHeaders = {"Content-Disposition"})
     @PostMapping("/export")
     public ResponseEntity export(@Valid @RequestBody Request<ReportSearchParams> request) throws IOException {
         // 设置响应头

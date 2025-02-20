@@ -1,6 +1,8 @@
 package com.foxconn.sw.service.controller.account;
 
+import cn.hutool.core.codec.Base64;
 import com.foxconn.sw.business.account.MenuBusiness;
+import com.foxconn.sw.common.utils.JsonUtils;
 import com.foxconn.sw.data.constants.TagsConstants;
 import com.foxconn.sw.data.dto.Request;
 import com.foxconn.sw.data.dto.Response;
@@ -47,7 +49,8 @@ public class MenuController {
     @PostMapping("/list")
     public Response list(@Valid @RequestBody Request<MenuParams> request) {
         List<MenuBriefVo> sysMenus = listMenuProcessor.list(request.getData());
-        return ResponseUtils.success(sysMenus, request.getTraceId());
+        String base64 = Base64.encode(JsonUtils.serialize(sysMenus), "UTF-8");
+        return ResponseUtils.success(base64, request.getTraceId());
     }
 
     @Operation(summary = "获取授权的菜单列表", tags = TagsConstants.MENU)
@@ -62,9 +65,10 @@ public class MenuController {
     @Operation(summary = "获取所有模块页模块首页信息", tags = TagsConstants.MENU)
     @ApiResponse(responseCode = "0", description = "成功码")
     @PostMapping("/moduleIndex")
-    public Response<List<ModuleVo>> moduleIndex(@Valid @RequestBody Request request) {
+    public Response moduleIndex(@Valid @RequestBody Request request) {
         List<ModuleVo> propertyVos = moduleIndexProcessor.list();
-        return ResponseUtils.success(propertyVos, request.getTraceId());
+        String base64 = Base64.encode(JsonUtils.serialize(propertyVos), "UTF-8");
+        return ResponseUtils.success(base64, request.getTraceId());
     }
 
     @Operation(summary = "获取所有菜单信息", tags = TagsConstants.MENU)
