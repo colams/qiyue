@@ -33,6 +33,9 @@ public interface SwDocumentExtensionMapper extends SwDocumentMapper {
             "<if test='params.author!=null and params.author!=\"\"' >",
             " and author like CONCAT('%', #{params.author,jdbcType=VARCHAR}, '%') ",
             "</if> ",
+            "<if test='params.source!=null and params.source!=\"\"' >",
+            " and source =#{params.source,jdbcType=VARCHAR} ",
+            "</if> ",
 
             "<if test='params.project!=null and params.project!=\"\"' >",
             " and project =#{params.project,jdbcType=VARCHAR} ",
@@ -131,6 +134,9 @@ public interface SwDocumentExtensionMapper extends SwDocumentMapper {
             "</if> ",
             "<if test='params.author!=null and params.author!=\"\"' >",
             " and author like CONCAT('%', #{params.author,jdbcType=VARCHAR}, '%') ",
+            "</if> ",
+            "<if test='params.source!=null and params.source!=\"\"' >",
+            " and source =#{params.source,jdbcType=VARCHAR} ",
             "</if> ",
 
             "<if test='params.project!=null and params.project!=\"\"' >",
