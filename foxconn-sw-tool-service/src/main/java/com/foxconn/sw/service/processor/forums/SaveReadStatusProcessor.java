@@ -7,7 +7,9 @@ import com.foxconn.sw.data.context.RequestContext;
 import com.foxconn.sw.data.dto.entity.universal.IntegerParams;
 import com.foxconn.sw.data.entity.SwReadStatus;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
+@Component
 public class SaveReadStatusProcessor {
     @Autowired
     SwReadStatusBusiness readStatusBusiness;

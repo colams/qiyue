@@ -11,7 +11,6 @@ import com.foxconn.sw.data.dto.entity.forums.ForumsParticipantVo;
 import com.foxconn.sw.data.dto.entity.forums.PostsResourceVo;
 import com.foxconn.sw.data.dto.entity.universal.IntegerParams;
 import com.foxconn.sw.data.dto.request.forums.*;
-import com.foxconn.sw.service.aspects.Permission;
 import com.foxconn.sw.service.processor.forums.*;
 import com.foxconn.sw.service.utils.ResponseUtils;
 import io.swagger.v3.oas.annotations.Operation;
@@ -40,13 +39,12 @@ public class ForumController {
     ForumPostsCollectProcessor postsCollectProcessor;
     @Autowired
     UpdatePostsProcessor updatePostsProcessor;
-    @Autowired
 
 
     @Operation(summary = "查询帖子信息", tags = "v2")
     @ApiResponse(responseCode = "0", description = "成功码")
     @PostMapping("/listV2")
-    public Response<PageEntity<List<BbsListVo>>> listV2(@Valid @RequestBody Request<PageParams<ListPostsParams>> request) {
+    public Response<PageEntity<List<BbsListVo>>> listV2(@RequestBody Request<PageParams<ListPostsParams>> request) {
         PageEntity pageEntity = listPostsProcessor.listV2(request.getData());
         return ResponseUtils.success(pageEntity, request.getTraceId());
     }
