@@ -13,6 +13,7 @@ import org.springframework.util.CollectionUtils;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -52,6 +53,15 @@ public class SwReadStatusBusiness {
             readStatusExtMapper.insertSelective(readStatus);
         });
         return true;
+    }
+
+    public int updateOrInsert(SwReadStatus readStatus) {
+        if (Objects.isNull(readStatus.getId()) || readStatus.getId() <= 0) {
+            readStatusExtMapper.insertSelective(readStatus);
+            return readStatus.getId();
+        } else {
+            return readStatusExtMapper.updateByPrimaryKeySelective(readStatus);
+        }
     }
 
     public int getForumUnReadCount(Integer bbsId) {

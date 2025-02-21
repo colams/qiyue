@@ -40,8 +40,9 @@ public class ForumController {
     ForumPostsCollectProcessor postsCollectProcessor;
     @Autowired
     UpdatePostsProcessor updatePostsProcessor;
+    @Autowired
 
-    @Permission
+
     @Operation(summary = "查询帖子信息", tags = "v2")
     @ApiResponse(responseCode = "0", description = "成功码")
     @PostMapping("/listV2")
@@ -50,7 +51,6 @@ public class ForumController {
         return ResponseUtils.success(pageEntity, request.getTraceId());
     }
 
-    @Permission
     @Operation(summary = "创建帖子", tags = "v2")
     @ApiResponse(responseCode = "0", description = "成功码")
     @PostMapping("/create")
@@ -59,7 +59,6 @@ public class ForumController {
         return ResponseUtils.success(result, request.getTraceId());
     }
 
-    @Permission
     @Operation(summary = "获取bbs附件信息", tags = "v2")
     @ApiResponse(responseCode = "0", description = "成功码")
     @PostMapping("/attachments")
@@ -68,7 +67,6 @@ public class ForumController {
         return ResponseUtils.success(resourceVos, request.getTraceId());
     }
 
-    @Permission
     @Operation(summary = "获取bbs成员列表", tags = "v2")
     @ApiResponse(responseCode = "0", description = "成功码")
     @PostMapping("/participants")
@@ -77,7 +75,6 @@ public class ForumController {
         return ResponseUtils.success(participants, request.getTraceId());
     }
 
-    @Permission
     @Operation(summary = "帖子详情", tags = TagsConstants.FORUMS)
     @ApiResponse(responseCode = "0", description = "成功码")
     @PostMapping("/detailV2")
@@ -86,7 +83,6 @@ public class ForumController {
         return ResponseUtils.success(detailVo, request.getTraceId());
     }
 
-    @Permission
     @Operation(summary = "邀请参与帖子", tags = TagsConstants.FORUMS)
     @ApiResponse(responseCode = "0", description = "成功码")
     @PostMapping("/invite")
@@ -95,7 +91,6 @@ public class ForumController {
         return ResponseUtils.success(result, request.getTraceId());
     }
 
-    @Permission
     @Operation(summary = "收藏帖子", tags = TagsConstants.FORUMS)
     @ApiResponse(responseCode = "0", description = "成功码")
     @PostMapping("/collect")
@@ -104,7 +99,6 @@ public class ForumController {
         return ResponseUtils.success(result, request.getTraceId());
     }
 
-    @Permission
     @Operation(summary = "更新附件资源", tags = TagsConstants.FORUMS)
     @ApiResponse(responseCode = "0", description = "成功码")
     @PostMapping("/updateAttach")
@@ -113,7 +107,6 @@ public class ForumController {
         return ResponseUtils.success(result, request.getTraceId());
     }
 
-    @Permission
     @Operation(summary = "删除帖子", tags = TagsConstants.FORUMS)
     @ApiResponse(responseCode = "0", description = "成功码")
     @PostMapping("/delete")
@@ -122,7 +115,6 @@ public class ForumController {
         return ResponseUtils.success(result, request.getTraceId());
     }
 
-    @Permission
     @Operation(summary = "隐藏帖子", tags = TagsConstants.FORUMS)
     @ApiResponse(responseCode = "0", description = "成功码")
     @PostMapping("/hidden")
@@ -131,12 +123,19 @@ public class ForumController {
         return ResponseUtils.success(result, request.getTraceId());
     }
 
-    @Permission
     @Operation(summary = "更新状态", tags = TagsConstants.FORUMS)
     @ApiResponse(responseCode = "0", description = "成功码")
     @PostMapping("/updateStatus")
     public Response<Boolean> updateStatus(@Valid @RequestBody Request<UpdateStatusParams> request) {
         boolean result = updatePostsProcessor.updateStatus(request.getData());
+        return ResponseUtils.success(result, request.getTraceId());
+    }
+
+    @Operation(summary = "更新标题信息", tags = TagsConstants.FORUMS)
+    @ApiResponse(responseCode = "0", description = "成功码")
+    @PostMapping("/updateTitle")
+    public Response<Boolean> updateTitle(@Valid @RequestBody Request<UpdateTitleParams> request) {
+        boolean result = updatePostsProcessor.updateTitle(request.getData());
         return ResponseUtils.success(result, request.getTraceId());
     }
 }

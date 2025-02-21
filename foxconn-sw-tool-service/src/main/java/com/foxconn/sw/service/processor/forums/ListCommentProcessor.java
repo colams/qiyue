@@ -4,9 +4,9 @@ import com.foxconn.sw.business.SwReadStatusBusiness;
 import com.foxconn.sw.business.forums.ForumBbsBusiness;
 import com.foxconn.sw.business.forums.ForumBbsCommentBusiness;
 import com.foxconn.sw.common.constanst.NumberConstants;
-import com.foxconn.sw.data.context.RequestContext;
 import com.foxconn.sw.common.utils.DateTimeUtils;
 import com.foxconn.sw.data.constants.enums.ModuleEnums;
+import com.foxconn.sw.data.context.RequestContext;
 import com.foxconn.sw.data.dto.PageEntity;
 import com.foxconn.sw.data.dto.PageParams;
 import com.foxconn.sw.data.dto.entity.forums.CommentsVo;
@@ -53,6 +53,9 @@ public class ListCommentProcessor {
                 .collect(Collectors.toList());
         comments.forEach(e -> {
             e.setReplies(vos.stream().filter(f -> e.getId().equals(f.getParentId())).collect(Collectors.toList()));
+            if (!CollectionUtils.isEmpty(e.getReplies())) {
+                e.setSubUnReadCount(e.getReplies().stream().filter(f -> !f.getRead()).count());
+            }
         });
         return comments;
     }
@@ -97,6 +100,7 @@ public class ListCommentProcessor {
         List<Integer> commentids = vos.stream().filter(e -> !e.getRead()).map(CommentsVo::getId).collect(Collectors.toList());
         readStatusBusiness.insertReadStatus(ModuleEnums.Forum, commentids);
         Long count = forumBbsCommentBusiness.queryCountByBbsId(data.getParams().getParams());
-        return new PageEntity(count, buildTree(vos));
+        List<CommentsVo> voTree = buildTree(vos);
+        return new PageEntity(count, voTree);
     }
 }

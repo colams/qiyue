@@ -10,6 +10,7 @@ import com.foxconn.sw.data.dto.entity.universal.IntegerParams;
 import com.foxconn.sw.data.dto.request.forums.DeletePostsParams;
 import com.foxconn.sw.data.dto.request.forums.UpdateAttachParams;
 import com.foxconn.sw.data.dto.request.forums.UpdateStatusParams;
+import com.foxconn.sw.data.dto.request.forums.UpdateTitleParams;
 import com.foxconn.sw.data.entity.ForumAttachment;
 import com.foxconn.sw.data.entity.ForumBbs;
 import com.foxconn.sw.data.entity.ForumParticipant;
@@ -92,5 +93,16 @@ public class UpdatePostsProcessor {
             updateEntity.setStatus("F");
         }
         return forumBbsBusiness.updatePosts(updateEntity);
+    }
+
+    public boolean updateTitle(UpdateTitleParams data) {
+        if (StringUtils.isNotEmpty(data.getTitle())) {
+            return false;
+        }
+
+        ForumBbs updateBbs = new ForumBbs();
+        updateBbs.setId(data.getId().intValue());
+        updateBbs.setTitle(data.getTitle());
+        return forumBbsBusiness.updateOrInsert(updateBbs) > 0;
     }
 }
