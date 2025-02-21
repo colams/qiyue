@@ -100,6 +100,7 @@ public class WebConfigurer implements WebMvcConfigurer, WebServerFactoryCustomiz
 
         // 添加跨域映射规则
         String allowedOrigin = getAllowedOrigins();
+        System.out.println("-------------------------------" + allowedOrigin);
         if (allowedOrigin.equalsIgnoreCase("*")) {
             registration.allowedOriginPatterns("*"); // 允许来自 http://example.com 的跨域请求
         } else {
