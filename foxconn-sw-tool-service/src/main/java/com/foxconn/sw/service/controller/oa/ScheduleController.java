@@ -62,7 +62,7 @@ public class ScheduleController {
         List<ScheduleListVo> list = teamScheduleProcessor.teamSchedule(request.getData());
         return ResponseEntity.ok(ResponseUtils.success(list, request.getTraceId()));
     }
-    
+
     @Operation(summary = "常用地址信息", tags = "schedule")
     @ApiResponse(responseCode = "0", description = "成功码")
     @PostMapping("/commonDestination")
