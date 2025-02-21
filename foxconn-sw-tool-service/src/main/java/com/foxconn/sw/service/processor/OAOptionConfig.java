@@ -235,7 +235,7 @@ public class OAOptionConfig {
                 "GB",
                 "Prespa"));
         map.put("Nan-A", Lists.newArrayList("Nan-A"));
-        map.put("Others", Lists.newArrayList("系統開發", "MIL", "Others"));
+        map.put("Others", Lists.newArrayList("系統開發", "MIL", "RFQ", "Others"));
 
         List<OptionsVo> optionsVos = new ArrayList<>();
 
