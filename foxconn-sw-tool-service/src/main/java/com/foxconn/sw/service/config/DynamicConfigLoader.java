@@ -22,6 +22,8 @@ public class DynamicConfigLoader {
 
     private static final Logger logger = LoggerFactory.getLogger(DynamicConfigLoader.class);
 
+    private static final String PropertyFileName = "app.property.config";
+
     private static Properties properties;
     @Autowired
     ConfigReader configReader;
@@ -29,7 +31,7 @@ public class DynamicConfigLoader {
     @PostConstruct
     public void loadConfig() {
         try {
-            String filename = configReader.readPropertyValue("app.property.config");
+            String filename = configReader.readPropertyValue(PropertyFileName);
             FileSystemResource resource = new FileSystemResource(filename);
             this.properties = PropertiesLoaderUtils.loadProperties(resource);
         } catch (IOException e) {
