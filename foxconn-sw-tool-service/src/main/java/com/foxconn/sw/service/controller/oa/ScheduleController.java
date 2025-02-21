@@ -29,7 +29,7 @@ public class ScheduleController {
     @Autowired
     ListScheduleProcessor listScheduleProcessor;
 
-    @Operation(summary = "保存行程信息", tags = TagsConstants.TASK)
+    @Operation(summary = "保存行程信息", tags = "schedule")
     @ApiResponse(responseCode = "0", description = "成功码")
     @PostMapping("/createSchedule")
     public ResponseEntity createSchedule(@Valid @RequestBody Request<CreateScheduleParams> request) {
@@ -37,7 +37,7 @@ public class ScheduleController {
         return ResponseEntity.ok(ResponseUtils.success(scheduleId, request.getTraceId()));
     }
 
-    @Operation(summary = "行程列表", tags = TagsConstants.TASK)
+    @Operation(summary = "行程列表", tags = "schedule")
     @ApiResponse(responseCode = "0", description = "成功码")
     @PostMapping("/list")
     public ResponseEntity list(@Valid @RequestBody Request<ScheduleListParams> request) {
