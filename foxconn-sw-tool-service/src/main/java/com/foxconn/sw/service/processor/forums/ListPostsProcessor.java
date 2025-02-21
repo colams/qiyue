@@ -15,6 +15,7 @@ import com.foxconn.sw.data.entity.ForumBbsComment;
 import com.foxconn.sw.data.entity.extension.ForumBbsExtension;
 import com.foxconn.sw.service.processor.utils.EmployeeUtils;
 import com.google.common.collect.Lists;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
@@ -71,7 +72,12 @@ public class ListPostsProcessor {
         vo.setId(bbs.getId());
         vo.setAuthor(employeeUtils.mapEmployee(bbs.getAuthorNo()));
         vo.setCreateTime(DateTimeUtils.format(bbs.getCreateTime(), "yyyy-MM-dd HH:mm"));
-        vo.setTitle(Optional.ofNullable(String.format("【%s】%s", bbs.getProject(), bbs.getTitle())).orElse(bbs.getTitle()));
+        if (StringUtils.isEmpty(bbs.getProject()) || "Others" .equalsIgnoreCase(bbs.getProject())) {
+            vo.setTitle(bbs.getTitle());
+        } else {
+            vo.setTitle(String.format("【%s】%s", bbs.getProject(), bbs.getTitle()));
+        }
+
         vo.setContent(Optional.ofNullable(bbsComment).map(ForumBbsComment::getContent).orElse(""));
         vo.setNewCount(Optional.ofNullable(bbs.getSum()).orElse(NumberConstants.ZERO));
         vo.setRead(vo.getNewCount().intValue() > 0);

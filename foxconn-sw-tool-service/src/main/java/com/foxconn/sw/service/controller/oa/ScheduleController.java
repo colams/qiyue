@@ -43,7 +43,7 @@ public class ScheduleController {
         return ResponseEntity.ok(ResponseUtils.success(scheduleId, request.getTraceId()));
     }
 
-    @Operation(summary = "行程列表", tags = "schedule")
+    @Operation(summary = "我的行程列表", tags = "schedule")
     @ApiResponse(responseCode = "0", description = "成功码")
     @PostMapping("/mySchedule")
     public ResponseEntity mySchedule(@Valid @RequestBody Request<MyScheduleParams> request) {
@@ -51,7 +51,7 @@ public class ScheduleController {
         return ResponseEntity.ok(ResponseUtils.success(list, request.getTraceId()));
     }
 
-    @Operation(summary = "行程列表", tags = "schedule")
+    @Operation(summary = "团队行程列表", tags = "schedule")
     @ApiResponse(responseCode = "0", description = "成功码")
     @PostMapping("/teamSchedule")
     public ResponseEntity teamSchedule(@Valid @RequestBody Request<ScheduleListParams> request) {
