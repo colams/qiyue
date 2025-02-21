@@ -1,10 +1,12 @@
 package com.foxconn.sw.service.controller.oa;
 
 import com.foxconn.sw.data.dto.Request;
+import com.foxconn.sw.data.dto.entity.universal.StringParams;
 import com.foxconn.sw.data.dto.request.schedule.CreateScheduleParams;
 import com.foxconn.sw.data.dto.request.schedule.MyScheduleParams;
 import com.foxconn.sw.data.dto.request.schedule.ScheduleListParams;
 import com.foxconn.sw.data.dto.response.schedule.ScheduleListVo;
+import com.foxconn.sw.service.processor.acount.SetStationedPlaceProcessor;
 import com.foxconn.sw.service.processor.schedule.CreateScheduleProcessor;
 import com.foxconn.sw.service.processor.schedule.MyScheduleProcessor;
 import com.foxconn.sw.service.processor.schedule.TeamScheduleProcessor;
@@ -34,6 +36,8 @@ public class ScheduleController {
     TeamScheduleProcessor teamScheduleProcessor;
     @Autowired
     QueryConfigDicProcessor queryConfigDicProcessor;
+    @Autowired
+    SetStationedPlaceProcessor setStationedPlaceProcessor;
 
     @Operation(summary = "保存行程信息", tags = "schedule")
     @ApiResponse(responseCode = "0", description = "成功码")
@@ -56,16 +60,25 @@ public class ScheduleController {
     @PostMapping("/teamSchedule")
     public ResponseEntity teamSchedule(@Valid @RequestBody Request<ScheduleListParams> request) {
         List<ScheduleListVo> list = teamScheduleProcessor.teamSchedule(request.getData());
-        return ResponseEntity.ok(ResponseUtils.success(null, request.getTraceId()));
+        return ResponseEntity.ok(ResponseUtils.success(list, request.getTraceId()));
     }
-
-
+    
     @Operation(summary = "常用地址信息", tags = "schedule")
     @ApiResponse(responseCode = "0", description = "成功码")
     @PostMapping("/commonDestination")
-    public ResponseEntity commonDestination(@Valid @RequestBody Request<ScheduleListParams> request) {
+    public ResponseEntity commonDestination(@Valid @RequestBody Request request) {
         String configKey = "schedule.destination";
         List<String> list = queryConfigDicProcessor.getConfigDicValue(configKey, List.class, String.class);
         return ResponseEntity.ok(ResponseUtils.success(list, request.getTraceId()));
     }
+
+    @Operation(summary = "设置为常驻地", tags = "schedule")
+    @ApiResponse(responseCode = "0", description = "成功码")
+    @PostMapping("/setStationedPlace")
+    public ResponseEntity setStationedPlace(@Valid @RequestBody Request<StringParams> request) {
+        Boolean result = setStationedPlaceProcessor.setStationedPlace(request.getData());
+        return ResponseEntity.ok(ResponseUtils.success(result, request.getTraceId()));
+    }
+
+
 }

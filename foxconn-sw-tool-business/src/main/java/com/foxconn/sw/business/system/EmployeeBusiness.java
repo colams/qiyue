@@ -218,4 +218,8 @@ public class EmployeeBusiness {
             return employee.getId();
         }
     }
+
+    public Boolean setStationedPlace(String params, String employeeNo) {
+        return employeeExtensionMapper.setStationedPlace(params, employeeNo) > 0;
+    }
 }
