@@ -72,6 +72,7 @@ public interface SwDocumentExtensionMapper extends SwDocumentMapper {
             "<if test='params.expireDate!=null and params.expireDate!=\"\"' >",
             " and expire_date =#{params.expireDate,jdbcType=VARCHAR} ",
             "</if> ",
+
             "<if test='employeeNo!=null and employeeNo!=\"\"' >",
             " and creator =#{employeeNo,jdbcType=VARCHAR} and file_type=1",
             "</if> ",
