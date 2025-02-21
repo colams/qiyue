@@ -1,5 +1,6 @@
 package com.foxconn.sw.common.utils;
 
+import com.foxconn.sw.common.constanst.Constants;
 import com.google.common.collect.Lists;
 import org.apache.commons.lang3.StringUtils;
 import org.mapstruct.Named;
@@ -31,6 +32,10 @@ public class ConvertUtils {
 
     @Named("urlPreFix")
     public static String urlPreFix(Integer id, String fileName) {
-        return DomainRetrieval.getDomain() + "/api/universal/down/" + id + "/" + fileName;
+        String domain = DomainRetrieval.getDomain();
+        if (DomainRetrieval.getDomain().indexOf("127.0.0.1") > 0) {
+            domain = Constants.Domain;
+        }
+        return domain + "/api/universal/down/" + id + "/" + fileName;
     }
 }
