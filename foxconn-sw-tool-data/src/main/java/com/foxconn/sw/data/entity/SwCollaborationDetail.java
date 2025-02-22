@@ -19,8 +19,6 @@ public class SwCollaborationDetail {
 
     private LocalDateTime datetimeLastchange;
 
-    private String spareValue;
-
     public Long getId() {
         return id;
     }
@@ -123,18 +121,5 @@ public class SwCollaborationDetail {
 
     public void setDatetimeLastchange(LocalDateTime datetimeLastchange) {
         this.datetimeLastchange = datetimeLastchange;
-    }
-
-    public String getSpareValue() {
-        return spareValue;
-    }
-
-    public SwCollaborationDetail withSpareValue(String spareValue) {
-        this.setSpareValue(spareValue);
-        return this;
-    }
-
-    public void setSpareValue(String spareValue) {
-        this.spareValue = spareValue == null ? null : spareValue.trim();
     }
 }

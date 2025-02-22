@@ -14,11 +14,11 @@ import org.apache.ibatis.type.JdbcType;
 public interface SwNotificationMapper {
     @Insert({
         "insert into sw_notification (msg_type, content, ",
-        "receiver, create_time, ",
-        "datetime_lastchange)",
+        "receiver, status, ",
+        "create_time, datetime_lastchange)",
         "values (#{msgType,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR}, ",
-        "#{receiver,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, ",
-        "#{datetimeLastchange,jdbcType=TIMESTAMP})"
+        "#{receiver,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, ",
+        "#{createTime,jdbcType=TIMESTAMP}, #{datetimeLastchange,jdbcType=TIMESTAMP})"
     })
     @SelectKey(statement="SELECT LAST_INSERT_ID()", keyProperty="id", before=false, resultType=Long.class)
     int insert(SwNotification record);
@@ -29,7 +29,7 @@ public interface SwNotificationMapper {
 
     @Select({
         "select",
-        "id, msg_type, content, receiver, create_time, datetime_lastchange",
+        "id, msg_type, content, receiver, status, create_time, datetime_lastchange",
         "from sw_notification",
         "where id = #{id,jdbcType=BIGINT}"
     })
@@ -38,6 +38,7 @@ public interface SwNotificationMapper {
         @Result(column="msg_type", property="msgType", jdbcType=JdbcType.VARCHAR),
         @Result(column="content", property="content", jdbcType=JdbcType.VARCHAR),
         @Result(column="receiver", property="receiver", jdbcType=JdbcType.VARCHAR),
+        @Result(column="status", property="status", jdbcType=JdbcType.INTEGER),
         @Result(column="create_time", property="createTime", jdbcType=JdbcType.TIMESTAMP),
         @Result(column="datetime_lastchange", property="datetimeLastchange", jdbcType=JdbcType.TIMESTAMP)
     })

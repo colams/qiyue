@@ -1,9 +1,11 @@
 package com.foxconn.sw.service.processor.collaboration;
 
+import com.foxconn.sw.business.SwCapexSetBusiness;
 import com.foxconn.sw.business.collaboration.CollaborationDetailBusiness;
 import com.foxconn.sw.business.collaboration.CollaborationDetailSpareBusiness;
 import com.foxconn.sw.business.collaboration.CollaborationUserBusiness;
 import com.foxconn.sw.data.context.RequestContext;
+import com.foxconn.sw.data.dto.entity.oa.CapexParamsVo;
 import com.foxconn.sw.data.dto.request.collaboration.CollaborationUpdateRowParams;
 import com.foxconn.sw.data.dto.request.collaboration.cell.CellVo;
 import com.foxconn.sw.data.entity.SwCollaborationDetail;
@@ -26,10 +28,13 @@ public class CollaborationUpdateRowProcessor {
     CollaborationUserBusiness collaborationUserBusiness;
     @Autowired
     CollaborationDetailSpareBusiness collaborationDetailSpareBusiness;
+    @Autowired
+    SwCapexSetBusiness capexSetBusiness;
 
     public Boolean createRow(CollaborationUpdateRowParams data) {
         List<SwCollaborationDetail> detailList = collaborationDetailBusiness.
                 selectCollaborationsByTaskID(data.getTaskID().longValue());
+        List<CapexParamsVo> capexParamsVos = capexSetBusiness.queryCapexParams(data.getTaskID());
 
         if (CollectionUtils.isEmpty(detailList)) {
             new BizException(4, "max 處理失敗，若重試仍失敗，請聯繫開發人員");
@@ -39,7 +44,7 @@ public class CollaborationUpdateRowProcessor {
                 .queryCollaborationUser(data.getTaskID());
 
         long scuId = detailList.get(0).getScuId();
-        if (collaborationUsers.size() > 1) {
+        if (collaborationUsers.size() > 1 ) {
             SwCollaborationUser collaborationUser = new SwCollaborationUser();
             collaborationUser.setTaskId(data.getTaskID());
             collaborationUser.setEmployeeNo(RequestContext.getEmployeeNo());

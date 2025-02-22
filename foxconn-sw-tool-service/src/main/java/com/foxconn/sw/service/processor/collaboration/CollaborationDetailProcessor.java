@@ -91,7 +91,7 @@ public class CollaborationDetailProcessor {
         vo.setType(CollectionUtils.isEmpty(capexParamsVos) ? "empty" : "");
         boolean isCc = relations.stream().filter(e -> e.getEmployeeNo().equalsIgnoreCase(RequestContext.getEmployeeNo()))
                 .anyMatch(e -> TaskRoleFlagEnums.Watcher_Flag.equals(e.getRoleFlag()));
-        if (!CollectionUtils.isEmpty(capexParamsVos)) {
+        if (collaborationUsers.size() == 1) {
             vo.setContent(initMapList2(collaborationUsers.get(0).getId(), header, isCc));
         } else {
             vo.setContent(initMapList(header, params.getTaskID(), swTask.getProposerEid(), isExport, isCc));

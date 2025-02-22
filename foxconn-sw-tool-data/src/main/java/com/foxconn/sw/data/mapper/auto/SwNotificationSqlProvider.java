@@ -21,6 +21,10 @@ public class SwNotificationSqlProvider {
             sql.VALUES("receiver", "#{receiver,jdbcType=VARCHAR}");
         }
         
+        if (record.getStatus() != null) {
+            sql.VALUES("status", "#{status,jdbcType=INTEGER}");
+        }
+        
         if (record.getCreateTime() != null) {
             sql.VALUES("create_time", "#{createTime,jdbcType=TIMESTAMP}");
         }
