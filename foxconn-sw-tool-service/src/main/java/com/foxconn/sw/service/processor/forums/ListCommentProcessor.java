@@ -97,8 +97,6 @@ public class ListCommentProcessor {
         }
         List<CommentsVo> vos = mapComments(comments, forumBbs.getAuthorNo());
 
-        List<Integer> commentIds = vos.stream().filter(e -> !e.getRead()).map(CommentsVo::getId).collect(Collectors.toList());
-        readStatusBusiness.insertReadStatus(ModuleEnums.Forum, commentIds);
         Long count = forumBbsCommentBusiness.queryCountByBbsId(data.getParams().getParams());
         List<CommentsVo> voTree = buildTree(vos);
         return new PageEntity(count, voTree);
