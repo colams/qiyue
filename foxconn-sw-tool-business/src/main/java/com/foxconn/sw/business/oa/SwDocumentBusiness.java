@@ -102,10 +102,10 @@ public class SwDocumentBusiness {
         return documentMapper.updateByPrimaryKeySelective(document) > 0;
     }
 
-    public boolean hasSameFile(CreateDocParams params, Integer fileType) {
+    public boolean hasSameFile(String fileName, Integer fileType) {
         SwDocumentExample example = new SwDocumentExample();
         SwDocumentExample.Criteria criteria = example.createCriteria();
-        criteria.andDocumentNameEqualTo(params.getFileName());
+        criteria.andDocumentNameEqualTo(fileName);
         criteria.andIsDeleteEqualTo(NumberConstants.ZERO);
         criteria.andFileTypeEqualTo(fileType);
         if (NumberConstants.ONE.equals(fileType)) {

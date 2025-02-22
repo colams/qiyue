@@ -64,7 +64,7 @@ public class CommentController {
         return ResponseUtils.success(result > 0, request.getTraceId());
     }
 
-    @Operation(summary = "更新标题信息", tags = TagsConstants.FORUMS)
+    @Operation(summary = "设置为已读", tags = TagsConstants.COMMENTS)
     @ApiResponse(responseCode = "0", description = "成功码")
     @PostMapping("/read")
     public Response<Boolean> saveReadStatus(@Valid @RequestBody Request<IntegerParams> request) {
