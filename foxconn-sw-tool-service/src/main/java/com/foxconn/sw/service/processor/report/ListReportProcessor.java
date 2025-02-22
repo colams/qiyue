@@ -6,8 +6,8 @@ import com.foxconn.sw.business.report.SwWorkReportScoreBusiness;
 import com.foxconn.sw.business.system.DepartmentBusiness;
 import com.foxconn.sw.business.system.EmployeeBusiness;
 import com.foxconn.sw.common.constanst.NumberConstants;
-import com.foxconn.sw.data.context.RequestContext;
 import com.foxconn.sw.common.utils.PinyinUtils;
+import com.foxconn.sw.data.context.RequestContext;
 import com.foxconn.sw.data.dto.entity.acount.EmployeeVo;
 import com.foxconn.sw.data.dto.entity.oa.ReportSearchParams;
 import com.foxconn.sw.data.dto.entity.oa.WorkReportDetail;
@@ -217,10 +217,12 @@ public class ListReportProcessor {
         if (employeeBusiness.isAssistants(RequestContext.getEmployeeNo())) {
             employees = employees.stream()
                     .filter(e -> !RequestContext.getEmployeeNo().equalsIgnoreCase(e.getAssistant()))
+                    .filter(e -> NumberConstants.ZERO.equals(e.getStatus()))
                     .collect(Collectors.toList());
         } else {
             employees = employees.stream()
                     .filter(e -> !RequestContext.getEmployeeNo().equalsIgnoreCase(e.getEmployeeNo()))
+                    .filter(e -> NumberConstants.ZERO.equals(e.getStatus()))
                     .collect(Collectors.toList());
         }
 
