@@ -36,7 +36,6 @@ public class CommentController {
     @Autowired
     SaveReadStatusProcessor saveReadStatusProcessor;
 
-
     @Permission
     @Operation(summary = "获取帖子评论信息", tags = TagsConstants.COMMENTS)
     @ApiResponse(responseCode = "0", description = "成功码")
@@ -71,5 +70,4 @@ public class CommentController {
         boolean result = saveReadStatusProcessor.saveReadStatus(request.getData());
         return ResponseUtils.success(result, request.getTraceId());
     }
-
 }
