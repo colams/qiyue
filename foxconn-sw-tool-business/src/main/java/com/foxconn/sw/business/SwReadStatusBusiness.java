@@ -1,5 +1,6 @@
 package com.foxconn.sw.business;
 
+import com.foxconn.sw.common.constanst.NumberConstants;
 import com.foxconn.sw.data.constants.enums.ModuleEnums;
 import com.foxconn.sw.data.context.RequestContext;
 import com.foxconn.sw.data.entity.SwReadStatus;
@@ -45,13 +46,18 @@ public class SwReadStatusBusiness {
         }
 
         foreignIds.forEach(e -> {
-            SwReadStatus readStatus = new SwReadStatus();
-            readStatus.setModuleType(moduleEnums.name());
-            readStatus.setForeignId(e);
-            readStatus.setEmployeeNo(RequestContext.getEmployeeNo());
-            readStatus.setIsRead(1);
-            readStatusExtMapper.insertSelective(readStatus);
+            insertReadStatus(moduleEnums, e);
         });
+        return true;
+    }
+
+    public boolean insertReadStatus(ModuleEnums moduleEnums, Integer foreignId) {
+        SwReadStatus readStatus = new SwReadStatus();
+        readStatus.setModuleType(moduleEnums.name());
+        readStatus.setForeignId(foreignId);
+        readStatus.setEmployeeNo(RequestContext.getEmployeeNo());
+        readStatus.setIsRead(NumberConstants.ONE);
+        readStatusExtMapper.insertSelective(readStatus);
         return true;
     }
 
@@ -62,9 +68,5 @@ public class SwReadStatusBusiness {
         } else {
             return readStatusExtMapper.updateByPrimaryKeySelective(readStatus);
         }
-    }
-
-    public int getForumUnReadCount(Integer bbsId) {
-        return readStatusExtMapper.getForumUnReadCount(ModuleEnums.Forum.name(), bbsId, RequestContext.getEmployeeNo());
     }
 }

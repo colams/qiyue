@@ -1,7 +1,9 @@
 package com.foxconn.sw.service.processor.forums;
 
+import com.foxconn.sw.business.SwReadStatusBusiness;
 import com.foxconn.sw.business.forums.ForumBbsCommentBusiness;
 import com.foxconn.sw.business.forums.ForumPostsAttachmentBusiness;
+import com.foxconn.sw.data.constants.enums.ModuleEnums;
 import com.foxconn.sw.data.context.RequestContext;
 import com.foxconn.sw.data.dto.request.forums.CommentsParams;
 import com.foxconn.sw.data.entity.ForumBbsComment;
@@ -15,6 +17,8 @@ public class CreateCommentProcessor {
     ForumBbsCommentBusiness forumBbsCommentBusiness;
     @Autowired
     ForumPostsAttachmentBusiness postsAttachmentBusiness;
+    @Autowired
+    SwReadStatusBusiness readStatusBusiness;
 
     public Integer createComments(CommentsParams data) {
         ForumBbsComment comment = new ForumBbsComment();
@@ -27,6 +31,7 @@ public class CreateCommentProcessor {
         if (commentId > 0) {
             postsAttachmentBusiness.insertPostsAttachment(data.getPostsId(), commentId, data.getResources());
         }
+        readStatusBusiness.insertReadStatus(ModuleEnums.Forum, commentId);
         return commentId;
     }
 }
