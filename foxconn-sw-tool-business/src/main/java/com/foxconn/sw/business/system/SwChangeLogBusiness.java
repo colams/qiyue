@@ -22,6 +22,10 @@ public class SwChangeLogBusiness {
         return changeLogExtMapper.selectByExample(example);
     }
 
+    public SwChangeLog getLatestChangeLog() {
+        return changeLogExtMapper.getLatestChangeLog();
+    }
+
     public Integer insertOrUpdate(SwChangeLog changeLog) {
         if (IntegerExtUtils.isPk(changeLog.getId())) {
             return changeLogExtMapper.updateByPrimaryKeySelective(changeLog);

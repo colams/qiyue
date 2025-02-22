@@ -5,8 +5,9 @@ import com.foxconn.sw.data.dto.Response;
 import com.foxconn.sw.data.dto.entity.home.AgendaVo;
 import com.foxconn.sw.data.dto.entity.home.GeneralVo;
 import com.foxconn.sw.data.dto.entity.home.TaskScheduleVo;
+import com.foxconn.sw.data.dto.request.schedule.MyScheduleParams;
 import com.foxconn.sw.service.processor.GeneralProcessor;
-import com.foxconn.sw.service.processor.MonthlyWorkProcessor;
+import com.foxconn.sw.service.processor.MonthAgendaProcessor;
 import com.foxconn.sw.service.utils.ResponseUtils;
 import com.google.common.collect.Lists;
 import io.swagger.v3.oas.annotations.Operation;
@@ -30,7 +31,8 @@ public class HomeController {
     @Autowired
     GeneralProcessor generalProcessor;
     @Autowired
-    MonthlyWorkProcessor monthlyWorkProcessor;
+    MonthAgendaProcessor monthAgendaProcessor;
+
 
     @PostMapping("/general")
     @Operation(summary = "工作概览", tags = "home")
@@ -43,9 +45,9 @@ public class HomeController {
 
     @Operation(summary = "我的日程信息", tags = "home")
     @ApiResponse(responseCode = "0", description = "成功码")
-    @PostMapping("/schedule")
-    public Response<List<AgendaVo>> schedule(@Valid @RequestBody Request request) {
-        List<AgendaVo> agendaVoList = Lists.newArrayList();
+    @PostMapping("/agenda")
+    public Response<List<AgendaVo>> agenda(@Valid @RequestBody Request<MyScheduleParams> request) {
+        List<AgendaVo> agendaVoList = monthAgendaProcessor.agenda(request.getData());
         return ResponseUtils.success(agendaVoList, request.getTraceId());
     }
 

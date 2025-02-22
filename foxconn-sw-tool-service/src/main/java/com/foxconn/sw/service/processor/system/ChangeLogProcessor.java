@@ -41,4 +41,15 @@ public class ChangeLogProcessor {
         changeLogVo.setReleaseVersion(e.getReleaseVersion());
         return changeLogVo;
     }
+
+    public ChangeLogVo getLatestChangeLog() {
+        SwChangeLog changeLog = changeLogBusiness.getLatestChangeLog();
+        ChangeLogVo changeLogVo = new ChangeLogVo();
+        changeLogVo.setId(changeLog.getId());
+        changeLogVo.setOperator(changeLogVo.getOperator());
+        changeLogVo.setReleaseVersion(changeLog.getReleaseVersion());
+        changeLogVo.setReleaseNote(changeLog.getReleaseNote());
+        changeLogVo.setCreateTime(DateTimeUtils.format(changeLog.getCreateTime()));
+        return changeLogVo;
+    }
 }

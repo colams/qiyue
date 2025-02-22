@@ -80,7 +80,7 @@ public interface SwDocumentExtensionMapper extends SwDocumentMapper {
             " and file_type=0",
             "</if> ",
             "</where>",
-            "ORDER BY id desc",
+            "ORDER BY datetime_lastchange desc",
             "LIMIT #{start,jdbcType=INTEGER} , #{pageSize,jdbcType=INTEGER} ",
             "</script>"
     })

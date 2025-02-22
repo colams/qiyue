@@ -2,11 +2,13 @@ package com.foxconn.sw.data.dto.entity.home;
 
 public class AgendaVo {
     private String currentDate;
+
     private Integer taskTotalCount;
+    private Integer meetingCount;
+
     private Integer taskOverdue;
     private Integer taskFinish;
     private Integer taskFinishOverdue;
-    private Integer meetingCount;
 
     public String getCurrentDate() {
         return currentDate;
