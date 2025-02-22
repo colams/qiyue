@@ -72,7 +72,7 @@ public class ListPostsProcessor {
         vo.setId(bbs.getId());
         vo.setAuthor(employeeUtils.mapEmployee(bbs.getAuthorNo()));
         vo.setCreateTime(DateTimeUtils.format(bbs.getCreateTime(), "yyyy-MM-dd HH:mm"));
-        if (StringUtils.isEmpty(bbs.getProject()) || "Others" .equalsIgnoreCase(bbs.getProject())) {
+        if (StringUtils.isEmpty(bbs.getProject()) || "Others".equalsIgnoreCase(bbs.getProject())) {
             vo.setTitle(bbs.getTitle());
         } else {
             vo.setTitle(String.format("【%s】%s", bbs.getProject(), bbs.getTitle()));
