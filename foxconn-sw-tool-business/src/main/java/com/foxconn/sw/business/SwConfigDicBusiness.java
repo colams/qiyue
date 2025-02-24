@@ -53,4 +53,18 @@ public class SwConfigDicBusiness {
         return JsonUtils.deserialize(configDic.getItemValue(), mainClazz, parameterClazz);
     }
 
+    /**
+     * 获取配置信息
+     *
+     * @param configItem 配置项目 item name
+     * @return
+     */
+    public String getConfigDicValue(String configItem) {
+        SwConfigDic configDic = queryConfigDic(configItem);
+        if (Objects.isNull(configDic) || StringUtils.isEmpty(configDic.getItemValue())) {
+            return null;
+        }
+        return configDic.getItemValue();
+    }
+
 }

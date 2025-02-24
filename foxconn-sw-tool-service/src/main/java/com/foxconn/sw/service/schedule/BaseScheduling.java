@@ -31,7 +31,8 @@ public abstract class BaseScheduling implements SchedulingConfigurer {
 
             @Override
             public Instant nextExecution(TriggerContext triggerContext) {
-                return null;
+                Date nextExecutionTime = nextExecutionTime(triggerContext);
+                return nextExecutionTime != null ? nextExecutionTime.toInstant() : null;
             }
         });
 

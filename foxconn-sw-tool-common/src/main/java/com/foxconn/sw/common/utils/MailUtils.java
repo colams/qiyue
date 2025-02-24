@@ -55,9 +55,9 @@ public class MailUtils {
             MailAccount account = getMailCount();
             result = MailUtil.send(account, recipients, subject, content, isHtml);
         } catch (Exception e) {
-            result = e.toString();
+            logger.error("sendEmail==", e);
         } finally {
-            logger.info(result);
+            logger.info("sendEmail--", result);
         }
     }
 
