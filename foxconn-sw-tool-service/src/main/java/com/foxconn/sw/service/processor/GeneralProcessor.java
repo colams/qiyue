@@ -18,7 +18,7 @@ public class GeneralProcessor {
         generalVo.setScheduleTask(taskBusiness.getTaskCount());
         generalVo.setUnreadTask(taskBusiness.getUnReadTaskCount());
         generalVo.setCollaboration(taskBusiness.getCollaborationCount());
-        generalVo.setMeeting(meetingBusiness.getMeetingCount());
+        generalVo.setMeeting(meetingBusiness.getMeetingCount().intValue());
         return generalVo;
     }
 
