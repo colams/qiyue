@@ -32,8 +32,7 @@ public class HomeController {
     GeneralProcessor generalProcessor;
     @Autowired
     MonthAgendaProcessor monthAgendaProcessor;
-
-
+    
     @PostMapping("/general")
     @Operation(summary = "工作概览", tags = "home")
     @ApiResponse(responseCode = "0", description = "成功码")
@@ -41,7 +40,6 @@ public class HomeController {
         GeneralVo generalVo = generalProcessor.general();
         return ResponseUtils.success(generalVo, request.getTraceId());
     }
-
 
     @Operation(summary = "我的日程信息", tags = "home")
     @ApiResponse(responseCode = "0", description = "成功码")
@@ -58,6 +56,4 @@ public class HomeController {
         List<TaskScheduleVo> taskScheduleVos = Lists.newArrayList();
         return ResponseUtils.success(taskScheduleVos, request.getTraceId());
     }
-
-
 }
