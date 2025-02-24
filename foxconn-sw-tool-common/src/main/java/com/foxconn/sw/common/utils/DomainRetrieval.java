@@ -11,16 +11,17 @@ public class DomainRetrieval {
         HttpServletRequest request = attributes.getRequest();
 
         String serverName = request.getServerName();
-        int serverPort = request.getServerPort();
+//        int serverPort = request.getServerPort();
+//
+//        String data;
+//        if ("localhost".equals(serverName)) {
+//            String localAddr = request.getLocalAddr();
+//            data = localAddr + ":" + serverPort;
+//        } else {
+//            data = serverName + ":" + serverPort;
+//        }
 
-        String data;
-        if ("localhost".equals(serverName)) {
-            String localAddr = request.getLocalAddr();
-            data = localAddr + ":" + serverPort;
-        } else {
-            data = serverName + ":" + serverPort;
-        }
-        return "http://" + data;
+        return "http://" + serverName;
     }
 
 }

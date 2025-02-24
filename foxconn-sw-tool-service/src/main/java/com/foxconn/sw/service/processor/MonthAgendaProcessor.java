@@ -31,7 +31,7 @@ public class MonthAgendaProcessor {
         List<String> days = new ArrayList<>();
         while (i <= daysBetween) {
             String day = LocalDateExtUtils.toString(startDay.plusDays(i++));
-            System.out.println(day);
+//            System.out.println(day);
             days.add(day);
         }
         return days;
