@@ -32,7 +32,7 @@ public class HomeController {
     GeneralProcessor generalProcessor;
     @Autowired
     MonthAgendaProcessor monthAgendaProcessor;
-    
+
     @PostMapping("/general")
     @Operation(summary = "工作概览", tags = "home")
     @ApiResponse(responseCode = "0", description = "成功码")
