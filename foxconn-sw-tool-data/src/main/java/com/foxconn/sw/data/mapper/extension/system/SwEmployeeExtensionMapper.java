@@ -2,11 +2,11 @@ package com.foxconn.sw.data.mapper.extension.system;
 
 import com.foxconn.sw.data.dto.entity.acount.EmployeeVo;
 import com.foxconn.sw.data.entity.SwEmployee;
-import com.foxconn.sw.data.entity.SwEmployeeExample;
 import com.foxconn.sw.data.mapper.auto.SwEmployeeMapper;
 import org.apache.ibatis.annotations.Result;
 import org.apache.ibatis.annotations.Results;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 import org.apache.ibatis.type.JdbcType;
 import org.springframework.stereotype.Repository;
 
@@ -31,4 +31,33 @@ public interface SwEmployeeExtensionMapper extends SwEmployeeMapper {
             @Result(column = "departmentName", property = "departmentName", jdbcType = JdbcType.VARCHAR),
     })
     List<EmployeeVo> getEmployeesByLevel();
+
+    @Update({
+            "update sw_employee",
+            "set identity_of_cadre = #{params,jdbcType=VARCHAR}",
+            "where employee_no = #{employeeNo,jdbcType=INTEGER}"
+    })
+    Integer setStationedPlace(String params, String employeeNo);
+
+    @Select({
+            "SELECT * ",
+            "FROM sw_employee ",
+            "WHERE (CASE ",
+            "           WHEN EXISTS(SELECT 1 FROM sw_employee WHERE assistant = #{employeeNo,jdbcType=INTEGER}) ",
+            "THEN assistant = #{employeeNo,jdbcType=INTEGER} ",
+            "           ELSE employee_no = #{employeeNo,jdbcType=INTEGER} END)",
+    })
+    SwEmployee getAssistantOrEmployee(String employeeNo);
+
+    @Select({
+            "<script>",
+            "SELECT * ",
+            "FROM sw_employee ",
+            "WHERE department_id in ",
+            "<foreach collection='departmentIds' item='id' open='(' separator=',' close=')'>",
+            "#{id,jdbcType=INTEGER}",
+            "</foreach>",
+            "</script>"
+    })
+    List<SwEmployee> getEmployeeByDepartmentId(List<Integer> departmentIds);
 }

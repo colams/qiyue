@@ -149,7 +149,6 @@ public class CommonController {
     @Permission
     @Operation(summary = "文档转换接口", tags = TagsConstants.UNIVERSAL)
     @ApiResponse(responseCode = "0", description = "成功码")
-    @CrossOrigin(exposedHeaders = {"Content-Disposition"})
     @PostMapping("/convert")
     public ResponseEntity convert(@Valid @RequestBody Request<IntegerParams> request) throws IOException {
         Integer fileId = request.getData().getParams();

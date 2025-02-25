@@ -145,7 +145,6 @@ public class CollaborationController {
     @Permission
     @Operation(summary = "export-導出本次工作列表", tags = TagsConstants.COLLABORATION)
     @ApiResponse(responseCode = "0", description = "成功码")
-    @CrossOrigin(exposedHeaders = {"Content-Disposition"})
     @PostMapping("/export")
     public ResponseEntity export(@Valid @RequestBody Request<CollaborationDetailParams> request) throws IOException {
         CollaborationVo collaborationVo = collaborationDetail.detail(request.getData(), true);

@@ -74,7 +74,6 @@ public class SwDocumentBusiness {
 
     public List<SwDocument> queryDocumentList(PageParams<SearchDocParams> data) {
         int start = (data.getCurrentPage() - 1) * data.getPageSize();
-        int fileType = Constants.PERSONAL.equalsIgnoreCase(data.getParams().getFileType()) ? 1 : 0;
         String employeeNo = "";
         if (Constants.PERSONAL.equalsIgnoreCase(data.getParams().getFileType())) {
             employeeNo = RequestContext.getEmployeeNo();
@@ -103,10 +102,10 @@ public class SwDocumentBusiness {
         return documentMapper.updateByPrimaryKeySelective(document) > 0;
     }
 
-    public boolean hasSameFile(CreateDocParams params, Integer fileType) {
+    public boolean hasSameFile(String fileName, Integer fileType) {
         SwDocumentExample example = new SwDocumentExample();
         SwDocumentExample.Criteria criteria = example.createCriteria();
-        criteria.andDocumentNameEqualTo(params.getFileName());
+        criteria.andDocumentNameEqualTo(fileName);
         criteria.andIsDeleteEqualTo(NumberConstants.ZERO);
         criteria.andFileTypeEqualTo(fileType);
         if (NumberConstants.ONE.equals(fileType)) {

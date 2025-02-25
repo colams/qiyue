@@ -92,7 +92,6 @@ public class PermissionAspect {
 //        servletResponse.addCookie(myCookie); // 将cookie添加到响应中
 //    }
 
-
     private void contextInit(Object obj, ProceedingJoinPoint joinPoint) {
         String signatureName = joinPoint.getSignature().getName();
         String traceId = "";

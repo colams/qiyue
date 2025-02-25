@@ -93,7 +93,7 @@ public class SwFeedbackBusiness {
         return feedbackExtMapper.insertSelective(feedback) > 0;
     }
 
-    public boolean updateFeedBackStatus(Integer feedBackID, Integer status) {
+    public boolean updateFeedBackStatus(Integer feedBackID, Integer status,String remark) {
         SwFeedback feedback = new SwFeedback();
         feedback.setId(feedBackID);
         feedback.setStatus(status);
@@ -102,6 +102,7 @@ public class SwFeedbackBusiness {
         } else if (NumberConstants.THREE.equals(status)) {
             feedback.setCloseTime(LocalDateTime.now());
         }
+        feedback.setRemark(remark);
         return feedbackExtMapper.updateByPrimaryKeySelective(feedback) > 0;
     }
 

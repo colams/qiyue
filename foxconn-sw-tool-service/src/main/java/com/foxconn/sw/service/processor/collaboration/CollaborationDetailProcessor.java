@@ -91,7 +91,7 @@ public class CollaborationDetailProcessor {
         vo.setType(CollectionUtils.isEmpty(capexParamsVos) ? "empty" : "");
         boolean isCc = relations.stream().filter(e -> e.getEmployeeNo().equalsIgnoreCase(RequestContext.getEmployeeNo()))
                 .anyMatch(e -> TaskRoleFlagEnums.Watcher_Flag.equals(e.getRoleFlag()));
-        if (!CollectionUtils.isEmpty(capexParamsVos)) {
+        if (collaborationUsers.size() == 1) {
             vo.setContent(initMapList2(collaborationUsers.get(0).getId(), header, isCc));
         } else {
             vo.setContent(initMapList(header, params.getTaskID(), swTask.getProposerEid(), isExport, isCc));
@@ -171,7 +171,7 @@ public class CollaborationDetailProcessor {
             if (employeeVo1.getEmployeeNo().compareTo(employeeVo2.getEmployeeNo()) == 0) {
                 Long e1ID = (Long) e1.get("id");
                 Long e2ID = (Long) e2.get("id");
-                return e2ID.compareTo(e1ID);
+                return e1ID.compareTo(e2ID);
             }
             return employeeVo1.getEmployeeNo().compareTo(employeeVo2.getEmployeeNo());
         });

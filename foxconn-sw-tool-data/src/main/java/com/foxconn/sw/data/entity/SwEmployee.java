@@ -43,6 +43,10 @@ public class SwEmployee {
 
     private Integer isComplete;
 
+    private String stationedPlace;
+
+    private String identityOfCadre;
+
     public Integer getId() {
         return id;
     }
@@ -301,5 +305,31 @@ public class SwEmployee {
 
     public void setIsComplete(Integer isComplete) {
         this.isComplete = isComplete;
+    }
+
+    public String getStationedPlace() {
+        return stationedPlace;
+    }
+
+    public SwEmployee withStationedPlace(String stationedPlace) {
+        this.setStationedPlace(stationedPlace);
+        return this;
+    }
+
+    public void setStationedPlace(String stationedPlace) {
+        this.stationedPlace = stationedPlace == null ? null : stationedPlace.trim();
+    }
+
+    public String getIdentityOfCadre() {
+        return identityOfCadre;
+    }
+
+    public SwEmployee withIdentityOfCadre(String identityOfCadre) {
+        this.setIdentityOfCadre(identityOfCadre);
+        return this;
+    }
+
+    public void setIdentityOfCadre(String identityOfCadre) {
+        this.identityOfCadre = identityOfCadre == null ? null : identityOfCadre.trim();
     }
 }

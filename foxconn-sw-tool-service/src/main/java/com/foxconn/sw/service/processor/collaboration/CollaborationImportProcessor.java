@@ -1,12 +1,14 @@
 package com.foxconn.sw.service.processor.collaboration;
 
+import com.foxconn.sw.business.SwCapexSetBusiness;
 import com.foxconn.sw.business.collaboration.CollaborationDetailBusiness;
 import com.foxconn.sw.business.collaboration.CollaborationUserBusiness;
 import com.foxconn.sw.business.oa.SwTaskBusiness;
 import com.foxconn.sw.common.aspects.Metric;
-import com.foxconn.sw.data.context.RequestContext;
 import com.foxconn.sw.common.utils.ExcelUtils;
 import com.foxconn.sw.common.utils.SpringUtils;
+import com.foxconn.sw.data.context.RequestContext;
+import com.foxconn.sw.data.dto.entity.oa.CapexParamsVo;
 import com.foxconn.sw.data.dto.entity.universal.IntegerParams;
 import com.foxconn.sw.data.entity.SwCollaborationDetail;
 import com.foxconn.sw.data.entity.SwCollaborationUser;
@@ -29,7 +31,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Executor;
 import java.util.stream.Collectors;
 
@@ -47,10 +48,64 @@ public class CollaborationImportProcessor {
     SwTaskBusiness taskBusiness;
     @Autowired
     Executor taskExecutor;
+    @Autowired
+    SwCapexSetBusiness capexSetBusiness;
 
 
     @Metric
-    public Boolean importExcel(IntegerParams data, MultipartFile multipartFile) throws IOException, ExecutionException, InterruptedException {
+    public Boolean importExcel(IntegerParams data, MultipartFile multipartFile) throws IOException {
+
+        List<CapexParamsVo> capexParamsVos = capexSetBusiness.queryCapexParams(data.getParams());
+        if (CollectionUtils.isEmpty(capexParamsVos)) {
+            return importEmptyTaskExcel(data, multipartFile);
+        } else {
+            return importTaskExcel(data, multipartFile, capexParamsVos);
+        }
+    }
+
+    private Boolean importTaskExcel(IntegerParams data, MultipartFile multipartFile, List<CapexParamsVo> capexParamsVos) throws IOException {
+        List<SwCollaborationUser> users = collaborationUser.queryCollaborationUser(data.getParams(), RequestContext.getEmployeeNo());
+        List<Map<String, String>> maps = SpringUtils.getBean(CollaborationImportProcessor.class)
+                .explainExcel(data.getParams(), multipartFile);
+        if (!CollectionUtils.isEmpty(users)) {
+            List<Long> ids = users.stream().map(e -> e.getId()).collect(Collectors.toList());
+            collaborationUser.deleteCollaborationUser(ids);
+        }
+
+        SwCollaborationUser user = new SwCollaborationUser();
+        user.setTaskId(data.getParams());
+        user.setEmployeeNo(RequestContext.getEmployeeNo());
+        collaborationUser.insertCollaborationUser(user);
+
+
+        List<SwCollaborationDetail> collaborationDetails = new ArrayList<>();
+
+        int i = 1;
+        for (Map<String, String> map : maps) {
+            int colIndex = 0;
+            for (Map.Entry<String, String> entry : map.entrySet()) {
+                SwCollaborationDetail detail = new SwCollaborationDetail();
+                detail.setScuId(user.getId());
+                detail.setItem(entry.getKey());
+                detail.setRowIndex(i);
+                detail.setColIndex(colIndex++);
+                if (entry.getKey().equalsIgnoreCase("id")) {
+                    throw new BizException(4, "附件excel文件請不要使用id作為列名！");
+                }
+                detail.setItemValue(entry.getValue());
+                collaborationDetails.add(detail);
+            }
+            i++;
+        }
+
+        List<List<SwCollaborationDetail>> lists = Lists.partition(collaborationDetails, 100);
+        lists.parallelStream().forEach(e -> {
+            collaborationDetail.batchInsert(e);
+        });
+        return true;
+    }
+
+    private Boolean importEmptyTaskExcel(IntegerParams data, MultipartFile multipartFile) throws IOException {
         List<SwCollaborationUser> users = collaborationUser.queryCollaborationUser(data.getParams(), RequestContext.getEmployeeNo());
         List<Map<String, String>> maps = SpringUtils.getBean(CollaborationImportProcessor.class)
                 .explainExcel(data.getParams(), multipartFile);

@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 
 @Service
 public class MenuBusiness {
@@ -42,5 +43,14 @@ public class MenuBusiness {
 
     public List<MenuVo> searchMenus(MenuParams2 params) {
         return sysMenuExtensionMapper.searchMenus(params);
+    }
+
+    public Integer updateOrInsert(SwMenu menu) {
+        if (Objects.isNull(menu.getId()) || menu.getId() <= 0) {
+            sysMenuExtensionMapper.insertSelective(menu);
+            return menu.getId();
+        } else {
+            return sysMenuExtensionMapper.updateByPrimaryKeySelective(menu);
+        }
     }
 }

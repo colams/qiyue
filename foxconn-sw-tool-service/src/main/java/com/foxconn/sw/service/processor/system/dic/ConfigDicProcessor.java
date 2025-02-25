@@ -1,4 +1,4 @@
-package com.foxconn.sw.service.processor.system;
+package com.foxconn.sw.service.processor.system.dic;
 
 import com.foxconn.sw.business.SwConfigDicBusiness;
 import com.foxconn.sw.data.dto.PageEntity;
@@ -28,6 +28,7 @@ public class ConfigDicProcessor {
         configDic.setId(data.getId());
         configDic.setItem(data.getItem());
         configDic.setItemValue(data.getItemValue());
+        configDic.setRemark(data.getRemark());
         return configDicBusiness.updateOrInsert(configDic) > 0;
     }
 }

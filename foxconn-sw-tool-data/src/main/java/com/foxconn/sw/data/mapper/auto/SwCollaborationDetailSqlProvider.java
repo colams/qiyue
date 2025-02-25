@@ -5,17 +5,9 @@ import com.foxconn.sw.data.entity.SwCollaborationDetailExample.Criteria;
 import com.foxconn.sw.data.entity.SwCollaborationDetailExample.Criterion;
 import com.foxconn.sw.data.entity.SwCollaborationDetailExample;
 import java.util.List;
-import java.util.Map;
 import org.apache.ibatis.jdbc.SQL;
 
 public class SwCollaborationDetailSqlProvider {
-
-    public String deleteByExample(SwCollaborationDetailExample example) {
-        SQL sql = new SQL();
-        sql.DELETE_FROM("sw_collaboration_detail");
-        applyWhere(sql, example, false);
-        return sql.toString();
-    }
 
     public String insertSelective(SwCollaborationDetail record) {
         SQL sql = new SQL();
@@ -49,10 +41,6 @@ public class SwCollaborationDetailSqlProvider {
             sql.VALUES("datetime_lastchange", "#{datetimeLastchange,jdbcType=TIMESTAMP}");
         }
         
-        if (record.getSpareValue() != null) {
-            sql.VALUES("spare_value", "#{spareValue,jdbcType=VARCHAR}");
-        }
-        
         return sql.toString();
     }
 
@@ -70,7 +58,6 @@ public class SwCollaborationDetailSqlProvider {
         sql.SELECT("item_value");
         sql.SELECT("create_time");
         sql.SELECT("datetime_lastchange");
-        sql.SELECT("spare_value");
         sql.FROM("sw_collaboration_detail");
         applyWhere(sql, example, false);
         
@@ -78,72 +65,6 @@ public class SwCollaborationDetailSqlProvider {
             sql.ORDER_BY(example.getOrderByClause());
         }
         
-        return sql.toString();
-    }
-
-    public String updateByExampleSelective(Map<String, Object> parameter) {
-        SwCollaborationDetail record = (SwCollaborationDetail) parameter.get("record");
-        SwCollaborationDetailExample example = (SwCollaborationDetailExample) parameter.get("example");
-        
-        SQL sql = new SQL();
-        sql.UPDATE("sw_collaboration_detail");
-        
-        if (record.getId() != null) {
-            sql.SET("id = #{record.id,jdbcType=BIGINT}");
-        }
-        
-        if (record.getScuId() != null) {
-            sql.SET("scu_id = #{record.scuId,jdbcType=BIGINT}");
-        }
-        
-        if (record.getRowIndex() != null) {
-            sql.SET("row_index = #{record.rowIndex,jdbcType=INTEGER}");
-        }
-        
-        if (record.getColIndex() != null) {
-            sql.SET("col_index = #{record.colIndex,jdbcType=INTEGER}");
-        }
-        
-        if (record.getItem() != null) {
-            sql.SET("item = #{record.item,jdbcType=VARCHAR}");
-        }
-        
-        if (record.getItemValue() != null) {
-            sql.SET("item_value = #{record.itemValue,jdbcType=VARCHAR}");
-        }
-        
-        if (record.getCreateTime() != null) {
-            sql.SET("create_time = #{record.createTime,jdbcType=TIMESTAMP}");
-        }
-        
-        if (record.getDatetimeLastchange() != null) {
-            sql.SET("datetime_lastchange = #{record.datetimeLastchange,jdbcType=TIMESTAMP}");
-        }
-        
-        if (record.getSpareValue() != null) {
-            sql.SET("spare_value = #{record.spareValue,jdbcType=VARCHAR}");
-        }
-        
-        applyWhere(sql, example, true);
-        return sql.toString();
-    }
-
-    public String updateByExample(Map<String, Object> parameter) {
-        SQL sql = new SQL();
-        sql.UPDATE("sw_collaboration_detail");
-        
-        sql.SET("id = #{record.id,jdbcType=BIGINT}");
-        sql.SET("scu_id = #{record.scuId,jdbcType=BIGINT}");
-        sql.SET("row_index = #{record.rowIndex,jdbcType=INTEGER}");
-        sql.SET("col_index = #{record.colIndex,jdbcType=INTEGER}");
-        sql.SET("item = #{record.item,jdbcType=VARCHAR}");
-        sql.SET("item_value = #{record.itemValue,jdbcType=VARCHAR}");
-        sql.SET("create_time = #{record.createTime,jdbcType=TIMESTAMP}");
-        sql.SET("datetime_lastchange = #{record.datetimeLastchange,jdbcType=TIMESTAMP}");
-        sql.SET("spare_value = #{record.spareValue,jdbcType=VARCHAR}");
-        
-        SwCollaborationDetailExample example = (SwCollaborationDetailExample) parameter.get("example");
-        applyWhere(sql, example, true);
         return sql.toString();
     }
 
@@ -177,10 +98,6 @@ public class SwCollaborationDetailSqlProvider {
         
         if (record.getDatetimeLastchange() != null) {
             sql.SET("datetime_lastchange = #{datetimeLastchange,jdbcType=TIMESTAMP}");
-        }
-        
-        if (record.getSpareValue() != null) {
-            sql.SET("spare_value = #{spareValue,jdbcType=VARCHAR}");
         }
         
         sql.WHERE("id = #{id,jdbcType=BIGINT}");

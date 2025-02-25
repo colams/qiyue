@@ -6,8 +6,8 @@ import com.foxconn.sw.data.dto.entity.ChangeLogVo;
 import com.foxconn.sw.data.dto.request.system.CreateChangeLogParams;
 import com.foxconn.sw.data.dto.request.system.UpdateChangeLogParams;
 import com.foxconn.sw.service.aspects.Permission;
-import com.foxconn.sw.service.processor.system.ReleaseNoteProcessor;
 import com.foxconn.sw.service.processor.system.ChangeLogProcessor;
+import com.foxconn.sw.service.processor.system.ReleaseNoteProcessor;
 import com.foxconn.sw.service.utils.ResponseUtils;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -29,7 +29,6 @@ public class ChangeLogController {
     @Autowired
     ReleaseNoteProcessor releaseNoteProcessor;
 
-    @Permission
     @Operation(summary = "所有更新信息列表", tags = "changeLog")
     @ApiResponse(responseCode = "0", description = "成功码")
     @PostMapping("/list")
@@ -38,7 +37,6 @@ public class ChangeLogController {
         return ResponseUtils.success(departmentVos, request.getTraceId());
     }
 
-    @Permission
     @Operation(summary = "所有更新信息列表", tags = "changeLog")
     @ApiResponse(responseCode = "0", description = "成功码")
     @PostMapping("/addReleaseNote")
@@ -47,9 +45,7 @@ public class ChangeLogController {
         return ResponseUtils.success(result, request.getTraceId());
     }
 
-
-    @Permission
-    @Operation(summary = "所有更新信息列表", tags = "changeLog")
+    @Operation(summary = "修改发布信息", tags = "changeLog")
     @ApiResponse(responseCode = "0", description = "成功码")
     @PostMapping("/updateReleaseNote")
     public Response<Boolean> updateReleaseNote(@Valid @RequestBody Request<UpdateChangeLogParams> request) {
@@ -57,5 +53,11 @@ public class ChangeLogController {
         return ResponseUtils.success(result, request.getTraceId());
     }
 
-
+    @Operation(summary = "获取发布信息列表", tags = "changeLog")
+    @ApiResponse(responseCode = "0", description = "成功码")
+    @PostMapping("/getChangeLog")
+    public Response<ChangeLogVo> getChangeLog(@Valid @RequestBody Request request) {
+        ChangeLogVo changeLogVo = changeLogProcessor.getLatestChangeLog();
+        return ResponseUtils.success(changeLogVo, request.getTraceId());
+    }
 }

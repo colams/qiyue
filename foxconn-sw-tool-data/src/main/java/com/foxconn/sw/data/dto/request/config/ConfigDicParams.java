@@ -7,6 +7,8 @@ public class ConfigDicParams {
 
     private String itemValue;
 
+    private String remark;
+
     public Integer getId() {
         return id;
     }
@@ -29,5 +31,13 @@ public class ConfigDicParams {
 
     public void setItemValue(String itemValue) {
         this.itemValue = itemValue;
+    }
+
+    public String getRemark() {
+        return remark;
+    }
+
+    public void setRemark(String remark) {
+        this.remark = remark;
     }
 }

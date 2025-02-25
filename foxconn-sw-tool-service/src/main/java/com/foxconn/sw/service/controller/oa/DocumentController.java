@@ -13,10 +13,7 @@ import com.foxconn.sw.data.dto.entity.universal.IntegerParams;
 import com.foxconn.sw.data.dto.request.document.*;
 import com.foxconn.sw.data.dto.request.system.OptionParams;
 import com.foxconn.sw.service.aspects.Permission;
-import com.foxconn.sw.service.processor.document.CreateDocProcessor;
-import com.foxconn.sw.service.processor.document.DetailDocProcessor;
-import com.foxconn.sw.service.processor.document.GetOptionsProcessor;
-import com.foxconn.sw.service.processor.document.ListDocProcessor;
+import com.foxconn.sw.service.processor.document.*;
 import com.foxconn.sw.service.utils.ResponseUtils;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -41,6 +38,8 @@ public class DocumentController {
     DetailDocProcessor detailDoc;
     @Autowired
     GetOptionsProcessor getOptionsProcessor;
+    @Autowired
+    CreatePersonalDocProcessor personalDocProcessor;
 
     @Permission
     @Operation(summary = "新增文档信息", tags = TagsConstants.DOCUMENT)
@@ -56,7 +55,7 @@ public class DocumentController {
     @ApiResponse(responseCode = "0", description = "成功码")
     @PostMapping("/createPersonalDoc")
     public Response createPersonalDoc(@Valid @RequestBody Request<CreatePersonalDocParams> request) {
-        boolean result = createDoc.createPersonalDoc(request.getData());
+        boolean result = personalDocProcessor.createPersonalDoc(request.getData());
         return ResponseUtils.success(result, request.getTraceId());
     }
 

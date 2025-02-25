@@ -12,12 +12,16 @@ import com.foxconn.sw.data.dto.request.forums.CommentsParams;
 import com.foxconn.sw.service.aspects.Permission;
 import com.foxconn.sw.service.processor.forums.CreateCommentProcessor;
 import com.foxconn.sw.service.processor.forums.ListCommentProcessor;
+import com.foxconn.sw.service.processor.forums.SaveReadStatusProcessor;
 import com.foxconn.sw.service.utils.ResponseUtils;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
@@ -29,7 +33,8 @@ public class CommentController {
     ListCommentProcessor listCommentProcessor;
     @Autowired
     CreateCommentProcessor createCommentProcessor;
-
+    @Autowired
+    SaveReadStatusProcessor saveReadStatusProcessor;
 
     @Permission
     @Operation(summary = "获取帖子评论信息", tags = TagsConstants.COMMENTS)
@@ -49,7 +54,6 @@ public class CommentController {
         return ResponseUtils.success(page, request.getTraceId());
     }
 
-
     @Permission
     @Operation(summary = "提交评论帖子信息", tags = TagsConstants.COMMENTS)
     @ApiResponse(responseCode = "0", description = "成功码")
@@ -59,4 +63,11 @@ public class CommentController {
         return ResponseUtils.success(result > 0, request.getTraceId());
     }
 
+    @Operation(summary = "设置为已读", tags = TagsConstants.COMMENTS)
+    @ApiResponse(responseCode = "0", description = "成功码")
+    @PostMapping("/read")
+    public Response<Boolean> saveReadStatus(@Valid @RequestBody Request<IntegerParams> request) {
+        boolean result = saveReadStatusProcessor.saveReadStatus(request.getData());
+        return ResponseUtils.success(result, request.getTraceId());
+    }
 }

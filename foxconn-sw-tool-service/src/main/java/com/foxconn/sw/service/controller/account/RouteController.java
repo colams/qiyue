@@ -1,6 +1,8 @@
 package com.foxconn.sw.service.controller.account;
 
+import cn.hutool.core.codec.Base64;
 import com.foxconn.sw.business.account.MenuBusiness;
+import com.foxconn.sw.common.utils.JsonUtils;
 import com.foxconn.sw.data.constants.TagsConstants;
 import com.foxconn.sw.data.dto.Request;
 import com.foxconn.sw.data.dto.Response;
@@ -12,7 +14,10 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
@@ -40,7 +45,8 @@ public class RouteController {
     @PostMapping("/list")
     public Response list(@Valid @RequestBody Request<MenuParams> request) {
         List<MenuBriefVo> sysMenus = listRouteProcessor.list(request.getData());
-        return ResponseUtils.success(sysMenus, request.getTraceId());
+        String base64 = Base64.encode(JsonUtils.serialize(sysMenus), "UTF-8");
+        return ResponseUtils.success(base64, request.getTraceId());
     }
 
 }

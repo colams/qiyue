@@ -14,6 +14,8 @@ public class TaskBriefListVo {
      */
     private Integer id;
 
+    private Integer parentId;
+
     private Long taskNo;
 
     /**
@@ -110,12 +112,22 @@ public class TaskBriefListVo {
 
     private boolean hasSon;
 
+    private List<TaskBriefListVo> children;
+
     public Integer getId() {
         return id;
     }
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public Integer getParentId() {
+        return parentId;
+    }
+
+    public void setParentId(Integer parentId) {
+        this.parentId = parentId;
     }
 
     public Long getTaskNo() {
@@ -285,5 +297,13 @@ public class TaskBriefListVo {
 
     public void setHasSon(boolean hasSon) {
         this.hasSon = hasSon;
+    }
+
+    public List<TaskBriefListVo> getChildren() {
+        return children;
+    }
+
+    public void setChildren(List<TaskBriefListVo> children) {
+        this.children = children;
     }
 }

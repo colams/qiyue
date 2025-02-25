@@ -38,7 +38,7 @@ public class CreateDocProcessor {
             throw new BizException(4, "参数错误，缺少资源文件");
         }
 
-        boolean sameFile = documentBusiness.hasSameFile(params, NumberConstants.ZERO);
+        boolean sameFile = documentBusiness.hasSameFile(params.getFileName(), NumberConstants.ZERO);
         if (sameFile) {
             throw new BizException(1, "存在重複文件！");
         }
@@ -68,25 +68,12 @@ public class CreateDocProcessor {
         return documentID > 0;
     }
 
-    public boolean createPersonalDoc(CreatePersonalDocParams params) {
-        if (Objects.isNull(params.getResourceID()) || params.getResourceID() < 0) {
-            throw new BizException(4, "参数错误，缺少资源文件");
-        }
-
-        int documentID = documentBusiness.createDoc(params);
-        if (documentID > 0) {
-            SwDocumentHistory documentHistory = new SwDocumentHistory();
-            documentHistory.setDocumentId(documentID);
-            documentHistory.setDocumentName(params.getFileName());
-            documentHistory.setResourceId(params.getResourceID());
-            documentHistory.setCreator(RequestContext.getEmployeeNo());
-            documentHistoryBusiness.insertHistory(documentHistory);
-        }
-        return documentID > 0;
-    }
-
-
     public boolean revise(ReviseDocParams data) {
+        boolean sameFile = documentBusiness.hasSameFile(data.getFileName(), NumberConstants.ZERO);
+        if (sameFile) {
+            throw new BizException(1, "存在重複文件！");
+        }
+
         SwDocument document = documentBusiness.queryDocumentByID(data.getDocumentID());
 
         SwDocument updateDoc = new SwDocument();
@@ -119,21 +106,6 @@ public class CreateDocProcessor {
         updateDoc.setDisableDown(data.getDisableDown());
         updateDoc.setContent(data.getContent());
         documentBusiness.updateDocument(updateDoc);
-
-//        int documentID = data.getDocumentID();
-//
-//        if (CollectionUtils.isEmpty(data.getDepartmentIDs()) && CollectionUtils.isEmpty(data.getEmployeeNos())) {
-//            documentPermissionBusiness.insertDocumentPermission(documentID, Lists.newArrayList("0"), data.getExtra(), 1);
-//        }
-//
-//        if (!CollectionUtils.isEmpty(data.getDepartmentIDs())) {
-//            documentPermissionBusiness.insertDocumentPermission(documentID, data.getDepartmentIDs(), data.getExtra(), 1);
-//        }
-//
-//        if (!CollectionUtils.isEmpty(data.getEmployeeNos())) {
-//            documentPermissionBusiness.insertDocumentPermission(documentID, data.getEmployeeNos(), data.getExtra(), 2);
-//        }
-
 
         return true;
     }

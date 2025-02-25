@@ -14,10 +14,10 @@ public class SwMsgPoolBusiness {
     @Autowired
     SwMsgPoolExtMapper msgPoolExtMapper;
 
-    public boolean addMsg(MsgTypeEnums msgType, Integer taskID) {
+    public boolean addMsg(MsgTypeEnums msgType, Long taskNo) {
         SwMsgPool msgPool = new SwMsgPool();
         msgPool.setMsgType(msgType.name());
-        msgPool.setObjectId(taskID);
+        msgPool.setObjectId(taskNo);
         return msgPoolExtMapper.insertSelective(msgPool) > 0;
     }
 

@@ -111,5 +111,4 @@ public class ToolController {
         List<CategoryDTO> results = listToolCategoryBusiness.listByType(1);
         return ResponseUtils.success(results, UUIDUtils.getUuid());
     }
-
 }

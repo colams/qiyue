@@ -4,6 +4,7 @@ public class FeedBackStatusParams {
 
     private Integer id;
     private Integer status;
+    private String remark;
 
     public Integer getId() {
         return id;
@@ -19,5 +20,13 @@ public class FeedBackStatusParams {
 
     public void setStatus(Integer status) {
         this.status = status;
+    }
+
+    public String getRemark() {
+        return remark;
+    }
+
+    public void setRemark(String remark) {
+        this.remark = remark;
     }
 }

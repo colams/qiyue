@@ -33,6 +33,9 @@ public interface SwDocumentExtensionMapper extends SwDocumentMapper {
             "<if test='params.author!=null and params.author!=\"\"' >",
             " and author like CONCAT('%', #{params.author,jdbcType=VARCHAR}, '%') ",
             "</if> ",
+            "<if test='params.source!=null and params.source!=\"\"' >",
+            " and source =#{params.source,jdbcType=VARCHAR} ",
+            "</if> ",
 
             "<if test='params.project!=null and params.project!=\"\"' >",
             " and project =#{params.project,jdbcType=VARCHAR} ",
@@ -69,6 +72,7 @@ public interface SwDocumentExtensionMapper extends SwDocumentMapper {
             "<if test='params.expireDate!=null and params.expireDate!=\"\"' >",
             " and expire_date =#{params.expireDate,jdbcType=VARCHAR} ",
             "</if> ",
+
             "<if test='employeeNo!=null and employeeNo!=\"\"' >",
             " and creator =#{employeeNo,jdbcType=VARCHAR} and file_type=1",
             "</if> ",
@@ -76,6 +80,7 @@ public interface SwDocumentExtensionMapper extends SwDocumentMapper {
             " and file_type=0",
             "</if> ",
             "</where>",
+            "ORDER BY datetime_lastchange desc",
             "LIMIT #{start,jdbcType=INTEGER} , #{pageSize,jdbcType=INTEGER} ",
             "</script>"
     })
@@ -130,6 +135,9 @@ public interface SwDocumentExtensionMapper extends SwDocumentMapper {
             "</if> ",
             "<if test='params.author!=null and params.author!=\"\"' >",
             " and author like CONCAT('%', #{params.author,jdbcType=VARCHAR}, '%') ",
+            "</if> ",
+            "<if test='params.source!=null and params.source!=\"\"' >",
+            " and source =#{params.source,jdbcType=VARCHAR} ",
             "</if> ",
 
             "<if test='params.project!=null and params.project!=\"\"' >",

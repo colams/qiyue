@@ -16,11 +16,13 @@ import org.apache.ibatis.type.JdbcType;
 public interface SwConfigDicMapper {
     @Insert({
         "insert into sw_config_dic (item, item_value, ",
-        "is_disable, is_delete, ",
-        "create_time, datetime_lastchange)",
+        "remark, is_disable, ",
+        "is_delete, create_time, ",
+        "datetime_lastchange)",
         "values (#{item,jdbcType=VARCHAR}, #{itemValue,jdbcType=VARCHAR}, ",
-        "#{isDisable,jdbcType=INTEGER}, #{isDelete,jdbcType=INTEGER}, ",
-        "#{createTime,jdbcType=TIMESTAMP}, #{datetimeLastchange,jdbcType=TIMESTAMP})"
+        "#{remark,jdbcType=VARCHAR}, #{isDisable,jdbcType=INTEGER}, ",
+        "#{isDelete,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, ",
+        "#{datetimeLastchange,jdbcType=TIMESTAMP})"
     })
     @SelectKey(statement="SELECT LAST_INSERT_ID()", keyProperty="id", before=false, resultType=Integer.class)
     int insert(SwConfigDic record);
@@ -31,7 +33,7 @@ public interface SwConfigDicMapper {
 
     @Select({
         "select",
-        "id, item, item_value, is_disable, is_delete, create_time, datetime_lastchange",
+        "id, item, item_value, remark, is_disable, is_delete, create_time, datetime_lastchange",
         "from sw_config_dic",
         "where id = #{id,jdbcType=INTEGER}"
     })
@@ -39,6 +41,7 @@ public interface SwConfigDicMapper {
         @Result(column="id", property="id", jdbcType=JdbcType.INTEGER, id=true),
         @Result(column="item", property="item", jdbcType=JdbcType.VARCHAR),
         @Result(column="item_value", property="itemValue", jdbcType=JdbcType.VARCHAR),
+        @Result(column="remark", property="remark", jdbcType=JdbcType.VARCHAR),
         @Result(column="is_disable", property="isDisable", jdbcType=JdbcType.INTEGER),
         @Result(column="is_delete", property="isDelete", jdbcType=JdbcType.INTEGER),
         @Result(column="create_time", property="createTime", jdbcType=JdbcType.TIMESTAMP),
@@ -53,6 +56,7 @@ public interface SwConfigDicMapper {
         "update sw_config_dic",
         "set item = #{item,jdbcType=VARCHAR},",
           "item_value = #{itemValue,jdbcType=VARCHAR},",
+          "remark = #{remark,jdbcType=VARCHAR},",
           "is_disable = #{isDisable,jdbcType=INTEGER},",
           "is_delete = #{isDelete,jdbcType=INTEGER},",
           "create_time = #{createTime,jdbcType=TIMESTAMP},",

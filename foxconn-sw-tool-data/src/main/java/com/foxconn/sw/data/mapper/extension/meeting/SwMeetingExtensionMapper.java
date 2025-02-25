@@ -3,6 +3,7 @@ package com.foxconn.sw.data.mapper.extension.meeting;
 import com.foxconn.sw.data.dto.request.meeting.ListMeetingV2Params;
 import com.foxconn.sw.data.entity.SwMeeting;
 import com.foxconn.sw.data.entity.extension.MeetingEntity;
+import com.foxconn.sw.data.entity.extension.MeetingTjEntity;
 import com.foxconn.sw.data.entity.extension.SwMeetingExtension;
 import com.foxconn.sw.data.mapper.auto.SwMeetingMapper;
 import org.apache.ibatis.annotations.Param;
@@ -124,4 +125,26 @@ public interface SwMeetingExtensionMapper extends SwMeetingMapper {
                                            @Param("searchEnd") String searchEnd,
                                            @Param("data") ListMeetingV2Params data);
 
+
+    @Select({"<script>",
+            "select m.id, m.meeting_date as mDate, m.cycle, c.meeting_date cDate, c.cancel ",
+            "from sw_meeting m ",
+            "         inner join sw_meeting_member sm ",
+            "                    on m.id = sm.meeting_id ",
+            "         left join sw_meeting_cycle_detail c on m.id = c.meeting_id ",
+            "where employee_no = #{employeeNo,jdbcType=VARCHAR} ",
+            "  and m.status = 0 ",
+            "  and (m.meeting_date = #{currentDay,jdbcType=VARCHAR} ",
+            "    or (m.cycle_start &lt;= #{currentDay,jdbcType=VARCHAR} ",
+            "and (m.cycle_expire &gt;= #{currentDay,jdbcType=VARCHAR} or m.cycle_expire = '')) and m.cycle_start &gt; '')",
+            "</script>"
+    })
+    @Results({
+            @Result(column = "id", property = "id", jdbcType = JdbcType.INTEGER),
+            @Result(column = "mDate", property = "meetingDate", jdbcType = JdbcType.VARCHAR),
+            @Result(column = "cycle", property = "cycle", jdbcType = JdbcType.VARCHAR),
+            @Result(column = "cDate", property = "detailMeetingDate", jdbcType = JdbcType.VARCHAR),
+            @Result(column = "cancel", property = "cancel", jdbcType = JdbcType.INTEGER),
+    })
+    List<MeetingTjEntity> getMeetingCount(String employeeNo, String currentDay);
 }

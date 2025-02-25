@@ -6,7 +6,7 @@ import com.foxconn.sw.data.dto.Request;
 import com.foxconn.sw.data.dto.request.config.ConfigDicParams;
 import com.foxconn.sw.data.dto.request.config.ListParams;
 import com.foxconn.sw.data.entity.SwConfigDic;
-import com.foxconn.sw.service.processor.system.ConfigDicProcessor;
+import com.foxconn.sw.service.processor.system.dic.ConfigDicProcessor;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import org.springframework.beans.factory.annotation.Autowired;

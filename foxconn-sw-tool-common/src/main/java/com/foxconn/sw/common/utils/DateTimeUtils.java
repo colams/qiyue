@@ -3,6 +3,7 @@ package com.foxconn.sw.common.utils;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 import java.util.Objects;
 
 public class DateTimeUtils {
@@ -85,6 +86,12 @@ public class DateTimeUtils {
     public static String getFilePrefix() {
         LocalDateTime localDateTime = LocalDateTime.now();
         return localDateTime.format(DateTimeFormatter.ofPattern(DateTimePattern.yyyyMMddHHmmssSSS));
+    }
+
+    public static long getBetweenDay(String startDate, String endDate) {
+        LocalDate startDay = LocalDateExtUtils.toLocalDate(startDate);
+        LocalDate endDay = LocalDateExtUtils.toLocalDate(endDate);
+        return ChronoUnit.DAYS.between(startDay, endDay);
     }
 
     public interface DateTimePattern {

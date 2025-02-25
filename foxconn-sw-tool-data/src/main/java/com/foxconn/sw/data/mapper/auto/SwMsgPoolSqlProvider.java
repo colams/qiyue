@@ -14,7 +14,7 @@ public class SwMsgPoolSqlProvider {
         }
         
         if (record.getObjectId() != null) {
-            sql.VALUES("object_id", "#{objectId,jdbcType=INTEGER}");
+            sql.VALUES("object_id", "#{objectId,jdbcType=BIGINT}");
         }
         
         if (record.getStatus() != null) {

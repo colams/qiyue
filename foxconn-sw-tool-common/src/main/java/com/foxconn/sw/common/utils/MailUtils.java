@@ -38,18 +38,26 @@ public class MailUtils {
         return account;
     }
 
+    public static void sendHtmlEmail(String subject, String content, List<String> recipients) {
+        sendEmail(subject, content, recipients, true);
+    }
+
+    public static void sendCommonEmail(String subject, String content, List<String> recipients) {
+        sendEmail(subject, content, recipients, false);
+    }
+
     /**
      * 发送含有附件的邮件
      */
-    public static void sendEmail(String subject, String content, List<String> recipients, boolean isHtml) {
+    private static void sendEmail(String subject, String content, List<String> recipients, boolean isHtml) {
         String result = "";
         try {
             MailAccount account = getMailCount();
             result = MailUtil.send(account, recipients, subject, content, isHtml);
         } catch (Exception e) {
-            result = e.toString();
+            logger.error("sendEmail==", e);
         } finally {
-            logger.info(result);
+            logger.info("sendEmail--", result);
         }
     }
 
@@ -57,17 +65,16 @@ public class MailUtils {
      * 发送含有附件的邮件
      */
     public static void sendEmail() {
-        ArrayList<String> mailList = CollUtil.newArrayList("zhan-teng.zhang@mail.foxconn.com");
-        sendEmail("Mail Test", "<b>测试二维码</b><br/", mailList, true);
+        ArrayList<String> recipients = CollUtil.newArrayList("zhan-teng.zhang@mail.foxconn.com");
+        sendHtmlEmail("Mail Test", "<b>测试二维码</b><br/", recipients);
     }
 
     /**
      * 发送含有附件的邮件
      */
     public static void sendTaskNotifyEmail(List<String> recipients) {
-        sendEmail("任务分派邮件", "<b>您有新的任务派送到</b><br/", recipients, true);
+        sendHtmlEmail("任务分派邮件", "<b>您有新的任务派送到</b><br/", recipients);
     }
-
 
     public static void main(String[] args) {
         sendEmail();

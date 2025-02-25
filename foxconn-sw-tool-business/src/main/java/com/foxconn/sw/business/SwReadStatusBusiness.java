@@ -1,5 +1,6 @@
 package com.foxconn.sw.business;
 
+import com.foxconn.sw.common.constanst.NumberConstants;
 import com.foxconn.sw.data.constants.enums.ModuleEnums;
 import com.foxconn.sw.data.context.RequestContext;
 import com.foxconn.sw.data.entity.SwReadStatus;
@@ -13,6 +14,7 @@ import org.springframework.util.CollectionUtils;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -44,17 +46,27 @@ public class SwReadStatusBusiness {
         }
 
         foreignIds.forEach(e -> {
-            SwReadStatus readStatus = new SwReadStatus();
-            readStatus.setModuleType(moduleEnums.name());
-            readStatus.setForeignId(e);
-            readStatus.setEmployeeNo(RequestContext.getEmployeeNo());
-            readStatus.setIsRead(1);
-            readStatusExtMapper.insertSelective(readStatus);
+            insertReadStatus(moduleEnums, e);
         });
         return true;
     }
 
-    public int getForumUnReadCount(Integer bbsId) {
-        return readStatusExtMapper.getForumUnReadCount(ModuleEnums.Forum.name(), bbsId, RequestContext.getEmployeeNo());
+    public boolean insertReadStatus(ModuleEnums moduleEnums, Integer foreignId) {
+        SwReadStatus readStatus = new SwReadStatus();
+        readStatus.setModuleType(moduleEnums.name());
+        readStatus.setForeignId(foreignId);
+        readStatus.setEmployeeNo(RequestContext.getEmployeeNo());
+        readStatus.setIsRead(NumberConstants.ONE);
+        readStatusExtMapper.insertSelective(readStatus);
+        return true;
+    }
+
+    public int updateOrInsert(SwReadStatus readStatus) {
+        if (Objects.isNull(readStatus.getId()) || readStatus.getId() <= 0) {
+            readStatusExtMapper.insertSelective(readStatus);
+            return readStatus.getId();
+        } else {
+            return readStatusExtMapper.updateByPrimaryKeySelective(readStatus);
+        }
     }
 }

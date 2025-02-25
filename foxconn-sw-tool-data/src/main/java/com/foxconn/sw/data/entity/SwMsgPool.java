@@ -7,7 +7,7 @@ public class SwMsgPool {
 
     private String msgType;
 
-    private Integer objectId;
+    private Long objectId;
 
     private Integer status;
 
@@ -41,16 +41,16 @@ public class SwMsgPool {
         this.msgType = msgType == null ? null : msgType.trim();
     }
 
-    public Integer getObjectId() {
+    public Long getObjectId() {
         return objectId;
     }
 
-    public SwMsgPool withObjectId(Integer objectId) {
+    public SwMsgPool withObjectId(Long objectId) {
         this.setObjectId(objectId);
         return this;
     }
 
-    public void setObjectId(Integer objectId) {
+    public void setObjectId(Long objectId) {
         this.objectId = objectId;
     }
 

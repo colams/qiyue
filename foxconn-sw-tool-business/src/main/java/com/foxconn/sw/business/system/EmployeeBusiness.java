@@ -29,7 +29,6 @@ public class EmployeeBusiness {
     @Autowired
     DepartmentBusiness departmentBusiness;
 
-
     public List<SwEmployee> getEmployeeList() {
         SwEmployeeExample example = new SwEmployeeExample();
         SwEmployeeExample.Criteria criteria = example.createCriteria();
@@ -217,5 +216,18 @@ public class EmployeeBusiness {
             employeeExtensionMapper.insertSelective(employee);
             return employee.getId();
         }
+    }
+
+    public Boolean setStationedPlace(String params, String employeeNo) {
+        return employeeExtensionMapper.setStationedPlace(params, employeeNo) > 0;
+    }
+
+    public List<SwEmployee> getSubordinateEmployee(String employeeNo) {
+        SwEmployee employee = employeeExtensionMapper.getAssistantOrEmployee(employeeNo);
+        List<Integer> departmentIds = departmentBusiness.getAllSubDepartID(employee.getEmployeeNo(), employee.getDepartmentId());
+        if (CollectionUtils.isEmpty(departmentIds)) {
+            return Lists.newArrayList(employee);
+        }
+        return employeeExtensionMapper.getEmployeeByDepartmentId(departmentIds);
     }
 }

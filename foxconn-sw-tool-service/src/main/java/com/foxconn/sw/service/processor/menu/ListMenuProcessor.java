@@ -1,4 +1,4 @@
-package com.foxconn.sw.service.processor.acount;
+package com.foxconn.sw.service.processor.menu;
 
 import com.foxconn.sw.business.account.MenuBusiness;
 import com.foxconn.sw.data.dto.entity.acount.MenuBriefVo;

@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.Objects;
 
 @Component
 public class ForumBbsBusiness {
@@ -27,6 +28,15 @@ public class ForumBbsBusiness {
         forumBbs.setAuthorNo(RequestContext.getEmployeeNo());
         forumBbsExtMapper.insertSelective(forumBbs);
         return forumBbs.getId();
+    }
+
+    public int updateOrInsert(ForumBbs forumBbs) {
+        if (Objects.isNull(forumBbs.getId()) || forumBbs.getId() <= 0) {
+            forumBbsExtMapper.insertSelective(forumBbs);
+            return forumBbs.getId();
+        } else {
+            return forumBbsExtMapper.updateByPrimaryKeySelective(forumBbs);
+        }
     }
 
     public List<ForumBbsExtension> queryPosts(PostsCategoryEnums postsType, String words, Integer pageSize, Integer currentPage) {

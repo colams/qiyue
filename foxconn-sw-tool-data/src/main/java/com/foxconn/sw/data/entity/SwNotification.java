@@ -11,6 +11,8 @@ public class SwNotification {
 
     private String receiver;
 
+    private Integer status;
+
     private LocalDateTime createTime;
 
     private LocalDateTime datetimeLastchange;
@@ -65,6 +67,19 @@ public class SwNotification {
 
     public void setReceiver(String receiver) {
         this.receiver = receiver == null ? null : receiver.trim();
+    }
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public SwNotification withStatus(Integer status) {
+        this.setStatus(status);
+        return this;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
     }
 
     public LocalDateTime getCreateTime() {

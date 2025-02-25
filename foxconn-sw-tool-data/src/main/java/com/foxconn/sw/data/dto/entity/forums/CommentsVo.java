@@ -15,6 +15,7 @@ public class CommentsVo {
     private String createTime;
     private Boolean canDel;
     private Boolean isRead;
+    private Long subUnReadCount;
 
     private List<CommentsVo> replies;
 
@@ -88,6 +89,14 @@ public class CommentsVo {
 
     public void setRead(Boolean read) {
         isRead = read;
+    }
+
+    public Long getSubUnReadCount() {
+        return subUnReadCount;
+    }
+
+    public void setSubUnReadCount(Long subUnReadCount) {
+        this.subUnReadCount = subUnReadCount;
     }
 
     public List<CommentsVo> getReplies() {

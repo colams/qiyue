@@ -24,7 +24,7 @@ public class SearchDocParams {
 
 
     private String level;
-    private String category;
+    private String view;
     private Integer canDownload;
     private String expireDate;
 
@@ -151,12 +151,12 @@ public class SearchDocParams {
         this.level = level;
     }
 
-    public String getCategory() {
-        return category;
+    public String getView() {
+        return view;
     }
 
-    public void setCategory(String category) {
-        this.category = category;
+    public void setView(String view) {
+        this.view = view;
     }
 
     public Integer getCanDownload() {
