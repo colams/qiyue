@@ -90,4 +90,13 @@ public class ScheduleController {
         Boolean result = setStationedPlaceProcessor.setStationedPlace(request.getData());
         return ResponseEntity.ok(ResponseUtils.success(result, request.getTraceId()));
     }
+
+    @Operation(summary = "获取为常驻地", tags = "schedule")
+    @ApiResponse(responseCode = "0", description = "成功码")
+    @PostMapping("/getStationedPlace")
+    public ResponseEntity getStationedPlace(@Valid @RequestBody Request request) {
+        String result = setStationedPlaceProcessor.getStationedPlace();
+        return ResponseEntity.ok(ResponseUtils.success(result, request.getTraceId()));
+    }
+
 }

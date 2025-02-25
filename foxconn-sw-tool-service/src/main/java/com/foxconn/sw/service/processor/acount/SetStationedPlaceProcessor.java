@@ -3,6 +3,7 @@ package com.foxconn.sw.service.processor.acount;
 import com.foxconn.sw.business.system.EmployeeBusiness;
 import com.foxconn.sw.data.context.RequestContext;
 import com.foxconn.sw.data.dto.entity.universal.StringParams;
+import com.foxconn.sw.data.entity.SwEmployee;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -16,4 +17,12 @@ public class SetStationedPlaceProcessor {
     public Boolean setStationedPlace(StringParams data) {
         return employeeBusiness.setStationedPlace(data.getParams(), RequestContext.getEmployeeNo());
     }
+
+
+    public String getStationedPlace() {
+        SwEmployee ee = employeeBusiness.selectEmployeeByENo(RequestContext.getEmployeeNo());
+        return ee.getStationedPlace();
+
+    }
+
 }
