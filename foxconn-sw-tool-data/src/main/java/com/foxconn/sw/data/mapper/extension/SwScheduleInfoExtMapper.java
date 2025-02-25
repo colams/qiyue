@@ -15,8 +15,8 @@ public interface SwScheduleInfoExtMapper extends SwScheduleInfoMapper {
             "select *",
             "from sw_schedule_info ",
             "where employee_no = #{employeeNo,jdbcType=VARCHAR} ",
-            "  and start_date &gt;= #{startOfMonth,jdbcType=VARCHAR} ",
-            "  and end_date &lt;= #{endOfMonth,jdbcType=VARCHAR}",
+            "  and date &gt;= #{startOfMonth,jdbcType=VARCHAR} ",
+            "  and date &lt;= #{endOfMonth,jdbcType=VARCHAR}",
             "</script>"
     })
     List<SwScheduleInfo> getScheduleInfos(String employeeNo, String startOfMonth, String endOfMonth);

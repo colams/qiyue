@@ -27,7 +27,7 @@ public class CreateScheduleProcessor {
             LocalDate startDay = LocalDateExtUtils.toLocalDate(e.getStartDate());
             long daysBetween = DateTimeUtils.getBetweenDay(e.getStartDate(), e.getEndDate());
             int i = 0;
-            while (i++ <= daysBetween) {
+            while (i <= daysBetween) {
                 SwScheduleInfo scheduleInfo = new SwScheduleInfo();
                 scheduleInfo.setPlace(data.getPlace());
                 scheduleInfo.setEmployeeNo(RequestContext.getEmployeeNo());
@@ -35,6 +35,7 @@ public class CreateScheduleProcessor {
                 scheduleInfo.setType(e.getScheduleType().name());
                 scheduleInfo.setDate(LocalDateExtUtils.toString(startDay.plusDays(i)));
                 scheduleInfoList.add(scheduleInfo);
+                i++;
             }
         });
 
