@@ -20,10 +20,7 @@ public class SwScheduleInfoBusiness {
     @Autowired
     SqlSessionFactory sqlSessionFactory;
 
-    public List<SwScheduleInfo> getScheduleInfos(String employeeNo, Integer year, Integer month) {
-        YearMonth yearMonth = YearMonth.of(year, month);
-        String endOfMonth = LocalDateExtUtils.toString(yearMonth.atEndOfMonth());
-        String startOfMonth = LocalDateExtUtils.toString(yearMonth.atDay(1));
+    public List<SwScheduleInfo> getScheduleInfos(String employeeNo, String startOfMonth, String endOfMonth) {
         return scheduleInfoExtMapper.getScheduleInfos(employeeNo, startOfMonth, endOfMonth);
     }
 
