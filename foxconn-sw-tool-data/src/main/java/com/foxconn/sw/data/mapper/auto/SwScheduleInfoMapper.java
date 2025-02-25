@@ -10,12 +10,10 @@ import org.apache.ibatis.annotations.SelectKey;
 public interface SwScheduleInfoMapper {
     @Insert({
         "insert into sw_schedule_info (type, employee_no, ",
-        "place, start_date, ",
-        "end_date, is_delete, ",
+        "place, date, is_delete, ",
         "create_time, datetime_lastchange)",
         "values (#{type,jdbcType=VARCHAR}, #{employeeNo,jdbcType=VARCHAR}, ",
-        "#{place,jdbcType=VARCHAR}, #{startDate,jdbcType=VARCHAR}, ",
-        "#{endDate,jdbcType=VARCHAR}, #{isDelete,jdbcType=INTEGER}, ",
+        "#{place,jdbcType=VARCHAR}, #{date,jdbcType=VARCHAR}, #{isDelete,jdbcType=INTEGER}, ",
         "#{createTime,jdbcType=TIMESTAMP}, #{datetimeLastchange,jdbcType=TIMESTAMP})"
     })
     @SelectKey(statement="SELECT LAST_INSERT_ID()", keyProperty="id", before=false, resultType=Long.class)

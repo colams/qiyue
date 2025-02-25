@@ -46,8 +46,8 @@ public class ScheduleController {
     @ApiResponse(responseCode = "0", description = "成功码")
     @PostMapping("/createSchedule")
     public ResponseEntity createSchedule(@Valid @RequestBody Request<CreateScheduleParams> request) {
-        Long scheduleId = createScheduleProcessor.createSchedule(request.getData());
-        return ResponseEntity.ok(ResponseUtils.success(scheduleId, request.getTraceId()));
+        Boolean result = createScheduleProcessor.createSchedule(request.getData());
+        return ResponseEntity.ok(ResponseUtils.success(result, request.getTraceId()));
     }
 
     @Operation(summary = "我的行程列表", tags = "schedule")

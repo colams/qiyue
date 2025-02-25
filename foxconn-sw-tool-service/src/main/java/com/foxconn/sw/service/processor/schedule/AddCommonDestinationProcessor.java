@@ -1,9 +1,7 @@
 package com.foxconn.sw.service.processor.schedule;
 
 import com.foxconn.sw.business.SwConfigDicBusiness;
-import com.foxconn.sw.common.utils
-
-        .JsonUtils;
+import com.foxconn.sw.common.utils.JsonUtils;
 import com.foxconn.sw.data.dto.entity.universal.StringParams;
 import com.foxconn.sw.data.entity.SwConfigDic;
 import org.apache.commons.lang3.StringUtils;
@@ -30,8 +28,11 @@ public class AddCommonDestinationProcessor {
         }
 
         List<String> value = JsonUtils.deserialize(strValue, List.class, String.class);
-        value.add(data.getParams());
+        if (value.contains(data.getParams())) {
+            return false;
+        }
 
+        value.add(data.getParams());
         SwConfigDic updateDic = new SwConfigDic();
         updateDic.setId(configDic.getId());
         updateDic.setItemValue(JsonUtils.serializeList(value));

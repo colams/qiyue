@@ -21,12 +21,8 @@ public class SwScheduleInfoSqlProvider {
             sql.VALUES("place", "#{place,jdbcType=VARCHAR}");
         }
         
-        if (record.getStartDate() != null) {
-            sql.VALUES("start_date", "#{startDate,jdbcType=VARCHAR}");
-        }
-        
-        if (record.getEndDate() != null) {
-            sql.VALUES("end_date", "#{endDate,jdbcType=VARCHAR}");
+        if (record.getDate() != null) {
+            sql.VALUES("date", "#{date,jdbcType=VARCHAR}");
         }
         
         if (record.getIsDelete() != null) {

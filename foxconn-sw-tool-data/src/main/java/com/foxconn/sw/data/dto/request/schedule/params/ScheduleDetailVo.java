@@ -2,6 +2,7 @@ package com.foxconn.sw.data.dto.request.schedule.params;
 
 import com.foxconn.sw.data.dto.enums.ScheduleTypeEnums;
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.NotNull;
 
 public class ScheduleDetailVo {
 
@@ -11,7 +12,9 @@ public class ScheduleDetailVo {
             "    OfficialHoliday(\"法定假日\"),\n" +
             "    MovingDay(\"移動日\"),\n")
     private ScheduleTypeEnums scheduleType;
+    @NotNull
     private String startDate;
+    @NotNull
     private String endDate;
 
     public ScheduleTypeEnums getScheduleType() {

@@ -11,9 +11,7 @@ public class SwScheduleInfo {
 
     private String place;
 
-    private String startDate;
-
-    private String endDate;
+    private String date;
 
     private Integer isDelete;
 
@@ -73,30 +71,17 @@ public class SwScheduleInfo {
         this.place = place == null ? null : place.trim();
     }
 
-    public String getStartDate() {
-        return startDate;
+    public String getDate() {
+        return date;
     }
 
-    public SwScheduleInfo withStartDate(String startDate) {
-        this.setStartDate(startDate);
+    public SwScheduleInfo withDate(String date) {
+        this.setDate(date);
         return this;
     }
 
-    public void setStartDate(String startDate) {
-        this.startDate = startDate == null ? null : startDate.trim();
-    }
-
-    public String getEndDate() {
-        return endDate;
-    }
-
-    public SwScheduleInfo withEndDate(String endDate) {
-        this.setEndDate(endDate);
-        return this;
-    }
-
-    public void setEndDate(String endDate) {
-        this.endDate = endDate == null ? null : endDate.trim();
+    public void setDate(String date) {
+        this.date = date == null ? null : date.trim();
     }
 
     public Integer getIsDelete() {

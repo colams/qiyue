@@ -2,8 +2,7 @@ package com.foxconn.sw.data.dto.response.schedule;
 
 public class ScheduleListVo {
 
-    private String startDate;
-    private String endDate;
+    private String date;
     private String destination;
 
     private boolean current;
@@ -12,20 +11,12 @@ public class ScheduleListVo {
      */
     private String type;
 
-    public String getStartDate() {
-        return startDate;
+    public String getDate() {
+        return date;
     }
 
-    public void setStartDate(String startDate) {
-        this.startDate = startDate;
-    }
-
-    public String getEndDate() {
-        return endDate;
-    }
-
-    public void setEndDate(String endDate) {
-        this.endDate = endDate;
+    public void setDate(String date) {
+        this.date = date;
     }
 
     public String getDestination() {
