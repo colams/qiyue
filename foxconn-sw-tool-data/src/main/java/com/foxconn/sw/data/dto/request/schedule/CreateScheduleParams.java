@@ -1,35 +1,13 @@
 package com.foxconn.sw.data.dto.request.schedule;
 
+import com.foxconn.sw.data.dto.request.schedule.params.ScheduleDetailVo;
+
+import java.util.List;
+
 public class CreateScheduleParams {
 
-    private String scheduleType;
-    private String startDate;
-    private String endDate;
     private String place;
-
-    public String getScheduleType() {
-        return scheduleType;
-    }
-
-    public void setScheduleType(String scheduleType) {
-        this.scheduleType = scheduleType;
-    }
-
-    public String getStartDate() {
-        return startDate;
-    }
-
-    public void setStartDate(String startDate) {
-        this.startDate = startDate;
-    }
-
-    public String getEndDate() {
-        return endDate;
-    }
-
-    public void setEndDate(String endDate) {
-        this.endDate = endDate;
-    }
+    private List<ScheduleDetailVo> detailList;
 
     public String getPlace() {
         return place;
@@ -37,5 +15,13 @@ public class CreateScheduleParams {
 
     public void setPlace(String place) {
         this.place = place;
+    }
+
+    public List<ScheduleDetailVo> getDetailList() {
+        return detailList;
+    }
+
+    public void setDetailList(List<ScheduleDetailVo> detailList) {
+        this.detailList = detailList;
     }
 }

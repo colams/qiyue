@@ -7,6 +7,7 @@ import com.foxconn.sw.data.dto.request.schedule.MyScheduleParams;
 import com.foxconn.sw.data.dto.request.schedule.ScheduleListParams;
 import com.foxconn.sw.data.dto.response.schedule.ScheduleListVo;
 import com.foxconn.sw.service.processor.acount.SetStationedPlaceProcessor;
+import com.foxconn.sw.service.processor.schedule.AddCommonDestinationProcessor;
 import com.foxconn.sw.service.processor.schedule.CreateScheduleProcessor;
 import com.foxconn.sw.service.processor.schedule.MyScheduleProcessor;
 import com.foxconn.sw.service.processor.schedule.TeamScheduleProcessor;
@@ -38,6 +39,8 @@ public class ScheduleController {
     QueryConfigDicProcessor queryConfigDicProcessor;
     @Autowired
     SetStationedPlaceProcessor setStationedPlaceProcessor;
+    @Autowired
+    AddCommonDestinationProcessor addCommonDestinationProcessor;
 
     @Operation(summary = "保存行程信息", tags = "schedule")
     @ApiResponse(responseCode = "0", description = "成功码")
@@ -72,6 +75,14 @@ public class ScheduleController {
         return ResponseEntity.ok(ResponseUtils.success(list, request.getTraceId()));
     }
 
+    @Operation(summary = "增加常用地址", tags = "schedule")
+    @ApiResponse(responseCode = "0", description = "成功码")
+    @PostMapping("/addCommonDestination")
+    public ResponseEntity addCommonDestination(@Valid @RequestBody Request<StringParams> request) {
+        Boolean result = addCommonDestinationProcessor.addCommonDestination(request.getData());
+        return ResponseEntity.ok(ResponseUtils.success(result, request.getTraceId()));
+    }
+
     @Operation(summary = "设置为常驻地", tags = "schedule")
     @ApiResponse(responseCode = "0", description = "成功码")
     @PostMapping("/setStationedPlace")
@@ -79,6 +90,4 @@ public class ScheduleController {
         Boolean result = setStationedPlaceProcessor.setStationedPlace(request.getData());
         return ResponseEntity.ok(ResponseUtils.success(result, request.getTraceId()));
     }
-
-
 }
