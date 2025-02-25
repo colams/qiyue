@@ -2,9 +2,10 @@ package com.foxconn.sw.service.schedule;
 
 import com.foxconn.sw.business.SwConfigDicBusiness;
 import com.foxconn.sw.business.message.SwMsgPoolBusiness;
+import com.foxconn.sw.business.oa.SwTaskBusiness;
 import com.foxconn.sw.business.oa.SwTaskEmployeeRelationBusiness;
 import com.foxconn.sw.business.system.EmployeeBusiness;
-import com.foxconn.sw.common.utils.DateTimeUtils;
+import com.foxconn.sw.common.constanst.Constants;
 import com.foxconn.sw.common.utils.JsonUtils;
 import com.foxconn.sw.common.utils.MailUtils;
 import com.foxconn.sw.data.entity.SwConfigDic;
@@ -16,17 +17,13 @@ import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
 
-import static com.foxconn.sw.common.utils.DateTimeUtils.DateTimePattern.yyyyMMddHHmmsssss;
-
 @Component
-public class MsgEvent extends BaseScheduling {
+public class MsgEvent extends CustomSchedulingConfig {
 
     private static final Logger log = LoggerFactory.getLogger(MsgEvent.class);
 
@@ -38,44 +35,72 @@ public class MsgEvent extends BaseScheduling {
     EmployeeBusiness employeeBusiness;
     @Autowired
     SwConfigDicBusiness configDicBusiness;
+    @Autowired
+    SwTaskBusiness taskBusiness;
 
 
-    @Scheduled(cron = "0 * * * * *")
+    @Override
     public void cron() {
-        String times = DateTimeUtils.format(LocalDateTime.now(), yyyyMMddHHmmsssss);
-        log.info(times + "  MsgEvent start ------------");
+        log.info("  {} start ------------", getJobName());
         try {
             List<SwMsgPool> messages = msgPoolBusiness.getMsgPool2Process();
             SwConfigDic configDic = configDicBusiness.queryConfigDic("create.task.msg.send");
-
             boolean isClose = Objects.isNull(configDic) || "0".equalsIgnoreCase(configDic.getItemValue());
             messages.forEach(e -> {
-                log.info("执行了一次：" + JsonUtils.serialize(e));
+                log.info("执行了一次：{}", JsonUtils.serialize(e));
                 if (isClose) {
                     msgPoolBusiness.closeMsg(e);
                 } else {
-                    Integer taskID = e.getObjectId();
-                    List<SwTaskEmployeeRelation> relations = taskEmployeeRelationBusiness.getRelationsByTaskId(taskID);
-                    relations.forEach(relation -> {
-
-                        SwEmployee employee = employeeBusiness.selectEmployeeByENo(relation.getEmployeeNo());
-                        if (StringUtils.isEmpty(employee.getInnerEmail())) {
-                            log.info("邮箱 为空：" + employee.getEmployeeNo());
-                            return;
-                        }
-                        MailUtils.sendTaskNotifyEmail(Lists.newArrayList(employee.getInnerEmail()));
-                    });
+                    processMsg(e);
                 }
             });
         } catch (Exception e) {
             log.error("MsgEvent.cron", e);
         }
-        log.info(times + "  MsgEvent finish ------------");
+        log.info("  {} finish ------------", getJobName());
+    }
+
+    private void processMsg(SwMsgPool msgPool) {
+        Long taskNo = msgPool.getObjectId();
+        List<SwTaskEmployeeRelation> relations = taskEmployeeRelationBusiness.getRelationsByTaskNo(taskNo);
+        relations.forEach(relation -> {
+            SwEmployee employee = employeeBusiness.selectEmployeeByENo(relation.getEmployeeNo());
+            if (StringUtils.isEmpty(employee.getInnerEmail()) || Constants.Hyphen.equalsIgnoreCase(employee.getInnerEmail())) {
+                log.info("邮箱 为空：{}", employee.getEmployeeNo());
+                return;
+            }
+            String subject = getSubject(employee, taskNo);
+            String content = getContent(employee, taskNo);
+            MailUtils.sendHtmlEmail(subject, content, Lists.newArrayList(employee.getInnerEmail()));
+        });
+    }
+
+    private String getCurrentUser(SwEmployee employee) {
+        return String.format("%s/%s", employee.getEmployeeNo(), employee.getName());
+    }
+
+    private String getSubject(SwEmployee employee, Long taskNo) {
+        return String.format("[OA Platform] %s:您有新的工作任務需要處理,任務編號：%s",
+                getCurrentUser(employee),
+                taskNo);
+    }
+
+    private String getContent(SwEmployee employee, Long taskNo) {
+        return String.format("尊敬的 %s OA用戶:\n" +
+                "\n<br/>" +
+                "您有新的工作任務需要處理, 任務編號：%s\n" +
+                "\n<br/>" +
+                "1、您可以<a href='https://rayplusoa.efoxconn.com/'>點擊這裡</a>進入系統完成處理", getCurrentUser(employee), taskNo);
+    }
+
+    @Override
+    String getJobName() {
+        return "MsgEvent";
     }
 
     @Override
     public String getCronTrigger() {
-        return "0/5 * * * * ?";
+        return "0 0/1 * * * *";
     }
 
 }

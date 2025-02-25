@@ -4,8 +4,8 @@ import com.foxconn.sw.business.SwConfigDicBusiness;
 import com.foxconn.sw.business.message.SwMsgPoolBusiness;
 import com.foxconn.sw.business.oa.SwTaskEmployeeRelationBusiness;
 import com.foxconn.sw.business.system.EmployeeBusiness;
+import com.foxconn.sw.common.constanst.Constants;
 import com.foxconn.sw.common.constanst.NumberConstants;
-import com.foxconn.sw.common.utils.DateTimeUtils;
 import com.foxconn.sw.common.utils.MailUtils;
 import com.foxconn.sw.data.entity.SwEmployee;
 import com.google.common.collect.Lists;
@@ -15,14 +15,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static com.foxconn.sw.common.utils.DateTimeUtils.DateTimePattern.yyyyMMddHHmmsssss;
-
 @Component
-public class WorkReportEvent extends BaseScheduling {
+public class WorkReportEvent extends CustomSchedulingConfig {
 
     private static final Logger log = LoggerFactory.getLogger(WorkReportEvent.class);
 
@@ -38,7 +35,6 @@ public class WorkReportEvent extends BaseScheduling {
 
     @Override
     public void cron() {
-        String times = DateTimeUtils.format(LocalDateTime.now(), yyyyMMddHHmmsssss);
         log.info("  WorkReportEvent  ------------  start");
 
         String subject = "[OA Platform] 週報提交提醒";
@@ -49,7 +45,7 @@ public class WorkReportEvent extends BaseScheduling {
             List<String> recipients = employees.stream()
                     .filter(e -> NumberConstants.ZERO.equals(e.getStatus()))
                     .filter(e -> StringUtils.isNotEmpty(e.getInnerEmail()))
-                    .filter(e -> !"-".equalsIgnoreCase(e.getInnerEmail()))
+                    .filter(e -> !Constants.Hyphen.equalsIgnoreCase(e.getInnerEmail()))
                     .map(SwEmployee::getInnerEmail)
                     .collect(Collectors.toList());
 
@@ -63,10 +59,15 @@ public class WorkReportEvent extends BaseScheduling {
     }
 
     @Override
+    String getJobName() {
+        return "WorkReportEvent";
+    }
+
+    @Override
     public String getCronTrigger() {
         String cronExpression = configDicBusiness.getConfigDicValue("work.report.cron");
         if (StringUtils.isEmpty(cronExpression)) {
-            return "* * 8 * * 5";
+            return "0 0 8 * * 5";
         }
         return cronExpression;
     }

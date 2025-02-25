@@ -11,6 +11,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 @Component
 public class SwConfigDicBusiness {
@@ -61,10 +62,7 @@ public class SwConfigDicBusiness {
      */
     public String getConfigDicValue(String configItem) {
         SwConfigDic configDic = queryConfigDic(configItem);
-        if (Objects.isNull(configDic) || StringUtils.isEmpty(configDic.getItemValue())) {
-            return null;
-        }
-        return configDic.getItemValue();
+        return Optional.ofNullable(configDic).map(SwConfigDic::getItemValue).orElse("");
     }
 
 }

@@ -1,8 +1,8 @@
 package com.foxconn.sw.business.oa;
 
 import com.foxconn.sw.common.constanst.NumberConstants;
-import com.foxconn.sw.data.context.RequestContext;
 import com.foxconn.sw.data.constants.enums.TaskRoleFlagEnums;
+import com.foxconn.sw.data.context.RequestContext;
 import com.foxconn.sw.data.entity.SwTaskEmployeeRelation;
 import com.foxconn.sw.data.entity.SwTaskEmployeeRelationExample;
 import com.foxconn.sw.data.mapper.extension.oa.SwTaskEmployeeRelationExtensionMapper;
@@ -191,6 +191,12 @@ public class SwTaskEmployeeRelationBusiness {
         List<SwTaskEmployeeRelation> relations = employeeRelationExtensionMapper.selectByExample(example);
         return Optional.ofNullable(relations).orElse(Lists.newArrayList());
     }
+
+    public List<SwTaskEmployeeRelation> getRelationsByTaskNo(Long taskNo) {
+        List<SwTaskEmployeeRelation> relations = employeeRelationExtensionMapper.selectByTaskNo(taskNo);
+        return Optional.ofNullable(relations).orElse(Lists.newArrayList());
+    }
+
 
     public List<SwTaskEmployeeRelation> getRelationsByTaskIdAndRole(Integer taskID, TaskRoleFlagEnums taskRole) {
         List<SwTaskEmployeeRelation> relations = getRelationsByTaskId(taskID);

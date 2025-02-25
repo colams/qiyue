@@ -99,7 +99,7 @@ public class CreateTaskProcessor {
 
         if (taskID > 0) {
             taskContentHistoryBusiness.insertHistory(progressId, taskID, "", task.getDescription());
-            msgPoolBusiness.addMsg(MsgTypeEnums.CreateTask, taskID);
+            msgPoolBusiness.addMsg(MsgTypeEnums.CreateTask, task.getTaskNo());
         }
 
         return taskID;

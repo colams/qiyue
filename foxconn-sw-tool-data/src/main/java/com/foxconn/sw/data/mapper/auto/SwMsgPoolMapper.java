@@ -16,7 +16,7 @@ public interface SwMsgPoolMapper {
         "insert into sw_msg_pool (msg_type, object_id, ",
         "status, create_time, ",
         "datetime_lastchange)",
-        "values (#{msgType,jdbcType=VARCHAR}, #{objectId,jdbcType=INTEGER}, ",
+        "values (#{msgType,jdbcType=VARCHAR}, #{objectId,jdbcType=BIGINT}, ",
         "#{status,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, ",
         "#{datetimeLastchange,jdbcType=TIMESTAMP})"
     })
@@ -36,7 +36,7 @@ public interface SwMsgPoolMapper {
     @Results({
         @Result(column="id", property="id", jdbcType=JdbcType.INTEGER, id=true),
         @Result(column="msg_type", property="msgType", jdbcType=JdbcType.VARCHAR),
-        @Result(column="object_id", property="objectId", jdbcType=JdbcType.INTEGER),
+        @Result(column="object_id", property="objectId", jdbcType=JdbcType.BIGINT),
         @Result(column="status", property="status", jdbcType=JdbcType.INTEGER),
         @Result(column="create_time", property="createTime", jdbcType=JdbcType.TIMESTAMP),
         @Result(column="datetime_lastchange", property="datetimeLastchange", jdbcType=JdbcType.TIMESTAMP)

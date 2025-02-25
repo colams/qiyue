@@ -59,4 +59,23 @@ public interface SwTaskEmployeeRelationExtensionMapper extends SwTaskEmployeeRel
             "</script>"
     })
     int deleteWatchRelation(@Param("ids") List<Integer> ids);
+
+
+    @Select({
+            "select r.*",
+            "from sw_task_employee_relation r",
+            "inner join sw_task s on r.task_id=s.id",
+            "where r.is_delete=0 and s.task_no=#{taskNo,jdbcType=BIGINT}"
+    })
+    @Results({
+            @Result(column = "id", property = "id", jdbcType = JdbcType.INTEGER, id = true),
+            @Result(column = "task_id", property = "taskId", jdbcType = JdbcType.INTEGER),
+            @Result(column = "employee_no", property = "employeeNo", jdbcType = JdbcType.VARCHAR),
+            @Result(column = "prev_id", property = "prevId", jdbcType = JdbcType.INTEGER),
+            @Result(column = "role_flag", property = "roleFlag", jdbcType = JdbcType.INTEGER),
+            @Result(column = "is_delete", property = "isDelete", jdbcType = JdbcType.INTEGER),
+            @Result(column = "create_time", property = "createTime", jdbcType = JdbcType.TIMESTAMP),
+            @Result(column = "datetime_lastchange", property = "datetimeLastchange", jdbcType = JdbcType.TIMESTAMP)
+    })
+    List<SwTaskEmployeeRelation> selectByTaskNo(Long taskNo);
 }
