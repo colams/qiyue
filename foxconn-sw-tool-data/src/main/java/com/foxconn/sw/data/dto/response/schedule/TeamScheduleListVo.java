@@ -1,9 +1,10 @@
 package com.foxconn.sw.data.dto.response.schedule;
 
-public class ScheduleListVo {
+public class TeamScheduleListVo {
 
     private String date;
     private String destination;
+    private String place;
 
     private boolean current;
     /**
@@ -11,6 +12,7 @@ public class ScheduleListVo {
      */
     private String type;
     private Integer weekInfo;
+    private String name;
 
     public String getDate() {
         return date;
@@ -26,6 +28,14 @@ public class ScheduleListVo {
 
     public void setDestination(String destination) {
         this.destination = destination;
+    }
+
+    public String getPlace() {
+        return place;
+    }
+
+    public void setPlace(String place) {
+        this.place = place;
     }
 
     public boolean isCurrent() {
@@ -50,5 +60,13 @@ public class ScheduleListVo {
 
     public void setWeekInfo(Integer weekInfo) {
         this.weekInfo = weekInfo;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }

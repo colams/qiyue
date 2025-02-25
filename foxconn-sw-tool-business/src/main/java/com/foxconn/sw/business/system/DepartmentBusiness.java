@@ -1,7 +1,7 @@
 package com.foxconn.sw.business.system;
 
-import com.foxconn.sw.data.context.RequestContext;
 import com.foxconn.sw.common.utils.IntegerExtUtils;
+import com.foxconn.sw.data.context.RequestContext;
 import com.foxconn.sw.data.dto.entity.system.DepartmentVo;
 import com.foxconn.sw.data.entity.SwDepartment;
 import com.foxconn.sw.data.entity.SwDepartmentExample;
@@ -253,5 +253,51 @@ public class DepartmentBusiness {
         criteria.andManagerNoEqualTo(RequestContext.getEmployeeNo());
         List<SwDepartment> departments = departmentExtensionMapper.selectByExample(example);
         return CollectionUtils.isEmpty(departments);
+    }
+
+    public List<Integer> getAllSubDepartID(String employeeNo, Integer departmentId) {
+        List<SwDepartment> departmentList = getDepartment();
+        long sum = departmentList.stream()
+                .filter(e -> e.getId().equals(departmentId) && employeeNo.equalsIgnoreCase(e.getManagerNo()))
+                .count();
+        if (sum <= 0) {
+            return Lists.newArrayList();
+        }
+        return getDescendantsRecursive(departmentList, departmentId);
+    }
+
+    private static List<Integer> getDescendantsRecursive(List<SwDepartment> list, int targetId) {
+        // 1. 构建 parentID 到子节点的映射表
+        Map<Integer, List<SwDepartment>> parentMap = list.stream()
+                .collect(Collectors.groupingBy(SwDepartment::getParentId));
+
+        // 2. 找到目标节点
+        Optional<SwDepartment> target = list.stream()
+                .filter(t -> t.getId().equals(targetId))
+                .findFirst();
+
+        if (!target.isPresent()) return Collections.emptyList();
+
+        // 3. 递归收集子孙节点
+        Set<Integer> visited = new HashSet<>();
+        List<SwDepartment> result = new ArrayList<>();
+        result.add(target.get());
+        visited.add(targetId);
+
+        // 递归函数
+        collectChildren(targetId, parentMap, result, visited);
+        return result.stream().map(SwDepartment::getId).collect(Collectors.toList());
+    }
+
+    private static void collectChildren(int parentId, Map<Integer, List<SwDepartment>> parentMap,
+                                        List<SwDepartment> result, Set<Integer> visited) {
+        List<SwDepartment> children = parentMap.getOrDefault(parentId, Collections.emptyList());
+        for (SwDepartment child : children) {
+            if (!visited.contains(child.getId())) {
+                visited.add(child.getId());
+                result.add(child);
+                collectChildren(child.getId(), parentMap, result, visited);
+            }
+        }
     }
 }

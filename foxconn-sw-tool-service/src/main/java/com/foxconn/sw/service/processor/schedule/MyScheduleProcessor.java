@@ -30,7 +30,7 @@ public class MyScheduleProcessor {
         YearMonth yearMonth = YearMonth.of(data.getYear(), data.getMonth());
         String endOfMonth = LocalDateExtUtils.toString(yearMonth.atEndOfMonth());
         String startOfMonth = LocalDateExtUtils.toString(yearMonth.atDay(1));
-        List<SwScheduleInfo> scheduleInfos = scheduleInfoBusiness.getScheduleInfos(employeeNo, startOfMonth, endOfMonth);
+        List<SwScheduleInfo> scheduleInfos = scheduleInfoBusiness.getMyScheduleInfos(employeeNo, startOfMonth, endOfMonth);
 
         List<ScheduleListVo> scheduleListVos = scheduleInfos.stream().map(e -> {
             ScheduleListVo vo = new ScheduleListVo();

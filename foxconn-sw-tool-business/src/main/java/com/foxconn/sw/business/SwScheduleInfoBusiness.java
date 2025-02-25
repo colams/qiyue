@@ -1,6 +1,5 @@
 package com.foxconn.sw.business;
 
-import com.foxconn.sw.common.utils.LocalDateExtUtils;
 import com.foxconn.sw.data.entity.SwScheduleInfo;
 import com.foxconn.sw.data.mapper.extension.SwScheduleInfoExtMapper;
 import org.apache.ibatis.session.ExecutorType;
@@ -9,7 +8,6 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.time.YearMonth;
 import java.util.List;
 
 @Component
@@ -20,8 +18,8 @@ public class SwScheduleInfoBusiness {
     @Autowired
     SqlSessionFactory sqlSessionFactory;
 
-    public List<SwScheduleInfo> getScheduleInfos(String employeeNo, String startOfMonth, String endOfMonth) {
-        return scheduleInfoExtMapper.getScheduleInfos(employeeNo, startOfMonth, endOfMonth);
+    public List<SwScheduleInfo> getMyScheduleInfos(String employeeNo, String startOfMonth, String endOfMonth) {
+        return scheduleInfoExtMapper.getMyScheduleInfos(employeeNo, startOfMonth, endOfMonth);
     }
 
     public boolean batchInsert(List<SwScheduleInfo> scheduleInfoList) {
@@ -35,4 +33,7 @@ public class SwScheduleInfoBusiness {
         return true;
     }
 
+    public List<SwScheduleInfo> getTeamScheduleInfos(List<String> employeeNos, String startDate, String endDate) {
+        return scheduleInfoExtMapper.getTeamScheduleInfos(employeeNos, startDate, endDate);
+    }
 }

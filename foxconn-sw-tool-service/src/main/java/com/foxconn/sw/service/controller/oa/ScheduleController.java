@@ -6,6 +6,7 @@ import com.foxconn.sw.data.dto.request.schedule.CreateScheduleParams;
 import com.foxconn.sw.data.dto.request.schedule.MyScheduleParams;
 import com.foxconn.sw.data.dto.request.schedule.ScheduleListParams;
 import com.foxconn.sw.data.dto.response.schedule.ScheduleListVo;
+import com.foxconn.sw.data.dto.response.schedule.TeamScheduleListVo;
 import com.foxconn.sw.service.processor.acount.SetStationedPlaceProcessor;
 import com.foxconn.sw.service.processor.schedule.AddCommonDestinationProcessor;
 import com.foxconn.sw.service.processor.schedule.CreateScheduleProcessor;
@@ -62,7 +63,7 @@ public class ScheduleController {
     @ApiResponse(responseCode = "0", description = "成功码")
     @PostMapping("/teamSchedule")
     public ResponseEntity teamSchedule(@Valid @RequestBody Request<ScheduleListParams> request) {
-        List<ScheduleListVo> list = teamScheduleProcessor.teamSchedule(request.getData());
+        List<TeamScheduleListVo> list = teamScheduleProcessor.teamSchedule(request.getData());
         return ResponseEntity.ok(ResponseUtils.success(list, request.getTraceId()));
     }
 

@@ -19,5 +19,18 @@ public interface SwScheduleInfoExtMapper extends SwScheduleInfoMapper {
             "  and date &lt;= #{endOfMonth,jdbcType=VARCHAR}",
             "</script>"
     })
-    List<SwScheduleInfo> getScheduleInfos(String employeeNo, String startOfMonth, String endOfMonth);
+    List<SwScheduleInfo> getMyScheduleInfos(String employeeNo, String startOfMonth, String endOfMonth);
+
+    @Select({"<script>",
+            "select *",
+            "from sw_schedule_info ",
+            "where date &gt;= #{startOfMonth,jdbcType=VARCHAR} ",
+            "  and date &lt;= #{endOfMonth,jdbcType=VARCHAR}",
+            "and employee_no in ",
+            "<foreach collection='departmentIds' item='id' open='(' separator=',' close=')'>",
+            "#{id,jdbcType=VARCHAR}",
+            "</foreach>",
+            "</script>"
+    })
+    List<SwScheduleInfo> getTeamScheduleInfos(List<String> employeeNos, String startDate, String endDate);
 }
