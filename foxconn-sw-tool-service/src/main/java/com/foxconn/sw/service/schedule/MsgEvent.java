@@ -100,7 +100,10 @@ public class MsgEvent extends CustomSchedulingConfig {
 
     @Override
     public String getCronTrigger() {
-        return "0 0/1 * * * *";
+        String cronExpression = configDicBusiness.getConfigDicValue("msg.event.cron");
+        if (StringUtils.isEmpty(cronExpression)) {
+            return "0 0/5 * * * *";
+        }
+        return cronExpression;
     }
-
 }
