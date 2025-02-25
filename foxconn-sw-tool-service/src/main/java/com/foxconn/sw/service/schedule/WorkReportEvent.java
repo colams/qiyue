@@ -42,7 +42,7 @@ public class WorkReportEvent extends BaseScheduling {
         log.info("  WorkReportEvent  ------------  start");
 
         String subject = "[OA Platform] 週報提交提醒";
-        String content = "【週報提醒】請按時提交本週工作總結及下週計劃\n 1、您可以<a>點擊這裡</a>進入系統完成處理";
+        String content = "【週報提醒】請按時提交本週工作總結及下週計劃\n\n<br/> 1、您可以<a href='https://rayplusoa.efoxconn.com/'>點擊這裡</a>進入系統完成處理";
 
         try {
             List<SwEmployee> employees = employeeBusiness.getEmployeeList();
