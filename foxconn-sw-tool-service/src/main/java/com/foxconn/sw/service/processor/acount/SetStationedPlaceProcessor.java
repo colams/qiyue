@@ -22,7 +22,6 @@ public class SetStationedPlaceProcessor {
     public String getStationedPlace() {
         SwEmployee ee = employeeBusiness.selectEmployeeByENo(RequestContext.getEmployeeNo());
         return ee.getStationedPlace();
-
     }
 
 }
