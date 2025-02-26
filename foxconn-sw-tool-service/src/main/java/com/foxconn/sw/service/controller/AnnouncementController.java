@@ -66,7 +66,7 @@ public class AnnouncementController {
         boolean result = saveReadStatusProcessor.saveReadStatus(ModuleEnums.Announcement, request.getData());
         return ResponseUtils.success(result, request.getTraceId());
     }
-    
+
     @Permission
     @Operation(summary = "所有更新信息列表", tags = TagsConstants.ANNOUNCEMENT)
     @ApiResponse(responseCode = "0", description = "成功码")
