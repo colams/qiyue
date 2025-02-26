@@ -34,7 +34,7 @@ public interface SwEmployeeExtensionMapper extends SwEmployeeMapper {
 
     @Update({
             "update sw_employee",
-            "set stationedPlace = #{params,jdbcType=VARCHAR}",
+            "set stationed_place = #{params,jdbcType=VARCHAR}",
             "where employee_no = #{employeeNo,jdbcType=INTEGER}"
     })
     Integer setStationedPlace(String params, String employeeNo);
