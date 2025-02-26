@@ -3,6 +3,7 @@ package com.foxconn.sw.data.mapper.extension;
 import com.foxconn.sw.data.entity.SwScheduleInfo;
 import com.foxconn.sw.data.mapper.auto.SwScheduleInfoMapper;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -33,4 +34,12 @@ public interface SwScheduleInfoExtMapper extends SwScheduleInfoMapper {
             "</script>"
     })
     List<SwScheduleInfo> getTeamScheduleInfos(List<String> employeeNos, String startDate, String endDate);
+
+    @Update({
+            "update sw_schedule_info",
+            "set place = #{place,jdbcType=VARCHAR}",
+            " ,type = #{type,jdbcType=VARCHAR} ",
+            "where id = #{id,jdbcType=BIGINT}"
+    })
+    int updateScheduleInfo(SwScheduleInfo scheduleInfo);
 }
