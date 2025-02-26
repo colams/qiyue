@@ -28,8 +28,8 @@ public interface SwScheduleInfoExtMapper extends SwScheduleInfoMapper {
             "where date &gt;= #{startOfMonth,jdbcType=VARCHAR} ",
             "  and date &lt;= #{endOfMonth,jdbcType=VARCHAR}",
             "and employee_no in ",
-            "<foreach collection='departmentIds' item='id' open='(' separator=',' close=')'>",
-            "#{id,jdbcType=VARCHAR}",
+            "<foreach collection='employeeNos' item='eno' open='(' separator=',' close=')'>",
+            "#{eno,jdbcType=VARCHAR}",
             "</foreach>",
             "</script>"
     })
