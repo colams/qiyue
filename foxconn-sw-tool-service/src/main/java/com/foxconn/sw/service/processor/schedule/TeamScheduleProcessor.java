@@ -4,7 +4,6 @@ import com.foxconn.sw.business.SwScheduleInfoBusiness;
 import com.foxconn.sw.business.system.EmployeeBusiness;
 import com.foxconn.sw.common.utils.DateTimeUtils;
 import com.foxconn.sw.common.utils.LocalDateExtUtils;
-import com.foxconn.sw.common.utils.WeekUtils;
 import com.foxconn.sw.data.context.RequestContext;
 import com.foxconn.sw.data.dto.enums.ScheduleTypeEnums;
 import com.foxconn.sw.data.dto.request.schedule.ScheduleListParams;
@@ -17,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
+import java.time.temporal.WeekFields;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
@@ -54,7 +54,9 @@ public class TeamScheduleProcessor {
                         .findFirst();
 
                 TeamScheduleListVo vo = new TeamScheduleListVo();
-                vo.setWeekInfo(WeekUtils.getWeekNumberOfYear(current));
+                // 定义周的计算规则（示例使用ISO标准：每周从周一开始，第一周至少有4天在当年）
+                WeekFields weekFields = WeekFields.ISO;
+                vo.setWeekInfo(current.get(weekFields.weekOfWeekBasedYear()));
                 vo.setName(employee.getName());
 
                 vo.setDate(currentDate);

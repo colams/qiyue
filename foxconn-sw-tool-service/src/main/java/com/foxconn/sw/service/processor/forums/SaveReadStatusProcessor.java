@@ -14,12 +14,13 @@ public class SaveReadStatusProcessor {
     @Autowired
     SwReadStatusBusiness readStatusBusiness;
 
-    public boolean saveReadStatus(IntegerParams data) {
+    public boolean saveReadStatus(ModuleEnums moduleEnum, IntegerParams data) {
         SwReadStatus readStatus = new SwReadStatus();
-        readStatus.setModuleType(ModuleEnums.Forum.name());
+        readStatus.setModuleType(moduleEnum.name());
         readStatus.setForeignId(data.getParams());
         readStatus.setEmployeeNo(RequestContext.getEmployeeNo());
         readStatus.setIsRead(NumberConstants.ONE);
         return readStatusBusiness.updateOrInsert(readStatus) > 0;
     }
+
 }

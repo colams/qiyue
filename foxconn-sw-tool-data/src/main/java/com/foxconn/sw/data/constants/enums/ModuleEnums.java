@@ -5,6 +5,7 @@ public enum ModuleEnums {
     Forum(1, "论坛,forum_bbs_comment"),
     Task(2, "工作任務,sw_task"),
     Notification(3, "通知消息,sw_notification"),
+    Announcement(4, "公告消息,announcement"),
 
     ;
 
