@@ -4,6 +4,7 @@ import com.foxconn.sw.data.constants.TagsConstants;
 import com.foxconn.sw.data.dto.Request;
 import com.foxconn.sw.data.dto.Response;
 import com.foxconn.sw.data.dto.request.account.CreateAccountParams;
+import com.foxconn.sw.data.dto.request.account.SetLeaveParams;
 import com.foxconn.sw.data.dto.response.user.SubordinateVo;
 import com.foxconn.sw.service.aspects.Permission;
 import com.foxconn.sw.service.processor.acount.EmployeeManagerProcessor;
@@ -43,6 +44,14 @@ public class SubordinateController {
     @PostMapping("/create")
     public Response<Boolean> create(@Valid @RequestBody Request<CreateAccountParams> request) {
         Boolean result = employeeManagerProcessor.create(request.getData());
+        return ResponseUtils.success(result, request.getTraceId());
+    }
+
+    @Operation(summary = "新增员工信息", tags = TagsConstants.ACCOUNT)
+    @ApiResponse(responseCode = "0", description = "成功码")
+    @PostMapping("/leave")
+    public Response<Boolean> setLeave(@Valid @RequestBody Request<SetLeaveParams> request) {
+        Boolean result = employeeManagerProcessor.setLeave(request.getData());
         return ResponseUtils.success(result, request.getTraceId());
     }
 }
