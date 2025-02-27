@@ -4,6 +4,7 @@ public class BbsDetailVo {
 
     private Integer id;
     private String title;
+    private String originTitle;
 
     private Integer collectionStatus;
 
@@ -27,6 +28,14 @@ public class BbsDetailVo {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public String getOriginTitle() {
+        return originTitle;
+    }
+
+    public void setOriginTitle(String originTitle) {
+        this.originTitle = originTitle;
     }
 
     public Integer getCollectionStatus() {

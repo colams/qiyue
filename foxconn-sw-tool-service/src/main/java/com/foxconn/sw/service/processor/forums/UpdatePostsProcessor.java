@@ -96,7 +96,7 @@ public class UpdatePostsProcessor {
     }
 
     public boolean updateTitle(UpdateTitleParams data) {
-        if (StringUtils.isNotEmpty(data.getTitle())) {
+        if (StringUtils.isEmpty(data.getTitle())) {
             return false;
         }
 
