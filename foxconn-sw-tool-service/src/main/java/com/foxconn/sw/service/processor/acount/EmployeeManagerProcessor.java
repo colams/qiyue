@@ -44,6 +44,8 @@ public class EmployeeManagerProcessor {
         employee.setInnerEmail(data.getInnerEmail());
         employee.setEmployeeNo(data.getEmployeeNo());
         employee.setIsComplete(NumberConstants.ZERO);
+        employee.setStatus(data.getStatus());
+        employee.setIdentityOfCadre(data.getIdentityOfCadre());
         return employeeBusiness.insertOrUpdate(employee) > 0;
     }
 

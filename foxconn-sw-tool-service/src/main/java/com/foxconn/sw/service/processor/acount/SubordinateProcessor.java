@@ -2,9 +2,8 @@ package com.foxconn.sw.service.processor.acount;
 
 import com.foxconn.sw.business.system.DepartmentBusiness;
 import com.foxconn.sw.business.system.EmployeeBusiness;
-import com.foxconn.sw.common.utils.PinyinUtils;
 import com.foxconn.sw.data.context.RequestContext;
-import com.foxconn.sw.data.dto.entity.acount.EmployeeVo;
+import com.foxconn.sw.data.dto.response.user.SubordinateVo;
 import com.foxconn.sw.data.entity.SwDepartment;
 import com.foxconn.sw.data.entity.SwEmployee;
 import com.google.common.collect.Lists;
@@ -24,18 +23,18 @@ public class SubordinateProcessor {
     @Autowired
     DepartmentBusiness departmentBusiness;
 
-    public List<EmployeeVo> subordinateList() {
+    public List<SubordinateVo> subordinateList() {
         List<SwEmployee> ee = getSubordinateList();
         return ee.stream().map(e -> {
-            EmployeeVo vo = new EmployeeVo();
+            SubordinateVo vo = new SubordinateVo();
             vo.setId(e.getId());
             vo.setName(e.getName());
             vo.setEmployeeNo(e.getEmployeeNo());
-            vo.setPinyin(PinyinUtils.toPinyin(e.getName()));
             vo.setInnerEmail(e.getInnerEmail());
             vo.setDepartmentId(e.getDepartmentId());
             vo.setDepartments(getDepartmentList(e.getDepartmentId()));
             vo.setStatus(e.getStatus());
+            vo.setIdentityOfCadre(e.getIdentityOfCadre());
             return vo;
         }).collect(Collectors.toList());
     }

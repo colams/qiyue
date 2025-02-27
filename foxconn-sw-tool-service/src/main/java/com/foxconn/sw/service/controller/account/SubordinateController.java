@@ -3,8 +3,8 @@ package com.foxconn.sw.service.controller.account;
 import com.foxconn.sw.data.constants.TagsConstants;
 import com.foxconn.sw.data.dto.Request;
 import com.foxconn.sw.data.dto.Response;
-import com.foxconn.sw.data.dto.entity.acount.EmployeeVo;
 import com.foxconn.sw.data.dto.request.account.CreateAccountParams;
+import com.foxconn.sw.data.dto.response.user.SubordinateVo;
 import com.foxconn.sw.service.aspects.Permission;
 import com.foxconn.sw.service.processor.acount.EmployeeManagerProcessor;
 import com.foxconn.sw.service.processor.acount.SubordinateProcessor;
@@ -33,8 +33,8 @@ public class SubordinateController {
     @Operation(summary = "获取下属员工", tags = TagsConstants.ACCOUNT)
     @ApiResponse(responseCode = "0", description = "成功码")
     @PostMapping("/subordinate")
-    public Response<List<EmployeeVo>> subordinate(@Valid @RequestBody Request request) {
-        List<EmployeeVo> vos = subordinateProcessor.subordinateList();
+    public Response<List<SubordinateVo>> subordinate(@Valid @RequestBody Request request) {
+        List<SubordinateVo> vos = subordinateProcessor.subordinateList();
         return ResponseUtils.success(vos, request.getTraceId());
     }
 
