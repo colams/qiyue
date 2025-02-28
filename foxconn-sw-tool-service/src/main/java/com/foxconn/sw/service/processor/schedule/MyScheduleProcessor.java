@@ -10,6 +10,7 @@ import com.foxconn.sw.data.dto.request.schedule.MyScheduleParams;
 import com.foxconn.sw.data.dto.response.schedule.ScheduleListVo;
 import com.foxconn.sw.data.entity.SwEmployee;
 import com.foxconn.sw.data.entity.SwScheduleInfo;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -17,7 +18,6 @@ import java.time.LocalDate;
 import java.time.YearMonth;
 import java.util.Comparator;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Component
@@ -58,7 +58,7 @@ public class MyScheduleProcessor {
                     .anyMatch(e -> e.getDate().equalsIgnoreCase(currentDate))) {
                 ScheduleListVo vo = new ScheduleListVo();
                 vo.setDate(currentDate);
-                vo.setDestination(Optional.ofNullable(employee).map(SwEmployee::getStationedPlace).orElse("龍華"));
+                vo.setDestination(StringUtils.isEmpty(employee.getStationedPlace()) ? "龍華" : employee.getStationedPlace());
                 vo.setType(ScheduleTypeEnums.Working.name());
                 vo.setCurrent(currentDate.equalsIgnoreCase(LocalDateExtUtils.toString(LocalDate.now())));
                 scheduleListVos.add(vo);
