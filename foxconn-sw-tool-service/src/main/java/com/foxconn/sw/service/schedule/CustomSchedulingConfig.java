@@ -6,7 +6,6 @@ import org.springframework.scheduling.Trigger;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.SchedulingConfigurer;
 import org.springframework.scheduling.config.ScheduledTaskRegistrar;
-import org.springframework.scheduling.support.CronTrigger;
 
 import java.util.Date;
 import java.util.concurrent.atomic.AtomicReference;
@@ -26,12 +25,7 @@ public abstract class CustomSchedulingConfig implements SchedulingConfigurer {
 
         // 初始化触发器
         String cron = getCronTrigger();
-        currentCron.set(cron);
-        Trigger customTrigger = new CronTrigger(cron);
-        currentTrigger.set(customTrigger);
-//        // 创建自定义触发器实例
-//        Trigger customTrigger = new CustomTrigger(cron);
-
+        CustomTrigger customTrigger = new CustomTrigger(cron);
         // 添加任务和触发器到任务注册器
         registrar.addTriggerTask(() -> {
             try {
@@ -39,19 +33,14 @@ public abstract class CustomSchedulingConfig implements SchedulingConfigurer {
                 String newCron = getCronTrigger();
                 // 检查 cron 表达式是否有变化
                 if (!newCron.equals(cron)) {
-                    // 如果有变化，更新触发器
-                    Trigger newTrigger = new CronTrigger(newCron);
-                    currentTrigger.set(newTrigger);
-                    currentCron.set(newCron);
-                    log.info("Cron expression updated to: {}", newCron);
+                    customTrigger.setCronTrigger(newCron);
                 }
-
                 log.info("{} Task executed at: {},{}", getJobName(), new Date(), newCron);
                 cron();
             } catch (Exception e) {
                 log.error("Error executing task {}: {}", getJobName(), e.getMessage(), e);
             }
-        }, triggerContext -> currentTrigger.get().nextExecution(triggerContext));
+        }, customTrigger);
     }
 
     abstract void cron();

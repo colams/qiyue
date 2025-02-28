@@ -10,10 +10,14 @@ import java.util.Date;
 public class CustomTrigger implements Trigger {
 
 
-    private final CronTrigger cronTrigger;
+    private CronTrigger cronTrigger;
 
     // 构造函数，接收 Cron 表达式
     public CustomTrigger(String cronExpression) {
+        this.cronTrigger = new CronTrigger(cronExpression);
+    }
+
+    public void setCronTrigger(String cronExpression) {
         this.cronTrigger = new CronTrigger(cronExpression);
     }
 
