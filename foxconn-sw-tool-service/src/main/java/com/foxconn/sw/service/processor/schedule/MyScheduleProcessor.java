@@ -1,13 +1,16 @@
 package com.foxconn.sw.service.processor.schedule;
 
 import com.foxconn.sw.business.SwScheduleInfoBusiness;
+import com.foxconn.sw.business.system.EmployeeBusiness;
 import com.foxconn.sw.common.utils.DateTimeUtils;
 import com.foxconn.sw.common.utils.LocalDateExtUtils;
 import com.foxconn.sw.data.context.RequestContext;
 import com.foxconn.sw.data.dto.enums.ScheduleTypeEnums;
 import com.foxconn.sw.data.dto.request.schedule.MyScheduleParams;
 import com.foxconn.sw.data.dto.response.schedule.ScheduleListVo;
+import com.foxconn.sw.data.entity.SwEmployee;
 import com.foxconn.sw.data.entity.SwScheduleInfo;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -22,10 +25,13 @@ public class MyScheduleProcessor {
 
     @Autowired
     SwScheduleInfoBusiness scheduleInfoBusiness;
+    @Autowired
+    EmployeeBusiness employeeBusiness;
 
 
     public List<ScheduleListVo> mySchedule(MyScheduleParams data) {
         String employeeNo = RequestContext.getEmployeeNo();
+        SwEmployee employee = employeeBusiness.selectEmployeeByENo(employeeNo);
 
         YearMonth yearMonth = YearMonth.of(data.getYear(), data.getMonth());
         String endOfMonth = LocalDateExtUtils.toString(yearMonth.atEndOfMonth());
@@ -52,7 +58,7 @@ public class MyScheduleProcessor {
                     .anyMatch(e -> e.getDate().equalsIgnoreCase(currentDate))) {
                 ScheduleListVo vo = new ScheduleListVo();
                 vo.setDate(currentDate);
-                vo.setDestination("龍華");
+                vo.setDestination(StringUtils.isEmpty(employee.getStationedPlace()) ? "龍華" : employee.getStationedPlace());
                 vo.setType(ScheduleTypeEnums.Working.name());
                 vo.setCurrent(currentDate.equalsIgnoreCase(LocalDateExtUtils.toString(LocalDate.now())));
                 scheduleListVos.add(vo);
