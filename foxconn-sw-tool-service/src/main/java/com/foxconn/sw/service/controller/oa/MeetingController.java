@@ -48,6 +48,8 @@ public class MeetingController {
     MeetListProcessor meetListProcessor;
     @Autowired
     MeetingAttachmentProcessor meetingAttachmentProcessor;
+    @Autowired
+    UpdateMeetingAttachProcessor updateMeetingAttachProcessor;
 
 
     @Permission
@@ -138,6 +140,14 @@ public class MeetingController {
     public Response<List<MeetingAttachmentVo>> attachments(@Valid @RequestBody Request<MeetingAttachmentParams> request) {
         List<MeetingAttachmentVo> resourceVos = meetingAttachmentProcessor.attachments(request.getData());
         return ResponseUtils.success(resourceVos, request.getTraceId());
+    }
+
+    @Operation(summary = "更新會議附件文件", tags = "v2")
+    @ApiResponse(responseCode = "0", description = "成功码")
+    @PostMapping("/updateAttach")
+    public Response updateMeetingAttach(@Valid @RequestBody Request<UpdateMeetingAttachParams> request) {
+        boolean result = updateMeetingAttachProcessor.updateMeetingAttach(request.getData());
+        return ResponseUtils.success(result, request.getTraceId());
     }
 
 
