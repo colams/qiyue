@@ -16,7 +16,10 @@ public interface SwAnnouncementExtensionMapper extends SwAnnouncementMapper {
             "    and r.module_type = 'Announcement'\n",
             "    and r.employee_no = #{employeeNo,jdbcType=VARCHAR} ",
             "where a.is_delete = 0\n",
+            "<if test='category!=null and category!=\"\"' >",
+            " and a.category=#{category,jdbcType=VARCHAR} ",
+            "</if> ",
             "  and a.status = 'R'",
             "</script>"})
-    List<SwAnnouncementExtension> selectAnnounces(String employeeNo);
+    List<SwAnnouncementExtension> selectAnnounces(String employeeNo, String category);
 }

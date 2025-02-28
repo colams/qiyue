@@ -4,6 +4,7 @@ import com.foxconn.sw.business.AnnouncementBusiness;
 import com.foxconn.sw.business.SwAppendResourceBusiness;
 import com.foxconn.sw.common.constanst.NumberConstants;
 import com.foxconn.sw.common.utils.DateTimeUtils;
+import com.foxconn.sw.data.dto.request.announcement.AnnouncementsParams;
 import com.foxconn.sw.data.dto.response.announcement.AnnouncementVo;
 import com.foxconn.sw.data.entity.extension.SwAnnouncementExtension;
 import com.google.common.collect.Lists;
@@ -20,8 +21,8 @@ public class AnnouncementsProcessor {
     @Autowired
     SwAppendResourceBusiness appendResourceBusiness;
 
-    public List<AnnouncementVo> announcements() {
-        List<SwAnnouncementExtension> swAnnouncements = announcementBusiness.queryAnnouncements();
+    public List<AnnouncementVo> announcements(AnnouncementsParams announcementsParams) {
+        List<SwAnnouncementExtension> swAnnouncements = announcementBusiness.queryAnnouncements(announcementsParams.getCategory());
 
         List<AnnouncementVo> vos = Lists.newArrayList();
         for (SwAnnouncementExtension item : swAnnouncements) {

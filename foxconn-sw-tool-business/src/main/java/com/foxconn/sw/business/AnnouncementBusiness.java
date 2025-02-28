@@ -35,8 +35,8 @@ public class AnnouncementBusiness {
         return AnnouncementMapper.INSTANCE.toAnnouncementVos(swAnnouncements);
     }
 
-    public List<SwAnnouncementExtension> queryAnnouncements() {
-        List<SwAnnouncementExtension> list = announcementExtensionMapper.selectAnnounces(RequestContext.getEmployeeNo());
+    public List<SwAnnouncementExtension> queryAnnouncements(String category) {
+        List<SwAnnouncementExtension> list = announcementExtensionMapper.selectAnnounces(RequestContext.getEmployeeNo(), category);
         return Optional.ofNullable(list).orElse(Lists.newArrayList());
     }
 

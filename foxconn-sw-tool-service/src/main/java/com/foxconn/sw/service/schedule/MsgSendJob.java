@@ -23,9 +23,9 @@ import java.util.List;
 import java.util.Objects;
 
 @Component
-public class MsgEvent extends CustomSchedulingConfig {
+public class MsgSendJob extends CustomSchedulingConfig {
 
-    private static final Logger log = LoggerFactory.getLogger(MsgEvent.class);
+    private static final Logger log = LoggerFactory.getLogger(MsgSendJob.class);
 
     @Autowired
     SwMsgPoolBusiness msgPoolBusiness;
@@ -95,7 +95,7 @@ public class MsgEvent extends CustomSchedulingConfig {
 
     @Override
     String getJobName() {
-        return "MsgEvent";
+        return "MsgSendJob";
     }
 
     @Override

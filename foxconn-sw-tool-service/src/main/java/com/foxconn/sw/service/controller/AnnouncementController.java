@@ -8,6 +8,7 @@ import com.foxconn.sw.data.dto.Response;
 import com.foxconn.sw.data.dto.entity.universal.IntegerParams;
 import com.foxconn.sw.data.dto.request.announcement.AnnouncementListParams;
 import com.foxconn.sw.data.dto.request.announcement.AnnouncementParams;
+import com.foxconn.sw.data.dto.request.announcement.AnnouncementsParams;
 import com.foxconn.sw.data.dto.response.announcement.AnnouncementDetailVo;
 import com.foxconn.sw.data.dto.response.announcement.AnnouncementListVo;
 import com.foxconn.sw.data.dto.response.announcement.AnnouncementVo;
@@ -54,8 +55,8 @@ public class AnnouncementController {
     @Operation(summary = "公告列表信息", tags = TagsConstants.ANNOUNCEMENT)
     @ApiResponse(responseCode = "0", description = "成功码")
     @PostMapping("/announcements")
-    public Response announcements(@Valid @RequestBody Request request) {
-        List<AnnouncementVo> swAnnouncements = announcementsProcessor.announcements();
+    public Response announcements(@Valid @RequestBody Request<AnnouncementsParams> request) {
+        List<AnnouncementVo> swAnnouncements = announcementsProcessor.announcements(request.getData());
         return ResponseUtils.success(swAnnouncements, request.getTraceId());
     }
 
