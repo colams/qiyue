@@ -1,5 +1,6 @@
 package com.foxconn.sw.service.processor.meeting;
 
+import com.foxconn.sw.business.account.UserBusiness;
 import com.foxconn.sw.business.meeting.SwMeetingMinutesBusiness;
 import com.foxconn.sw.business.meeting.SwMeetingMinutesDetailBusiness;
 import com.foxconn.sw.business.meeting.SwMeetingMinutesMembersBusiness;
@@ -13,7 +14,6 @@ import com.foxconn.sw.data.dto.request.meeting.MeetingMinuteParams;
 import com.foxconn.sw.data.entity.SwMeetingMinute;
 import com.foxconn.sw.data.entity.SwMeetingMinuteDetail;
 import com.foxconn.sw.data.entity.SwMeetingMinuteMember;
-import com.foxconn.sw.service.processor.utils.EmployeeUtils;
 import com.google.common.collect.Lists;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,7 +32,7 @@ public class MeetMinuteProcessor {
     @Autowired
     SwMeetingMinutesMembersBusiness meetingMinutesMembersBusiness;
     @Autowired
-    EmployeeUtils employeeUtils;
+    UserBusiness employeeUtils;
 
     public Boolean meetMinute(MeetingMinuteParams minuteParams) {
 

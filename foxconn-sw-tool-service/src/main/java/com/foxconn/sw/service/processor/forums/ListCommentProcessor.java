@@ -1,6 +1,7 @@
 package com.foxconn.sw.service.processor.forums;
 
 import com.foxconn.sw.business.SwReadStatusBusiness;
+import com.foxconn.sw.business.account.UserBusiness;
 import com.foxconn.sw.business.forums.ForumBbsBusiness;
 import com.foxconn.sw.business.forums.ForumBbsCommentBusiness;
 import com.foxconn.sw.common.constanst.NumberConstants;
@@ -13,7 +14,6 @@ import com.foxconn.sw.data.dto.entity.forums.CommentsVo;
 import com.foxconn.sw.data.dto.entity.universal.IntegerParams;
 import com.foxconn.sw.data.entity.ForumBbs;
 import com.foxconn.sw.data.entity.ForumBbsComment;
-import com.foxconn.sw.service.processor.utils.EmployeeUtils;
 import com.google.common.collect.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -33,7 +33,7 @@ public class ListCommentProcessor {
     @Autowired
     ForumBbsBusiness forumBbsBusiness;
     @Autowired
-    EmployeeUtils employeeUtils;
+    UserBusiness employeeUtils;
     @Autowired
     SwReadStatusBusiness readStatusBusiness;
 

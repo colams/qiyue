@@ -1,7 +1,6 @@
 package com.foxconn.sw.business.meeting;
 
 import com.foxconn.sw.business.system.EmployeeBusiness;
-import com.foxconn.sw.data.dto.entity.acount.EmployeeVo;
 import com.foxconn.sw.data.entity.SwMeetingMember;
 import com.foxconn.sw.data.entity.SwMeetingMemberExample;
 import com.foxconn.sw.data.mapper.extension.meeting.SwMeetingMemberExtensionMapper;
@@ -11,7 +10,6 @@ import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Component
@@ -23,7 +21,7 @@ public class MeetingMemberBusiness {
     EmployeeBusiness employeeBusiness;
 
     public Boolean updateMeetingMember(int meetingID, Map<String, Integer> memberMap) {
-        List<SwMeetingMember> oldMemberList = queryMeetingMember(meetingID);
+        List<SwMeetingMember> oldMemberList = queryMeetingMemberByMeetingID(meetingID);
 
         processUpdate(oldMemberList, memberMap);
         processInsert(oldMemberList, memberMap, meetingID);
@@ -90,10 +88,18 @@ public class MeetingMemberBusiness {
         return memberList.stream().allMatch(e -> !eNo.equalsIgnoreCase(e.getEmployeeNo()));
     }
 
-    public List<SwMeetingMember> queryMeetingMember(Integer meetingID) {
+    public List<SwMeetingMember> queryMeetingMemberByMeetingID(Integer meetingID) {
         SwMeetingMemberExample example = new SwMeetingMemberExample();
         SwMeetingMemberExample.Criteria criteria = example.createCriteria();
         criteria.andMeetingIdEqualTo(meetingID);
+        criteria.andIsDeleteEqualTo(0);
+        return meetingMemberMapper.selectByExample(example);
+    }
+
+    public List<SwMeetingMember> queryMeetingMemberByDetailId(Integer meetingDetailID) {
+        SwMeetingMemberExample example = new SwMeetingMemberExample();
+        SwMeetingMemberExample.Criteria criteria = example.createCriteria();
+        criteria.andMeetingDetailIdEqualTo(meetingDetailID);
         criteria.andIsDeleteEqualTo(0);
         return meetingMemberMapper.selectByExample(example);
     }

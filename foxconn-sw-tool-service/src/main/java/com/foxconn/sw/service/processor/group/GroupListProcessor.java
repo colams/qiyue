@@ -1,5 +1,6 @@
 package com.foxconn.sw.service.processor.group;
 
+import com.foxconn.sw.business.account.UserBusiness;
 import com.foxconn.sw.business.group.SwCustomGroupBusiness;
 import com.foxconn.sw.business.group.SwCustomGroupFavoriteBusiness;
 import com.foxconn.sw.business.group.SwCustomGroupMemberBusiness;
@@ -14,7 +15,6 @@ import com.foxconn.sw.data.entity.SwCustomGroup;
 import com.foxconn.sw.data.entity.SwCustomGroupFavorite;
 import com.foxconn.sw.data.entity.SwCustomGroupMember;
 import com.foxconn.sw.data.entity.SwCustomGroupOperate;
-import com.foxconn.sw.service.processor.utils.EmployeeUtils;
 import com.google.common.collect.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -35,7 +35,7 @@ public class GroupListProcessor {
     @Autowired
     SwCustomGroupOperateBusiness groupOperateBusiness;
     @Autowired
-    EmployeeUtils employeeUtils;
+    UserBusiness employeeUtils;
 
     public PageEntity list(PageParams<SearchGroupParams> pageParams) {
         List<GroupBriefVo> list;

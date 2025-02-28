@@ -1,6 +1,7 @@
 package com.foxconn.sw.service.processor.forums;
 
 import com.foxconn.sw.business.SwReadStatusBusiness;
+import com.foxconn.sw.business.account.UserBusiness;
 import com.foxconn.sw.business.forums.ForumBbsBusiness;
 import com.foxconn.sw.business.forums.ForumBbsCommentBusiness;
 import com.foxconn.sw.business.forums.ForumParticipantBusiness;
@@ -13,7 +14,6 @@ import com.foxconn.sw.data.dto.request.forums.ListPostsParams;
 import com.foxconn.sw.data.entity.ForumBbs;
 import com.foxconn.sw.data.entity.ForumBbsComment;
 import com.foxconn.sw.data.entity.extension.ForumBbsExtension;
-import com.foxconn.sw.service.processor.utils.EmployeeUtils;
 import com.google.common.collect.Lists;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,7 +35,7 @@ public class ListPostsProcessor {
     @Autowired
     ForumBbsCommentBusiness forumBbsCommentBusiness;
     @Autowired
-    EmployeeUtils employeeUtils;
+    UserBusiness employeeUtils;
     @Autowired
     ForumParticipantBusiness participantBusiness;
     @Autowired

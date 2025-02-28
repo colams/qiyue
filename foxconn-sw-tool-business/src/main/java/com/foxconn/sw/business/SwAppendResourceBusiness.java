@@ -1,9 +1,10 @@
 package com.foxconn.sw.business;
 
+import com.foxconn.sw.business.account.UserBusiness;
 import com.foxconn.sw.common.utils.ConvertUtils;
+import com.foxconn.sw.common.utils.DateTimeUtils;
 import com.foxconn.sw.common.utils.DomainRetrieval;
 import com.foxconn.sw.common.utils.JsonUtils;
-import com.foxconn.sw.common.utils.ServletUtils;
 import com.foxconn.sw.data.dto.entity.ResourceVo;
 import com.foxconn.sw.data.entity.SwAppendResource;
 import com.foxconn.sw.data.entity.SwAppendResourceExample;
@@ -24,6 +25,8 @@ public class SwAppendResourceBusiness {
 
     @Autowired
     SwAppendResourceExtensionMapper appendResourceExtensionMapper;
+    @Autowired
+    UserBusiness userBusiness;
 
     public List<SwAppendResource> getAppendResources(List<Integer> resourceIds) {
         SwAppendResourceExample example = new SwAppendResourceExample();
@@ -47,6 +50,9 @@ public class SwAppendResourceBusiness {
             resourceVo.setId(e.getId());
             resourceVo.setName(e.getOriginName());
             resourceVo.setUrl(ConvertUtils.urlPreFix(e.getId(), e.getFilePath()));
+            resourceVo.setViewUrl(String.format("%s/upload/%s/%s", DomainRetrieval.getDomain(), e.getUploadType(), e.getFilePath()));
+            resourceVo.setCreateTime(DateTimeUtils.format(e.getCreateTime()));
+            resourceVo.setOperator(userBusiness.mapEmployee(e.getOperator()));
             resourceVos.add(resourceVo);
         });
         return resourceVos;

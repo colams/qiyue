@@ -11,6 +11,7 @@ import com.foxconn.sw.data.entity.SwUserExample;
 import com.foxconn.sw.data.exception.BizException;
 import com.foxconn.sw.data.mapper.extension.acount.SwUserExtensionMapper;
 import com.github.houbb.opencc4j.util.ZhConverterUtil;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
@@ -32,6 +33,29 @@ public class UserBusiness {
             throw new BizException(AccountExceptionCode.CREATE_ACCOUNT_EXCEPTION);
         }
         return swUser;
+    }
+
+
+    public EmployeeVo mapEmployee(String employeeNo) {
+        if (StringUtils.isEmpty(employeeNo)) {
+            return null;
+        }
+
+        UserInfo userInfo = queryUserInfo(employeeNo);
+
+        EmployeeVo employeeVo = new EmployeeVo();
+        employeeVo.setEmployeeNo(employeeNo);
+
+        if (Objects.isNull(userInfo)) {
+            employeeVo.setName(employeeNo);
+        } else {
+            employeeVo.setName(userInfo.getEmployeeName());
+            employeeVo.setDepartmentName(userInfo.getDepartName());
+            employeeVo.setAvatar(userInfo.getAvatar());
+            employeeVo.setStatus(userInfo.getStatus());
+        }
+
+        return employeeVo;
     }
 
     public SwUser queryUser(String employeeNo) {

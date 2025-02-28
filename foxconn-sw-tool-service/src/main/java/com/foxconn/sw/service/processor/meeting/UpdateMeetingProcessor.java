@@ -5,8 +5,8 @@ import com.foxconn.sw.business.meeting.MeetingCycleDetailBusiness;
 import com.foxconn.sw.business.meeting.MeetingMemberBusiness;
 import com.foxconn.sw.business.meeting.utils.CycleUtils;
 import com.foxconn.sw.common.constanst.NumberConstants;
-import com.foxconn.sw.data.context.RequestContext;
 import com.foxconn.sw.common.utils.JsonUtils;
+import com.foxconn.sw.data.context.RequestContext;
 import com.foxconn.sw.data.dto.request.meeting.UpdateMeetingParams;
 import com.foxconn.sw.data.entity.SwMeeting;
 import com.foxconn.sw.data.entity.SwMeetingCycleDetail;
@@ -54,7 +54,9 @@ public class UpdateMeetingProcessor {
         updateMeeting.setMeetingDate(data.getTimeVo().getMeetingDate());
         updateMeeting.setStartTime(data.getTimeVo().getStartTime());
         updateMeeting.setEndTime(data.getTimeVo().getEndTime());
-        updateMeeting.setResourceIds(JsonUtils.serialize(data.getResourceIds()));
+        if (!CollectionUtils.isEmpty(data.getResourceIds())) {
+            updateMeeting.setResourceIds(JsonUtils.serialize(data.getResourceIds()));
+        }
         updateMeeting.setWebexUrl(data.getWebexUrl());
         CycleUtils.processCycle(updateMeeting, data.getCycleVo());
         return meetingBusiness.updateMeetingDetail(updateMeeting);
@@ -80,7 +82,7 @@ public class UpdateMeetingProcessor {
     }
 
     private boolean processMembers(UpdateMeetingParams data) {
-        List<SwMeetingMember> members = meetingMemberBusiness.queryMeetingMember(data.getMeetingID());
+        List<SwMeetingMember> members = meetingMemberBusiness.queryMeetingMemberByMeetingID(data.getMeetingID());
         Map<String, Integer> map = MeetingMemberUtils.processMemberRole2(data.getMemberVo(), members);
         meetingMemberBusiness.updateMeetingMember(data.getMeetingID(), map);
         return true;

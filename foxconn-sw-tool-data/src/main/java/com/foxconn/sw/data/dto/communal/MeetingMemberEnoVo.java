@@ -16,6 +16,8 @@ public class MeetingMemberEnoVo {
     @NotEmpty
     private List<String> members;
 
+    private List<String> watchers;
+
     public String getChairman() {
         return chairman;
     }
@@ -38,5 +40,13 @@ public class MeetingMemberEnoVo {
 
     public void setMembers(List<String> members) {
         this.members = members;
+    }
+
+    public List<String> getWatchers() {
+        return watchers;
+    }
+
+    public void setWatchers(List<String> watchers) {
+        this.watchers = watchers;
     }
 }

@@ -1,6 +1,7 @@
 package com.foxconn.sw.service.processor.meeting;
 
 import com.foxconn.sw.business.SwAppendResourceBusiness;
+import com.foxconn.sw.business.account.UserBusiness;
 import com.foxconn.sw.business.meeting.MeetingBusiness;
 import com.foxconn.sw.business.meeting.MeetingCycleDetailBusiness;
 import com.foxconn.sw.business.meeting.MeetingMemberBusiness;
@@ -19,7 +20,6 @@ import com.foxconn.sw.data.entity.SwMeetingCycleDetail;
 import com.foxconn.sw.data.entity.SwMeetingMember;
 import com.foxconn.sw.data.entity.extension.MeetingEntity;
 import com.foxconn.sw.service.processor.MeetingRoomConfig;
-import com.foxconn.sw.service.processor.utils.EmployeeUtils;
 import com.google.common.collect.Lists;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,7 +45,7 @@ public class MeetListProcessor {
     @Autowired
     MeetingMemberBusiness memberBusiness;
     @Autowired
-    EmployeeUtils employeeUtils;
+    UserBusiness employeeUtils;
     @Autowired
     MeetingCycleDetailBusiness meetingCycleDetailBusiness;
     @Autowired
@@ -121,7 +121,7 @@ public class MeetListProcessor {
         meetingDateTimeVo.setEndTime(meetingEntity.getEndTime());
 
 
-        List<SwMeetingMember> members = memberBusiness.queryMeetingMember(meetingEntity.getMeetingId());
+        List<SwMeetingMember> members = memberBusiness.queryMeetingMemberByMeetingID(meetingEntity.getMeetingId());
         List<SwMeetingMember> memberList = members.stream()
                 .filter(e -> Chairman_Flag.test(e.getRole()))
                 .collect(Collectors.toList());

@@ -10,6 +10,16 @@ public class ResourceVo {
     private String viewUrl;
     private EmployeeVo operator;
 
+    private String createTime;
+
+    public String getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(String createTime) {
+        this.createTime = createTime;
+    }
+
     public Integer getId() {
         return id;
     }

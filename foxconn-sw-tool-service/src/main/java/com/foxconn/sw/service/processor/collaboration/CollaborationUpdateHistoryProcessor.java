@@ -1,11 +1,11 @@
 
 package com.foxconn.sw.service.processor.collaboration;
 
+import com.foxconn.sw.business.account.UserBusiness;
 import com.foxconn.sw.business.collaboration.CollaborationDetailLogBusiness;
 import com.foxconn.sw.data.dto.entity.collaboration.CollaborationDetailLogVo;
 import com.foxconn.sw.data.dto.request.collaboration.CollaborationDetailLogParams;
 import com.foxconn.sw.data.entity.SwCollaborationDetailLog;
-import com.foxconn.sw.service.processor.utils.EmployeeUtils;
 import com.google.common.collect.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -21,7 +21,7 @@ public class CollaborationUpdateHistoryProcessor {
     @Autowired
     CollaborationDetailLogBusiness collaborationDetailLogBusiness;
     @Autowired
-    EmployeeUtils employeeUtils;
+    UserBusiness employeeUtils;
 
     public List<CollaborationDetailLogVo> log(CollaborationDetailLogParams data) {
         List<CollaborationDetailLogVo> detailLogVoList;

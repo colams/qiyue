@@ -1,5 +1,6 @@
 package com.foxconn.sw.service.processor.group;
 
+import com.foxconn.sw.business.account.UserBusiness;
 import com.foxconn.sw.business.system.DepartmentBusiness;
 import com.foxconn.sw.business.system.EmployeeBusiness;
 import com.foxconn.sw.data.context.RequestContext;
@@ -7,7 +8,6 @@ import com.foxconn.sw.data.dto.entity.system.AuthorizedVo;
 import com.foxconn.sw.data.dto.enums.AuthorizedEnums;
 import com.foxconn.sw.data.entity.SwDepartment;
 import com.foxconn.sw.data.entity.SwEmployee;
-import com.foxconn.sw.service.processor.utils.EmployeeUtils;
 import com.google.common.collect.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -25,7 +25,7 @@ public class AuthorizedProcessor {
     @Autowired
     DepartmentBusiness departmentBusiness;
     @Autowired
-    EmployeeUtils employeeUtils;
+    UserBusiness employeeUtils;
 
     /**
      * 支持项目根据参数确定

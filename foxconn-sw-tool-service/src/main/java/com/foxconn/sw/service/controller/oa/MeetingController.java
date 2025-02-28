@@ -7,6 +7,7 @@ import com.foxconn.sw.data.dto.entity.meeting.MeetingVo;
 import com.foxconn.sw.data.dto.entity.universal.IntegerParams;
 import com.foxconn.sw.data.dto.request.meeting.*;
 import com.foxconn.sw.data.dto.response.meeting.MeetListVo;
+import com.foxconn.sw.data.dto.response.meeting.MeetingAttachmentVo;
 import com.foxconn.sw.data.dto.response.meeting.MeetingLineVo;
 import com.foxconn.sw.data.dto.response.meeting.MeetingMinuteDetailVo;
 import com.foxconn.sw.service.aspects.Permission;
@@ -45,6 +46,8 @@ public class MeetingController {
     MeetingLineProcessor meetingLineProcessor;
     @Autowired
     MeetListProcessor meetListProcessor;
+    @Autowired
+    MeetingAttachmentProcessor meetingAttachmentProcessor;
 
 
     @Permission
@@ -129,6 +132,13 @@ public class MeetingController {
         return ResponseUtils.success(result, request.getTraceId());
     }
 
+    @Operation(summary = "獲取會議附件文件", tags = "v2")
+    @ApiResponse(responseCode = "0", description = "成功码")
+    @PostMapping("/attachments")
+    public Response<List<MeetingAttachmentVo>> attachments(@Valid @RequestBody Request<MeetingAttachmentParams> request) {
+        List<MeetingAttachmentVo> resourceVos = meetingAttachmentProcessor.attachments(request.getData());
+        return ResponseUtils.success(resourceVos, request.getTraceId());
+    }
 
 
 }

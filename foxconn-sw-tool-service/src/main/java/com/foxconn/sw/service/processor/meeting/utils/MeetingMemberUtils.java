@@ -41,6 +41,14 @@ public class MeetingMemberUtils {
             employeeRoleMap.put(e, role);
         });
 
+        if (!CollectionUtils.isEmpty(eNoVo.getWatchers())) {
+            eNoVo.getWatchers().forEach(e -> {
+                Integer role = employeeRoleMap.getOrDefault(e, 0);
+                role = Watcher.setFlag(role);
+                employeeRoleMap.put(e, role);
+            });
+        }
+
         Lists.newArrayList(RequestContext.getEmployeeNo()).forEach(e -> {
             Integer role = employeeRoleMap.getOrDefault(e, 0);
             role = Creator_Flag.setFlag(role);
@@ -69,10 +77,18 @@ public class MeetingMemberUtils {
             });
         }
 
-        if (!CollectionUtils.isEmpty(eNoVo.getMaintainers())) {
+        if (!CollectionUtils.isEmpty(eNoVo.getMembers())) {
             eNoVo.getMembers().forEach(e -> {
                 Integer role = employeeRoleMap.getOrDefault(e, 0);
                 role = Member_Flag.setFlag(role);
+                employeeRoleMap.put(e, role);
+            });
+        }
+
+        if (!CollectionUtils.isEmpty(eNoVo.getWatchers())) {
+            eNoVo.getWatchers().forEach(e -> {
+                Integer role = employeeRoleMap.getOrDefault(e, 0);
+                role = Watcher.setFlag(role);
                 employeeRoleMap.put(e, role);
             });
         }

@@ -4,6 +4,7 @@ import com.foxconn.sw.data.entity.SwMeeting;
 import com.foxconn.sw.data.entity.SwMeetingCycleDetail;
 import com.foxconn.sw.data.entity.SwMeetingCycleDetailExample;
 import com.foxconn.sw.data.mapper.extension.meeting.SwMeetingCycleDetailExtensionMapper;
+import com.google.common.collect.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -36,9 +37,17 @@ public class MeetingCycleDetailBusiness {
         SwMeetingCycleDetailExample example = new SwMeetingCycleDetailExample();
         SwMeetingCycleDetailExample.Criteria criteria = example.createCriteria();
         criteria.andMeetingIdEqualTo(meetingID);
-        criteria.andCancelEqualTo(0);
         criteria.andMeetingDateEqualTo(meetingDate);
         return meetingCycleDetailMapper.selectByExample(example);
+    }
+
+    public SwMeetingCycleDetail queryCycleDetailWithDateNew(Integer meetingID, String meetingDate) {
+        SwMeetingCycleDetailExample example = new SwMeetingCycleDetailExample();
+        SwMeetingCycleDetailExample.Criteria criteria = example.createCriteria();
+        criteria.andMeetingIdEqualTo(meetingID);
+        criteria.andMeetingDateEqualTo(meetingDate);
+        List<SwMeetingCycleDetail> list = meetingCycleDetailMapper.selectByExample(example);
+        return Optional.ofNullable(list).orElse(Lists.newArrayList()).stream().findFirst().orElse(null);
     }
 
     public Optional<SwMeetingCycleDetail> queryCycleDetailEntityWithDate(Integer meetingID, String meetingDate) {

@@ -7,6 +7,7 @@ public enum MeetingRoleFlagEnums {
     Member_Flag(1 << 2),  // 0100 会议参与人    4
     Creator_Flag(1 << 3), // 1000 会议创建人    8
     Recorder(1 << 4), // 10000 会议记录人    16
+    Watcher(1 << 5), // 10000 会议记录人    32
     ;
 
 

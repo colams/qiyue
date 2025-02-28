@@ -17,7 +17,6 @@ import com.foxconn.sw.data.dto.entity.universal.IntegerParams;
 import com.foxconn.sw.data.entity.SwAppendResource;
 import com.foxconn.sw.data.entity.SwDocument;
 import com.foxconn.sw.data.entity.SwEmployee;
-import com.foxconn.sw.service.processor.utils.EmployeeUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -37,8 +36,7 @@ public class DetailDocProcessor {
     @Autowired
     EmployeeBusiness employeeBusiness;
     @Autowired
-    EmployeeUtils employeeUtils;
-
+    UserBusiness employeeUtils;
 
     public DocumentDetailVo detail(IntegerParams data) {
         SwDocument document = documentBusiness.queryDocumentByID(data.getParams());

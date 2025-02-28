@@ -1,5 +1,6 @@
 package com.foxconn.sw.service.processor.group;
 
+import com.foxconn.sw.business.account.UserBusiness;
 import com.foxconn.sw.business.group.SwCustomGroupBusiness;
 import com.foxconn.sw.business.group.SwCustomGroupFavoriteBusiness;
 import com.foxconn.sw.business.group.SwCustomGroupMemberBusiness;
@@ -19,7 +20,6 @@ import com.foxconn.sw.data.entity.SwCustomGroup;
 import com.foxconn.sw.data.entity.SwCustomGroupFavorite;
 import com.foxconn.sw.data.entity.SwCustomGroupMember;
 import com.foxconn.sw.data.entity.SwCustomGroupOperate;
-import com.foxconn.sw.service.processor.utils.EmployeeUtils;
 import com.google.common.collect.Lists;
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,7 +38,7 @@ public class ApplyJoinProcessor {
     @Autowired
     SwCustomGroupFavoriteBusiness customGroupFavoriteBusiness;
     @Autowired
-    EmployeeUtils employeeUtils;
+    UserBusiness employeeUtils;
     @Autowired
     SwCustomGroupMemberBusiness groupMemberBusiness;
     @Autowired

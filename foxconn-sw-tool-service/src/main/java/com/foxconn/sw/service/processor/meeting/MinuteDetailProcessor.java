@@ -1,6 +1,7 @@
 package com.foxconn.sw.service.processor.meeting;
 
 import com.foxconn.sw.business.SwAppendResourceBusiness;
+import com.foxconn.sw.business.account.UserBusiness;
 import com.foxconn.sw.business.meeting.*;
 import com.foxconn.sw.common.constanst.NumberConstants;
 import com.foxconn.sw.common.utils.JsonUtils;
@@ -15,7 +16,6 @@ import com.foxconn.sw.data.dto.request.meeting.MinuteDetailParams;
 import com.foxconn.sw.data.dto.response.meeting.MeetingMinuteDetailVo;
 import com.foxconn.sw.data.entity.*;
 import com.foxconn.sw.service.processor.MeetingRoomConfig;
-import com.foxconn.sw.service.processor.utils.EmployeeUtils;
 import com.google.common.collect.Lists;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,7 +44,7 @@ public class MinuteDetailProcessor {
     @Autowired
     SwMeetingMinutesMembersBusiness minutesMembersBusiness;
     @Autowired
-    EmployeeUtils employeeUtils;
+    UserBusiness employeeUtils;
     @Autowired
     SwMeetingMinutesDetailBusiness minutesDetailBusiness;
     @Autowired
@@ -66,7 +66,7 @@ public class MinuteDetailProcessor {
         SwMeeting meeting = meetingBusiness.getMeetingByID(meetingID);
         Optional<SwMeetingCycleDetail> optional = meetingCycleDetailBusiness.queryCycleDetailEntityWithDate(meetingID, meetingDate);
         Integer detailId = optional.map(e -> e.getId()).orElse(NumberConstants.ZERO);
-        List<SwMeetingMember> meetingMembers = meetingMemberBusiness.queryMeetingMember(meetingID);
+        List<SwMeetingMember> meetingMembers = meetingMemberBusiness.queryMeetingMemberByMeetingID(meetingID);
         SwMeetingMember chairEntity = meetingMembers.stream().filter(e -> Chairman_Flag.test(e.getRole()))
                 .filter(e -> e.getMeetingDetailId().equals(NumberConstants.ZERO) || e.getMeetingDetailId().equals(detailId))
                 .sorted(Comparator.comparing(SwMeetingMember::getMeetingDetailId))

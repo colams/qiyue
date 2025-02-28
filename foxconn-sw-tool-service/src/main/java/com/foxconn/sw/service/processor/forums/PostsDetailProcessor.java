@@ -1,6 +1,7 @@
 package com.foxconn.sw.service.processor.forums;
 
 import com.foxconn.sw.business.SwAppendResourceBusiness;
+import com.foxconn.sw.business.account.UserBusiness;
 import com.foxconn.sw.business.forums.ForumBbsBusiness;
 import com.foxconn.sw.business.forums.ForumFavoriteBusiness;
 import com.foxconn.sw.business.forums.ForumParticipantBusiness;
@@ -18,7 +19,6 @@ import com.foxconn.sw.data.entity.ForumAttachment;
 import com.foxconn.sw.data.entity.ForumBbs;
 import com.foxconn.sw.data.entity.ForumParticipant;
 import com.foxconn.sw.data.entity.SwAppendResource;
-import com.foxconn.sw.service.processor.utils.EmployeeUtils;
 import com.google.common.collect.Lists;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,7 +35,7 @@ public class PostsDetailProcessor {
     @Autowired
     ForumParticipantBusiness forumParticipantBusiness;
     @Autowired
-    EmployeeUtils employeeUtils;
+    UserBusiness employeeUtils;
     @Autowired
     SwAppendResourceBusiness appendResourceBusiness;
     @Autowired

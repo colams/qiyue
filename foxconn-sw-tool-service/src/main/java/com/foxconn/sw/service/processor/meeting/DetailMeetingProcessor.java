@@ -54,7 +54,7 @@ public class DetailMeetingProcessor {
             throw new BizException(RetCode.VALIDATE_FAILED);
         }
 
-        List<SwMeetingMember> meetingMembers = meetingMemberBusiness.queryMeetingMember(data.getMeetingID());
+        List<SwMeetingMember> meetingMembers = meetingMemberBusiness.queryMeetingMemberByMeetingID(data.getMeetingID());
         List<SwMeetingCycleDetail> meetingCycleDetails = meetingCycleDetailBusiness.queryCycleDetail(data.getMeetingID());
 
         return processMeetingVo(meeting, data.getSearchDate(), meetingMembers, meetingCycleDetails);

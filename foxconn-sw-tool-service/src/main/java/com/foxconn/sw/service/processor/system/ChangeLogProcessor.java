@@ -1,11 +1,11 @@
 package com.foxconn.sw.service.processor.system;
 
+import com.foxconn.sw.business.account.UserBusiness;
 import com.foxconn.sw.business.system.EmployeeBusiness;
 import com.foxconn.sw.business.system.SwChangeLogBusiness;
 import com.foxconn.sw.common.utils.DateTimeUtils;
 import com.foxconn.sw.data.dto.entity.ChangeLogVo;
 import com.foxconn.sw.data.entity.SwChangeLog;
-import com.foxconn.sw.service.processor.utils.EmployeeUtils;
 import com.google.common.collect.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -20,7 +20,7 @@ public class ChangeLogProcessor {
     @Autowired
     SwChangeLogBusiness changeLogBusiness;
     @Autowired
-    EmployeeUtils employeeUtils;
+    UserBusiness employeeUtils;
     @Autowired
     EmployeeBusiness employeeBusiness;
 
