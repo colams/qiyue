@@ -30,6 +30,11 @@ public class AnnouncementBusiness {
         if (StringUtils.isNotEmpty(announcementParams.getTitle())) {
             criteria.andTitleLike("%" + announcementParams.getTitle() + "%");
         }
+
+        if (StringUtils.isNotEmpty(announcementParams.getCategory())) {
+            criteria.andCategoryEqualTo(announcementParams.getCategory());
+        }
+
         example.setOrderByClause(" create_time desc ");
         List<SwAnnouncement> swAnnouncements = announcementExtensionMapper.selectByExample(example);
         return AnnouncementMapper.INSTANCE.toAnnouncementVos(swAnnouncements);

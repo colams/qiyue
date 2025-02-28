@@ -28,6 +28,8 @@ public class AnnouncementListVo {
 
     private Integer top;
 
+    private String category;
+
     public Integer getId() {
         return id;
     }
@@ -114,5 +116,13 @@ public class AnnouncementListVo {
 
     public void setTop(Integer top) {
         this.top = top;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
     }
 }

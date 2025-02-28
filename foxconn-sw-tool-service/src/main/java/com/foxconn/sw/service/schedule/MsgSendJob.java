@@ -48,11 +48,11 @@ public class MsgSendJob extends CustomSchedulingConfig {
             boolean isClose = Objects.isNull(configDic) || "0".equalsIgnoreCase(configDic.getItemValue());
             messages.forEach(e -> {
                 log.info("执行了一次：{}", JsonUtils.serialize(e));
-                if (isClose) {
-                    msgPoolBusiness.closeMsg(e);
-                } else {
+                if (!isClose) {
                     processMsg(e);
                 }
+
+                msgPoolBusiness.closeMsg(e);
             });
         } catch (Exception e) {
             log.error("MsgEvent.cron", e);
