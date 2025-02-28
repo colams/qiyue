@@ -2,23 +2,17 @@ package com.foxconn.sw.service.schedule;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.scheduling.Trigger;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.SchedulingConfigurer;
 import org.springframework.scheduling.config.ScheduledTaskRegistrar;
 
 import java.util.Date;
-import java.util.concurrent.atomic.AtomicReference;
 
 @EnableScheduling
 public abstract class CustomSchedulingConfig implements SchedulingConfigurer {
 
 
     private static final Logger log = LoggerFactory.getLogger(CustomSchedulingConfig.class);
-    // 使用 AtomicReference 来存储当前的触发器
-    private final AtomicReference<Trigger> currentTrigger = new AtomicReference<>();
-    // 使用 AtomicReference 来存储当前的 cron 表达式
-    private final AtomicReference<String> currentCron = new AtomicReference<>();
 
     @Override
     public void configureTasks(ScheduledTaskRegistrar registrar) {
