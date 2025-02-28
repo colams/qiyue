@@ -1,13 +1,23 @@
-package com.foxconn.sw.data.dto.request.account;
+package com.foxconn.sw.data.dto.response.user;
 
-public class CreateAccountParams {
+import java.util.List;
+
+public class SubordinateVo {
 
     private Integer id;
+
     private String name;
-    private Integer departmentId;
-    private String innerEmail;
+
     private String employeeNo;
+
+    private Integer departmentId;
+
+    private List<String> departments;
+
+    private String innerEmail;
+
     private Integer status;
+
     private String identityOfCadre;
 
     public Integer getId() {
@@ -26,6 +36,14 @@ public class CreateAccountParams {
         this.name = name;
     }
 
+    public String getEmployeeNo() {
+        return employeeNo;
+    }
+
+    public void setEmployeeNo(String employeeNo) {
+        this.employeeNo = employeeNo;
+    }
+
     public Integer getDepartmentId() {
         return departmentId;
     }
@@ -34,20 +52,20 @@ public class CreateAccountParams {
         this.departmentId = departmentId;
     }
 
+    public List<String> getDepartments() {
+        return departments;
+    }
+
+    public void setDepartments(List<String> departments) {
+        this.departments = departments;
+    }
+
     public String getInnerEmail() {
         return innerEmail;
     }
 
     public void setInnerEmail(String innerEmail) {
         this.innerEmail = innerEmail;
-    }
-
-    public String getEmployeeNo() {
-        return employeeNo;
-    }
-
-    public void setEmployeeNo(String employeeNo) {
-        this.employeeNo = employeeNo;
     }
 
     public Integer getStatus() {

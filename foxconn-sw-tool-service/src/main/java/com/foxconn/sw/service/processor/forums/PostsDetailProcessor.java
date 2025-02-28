@@ -55,6 +55,7 @@ public class PostsDetailProcessor {
 
         BbsDetailVo bbsDetailVo = new BbsDetailVo();
         bbsDetailVo.setId(forumBbs.getId());
+        bbsDetailVo.setOriginTitle(forumBbs.getTitle());
 
         if (StringUtils.isNotEmpty(forumBbs.getProject())) {
             bbsDetailVo.setTitle(String.format("【%s】%s", forumBbs.getProject(), forumBbs.getTitle()));

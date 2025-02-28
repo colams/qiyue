@@ -5,6 +5,7 @@ import com.foxconn.sw.data.dto.enums.AnnouncementStatusEnums;
 public class AnnouncementListParams {
 
     private String title;
+    private String category;
     private AnnouncementStatusEnums status;
 
     public String getTitle() {
@@ -13,6 +14,14 @@ public class AnnouncementListParams {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
     }
 
     public AnnouncementStatusEnums getStatus() {

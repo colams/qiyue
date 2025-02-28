@@ -2,6 +2,7 @@ package com.foxconn.sw.service.controller.community;
 
 
 import com.foxconn.sw.data.constants.TagsConstants;
+import com.foxconn.sw.data.constants.enums.ModuleEnums;
 import com.foxconn.sw.data.dto.PageEntity;
 import com.foxconn.sw.data.dto.PageParams;
 import com.foxconn.sw.data.dto.Request;
@@ -67,7 +68,7 @@ public class CommentController {
     @ApiResponse(responseCode = "0", description = "成功码")
     @PostMapping("/read")
     public Response<Boolean> saveReadStatus(@Valid @RequestBody Request<IntegerParams> request) {
-        boolean result = saveReadStatusProcessor.saveReadStatus(request.getData());
+        boolean result = saveReadStatusProcessor.saveReadStatus(ModuleEnums.Forum, request.getData());
         return ResponseUtils.success(result, request.getTraceId());
     }
 }

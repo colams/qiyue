@@ -9,6 +9,7 @@ import com.foxconn.sw.common.utils.IntegerExtUtils;
 import com.foxconn.sw.common.utils.SecurityUtils;
 import com.foxconn.sw.data.constants.enums.retcode.AccountExceptionCode;
 import com.foxconn.sw.data.dto.request.account.CreateAccountParams;
+import com.foxconn.sw.data.dto.request.account.SetLeaveParams;
 import com.foxconn.sw.data.entity.SwEmployee;
 import com.foxconn.sw.data.entity.SwUser;
 import com.foxconn.sw.data.exception.BizException;
@@ -44,6 +45,8 @@ public class EmployeeManagerProcessor {
         employee.setInnerEmail(data.getInnerEmail());
         employee.setEmployeeNo(data.getEmployeeNo());
         employee.setIsComplete(NumberConstants.ZERO);
+        employee.setStatus(data.getStatus());
+        employee.setIdentityOfCadre(data.getIdentityOfCadre());
         return employeeBusiness.insertOrUpdate(employee) > 0;
     }
 
@@ -75,4 +78,10 @@ public class EmployeeManagerProcessor {
         return sysUser;
     }
 
+    public Boolean setLeave(SetLeaveParams data) {
+        SwEmployee employee = new SwEmployee();
+        employee.setId(data.getId());
+        employee.setStatus(data.getStatus());
+        return employeeBusiness.insertOrUpdate(employee) > 0;
+    }
 }

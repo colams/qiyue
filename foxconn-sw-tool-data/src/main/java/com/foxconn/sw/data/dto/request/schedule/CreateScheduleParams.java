@@ -8,6 +8,7 @@ public class CreateScheduleParams {
 
     private String place;
     private List<ScheduleDetailVo> detailList;
+    private boolean autoMovingDay;
 
     public String getPlace() {
         return place;
@@ -23,5 +24,13 @@ public class CreateScheduleParams {
 
     public void setDetailList(List<ScheduleDetailVo> detailList) {
         this.detailList = detailList;
+    }
+
+    public boolean getAutoMovingDay() {
+        return autoMovingDay;
+    }
+
+    public void setAutoMovingDay(boolean autoMovingDay) {
+        this.autoMovingDay = autoMovingDay;
     }
 }

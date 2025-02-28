@@ -19,9 +19,9 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Component
-public class WorkReportEvent extends CustomSchedulingConfig {
+public class WorkReportJob extends CustomSchedulingConfig {
 
-    private static final Logger log = LoggerFactory.getLogger(WorkReportEvent.class);
+    private static final Logger log = LoggerFactory.getLogger(WorkReportJob.class);
 
     @Autowired
     SwMsgPoolBusiness msgPoolBusiness;
@@ -35,7 +35,7 @@ public class WorkReportEvent extends CustomSchedulingConfig {
 
     @Override
     public void cron() {
-        log.info("  WorkReportEvent  ------------  start");
+        log.info("  WorkReportJob  ------------  start");
 
         String subject = "[OA Platform] 週報提交提醒";
         String content = "【週報提醒】請按時提交本週工作總結及下週計劃\n\n<br/> 1、您可以<a href='https://rayplusoa.efoxconn.com/'>點擊這裡</a>進入系統完成處理";
@@ -55,19 +55,19 @@ public class WorkReportEvent extends CustomSchedulingConfig {
         } catch (Exception e) {
             log.error("MsgEvent.cron", e);
         }
-        log.info("  WorkReportEvent  ------------  end");
+        log.info("  WorkReportJob  ------------  end");
     }
 
     @Override
     String getJobName() {
-        return "WorkReportEvent";
+        return "WorkReportJob";
     }
 
     @Override
     public String getCronTrigger() {
         String cronExpression = configDicBusiness.getConfigDicValue("work.report.cron");
         if (StringUtils.isEmpty(cronExpression)) {
-            return "0 0 8 * * 5";
+            return "0/10 * 8 * * 5";
         }
         return cronExpression;
     }

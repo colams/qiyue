@@ -23,9 +23,9 @@ import java.util.List;
 import java.util.Objects;
 
 @Component
-public class MsgEvent extends CustomSchedulingConfig {
+public class MsgSendJob extends CustomSchedulingConfig {
 
-    private static final Logger log = LoggerFactory.getLogger(MsgEvent.class);
+    private static final Logger log = LoggerFactory.getLogger(MsgSendJob.class);
 
     @Autowired
     SwMsgPoolBusiness msgPoolBusiness;
@@ -48,11 +48,11 @@ public class MsgEvent extends CustomSchedulingConfig {
             boolean isClose = Objects.isNull(configDic) || "0".equalsIgnoreCase(configDic.getItemValue());
             messages.forEach(e -> {
                 log.info("执行了一次：{}", JsonUtils.serialize(e));
-                if (isClose) {
-                    msgPoolBusiness.closeMsg(e);
-                } else {
+                if (!isClose) {
                     processMsg(e);
                 }
+
+                msgPoolBusiness.closeMsg(e);
             });
         } catch (Exception e) {
             log.error("MsgEvent.cron", e);
@@ -95,12 +95,15 @@ public class MsgEvent extends CustomSchedulingConfig {
 
     @Override
     String getJobName() {
-        return "MsgEvent";
+        return "MsgSendJob";
     }
 
     @Override
     public String getCronTrigger() {
-        return "0 0/1 * * * *";
+        String cronExpression = configDicBusiness.getConfigDicValue("msg.event.cron");
+        if (StringUtils.isEmpty(cronExpression)) {
+            return "0 0/5 * * * *";
+        }
+        return cronExpression;
     }
-
 }

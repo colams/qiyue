@@ -1,12 +1,15 @@
+
 package com.foxconn.sw.data.dto.response.announcement;
 
 import com.foxconn.sw.data.dto.entity.ResourceVo;
 
 import java.util.List;
 
-public class AnnouncementListVo {
+public class AnnouncementVo {
 
     private Integer id;
+
+    private String category;
 
     private String title;
 
@@ -16,19 +19,13 @@ public class AnnouncementListVo {
 
     private List<ResourceVo> resources;
 
-    private String createTime;
-
-    private String updateTime;
-
-    private Boolean canUpdate;
-
-    private Boolean canDelete;
+    private String releaseTime;
 
     private String expiryDate;
 
-    private Integer top;
+    private Boolean isTop;
 
-    private String category;
+    private Boolean isRead;
 
     public Integer getId() {
         return id;
@@ -36,6 +33,14 @@ public class AnnouncementListVo {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
     }
 
     public String getTitle() {
@@ -70,36 +75,12 @@ public class AnnouncementListVo {
         this.resources = resources;
     }
 
-    public String getCreateTime() {
-        return createTime;
+    public String getReleaseTime() {
+        return releaseTime;
     }
 
-    public void setCreateTime(String createTime) {
-        this.createTime = createTime;
-    }
-
-    public String getUpdateTime() {
-        return updateTime;
-    }
-
-    public void setUpdateTime(String updateTime) {
-        this.updateTime = updateTime;
-    }
-
-    public Boolean getCanUpdate() {
-        return canUpdate;
-    }
-
-    public void setCanUpdate(Boolean canUpdate) {
-        this.canUpdate = canUpdate;
-    }
-
-    public Boolean getCanDelete() {
-        return canDelete;
-    }
-
-    public void setCanDelete(Boolean canDelete) {
-        this.canDelete = canDelete;
+    public void setReleaseTime(String releaseTime) {
+        this.releaseTime = releaseTime;
     }
 
     public String getExpiryDate() {
@@ -110,19 +91,19 @@ public class AnnouncementListVo {
         this.expiryDate = expiryDate;
     }
 
-    public Integer getTop() {
-        return top;
+    public Boolean getTop() {
+        return isTop;
     }
 
-    public void setTop(Integer top) {
-        this.top = top;
+    public void setTop(Boolean top) {
+        isTop = top;
     }
 
-    public String getCategory() {
-        return category;
+    public Boolean getRead() {
+        return isRead;
     }
 
-    public void setCategory(String category) {
-        this.category = category;
+    public void setRead(Boolean read) {
+        isRead = read;
     }
 }
