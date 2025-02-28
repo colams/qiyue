@@ -122,7 +122,6 @@ public class EmployeeBusiness {
                 .orElse(null);
     }
 
-
     public List<String> queryMemberNo(String employeeNo, boolean hasSelf) {
         List<String> employeeNos = queryMembers(employeeNo).stream()
                 .map(SwEmployee::getEmployeeNo)

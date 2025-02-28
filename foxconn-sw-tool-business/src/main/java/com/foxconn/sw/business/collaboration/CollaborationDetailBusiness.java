@@ -15,6 +15,7 @@ import org.apache.ibatis.session.ExecutorType;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
@@ -73,39 +74,29 @@ public class CollaborationDetailBusiness {
         try (FileInputStream fis = new FileInputStream(filePath);
              Workbook workbook = new XSSFWorkbook(fis)) {
             Sheet sheet = workbook.getSheetAt(0);
-            List<String> headers = new ArrayList<>();
-            if (sheet.getLastRowNum() < managers.size()) {
-                for (int i = 0; i <= managers.size(); i++) {
-                    for (int j = 0; j < sheet.getRow(0).getLastCellNum(); j++) {
-                        String text = "";
-                        if (i <= sheet.getLastRowNum()) {
-                            Cell cell = sheet.getRow(i).getCell(j);
-                            text = ExcelUtils.getCellValueAsString(cell);
-                        }
-                        if (i == 0) {
-                            headers.add(text);
-                        } else {
-                            insert(i, scuId, j, headers.get(j), text);
-                        }
-                    }
-                }
-            } else {
-                for (int i = 0; i < sheet.getLastRowNum(); i++) {
-                    for (int j = 0; j < sheet.getRow(i).getLastCellNum(); j++) {
-                        Cell cell = sheet.getRow(i).getCell(j);
-                        String text = ExcelUtils.getCellValueAsString(cell);
-                        if (i == 0) {
-                            headers.add(text);
-                        } else {
-                            insert(i, scuId, j, headers.get(j), text);
-                        }
-                    }
+            List<String> headers = getExcelHeader(sheet.getRow(0));
+
+            for (int i = 1; i <= sheet.getLastRowNum(); i++) {
+                for (int j = 0; j < headers.size(); j++) {
+                    Cell cell = sheet.getRow(i).getCell(j);
+                    String text = ExcelUtils.getCellValueAsString(cell);
+                    insert(i, scuId, j, headers.get(j), text);
                 }
             }
         } catch (IOException e) {
             logger.error("getTaskHeader", e);
         }
         return true;
+    }
+
+    private List<String> getExcelHeader(Row row) {
+        List<String> headers = new ArrayList<>();
+        for (int j = 0; j < row.getLastCellNum(); j++) {
+            Cell cell = row.getCell(j);
+            String text = ExcelUtils.getCellValueAsString(cell);
+            headers.add(text);
+        }
+        return headers;
     }
 
     public boolean insert(Integer rowNum, Long scuId, Integer colNum, String header, String value) {
