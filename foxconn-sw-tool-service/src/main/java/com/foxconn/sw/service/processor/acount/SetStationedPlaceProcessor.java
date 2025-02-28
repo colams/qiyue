@@ -4,6 +4,7 @@ import com.foxconn.sw.business.system.EmployeeBusiness;
 import com.foxconn.sw.data.context.RequestContext;
 import com.foxconn.sw.data.dto.entity.universal.StringParams;
 import com.foxconn.sw.data.entity.SwEmployee;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -18,10 +19,9 @@ public class SetStationedPlaceProcessor {
         return employeeBusiness.setStationedPlace(data.getParams(), RequestContext.getEmployeeNo());
     }
 
-
     public String getStationedPlace() {
         SwEmployee ee = employeeBusiness.selectEmployeeByENo(RequestContext.getEmployeeNo());
-        return ee.getStationedPlace();
+        return StringUtils.isEmpty(ee.getStationedPlace()) ? "龍華" : ee.getStationedPlace();
     }
 
 }
