@@ -4,11 +4,11 @@ import com.foxconn.sw.business.meeting.MeetingBusiness;
 import com.foxconn.sw.business.meeting.MeetingCycleDetailBusiness;
 import com.foxconn.sw.business.meeting.MeetingMemberBusiness;
 import com.foxconn.sw.business.system.EmployeeBusiness;
-import com.foxconn.sw.data.context.RequestContext;
 import com.foxconn.sw.common.utils.JsonUtils;
 import com.foxconn.sw.common.utils.LocalDateExtUtils;
 import com.foxconn.sw.common.utils.StringExtUtils;
 import com.foxconn.sw.data.constants.enums.MeetingRoleFlagEnums;
+import com.foxconn.sw.data.context.RequestContext;
 import com.foxconn.sw.data.dto.communal.CycleMeetingVo;
 import com.foxconn.sw.data.dto.entity.acount.EmployeeVo;
 import com.foxconn.sw.data.dto.entity.meeting.MeetingVo;
@@ -114,6 +114,10 @@ public class ListMeetingProcessor {
                 .filter(e -> MeetingRoleFlagEnums.Member_Flag.test(e.getRole()))
                 .map(e -> toEmployee(e.getEmployeeNo()))
                 .collect(Collectors.toList());
+        List<EmployeeVo> watchers = allMembers.stream()
+                .filter(e -> MeetingRoleFlagEnums.Watcher.test(e.getRole()))
+                .map(e -> toEmployee(e.getEmployeeNo()))
+                .collect(Collectors.toList());
 
         MeetingVo vo = new MeetingVo();
         vo.setMeetingID(meeting.getId());
@@ -148,6 +152,7 @@ public class ListMeetingProcessor {
         vo.setChairman(chairman);
         vo.setMaintainers(maintainers);
         vo.setMembers(members);
+        vo.setWatchers(watchers);
         vo.setWebexUrl(meeting.getWebexUrl());
         vo.setWeek(LocalDate.parse(vo.getMeetingDate()).getDayOfWeek().getValue());
         return vo;

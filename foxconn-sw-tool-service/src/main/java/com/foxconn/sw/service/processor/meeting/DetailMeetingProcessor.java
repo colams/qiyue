@@ -1,7 +1,6 @@
 package com.foxconn.sw.service.processor.meeting;
 
 import com.foxconn.sw.business.SwAppendResourceBusiness;
-import com.foxconn.sw.data.context.RequestContext;
 import com.foxconn.sw.business.meeting.MeetingBusiness;
 import com.foxconn.sw.business.meeting.MeetingCycleDetailBusiness;
 import com.foxconn.sw.business.meeting.MeetingMemberBusiness;
@@ -10,6 +9,7 @@ import com.foxconn.sw.common.utils.ConvertUtils;
 import com.foxconn.sw.common.utils.JsonUtils;
 import com.foxconn.sw.data.constants.enums.MeetingRoleFlagEnums;
 import com.foxconn.sw.data.constants.enums.retcode.RetCode;
+import com.foxconn.sw.data.context.RequestContext;
 import com.foxconn.sw.data.dto.communal.CycleMeetingVo;
 import com.foxconn.sw.data.dto.entity.ResourceVo;
 import com.foxconn.sw.data.dto.entity.acount.EmployeeVo;
@@ -85,6 +85,10 @@ public class DetailMeetingProcessor {
                 .filter(e -> MeetingRoleFlagEnums.Member_Flag.test(e.getRole()))
                 .map(e -> toEmployee(e.getEmployeeNo()))
                 .collect(Collectors.toList());
+        List<EmployeeVo> watchers = allMembers.stream()
+                .filter(e -> MeetingRoleFlagEnums.Watcher.test(e.getRole()))
+                .map(e -> toEmployee(e.getEmployeeNo()))
+                .collect(Collectors.toList());
 
         MeetingVo vo = new MeetingVo();
         vo.setMeetingID(meeting.getId());
@@ -110,6 +114,7 @@ public class DetailMeetingProcessor {
         vo.setChairman(chairman);
         vo.setMaintainers(maintainers);
         vo.setMembers(members);
+        vo.setWatchers(watchers);
         if (StringUtils.isNotEmpty(meeting.getResourceIds()) || StringUtils.isNotEmpty(detail.getResourceIds())) {
 
             List<Integer> resourceIDs = Lists.newArrayList();

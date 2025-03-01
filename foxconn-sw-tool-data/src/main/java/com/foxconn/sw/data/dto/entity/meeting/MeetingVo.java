@@ -27,6 +27,7 @@ public class MeetingVo {
     private EmployeeVo chairman;
     private List<EmployeeVo> maintainers;
     private List<EmployeeVo> members;
+    private List<EmployeeVo> watchers;
 
     private List<ResourceVo> resource;
 
@@ -150,6 +151,14 @@ public class MeetingVo {
 
     public void setMembers(List<EmployeeVo> members) {
         this.members = members;
+    }
+
+    public List<EmployeeVo> getWatchers() {
+        return watchers;
+    }
+
+    public void setWatchers(List<EmployeeVo> watchers) {
+        this.watchers = watchers;
     }
 
     public List<ResourceVo> getResource() {
