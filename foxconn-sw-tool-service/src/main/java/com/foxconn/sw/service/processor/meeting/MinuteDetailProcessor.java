@@ -16,6 +16,7 @@ import com.foxconn.sw.data.dto.request.meeting.MinuteDetailParams;
 import com.foxconn.sw.data.dto.response.meeting.MeetingMinuteDetailVo;
 import com.foxconn.sw.data.entity.*;
 import com.foxconn.sw.service.processor.MeetingRoomConfig;
+import com.foxconn.sw.service.processor.resource.GetAppendResourcesProcessor;
 import com.google.common.collect.Lists;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,6 +50,8 @@ public class MinuteDetailProcessor {
     SwMeetingMinutesDetailBusiness minutesDetailBusiness;
     @Autowired
     MeetingMemberBusiness meetingMemberBusiness;
+    @Autowired
+    GetAppendResourcesProcessor getAppendResourcesProcessor;
 
 
     public MeetingMinuteDetailVo minuteDetail(MinuteDetailParams data) {
@@ -103,7 +106,7 @@ public class MinuteDetailProcessor {
 
         MeetingMinuteDetailVo vo = new MeetingMinuteDetailVo();
         vo.setMinuteVo(minuteVo);
-        vo.setResourceVos(appendResourceBusiness.getAppendResourcesVo(meeting.getResourceIds()));
+        vo.setResourceVos(getAppendResourcesProcessor.getAppendResourcesVo(meeting.getResourceIds()));
         return vo;
     }
 
@@ -118,7 +121,7 @@ public class MinuteDetailProcessor {
         vo.setMinuteVo(minuteVo);
         vo.setDecisionVo(decisionVo);
         vo.setOtherVo(otherVo);
-        vo.setResourceVos(appendResourceBusiness.getAppendResourcesVo(meetingMinutes.getResourceIds()));
+        vo.setResourceVos(getAppendResourcesProcessor.getAppendResourcesVo(meetingMinutes.getResourceIds()));
         return vo;
     }
 

@@ -9,6 +9,7 @@ import com.foxconn.sw.data.dto.entity.ResourceVo;
 import com.foxconn.sw.data.dto.response.meeting.MeetingLineVo;
 import com.foxconn.sw.data.entity.SwMeeting;
 import com.foxconn.sw.data.entity.SwMeetingMinute;
+import com.foxconn.sw.service.processor.resource.GetAppendResourcesProcessor;
 import com.google.common.collect.Lists;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,12 +31,14 @@ public class MeetingLineProcessor {
     MeetingBusiness meetingBusiness;
     @Autowired
     SwAppendResourceBusiness appendResourceBusiness;
+    @Autowired
+    GetAppendResourcesProcessor getAppendResourcesProcessor;
 
 
     public List<MeetingLineVo> meetingLines(Integer meetingId) {
         SwMeeting meeting = meetingBusiness.getMeetingByID(meetingId);
         if (StringUtils.isEmpty(meeting.getCycle())) {
-            List<ResourceVo> resourceVos = appendResourceBusiness.getAppendResourcesVo(meeting.getResourceIds());
+            List<ResourceVo> resourceVos = getAppendResourcesProcessor.getAppendResourcesVo(meeting.getResourceIds());
             MeetingLineVo meetingLineVo = new MeetingLineVo();
             meetingLineVo.setMeetingDate(meeting.getMeetingDate());
             meetingLineVo.setResourceVos(resourceVos);
@@ -86,7 +89,7 @@ public class MeetingLineProcessor {
     }
 
     private MeetingLineVo map2MeetingLine(SwMeetingMinute e) {
-        List<ResourceVo> resourceVos = appendResourceBusiness.getAppendResourcesVo(e.getResourceIds());
+        List<ResourceVo> resourceVos = getAppendResourcesProcessor.getAppendResourcesVo(e.getResourceIds());
         MeetingLineVo meetingLineVo = new MeetingLineVo();
         meetingLineVo.setMeetingId(e.getMeetingId());
         meetingLineVo.setMeetingDate(e.getMeetingDate());

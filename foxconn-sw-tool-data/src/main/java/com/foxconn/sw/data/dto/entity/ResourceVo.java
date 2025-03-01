@@ -52,14 +52,6 @@ public class ResourceVo {
         this.viewUrl = viewUrl;
     }
 
-//    public String getFilePath() {
-//        return filePath;
-//    }
-//
-//    public void setFilePath(String filePath) {
-//        this.filePath = filePath;
-//    }
-
     public EmployeeVo getOperator() {
         return operator;
     }

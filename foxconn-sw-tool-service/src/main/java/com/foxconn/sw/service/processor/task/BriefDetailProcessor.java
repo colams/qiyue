@@ -1,14 +1,20 @@
 package com.foxconn.sw.service.processor.task;
 
+import com.foxconn.sw.business.SwAppendResourceBusiness;
 import com.foxconn.sw.business.SwCapexSetBusiness;
 import com.foxconn.sw.business.oa.SwTaskBusiness;
 import com.foxconn.sw.business.oa.SwTaskEmployeeRelationBusiness;
 import com.foxconn.sw.business.oa.SwTaskProgressBusiness;
+import com.foxconn.sw.common.utils.ConvertUtils;
 import com.foxconn.sw.common.utils.JsonUtils;
 import com.foxconn.sw.data.constants.enums.TaskRoleFlagEnums;
+import com.foxconn.sw.data.dto.entity.ResourceVo;
 import com.foxconn.sw.data.dto.entity.oa.CapexParamsVo;
 import com.foxconn.sw.data.dto.entity.task.BriefTaskVo;
 import com.foxconn.sw.data.entity.SwTaskEmployeeRelation;
+import com.foxconn.sw.data.entity.SwTaskProgress;
+import com.foxconn.sw.service.processor.resource.GetAppendResourcesProcessor;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
@@ -28,6 +34,10 @@ public class BriefDetailProcessor {
     SwTaskProgressBusiness progressBusiness;
     @Autowired
     SwCapexSetBusiness capexSetBusiness;
+    @Autowired
+    SwAppendResourceBusiness appendResourceBusiness;
+    @Autowired
+    GetAppendResourcesProcessor getAppendResourcesProcessor;
 
     public BriefTaskVo getTaskById(Integer params) {
         BriefTaskVo task = swTaskBusiness.getTaskById(params);
@@ -49,11 +59,22 @@ public class BriefDetailProcessor {
                 .collect(Collectors.toList()));
 
         task.setCollaboration(task.getCategory().equalsIgnoreCase("6-2"));
-        task.setResourceVos(progressBusiness.getTaskResourceVo(task.getId()));
+        task.setResourceVos(getTaskResourceVo(task.getId()));
         if (task.getCollaboration()) {
             List<CapexParamsVo> capexParamsVos = capexSetBusiness.queryCapexParamsOrigin(params);
             task.setCapexParamsVos(capexParamsVos);
         }
         return task;
+    }
+
+    public List<ResourceVo> getTaskResourceVo(Integer taskId) {
+        List<SwTaskProgress> progresses = progressBusiness.selectReleaseProgress(taskId);
+        String resources = progresses.stream()
+                .filter(e -> StringUtils.isNotEmpty(e.getResourceIds()))
+                .map(e -> e.getResourceIds())
+                .findAny()
+                .orElse("");
+        List<Integer> resourceIds = ConvertUtils.stringToListInt(resources);
+        return getAppendResourcesProcessor.getAppendResourcesVo(resourceIds);
     }
 }

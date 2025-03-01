@@ -20,6 +20,7 @@ import com.foxconn.sw.data.entity.SwMeetingCycleDetail;
 import com.foxconn.sw.data.entity.SwMeetingMember;
 import com.foxconn.sw.data.entity.extension.MeetingEntity;
 import com.foxconn.sw.service.processor.MeetingRoomConfig;
+import com.foxconn.sw.service.processor.resource.GetAppendResourcesProcessor;
 import com.google.common.collect.Lists;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,6 +51,8 @@ public class MeetListProcessor {
     MeetingCycleDetailBusiness meetingCycleDetailBusiness;
     @Autowired
     SwAppendResourceBusiness appendResourceBusiness;
+    @Autowired
+    GetAppendResourcesProcessor getAppendResourcesProcessor;
 
 
     public MeetListVo meetList(ListMeetingV2Params data) {
@@ -153,7 +156,7 @@ public class MeetListProcessor {
         vo.setTitle(meetingEntity.getTitle());
         vo.setMeetingDateVo(meetingDateTimeVo);
         vo.setChairman(employeeVo);
-        vo.setResource(appendResourceBusiness.getAppendResourcesVo(meetingEntity.getResources()));
+        vo.setResource(getAppendResourcesProcessor.getAppendResourcesVo(meetingEntity.getResources()));
         vo.setStatusVo(mapColorVo(meetingDateTimeVo));
         return vo;
     }

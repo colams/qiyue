@@ -12,6 +12,7 @@ import com.foxconn.sw.data.dto.response.meeting.MeetingAttachmentVo;
 import com.foxconn.sw.data.entity.SwMeeting;
 import com.foxconn.sw.data.entity.SwMeetingCycleDetail;
 import com.foxconn.sw.data.entity.SwMeetingMember;
+import com.foxconn.sw.service.processor.resource.GetAppendResourcesProcessor;
 import com.google.common.collect.Lists;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +35,8 @@ public class MeetingAttachmentProcessor {
     SwAppendResourceBusiness appendResourceBusiness;
     @Autowired
     MeetingMemberBusiness meetingMemberBusiness;
+    @Autowired
+    GetAppendResourcesProcessor getAppendResourcesProcessor;
 
     public List<MeetingAttachmentVo> attachments(MeetingAttachmentParams data) {
 
@@ -55,7 +58,7 @@ public class MeetingAttachmentProcessor {
     }
 
     private List<MeetingAttachmentVo> cycleMeeting(SwMeetingCycleDetail meetingCycleDetails, List<SwMeetingMember> temMembers) {
-        List<ResourceVo> resourceVos = appendResourceBusiness.getAppendResourcesVo(meetingCycleDetails.getResourceIds());
+        List<ResourceVo> resourceVos = getAppendResourcesProcessor.getAppendResourcesVo(meetingCycleDetails.getResourceIds());
         List<MeetingAttachmentVo> attachmentVos = new ArrayList<>();
         String employeeNo = RequestContext.getEmployeeNo();
         boolean isAdmin = temMembers.stream()

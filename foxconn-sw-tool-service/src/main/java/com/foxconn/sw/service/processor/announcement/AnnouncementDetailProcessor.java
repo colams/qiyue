@@ -7,6 +7,7 @@ import com.foxconn.sw.common.utils.DateTimeUtils;
 import com.foxconn.sw.data.dto.entity.universal.IntegerParams;
 import com.foxconn.sw.data.dto.response.announcement.AnnouncementDetailVo;
 import com.foxconn.sw.data.entity.SwAnnouncement;
+import com.foxconn.sw.service.processor.resource.GetAppendResourcesProcessor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -18,6 +19,8 @@ public class AnnouncementDetailProcessor {
     EmployeeBusiness employeeBusiness;
     @Autowired
     SwAppendResourceBusiness appendResourceBusiness;
+    @Autowired
+    GetAppendResourcesProcessor getAppendResourcesProcessor;
 
     public AnnouncementDetailVo detail(IntegerParams data) {
         SwAnnouncement announcement = announcementBusiness.getAnnouncementById(data.getParams());
@@ -31,7 +34,7 @@ public class AnnouncementDetailProcessor {
         detailVo.setContent(announcement.getContent());
         detailVo.setOperator(employeeBusiness.selectEmployeeByENo(announcement.getLastUpdater()).getName());
         detailVo.setReleaseDate(DateTimeUtils.format(announcement.getDatetimeLastchange()));
-        detailVo.setResourceVos(appendResourceBusiness.getAppendResourcesVo(announcement.getResourceids()));
+        detailVo.setResourceVos(getAppendResourcesProcessor.getAppendResourcesVo(announcement.getResourceids()));
         detailVo.setCategory(announcement.getCategory());
         detailVo.setTop(announcement.getTop());
         detailVo.setExpiryDate(announcement.getExpiryDate());

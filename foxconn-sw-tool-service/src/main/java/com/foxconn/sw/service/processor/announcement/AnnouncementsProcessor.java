@@ -7,6 +7,7 @@ import com.foxconn.sw.common.utils.DateTimeUtils;
 import com.foxconn.sw.data.dto.request.announcement.AnnouncementsParams;
 import com.foxconn.sw.data.dto.response.announcement.AnnouncementVo;
 import com.foxconn.sw.data.entity.extension.SwAnnouncementExtension;
+import com.foxconn.sw.service.processor.resource.GetAppendResourcesProcessor;
 import com.google.common.collect.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -20,6 +21,8 @@ public class AnnouncementsProcessor {
     AnnouncementBusiness announcementBusiness;
     @Autowired
     SwAppendResourceBusiness appendResourceBusiness;
+    @Autowired
+    GetAppendResourcesProcessor getAppendResourcesProcessor;
 
     public List<AnnouncementVo> announcements(AnnouncementsParams announcementsParams) {
         List<SwAnnouncementExtension> swAnnouncements = announcementBusiness.queryAnnouncements(announcementsParams.getCategory());
@@ -32,7 +35,7 @@ public class AnnouncementsProcessor {
             vo.setTitle(item.getTitle());
             vo.setContent(item.getContent());
             vo.setOperator(item.getOperator());
-            vo.setResources(appendResourceBusiness.getAppendResourcesVo(item.getResourceids()));
+            vo.setResources(getAppendResourcesProcessor.getAppendResourcesVo(item.getResourceids()));
             vo.setReleaseTime(DateTimeUtils.format(item.getDatetimeLastchange()));
             vo.setExpiryDate(item.getExpiryDate());
             vo.setTop(NumberConstants.ONE.equals(item.getTop()));

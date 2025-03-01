@@ -25,8 +25,6 @@ public class SwAppendResourceBusiness {
 
     @Autowired
     SwAppendResourceExtensionMapper appendResourceExtensionMapper;
-    @Autowired
-    UserBusiness userBusiness;
 
     public List<SwAppendResource> getAppendResources(List<Integer> resourceIds) {
         SwAppendResourceExample example = new SwAppendResourceExample();
@@ -34,30 +32,6 @@ public class SwAppendResourceBusiness {
         criteria.andIdIn(resourceIds);
         return appendResourceExtensionMapper.selectByExample(example);
     }
-
-    public List<ResourceVo> getAppendResourcesVo(List<Integer> resourceIds) {
-        if (CollectionUtils.isEmpty(resourceIds)) {
-            return Lists.newArrayList();
-        }
-
-        SwAppendResourceExample example = new SwAppendResourceExample();
-        var criteria = example.createCriteria();
-        criteria.andIdIn(resourceIds);
-        List<SwAppendResource> resources = appendResourceExtensionMapper.selectByExample(example);
-        List<ResourceVo> resourceVos = new ArrayList<>();
-        Optional.ofNullable(resources).orElse(Lists.newArrayList()).forEach(e -> {
-            ResourceVo resourceVo = new ResourceVo();
-            resourceVo.setId(e.getId());
-            resourceVo.setName(e.getOriginName());
-            resourceVo.setUrl(ConvertUtils.urlPreFix(e.getId(), e.getFilePath()));
-            resourceVo.setViewUrl(String.format("%s/upload/%s/%s", DomainRetrieval.getDomain(), e.getUploadType(), e.getFilePath()));
-            resourceVo.setCreateTime(DateTimeUtils.format(e.getCreateTime()));
-            resourceVo.setOperator(userBusiness.mapEmployee(e.getOperator()));
-            resourceVos.add(resourceVo);
-        });
-        return resourceVos;
-    }
-
 
     public SwAppendResource getAppendResources(Integer resourceId) {
         return appendResourceExtensionMapper.selectByPrimaryKey(resourceId);
@@ -86,14 +60,5 @@ public class SwAppendResourceBusiness {
         return resource.getId();
     }
 
-    public List<ResourceVo> getAppendResourcesVo(String resourceIds) {
-        if (StringUtils.isEmpty(resourceIds)) {
-            return Lists.newArrayList();
-        }
-        List<Integer> resources = JsonUtils.deserialize(resourceIds, List.class, Integer.class);
-        if (CollectionUtils.isEmpty(resources)) {
-            return Lists.newArrayList();
-        }
-        return getAppendResourcesVo(resources);
-    }
+
 }
