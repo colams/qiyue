@@ -37,20 +37,7 @@ public class TeamScheduleProcessor {
     public List<TeamScheduleListVo> teamSchedule(ScheduleListParams data) {
 
         List<SwEmployee> employees = employeeBusiness.getSubordinateEmployee(RequestContext.getEmployeeNo());
-        List<String> employeeNos = employees.stream().map(SwEmployee::getEmployeeNo).collect(Collectors.toList());
-
-        if (CollectionUtils.isEmpty(data.getManageLeve())) {
-            employeeNos = employees.stream()
-                    .filter(e -> data.getManageLeve().contains(e.getManagerLevel()))
-                    .map(SwEmployee::getEmployeeNo).collect(Collectors.toList());
-        }
-
-        if (Objects.nonNull(data.getDepartmentId()) && data.getDepartmentId() > 0) {
-            List<Integer> departmentIds = departmentBusiness.getSubDepartID(data.getDepartmentId());
-            employeeNos = employees.stream()
-                    .filter(e -> departmentIds.contains(e.getDepartmentId()))
-                    .map(SwEmployee::getEmployeeNo).collect(Collectors.toList());
-        }
+        List<String> employeeNos = getEmployeeNos(employees, data);
 
         List<SwScheduleInfo> scheduleInfos = scheduleInfoBusiness.getTeamScheduleInfos(employeeNos, data);
 
@@ -60,6 +47,10 @@ public class TeamScheduleProcessor {
         List<TeamScheduleListVo> scheduleListVos = Lists.newArrayList();
 
         for (SwEmployee employee : employees) {
+
+            if (!employeeNos.stream().anyMatch(e -> e.equalsIgnoreCase(employee.getEmployeeNo()))) {
+                continue;
+            }
 
             int i = 0;
             while (i <= daysBetween) {
@@ -89,5 +80,29 @@ public class TeamScheduleProcessor {
         }
 
         return scheduleListVos;
+    }
+
+    private List<String> getEmployeeNos(List<SwEmployee> employees, ScheduleListParams data) {
+        List<String> employeeNos = employees.stream().map(SwEmployee::getEmployeeNo).collect(Collectors.toList());
+
+        if (CollectionUtils.isEmpty(data.getManageLeve())) {
+            employeeNos = employees.stream()
+                    .filter(e -> data.getManageLeve().contains(e.getManagerLevel()))
+                    .map(SwEmployee::getEmployeeNo).collect(Collectors.toList());
+        }
+
+        if (Objects.nonNull(data.getDepartmentId()) && data.getDepartmentId() > 0) {
+            List<Integer> departmentIds = departmentBusiness.getSubDepartID(data.getDepartmentId());
+            employeeNos = employees.stream()
+                    .filter(e -> departmentIds.contains(e.getDepartmentId()))
+                    .map(SwEmployee::getEmployeeNo).collect(Collectors.toList());
+        }
+
+        if (StringUtils.isNotEmpty(data.getEmployeeNo())) {
+            employeeNos = employees.stream()
+                    .filter(e -> data.getEmployeeNo().contains(e.getEmployeeNo()))
+                    .map(SwEmployee::getEmployeeNo).collect(Collectors.toList());
+        }
+        return employeeNos;
     }
 }
