@@ -43,8 +43,8 @@ public class CollaborationUpdateRowProcessor {
         List<SwCollaborationUser> collaborationUsers = collaborationUserBusiness
                 .queryCollaborationUser(data.getTaskID());
 
-        long scuId = detailList.get(0).getScuId();
-        if (collaborationUsers.size() > 1 ) {
+        long scuId = collaborationUsers.get(0).getId();
+        if (collaborationUsers.size() > 1) {
             SwCollaborationUser collaborationUser = new SwCollaborationUser();
             collaborationUser.setTaskId(data.getTaskID());
             collaborationUser.setEmployeeNo(RequestContext.getEmployeeNo());
