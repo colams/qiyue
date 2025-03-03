@@ -1,19 +1,22 @@
 package com.foxconn.sw.service.controller.system;
 
-import com.foxconn.sw.data.constants.TagsConstants;
 import com.foxconn.sw.data.dto.Request;
 import com.foxconn.sw.data.dto.Response;
 import com.foxconn.sw.data.dto.entity.system.DepartmentVo;
 import com.foxconn.sw.data.dto.entity.universal.IntegerParams;
 import com.foxconn.sw.data.dto.request.deparment.DepartmentParams;
 import com.foxconn.sw.service.processor.department.GetDepartListProcessor;
+import com.foxconn.sw.service.processor.department.GetSubDepartIdsProcessor;
 import com.foxconn.sw.service.processor.department.UpdateDepartmentProcessor;
 import com.foxconn.sw.service.utils.ResponseUtils;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
@@ -25,9 +28,10 @@ public class DepartmentController {
     GetDepartListProcessor getDepartListProcessor;
     @Autowired
     UpdateDepartmentProcessor updateDepartment;
+    @Autowired
+    GetSubDepartIdsProcessor getSubDepartIdsProcessor;
 
-
-    @Operation(summary = "所有部门信息树", tags = TagsConstants.SYSTEM)
+    @Operation(summary = "所有部门信息树", tags = "department")
     @ApiResponse(responseCode = "0", description = "成功码")
     @PostMapping("/departList")
     public Response<List<DepartmentVo>> getDepartList(@Valid @RequestBody Request request) {
@@ -36,7 +40,7 @@ public class DepartmentController {
     }
 
 
-    @Operation(summary = "更新部门信息", tags = TagsConstants.SYSTEM)
+    @Operation(summary = "更新部门信息", tags = "department")
     @ApiResponse(responseCode = "0", description = "成功码")
     @PostMapping("/update")
     public Response<Boolean> update(@Valid @RequestBody Request<DepartmentParams> request) {
@@ -44,7 +48,7 @@ public class DepartmentController {
         return ResponseUtils.success(result, request.getTraceId());
     }
 
-    @Operation(summary = "删除部门信息", tags = TagsConstants.SYSTEM)
+    @Operation(summary = "删除部门信息", tags = "department")
     @ApiResponse(responseCode = "0", description = "成功码")
     @PostMapping("/delete")
     public Response<Boolean> delete(@Valid @RequestBody Request<IntegerParams> request) {
@@ -52,4 +56,11 @@ public class DepartmentController {
         return ResponseUtils.success(result, request.getTraceId());
     }
 
+    @Operation(summary = "获取部门的子部门信息", tags = "department")
+    @ApiResponse(responseCode = "0", description = "成功码")
+    @PostMapping("/subDepartIds")
+    public Response<List<Integer>> getSubDepartIds(@Valid @RequestBody Request<IntegerParams> request) {
+        List<Integer> result = getSubDepartIdsProcessor.getSubDepartID(request.getData());
+        return ResponseUtils.success(result, request.getTraceId());
+    }
 }

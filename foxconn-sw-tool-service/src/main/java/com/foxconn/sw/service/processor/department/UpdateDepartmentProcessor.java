@@ -9,11 +9,8 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class UpdateDepartmentProcessor {
-
-
     @Autowired
     DepartmentBusiness departmentBusiness;
-
 
     public boolean updateDepartment(DepartmentParams departmentVo) {
         SwDepartment department = new SwDepartment();
@@ -34,6 +31,4 @@ public class UpdateDepartmentProcessor {
         department.setStatus(0);
         return departmentBusiness.updateOrInsert(department) > 0;
     }
-
-
 }

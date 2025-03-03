@@ -1,6 +1,7 @@
 package com.foxconn.sw.service.processor.schedule;
 
 import com.foxconn.sw.business.SwScheduleInfoBusiness;
+import com.foxconn.sw.business.system.DepartmentBusiness;
 import com.foxconn.sw.business.system.EmployeeBusiness;
 import com.foxconn.sw.common.utils.DateTimeUtils;
 import com.foxconn.sw.common.utils.LocalDateExtUtils;
@@ -14,11 +15,13 @@ import com.google.common.collect.Lists;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.util.CollectionUtils;
 
 import java.time.LocalDate;
 import java.time.temporal.WeekFields;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -28,12 +31,28 @@ public class TeamScheduleProcessor {
     SwScheduleInfoBusiness scheduleInfoBusiness;
     @Autowired
     EmployeeBusiness employeeBusiness;
+    @Autowired
+    DepartmentBusiness departmentBusiness;
 
     public List<TeamScheduleListVo> teamSchedule(ScheduleListParams data) {
 
         List<SwEmployee> employees = employeeBusiness.getSubordinateEmployee(RequestContext.getEmployeeNo());
         List<String> employeeNos = employees.stream().map(SwEmployee::getEmployeeNo).collect(Collectors.toList());
-        List<SwScheduleInfo> scheduleInfos = scheduleInfoBusiness.getTeamScheduleInfos(employeeNos, data.getStartDate(), data.getEndDate());
+
+        if (CollectionUtils.isEmpty(data.getManageLeve())) {
+            employeeNos = employees.stream()
+                    .filter(e -> data.getManageLeve().contains(e.getManagerLevel()))
+                    .map(SwEmployee::getEmployeeNo).collect(Collectors.toList());
+        }
+
+        if (Objects.nonNull(data.getDepartmentId()) && data.getDepartmentId() > 0) {
+            List<Integer> departmentIds = departmentBusiness.getSubDepartID(data.getDepartmentId());
+            employeeNos = employees.stream()
+                    .filter(e -> departmentIds.contains(e.getDepartmentId()))
+                    .map(SwEmployee::getEmployeeNo).collect(Collectors.toList());
+        }
+
+        List<SwScheduleInfo> scheduleInfos = scheduleInfoBusiness.getTeamScheduleInfos(employeeNos, data);
 
         LocalDate startDay = LocalDateExtUtils.toLocalDate(data.getStartDate());
         long daysBetween = DateTimeUtils.getBetweenDay(data.getStartDate(), data.getEndDate());

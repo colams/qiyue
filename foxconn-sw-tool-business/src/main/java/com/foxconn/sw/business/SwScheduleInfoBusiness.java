@@ -1,5 +1,6 @@
 package com.foxconn.sw.business;
 
+import com.foxconn.sw.data.dto.request.schedule.ScheduleListParams;
 import com.foxconn.sw.data.entity.SwScheduleInfo;
 import com.foxconn.sw.data.mapper.extension.SwScheduleInfoExtMapper;
 import com.google.common.collect.Lists;
@@ -41,7 +42,7 @@ public class SwScheduleInfoBusiness {
         return true;
     }
 
-    public List<SwScheduleInfo> getTeamScheduleInfos(List<String> employeeNos, String startDate, String endDate) {
-        return scheduleInfoExtMapper.getTeamScheduleInfos(employeeNos, startDate, endDate);
+    public List<SwScheduleInfo> getTeamScheduleInfos(List<String> employeeNos, ScheduleListParams data) {
+        return scheduleInfoExtMapper.getTeamScheduleInfos(employeeNos, data);
     }
 }
