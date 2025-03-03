@@ -28,30 +28,10 @@ public interface SwScheduleInfoExtMapper extends SwScheduleInfoMapper {
             "from sw_schedule_info s inner join sw_employee e on s.employee_no=e.employee_no",
             "where s.date &gt;= #{data.startDate,jdbcType=VARCHAR} ",
             "  and s.date &lt;= #{data.endDate,jdbcType=VARCHAR}",
-
-            "<if test='data.stationedPlace!=null and data.stationedPlace!=\"\"' >",
-            "and e.stationed_place=#{data.stationedPlace,jdbcType=VARCHAR}",
-            "</if> ",
-
-            "<if test='data.identityOfCadre != null and data.identityOfCadre.size() > 0' >",
-            "and e.stationed_place in ",
-            "<foreach collection='data.identityOfCadre' item='ioc' open='(' separator=',' close=')'>",
-            "#{ioc,jdbcType=VARCHAR}",
-            "</foreach>",
-            "</if> ",
-
-            "<choose>",
-            "<when test='data.employeeNo!=null and data.employeeNo!=\"\"'>",
-            "and s.employee_no = #{data.employeeNo,jdbcType=VARCHAR}",
-            "</when>",
-            "<otherwise>",
             "and s.employee_no in ",
             "<foreach collection='employeeNos' item='eno' open='(' separator=',' close=')'>",
             "#{eno,jdbcType=VARCHAR}",
             "</foreach>",
-            "</otherwise>",
-            "</choose>",
-
             "</script>"
     })
     List<SwScheduleInfo> getTeamScheduleInfos(List<String> employeeNos, ScheduleListParams data);

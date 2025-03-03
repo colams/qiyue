@@ -35,9 +35,14 @@ public class TeamScheduleProcessor {
     DepartmentBusiness departmentBusiness;
 
     public List<TeamScheduleListVo> teamSchedule(ScheduleListParams data) {
+        List<SwEmployee> employees = getEmployeeNos2(data);
+        if (CollectionUtils.isEmpty(employees)) {
+            return Lists.newArrayList();
+        }
 
-        List<SwEmployee> employees = employeeBusiness.getSubordinateEmployee(RequestContext.getEmployeeNo());
-        List<String> employeeNos = getEmployeeNos(employees, data);
+        List<String> employeeNos = employees.stream()
+                .map(SwEmployee::getEmployeeNo)
+                .collect(Collectors.toList());
 
         List<SwScheduleInfo> scheduleInfos = scheduleInfoBusiness.getTeamScheduleInfos(employeeNos, data);
 
@@ -47,11 +52,6 @@ public class TeamScheduleProcessor {
         List<TeamScheduleListVo> scheduleListVos = Lists.newArrayList();
 
         for (SwEmployee employee : employees) {
-
-            if (!employeeNos.stream().anyMatch(e -> e.equalsIgnoreCase(employee.getEmployeeNo()))) {
-                continue;
-            }
-
             int i = 0;
             while (i <= daysBetween) {
                 LocalDate current = startDay.plusDays(i++);
@@ -105,4 +105,48 @@ public class TeamScheduleProcessor {
         }
         return employeeNos;
     }
+
+    private List<SwEmployee> getEmployeeNos2(ScheduleListParams data) {
+
+        List<SwEmployee> employees = employeeBusiness.getSubordinateEmployee(RequestContext.getEmployeeNo());
+
+        if (!CollectionUtils.isEmpty(data.getManageLeve())) {
+            // 管理層級過濾
+            employees = employees.stream()
+                    .filter(e -> data.getManageLeve().contains(e.getManagerLevel()))
+                    .collect(Collectors.toList());
+        }
+
+        if (Objects.nonNull(data.getDepartmentId()) && data.getDepartmentId() > 0) {
+            // 部門過濾
+            List<Integer> departmentIds = departmentBusiness.getSubDepartID(data.getDepartmentId());
+            employees = employees.stream()
+                    .filter(e -> departmentIds.contains(e.getDepartmentId()))
+                    .collect(Collectors.toList());
+        }
+
+        if (StringUtils.isNotEmpty(data.getEmployeeNo())) {
+            // 人員過濾
+            employees = employees.stream()
+                    .filter(e -> data.getEmployeeNo().contains(e.getEmployeeNo()))
+                    .collect(Collectors.toList());
+        }
+
+        if (!CollectionUtils.isEmpty(data.getIdentityOfCadre())) {
+            // 幹部身份
+            employees = employees.stream()
+                    .filter(e -> data.getIdentityOfCadre().contains(e.getIdentityOfCadre()))
+                    .collect(Collectors.toList());
+        }
+
+        if (StringUtils.isNotEmpty(data.getStationedPlace())) {
+            // 常駐地身份
+            employees = employees.stream()
+                    .filter(e -> data.getStationedPlace().equalsIgnoreCase(e.getStationedPlace()))
+                    .collect(Collectors.toList());
+        }
+
+        return employees;
+    }
+
 }
