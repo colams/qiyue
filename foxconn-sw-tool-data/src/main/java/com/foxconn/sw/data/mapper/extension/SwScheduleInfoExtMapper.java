@@ -33,7 +33,7 @@ public interface SwScheduleInfoExtMapper extends SwScheduleInfoMapper {
             "and e.stationed_place=#{data.stationedPlace,jdbcType=VARCHAR}",
             "</if> ",
 
-            "<if test='data.identityOfCadre != null and data.identityOfCadre.length > 0' >",
+            "<if test='data.identityOfCadre != null and data.identityOfCadre.size() > 0' >",
             "and e.stationed_place in ",
             "<foreach collection='data.identityOfCadre' item='ioc' open='(' separator=',' close=')'>",
             "#{ioc,jdbcType=VARCHAR}",
