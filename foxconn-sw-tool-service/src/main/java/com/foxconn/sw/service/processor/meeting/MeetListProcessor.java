@@ -63,11 +63,11 @@ public class MeetListProcessor {
 
         List<MeetingV2Vo> vos = new ArrayList<>();
         meetings.forEach(e -> {
-            List<Integer> cycles = JsonUtils.deserialize(e.getCycle(), List.class, Integer.class);
             List<MeetingV2Vo> list;
-            if (CollectionUtils.isEmpty(cycles)) {
+            if (StringUtils.isNotEmpty(e.getCycle())) {
                 list = map2MeetingV2Vo(e);
             } else {
+                List<Integer> cycles = JsonUtils.deserialize(e.getCycle(), List.class, Integer.class);
                 String startDate = searchStartDate.compareTo(e.getCycleStart()) >= 0 ? searchStartDate : e.getCycleStart();
                 String endDate = searchEndDate.compareTo(e.getCycleExpire()) >= 0 && StringUtils.isNotEmpty(e.getCycleExpire()) ? e.getCycleExpire() : searchEndDate;
                 list = map2MeetingV2Vo(e, cycles, startDate, endDate);

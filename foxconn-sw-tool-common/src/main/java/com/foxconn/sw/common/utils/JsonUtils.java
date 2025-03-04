@@ -55,7 +55,7 @@ public class JsonUtils {
             JavaType javaType = mapper.getTypeFactory().constructParametricType(mainClazz, parameterClazz);
             return mapper.readValue(jsonString, javaType);
         } catch (Exception var4) {
-            logger.warn("jackson反序列化异常", var4);
+            logger.warn("jackson反序列化异常:" + jsonString, var4);
             return null;
         }
     }
