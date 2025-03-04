@@ -64,7 +64,7 @@ public class MeetListProcessor {
         List<MeetingV2Vo> vos = new ArrayList<>();
         meetings.forEach(e -> {
             List<MeetingV2Vo> list;
-            if (StringUtils.isNotEmpty(e.getCycle())) {
+            if (StringUtils.isEmpty(e.getCycle())) {
                 list = map2MeetingV2Vo(e);
             } else {
                 List<Integer> cycles = JsonUtils.deserialize(e.getCycle(), List.class, Integer.class);
