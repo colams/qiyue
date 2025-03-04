@@ -255,9 +255,11 @@ public interface SwTaskExtensionMapper extends SwTaskMapper {
 
 
     @Select({"<script>",
-            "SELECT st.*",
+            "SELECT count(1)",
             "FROM sw_task st",
             "         JOIN sw_task_employee_relation ste ON st.id = ste.task_id and ste.is_delete=0",
+            " left join sw_employee se1 on st.proposer_eid=se1.employee_no ",
+            " left join sw_employee se2 on ste.employee_no=se2.employee_no ",
             "<where>",
             "(st.parent_id = 0 OR (st.parent_id > 0",
             "    AND NOT EXISTS(SELECT 1",
