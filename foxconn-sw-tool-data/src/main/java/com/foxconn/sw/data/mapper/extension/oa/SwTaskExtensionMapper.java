@@ -385,6 +385,8 @@ public interface SwTaskExtensionMapper extends SwTaskMapper {
             "     inner join sw_task_employee_relation e on s.id = e.task_id",
             "where e.employee_no = #{employeeNo,jdbcType=VARCHAR} ",
             "  and s.category = '6-2' ",
+            "  and s.status in (1, 2, 3, 4) ",
+            "  and e.is_delete = 0 ",
             "</script>"})
     Integer getCollaborationCount(String employeeNo);
 }
