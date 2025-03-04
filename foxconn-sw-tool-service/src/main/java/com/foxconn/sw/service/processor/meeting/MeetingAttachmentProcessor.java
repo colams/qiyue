@@ -43,12 +43,11 @@ public class MeetingAttachmentProcessor {
         SwMeeting swMeeting = meetingBusiness.getMeetingByID(data.getMeetingID());
         SwMeetingCycleDetail meetingCycleDetails =
                 meetingCycleDetailBusiness.queryCycleDetailWithDateNew(data.getMeetingID(), data.getMeetingDate());
-
-        List<SwMeetingMember> originMember = meetingMemberBusiness.queryMeetingMemberByMeetingID(meetingCycleDetails.getMeetingId());
+        List<SwMeetingMember> originMember = meetingMemberBusiness.queryMeetingMemberByMeetingID(data.getMeetingID());
 
         List<MeetingAttachmentVo> attachmentVos;
         if (Objects.isNull(meetingCycleDetails) || StringUtils.isEmpty(meetingCycleDetails.getResourceIds())) {
-            attachmentVos = singleMeeting(swMeeting);
+            attachmentVos = singleMeeting(swMeeting, originMember);
         } else {
             List<SwMeetingMember> newMembers = meetingMemberBusiness.queryMeetingMemberByDetailId(meetingCycleDetails.getMeetingId());
             List<SwMeetingMember> temMembers = CollectionUtils.isEmpty(newMembers) ? originMember : newMembers;
@@ -82,8 +81,32 @@ public class MeetingAttachmentProcessor {
         return attachmentVos;
     }
 
-    private List<MeetingAttachmentVo> singleMeeting(SwMeeting swMeeting) {
+    private List<MeetingAttachmentVo> singleMeeting(SwMeeting swMeeting, List<SwMeetingMember> temMembers) {
+        if (StringUtils.isEmpty(swMeeting.getResourceIds())) {
+            return Lists.newArrayList();
+        }
+
         List<MeetingAttachmentVo> attachmentVos = new ArrayList<>();
+
+        String employeeNo = RequestContext.getEmployeeNo();
+        boolean isAdmin = temMembers.stream()
+                .filter(e -> e.getEmployeeNo().equalsIgnoreCase(employeeNo))
+                .anyMatch(e -> MeetingRoleFlagEnums.Chairman_Flag.test(e.getRole()) || MeetingRoleFlagEnums.Maintainer_Flag.test(e.getRole()));
+
+        List<ResourceVo> resourceVos = getAppendResourcesProcessor.getAppendResourcesVo(swMeeting.getResourceIds());
+        Optional.ofNullable(resourceVos).orElse(Lists.newArrayList())
+                .forEach(e -> {
+                    MeetingAttachmentVo attachmentVo = new MeetingAttachmentVo();
+                    attachmentVo.setMeetingId(swMeeting.getId());
+                    attachmentVo.setCreateTime(e.getCreateTime());
+                    attachmentVo.setCanDelete(isAdmin || employeeNo.equalsIgnoreCase(e.getOperator().getEmployeeNo()));
+                    attachmentVo.setId(e.getId());
+                    attachmentVo.setName(e.getName());
+                    attachmentVo.setUrl(e.getUrl());
+                    attachmentVo.setViewUrl(e.getViewUrl());
+                    attachmentVo.setOperator(e.getOperator());
+                    attachmentVos.add(attachmentVo);
+                });
         return attachmentVos;
     }
 }
