@@ -47,7 +47,6 @@ public class ExcelScheduleUtils {
         thinBorderStyle.setBorderLeft(BorderStyle.THIN);
         thinBorderStyle.setBorderRight(BorderStyle.THIN);
 
-        // 遍历行 0 到 10（共11行）
         for (int rowIndex = 0; rowIndex <= sheet.getLastRowNum(); rowIndex++) {
             Row row = sheet.getRow(rowIndex);
             for (int colNum = 0; colNum < row.getLastCellNum(); colNum++) {
@@ -55,8 +54,6 @@ public class ExcelScheduleUtils {
                 cell.setCellStyle(thinBorderStyle);
             }
         }
-
-
         return workbook;
     }
 
