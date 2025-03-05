@@ -12,17 +12,23 @@ import com.foxconn.sw.service.processor.schedule.CreateScheduleProcessor;
 import com.foxconn.sw.service.processor.schedule.MyScheduleProcessor;
 import com.foxconn.sw.service.processor.schedule.TeamScheduleProcessor;
 import com.foxconn.sw.service.processor.system.dic.QueryConfigDicProcessor;
+import com.foxconn.sw.service.utils.ExcelScheduleUtils;
 import com.foxconn.sw.service.utils.ResponseUtils;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
+import org.apache.poi.ss.usermodel.Workbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.io.IOException;
+import java.io.OutputStream;
 import java.util.List;
 
 @RestController
@@ -39,6 +45,8 @@ public class ScheduleController {
     QueryConfigDicProcessor queryConfigDicProcessor;
     @Autowired
     AddCommonDestinationProcessor addCommonDestinationProcessor;
+    @Autowired
+    HttpServletResponse response;
 
     @Operation(summary = "保存行程信息", tags = "schedule")
     @ApiResponse(responseCode = "0", description = "成功码")
@@ -79,5 +87,29 @@ public class ScheduleController {
     public ResponseEntity addCommonDestination(@Valid @RequestBody Request<StringParams> request) {
         Boolean result = addCommonDestinationProcessor.addCommonDestination(request.getData());
         return ResponseEntity.ok(ResponseUtils.success(result, request.getTraceId()));
+    }
+
+    @Operation(summary = "導出行程信息", tags = "schedule")
+    @ApiResponse(responseCode = "0", description = "成功码")
+    @PostMapping("/export")
+    public ResponseEntity export(@Valid @RequestBody Request<ScheduleListParams> request) throws IOException {
+        // 设置响应头
+        response.setContentType("application/vnd.ms-excel");
+        String fileName = String.format("schedule %s-%s.xlsx", request.getData().getStartDate(), request.getData().getEndDate());
+        response.setHeader("Content-Disposition", "attachment; filename=" + fileName);
+        List<TeamScheduleListVo> vos = teamScheduleProcessor.teamSchedule(request.getData());
+        if (CollectionUtils.isEmpty(vos)) {
+            return ResponseEntity.ok().body(null);
+        }
+        // 使用Apache POI生成Excel文件
+        Workbook workbook = ExcelScheduleUtils.generateExcel(vos);
+
+        // 将Excel文件写入响应输出流
+        OutputStream outputStream = response.getOutputStream();
+        workbook.write(outputStream);
+        outputStream.close();
+
+        workbook.close();
+        return ResponseEntity.ok().body(null);
     }
 }
