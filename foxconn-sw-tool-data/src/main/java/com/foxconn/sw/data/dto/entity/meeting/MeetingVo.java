@@ -179,4 +179,20 @@ public class MeetingVo {
     public void setWebexUrl(String webexUrl) {
         this.webexUrl = webexUrl;
     }
+
+    public String getUpdateTime() {
+        return updateTime;
+    }
+
+    public void setUpdateTime(String updateTime) {
+        this.updateTime = updateTime;
+    }
+
+    public Boolean getUpdate() {
+        return isUpdate;
+    }
+
+    public void setUpdate(Boolean update) {
+        isUpdate = update;
+    }
 }

@@ -6,6 +6,7 @@ import com.foxconn.sw.business.meeting.MeetingCycleDetailBusiness;
 import com.foxconn.sw.business.meeting.MeetingMemberBusiness;
 import com.foxconn.sw.business.system.EmployeeBusiness;
 import com.foxconn.sw.common.utils.ConvertUtils;
+import com.foxconn.sw.common.utils.DateTimeUtils;
 import com.foxconn.sw.common.utils.JsonUtils;
 import com.foxconn.sw.data.constants.enums.MeetingRoleFlagEnums;
 import com.foxconn.sw.data.constants.enums.retcode.RetCode;
@@ -115,6 +116,9 @@ public class DetailMeetingProcessor {
         vo.setMaintainers(maintainers);
         vo.setMembers(members);
         vo.setWatchers(watchers);
+        String updateTime = DateTimeUtils.format(Optional.ofNullable(detail.getDatetimeLastchange()).orElse(meeting.getDatetimeLastchange()));
+        vo.setUpdate(updateTime.equalsIgnoreCase(DateTimeUtils.format(meeting.getDatetimeLastchange())));
+        vo.setUpdateTime(updateTime);
         if (StringUtils.isNotEmpty(meeting.getResourceIds()) || StringUtils.isNotEmpty(detail.getResourceIds())) {
 
             List<Integer> resourceIDs = Lists.newArrayList();

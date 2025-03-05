@@ -58,6 +58,11 @@ public class TeamScheduleProcessor {
                     && !scheduleInfos.stream().anyMatch(e -> employee.getEmployeeNo().equalsIgnoreCase(e.getEmployeeNo()))) {
                 continue;
             }
+
+            if (employee.getEmployeeNo().equalsIgnoreCase(RequestContext.getEmployeeNo())) {
+                continue;
+            }
+
             while (i <= daysBetween) {
                 LocalDate current = startDay.plusDays(i++);
                 String currentDate = LocalDateExtUtils.toString(current);
