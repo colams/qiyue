@@ -38,8 +38,6 @@ public class ScheduleController {
     @Autowired
     QueryConfigDicProcessor queryConfigDicProcessor;
     @Autowired
-    SetStationedPlaceProcessor setStationedPlaceProcessor;
-    @Autowired
     AddCommonDestinationProcessor addCommonDestinationProcessor;
 
     @Operation(summary = "保存行程信息", tags = "schedule")
