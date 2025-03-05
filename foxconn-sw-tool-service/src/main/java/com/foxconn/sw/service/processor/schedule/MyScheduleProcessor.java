@@ -57,7 +57,7 @@ public class MyScheduleProcessor {
                     .anyMatch(e -> e.getDate().equalsIgnoreCase(currentDate))) {
                 ScheduleListVo vo = new ScheduleListVo();
                 vo.setDate(currentDate);
-                vo.setDestination(employee.getStationedPlace());
+                vo.setDestination("");
                 vo.setType(ScheduleTypeEnums.Working.name());
                 vo.setCurrent(currentDate.equalsIgnoreCase(LocalDateExtUtils.toString(LocalDate.now())));
                 scheduleListVos.add(vo);

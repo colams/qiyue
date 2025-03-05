@@ -7,7 +7,6 @@ import com.foxconn.sw.data.dto.request.schedule.MyScheduleParams;
 import com.foxconn.sw.data.dto.request.schedule.ScheduleListParams;
 import com.foxconn.sw.data.dto.response.schedule.ScheduleListVo;
 import com.foxconn.sw.data.dto.response.schedule.TeamScheduleListVo;
-import com.foxconn.sw.service.processor.acount.SetStationedPlaceProcessor;
 import com.foxconn.sw.service.processor.schedule.AddCommonDestinationProcessor;
 import com.foxconn.sw.service.processor.schedule.CreateScheduleProcessor;
 import com.foxconn.sw.service.processor.schedule.MyScheduleProcessor;
@@ -83,21 +82,4 @@ public class ScheduleController {
         Boolean result = addCommonDestinationProcessor.addCommonDestination(request.getData());
         return ResponseEntity.ok(ResponseUtils.success(result, request.getTraceId()));
     }
-
-    @Operation(summary = "设置为常驻地", tags = "schedule")
-    @ApiResponse(responseCode = "0", description = "成功码")
-    @PostMapping("/setStationedPlace")
-    public ResponseEntity setStationedPlace(@Valid @RequestBody Request<StringParams> request) {
-        Boolean result = setStationedPlaceProcessor.setStationedPlace(request.getData());
-        return ResponseEntity.ok(ResponseUtils.success(result, request.getTraceId()));
-    }
-
-    @Operation(summary = "获取为常驻地", tags = "schedule")
-    @ApiResponse(responseCode = "0", description = "成功码")
-    @PostMapping("/getStationedPlace")
-    public ResponseEntity getStationedPlace(@Valid @RequestBody Request request) {
-        String result = setStationedPlaceProcessor.getStationedPlace();
-        return ResponseEntity.ok(ResponseUtils.success(result, request.getTraceId()));
-    }
-
 }

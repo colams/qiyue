@@ -53,6 +53,11 @@ public class TeamScheduleProcessor {
 
         for (SwEmployee employee : employees) {
             int i = 0;
+
+            if (StringUtils.isNotEmpty(data.getDestination())
+                    && !scheduleInfos.stream().anyMatch(e -> employee.getEmployeeNo().equalsIgnoreCase(e.getEmployeeNo()))) {
+                continue;
+            }
             while (i <= daysBetween) {
                 LocalDate current = startDay.plusDays(i++);
                 String currentDate = LocalDateExtUtils.toString(current);
@@ -68,10 +73,8 @@ public class TeamScheduleProcessor {
                 WeekFields weekFields = WeekFields.ISO;
                 vo.setWeekInfo(current.get(weekFields.weekOfWeekBasedYear()));
                 vo.setName(employee.getName());
-
                 vo.setDate(currentDate);
-                vo.setDestination(optional.map(SwScheduleInfo::getPlace).orElse(employee.getStationedPlace()));
-                vo.setPlace(StringUtils.isEmpty(employee.getStationedPlace()) ? "龍華" : employee.getStationedPlace());
+                vo.setDestination(optional.map(SwScheduleInfo::getPlace).orElse(""));
                 vo.setType(optional.map(SwScheduleInfo::getType).orElse(ScheduleTypeEnums.Working.name()));
                 vo.setCurrent(currentDate.equalsIgnoreCase(LocalDateExtUtils.toString(LocalDate.now())));
 
@@ -80,30 +83,6 @@ public class TeamScheduleProcessor {
         }
 
         return scheduleListVos;
-    }
-
-    private List<String> getEmployeeNos(List<SwEmployee> employees, ScheduleListParams data) {
-        List<String> employeeNos = employees.stream().map(SwEmployee::getEmployeeNo).collect(Collectors.toList());
-
-        if (CollectionUtils.isEmpty(data.getManageLeve())) {
-            employeeNos = employees.stream()
-                    .filter(e -> data.getManageLeve().contains(e.getManagerLevel()))
-                    .map(SwEmployee::getEmployeeNo).collect(Collectors.toList());
-        }
-
-        if (Objects.nonNull(data.getDepartmentId()) && data.getDepartmentId() > 0) {
-            List<Integer> departmentIds = departmentBusiness.getSubDepartID(data.getDepartmentId());
-            employeeNos = employees.stream()
-                    .filter(e -> departmentIds.contains(e.getDepartmentId()))
-                    .map(SwEmployee::getEmployeeNo).collect(Collectors.toList());
-        }
-
-        if (StringUtils.isNotEmpty(data.getEmployeeNo())) {
-            employeeNos = employees.stream()
-                    .filter(e -> data.getEmployeeNo().contains(e.getEmployeeNo()))
-                    .map(SwEmployee::getEmployeeNo).collect(Collectors.toList());
-        }
-        return employeeNos;
     }
 
     private List<SwEmployee> getEmployeeNos2(ScheduleListParams data) {
@@ -139,12 +118,12 @@ public class TeamScheduleProcessor {
                     .collect(Collectors.toList());
         }
 
-        if (StringUtils.isNotEmpty(data.getStationedPlace())) {
-            // 常駐地身份
-            employees = employees.stream()
-                    .filter(e -> data.getStationedPlace().equalsIgnoreCase(e.getStationedPlace()))
-                    .collect(Collectors.toList());
-        }
+//        if (StringUtils.isNotEmpty(data.getStationedPlace())) {
+//            // 常駐地身份
+//            employees = employees.stream()
+//                    .filter(e -> data.getStationedPlace().equalsIgnoreCase(e.getStationedPlace()))
+//                    .collect(Collectors.toList());
+//        }
 
         return employees;
     }

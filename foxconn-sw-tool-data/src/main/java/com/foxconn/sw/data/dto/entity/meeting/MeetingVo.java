@@ -33,6 +33,9 @@ public class MeetingVo {
 
     private String webexUrl;
 
+    private String updateTime;
+    private Boolean isUpdate;
+
     public Integer getMeetingID() {
         return meetingID;
     }

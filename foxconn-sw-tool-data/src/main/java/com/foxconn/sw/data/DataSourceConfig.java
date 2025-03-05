@@ -22,7 +22,6 @@ import java.util.Map;
 @Configuration
 public class DataSourceConfig {
 
-
     @Bean
     @ConfigurationProperties(prefix = "spring.datasource.pro")
     public DataSource dataSourcePro() {

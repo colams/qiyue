@@ -4,7 +4,6 @@ public class TeamScheduleListVo {
 
     private String date;
     private String destination;
-    private String place;
 
     private boolean current;
     /**
@@ -28,14 +27,6 @@ public class TeamScheduleListVo {
 
     public void setDestination(String destination) {
         this.destination = destination;
-    }
-
-    public String getPlace() {
-        return place;
-    }
-
-    public void setPlace(String place) {
-        this.place = place;
     }
 
     public boolean isCurrent() {

@@ -32,6 +32,9 @@ public interface SwScheduleInfoExtMapper extends SwScheduleInfoMapper {
             "<foreach collection='employeeNos' item='eno' open='(' separator=',' close=')'>",
             "#{eno,jdbcType=VARCHAR}",
             "</foreach>",
+            "<if test='data.destination!=null and data.destination!=\"\"' >",
+            " and place =#{data.destination,jdbcType=VARCHAR} ",
+            "</if> ",
             "</script>"
     })
     List<SwScheduleInfo> getTeamScheduleInfos(List<String> employeeNos, ScheduleListParams data);

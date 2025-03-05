@@ -10,8 +10,8 @@ public class ScheduleListParams {
     private String startDate;
     @Schema(description = "结束时间")
     private String endDate;
-    @Schema(description = "常驻地")
-    private String stationedPlace;
+    @Schema(description = "目的地")
+    private String destination;
     @Schema(description = "幹部身份")
     private List<String> identityOfCadre;
     @Schema(description = "部门信息")
@@ -37,12 +37,12 @@ public class ScheduleListParams {
         this.endDate = endDate;
     }
 
-    public String getStationedPlace() {
-        return stationedPlace;
+    public String getDestination() {
+        return destination;
     }
 
-    public void setStationedPlace(String stationedPlace) {
-        this.stationedPlace = stationedPlace;
+    public void setDestination(String destination) {
+        this.destination = destination;
     }
 
     public List<String> getIdentityOfCadre() {
