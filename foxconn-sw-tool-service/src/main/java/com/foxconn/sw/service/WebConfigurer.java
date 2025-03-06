@@ -4,8 +4,6 @@ import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 import com.foxconn.sw.common.utils.ConfigReader;
-import com.foxconn.sw.service.config.DynamicConfigLoader;
-import jakarta.annotation.Resource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.server.WebServerFactoryCustomizer;
 import org.springframework.boot.web.servlet.server.ConfigurableServletWebServerFactory;
@@ -31,9 +29,6 @@ public class WebConfigurer implements WebMvcConfigurer, WebServerFactoryCustomiz
 
     @Autowired
     ConfigReader configReader;
-
-    @Resource
-    private DynamicConfigLoader dynamicConfigLoader;
 
     @Override
     public void customize(ConfigurableServletWebServerFactory factory) {
@@ -99,8 +94,7 @@ public class WebConfigurer implements WebMvcConfigurer, WebServerFactoryCustomiz
                 .maxAge(3600);
 
         // 添加跨域映射规则
-        String allowedOrigin = getAllowedOrigins();
-        System.out.println("-------------------------------" + allowedOrigin);
+        String allowedOrigin = "*";
         if (allowedOrigin.equalsIgnoreCase("*")) {
             registration.allowedOriginPatterns("*"); // 允许来自 http://example.com 的跨域请求
         } else {
@@ -112,14 +106,7 @@ public class WebConfigurer implements WebMvcConfigurer, WebServerFactoryCustomiz
     @Bean
     public CorsFilter corsFilter() {
         CorsConfiguration config = new CorsConfiguration();
-        String[] origins = getAllowedOrigins().split(",");
-        for (String origin : origins) {
-            if ("*".equals(origin)) {
-                config.addAllowedOriginPattern("*");
-            } else {
-                config.addAllowedOriginPattern(origin);
-            }
-        }
+        config.addAllowedOriginPattern("*");
         config.addAllowedMethod("*");
         config.addAllowedHeader("*");
         config.setAllowCredentials(true);
@@ -144,14 +131,5 @@ public class WebConfigurer implements WebMvcConfigurer, WebServerFactoryCustomiz
 //        bean.setOrder(0);
 //        return bean;
 //    }
-
-
-    public int getPort() {
-        return dynamicConfigLoader.getIntegerProperty("server.port");
-    }
-
-    public String getAllowedOrigins() {
-        return dynamicConfigLoader.getStringProperty("cors.allowed-origins", "*");
-    }
 
 }

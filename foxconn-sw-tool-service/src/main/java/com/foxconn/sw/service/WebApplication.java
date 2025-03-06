@@ -2,6 +2,7 @@ package com.foxconn.sw.service;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.ServletComponentScan;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
@@ -20,7 +21,7 @@ import java.util.concurrent.ThreadPoolExecutor;
         "com.foxconn.sw.data",
         "com.foxconn.sw.common",
         "com.foxconn.sw.business",
-})
+}, exclude = {DataSourceAutoConfiguration.class})
 public class WebApplication extends SpringBootServletInitializer {
 
     private static final int AVAILABLE_PROCESSORS = Runtime.getRuntime().availableProcessors();
