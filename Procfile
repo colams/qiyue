@@ -1,1 +1,1 @@
-web: java -jar /target/foxconn-sw.war
+web: java -jar foxconn-sw-tool-service/target/foxconn-sw.war
