@@ -114,7 +114,7 @@ public class WebConfigurer implements WebMvcConfigurer, WebServerFactoryCustomiz
         CorsConfiguration config = new CorsConfiguration();
         String[] origins = getAllowedOrigins().split(",");
         for (String origin : origins) {
-            if ("*" .equals(origin)) {
+            if ("*".equals(origin)) {
                 config.addAllowedOriginPattern("*");
             } else {
                 config.addAllowedOriginPattern(origin);
@@ -123,6 +123,7 @@ public class WebConfigurer implements WebMvcConfigurer, WebServerFactoryCustomiz
         config.addAllowedMethod("*");
         config.addAllowedHeader("*");
         config.setAllowCredentials(true);
+        config.addExposedHeader("Content-Disposition");
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", config);
