@@ -24,92 +24,9 @@ public class Swagger {
     @Bean
     public GroupedOpenApi oaApi() {
         String[] paths = new String[]{
-                "/api/" + TagsConstants.OA + "/**",
-                "/api/meet/**",
-                "/api/collaboration/**",
-                "/api/document/**",
-                "/api/project/**",
-                "/api/schedule/**",
+                "/api/file/**",
         };
         return createGroupedOpenApi(TagsConstants.OA, paths);
-    }
-
-    @Bean
-    public GroupedOpenApi routeApi() {
-        return createGroupedOpenApi(TagsConstants.MENU);
-    }
-
-    @Bean
-    public GroupedOpenApi menuApi() {
-        return createGroupedOpenApi(TagsConstants.ROUTE);
-    }
-
-    @Bean
-    public GroupedOpenApi forumsApi() {
-        String[] paths = new String[]{
-                "/api/" + TagsConstants.FORUMS + "/**",
-                "/api/forums/comments/**",
-        };
-        return createGroupedOpenApi(TagsConstants.FORUMS, paths);
-    }
-
-    @Bean
-    public GroupedOpenApi accountApi() {
-        String[] paths = new String[]{
-                "/api/" + TagsConstants.ACCOUNT + "/**",
-                "/api/profile/**",
-                "/api/group/**"
-        };
-        return createGroupedOpenApi(TagsConstants.ACCOUNT, paths);
-    }
-
-    @Bean
-    public GroupedOpenApi toolApi() {
-        return createGroupedOpenApi(TagsConstants.TOOL);
-    }
-
-    @Bean
-    public GroupedOpenApi universalApi() {
-        String[] paths = new String[]{
-                "/api/" + TagsConstants.UNIVERSAL + "/**",
-                "/api/property/**",
-                "/api/feedback/**",
-                "/api/sse/**",
-                "/api/config/**",
-                format("home")
-        };
-        return createGroupedOpenApi(TagsConstants.UNIVERSAL, paths);
-    }
-
-    @Bean
-    public GroupedOpenApi announcementApi() {
-        return createGroupedOpenApi(TagsConstants.ANNOUNCEMENT);
-    }
-
-    @Bean
-    public GroupedOpenApi systemApi() {
-        String[] paths = new String[]{
-                format(TagsConstants.SYSTEM),
-                String.format(API_PREFIX, "department"),
-                String.format(API_PREFIX, "property"),
-                String.format(API_PREFIX, "basic"),
-                String.format(API_PREFIX, "sse"),
-                String.format(API_PREFIX, "changelog"),
-        };
-        return createGroupedOpenApi(TagsConstants.SYSTEM, paths);
-    }
-
-//    @Bean
-//    public GroupedOpenApi systemApi() {
-//        String[] paths = new String[]{
-//                String.format(API_PREFIX, TagsConstants.SYSTEM),
-//                String.format(API_PREFIX, "depart"),
-//        };
-//        return createGroupedOpenApi(TagsConstants.SYSTEM);
-//    }
-
-    private String format(String subName) {
-        return String.format(API_PREFIX, subName);
     }
 
     private GroupedOpenApi createGroupedOpenApi(String group, String... paths) {
