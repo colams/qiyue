@@ -1,7 +1,6 @@
 package com.foxconn.sw.data.dto.entity.meeting;
 
 import com.foxconn.sw.data.dto.communal.MeetingDateTimeVo;
-import com.foxconn.sw.data.dto.entity.ResourceVo;
 import com.foxconn.sw.data.dto.entity.universal.OptionsVo;
 
 import java.util.List;
@@ -18,6 +17,7 @@ public class MeetingMinuteVo {
     private String meetingTitle;
     private String meetingRoomKey;
     private List<Integer> resourceIds;
+    private boolean isDraft;
 
     public Long getId() {
         return id;
@@ -97,5 +97,13 @@ public class MeetingMinuteVo {
 
     public void setMeetingRoomKey(String meetingRoomKey) {
         this.meetingRoomKey = meetingRoomKey;
+    }
+
+    public boolean isDraft() {
+        return isDraft;
+    }
+
+    public void setDraft(boolean draft) {
+        isDraft = draft;
     }
 }

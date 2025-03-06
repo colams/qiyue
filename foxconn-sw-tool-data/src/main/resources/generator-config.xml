@@ -208,10 +208,10 @@
         <!--               enableCountByExample="false">-->
         <!--            <generatedKey column="id" identity="true" sqlStatement="mysql"/>-->
         <!--        </table>-->
-        <!--        <table tableName="sw_meeting_minute"-->
-        <!--               enableCountByExample="false">-->
-        <!--            <generatedKey column="id" identity="true" sqlStatement="mysql"/>-->
-        <!--        </table>-->
+        <table tableName="sw_meeting_minute"
+               enableCountByExample="false">
+            <generatedKey column="id" identity="true" sqlStatement="mysql"/>
+        </table>
         <!--        <table tableName="sw_meeting_minute_detail"-->
         <!--               enableCountByExample="false">-->
         <!--            <generatedKey column="id" identity="true" sqlStatement="mysql"/>-->

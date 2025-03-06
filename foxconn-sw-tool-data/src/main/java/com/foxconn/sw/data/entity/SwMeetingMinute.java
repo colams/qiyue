@@ -21,6 +21,8 @@ public class SwMeetingMinute {
 
     private String resourceIds;
 
+    private String status;
+
     private LocalDateTime createTime;
 
     private LocalDateTime datetimeLastchange;
@@ -140,6 +142,19 @@ public class SwMeetingMinute {
 
     public void setResourceIds(String resourceIds) {
         this.resourceIds = resourceIds == null ? null : resourceIds.trim();
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public SwMeetingMinute withStatus(String status) {
+        this.setStatus(status);
+        return this;
+    }
+
+    public void setStatus(String status) {
+        this.status = status == null ? null : status.trim();
     }
 
     public LocalDateTime getCreateTime() {

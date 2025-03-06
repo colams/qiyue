@@ -53,6 +53,10 @@ public class SwMeetingMinuteSqlProvider {
             sql.VALUES("resource_ids", "#{resourceIds,jdbcType=VARCHAR}");
         }
         
+        if (record.getStatus() != null) {
+            sql.VALUES("status", "#{status,jdbcType=VARCHAR}");
+        }
+        
         if (record.getCreateTime() != null) {
             sql.VALUES("create_time", "#{createTime,jdbcType=TIMESTAMP}");
         }
@@ -79,6 +83,7 @@ public class SwMeetingMinuteSqlProvider {
         sql.SELECT("end_time");
         sql.SELECT("webex_url");
         sql.SELECT("resource_ids");
+        sql.SELECT("status");
         sql.SELECT("create_time");
         sql.SELECT("datetime_lastchange");
         sql.FROM("sw_meeting_minute");
@@ -134,6 +139,10 @@ public class SwMeetingMinuteSqlProvider {
             sql.SET("resource_ids = #{record.resourceIds,jdbcType=VARCHAR}");
         }
         
+        if (record.getStatus() != null) {
+            sql.SET("status = #{record.status,jdbcType=VARCHAR}");
+        }
+        
         if (record.getCreateTime() != null) {
             sql.SET("create_time = #{record.createTime,jdbcType=TIMESTAMP}");
         }
@@ -159,6 +168,7 @@ public class SwMeetingMinuteSqlProvider {
         sql.SET("end_time = #{record.endTime,jdbcType=VARCHAR}");
         sql.SET("webex_url = #{record.webexUrl,jdbcType=VARCHAR}");
         sql.SET("resource_ids = #{record.resourceIds,jdbcType=VARCHAR}");
+        sql.SET("status = #{record.status,jdbcType=VARCHAR}");
         sql.SET("create_time = #{record.createTime,jdbcType=TIMESTAMP}");
         sql.SET("datetime_lastchange = #{record.datetimeLastchange,jdbcType=TIMESTAMP}");
         
@@ -201,6 +211,10 @@ public class SwMeetingMinuteSqlProvider {
         
         if (record.getResourceIds() != null) {
             sql.SET("resource_ids = #{resourceIds,jdbcType=VARCHAR}");
+        }
+        
+        if (record.getStatus() != null) {
+            sql.SET("status = #{status,jdbcType=VARCHAR}");
         }
         
         if (record.getCreateTime() != null) {
