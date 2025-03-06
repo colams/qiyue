@@ -8,6 +8,7 @@ import com.foxconn.sw.business.system.EmployeeBusiness;
 import com.foxconn.sw.common.utils.ConvertUtils;
 import com.foxconn.sw.common.utils.DateTimeUtils;
 import com.foxconn.sw.common.utils.JsonUtils;
+import com.foxconn.sw.common.utils.OptionalUtils;
 import com.foxconn.sw.data.constants.enums.MeetingRoleFlagEnums;
 import com.foxconn.sw.data.constants.enums.retcode.RetCode;
 import com.foxconn.sw.data.context.RequestContext;
@@ -56,20 +57,24 @@ public class DetailMeetingProcessor {
         }
 
         List<SwMeetingMember> meetingMembers = meetingMemberBusiness.queryMeetingMemberByMeetingID(data.getMeetingID());
-        List<SwMeetingCycleDetail> meetingCycleDetails = meetingCycleDetailBusiness.queryCycleDetail(data.getMeetingID());
 
-        return processMeetingVo(meeting, data.getSearchDate(), meetingMembers, meetingCycleDetails);
+        SwMeetingCycleDetail meetingCycleDetail =
+                meetingCycleDetailBusiness.queryCycleDetailWithDateNew(data.getMeetingID(), data.getSearchDate());
+
+        if (Objects.nonNull(meetingCycleDetail)) {
+            List<SwMeetingMember> tempMembers = meetingMemberBusiness.queryMeetingMemberByDetailId(meetingCycleDetail.getId());
+            if (!CollectionUtils.isEmpty(tempMembers)) {
+                meetingMembers = tempMembers;
+            }
+        }
+
+        return processMeetingVo(meeting, data.getSearchDate(), meetingMembers, meetingCycleDetail);
     }
 
     private MeetingVo processMeetingVo(SwMeeting meeting,
                                        String meetingDate,
                                        List<SwMeetingMember> allMembers,
-                                       List<SwMeetingCycleDetail> cycleDetails) {
-
-        SwMeetingCycleDetail detail = cycleDetails.stream()
-                .filter(e -> e.getMeetingDate().equalsIgnoreCase(meetingDate))
-                .findFirst()
-                .orElse(new SwMeetingCycleDetail());
+                                       SwMeetingCycleDetail detail) {
 
         EmployeeVo chairman = allMembers.stream()
                 .filter(e -> MeetingRoleFlagEnums.Chairman_Flag.test(e.getRole()))
@@ -93,16 +98,16 @@ public class DetailMeetingProcessor {
 
         MeetingVo vo = new MeetingVo();
         vo.setMeetingID(meeting.getId());
-        vo.setRoom(Optional.ofNullable(detail.getRoom()).orElse(meeting.getRoom()));
+        vo.setRoom(OptionalUtils.get(detail, SwMeetingCycleDetail::getRoom, meeting.getRoom()));
         vo.setRoomName(MeetingRoomConfig.getText(vo.getRoom()));
         vo.setMeetingType(getMeetingType(meeting, allMembers));
-        vo.setTitle(Optional.ofNullable(detail.getTitle()).orElse(meeting.getTitle()));
-        vo.setDescription(Optional.ofNullable(detail.getDescription()).orElse(meeting.getDescription()));
+        vo.setTitle(OptionalUtils.get(detail, SwMeetingCycleDetail::getTitle, meeting.getTitle()));
+        vo.setDescription(OptionalUtils.get(detail, SwMeetingCycleDetail::getDescription, meeting.getDescription()));
         vo.setMeetingDate(meetingDate);
-        vo.setStartTime(Optional.ofNullable(detail.getStartTime()).orElse(meeting.getStartTime()));
-        vo.setEndTime(Optional.ofNullable(detail.getEndTime()).orElse(meeting.getEndTime()));
+        vo.setStartTime(OptionalUtils.get(detail, SwMeetingCycleDetail::getStartTime, meeting.getStartTime()));
+        vo.setEndTime(OptionalUtils.get(detail, SwMeetingCycleDetail::getEndTime, meeting.getEndTime()));
         vo.setDuration(getMeetingDuration(vo.getStartTime(), vo.getEndTime()));
-        vo.setWebexUrl(meeting.getWebexUrl());
+        vo.setWebexUrl(OptionalUtils.get(detail, SwMeetingCycleDetail::getWebexUrl, meeting.getWebexUrl()));
 
         if (StringUtils.isNotEmpty(meeting.getCycle())) {
             CycleMeetingVo cycleMeetingVo = new CycleMeetingVo();
@@ -119,16 +124,10 @@ public class DetailMeetingProcessor {
         String updateTime = DateTimeUtils.format(Optional.ofNullable(detail.getDatetimeLastchange()).orElse(meeting.getDatetimeLastchange()));
         vo.setUpdate(updateTime.equalsIgnoreCase(DateTimeUtils.format(meeting.getDatetimeLastchange())));
         vo.setUpdateTime(updateTime);
-        if (StringUtils.isNotEmpty(meeting.getResourceIds()) || StringUtils.isNotEmpty(detail.getResourceIds())) {
 
-            List<Integer> resourceIDs = Lists.newArrayList();
-            if (StringUtils.isNotEmpty(meeting.getResourceIds())) {
-                resourceIDs.addAll(JsonUtils.deserialize(meeting.getResourceIds(), List.class, Integer.class));
-            }
-            if (StringUtils.isNotEmpty(detail.getResourceIds())) {
-                resourceIDs.addAll(JsonUtils.deserialize(detail.getResourceIds(), List.class, Integer.class));
-            }
-
+        String strResources = OptionalUtils.get(detail, SwMeetingCycleDetail::getResourceIds, meeting.getResourceIds());
+        if (StringUtils.isNotEmpty(strResources)) {
+            List<Integer> resourceIDs = JsonUtils.deserialize(meeting.getResourceIds(), List.class, Integer.class);
             if (!CollectionUtils.isEmpty(resourceIDs)) {
                 List<SwAppendResource> resources = appendResourceBusiness.getAppendResources(resourceIDs);
                 List<ResourceVo> resourceVos = new ArrayList<>();
@@ -141,6 +140,7 @@ public class DetailMeetingProcessor {
                 });
                 vo.setResource(resourceVos);
             }
+
         }
         return vo;
     }

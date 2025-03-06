@@ -1,7 +1,5 @@
 package com.foxconn.sw.data;
 
-import com.foxconn.sw.data.context.RequestContext;
-import org.apache.commons.lang3.StringUtils;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.annotation.MapperScan;
@@ -67,12 +65,13 @@ public class DataSourceConfig {
     public class DynamicDataSource extends AbstractRoutingDataSource {
         @Override
         protected Object determineCurrentLookupKey() {
-            String currentUser = RequestContext.getEmployeeNo();
-            if (StringUtils.isNotEmpty(currentUser) && currentUser.contains("demo")) {
-                return "dataSourceDemo";
-            } else {
-                return "dataSourcePro";
-            }
+            return "dataSourcePro";
+//            String currentUser = RequestContext.getEmployeeNo();
+//            if (StringUtils.isNotEmpty(currentUser) && currentUser.contains("demo")) {
+//                return "dataSourceDemo";
+//            } else {
+//                return "dataSourcePro";
+//            }
         }
     }
 

@@ -66,7 +66,7 @@ public class UpdateMeetingProcessor {
         List<SwMeetingCycleDetail> cycles = meetingCycleDetailBusiness.queryCycleDetailWithDate(meeting.getId(),
                 data.getTimeVo().getMeetingDate());
         SwMeetingCycleDetail detail = cycles.stream().findFirst().orElse(new SwMeetingCycleDetail());
-        detail.setMeetingId(meeting.getId());
+        detail.setMeetingId(data.getMeetingID());
         detail.setRoom(data.getRoom());
         detail.setTitle(data.getTitle());
         detail.setDescription(data.getDescription());
@@ -77,7 +77,8 @@ public class UpdateMeetingProcessor {
         detail.setMeetingDate(data.getTimeVo().getMeetingDate());
         detail.setStartTime(data.getTimeVo().getStartTime());
         detail.setEndTime(data.getTimeVo().getEndTime());
-        detail.setCancel(0);
+        detail.setWebexUrl(data.getWebexUrl());
+        detail.setCancel(NumberConstants.ZERO);
         return meetingCycleDetailBusiness.updateCycle(detail);
     }
 
