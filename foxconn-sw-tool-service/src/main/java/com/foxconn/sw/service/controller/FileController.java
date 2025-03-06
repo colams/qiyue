@@ -20,7 +20,7 @@ import java.util.List;
 @RequestMapping("api/file")
 public class FileController {
 
-    @Operation(summary = "文档管理，文档搜索", tags = "changeLog")
+    @Operation(summary = "文档管理，文档搜索", tags = "file")
     @ApiResponse(responseCode = "0", description = "成功码")
     @PostMapping("/searchFile")
     public Response<List<SearchFileResult>> searchFile(@Valid @RequestBody Request<SearchFileParams> request) {
