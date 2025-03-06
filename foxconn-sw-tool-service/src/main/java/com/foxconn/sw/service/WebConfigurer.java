@@ -32,7 +32,7 @@ public class WebConfigurer implements WebMvcConfigurer, WebServerFactoryCustomiz
 
     @Override
     public void customize(ConfigurableServletWebServerFactory factory) {
-        factory.setPort(getPort());
+        factory.setPort(8000);
     }
 
     @Override
