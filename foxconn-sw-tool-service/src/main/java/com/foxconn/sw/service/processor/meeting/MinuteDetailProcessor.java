@@ -35,7 +35,7 @@ import static com.foxconn.sw.data.constants.enums.MeetingRoleFlagEnums.*;
 public class MinuteDetailProcessor {
 
     @Autowired
-    SwMeetingMinutesBusiness meetingMinutesBusiness;
+    SwMeetingMinuteBusiness meetingMinutesBusiness;
     @Autowired
     MeetingBusiness meetingBusiness;
     @Autowired

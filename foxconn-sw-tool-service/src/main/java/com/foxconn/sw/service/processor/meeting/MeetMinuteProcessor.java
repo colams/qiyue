@@ -1,7 +1,7 @@
 package com.foxconn.sw.service.processor.meeting;
 
 import com.foxconn.sw.business.account.UserBusiness;
-import com.foxconn.sw.business.meeting.SwMeetingMinutesBusiness;
+import com.foxconn.sw.business.meeting.SwMeetingMinuteBusiness;
 import com.foxconn.sw.business.meeting.SwMeetingMinutesDetailBusiness;
 import com.foxconn.sw.business.meeting.SwMeetingMinutesMembersBusiness;
 import com.foxconn.sw.common.constanst.NumberConstants;
@@ -26,7 +26,7 @@ import java.util.stream.Collectors;
 @Component
 public class MeetMinuteProcessor {
     @Autowired
-    SwMeetingMinutesBusiness meetingMinutesBusiness;
+    SwMeetingMinuteBusiness meetingMinutesBusiness;
     @Autowired
     SwMeetingMinutesDetailBusiness meetingMinutesDetailBusiness;
     @Autowired

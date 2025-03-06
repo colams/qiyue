@@ -15,13 +15,15 @@ import com.foxconn.sw.service.processor.meeting.*;
 import com.foxconn.sw.service.utils.ResponseUtils;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
+import org.apache.poi.ss.usermodel.Workbook;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
+import java.io.OutputStream;
 import java.util.List;
 
 @RestController
@@ -50,13 +52,16 @@ public class MeetingController {
     MeetingAttachmentProcessor meetingAttachmentProcessor;
     @Autowired
     UpdateMeetingAttachProcessor updateMeetingAttachProcessor;
-
+    @Autowired
+    HttpServletResponse response;
+    @Autowired
+    ExportMeetingProcessor exportMeetingProcessor;
 
     @Permission
     @Operation(summary = "会议列表", tags = TagsConstants.MEET)
     @ApiResponse(responseCode = "0", description = "成功码")
     @PostMapping("/list")
-    public Response<List<MeetingVo>[]> list(@Valid @RequestBody Request<ListMeetingParams> request) {
+    public Response<List<MeetingVo>[]> list(@Valid @RequestBody Request<ListMeetingV2Params> request) {
         List[] vos = listMeeting.list(request.getData());
         return ResponseUtils.success(vos, request.getTraceId());
     }
@@ -150,5 +155,29 @@ public class MeetingController {
         return ResponseUtils.success(result, request.getTraceId());
     }
 
+    @Operation(summary = "導出行程信息", tags = "schedule")
+    @ApiResponse(responseCode = "0", description = "成功码")
+    @CrossOrigin(exposedHeaders = {"Content-Disposition"})
+    @PostMapping("/export")
+    public ResponseEntity export(@Valid @RequestBody Request<ListMeetingV2Params> request) throws IOException {
+        // 设置响应头
+        response.setContentType("application/vnd.ms-excel");
+        String fileName = String.format("metting %s-%s.xlsx", request.getData().getSearchStartDate());
+        response.setHeader("Content-Disposition", "attachment; filename=" + fileName);
+        List<MeetingVo>[] vos = listMeeting.list(request.getData());
+        if (vos.length <= 0) {
+            return ResponseEntity.ok().body(null);
+        }
+        // 使用Apache POI生成Excel文件
+        Workbook workbook = exportMeetingProcessor.generateExcel(vos);
+
+        // 将Excel文件写入响应输出流
+        OutputStream outputStream = response.getOutputStream();
+        workbook.write(outputStream);
+        outputStream.close();
+
+        workbook.close();
+        return ResponseEntity.ok().body(null);
+    }
 
 }

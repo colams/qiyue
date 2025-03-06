@@ -4,6 +4,7 @@ import com.foxconn.sw.business.SwAppendResourceBusiness;
 import com.foxconn.sw.business.meeting.MeetingBusiness;
 import com.foxconn.sw.business.meeting.MeetingCycleDetailBusiness;
 import com.foxconn.sw.business.meeting.MeetingMemberBusiness;
+import com.foxconn.sw.business.meeting.SwMeetingMinuteBusiness;
 import com.foxconn.sw.business.system.EmployeeBusiness;
 import com.foxconn.sw.common.utils.ConvertUtils;
 import com.foxconn.sw.common.utils.DateTimeUtils;
@@ -17,10 +18,7 @@ import com.foxconn.sw.data.dto.entity.ResourceVo;
 import com.foxconn.sw.data.dto.entity.acount.EmployeeVo;
 import com.foxconn.sw.data.dto.entity.meeting.MeetingVo;
 import com.foxconn.sw.data.dto.request.meeting.DetailMeetingParams;
-import com.foxconn.sw.data.entity.SwAppendResource;
-import com.foxconn.sw.data.entity.SwMeeting;
-import com.foxconn.sw.data.entity.SwMeetingCycleDetail;
-import com.foxconn.sw.data.entity.SwMeetingMember;
+import com.foxconn.sw.data.entity.*;
 import com.foxconn.sw.data.exception.BizException;
 import com.foxconn.sw.service.processor.MeetingRoomConfig;
 import com.google.common.collect.Lists;
@@ -49,6 +47,8 @@ public class DetailMeetingProcessor {
     EmployeeBusiness employeeBusiness;
     @Autowired
     SwAppendResourceBusiness appendResourceBusiness;
+    @Autowired
+    SwMeetingMinuteBusiness meetingMinuteBusiness;
 
     public MeetingVo detail(DetailMeetingParams data) {
         SwMeeting meeting = meetingBusiness.getMeetingByID(data.getMeetingID());
@@ -121,10 +121,14 @@ public class DetailMeetingProcessor {
         vo.setMaintainers(maintainers);
         vo.setMembers(members);
         vo.setWatchers(watchers);
-        String updateTime = DateTimeUtils.format(OptionalUtils.get(detail, SwMeetingCycleDetail::getDatetimeLastchange, meeting.getDatetimeLastchange()));
-        vo.setUpdate(updateTime.equalsIgnoreCase(DateTimeUtils.format(meeting.getDatetimeLastchange())));
-        if (vo.getUpdate()) {
-            vo.setUpdateTime(updateTime);
+
+        SwMeetingMinute meetingMinute = meetingMinuteBusiness.queryMeetingMinute(meeting.getId(), meetingDate);
+        if (Objects.nonNull(meetingMinute)) {
+            String updateTime = DateTimeUtils.format(OptionalUtils.get(detail, SwMeetingCycleDetail::getDatetimeLastchange, meeting.getDatetimeLastchange()));
+            vo.setUpdate(updateTime.equalsIgnoreCase(DateTimeUtils.format(meeting.getDatetimeLastchange())));
+            if (vo.getUpdate()) {
+                vo.setUpdateTime(updateTime);
+            }
         }
 
         String strResources = OptionalUtils.get(detail, SwMeetingCycleDetail::getResourceIds, meeting.getResourceIds());

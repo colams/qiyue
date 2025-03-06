@@ -2,7 +2,7 @@ package com.foxconn.sw.service.processor.meeting;
 
 import com.foxconn.sw.business.SwAppendResourceBusiness;
 import com.foxconn.sw.business.meeting.MeetingBusiness;
-import com.foxconn.sw.business.meeting.SwMeetingMinutesBusiness;
+import com.foxconn.sw.business.meeting.SwMeetingMinuteBusiness;
 import com.foxconn.sw.common.utils.JsonUtils;
 import com.foxconn.sw.common.utils.LocalDateExtUtils;
 import com.foxconn.sw.data.dto.entity.ResourceVo;
@@ -26,7 +26,7 @@ import java.util.stream.Collectors;
 public class MeetingLineProcessor {
 
     @Autowired
-    SwMeetingMinutesBusiness meetingMinutesBusiness;
+    SwMeetingMinuteBusiness meetingMinutesBusiness;
     @Autowired
     MeetingBusiness meetingBusiness;
     @Autowired

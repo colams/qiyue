@@ -12,7 +12,7 @@ import com.foxconn.sw.data.context.RequestContext;
 import com.foxconn.sw.data.dto.communal.CycleMeetingVo;
 import com.foxconn.sw.data.dto.entity.acount.EmployeeVo;
 import com.foxconn.sw.data.dto.entity.meeting.MeetingVo;
-import com.foxconn.sw.data.dto.request.meeting.ListMeetingParams;
+import com.foxconn.sw.data.dto.request.meeting.ListMeetingV2Params;
 import com.foxconn.sw.data.entity.SwMeeting;
 import com.foxconn.sw.data.entity.SwMeetingCycleDetail;
 import com.foxconn.sw.data.entity.SwMeetingMember;
@@ -42,9 +42,9 @@ public class ListMeetingProcessor {
     @Autowired
     EmployeeBusiness employeeBusiness;
 
-    public List<MeetingVo>[] list(ListMeetingParams params) {
-        LocalDate startDate = LocalDateExtUtils.toLocalDate(params.getSearchDate());
-        LocalDate endDate = LocalDateExtUtils.toLocalDate(params.getSearchDate()).plusDays(7);
+    public List<MeetingVo>[] list(ListMeetingV2Params params) {
+        LocalDate startDate = LocalDateExtUtils.toLocalDate(params.getSearchStartDate());
+        LocalDate endDate = LocalDateExtUtils.toLocalDate(params.getSearchEndDate());
 
         List<SwMeeting> meetings = meetingBusiness.queryMeeting(startDate, endDate);
         if (CollectionUtils.isEmpty(meetings)) {
