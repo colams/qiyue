@@ -4,9 +4,9 @@ import com.foxconn.sw.data.dto.response.schedule.TeamScheduleListVo;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 public class ExcelScheduleUtils {
@@ -21,7 +21,7 @@ public class ExcelScheduleUtils {
                 .collect(Collectors.groupingBy(TeamScheduleListVo::getDate));
         Map<String, List<TeamScheduleListVo>> map3 = vos.stream()
                 .collect(Collectors.groupingBy(TeamScheduleListVo::getName));
-        initHeader(sheet, map, map2.keySet());
+        initHeader(sheet, map, map2.keySet().stream().sorted().collect(Collectors.toList()));
 
         // 填充数据
         int rowNum = 2;
@@ -33,7 +33,10 @@ public class ExcelScheduleUtils {
             row.createCell(0).setCellValue(number++);
             row.createCell(1).setCellValue(entry.getKey());
             int index = 2;
-            for (TeamScheduleListVo vo : entry.getValue()) {
+            List<TeamScheduleListVo> list = entry.getValue().stream()
+                    .sorted(Comparator.comparing(TeamScheduleListVo::getDate))
+                    .collect(Collectors.toList());
+            for (TeamScheduleListVo vo : list) {
                 row.createCell(index++).setCellValue(vo.getDestination());
             }
             length = index;
@@ -65,7 +68,7 @@ public class ExcelScheduleUtils {
         }
     }
 
-    private static void initHeader(Sheet sheet, Map<Integer, List<TeamScheduleListVo>> map, Set<String> dateSet) {
+    private static void initHeader(Sheet sheet, Map<Integer, List<TeamScheduleListVo>> map, List<String> dateSet) {
         // 创建标题行
         Row headerRow = sheet.createRow(0);
 
