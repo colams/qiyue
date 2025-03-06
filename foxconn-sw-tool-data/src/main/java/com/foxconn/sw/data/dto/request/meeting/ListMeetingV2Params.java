@@ -1,33 +1,14 @@
 package com.foxconn.sw.data.dto.request.meeting;
 
 public class ListMeetingV2Params {
-
-    private String valueType;
-    private String value;
-
     private String searchStartDate;
     private String searchEndDate;
 
     private String chairman;
+    private boolean hasMinute;
     private String room;
-    private String status;
-    private String meetingDate;
-
-    public String getValueType() {
-        return valueType;
-    }
-
-    public void setValueType(String valueType) {
-        this.valueType = valueType;
-    }
-
-    public String getValue() {
-        return value;
-    }
-
-    public void setValue(String value) {
-        this.value = value;
-    }
+    private String meetingTitle;
+    private String attachmentName;
 
     public String getSearchStartDate() {
         return searchStartDate;
@@ -53,6 +34,14 @@ public class ListMeetingV2Params {
         this.chairman = chairman;
     }
 
+    public boolean isHasMinute() {
+        return hasMinute;
+    }
+
+    public void setHasMinute(boolean hasMinute) {
+        this.hasMinute = hasMinute;
+    }
+
     public String getRoom() {
         return room;
     }
@@ -61,19 +50,19 @@ public class ListMeetingV2Params {
         this.room = room;
     }
 
-    public String getStatus() {
-        return status;
+    public String getMeetingTitle() {
+        return meetingTitle;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
+    public void setMeetingTitle(String meetingTitle) {
+        this.meetingTitle = meetingTitle;
     }
 
-    public String getMeetingDate() {
-        return meetingDate;
+    public String getAttachmentName() {
+        return attachmentName;
     }
 
-    public void setMeetingDate(String meetingDate) {
-        this.meetingDate = meetingDate;
+    public void setAttachmentName(String attachmentName) {
+        this.attachmentName = attachmentName;
     }
 }
