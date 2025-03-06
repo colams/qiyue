@@ -22,10 +22,7 @@ import org.apache.poi.ss.usermodel.Workbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.CollectionUtils;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 import java.io.OutputStream;
@@ -91,6 +88,7 @@ public class ScheduleController {
 
     @Operation(summary = "導出行程信息", tags = "schedule")
     @ApiResponse(responseCode = "0", description = "成功码")
+    @CrossOrigin(exposedHeaders = {"Content-Disposition"})
     @PostMapping("/export")
     public ResponseEntity export(@Valid @RequestBody Request<ScheduleListParams> request) throws IOException {
         // 设置响应头

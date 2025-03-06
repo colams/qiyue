@@ -27,20 +27,18 @@ public class DataSourceConfig {
         return dataSource;
     }
 
-    @Bean
-    @ConfigurationProperties(prefix = "spring.datasource.demo")
-    public DataSource dataSourceDemo() {
-        DataSource dataSource = DataSourceBuilder.create().build();
-        return dataSource;
-    }
+//    @Bean
+//    @ConfigurationProperties(prefix = "spring.datasource.demo")
+//    public DataSource dataSourceDemo() {
+//        DataSource dataSource = DataSourceBuilder.create().build();
+//        return dataSource;
+//    }
 
     @Bean
-    public AbstractRoutingDataSource dataSource(@Qualifier("dataSourcePro") DataSource dataSourcePro,
-                                                @Qualifier("dataSourceDemo") DataSource dataSourceDemo) {
+    public AbstractRoutingDataSource dataSource(@Qualifier("dataSourcePro") DataSource dataSourcePro) {
         DynamicDataSource dynamicDataSource = new DynamicDataSource();
         Map<Object, Object> targetDataSources = new HashMap<>();
         targetDataSources.put("dataSourcePro", dataSourcePro);
-        targetDataSources.put("dataSourceDemo", dataSourceDemo);
         dynamicDataSource.setTargetDataSources(targetDataSources);
         dynamicDataSource.setDefaultTargetDataSource(dataSourcePro); // 设置默认数据源
         return dynamicDataSource;

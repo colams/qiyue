@@ -121,9 +121,11 @@ public class DetailMeetingProcessor {
         vo.setMaintainers(maintainers);
         vo.setMembers(members);
         vo.setWatchers(watchers);
-        String updateTime = DateTimeUtils.format(Optional.ofNullable(detail.getDatetimeLastchange()).orElse(meeting.getDatetimeLastchange()));
+        String updateTime = DateTimeUtils.format(OptionalUtils.get(detail, SwMeetingCycleDetail::getDatetimeLastchange, meeting.getDatetimeLastchange()));
         vo.setUpdate(updateTime.equalsIgnoreCase(DateTimeUtils.format(meeting.getDatetimeLastchange())));
-        vo.setUpdateTime(updateTime);
+        if (vo.getUpdate()) {
+            vo.setUpdateTime(updateTime);
+        }
 
         String strResources = OptionalUtils.get(detail, SwMeetingCycleDetail::getResourceIds, meeting.getResourceIds());
         if (StringUtils.isNotEmpty(strResources)) {

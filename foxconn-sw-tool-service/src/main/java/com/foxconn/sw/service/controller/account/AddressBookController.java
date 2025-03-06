@@ -67,6 +67,7 @@ public class AddressBookController {
     @Permission
     @Operation(summary = "導出通讯录信息", tags = TagsConstants.ACCOUNT)
     @ApiResponse(responseCode = "0", description = "成功码")
+    @CrossOrigin(exposedHeaders = {"Content-Disposition"})
     @PostMapping("/export")
     public ResponseEntity export(@Valid @RequestBody Request<AddressBookParams> request) throws IOException {
         // 设置响应头
