@@ -25,6 +25,8 @@ public class Swagger {
     public GroupedOpenApi oaApi() {
         String[] paths = new String[]{
                 "/api/file/**",
+                "/api/universal/**",
+                "/api/document/**",
         };
         return createGroupedOpenApi(TagsConstants.OA, paths);
     }

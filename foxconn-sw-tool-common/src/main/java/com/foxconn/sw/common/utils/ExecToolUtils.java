@@ -104,7 +104,6 @@ public class ExecToolUtils {
             int content;
             while ((content = fis.read()) != -1) {
                 fos.write(content);
-                System.out.print((char) content);
             }
 
         } catch (IOException e) {
