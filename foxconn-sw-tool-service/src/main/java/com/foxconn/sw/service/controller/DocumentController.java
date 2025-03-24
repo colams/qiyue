@@ -5,8 +5,6 @@ import com.foxconn.sw.data.dto.PageEntity;
 import com.foxconn.sw.data.dto.PageParams;
 import com.foxconn.sw.data.dto.Request;
 import com.foxconn.sw.data.dto.Response;
-import com.foxconn.sw.data.dto.entity.document.DocumentDetailVo;
-import com.foxconn.sw.data.dto.entity.document.DocumentVo;
 import com.foxconn.sw.data.dto.entity.system.OptionClassVo;
 import com.foxconn.sw.data.dto.entity.universal.IntegerParams;
 import com.foxconn.sw.data.dto.request.document.*;

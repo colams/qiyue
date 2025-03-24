@@ -1,294 +1,138 @@
 package com.foxconn.sw.data.dto.entity.document;
 
+import com.foxconn.sw.data.dto.entity.MemberVo;
 import com.foxconn.sw.data.dto.entity.acount.EmployeeVo;
+import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.Data;
+import lombok.experimental.Accessors;
 
 import java.util.List;
 
+@Schema(description = "文件信息")
+@Data
+@Accessors(chain = true)
 public class DocumentDetailVo {
 
-    private Integer documentID;
+    @Schema(description = "文件or目錄ID")
+    private Integer id;
+
+    @Schema(description = "文件or目錄名")
+    private String name;
+
+    @Schema(description = "文件分類")
     private String category;
-    private String documentName;
+
+    @Schema(description = "下載URL")
     private String downloadUrl;
-    private Integer fileID;
+
+    @Schema(description = "資源ID")
+    private Integer resourceId;
+
+    @Schema(description = "文件大小，單位KB")
+    private Long size;
+
+    @Schema(description = "預覽URL")
     private String viewUrl;
+
+    @Schema(description = "專案ID")
+    private Integer projectId;
+
+    @Schema(description = "專案名稱")
     private String project;
+
+    @Schema(description = "描述")
     private String description;
+
+    @Schema(description = "部門名稱")
     private String department;
+
+    @Schema(description = "版本號")
     private String fileVersion;
+
+    @Schema(description = "0-公共文檔，1-私人文檔")
     private String fileType;
 
+    @Schema(description = "是否可預覽")
     private Boolean canView;
+
+    @Schema(description = "1-不可下载")
     private Integer disableDown;
+
+    @Schema(description = "是否可修改")
     private Boolean canUpdate;
 
+    @Schema(description = "作者")
     private EmployeeVo author;
+
+    @Schema(description = "上傳者")
     private EmployeeVo publisher;
+
+    @Schema(description = "上傳時間")
     private String createTime;
+
+    @Schema(description = "最後修改時間")
     private String updateTime;
-    private String title;
+
+    @Schema(description = "機密等級")
     private Integer level;
 
+    @Schema(description = "機密等級：中文描述")
+    private String title;
+
+    @Schema(description = "")
     private String workType;
+
+    @Schema(description = "")
     private String mainType;
+
+    @Schema(description = "")
     private String subType;
+
+    @Schema(description = "")
     private String mainPart;
-    private String supplier;
+
+    @Schema(description = "文件來源")
     private String source;
+
+    @Schema(description = "配置")
+    private String config;
+
+    @Schema(description = "供應商")
+    private String supplier;
+
+    @Schema(description = "製程")
+    private String process;
+
+    @Schema(description = "")
+    private String stage;
+
+    @Schema(description = "")
+    private String issueMode;
+
+    @Schema(description = "")
     private String deadLine;
 
+    @Schema(description = "階段ID")
+    private Integer phaseId;
 
+    @Schema(description = "階段名")
+    private String phase;
+
+    @Schema(description = "過期時間")
     private String expireDate;
 
+    @Schema(description = "1-已歸檔")
+    private Integer archived;
+
+    @Schema(description = "")
     private List<String> departmentIDs;
+
+    @Schema(description = "")
     private List<String> employeeNos;
+
+    @Schema(description = "")
     private String extra;
 
-    public Integer getDocumentID() {
-        return documentID;
-    }
-
-    public void setDocumentID(Integer documentID) {
-        this.documentID = documentID;
-    }
-
-    public String getCategory() {
-        return category;
-    }
-
-    public void setCategory(String category) {
-        this.category = category;
-    }
-
-    public String getDocumentName() {
-        return documentName;
-    }
-
-    public void setDocumentName(String documentName) {
-        this.documentName = documentName;
-    }
-
-    public String getDownloadUrl() {
-        return downloadUrl;
-    }
-
-    public void setDownloadUrl(String downloadUrl) {
-        this.downloadUrl = downloadUrl;
-    }
-
-    public Integer getFileID() {
-        return fileID;
-    }
-
-    public void setFileID(Integer fileID) {
-        this.fileID = fileID;
-    }
-
-    public String getViewUrl() {
-        return viewUrl;
-    }
-
-    public void setViewUrl(String viewUrl) {
-        this.viewUrl = viewUrl;
-    }
-
-    public String getProject() {
-        return project;
-    }
-
-    public void setProject(String project) {
-        this.project = project;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public String getDepartment() {
-        return department;
-    }
-
-    public void setDepartment(String department) {
-        this.department = department;
-    }
-
-    public String getFileVersion() {
-        return fileVersion;
-    }
-
-    public void setFileVersion(String fileVersion) {
-        this.fileVersion = fileVersion;
-    }
-
-    public String getFileType() {
-        return fileType;
-    }
-
-    public void setFileType(String fileType) {
-        this.fileType = fileType;
-    }
-
-    public Boolean getCanView() {
-        return canView;
-    }
-
-    public void setCanView(Boolean canView) {
-        this.canView = canView;
-    }
-
-    public Integer getDisableDown() {
-        return disableDown;
-    }
-
-    public void setDisableDown(Integer disableDown) {
-        this.disableDown = disableDown;
-    }
-
-    public EmployeeVo getAuthor() {
-        return author;
-    }
-
-    public void setAuthor(EmployeeVo author) {
-        this.author = author;
-    }
-
-    public EmployeeVo getPublisher() {
-        return publisher;
-    }
-
-    public void setPublisher(EmployeeVo publisher) {
-        this.publisher = publisher;
-    }
-
-    public String getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(String createTime) {
-        this.createTime = createTime;
-    }
-
-    public String getUpdateTime() {
-        return updateTime;
-    }
-
-    public void setUpdateTime(String updateTime) {
-        this.updateTime = updateTime;
-    }
-
-    public Boolean getCanUpdate() {
-        return canUpdate;
-    }
-
-    public void setCanUpdate(Boolean canUpdate) {
-        this.canUpdate = canUpdate;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public Integer getLevel() {
-        return level;
-    }
-
-    public void setLevel(Integer level) {
-        this.level = level;
-    }
-
-    public List<String> getDepartmentIDs() {
-        return departmentIDs;
-    }
-
-    public void setDepartmentIDs(List<String> departmentIDs) {
-        this.departmentIDs = departmentIDs;
-    }
-
-    public List<String> getEmployeeNos() {
-        return employeeNos;
-    }
-
-    public void setEmployeeNos(List<String> employeeNos) {
-        this.employeeNos = employeeNos;
-    }
-
-    public String getExtra() {
-        return extra;
-    }
-
-    public void setExtra(String extra) {
-        this.extra = extra;
-    }
-
-    public String getWorkType() {
-        return workType;
-    }
-
-    public void setWorkType(String workType) {
-        this.workType = workType;
-    }
-
-    public String getMainType() {
-        return mainType;
-    }
-
-    public void setMainType(String mainType) {
-        this.mainType = mainType;
-    }
-
-    public String getSubType() {
-        return subType;
-    }
-
-    public void setSubType(String subType) {
-        this.subType = subType;
-    }
-
-    public String getMainPart() {
-        return mainPart;
-    }
-
-    public void setMainPart(String mainPart) {
-        this.mainPart = mainPart;
-    }
-
-    public String getSupplier() {
-        return supplier;
-    }
-
-    public void setSupplier(String supplier) {
-        this.supplier = supplier;
-    }
-
-    public String getSource() {
-        return source;
-    }
-
-    public void setSource(String source) {
-        this.source = source;
-    }
-
-    public String getDeadLine() {
-        return deadLine;
-    }
-
-    public void setDeadLine(String deadLine) {
-        this.deadLine = deadLine;
-    }
-
-    public String getExpireDate() {
-        return expireDate;
-    }
-
-    public void setExpireDate(String expireDate) {
-        this.expireDate = expireDate;
-    }
+    @Schema(description = "")
+    private List<MemberVo> views;
 }
