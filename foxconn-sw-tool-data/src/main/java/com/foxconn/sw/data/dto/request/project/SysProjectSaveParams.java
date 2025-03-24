@@ -10,11 +10,7 @@ import java.util.List;
 @Accessors(chain = true)
 public class SysProjectSaveParams {
 
-    private Integer id;
-
     private Integer years;
-
-    private String projectCode;
 
     private String customerName;
 
@@ -32,7 +28,10 @@ public class SysProjectSaveParams {
 
     private String application;
 
-    private String priName;
+    private String driId;
+
+    private String opmId;
+
     private ProjectMeParams projectMeParams;
 
     private ProjectNpdParams projectNpdParams;

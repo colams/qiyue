@@ -8,6 +8,7 @@ public class SysIndexProjectUpdateParams {
 
     private String status;
 
-    private String driName;
+    private String driId;
 
+    private String opmId;
 }

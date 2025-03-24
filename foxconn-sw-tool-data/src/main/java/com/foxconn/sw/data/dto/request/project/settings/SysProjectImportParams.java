@@ -1,13 +1,11 @@
-package com.foxconn.sw.data.dto.request.project;
+package com.foxconn.sw.data.dto.request.project.settings;
 
 import lombok.Data;
 import lombok.experimental.Accessors;
 
 @Data
 @Accessors(chain = true)
-public class ProjectSaveParams {
-
-    private Integer id;
+public class SysProjectImportParams {
 
     private Integer years;
 
@@ -28,9 +26,10 @@ public class ProjectSaveParams {
     private String customerPartNo;
 
     private String application;
+
+    private String pixel;
+
+    private String resolution;
+
+    private String fNo;
 }
-
-
-
-
-

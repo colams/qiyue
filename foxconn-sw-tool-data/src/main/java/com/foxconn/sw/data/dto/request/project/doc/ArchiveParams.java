@@ -8,11 +8,11 @@ import lombok.Data;
 @Data
 public class ArchiveParams {
 
-    @Schema(description = "文件ID")
-    @NotNull(message = "文件ID不能為空")
+    @Schema(description = "OA文件ID")
+    @NotNull(message = "OA文件ID不能為空")
     private Integer fileId;
 
-    @Schema(description = "目標目錄ID")
-    @NotNull(message = "目標目錄ID不能為空")
-    private Integer targetDirId;
+    @Schema(description = "目錄樹ID")
+    @NotNull(message = "目錄樹ID不能為空")
+    private Integer treeNodeId;
 }

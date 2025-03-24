@@ -4,7 +4,6 @@ import lombok.Data;
 
 @Data
 public class ProjectMeParams {
-    private Integer id;
 
     private String pixel;
 

@@ -4,7 +4,6 @@ import lombok.Data;
 
 @Data
 public class ProjectTeParams {
-    private Integer id;
 
     private String inter;
 

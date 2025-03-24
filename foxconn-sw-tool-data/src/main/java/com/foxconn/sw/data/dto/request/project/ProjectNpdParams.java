@@ -4,7 +4,6 @@ import lombok.Data;
 
 @Data
 public class ProjectNpdParams {
-    private Integer id;
 
     private String aaDistance;
 

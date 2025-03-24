@@ -27,17 +27,17 @@ public class SysProjectDetailVo {
 
     private String application;
 
-    private String priName;
+    private String driId;
 
     private String uriName;
 
-    private ProjectMeParams projectMeParams;
+    private ProjectUpdateMeParams projectMeParams;
 
-    private ProjectNpdParams projectNpdParams;
+    private ProjectUpdateEeParams projectEeParams;
 
-    private ProjectOtParams projectOtParams;
+    private ProjectUpdateOtParams projectOtParams;
 
-    private ProjectEeParams projectEeParams;
+    private ProjectUpdateNpdParams projectNpdParams;
 
-    private ProjectTeParams projectTeParams;
+    private ProjectUpdateTeParams projectTeParams;
 }

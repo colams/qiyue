@@ -4,7 +4,6 @@ import lombok.Data;
 
 @Data
 public class ProjectEeParams {
-    private Integer id;
 
     private String sensorSupplier;
 

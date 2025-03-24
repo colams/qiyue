@@ -10,11 +10,17 @@ public class SysProjectListVo {
 
     private Integer year;
 
-    private String projecCode;
+    private String projectCode;
 
     private String customerName;
 
     private String status;
 
+    private String driId;
+
     private String driName;
+
+    private String opmId;
+
+    private String opmName;
 }

@@ -1,12 +1,11 @@
-package com.foxconn.sw.service.controller.project.document;
+package com.foxconn.sw.service.controller.project;
 
 import com.foxconn.sw.data.dto.Request;
 import com.foxconn.sw.data.dto.Response;
+import com.foxconn.sw.data.dto.entity.document.DocumentDetailVo;
 import com.foxconn.sw.data.dto.entity.project.doc.DocVo;
-import com.foxconn.sw.data.dto.entity.project.doc.SearchVo;
-import com.foxconn.sw.data.dto.request.project.doc.AddFileParams;
-import com.foxconn.sw.data.dto.request.project.doc.ArchiveParams;
-import com.foxconn.sw.data.dto.request.project.doc.SearchParams;
+import com.foxconn.sw.data.dto.entity.project.doc.HomePageVo;
+import com.foxconn.sw.data.dto.request.project.doc.*;
 import com.foxconn.sw.service.utils.ResponseUtils;
 import com.google.common.collect.Lists;
 import io.swagger.v3.oas.annotations.Operation;
@@ -18,26 +17,43 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Tag(name = "專案管理--文檔管理")
 @RestController
 @RequestMapping("/api/pj/doc/docManage")
-public class DocManageController {
+public class ProjectDocController {
 
     @Operation(summary = "搜索文件")
     @ApiResponse(responseCode = "0", description = "成功碼")
     @PostMapping("/search")
-    public Response<List<SearchVo>> search(@Valid @RequestBody Request<SearchParams> request) {
-        List<SearchVo> result = Lists.newArrayList();
+    public Response<List<DocVo>> search(@Valid @RequestBody Request<SearchParams> request) {
+        List<DocVo> result = Lists.newArrayList();
+        return ResponseUtils.success(result, request.getTraceId());
+    }
+
+    @Operation(summary = "高级搜索")
+    @ApiResponse(responseCode = "0", description = "成功碼")
+    @PostMapping("/advancedSearch")
+    public Response<List<DocVo>> advancedSearch(@Valid @RequestBody Request<AdvancedSearchParams> request) {
+        List<DocVo> result = Lists.newArrayList();
+        return ResponseUtils.success(result, request.getTraceId());
+    }
+
+    @Operation(summary = "首页")
+    @ApiResponse(responseCode = "0", description = "成功碼")
+    @PostMapping("/homePage")
+    public Response<HomePageVo> homePage(@Valid @RequestBody Request<Integer> request) {
+        HomePageVo result = new HomePageVo();
         return ResponseUtils.success(result, request.getTraceId());
     }
 
     @Operation(summary = "文件列表")
     @ApiResponse(responseCode = "0", description = "成功碼")
     @PostMapping("/listFile")
-    public Response<List<DocVo>> listFile(@Valid @RequestBody Request<Integer> request) {
-        List<DocVo> result = Lists.newArrayList();
+    public Response<List<DocVo>> listFile(@Valid @RequestBody Request<ListFileParams> request) {
+        List<DocVo> result = new ArrayList<>();
         return ResponseUtils.success(result, request.getTraceId());
     }
 
@@ -60,8 +76,8 @@ public class DocManageController {
     @Operation(summary = "未歸檔文件")
     @ApiResponse(responseCode = "0", description = "成功碼")
     @PostMapping("/listNoArchive")
-    public Response<List<DocVo>> listNoArchive(@Valid @RequestBody Request<Integer> request) {
-        List<DocVo> result = Lists.newArrayList();
+    public Response<List<DocumentDetailVo>> listNoArchive(@Valid @RequestBody Request<Integer> request) {
+        List<DocumentDetailVo> result = new ArrayList<>();
         return ResponseUtils.success(result, request.getTraceId());
     }
 
@@ -70,14 +86,6 @@ public class DocManageController {
     @PostMapping("/archive")
     public Response<Boolean> archive(@Valid @RequestBody Request<ArchiveParams> request) {
         Boolean result = false;
-        return ResponseUtils.success(result, request.getTraceId());
-    }
-
-    @Operation(summary = "發佈")
-    @ApiResponse(responseCode = "0", description = "成功碼")
-    @PostMapping("/publish")
-    public Response<Boolean> publish(@Valid @RequestBody Request<Boolean> request) {
-        Boolean result = true;
         return ResponseUtils.success(result, request.getTraceId());
     }
 }

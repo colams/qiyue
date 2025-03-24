@@ -5,6 +5,8 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
+import java.util.List;
+
 @Data
 public class SearchParams {
 
@@ -12,7 +14,20 @@ public class SearchParams {
     @NotNull(message = "專案ID不能為空")
     private Integer projectId;
 
-    @Schema(description = "文件名稱")
-    @NotBlank(message = "文件名稱不能為空")
-    private String fileName;
+    @Schema(description = "階段ID，全局搜索不传")
+    private Integer phaseId;
+
+    @Schema(description = "目錄樹節點ID，有则传")
+    private Integer treeNodeId;
+
+    @Schema(description = "文件or目錄名稱")
+    @NotBlank(message = "文件or目錄名稱不能為空")
+    private String name;
+
+    // ---------------------
+    @Schema(description = "前端忽略")
+    private List<Integer> subNodeIdList;
+
+    @Schema(description = "前端忽略")
+    private String nodeKey;
 }

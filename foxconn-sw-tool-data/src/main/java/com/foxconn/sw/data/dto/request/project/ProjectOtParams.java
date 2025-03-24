@@ -4,7 +4,6 @@ import lombok.Data;
 
 @Data
 public class ProjectOtParams {
-    private Integer id;
 
     private String lensSupplier;
 
