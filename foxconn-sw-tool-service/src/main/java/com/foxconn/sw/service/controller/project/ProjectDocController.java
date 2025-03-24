@@ -2,6 +2,7 @@ package com.foxconn.sw.service.controller.project;
 
 import com.foxconn.sw.data.dto.Request;
 import com.foxconn.sw.data.dto.Response;
+import com.foxconn.sw.data.dto.entity.document.DocumentDetailVo;
 import com.foxconn.sw.data.dto.entity.project.doc.DocVo;
 import com.foxconn.sw.data.dto.entity.project.doc.HomePageVo;
 import com.foxconn.sw.data.dto.request.project.doc.*;
