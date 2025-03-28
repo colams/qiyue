@@ -13,7 +13,7 @@ public class AdvancedSearchParams {
     @NotNull(message = "專案ID不能為空")
     private Integer projectId;
 
-    @Schema(description = "目錄樹節點ID")
+    @Schema(description = "分类樹節點ID，有则传")
     private Integer treeNodeId;
 
     // ---------------------
@@ -42,4 +42,7 @@ public class AdvancedSearchParams {
     private String mainPart;
     // ---------------------
     private String supplier;
+
+    @Schema(description = "1-已歸檔")
+    private Integer archived;
 }

@@ -17,7 +17,7 @@ public class SearchParams {
     @Schema(description = "階段ID，全局搜索不传")
     private Integer phaseId;
 
-    @Schema(description = "目錄樹節點ID，有则传")
+    @Schema(description = "分类樹節點ID，有则传")
     private Integer treeNodeId;
 
     @Schema(description = "文件or目錄名稱")

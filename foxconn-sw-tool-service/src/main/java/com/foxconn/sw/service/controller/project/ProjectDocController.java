@@ -1,10 +1,11 @@
 package com.foxconn.sw.service.controller.project;
 
+import com.foxconn.sw.data.dto.PageEntity;
+import com.foxconn.sw.data.dto.PageParams;
 import com.foxconn.sw.data.dto.Request;
 import com.foxconn.sw.data.dto.Response;
 import com.foxconn.sw.data.dto.entity.document.DocumentDetailVo;
-import com.foxconn.sw.data.dto.entity.project.doc.DocVo;
-import com.foxconn.sw.data.dto.entity.project.doc.HomePageVo;
+import com.foxconn.sw.data.dto.entity.project.doc.*;
 import com.foxconn.sw.data.dto.request.project.doc.*;
 import com.foxconn.sw.service.utils.ResponseUtils;
 import com.google.common.collect.Lists;
@@ -57,10 +58,18 @@ public class ProjectDocController {
         return ResponseUtils.success(result, request.getTraceId());
     }
 
+    @Operation(summary = "分页查询")
+    @ApiResponse(responseCode = "0", description = "成功碼")
+    @PostMapping("/page")
+    public Response<PageEntity<DocVo>> page(@Valid @RequestBody Request<PageParams<ListFileParams>> request) {
+        PageEntity<DocVo> result = new PageEntity<>();
+        return ResponseUtils.success(result, request.getTraceId());
+    }
+
     @Operation(summary = "添加文件")
     @ApiResponse(responseCode = "0", description = "成功碼")
     @PostMapping("/addFile")
-    public Response<Boolean> addFile(@Valid @RequestBody Request<AddFileParams> request) {
+    public Response<Boolean> addFile(@Valid @RequestBody Request<List<AddFileParams>> request) {
         Boolean result = false;
         return ResponseUtils.success(result, request.getTraceId());
     }
@@ -84,8 +93,32 @@ public class ProjectDocController {
     @Operation(summary = "歸檔")
     @ApiResponse(responseCode = "0", description = "成功碼")
     @PostMapping("/archive")
-    public Response<Boolean> archive(@Valid @RequestBody Request<ArchiveParams> request) {
+    public Response<Boolean> archive(@Valid @RequestBody Request<List<ArchiveParams>> request) {
         Boolean result = false;
+        return ResponseUtils.success(result, request.getTraceId());
+    }
+
+    @Operation(summary = "統計使用量")
+    @ApiResponse(responseCode = "0", description = "成功碼")
+    @PostMapping("/countUsage")
+    public Response<TotalUsageCountVo> countUsage(@Valid @RequestBody Request<Integer> request) {
+        TotalUsageCountVo result = new TotalUsageCountVo();
+        return ResponseUtils.success(result, request.getTraceId());
+    }
+
+    @Operation(summary = "統計文件数量")
+    @ApiResponse(responseCode = "0", description = "成功碼")
+    @PostMapping("/countFileNo")
+    public Response<List<FileNoCountVo>> countFileNo(@Valid @RequestBody Request<Integer> request) {
+        List<FileNoCountVo> result = Lists.newArrayList();
+        return ResponseUtils.success(result, request.getTraceId());
+    }
+
+    @Operation(summary = "分組統計不同類型文件数量")
+    @ApiResponse(responseCode = "0", description = "成功碼")
+    @PostMapping("/countFileExtension")
+    public Response<List<FileExtensionNoVo>> countFileExtension(@Valid @RequestBody Request<CountFileExtensionParams> request) {
+        List<FileExtensionNoVo> result = Lists.newArrayList();
         return ResponseUtils.success(result, request.getTraceId());
     }
 }

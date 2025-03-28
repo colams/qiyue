@@ -12,7 +12,7 @@ public class ArchiveParams {
     @NotNull(message = "OA文件ID不能為空")
     private Integer fileId;
 
-    @Schema(description = "目錄樹ID")
-    @NotNull(message = "目錄樹ID不能為空")
+    @Schema(description = "分類樹節點ID")
+    @NotNull(message = "分類樹節點ID不能為空")
     private Integer treeNodeId;
 }
